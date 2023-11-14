@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataListSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataListSelection
 
-# Class: DTableDataListSelection<ROW\>
+# Class: DTableDataListSelection\<ROW\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+- [`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 ## Table of contents
 
@@ -75,7 +75,7 @@
 
 ### constructor
 
-• **new DTableDataListSelection**<`ROW`\>(`parent`, `options?`)
+• **new DTableDataListSelection**\<`ROW`\>(`parent`, `options?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 #### Type parameters
 
@@ -87,8 +87,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataSelectionParent`](../interfaces/DTableDataSelectionParent.md)<`ROW`\> |
-| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)<`any`\> |
+| `parent` | [`DTableDataSelectionParent`](../interfaces/DTableDataSelectionParent.md)\<`ROW`\> |
+| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)\<`any`\> |
+
+#### Returns
+
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 #### Overrides
 
@@ -102,7 +106,7 @@ utils.EventEmitter.constructor
 
 ### \_indices
 
-• `Protected` **\_indices**: `Set`<`number`\>
+• `Protected` **\_indices**: `Set`\<`number`\>
 
 #### Defined in
 
@@ -112,7 +116,7 @@ ___
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTableDataSelectionParent`](../interfaces/DTableDataSelectionParent.md)<`ROW`\>
+• `Protected` **\_parent**: [`DTableDataSelectionParent`](../interfaces/DTableDataSelectionParent.md)\<`ROW`\>
 
 #### Defined in
 
@@ -189,11 +193,11 @@ ___
 
 ### parent
 
-• `get` **parent**(): [`DTableData`](../interfaces/DTableData.md)<`ROW`\>
+• `get` **parent**(): [`DTableData`](../interfaces/DTableData.md)\<`ROW`\>
 
 #### Returns
 
-[`DTableData`](../interfaces/DTableData.md)<`ROW`\>
+[`DTableData`](../interfaces/DTableData.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -294,7 +298,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 Alias method for `on`
 
@@ -308,7 +312,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -494,7 +498,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -629,7 +633,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 Alias method for `removeListener`
 
@@ -644,7 +648,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -662,7 +666,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 Add a listener for a given event.
 
@@ -676,7 +680,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -696,7 +700,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 
@@ -710,7 +714,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 Add a one-time listener for a given event.
 
@@ -724,7 +728,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -768,7 +772,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -780,7 +784,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -800,7 +804,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 Remove the listeners of a given event.
 
@@ -815,7 +819,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataListSelection`](DTableDataListSelection.md)<`ROW`\>
+[`DTableDataListSelection`](DTableDataListSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -899,11 +903,11 @@ ___
 
 ### toMap
 
-▸ **toMap**(): `Map`<`number`, `ROW`\>
+▸ **toMap**(): `Map`\<`number`, `ROW`\>
 
 #### Returns
 
-`Map`<`number`, `ROW`\>
+`Map`\<`number`, `ROW`\>
 
 #### Implementation of
 
@@ -917,11 +921,11 @@ ___
 
 ### toObject
 
-▸ **toObject**(): `Record`<`number`, `ROW`\>
+▸ **toObject**(): `Record`\<`number`, `ROW`\>
 
 #### Returns
 
-`Record`<`number`, `ROW`\>
+`Record`\<`number`, `ROW`\>
 
 #### Implementation of
 

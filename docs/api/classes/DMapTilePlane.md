@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTilePlane
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTilePlane
 
 # Class: DMapTilePlane
 
@@ -67,18 +67,22 @@
 
 ### constructor
 
-• **new DMapTilePlane**(`parent`, `builder`, `tz`, `mapping`, `coordinate`, `onLoaded`)
+• **new DMapTilePlane**(`parent`, `builder`, `tz`, `mapping`, `coordinate`, `onLoaded`): [`DMapTilePlane`](DMapTilePlane.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `parent` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `builder` | [`DMapTileUrlBuilder`](../index.md#dmaptileurlbuilder) |
 | `tz` | `number` |
 | `mapping` | [`DMapTileMappingInternal`](../interfaces/DMapTileMappingInternal.md) |
 | `coordinate` | [`DMapCoordinate`](../interfaces/DMapCoordinate.md) |
 | `onLoaded` | () => `void` |
+
+#### Returns
+
+[`DMapTilePlane`](DMapTilePlane.md)
 
 #### Defined in
 
@@ -108,7 +112,7 @@ ___
 
 ### \_deleteTileBound
 
-• `Protected` `Readonly` **\_deleteTileBound**: (`tile`: [`DMapTile`](DMapTile.md), `tileCode`: `number`, `tiles`: `Map`<`number`, [`DMapTile`](DMapTile.md)\>) => `void`
+• `Protected` `Readonly` **\_deleteTileBound**: (`tile`: [`DMapTile`](DMapTile.md), `tileCode`: `number`, `tiles`: `Map`\<`number`, [`DMapTile`](DMapTile.md)\>) => `void`
 
 #### Type declaration
 
@@ -120,7 +124,7 @@ ___
 | :------ | :------ |
 | `tile` | [`DMapTile`](DMapTile.md) |
 | `tileCode` | `number` |
-| `tiles` | `Map`<`number`, [`DMapTile`](DMapTile.md)\> |
+| `tiles` | `Map`\<`number`, [`DMapTile`](DMapTile.md)\> |
 
 ##### Returns
 
@@ -274,7 +278,7 @@ ___
 
 ### \_parent
 
-• `Protected` `Readonly` **\_parent**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` `Readonly` **\_parent**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -358,7 +362,7 @@ ___
 
 ### \_tiles
 
-• `Protected` `Readonly` **\_tiles**: `Map`<`number`, [`DMapTile`](DMapTile.md)\>
+• `Protected` `Readonly` **\_tiles**: `Map`\<`number`, [`DMapTile`](DMapTile.md)\>
 
 #### Defined in
 
@@ -510,7 +514,7 @@ ___
 
 ### deleteTile
 
-▸ `Protected` **deleteTile**(`tile`, `tileCode`, `tiles`): `void`
+▸ **deleteTile**(`tile`, `tileCode`, `tiles`): `void`
 
 #### Parameters
 
@@ -518,7 +522,7 @@ ___
 | :------ | :------ |
 | `tile` | [`DMapTile`](DMapTile.md) |
 | `tileCode` | `number` |
-| `tiles` | `Map`<`number`, [`DMapTile`](DMapTile.md)\> |
+| `tiles` | `Map`\<`number`, [`DMapTile`](DMapTile.md)\> |
 
 #### Returns
 
@@ -546,7 +550,7 @@ ___
 
 ### destroyTile
 
-▸ `Protected` **destroyTile**(`tile`): `void`
+▸ **destroyTile**(`tile`): `void`
 
 #### Parameters
 
@@ -566,7 +570,7 @@ ___
 
 ### loadTile
 
-▸ `Protected` **loadTile**(`tz`, `tx`, `ty`, `ox`, `oy`, `work`): `void`
+▸ **loadTile**(`tz`, `tx`, `ty`, `ox`, `oy`, `work`): `void`
 
 #### Parameters
 
@@ -591,7 +595,7 @@ ___
 
 ### loadTilesX
 
-▸ `Protected` **loadTilesX**(`tz`, `ctx`, `ltx`, `txmin`, `txmax`, `ty`, `ox`, `oy`, `work`): `void`
+▸ **loadTilesX**(`tz`, `ctx`, `ltx`, `txmin`, `txmax`, `ty`, `ox`, `oy`, `work`): `void`
 
 #### Parameters
 
@@ -619,7 +623,7 @@ ___
 
 ### loadTilesY
 
-▸ `Protected` **loadTilesY**(`tz`, `tx`, `cty`, `lty`, `tymin`, `tymax`, `ox`, `oy`, `work`): `void`
+▸ **loadTilesY**(`tz`, `tx`, `cty`, `lty`, `tymin`, `tymax`, `ox`, `oy`, `work`): `void`
 
 #### Parameters
 
@@ -670,7 +674,7 @@ ___
 
 ### newTile
 
-▸ `Protected` **newTile**(`tx`, `ty`, `px`, `py`, `scale`): [`DMapTile`](DMapTile.md)
+▸ **newTile**(`tx`, `ty`, `px`, `py`, `scale`): [`DMapTile`](DMapTile.md)
 
 #### Parameters
 
@@ -694,7 +698,7 @@ ___
 
 ### onLoaded
 
-▸ `Protected` **onLoaded**(): `void`
+▸ **onLoaded**(): `void`
 
 #### Returns
 
@@ -728,7 +732,7 @@ ___
 
 ### renderTile
 
-▸ `Protected` **renderTile**(`tile`): `void`
+▸ **renderTile**(`tile`): `void`
 
 #### Parameters
 
@@ -748,7 +752,7 @@ ___
 
 ### toOffset
 
-▸ `Protected` **toOffset**(`result`): `Point`
+▸ **toOffset**(`result`): `Point`
 
 #### Parameters
 
@@ -768,7 +772,7 @@ ___
 
 ### toTilePosition
 
-▸ `Protected` **toTilePosition**(`tx`, `ty`, `ox`, `oy`, `result`): `Point`
+▸ **toTilePosition**(`tx`, `ty`, `ox`, `oy`, `result`): `Point`
 
 #### Parameters
 
@@ -792,7 +796,7 @@ ___
 
 ### updateLoadingState
 
-▸ `Protected` **updateLoadingState**(): `void`
+▸ **updateLoadingState**(): `void`
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartAxisXDatetime
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartAxisXDatetime
 
 # Class: DThemeDarkChartAxisXDatetime
 
@@ -86,7 +86,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartAxisXDatetime**()
+• **new DThemeDarkChartAxisXDatetime**(): [`DThemeDarkChartAxisXDatetime`](DThemeDarkChartAxisXDatetime.md)
+
+#### Returns
+
+[`DThemeDarkChartAxisXDatetime`](DThemeDarkChartAxisXDatetime.md)
 
 #### Inherited from
 

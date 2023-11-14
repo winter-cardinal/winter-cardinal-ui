@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDiagramCanvasBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDiagramCanvasBase
 
 # Class: DThemeWhiteDiagramCanvasBase
 
@@ -75,7 +75,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDiagramCanvasBase**()
+• **new DThemeWhiteDiagramCanvasBase**(): [`DThemeWhiteDiagramCanvasBase`](DThemeWhiteDiagramCanvasBase.md)
+
+#### Returns
+
+[`DThemeWhiteDiagramCanvasBase`](DThemeWhiteDiagramCanvasBase.md)
 
 #### Inherited from
 

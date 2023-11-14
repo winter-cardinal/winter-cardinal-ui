@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DItemUpdaterDataSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DItemUpdaterDataSelection
 
-# Interface: DItemUpdaterDataSelection<VALUE\>
+# Interface: DItemUpdaterDataSelection\<VALUE\>
 
 ## Type parameters
 

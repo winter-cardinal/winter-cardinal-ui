@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeSearch
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeSearch
 
 # Class: EShapeSearch
 
@@ -29,13 +29,17 @@
 
 ### constructor
 
-• **new EShapeSearch**()
+• **new EShapeSearch**(): [`EShapeSearch`](EShapeSearch.md)
+
+#### Returns
+
+[`EShapeSearch`](EShapeSearch.md)
 
 ## Methods
 
 ### COMPARATOR\_INDEX
 
-▸ `Static` **COMPARATOR_INDEX**(`a`, `b`): `number`
+▸ **COMPARATOR_INDEX**(`a`, `b`): `number`
 
 #### Parameters
 
@@ -56,7 +60,7 @@ ___
 
 ### findChild
 
-▸ `Static` **findChild**(`shape`, `matcher`, `recursively?`): ``null`` \| [`EShape`](../interfaces/EShape.md)
+▸ **findChild**(`shape`, `matcher`, `recursively?`): ``null`` \| [`EShape`](../interfaces/EShape.md)
 
 #### Parameters
 
@@ -79,7 +83,7 @@ ___
 
 ### findChildById
 
-▸ `Static` **findChildById**(`shape`, `id`, `recursively?`): ``null`` \| [`EShape`](../interfaces/EShape.md)
+▸ **findChildById**(`shape`, `id`, `recursively?`): ``null`` \| [`EShape`](../interfaces/EShape.md)
 
 #### Parameters
 
@@ -102,7 +106,7 @@ ___
 
 ### findChildByType
 
-▸ `Static` **findChildByType**(`shape`, `type`, `recursively?`): ``null`` \| [`EShape`](../interfaces/EShape.md)
+▸ **findChildByType**(`shape`, `type`, `recursively?`): ``null`` \| [`EShape`](../interfaces/EShape.md)
 
 #### Parameters
 
@@ -125,7 +129,7 @@ ___
 
 ### findChildren
 
-▸ `Static` **findChildren**(`shape`, `matcher`, `recursively?`, `result?`): [`EShape`](../interfaces/EShape.md)[]
+▸ **findChildren**(`shape`, `matcher`, `recursively?`, `result?`): [`EShape`](../interfaces/EShape.md)[]
 
 #### Parameters
 
@@ -149,7 +153,7 @@ ___
 
 ### findChildrenByType
 
-▸ `Static` **findChildrenByType**(`shape`, `type`, `recursively?`, `result?`): [`EShape`](../interfaces/EShape.md)[]
+▸ **findChildrenByType**(`shape`, `type`, `recursively?`, `result?`): [`EShape`](../interfaces/EShape.md)[]
 
 #### Parameters
 
@@ -173,7 +177,7 @@ ___
 
 ### isParent
 
-▸ `Static` **isParent**(`shape`, `target`): `boolean`
+▸ **isParent**(`shape`, `target`): `boolean`
 
 Returns true if the given target is on the path to the given shape.
 
@@ -198,7 +202,7 @@ ___
 
 ### toDepth
 
-▸ `Static` **toDepth**(`shape`): `number`
+▸ **toDepth**(`shape`): `number`
 
 Returns a depth of the given shape.
 
@@ -222,7 +226,7 @@ ___
 
 ### toIndices
 
-▸ `Static` **toIndices**(`shapes`): `number`[]
+▸ **toIndices**(`shapes`): `number`[]
 
 Returns indices of the given shapes.
 
@@ -246,7 +250,7 @@ ___
 
 ### toOfParent
 
-▸ `Static` **toOfParent**(`shape`, `parent`): [`EShape`](../interfaces/EShape.md)
+▸ **toOfParent**(`shape`, `parent`): [`EShape`](../interfaces/EShape.md)
 
 Returns a shape on the path to the given shape whose parent is equals to the given parent.
 If there is no such shape, returns a root shape on the path.
@@ -272,7 +276,7 @@ ___
 
 ### toSelected
 
-▸ `Static` **toSelected**(`shape`): ``null`` \| [`EShape`](../interfaces/EShape.md)
+▸ **toSelected**(`shape`): ``null`` \| [`EShape`](../interfaces/EShape.md)
 
 Returns a selected shape on the path to the given shape.
 If there are more than one selected shapes, returns a deepest selected shape.
@@ -297,7 +301,7 @@ ___
 
 ### toSharedParent
 
-▸ `Static` **toSharedParent**(`shapeA`, `shapeB`): [`EShape`](../interfaces/EShape.md) \| [`EShapeContainer`](EShapeContainer.md)
+▸ **toSharedParent**(`shapeA`, `shapeB`): [`EShape`](../interfaces/EShape.md) \| [`EShapeContainer`](EShapeContainer.md)
 
 Returns a deepest shape on the path to the given shapes.
 

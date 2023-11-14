@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilThemeHtmlElement
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilThemeHtmlElement
 
-# Interface: UtilThemeHtmlElement<ELEMENT\>
+# Interface: UtilThemeHtmlElement\<ELEMENT\>
 
 ## Type parameters
 
@@ -36,11 +36,11 @@
 
 ### getAfterCreator
 
-▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Defined in
 
@@ -50,11 +50,11 @@ ___
 
 ### getBeforeCreator
 
-▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Defined in
 
@@ -64,11 +64,11 @@ ___
 
 ### getClipperCreator
 
-▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Defined in
 
@@ -78,11 +78,11 @@ ___
 
 ### getElementCreator
 
-▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
+▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`ELEMENT`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`ELEMENT`\>
 
 #### Defined in
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesContainerImpl
 
-# Class: DChartSeriesContainerImpl<CHART\>
+# Class: DChartSeriesContainerImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\>
+- [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -63,20 +63,24 @@
 
 ### constructor
 
-• **new DChartSeriesContainerImpl**<`CHART`\>(`plotArea`, `options?`)
+• **new DChartSeriesContainerImpl**\<`CHART`\>(`plotArea`, `options?`): [`DChartSeriesContainerImpl`](DChartSeriesContainerImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `options?` | [`DChartSeriesContainerOptions`](../interfaces/DChartSeriesContainerOptions.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `options?` | [`DChartSeriesContainerOptions`](../interfaces/DChartSeriesContainerOptions.md)\<`CHART`\> |
+
+#### Returns
+
+[`DChartSeriesContainerImpl`](DChartSeriesContainerImpl.md)\<`CHART`\>
 
 #### Defined in
 
@@ -106,7 +110,7 @@ ___
 
 ### \_list
 
-• `Protected` **\_list**: [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>[]
+• `Protected` **\_list**: [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>[]
 
 #### Defined in
 
@@ -136,7 +140,7 @@ ___
 
 ### \_plotArea
 
-• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Defined in
 
@@ -156,7 +160,7 @@ ___
 
 ### \_selection
 
-• `Protected` **\_selection**: ``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)<`CHART`\>
+• `Protected` **\_selection**: ``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)\<`CHART`\>
 
 #### Defined in
 
@@ -214,11 +218,11 @@ ___
 
 ### plotArea
 
-• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+[`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -250,11 +254,11 @@ ___
 
 ### selection
 
-• `get` **selection**(): ``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)<`CHART`\>
+• `get` **selection**(): ``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)\<`CHART`\>
 
 #### Returns
 
-``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)<`CHART`\>
+``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -274,7 +278,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -292,7 +296,7 @@ ___
 
 ### calcHitPoint
 
-▸ **calcHitPoint**(`x`, `y`, `result`): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+▸ **calcHitPoint**(`x`, `y`, `result`): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
@@ -304,7 +308,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -318,11 +322,11 @@ ___
 
 ### clear
 
-▸ **clear**(): [`DChartSeriesContainerImpl`](DChartSeriesContainerImpl.md)<`CHART`\>
+▸ **clear**(): [`DChartSeriesContainerImpl`](DChartSeriesContainerImpl.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesContainerImpl`](DChartSeriesContainerImpl.md)<`CHART`\>
+[`DChartSeriesContainerImpl`](DChartSeriesContainerImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -354,7 +358,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+▸ **get**(`index`): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
@@ -364,7 +368,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -384,7 +388,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -409,7 +413,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -428,7 +432,7 @@ ___
 
 ### hitTest
 
-▸ **hitTest**(`x`, `y`): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+▸ **hitTest**(`x`, `y`): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
@@ -439,7 +443,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -459,7 +463,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataScoped
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataScoped
 
 # Interface: EShapeDataScoped
 

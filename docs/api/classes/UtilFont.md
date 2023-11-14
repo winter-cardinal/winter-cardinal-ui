@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilFont
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilFont
 
 # Class: UtilFont
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new UtilFont**()
+• **new UtilFont**(): [`UtilFont`](UtilFont.md)
+
+#### Returns
+
+[`UtilFont`](UtilFont.md)
 
 ## Methods
 
 ### measure
 
-▸ `Static` **measure**(`font`): [`UtilFontMetrics`](../interfaces/UtilFontMetrics.md)
+▸ **measure**(`font`): [`UtilFontMetrics`](../interfaces/UtilFontMetrics.md)
 
 #### Parameters
 
@@ -43,7 +47,7 @@ ___
 
 ### toSize
 
-▸ `Static` **toSize**(`font`): `number`
+▸ **toSize**(`font`): `number`
 
 #### Parameters
 

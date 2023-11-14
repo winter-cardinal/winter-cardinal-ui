@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerDatetimes
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerDatetimes
 
 # Class: DPickerDatetimes
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new DPickerDatetimes**()
+• **new DPickerDatetimes**(): [`DPickerDatetimes`](DPickerDatetimes.md)
+
+#### Returns
+
+[`DPickerDatetimes`](DPickerDatetimes.md)
 
 ## Methods
 
 ### format
 
-▸ `Static` **format**(`date`, `mask`): `string`
+▸ **format**(`date`, `mask`): `string`
 
 #### Parameters
 
@@ -44,7 +48,7 @@ ___
 
 ### toMask
 
-▸ `Static` **toMask**(`options?`): `number`
+▸ **toMask**(`options?`): `number`
 
 #### Parameters
 

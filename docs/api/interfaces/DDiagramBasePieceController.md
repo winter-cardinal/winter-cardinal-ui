@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramBasePieceController
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramBasePieceController
 
 # Interface: DDiagramBasePieceController
 
@@ -22,7 +22,7 @@
 
 ### getByName
 
-▸ **getByName**(`name`): `Promise`<[`DDiagramSerialized`](DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](DDiagramSerializedSimple.md)\>
+▸ **getByName**(`name`): `Promise`\<[`DDiagramSerializedSimple`](DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](DDiagramSerialized.md)\>
 
 #### Parameters
 
@@ -32,7 +32,7 @@
 
 #### Returns
 
-`Promise`<[`DDiagramSerialized`](DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](DDiagramSerializedSimple.md)\>
+`Promise`\<[`DDiagramSerializedSimple`](DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](DDiagramSerialized.md)\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilFileFacade
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilFileFacade
 
 # Interface: UtilFileFacade
 
@@ -12,7 +12,7 @@
 
 ### emit
 
-▸ **emit**(`name`, ...`args`): `void`
+▸ **emit**(`name`, `...args`): `void`
 
 #### Parameters
 

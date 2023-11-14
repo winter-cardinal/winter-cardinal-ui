@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkBase
 
 # Class: DThemeDarkBase
 
@@ -16,8 +16,6 @@
 
   ↳↳ [`DThemeDarkCanvasContainer`](DThemeDarkCanvasContainer.md)
 
-  ↳↳ [`DThemeDarkChart`](DThemeDarkChart.md)
-
   ↳↳ [`DThemeDarkChartLegend`](DThemeDarkChartLegend.md)
 
   ↳↳ [`DThemeDarkChartLegendItem`](DThemeDarkChartLegendItem.md)
@@ -25,6 +23,8 @@
   ↳↳ [`DThemeDarkChartOverview`](DThemeDarkChartOverview.md)
 
   ↳↳ [`DThemeDarkChartPlotArea`](DThemeDarkChartPlotArea.md)
+
+  ↳↳ [`DThemeDarkChart`](DThemeDarkChart.md)
 
   ↳↳ [`DThemeDarkContent`](DThemeDarkContent.md)
 
@@ -113,7 +113,11 @@
 
 ### constructor
 
-• **new DThemeDarkBase**()
+• **new DThemeDarkBase**(): [`DThemeDarkBase`](DThemeDarkBase.md)
+
+#### Returns
+
+[`DThemeDarkBase`](DThemeDarkBase.md)
 
 #### Inherited from
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableHeaderOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableHeaderOptions
 
-# Interface: DTableHeaderOptions<ROW, THEME\>
+# Interface: DTableHeaderOptions\<ROW, THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DTableRowOptions`](DTableRowOptions.md)<`ROW`, [`DTableColumn`](DTableColumn.md)<`ROW`, `unknown`\>, `THEME`\>
+- [`DTableRowOptions`](DTableRowOptions.md)\<`ROW`, [`DTableColumn`](DTableColumn.md)\<`ROW`, `unknown`\>, `THEME`\>
 
   ↳ **`DTableHeaderOptions`**
 
@@ -93,7 +93,7 @@ ___
 
 ### cell
 
-• `Optional` **cell**: [`DTableHeaderCellOptions`](DTableHeaderCellOptions.md)<`ROW`, [`DThemeTableHeaderCell`](DThemeTableHeaderCell.md)\>
+• `Optional` **cell**: [`DTableHeaderCellOptions`](DTableHeaderCellOptions.md)\<`ROW`, [`DThemeTableHeaderCell`](DThemeTableHeaderCell.md)\>
 
 #### Defined in
 
@@ -149,7 +149,7 @@ ___
 
 ### columns
 
-• `Optional` **columns**: [`DTableColumn`](DTableColumn.md)<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)<`unknown`\>\>[]
+• `Optional` **columns**: [`DTableColumn`](DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`unknown`\>\>[]
 
 #### Inherited from
 
@@ -179,7 +179,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -195,7 +195,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: ``"HORIZONTAL"`` \| ``"VERTICAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
+• `Optional` **direction**: ``"VERTICAL"`` \| ``"HORIZONTAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
 
 #### Inherited from
 
@@ -244,7 +244,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -300,7 +300,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -373,7 +373,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableHeaderOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -482,7 +482,7 @@ ___
 
 ### table
 
-• `Optional` **table**: [`DTableHeaderTable`](DTableHeaderTable.md)<`ROW`\>
+• `Optional` **table**: [`DTableHeaderTable`](DTableHeaderTable.md)\<`ROW`\>
 
 #### Defined in
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonGroupEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonGroupEvents
 
-# Interface: DButtonGroupEvents<BUTTON, EMITTER\>
+# Interface: DButtonGroupEvents\<BUTTON, EMITTER\>
 
 [DButtonGroup](../classes/DButtonGroup.md) events.
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTheme
+[Winter Cardinal UI - v0.374.0](../index.md) / DTheme
 
 # Interface: DTheme
 
@@ -21,7 +21,7 @@
 
 ### get
 
-▸ **get**<`THEME`\>(`type`): `THEME`
+▸ **get**\<`THEME`\>(`type`): `THEME`
 
 #### Type parameters
 
@@ -61,7 +61,7 @@ ___
 
 ### getClass
 
-▸ **getClass**<`THEME`\>(`type`): () => `THEME`
+▸ **getClass**\<`THEME`\>(`type`): () => `THEME`
 
 #### Type parameters
 
@@ -79,7 +79,11 @@ ___
 
 `fn`
 
-• **new getClass**()
+• **new getClass**(): `THEME`
+
+##### Returns
+
+`THEME`
 
 #### Defined in
 
@@ -89,7 +93,7 @@ ___
 
 ### set
 
-▸ **set**<`THEME`\>(`type`, `instance`): [`DTheme`](DTheme.md)
+▸ **set**\<`THEME`\>(`type`, `instance`): [`DTheme`](DTheme.md)
 
 #### Type parameters
 
@@ -116,7 +120,7 @@ ___
 
 ### setClass
 
-▸ **setClass**<`THEME`\>(`type`, `themeClass`): [`DTheme`](DTheme.md)
+▸ **setClass**\<`THEME`\>(`type`, `themeClass`): [`DTheme`](DTheme.md)
 
 #### Type parameters
 

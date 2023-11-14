@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTreeItemNonEditable
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTreeItemNonEditable
 
 # Class: DThemeWhiteTreeItemNonEditable
 
@@ -107,7 +107,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTreeItemNonEditable**()
+• **new DThemeWhiteTreeItemNonEditable**(): [`DThemeWhiteTreeItemNonEditable`](DThemeWhiteTreeItemNonEditable.md)
+
+#### Returns
+
+[`DThemeWhiteTreeItemNonEditable`](DThemeWhiteTreeItemNonEditable.md)
 
 #### Inherited from
 
@@ -2012,7 +2016,7 @@ ___
 
 ### newStyle
 
-▸ `Protected` **newStyle**(): [`DThemeWhiteTreeItems`](DThemeWhiteTreeItems.md)
+▸ **newStyle**(): [`DThemeWhiteTreeItems`](DThemeWhiteTreeItems.md)
 
 #### Returns
 
@@ -2030,14 +2034,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

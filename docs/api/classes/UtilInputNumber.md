@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilInputNumber
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilInputNumber
 
-# Class: UtilInputNumber<TARGET, OPERATION, THEME, OPTIONS\>
+# Class: UtilInputNumber\<TARGET, OPERATION, THEME, OPTIONS\>
 
 ## Type parameters
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`UtilInputInput`](UtilInputInput.md)<`number`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
+- [`UtilInputInput`](UtilInputInput.md)\<`number`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
   ↳ **`UtilInputNumber`**
 
@@ -133,16 +133,16 @@
 
 ### constructor
 
-• **new UtilInputNumber**<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>(`target`, `operation`, `theme`, `options?`)
+• **new UtilInputNumber**\<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>(`target`, `operation`, `theme`, `options?`): [`UtilInputNumber`](UtilInputNumber.md)\<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `TARGET` | extends [`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md) = [`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md) |
-| `OPERATION` | extends [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md)<`OPERATION`\> = [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md) |
-| `THEME` | extends [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md)<`THEME`\> = [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md) |
-| `OPTIONS` | extends [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)<`OPTIONS`\> = [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md) |
+| `OPERATION` | extends [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md) = [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md) |
+| `THEME` | extends [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md) = [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md) |
+| `OPTIONS` | extends [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md) = [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md) |
 
 #### Parameters
 
@@ -152,6 +152,10 @@
 | `operation` | `OPERATION` |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`UtilInputNumber`](UtilInputNumber.md)\<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Overrides
 
@@ -249,7 +253,7 @@ ___
 
 ### \_data
 
-• `Protected` **\_data**: [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)<`HTMLInputElement`\>
+• `Protected` **\_data**: [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)\<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -922,7 +926,7 @@ ___
 
 ### doSelect
 
-▸ `Protected` **doSelect**(): `void`
+▸ **doSelect**(): `void`
 
 #### Returns
 
@@ -940,7 +944,7 @@ ___
 
 ### doStart
 
-▸ `Protected` **doStart**(`renderer?`): `void`
+▸ **doStart**(`renderer?`): `void`
 
 #### Parameters
 
@@ -982,7 +986,7 @@ ___
 
 ### fillClipperExRects
 
-▸ `Protected` **fillClipperExRects**(`resolution`, `result`): `boolean`
+▸ **fillClipperExRects**(`resolution`, `result`): `boolean`
 
 #### Parameters
 
@@ -1031,7 +1035,7 @@ ___
 
 ### getAfter
 
-▸ `Protected` **getAfter**(`clipper`): ``null`` \| `HTMLDivElement`
+▸ **getAfter**(`clipper`): ``null`` \| `HTMLDivElement`
 
 #### Parameters
 
@@ -1055,7 +1059,7 @@ ___
 
 ### getBefore
 
-▸ `Protected` **getBefore**(`clipper`): ``null`` \| `HTMLDivElement`
+▸ **getBefore**(`clipper`): ``null`` \| `HTMLDivElement`
 
 #### Parameters
 
@@ -1079,7 +1083,7 @@ ___
 
 ### getClipper
 
-▸ `Protected` **getClipper**(): ``null`` \| `HTMLDivElement`
+▸ **getClipper**(): ``null`` \| `HTMLDivElement`
 
 #### Returns
 
@@ -1097,7 +1101,7 @@ ___
 
 ### getClipperEx
 
-▸ `Protected` **getClipperEx**(`clipper`): ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)
+▸ **getClipperEx**(`clipper`): ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)
 
 #### Parameters
 
@@ -1121,7 +1125,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Protected` **getClipperExRects**(): ``null`` \| [`UtilHtmlElementClipperExRects`](../interfaces/UtilHtmlElementClipperExRects.md)
+▸ **getClipperExRects**(): ``null`` \| [`UtilHtmlElementClipperExRects`](../interfaces/UtilHtmlElementClipperExRects.md)
 
 #### Returns
 
@@ -1139,7 +1143,7 @@ ___
 
 ### getClipperRect
 
-▸ `Protected` **getClipperRect**(`resolution`): ``null`` \| `Rectangle`
+▸ **getClipperRect**(`resolution`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -1163,7 +1167,7 @@ ___
 
 ### getElement
 
-▸ `Protected` **getElement**(`clipper`): ``null`` \| `HTMLInputElement`
+▸ **getElement**(`clipper`): ``null`` \| `HTMLInputElement`
 
 #### Parameters
 
@@ -1187,7 +1191,7 @@ ___
 
 ### getElementMatrix
 
-▸ `Protected` **getElementMatrix**(): ``null`` \| `Matrix`
+▸ **getElementMatrix**(): ``null`` \| `Matrix`
 
 #### Returns
 
@@ -1205,7 +1209,7 @@ ___
 
 ### getElementRect
 
-▸ `Protected` **getElementRect**(`resolution`): ``null`` \| `Rectangle`
+▸ **getElementRect**(`resolution`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -1265,7 +1269,7 @@ ___
 
 ### newAfterStyler
 
-▸ `Protected` **newAfterStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
+▸ **newAfterStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
 
 #### Parameters
 
@@ -1301,7 +1305,7 @@ ___
 
 ### newBeforeStyler
 
-▸ `Protected` **newBeforeStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
+▸ **newBeforeStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
 
 #### Parameters
 
@@ -1337,7 +1341,7 @@ ___
 
 ### newClipperStyler
 
-▸ `Protected` **newClipperStyler**(`theme`): (`target`: `HTMLDivElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
+▸ **newClipperStyler**(`theme`): (`target`: `HTMLDivElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
 
 #### Parameters
 
@@ -1379,7 +1383,7 @@ ___
 
 ### newElementStyler
 
-▸ `Protected` **newElementStyler**(`theme`): (`target`: `HTMLInputElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
+▸ **newElementStyler**(`theme`): (`target`: `HTMLInputElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
 
 #### Parameters
 
@@ -1421,7 +1425,7 @@ ___
 
 ### onAfterFocus
 
-▸ `Protected` **onAfterFocus**(`e`): `void`
+▸ **onAfterFocus**(`e`): `void`
 
 #### Parameters
 
@@ -1445,7 +1449,7 @@ ___
 
 ### onBeforeFocus
 
-▸ `Protected` **onBeforeFocus**(`e`): `void`
+▸ **onBeforeFocus**(`e`): `void`
 
 #### Parameters
 
@@ -1487,7 +1491,7 @@ ___
 
 ### onCancel
 
-▸ `Protected` **onCancel**(): `void`
+▸ **onCancel**(): `void`
 
 #### Returns
 
@@ -1511,7 +1515,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `KeyboardEvent` \| `MouseEvent` \| `TouchEvent` |
+| `e` | `MouseEvent` \| `KeyboardEvent` \| `TouchEvent` |
 | `interactionManager` | `InteractionManager` |
 
 #### Returns
@@ -1536,7 +1540,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1560,7 +1564,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1578,7 +1582,7 @@ ___
 
 ### onElementAttached
 
-▸ `Protected` **onElementAttached**(`element`, `before?`, `after?`): `void`
+▸ **onElementAttached**(`element`, `before?`, `after?`): `void`
 
 #### Parameters
 
@@ -1604,7 +1608,7 @@ ___
 
 ### onElementDetached
 
-▸ `Protected` **onElementDetached**(`element`, `before?`, `after?`): `void`
+▸ **onElementDetached**(`element`, `before?`, `after?`): `void`
 
 #### Parameters
 
@@ -1630,7 +1634,7 @@ ___
 
 ### onElementFocus
 
-▸ `Protected` **onElementFocus**(`e`): `void`
+▸ **onElementFocus**(`e`): `void`
 
 #### Parameters
 
@@ -1654,7 +1658,7 @@ ___
 
 ### onEnd
 
-▸ `Protected` **onEnd**(): `void`
+▸ **onEnd**(): `void`
 
 #### Returns
 
@@ -1672,7 +1676,7 @@ ___
 
 ### onEndByBlur
 
-▸ `Protected` **onEndByBlur**(): `void`
+▸ **onEndByBlur**(): `void`
 
 #### Returns
 
@@ -1708,7 +1712,7 @@ ___
 
 ### onInputChange
 
-▸ `Protected` **onInputChange**(): `void`
+▸ **onInputChange**(): `void`
 
 #### Returns
 
@@ -1726,7 +1730,7 @@ ___
 
 ### onInputInput
 
-▸ `Protected` **onInputInput**(`e`): `void`
+▸ **onInputInput**(`e`): `void`
 
 #### Parameters
 
@@ -1750,7 +1754,7 @@ ___
 
 ### onInputKeyDown
 
-▸ `Protected` **onInputKeyDown**(`e`): `void`
+▸ **onInputKeyDown**(`e`): `void`
 
 #### Parameters
 
@@ -1774,7 +1778,7 @@ ___
 
 ### onMaxChange
 
-▸ `Protected` **onMaxChange**(): `void`
+▸ **onMaxChange**(): `void`
 
 #### Returns
 
@@ -1788,7 +1792,7 @@ ___
 
 ### onMinChange
 
-▸ `Protected` **onMinChange**(): `void`
+▸ **onMinChange**(): `void`
 
 #### Returns
 
@@ -1826,7 +1830,7 @@ ___
 
 ### onStart
 
-▸ `Protected` **onStart**(): `void`
+▸ **onStart**(): `void`
 
 #### Returns
 
@@ -1844,7 +1848,7 @@ ___
 
 ### onStepChange
 
-▸ `Protected` **onStepChange**(): `void`
+▸ **onStepChange**(): `void`
 
 #### Returns
 
@@ -1858,11 +1862,11 @@ ___
 
 ### select
 
-▸ **select**(): [`UtilInputNumber`](UtilInputNumber.md)<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
+▸ **select**(): [`UtilInputNumber`](UtilInputNumber.md)\<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`UtilInputNumber`](UtilInputNumber.md)<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
+[`UtilInputNumber`](UtilInputNumber.md)\<`TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -1894,7 +1898,7 @@ ___
 
 ### toAfterData
 
-▸ `Protected` **toAfterData**(`theme`, `options?`): [`UtilHtmlElementAfterData`](../interfaces/UtilHtmlElementAfterData.md)
+▸ **toAfterData**(`theme`, `options?`): [`UtilHtmlElementAfterData`](../interfaces/UtilHtmlElementAfterData.md)
 
 #### Parameters
 
@@ -1919,7 +1923,7 @@ ___
 
 ### toBeforeData
 
-▸ `Protected` **toBeforeData**(`theme`, `options?`): [`UtilHtmlElementBeforeData`](../interfaces/UtilHtmlElementBeforeData.md)
+▸ **toBeforeData**(`theme`, `options?`): [`UtilHtmlElementBeforeData`](../interfaces/UtilHtmlElementBeforeData.md)
 
 #### Parameters
 
@@ -1944,7 +1948,7 @@ ___
 
 ### toClipperData
 
-▸ `Protected` **toClipperData**(`theme`, `options?`): [`UtilHtmlElementClipperData`](../interfaces/UtilHtmlElementClipperData.md)
+▸ **toClipperData**(`theme`, `options?`): [`UtilHtmlElementClipperData`](../interfaces/UtilHtmlElementClipperData.md)
 
 #### Parameters
 
@@ -1969,7 +1973,7 @@ ___
 
 ### toClipperRectAdjusted
 
-▸ `Protected` **toClipperRectAdjusted**(`elementRect`, `elementMatrix`, `clipperRect`): ``null`` \| `Rectangle`
+▸ **toClipperRectAdjusted**(`elementRect`, `elementMatrix`, `clipperRect`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -1995,7 +1999,7 @@ ___
 
 ### toData
 
-▸ `Protected` **toData**(`theme`, `options?`): [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)<`HTMLInputElement`\>
+▸ **toData**(`theme`, `options?`): [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)\<`HTMLInputElement`\>
 
 #### Parameters
 
@@ -2006,7 +2010,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)<`HTMLInputElement`\>
+[`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)\<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -2020,7 +2024,7 @@ ___
 
 ### toElementData
 
-▸ `Protected` **toElementData**(`theme`, `options?`): [`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)<`HTMLInputElement`\>
+▸ **toElementData**(`theme`, `options?`): [`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)\<`HTMLInputElement`\>
 
 #### Parameters
 
@@ -2031,7 +2035,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)<`HTMLInputElement`\>
+[`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)\<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -2045,7 +2049,7 @@ ___
 
 ### toElementFocused
 
-▸ `Protected` **toElementFocused**(`element`): `void`
+▸ **toElementFocused**(`element`): `void`
 
 #### Parameters
 
@@ -2093,7 +2097,7 @@ ___
 
 ### updateElement
 
-▸ `Protected` **updateElement**(`renderer`): `void`
+▸ **updateElement**(`renderer`): `void`
 
 #### Parameters
 
@@ -2117,7 +2121,7 @@ ___
 
 ### updateMax
 
-▸ `Protected` **updateMax**(`input`): `void`
+▸ **updateMax**(`input`): `void`
 
 #### Parameters
 
@@ -2137,7 +2141,7 @@ ___
 
 ### updateMin
 
-▸ `Protected` **updateMin**(`input`): `void`
+▸ **updateMin**(`input`): `void`
 
 #### Parameters
 
@@ -2157,7 +2161,7 @@ ___
 
 ### updateStep
 
-▸ `Protected` **updateStep**(`input`): `void`
+▸ **updateStep**(`input`): `void`
 
 #### Parameters
 
@@ -2195,7 +2199,7 @@ ___
 
 ### getClipperRect
 
-▸ `Static` **getClipperRect**(`parent`, `target`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
+▸ **getClipperRect**(`parent`, `target`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
 
 #### Parameters
 

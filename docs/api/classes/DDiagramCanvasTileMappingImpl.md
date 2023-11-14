@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasTileMappingImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasTileMappingImpl
 
 # Class: DDiagramCanvasTileMappingImpl
 
@@ -33,7 +33,7 @@
 
 ### constructor
 
-• **new DDiagramCanvasTileMappingImpl**(`cb`, `mapping?`)
+• **new DDiagramCanvasTileMappingImpl**(`cb`, `mapping?`): [`DDiagramCanvasTileMappingImpl`](DDiagramCanvasTileMappingImpl.md)
 
 #### Parameters
 
@@ -42,11 +42,15 @@
 | `cb` | () => `void` |
 | `mapping?` | [`DDiagramCanvasTileMapping`](../interfaces/DDiagramCanvasTileMapping.md) |
 
+#### Returns
+
+[`DDiagramCanvasTileMappingImpl`](DDiagramCanvasTileMappingImpl.md)
+
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L16)
 
-• **new DDiagramCanvasTileMappingImpl**(`cb`, `enable`, `lon0`, `lat0`, `lon1`, `lat1`)
+• **new DDiagramCanvasTileMappingImpl**(`cb`, `enable`, `lon0`, `lat0`, `lon1`, `lat1`): [`DDiagramCanvasTileMappingImpl`](DDiagramCanvasTileMappingImpl.md)
 
 #### Parameters
 
@@ -58,6 +62,10 @@
 | `lat0` | `number` |
 | `lon1` | `number` |
 | `lat1` | `number` |
+
+#### Returns
+
+[`DDiagramCanvasTileMappingImpl`](DDiagramCanvasTileMappingImpl.md)
 
 #### Defined in
 

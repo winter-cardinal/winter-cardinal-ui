@@ -194,7 +194,7 @@ export class DPagination<
 	 * Selects a page.
 	 *
 	 * @param index an index of a page
-	 * @deprecated in favor of {@link #value}.
+	 * @deprecated in favor of {@link value}.
 	 */
 	set selected(index: number) {
 		this.value = index;

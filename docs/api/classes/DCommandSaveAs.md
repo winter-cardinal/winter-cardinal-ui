@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DCommandSaveAs
+[Winter Cardinal UI - v0.374.0](../index.md) / DCommandSaveAs
 
 # Class: DCommandSaveAs
 
@@ -38,13 +38,17 @@
 
 ### constructor
 
-• **new DCommandSaveAs**(`name`)
+• **new DCommandSaveAs**(`name`): [`DCommandSaveAs`](DCommandSaveAs.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
+
+#### Returns
+
+[`DCommandSaveAs`](DCommandSaveAs.md)
 
 #### Overrides
 

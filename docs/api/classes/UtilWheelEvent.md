@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilWheelEvent
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilWheelEvent
 
 # Class: UtilWheelEvent
 
@@ -22,7 +22,11 @@
 
 ### constructor
 
-• **new UtilWheelEvent**()
+• **new UtilWheelEvent**(): [`UtilWheelEvent`](UtilWheelEvent.md)
+
+#### Returns
+
+[`UtilWheelEvent`](UtilWheelEvent.md)
 
 ## Methods
 
@@ -134,7 +138,7 @@ ___
 
 ### getInstance
 
-▸ `Static` **getInstance**(): [`UtilWheelEvent`](UtilWheelEvent.md)
+▸ **getInstance**(): [`UtilWheelEvent`](UtilWheelEvent.md)
 
 #### Returns
 

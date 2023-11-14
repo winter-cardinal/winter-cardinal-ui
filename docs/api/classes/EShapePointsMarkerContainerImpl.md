@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapePointsMarkerContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapePointsMarkerContainerImpl
 
 # Class: EShapePointsMarkerContainerImpl
 
@@ -43,13 +43,17 @@
 
 ### constructor
 
-• **new EShapePointsMarkerContainerImpl**(`parent`)
+• **new EShapePointsMarkerContainerImpl**(`parent`): [`EShapePointsMarkerContainerImpl`](EShapePointsMarkerContainerImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapePointsMarkerContainerImplParent`](../interfaces/EShapePointsMarkerContainerImplParent.md) |
+
+#### Returns
+
+[`EShapePointsMarkerContainerImpl`](EShapePointsMarkerContainerImpl.md)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / NumberFormatterImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / NumberFormatterImpl
 
 # Class: NumberFormatterImpl
 
@@ -28,13 +28,17 @@ A NumberFormatter implementation class.
 
 ### constructor
 
-• **new NumberFormatterImpl**(`format`)
+• **new NumberFormatterImpl**(`format`): [`NumberFormatterImpl`](NumberFormatterImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `format` | `string` |
+
+#### Returns
+
+[`NumberFormatterImpl`](NumberFormatterImpl.md)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasEditorBackground
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasEditorBackground
 
 # Class: DDiagramCanvasEditorBackground
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new DDiagramCanvasEditorBackground**(`target`, `base`)
+• **new DDiagramCanvasEditorBackground**(`target`, `base`): [`DDiagramCanvasEditorBackground`](DDiagramCanvasEditorBackground.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@
 | :------ | :------ |
 | `target` | [`DBackgroundStateAware`](../interfaces/DBackgroundStateAware.md) |
 | `base` | ``null`` \| `number` |
+
+#### Returns
+
+[`DDiagramCanvasEditorBackground`](DDiagramCanvasEditorBackground.md)
 
 #### Defined in
 
@@ -72,11 +76,11 @@ ___
 
 ### alpha
 
-• `get` **alpha**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `get` **alpha**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Implementation of
 
@@ -92,7 +96,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `alpha` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> |
+| `alpha` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\> |
 
 #### Returns
 
@@ -110,11 +114,11 @@ ___
 
 ### color
 
-• `get` **color**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `get` **color**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `number`\>
 
 #### Implementation of
 
@@ -130,7 +134,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\> |
+| `color` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `number`\> |
 
 #### Returns
 

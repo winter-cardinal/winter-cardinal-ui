@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeSelectionImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeSelectionImpl
 
-# Class: DTableDataTreeSelectionImpl<NODE\>
+# Class: DTableDataTreeSelectionImpl\<NODE\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DTableDataTreeSelection`](../interfaces/DTableDataTreeSelection.md)<`NODE`\>
+- [`DTableDataTreeSelection`](../interfaces/DTableDataTreeSelection.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -80,7 +80,7 @@
 
 ### constructor
 
-• **new DTableDataTreeSelectionImpl**<`NODE`\>(`parent`, `options?`)
+• **new DTableDataTreeSelectionImpl**\<`NODE`\>(`parent`, `options?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -92,8 +92,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataTreeSelectionParent`](../interfaces/DTableDataTreeSelectionParent.md)<`NODE`\> |
-| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)<`any`\> |
+| `parent` | [`DTableDataTreeSelectionParent`](../interfaces/DTableDataTreeSelectionParent.md)\<`NODE`\> |
+| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)\<`any`\> |
+
+#### Returns
+
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 #### Overrides
 
@@ -107,7 +111,7 @@ utils.EventEmitter.constructor
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTableDataTreeSelectionParent`](../interfaces/DTableDataTreeSelectionParent.md)<`NODE`\>
+• `Protected` **\_parent**: [`DTableDataTreeSelectionParent`](../interfaces/DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 #### Defined in
 
@@ -117,7 +121,7 @@ ___
 
 ### \_rows
 
-• `Protected` **\_rows**: `Set`<`NODE`\>
+• `Protected` **\_rows**: `Set`\<`NODE`\>
 
 #### Defined in
 
@@ -194,11 +198,11 @@ ___
 
 ### parent
 
-• `get` **parent**(): [`DTableData`](../interfaces/DTableData.md)<`NODE`\>
+• `get` **parent**(): [`DTableData`](../interfaces/DTableData.md)\<`NODE`\>
 
 #### Returns
 
-[`DTableData`](../interfaces/DTableData.md)<`NODE`\>
+[`DTableData`](../interfaces/DTableData.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -299,7 +303,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -313,7 +317,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -499,7 +503,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -556,7 +560,7 @@ ___
 
 ### getFirst
 
-▸ `Protected` **getFirst**(): ``null`` \| `NODE`
+▸ **getFirst**(): ``null`` \| `NODE`
 
 #### Returns
 
@@ -570,7 +574,7 @@ ___
 
 ### getLast
 
-▸ `Protected` **getLast**(): ``null`` \| `NODE`
+▸ **getLast**(): ``null`` \| `NODE`
 
 #### Returns
 
@@ -662,21 +666,21 @@ ___
 
 ### newRows
 
-▸ `Protected` **newRows**(`nodes`, `toChildren`, `hasChildren`, `rows`, `result`): `Set`<`NODE`\>
+▸ **newRows**(`nodes`, `toChildren`, `hasChildren`, `rows`, `result`): `Set`\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `nodes` | `NODE`[] |
-| `toChildren` | [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)<`NODE`\> |
-| `hasChildren` | [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)<`NODE`\> |
-| `rows` | `Set`<`NODE`\> |
-| `result` | `Set`<`NODE`\> |
+| `toChildren` | [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)\<`NODE`\> |
+| `hasChildren` | [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)\<`NODE`\> |
+| `rows` | `Set`\<`NODE`\> |
+| `result` | `Set`\<`NODE`\> |
 
 #### Returns
 
-`Set`<`NODE`\>
+`Set`\<`NODE`\>
 
 #### Defined in
 
@@ -686,7 +690,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -701,7 +705,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -719,7 +723,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -733,7 +737,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 `this`.
 
@@ -753,7 +757,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 
@@ -791,7 +795,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -805,7 +809,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 `this`.
 
@@ -849,7 +853,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -861,7 +865,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 `this`.
 
@@ -881,7 +885,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -896,7 +900,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)<`NODE`\>
+[`DTableDataTreeSelectionImpl`](DTableDataTreeSelectionImpl.md)\<`NODE`\>
 
 `this`.
 
@@ -980,7 +984,7 @@ ___
 
 ### toIndex
 
-▸ `Protected` **toIndex**(`target`): ``null`` \| `number`
+▸ **toIndex**(`target`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1000,11 +1004,11 @@ ___
 
 ### toMap
 
-▸ **toMap**(): `Map`<`number`, `NODE`\>
+▸ **toMap**(): `Map`\<`number`, `NODE`\>
 
 #### Returns
 
-`Map`<`number`, `NODE`\>
+`Map`\<`number`, `NODE`\>
 
 #### Implementation of
 
@@ -1018,11 +1022,11 @@ ___
 
 ### toObject
 
-▸ **toObject**(): `Record`<`number`, `NODE`\>
+▸ **toObject**(): `Record`\<`number`, `NODE`\>
 
 #### Returns
 
-`Record`<`number`, `NODE`\>
+`Record`\<`number`, `NODE`\>
 
 #### Implementation of
 

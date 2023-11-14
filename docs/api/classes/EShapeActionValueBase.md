@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueBase
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueBase
 
 # Class: EShapeActionValueBase
 
@@ -40,7 +40,7 @@
 
 ### constructor
 
-• **new EShapeActionValueBase**(`type`, `condition`)
+• **new EShapeActionValueBase**(`type`, `condition`): [`EShapeActionValueBase`](EShapeActionValueBase.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@
 | :------ | :------ |
 | `type` | `number` |
 | `condition` | `string` |
+
+#### Returns
+
+[`EShapeActionValueBase`](EShapeActionValueBase.md)
 
 #### Defined in
 
@@ -95,7 +99,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -133,7 +137,7 @@ ___
 
 ### serialize
 
-▸ `Abstract` **serialize**(`manager`): `number`
+▸ **serialize**(`manager`): `number`
 
 #### Parameters
 
@@ -175,7 +179,7 @@ ___
 
 ### toRuntime
 
-▸ `Abstract` **toRuntime**(): [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)
+▸ **toRuntime**(): [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)
 
 #### Returns
 

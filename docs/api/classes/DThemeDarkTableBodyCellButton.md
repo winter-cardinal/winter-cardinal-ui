@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableBodyCellButton
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableBodyCellButton
 
 # Class: DThemeDarkTableBodyCellButton
 
@@ -102,7 +102,11 @@
 
 ### constructor
 
-• **new DThemeDarkTableBodyCellButton**()
+• **new DThemeDarkTableBodyCellButton**(): [`DThemeDarkTableBodyCellButton`](DThemeDarkTableBodyCellButton.md)
+
+#### Returns
+
+[`DThemeDarkTableBodyCellButton`](DThemeDarkTableBodyCellButton.md)
 
 #### Inherited from
 

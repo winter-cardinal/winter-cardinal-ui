@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeBaseHitTestData
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeBaseHitTestData
 
 # Class: EShapeBaseHitTestData
 
@@ -26,7 +26,11 @@
 
 ### constructor
 
-• **new EShapeBaseHitTestData**()
+• **new EShapeBaseHitTestData**(): [`EShapeBaseHitTestData`](EShapeBaseHitTestData.md)
+
+#### Returns
+
+[`EShapeBaseHitTestData`](EShapeBaseHitTestData.md)
 
 #### Defined in
 

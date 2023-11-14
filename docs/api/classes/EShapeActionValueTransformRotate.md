@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueTransformRotate
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueTransformRotate
 
 # Class: EShapeActionValueTransformRotate
 
 ## Hierarchy
 
-- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<[`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype-1), [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype-1)\>
+- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)\<[`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype-1), [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype-1)\>
 
   ↳ **`EShapeActionValueTransformRotate`**
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeActionValueTransformRotate**(`opetype`, `condition`, `originX`, `originY`, `amount`)
+• **new EShapeActionValueTransformRotate**(`opetype`, `condition`, `originX`, `originY`, `amount`): [`EShapeActionValueTransformRotate`](EShapeActionValueTransformRotate.md)
 
 #### Parameters
 
@@ -49,6 +49,10 @@
 | `originX` | `number` |
 | `originY` | `number` |
 | `amount` | `string` |
+
+#### Returns
+
+[`EShapeActionValueTransformRotate`](EShapeActionValueTransformRotate.md)
 
 #### Overrides
 
@@ -162,7 +166,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -264,7 +268,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueTransformRotate`](EShapeActionValueTransformRotate.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueTransformRotate`](EShapeActionValueTransformRotate.md)
 
 #### Parameters
 

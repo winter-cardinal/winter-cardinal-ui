@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseGuideContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseGuideContainer
 
-# Class: DChartAxisBaseGuideContainer<CHART\>
+# Class: DChartAxisBaseGuideContainer\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)<`CHART`\>
+- [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -41,19 +41,23 @@
 
 ### constructor
 
-• **new DChartAxisBaseGuideContainer**<`CHART`\>(`axis`)
+• **new DChartAxisBaseGuideContainer**\<`CHART`\>(`axis`): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
+
+#### Returns
+
+[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -63,7 +67,7 @@
 
 ### \_axis
 
-• `Protected` **\_axis**: [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>
+• `Protected` **\_axis**: [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\>
 
 #### Defined in
 
@@ -73,7 +77,7 @@ ___
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -93,7 +97,7 @@ ___
 
 ### \_list
 
-• `Protected` **\_list**: [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)<`CHART`\>[]
+• `Protected` **\_list**: [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)\<`CHART`\>[]
 
 #### Defined in
 
@@ -103,17 +107,17 @@ ___
 
 ### add
 
-▸ **add**(`guide`): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)<`CHART`\>
+▸ **add**(`guide`): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guide` | [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)<`CHART`\> |
+| `guide` | [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)\<`CHART`\> |
 
 #### Returns
 
-[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)<`CHART`\>
+[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -133,7 +137,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
@@ -152,11 +156,11 @@ ___
 
 ### clear
 
-▸ **clear**(): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)<`CHART`\>
+▸ **clear**(): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)<`CHART`\>
+[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -188,7 +192,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)<`CHART`\>
+▸ **get**(`index`): ``null`` \| [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)\<`CHART`\>
 
 #### Parameters
 
@@ -198,7 +202,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)<`CHART`\>
+``null`` \| [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -218,7 +222,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `guide` | [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)<`CHART`\> |
+| `guide` | [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)\<`CHART`\> |
 
 #### Returns
 

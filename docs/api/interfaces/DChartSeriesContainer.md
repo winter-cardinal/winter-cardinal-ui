@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesContainer
 
-# Interface: DChartSeriesContainer<CHART\>
+# Interface: DChartSeriesContainer\<CHART\>
 
 ## Type parameters
 
@@ -54,7 +54,7 @@ ___
 
 ### plotArea
 
-• `Readonly` **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)<`CHART`\>
+• `Readonly` **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)\<`CHART`\>
 
 #### Defined in
 
@@ -74,7 +74,7 @@ ___
 
 ### selection
 
-• `Readonly` **selection**: ``null`` \| [`DChartSelection`](DChartSelection.md)<`CHART`\>
+• `Readonly` **selection**: ``null`` \| [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 #### Defined in
 
@@ -90,7 +90,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `series` | [`DChartSeries`](DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -104,7 +104,7 @@ ___
 
 ### calcHitPoint
 
-▸ **calcHitPoint**(`x`, `y`, `result`): ``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **calcHitPoint**(`x`, `y`, `result`): ``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
@@ -116,7 +116,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -126,11 +126,11 @@ ___
 
 ### clear
 
-▸ **clear**(): [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\>
+▸ **clear**(): [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\>
+[`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -154,7 +154,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **get**(`index`): ``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
@@ -164,7 +164,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -180,7 +180,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](DChartRegion.md) |
 
 #### Returns
@@ -201,7 +201,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](DChartRegion.md) |
 
 #### Returns
@@ -216,7 +216,7 @@ ___
 
 ### hitTest
 
-▸ **hitTest**(`x`, `y`): ``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **hitTest**(`x`, `y`): ``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
@@ -227,7 +227,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -243,7 +243,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `series` | [`DChartSeries`](DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 

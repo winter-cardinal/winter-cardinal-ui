@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeInputLabel
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeInputLabel
 
-# Interface: DThemeInputLabel<VALUE\>
+# Interface: DThemeInputLabel\<VALUE\>
 
 [DTextBase](../classes/DTextBase.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeText`](DThemeText.md)<`VALUE`\>
+- [`DThemeText`](DThemeText.md)\<`VALUE`\>
 
   ↳ **`DThemeInputLabel`**
 
@@ -1180,14 +1180,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Inherited from
 

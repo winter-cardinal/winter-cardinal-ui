@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueShowHideShape
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueShowHideShape
 
 # Class: EShapeActionValueShowHideShape
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`SHAPE`](../index.md#shape)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<typeof [`SHAPE`](../index.md#shape)\>
 
   ↳ **`EShapeActionValueShowHideShape`**
 
@@ -34,13 +34,17 @@
 
 ### constructor
 
-• **new EShapeActionValueShowHideShape**(`condition`)
+• **new EShapeActionValueShowHideShape**(`condition`): [`EShapeActionValueShowHideShape`](EShapeActionValueShowHideShape.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `condition` | `string` |
+
+#### Returns
+
+[`EShapeActionValueShowHideShape`](EShapeActionValueShowHideShape.md)
 
 #### Overrides
 
@@ -110,7 +114,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -212,7 +216,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueShowHideShape`](EShapeActionValueShowHideShape.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueShowHideShape`](EShapeActionValueShowHideShape.md)
 
 #### Parameters
 

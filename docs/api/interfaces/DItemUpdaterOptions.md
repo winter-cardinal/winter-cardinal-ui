@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DItemUpdaterOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DItemUpdaterOptions
 
-# Interface: DItemUpdaterOptions<VALUE, DATA, ITEM\>
+# Interface: DItemUpdaterOptions\<VALUE, DATA, ITEM\>
 
 Item updater options.
 
@@ -32,7 +32,7 @@ Item updater options.
 
 ### initItem
 
-• `Optional` **initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+• `Optional` **initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<`DATA`, `ITEM`\>
 
 Called to initialize items.
 
@@ -44,7 +44,7 @@ ___
 
 ### newItem
 
-• `Optional` **newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+• `Optional` **newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<`DATA`, `ITEM`\>
 
 Called to create items.
 

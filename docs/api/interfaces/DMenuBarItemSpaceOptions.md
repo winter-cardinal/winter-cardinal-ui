@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuBarItemSpaceOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuBarItemSpaceOptions
 
-# Interface: DMenuBarItemSpaceOptions<THEME\>
+# Interface: DMenuBarItemSpaceOptions\<THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)<`THEME`\>
+- [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)\<`THEME`\>
 
   ↳ **`DMenuBarItemSpaceOptions`**
 
@@ -131,7 +131,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -168,7 +168,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -200,7 +200,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -273,7 +273,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DMenuBarItemSpaceOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.

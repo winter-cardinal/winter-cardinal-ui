@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogLayeredEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogLayeredEvents
 
-# Interface: DDialogLayeredEvents<VALUE, EMITTER\>
+# Interface: DDialogLayeredEvents\<VALUE, EMITTER\>
 
 [DDialogLayered](../classes/DDialogLayered.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DDialogEvents`](DDialogEvents.md)<`EMITTER`\>
+- [`DDialogEvents`](DDialogEvents.md)\<`EMITTER`\>
 
   ↳ **`DDialogLayeredEvents`**
 

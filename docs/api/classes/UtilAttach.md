@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilAttach
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilAttach
 
 # Class: UtilAttach
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new UtilAttach**()
+• **new UtilAttach**(): [`UtilAttach`](UtilAttach.md)
+
+#### Returns
+
+[`UtilAttach`](UtilAttach.md)
 
 ## Methods
 
 ### adjust
 
-▸ `Static` **adjust**(`position`, `size`, `offset`, `clippingSize`): `number`
+▸ **adjust**(`position`, `size`, `offset`, `clippingSize`): `number`
 
 #### Parameters
 
@@ -40,13 +44,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L152)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L158)
 
 ___
 
 ### attach
 
-▸ `Static` **attach**(`target`, `bounds`, `offsetX`, `offsetY`, `clippingWidth`, `clippingHeight`, `align`): `void`
+▸ **attach**(`target`, `bounds`, `offsetX`, `offsetY`, `clippingWidth`, `clippingHeight`, `align`): `void`
 
 #### Parameters
 
@@ -66,4 +70,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L41)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L43)

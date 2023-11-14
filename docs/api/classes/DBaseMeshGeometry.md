@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseMeshGeometry
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseMeshGeometry
 
 # Class: DBaseMeshGeometry
 
@@ -65,7 +65,7 @@
 
 ### constructor
 
-• **new DBaseMeshGeometry**(`vertices`, `uvs`, `indices`)
+• **new DBaseMeshGeometry**(`vertices`, `uvs`, `indices`): [`DBaseMeshGeometry`](DBaseMeshGeometry.md)
 
 #### Parameters
 
@@ -74,6 +74,10 @@
 | `vertices` | `number`[] \| `Float32Array` |
 | `uvs` | `number`[] \| `Float32Array` |
 | `indices` | `number`[] \| `Uint16Array` |
+
+#### Returns
+
+[`DBaseMeshGeometry`](DBaseMeshGeometry.md)
 
 #### Overrides
 
@@ -233,7 +237,9 @@ PIXI.Geometry#instanceCount
 
 **`Default`**
 
+```ts
 1
+```
 
 #### Inherited from
 
@@ -610,7 +616,7 @@ ___
 
 ### getTables
 
-▸ `Protected` **getTables**(): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
+▸ **getTables**(): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
 
 #### Returns
 
@@ -647,7 +653,7 @@ ___
 
 ### newTable
 
-▸ `Protected` **newTable**(`n`, `a0`, `da`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)
+▸ **newTable**(`n`, `a0`, `da`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)
 
 #### Parameters
 
@@ -669,7 +675,7 @@ ___
 
 ### newTables
 
-▸ `Protected` **newTables**(`n`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
+▸ **newTables**(`n`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
 
 #### Parameters
 
@@ -689,7 +695,7 @@ ___
 
 ### merge
 
-▸ `Static` **merge**(`geometries`): `Geometry`
+▸ **merge**(`geometries`): `Geometry`
 
 merges an array of geometries into a new single one
 geometry attribute styles must match for this operation to work

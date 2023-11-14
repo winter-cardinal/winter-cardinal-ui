@@ -300,6 +300,7 @@ export * from "./d-dialog-select-list-item";
 export * from "./d-dialog-select-list";
 export * from "./d-dialog-select-search-dismissable-impl";
 export * from "./d-dialog-select-search-dismissable";
+export * from "./d-dialog-select-search-function";
 export * from "./d-dialog-select-search-impl";
 export * from "./d-dialog-select-search";
 export * from "./d-dialog-select";

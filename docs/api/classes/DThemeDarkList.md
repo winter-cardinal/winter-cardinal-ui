@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkList
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkList
 
 # Class: DThemeDarkList
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeDarkList**()
+• **new DThemeDarkList**(): [`DThemeDarkList`](DThemeDarkList.md)
+
+#### Returns
+
+[`DThemeDarkList`](DThemeDarkList.md)
 
 #### Inherited from
 

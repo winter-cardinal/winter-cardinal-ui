@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDialog
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDialog
 
 # Class: DThemeWhiteDialog
 
@@ -80,7 +80,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDialog**()
+• **new DThemeWhiteDialog**(): [`DThemeWhiteDialog`](DThemeWhiteDialog.md)
+
+#### Returns
+
+[`DThemeWhiteDialog`](DThemeWhiteDialog.md)
 
 #### Inherited from
 
@@ -1299,7 +1303,7 @@ ___
 
 ### newAnimation
 
-▸ **newAnimation**(`mode`): ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+▸ **newAnimation**(`mode`): ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Parameters
 
@@ -1309,7 +1313,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Implementation of
 

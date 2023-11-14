@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeRendererIterator
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeRendererIterator
 
 # Class: EShapeRendererIterator
 
@@ -25,7 +25,11 @@
 
 ### constructor
 
-• **new EShapeRendererIterator**()
+• **new EShapeRendererIterator**(): [`EShapeRendererIterator`](EShapeRendererIterator.md)
+
+#### Returns
+
+[`EShapeRendererIterator`](EShapeRendererIterator.md)
 
 #### Defined in
 

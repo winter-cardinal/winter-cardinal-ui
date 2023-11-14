@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableBodyCellIndex
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableBodyCellIndex
 
 # Class: DThemeDarkTableBodyCellIndex
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)<`number`\>
+- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)\<`number`\>
 
   ↳ **`DThemeDarkTableBodyCellIndex`**
 
@@ -100,7 +100,11 @@
 
 ### constructor
 
-• **new DThemeDarkTableBodyCellIndex**()
+• **new DThemeDarkTableBodyCellIndex**(): [`DThemeDarkTableBodyCellIndex`](DThemeDarkTableBodyCellIndex.md)
+
+#### Returns
+
+[`DThemeDarkTableBodyCellIndex`](DThemeDarkTableBodyCellIndex.md)
 
 #### Inherited from
 
@@ -1581,7 +1585,7 @@ ___
 
 ### getTextFormatter
 
-▸ **getTextFormatter**(): (`value`: `number`, `caller`: [`DTableBodyCellIndex`](DTableBodyCellIndex.md)<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)<`unknown`\>, [`DTableBodyCellIndexOptions`](../interfaces/DTableBodyCellIndexOptions.md)<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)<`unknown`\>\>\>) => `string`
+▸ **getTextFormatter**(): (`value`: `number`, `caller`: [`DTableBodyCellIndex`](DTableBodyCellIndex.md)\<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)\<`unknown`\>, [`DTableBodyCellIndexOptions`](../interfaces/DTableBodyCellIndexOptions.md)\<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)\<`unknown`\>\>\>) => `string`
 
 #### Returns
 
@@ -1594,7 +1598,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `value` | `number` |
-| `caller` | [`DTableBodyCellIndex`](DTableBodyCellIndex.md)<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)<`unknown`\>, [`DTableBodyCellIndexOptions`](../interfaces/DTableBodyCellIndexOptions.md)<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)<`unknown`\>\>\> |
+| `caller` | [`DTableBodyCellIndex`](DTableBodyCellIndex.md)\<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)\<`unknown`\>, [`DTableBodyCellIndexOptions`](../interfaces/DTableBodyCellIndexOptions.md)\<`unknown`, `unknown`, [`DThemeTableBodyCellIndex`](../interfaces/DThemeTableBodyCellIndex.md)\<`unknown`\>\>\> |
 
 ##### Returns
 
@@ -1935,14 +1939,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Implementation of
 

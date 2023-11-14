@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramDataPrivateImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramDataPrivateImpl
 
 # Class: DDiagramDataPrivateImpl
 
@@ -30,13 +30,17 @@
 
 ### constructor
 
-• **new DDiagramDataPrivateImpl**(`diagram`)
+• **new DDiagramDataPrivateImpl**(`diagram`): [`DDiagramDataPrivateImpl`](DDiagramDataPrivateImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `diagram` | [`DDiagramDataDiagram`](../interfaces/DDiagramDataDiagram.md) |
+
+#### Returns
+
+[`DDiagramDataPrivateImpl`](DDiagramDataPrivateImpl.md)
 
 #### Defined in
 

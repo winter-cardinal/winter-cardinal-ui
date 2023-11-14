@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshotOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSnapshotOnOptions
 
-# Interface: DDiagramSnapshotOnOptions<CANVAS, EMITTER\>
+# Interface: DDiagramSnapshotOnOptions\<CANVAS, EMITTER\>
 
 ## Type parameters
 
@@ -11,7 +11,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DDiagramSnapshotEvents`](DDiagramSnapshotEvents.md)<`CANVAS`, `EMITTER`\>\>
+- `Partial`\<[`DDiagramSnapshotEvents`](DDiagramSnapshotEvents.md)\<`CANVAS`, `EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -28,7 +28,7 @@
 
 ### taking
 
-▸ `Optional` **taking**(`canvas`, `emitter`): `void`
+▸ **taking**(`canvas`, `emitter`): `void`
 
 Triggered before taking a snapshot.
 
@@ -55,7 +55,7 @@ ___
 
 ### took
 
-▸ `Optional` **took**(`canvas`, `reason`, `emitter`): `void`
+▸ **took**(`canvas`, `reason`, `emitter`): `void`
 
 Triggered when a snapshot is taken successfully or when failed to take.
 

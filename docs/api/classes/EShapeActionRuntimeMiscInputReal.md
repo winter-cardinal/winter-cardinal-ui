@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeMiscInputReal
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeMiscInputReal
 
 # Class: EShapeActionRuntimeMiscInputReal
 
@@ -69,13 +69,17 @@
 
 ### constructor
 
-• **new EShapeActionRuntimeMiscInputReal**(`value`)
+• **new EShapeActionRuntimeMiscInputReal**(`value`): [`EShapeActionRuntimeMiscInputReal`](EShapeActionRuntimeMiscInputReal.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueMisc`](EShapeActionValueMisc.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeMiscInputReal`](EShapeActionRuntimeMiscInputReal.md)
 
 #### Inherited from
 
@@ -89,7 +93,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -131,7 +135,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -145,7 +149,7 @@ ___
 
 ### utils
 
-• `Protected` **utils**: `Map`<[`EShape`](../interfaces/EShape.md), [`UtilInputNumber`](UtilInputNumber.md)<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>\>
+• `Protected` **utils**: `Map`\<[`EShape`](../interfaces/EShape.md), [`UtilInputNumber`](UtilInputNumber.md)\<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>\>
 
 #### Inherited from
 
@@ -173,7 +177,7 @@ ___
 
 ### containsPoint
 
-▸ `Protected` **containsPoint**(`shape`, `runtime`, `point`): `boolean`
+▸ **containsPoint**(`shape`, `runtime`, `point`): `boolean`
 
 #### Parameters
 
@@ -225,7 +229,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Protected` **getClipperExRects**(`shape`, `result`): `void`
+▸ **getClipperExRects**(`shape`, `result`): `void`
 
 #### Parameters
 
@@ -250,7 +254,7 @@ ___
 
 ### getClipperToRect
 
-▸ `Protected` **getClipperToRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
+▸ **getClipperToRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -278,7 +282,7 @@ ___
 
 ### getElementMatrix
 
-▸ `Protected` **getElementMatrix**(`shape`, `runtime`): ``null`` \| `Matrix`
+▸ **getElementMatrix**(`shape`, `runtime`): ``null`` \| `Matrix`
 
 #### Parameters
 
@@ -303,7 +307,7 @@ ___
 
 ### getElementRect
 
-▸ `Protected` **getElementRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
+▸ **getElementRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -331,7 +335,7 @@ ___
 
 ### getPadding
 
-▸ `Protected` **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
+▸ **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Parameters
 
@@ -356,7 +360,7 @@ ___
 
 ### getUtil
 
-▸ `Protected` **getUtil**(`shape`, `runtime`): [`UtilInputNumber`](UtilInputNumber.md)<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
+▸ **getUtil**(`shape`, `runtime`): [`UtilInputNumber`](UtilInputNumber.md)\<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
 
 #### Parameters
 
@@ -367,7 +371,7 @@ ___
 
 #### Returns
 
-[`UtilInputNumber`](UtilInputNumber.md)<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
+[`UtilInputNumber`](UtilInputNumber.md)\<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
 
 #### Inherited from
 
@@ -406,7 +410,7 @@ ___
 
 ### newElementCreator
 
-▸ `Protected` **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+▸ **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLInputElement`\>
 
 #### Parameters
 
@@ -417,7 +421,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+`undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -431,7 +435,7 @@ ___
 
 ### newOperation
 
-▸ `Protected` **newOperation**(`shape`, `runtime`): [`UtilInputOperation`](../interfaces/UtilInputOperation.md)<`number`, `HTMLInputElement`\>
+▸ **newOperation**(`shape`, `runtime`): [`UtilInputOperation`](../interfaces/UtilInputOperation.md)\<`number`, `HTMLInputElement`\>
 
 #### Parameters
 
@@ -442,7 +446,7 @@ ___
 
 #### Returns
 
-[`UtilInputOperation`](../interfaces/UtilInputOperation.md)<`number`, `HTMLInputElement`\>
+[`UtilInputOperation`](../interfaces/UtilInputOperation.md)\<`number`, `HTMLInputElement`\>
 
 #### Inherited from
 
@@ -456,7 +460,7 @@ ___
 
 ### newUtil
 
-▸ `Protected` **newUtil**(`shape`, `runtime`): [`UtilInputNumber`](UtilInputNumber.md)<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
+▸ **newUtil**(`shape`, `runtime`): [`UtilInputNumber`](UtilInputNumber.md)\<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
 
 #### Parameters
 
@@ -467,7 +471,7 @@ ___
 
 #### Returns
 
-[`UtilInputNumber`](UtilInputNumber.md)<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
+[`UtilInputNumber`](UtilInputNumber.md)\<[`UtilInputNumberTarget`](../interfaces/UtilInputNumberTarget.md), [`UtilInputNumberOperation`](../interfaces/UtilInputNumberOperation.md), [`UtilThemeInputNumber`](../interfaces/UtilThemeInputNumber.md), [`UtilInputNumberOptions`](../interfaces/UtilInputNumberOptions.md)\>
 
 #### Overrides
 
@@ -481,7 +485,7 @@ ___
 
 ### newUtilOptions
 
-▸ `Protected` **newUtilOptions**(`shape`, `runtime`): [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`HTMLInputElement`\>
+▸ **newUtilOptions**(`shape`, `runtime`): [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`HTMLInputElement`\>
 
 #### Parameters
 
@@ -492,7 +496,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`HTMLInputElement`\>
+[`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -539,7 +543,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -592,7 +596,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -618,7 +622,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -799,7 +803,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1059,7 +1063,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1085,7 +1089,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1111,7 +1115,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1129,7 +1133,7 @@ ___
 
 ### onValueChange
 
-▸ `Protected` **onValueChange**(`shape`, `runtime`, `newValue`, `oldValue`): `void`
+▸ **onValueChange**(`shape`, `runtime`, `newValue`, `oldValue`): `void`
 
 #### Parameters
 
@@ -1156,7 +1160,7 @@ ___
 
 ### toWhen
 
-▸ `Protected` **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
+▸ **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Parameters
 

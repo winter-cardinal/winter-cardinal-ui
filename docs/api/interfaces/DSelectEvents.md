@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DSelectEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DSelectEvents
 
-# Interface: DSelectEvents<VALUE, EMITTER\>
+# Interface: DSelectEvents\<VALUE, EMITTER\>
 
 [DSelect](../classes/DSelect.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DDropdownBaseEvents`](DDropdownBaseEvents.md)<`VALUE`, [`DMenuItem`](../classes/DMenuItem.md)<`VALUE`\> \| ``null``, `EMITTER`\>
+- [`DDropdownBaseEvents`](DDropdownBaseEvents.md)\<`VALUE`, [`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`\> \| ``null``, `EMITTER`\>
 
   ↳ **`DSelectEvents`**
 
@@ -113,7 +113,7 @@ Triggered when a selection is changed.
 | :------ | :------ | :------ |
 | `newValue` | ``null`` \| `VALUE` | - |
 | `oldValue` | ``null`` \| `VALUE` | a previously-selected value |
-| `item` | ``null`` \| [`DMenuItem`](../classes/DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a newly-selected item |
+| `item` | ``null`` \| [`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a newly-selected item |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -354,7 +354,7 @@ Triggered when a menu is opened.
 
 | Name | Type |
 | :------ | :------ |
-| `menu` | [`DMenu`](../classes/DMenu.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\> |
+| `menu` | [`DMenu`](../classes/DMenu.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\> |
 | `emitter` | `EMITTER` |
 
 #### Returns
@@ -548,7 +548,7 @@ Triggered when a menu item is selected.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `value` | `VALUE` | a value of a selected menu item |
-| `item` | [`DMenuItem`](../classes/DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a selected menu item |
+| `item` | [`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a selected menu item |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeMiscInput
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeMiscInput
 
-# Class: EShapeActionRuntimeMiscInput<VALUE, ELEMENT, UTIL\>
+# Class: EShapeActionRuntimeMiscInput\<VALUE, ELEMENT, UTIL\>
 
 ## Type parameters
 
@@ -8,11 +8,11 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 | `ELEMENT` | extends `HTMLInputElement` \| `HTMLTextAreaElement` = `HTMLInputElement` \| `HTMLTextAreaElement` |
-| `UTIL` | extends [`UtilInput`](UtilInput.md)<`VALUE`, `ELEMENT`\> = [`UtilInput`](UtilInput.md)<`VALUE`, `ELEMENT`\> |
+| `UTIL` | extends [`UtilInput`](UtilInput.md)\<`VALUE`, `ELEMENT`\> = [`UtilInput`](UtilInput.md)\<`VALUE`, `ELEMENT`\> |
 
 ## Hierarchy
 
-- `EShapeActionRuntimeMiscHtmlElementBase`<`ELEMENT`, `UTIL`\>
+- `EShapeActionRuntimeMiscHtmlElementBase`\<`ELEMENT`, `UTIL`\>
 
   ↳ **`EShapeActionRuntimeMiscInput`**
 
@@ -79,7 +79,7 @@
 
 ### constructor
 
-• **new EShapeActionRuntimeMiscInput**<`VALUE`, `ELEMENT`, `UTIL`\>(`value`)
+• **new EShapeActionRuntimeMiscInput**\<`VALUE`, `ELEMENT`, `UTIL`\>(`value`): [`EShapeActionRuntimeMiscInput`](EShapeActionRuntimeMiscInput.md)\<`VALUE`, `ELEMENT`, `UTIL`\>
 
 #### Type parameters
 
@@ -87,7 +87,7 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 | `ELEMENT` | extends `HTMLInputElement` \| `HTMLTextAreaElement` = `HTMLInputElement` \| `HTMLTextAreaElement` |
-| `UTIL` | extends [`UtilInput`](UtilInput.md)<`VALUE`, `ELEMENT`, [`UtilInputTarget`](../interfaces/UtilInputTarget.md), [`UtilInputOperation`](../interfaces/UtilInputOperation.md)<`VALUE`, `ELEMENT`\>, [`UtilThemeInput`](../interfaces/UtilThemeInput.md)<`VALUE`, `ELEMENT`\>, [`UtilInputOptions`](../interfaces/UtilInputOptions.md)<`VALUE`, `ELEMENT`\>, `UTIL`\> = [`UtilInput`](UtilInput.md)<`VALUE`, `ELEMENT`, [`UtilInputTarget`](../interfaces/UtilInputTarget.md), [`UtilInputOperation`](../interfaces/UtilInputOperation.md)<`VALUE`, `ELEMENT`\>, [`UtilThemeInput`](../interfaces/UtilThemeInput.md)<`VALUE`, `ELEMENT`\>, [`UtilInputOptions`](../interfaces/UtilInputOptions.md)<`VALUE`, `ELEMENT`\>\> |
+| `UTIL` | extends [`UtilInput`](UtilInput.md)\<`VALUE`, `ELEMENT`, [`UtilInputTarget`](../interfaces/UtilInputTarget.md), [`UtilInputOperation`](../interfaces/UtilInputOperation.md)\<`VALUE`, `ELEMENT`\>, [`UtilThemeInput`](../interfaces/UtilThemeInput.md)\<`VALUE`, `ELEMENT`\>, [`UtilInputOptions`](../interfaces/UtilInputOptions.md)\<`VALUE`, `ELEMENT`\>\> = [`UtilInput`](UtilInput.md)\<`VALUE`, `ELEMENT`, [`UtilInputTarget`](../interfaces/UtilInputTarget.md), [`UtilInputOperation`](../interfaces/UtilInputOperation.md)\<`VALUE`, `ELEMENT`\>, [`UtilThemeInput`](../interfaces/UtilThemeInput.md)\<`VALUE`, `ELEMENT`\>, [`UtilInputOptions`](../interfaces/UtilInputOptions.md)\<`VALUE`, `ELEMENT`\>\> |
 
 #### Parameters
 
@@ -95,9 +95,13 @@
 | :------ | :------ |
 | `value` | [`EShapeActionValueMisc`](EShapeActionValueMisc.md) |
 
+#### Returns
+
+[`EShapeActionRuntimeMiscInput`](EShapeActionRuntimeMiscInput.md)\<`VALUE`, `ELEMENT`, `UTIL`\>
+
 #### Overrides
 
-EShapeActionRuntimeMiscHtmlElementBase&lt;ELEMENT, UTIL\&gt;.constructor
+EShapeActionRuntimeMiscHtmlElementBase\&lt;ELEMENT, UTIL\&gt;.constructor
 
 #### Defined in
 
@@ -107,7 +111,7 @@ EShapeActionRuntimeMiscHtmlElementBase&lt;ELEMENT, UTIL\&gt;.constructor
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -145,7 +149,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Defined in
 
@@ -155,7 +159,7 @@ ___
 
 ### utils
 
-• `Protected` **utils**: `Map`<[`EShape`](../interfaces/EShape.md), `UTIL`\>
+• `Protected` **utils**: `Map`\<[`EShape`](../interfaces/EShape.md), `UTIL`\>
 
 #### Inherited from
 
@@ -183,7 +187,7 @@ EShapeActionRuntimeMiscHtmlElementBase.WORK
 
 ### containsPoint
 
-▸ `Protected` **containsPoint**(`shape`, `runtime`, `point`): `boolean`
+▸ **containsPoint**(`shape`, `runtime`, `point`): `boolean`
 
 #### Parameters
 
@@ -235,7 +239,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Protected` **getClipperExRects**(`shape`, `result`): `void`
+▸ **getClipperExRects**(`shape`, `result`): `void`
 
 #### Parameters
 
@@ -260,7 +264,7 @@ ___
 
 ### getClipperToRect
 
-▸ `Protected` **getClipperToRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
+▸ **getClipperToRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -288,7 +292,7 @@ ___
 
 ### getElementMatrix
 
-▸ `Protected` **getElementMatrix**(`shape`, `runtime`): ``null`` \| `Matrix`
+▸ **getElementMatrix**(`shape`, `runtime`): ``null`` \| `Matrix`
 
 #### Parameters
 
@@ -313,7 +317,7 @@ ___
 
 ### getElementRect
 
-▸ `Protected` **getElementRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
+▸ **getElementRect**(`shape`, `runtime`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -341,7 +345,7 @@ ___
 
 ### getPadding
 
-▸ `Protected` **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
+▸ **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Parameters
 
@@ -366,7 +370,7 @@ ___
 
 ### getUtil
 
-▸ `Protected` **getUtil**(`shape`, `runtime`): `UTIL`
+▸ **getUtil**(`shape`, `runtime`): `UTIL`
 
 #### Parameters
 
@@ -416,7 +420,7 @@ ___
 
 ### newElementCreator
 
-▸ `Protected` **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
+▸ **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`ELEMENT`\>
 
 #### Parameters
 
@@ -427,7 +431,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
+`undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`ELEMENT`\>
 
 #### Overrides
 
@@ -441,7 +445,7 @@ ___
 
 ### newOperation
 
-▸ `Protected` **newOperation**(`shape`, `runtime`): [`UtilInputOperation`](../interfaces/UtilInputOperation.md)<`VALUE`, `ELEMENT`\>
+▸ **newOperation**(`shape`, `runtime`): [`UtilInputOperation`](../interfaces/UtilInputOperation.md)\<`VALUE`, `ELEMENT`\>
 
 #### Parameters
 
@@ -452,7 +456,7 @@ ___
 
 #### Returns
 
-[`UtilInputOperation`](../interfaces/UtilInputOperation.md)<`VALUE`, `ELEMENT`\>
+[`UtilInputOperation`](../interfaces/UtilInputOperation.md)\<`VALUE`, `ELEMENT`\>
 
 #### Overrides
 
@@ -466,7 +470,7 @@ ___
 
 ### newUtil
 
-▸ `Protected` **newUtil**(`shape`, `runtime`): `UTIL`
+▸ **newUtil**(`shape`, `runtime`): `UTIL`
 
 #### Parameters
 
@@ -491,7 +495,7 @@ ___
 
 ### newUtilOptions
 
-▸ `Protected` **newUtilOptions**(`shape`, `runtime`): [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`ELEMENT`\>
+▸ **newUtilOptions**(`shape`, `runtime`): [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`ELEMENT`\>
 
 #### Parameters
 
@@ -502,7 +506,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`ELEMENT`\>
+[`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`ELEMENT`\>
 
 #### Inherited from
 
@@ -549,7 +553,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -602,7 +606,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -628,7 +632,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -809,7 +813,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1069,7 +1073,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1095,7 +1099,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1121,7 +1125,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -1139,7 +1143,7 @@ ___
 
 ### onValueChange
 
-▸ `Protected` **onValueChange**(`shape`, `runtime`, `newValue`, `oldValue`): `void`
+▸ **onValueChange**(`shape`, `runtime`, `newValue`, `oldValue`): `void`
 
 #### Parameters
 
@@ -1162,7 +1166,7 @@ ___
 
 ### toWhen
 
-▸ `Protected` **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
+▸ **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Parameters
 

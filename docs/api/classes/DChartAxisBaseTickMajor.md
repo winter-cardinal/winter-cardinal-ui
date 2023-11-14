@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseTickMajor
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseTickMajor
 
-# Class: DChartAxisBaseTickMajor<CHART\>
+# Class: DChartAxisBaseTickMajor\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)<`CHART`\>
+- [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -42,19 +42,23 @@
 
 ### constructor
 
-• **new DChartAxisBaseTickMajor**<`CHART`\>(`parser`)
+• **new DChartAxisBaseTickMajor**\<`CHART`\>(`parser`): [`DChartAxisBaseTickMajor`](DChartAxisBaseTickMajor.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+
+#### Returns
+
+[`DChartAxisBaseTickMajor`](DChartAxisBaseTickMajor.md)\<`CHART`\>
 
 #### Defined in
 
@@ -64,7 +68,7 @@
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -74,7 +78,7 @@ ___
 
 ### \_gridline
 
-• `Protected` **\_gridline**: [`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)<`CHART`\>
+• `Protected` **\_gridline**: [`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)\<`CHART`\>
 
 #### Defined in
 
@@ -94,7 +98,7 @@ ___
 
 ### \_parser
 
-• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
 
 #### Defined in
 
@@ -114,11 +118,11 @@ ___
 
 ### gridline
 
-• `get` **gridline**(): [`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)<`CHART`\>
+• `get` **gridline**(): [`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)<`CHART`\>
+[`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -156,7 +160,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
@@ -193,7 +197,7 @@ ___
 
 ### newShapes
 
-▸ `Protected` **newShapes**(): [`EShape`](../interfaces/EShape.md)[]
+▸ **newShapes**(): [`EShape`](../interfaces/EShape.md)[]
 
 #### Returns
 

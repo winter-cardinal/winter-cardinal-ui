@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableBodyCellSelectPromise
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableBodyCellSelectPromise
 
-# Class: DThemeDarkTableBodyCellSelectPromise<VALUE\>
+# Class: DThemeDarkTableBodyCellSelectPromise\<VALUE\>
 
 [DButton](DButton.md) theme.
 
@@ -12,13 +12,13 @@
 
 ## Hierarchy
 
-- [`DThemeDarkButton`](DThemeDarkButton.md)<`VALUE` \| ``null``\>
+- [`DThemeDarkButton`](DThemeDarkButton.md)\<`VALUE` \| ``null``\>
 
   ↳ **`DThemeDarkTableBodyCellSelectPromise`**
 
 ## Implements
 
-- [`DThemeTableBodyCellSelectPromise`](../interfaces/DThemeTableBodyCellSelectPromise.md)<`VALUE`\>
+- [`DThemeTableBodyCellSelectPromise`](../interfaces/DThemeTableBodyCellSelectPromise.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -120,7 +120,7 @@
 
 ### constructor
 
-• **new DThemeDarkTableBodyCellSelectPromise**<`VALUE`\>(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeDarkTableBodyCellSelectPromise**\<`VALUE`\>(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeDarkTableBodyCellSelectPromise`](DThemeDarkTableBodyCellSelectPromise.md)\<`VALUE`\>
 
 #### Type parameters
 
@@ -135,6 +135,10 @@
 | `backgroundColor` | `number` | `0x484848` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeDarkTableBodyCellSelectPromise`](DThemeDarkTableBodyCellSelectPromise.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1088,7 +1092,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1112,7 +1116,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1196,7 +1200,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1220,7 +1224,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -2191,14 +2195,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `VALUE`\>
 
 #### Implementation of
 

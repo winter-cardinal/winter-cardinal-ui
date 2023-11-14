@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesPointComputedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesPointComputedImpl
 
 # Class: DChartSeriesPointComputedImpl
 
@@ -25,7 +25,7 @@
 
 ### constructor
 
-• **new DChartSeriesPointComputedImpl**(`x`, `y`)
+• **new DChartSeriesPointComputedImpl**(`x`, `y`): [`DChartSeriesPointComputedImpl`](DChartSeriesPointComputedImpl.md)
 
 #### Parameters
 
@@ -33,6 +33,10 @@
 | :------ | :------ |
 | `x` | `number` |
 | `y` | `number` |
+
+#### Returns
+
+[`DChartSeriesPointComputedImpl`](DChartSeriesPointComputedImpl.md)
 
 #### Defined in
 
@@ -70,7 +74,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`base`, `index`, `point`, `x`, `y`): [`DChartSeriesPointComputed`](../interfaces/DChartSeriesPointComputed.md)
+▸ **from**(`base`, `index`, `point`, `x`, `y`): [`DChartSeriesPointComputed`](../interfaces/DChartSeriesPointComputed.md)
 
 #### Parameters
 

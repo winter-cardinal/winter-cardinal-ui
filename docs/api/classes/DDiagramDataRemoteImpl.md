@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramDataRemoteImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramDataRemoteImpl
 
 # Class: DDiagramDataRemoteImpl
 
@@ -24,13 +24,17 @@
 
 ### constructor
 
-• **new DDiagramDataRemoteImpl**(`options?`)
+• **new DDiagramDataRemoteImpl**(`options?`): [`DDiagramDataRemoteImpl`](DDiagramDataRemoteImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DDiagramDataRemoteOptions`](../interfaces/DDiagramDataRemoteOptions.md) |
+
+#### Returns
+
+[`DDiagramDataRemoteImpl`](DDiagramDataRemoteImpl.md)
 
 #### Defined in
 

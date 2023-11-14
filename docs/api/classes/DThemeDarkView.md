@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkView
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkView
 
 # Class: DThemeDarkView
 
@@ -37,7 +37,11 @@
 
 ### constructor
 
-• **new DThemeDarkView**()
+• **new DThemeDarkView**(): [`DThemeDarkView`](DThemeDarkView.md)
+
+#### Returns
+
+[`DThemeDarkView`](DThemeDarkView.md)
 
 ## Methods
 

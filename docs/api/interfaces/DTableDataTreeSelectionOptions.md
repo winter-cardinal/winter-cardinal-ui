@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeSelectionOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeSelectionOptions
 
 # Interface: DTableDataTreeSelectionOptions
 
@@ -19,7 +19,7 @@
 
 ### on
 
-• `Optional` **on**: [`DTableDataSelectionOnOptions`](DTableDataSelectionOnOptions.md)<`any`\>
+• `Optional` **on**: [`DTableDataSelectionOnOptions`](DTableDataSelectionOnOptions.md)\<`any`\>
 
 #### Inherited from
 

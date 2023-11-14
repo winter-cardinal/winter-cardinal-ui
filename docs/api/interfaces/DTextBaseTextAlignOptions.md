@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTextBaseTextAlignOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTextBaseTextAlignOptions
 
 # Interface: DTextBaseTextAlignOptions
 
@@ -15,7 +15,7 @@
 
 ### horizontal
 
-• `Optional` **horizontal**: ``"CENTER"`` \| ``"RIGHT"`` \| ``"LEFT"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+• `Optional` **horizontal**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Defined in
 

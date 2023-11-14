@@ -1,13 +1,13 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptionParser
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseOptionParser
 
-# Class: DChartAxisBaseOptionParser<THEME, OPTIONS\>
+# Class: DChartAxisBaseOptionParser\<THEME, OPTIONS\>
 
 ## Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `OPTIONS` | extends [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> = [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\> = [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\> |
 
 ## Table of contents
 
@@ -72,14 +72,14 @@
 
 ### constructor
 
-• **new DChartAxisBaseOptionParser**<`THEME`, `OPTIONS`\>(`theme`, `options?`)
+• **new DChartAxisBaseOptionParser**\<`THEME`, `OPTIONS`\>(`theme`, `options?`): [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `OPTIONS` | extends [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`, `OPTIONS`\> = [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\> = [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\> |
 
 #### Parameters
 
@@ -87,6 +87,10 @@
 | :------ | :------ |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, `OPTIONS`\>
 
 #### Defined in
 
@@ -126,7 +130,7 @@ ___
 
 ### label
 
-• **label**: `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+• **label**: `undefined` \| [`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
@@ -166,7 +170,7 @@ ___
 
 ### toBar
 
-▸ `Protected` **toBar**(`theme`, `options?`): [`DChartAxisBaseOptionParserBar`](../interfaces/DChartAxisBaseOptionParserBar.md)
+▸ **toBar**(`theme`, `options?`): [`DChartAxisBaseOptionParserBar`](../interfaces/DChartAxisBaseOptionParserBar.md)
 
 #### Parameters
 
@@ -187,7 +191,7 @@ ___
 
 ### toBarStroke
 
-▸ `Protected` **toBarStroke**(`theme`, `options?`): `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+▸ **toBarStroke**(`theme`, `options?`): `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Parameters
 
@@ -198,7 +202,7 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+`Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Defined in
 
@@ -208,7 +212,7 @@ ___
 
 ### toGuide
 
-▸ `Protected` **toGuide**(`theme`, `options?`): [`DChartAxisBaseOptionParserGuide`](../interfaces/DChartAxisBaseOptionParserGuide.md)
+▸ **toGuide**(`theme`, `options?`): [`DChartAxisBaseOptionParserGuide`](../interfaces/DChartAxisBaseOptionParserGuide.md)
 
 #### Parameters
 
@@ -229,7 +233,7 @@ ___
 
 ### toLabel
 
-▸ `Protected` **toLabel**(`theme`, `options?`): `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+▸ **toLabel**(`theme`, `options?`): `undefined` \| [`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Parameters
 
@@ -240,7 +244,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+`undefined` \| [`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
@@ -250,18 +254,18 @@ ___
 
 ### toLabelAlign
 
-▸ `Protected` **toLabelAlign**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+▸ **toLabelAlign**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Defined in
 
@@ -271,7 +275,7 @@ ___
 
 ### toLabelColor
 
-▸ `Protected` **toLabelColor**(`theme`, `options?`): `undefined` \| `number`
+▸ **toLabelColor**(`theme`, `options?`): `undefined` \| `number`
 
 #### Parameters
 
@@ -292,7 +296,7 @@ ___
 
 ### toLabelDirection
 
-▸ `Protected` **toLabelDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+▸ **toLabelDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
 
 #### Parameters
 
@@ -313,18 +317,18 @@ ___
 
 ### toLabelOffset
 
-▸ `Protected` **toLabelOffset**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toLabelOffset**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -334,18 +338,18 @@ ___
 
 ### toLabelOutline
 
-▸ `Protected` **toLabelOutline**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+▸ **toLabelOutline**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
 
 #### Defined in
 
@@ -355,18 +359,18 @@ ___
 
 ### toLabelPadding
 
-▸ `Protected` **toLabelPadding**(`theme`, `options?`): `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toLabelPadding**(`theme`, `options?`): `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -376,18 +380,18 @@ ___
 
 ### toLabelSpacing
 
-▸ `Protected` **toLabelSpacing**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toLabelSpacing**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -397,7 +401,7 @@ ___
 
 ### toPosition
 
-▸ `Protected` **toPosition**(`theme`, `options?`): [`DChartAxisPosition`](../index.md#dchartaxisposition-1)
+▸ **toPosition**(`theme`, `options?`): [`DChartAxisPosition`](../index.md#dchartaxisposition-1)
 
 #### Parameters
 
@@ -418,7 +422,7 @@ ___
 
 ### toStroke
 
-▸ `Protected` **toStroke**(`optionsA`, `optionsB`, `enable`, `color`, `alpha`, `width`, `align`, `side`, `style`): `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+▸ **toStroke**(`optionsA`, `optionsB`, `enable`, `color`, `alpha`, `width`, `align`, `side`, `style`): `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Parameters
 
@@ -436,7 +440,7 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+`Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Defined in
 
@@ -446,7 +450,7 @@ ___
 
 ### toStrokeStyle
 
-▸ `Protected` **toStrokeStyle**(`target?`): `undefined` \| `number`
+▸ **toStrokeStyle**(`target?`): `undefined` \| `number`
 
 #### Parameters
 
@@ -466,7 +470,7 @@ ___
 
 ### toTick
 
-▸ `Protected` **toTick**(`theme`, `options?`): [`DChartAxisBaseOptionParserTick`](../interfaces/DChartAxisBaseOptionParserTick.md)
+▸ **toTick**(`theme`, `options?`): [`DChartAxisBaseOptionParserTick`](../interfaces/DChartAxisBaseOptionParserTick.md)
 
 #### Parameters
 
@@ -487,7 +491,7 @@ ___
 
 ### toTickMajor
 
-▸ `Protected` **toTickMajor**(`theme`, `options?`): [`DChartAxisBaseOptionParserTickMajor`](../interfaces/DChartAxisBaseOptionParserTickMajor.md)
+▸ **toTickMajor**(`theme`, `options?`): [`DChartAxisBaseOptionParserTickMajor`](../interfaces/DChartAxisBaseOptionParserTickMajor.md)
 
 #### Parameters
 
@@ -508,7 +512,7 @@ ___
 
 ### toTickMajorFormatter
 
-▸ `Protected` **toTickMajorFormatter**(`theme`, `options?`): `undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **toTickMajorFormatter**(`theme`, `options?`): `undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 #### Parameters
 
@@ -529,7 +533,7 @@ ___
 
 ### toTickMajorGridline
 
-▸ `Protected` **toTickMajorGridline**(`theme`, `options`, `optionsStyle`, `optionsStroke`): [`DChartAxisBaseOptionParserGridline`](../interfaces/DChartAxisBaseOptionParserGridline.md)
+▸ **toTickMajorGridline**(`theme`, `options`, `optionsStyle`, `optionsStroke`): [`DChartAxisBaseOptionParserGridline`](../interfaces/DChartAxisBaseOptionParserGridline.md)
 
 #### Parameters
 
@@ -552,7 +556,7 @@ ___
 
 ### toTickMajorGridlineStroke
 
-▸ `Protected` **toTickMajorGridlineStroke**(`theme`, `optionsA?`, `optionsB?`): `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+▸ **toTickMajorGridlineStroke**(`theme`, `optionsA?`, `optionsB?`): `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Parameters
 
@@ -564,7 +568,7 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+`Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Defined in
 
@@ -574,7 +578,7 @@ ___
 
 ### toTickMajorStroke
 
-▸ `Protected` **toTickMajorStroke**(`theme`, `optionsA?`, `optionsB?`): `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+▸ **toTickMajorStroke**(`theme`, `optionsA?`, `optionsB?`): `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Parameters
 
@@ -586,7 +590,7 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+`Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Defined in
 
@@ -596,7 +600,7 @@ ___
 
 ### toTickMajorText
 
-▸ `Protected` **toTickMajorText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
+▸ **toTickMajorText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
 
 #### Parameters
 
@@ -617,18 +621,18 @@ ___
 
 ### toTickMajorTextAlign
 
-▸ `Protected` **toTickMajorTextAlign**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+▸ **toTickMajorTextAlign**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Defined in
 
@@ -638,7 +642,7 @@ ___
 
 ### toTickMajorTextColor
 
-▸ `Protected` **toTickMajorTextColor**(`theme`, `options?`): `undefined` \| `number`
+▸ **toTickMajorTextColor**(`theme`, `options?`): `undefined` \| `number`
 
 #### Parameters
 
@@ -659,7 +663,7 @@ ___
 
 ### toTickMajorTextDirection
 
-▸ `Protected` **toTickMajorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+▸ **toTickMajorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
 
 #### Parameters
 
@@ -680,18 +684,18 @@ ___
 
 ### toTickMajorTextOffset
 
-▸ `Protected` **toTickMajorTextOffset**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toTickMajorTextOffset**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -701,18 +705,18 @@ ___
 
 ### toTickMajorTextOutline
 
-▸ `Protected` **toTickMajorTextOutline**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+▸ **toTickMajorTextOutline**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
 
 #### Defined in
 
@@ -722,18 +726,18 @@ ___
 
 ### toTickMajorTextPadding
 
-▸ `Protected` **toTickMajorTextPadding**(`theme`, `options?`): `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toTickMajorTextPadding**(`theme`, `options?`): `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -743,18 +747,18 @@ ___
 
 ### toTickMajorTextSpacing
 
-▸ `Protected` **toTickMajorTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toTickMajorTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -764,7 +768,7 @@ ___
 
 ### toTickMinor
 
-▸ `Protected` **toTickMinor**(`theme`, `options?`): [`DChartAxisBaseOptionParserTickMinor`](../interfaces/DChartAxisBaseOptionParserTickMinor.md)
+▸ **toTickMinor**(`theme`, `options?`): [`DChartAxisBaseOptionParserTickMinor`](../interfaces/DChartAxisBaseOptionParserTickMinor.md)
 
 #### Parameters
 
@@ -785,7 +789,7 @@ ___
 
 ### toTickMinorFormatter
 
-▸ `Protected` **toTickMinorFormatter**(`theme`, `options?`): `undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **toTickMinorFormatter**(`theme`, `options?`): `undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 #### Parameters
 
@@ -806,7 +810,7 @@ ___
 
 ### toTickMinorStroke
 
-▸ `Protected` **toTickMinorStroke**(`theme`, `optionsA?`, `optionsB?`): `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+▸ **toTickMinorStroke**(`theme`, `optionsA?`, `optionsB?`): `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Parameters
 
@@ -818,7 +822,7 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+`Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Defined in
 
@@ -828,7 +832,7 @@ ___
 
 ### toTickMinorText
 
-▸ `Protected` **toTickMinorText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
+▸ **toTickMinorText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
 
 #### Parameters
 
@@ -849,18 +853,18 @@ ___
 
 ### toTickMinorTextAlign
 
-▸ `Protected` **toTickMinorTextAlign**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+▸ **toTickMinorTextAlign**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Defined in
 
@@ -870,7 +874,7 @@ ___
 
 ### toTickMinorTextColor
 
-▸ `Protected` **toTickMinorTextColor**(`theme`, `options?`): `undefined` \| `number`
+▸ **toTickMinorTextColor**(`theme`, `options?`): `undefined` \| `number`
 
 #### Parameters
 
@@ -891,7 +895,7 @@ ___
 
 ### toTickMinorTextDirection
 
-▸ `Protected` **toTickMinorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+▸ **toTickMinorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
 
 #### Parameters
 
@@ -912,18 +916,18 @@ ___
 
 ### toTickMinorTextOffset
 
-▸ `Protected` **toTickMinorTextOffset**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toTickMinorTextOffset**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -933,18 +937,18 @@ ___
 
 ### toTickMinorTextOutline
 
-▸ `Protected` **toTickMinorTextOutline**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+▸ **toTickMinorTextOutline**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
 
 #### Defined in
 
@@ -954,18 +958,18 @@ ___
 
 ### toTickMinorTextPadding
 
-▸ `Protected` **toTickMinorTextPadding**(`theme`, `options?`): `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toTickMinorTextPadding**(`theme`, `options?`): `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -975,18 +979,18 @@ ___
 
 ### toTickMinorTextSpacing
 
-▸ `Protected` **toTickMinorTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+▸ **toTickMinorTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | `THEME` |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `options?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+`undefined` \| `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -996,7 +1000,7 @@ ___
 
 ### toTickPosition
 
-▸ `Protected` **toTickPosition**(`tickPosition`): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
+▸ **toTickPosition**(`tickPosition`): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
 
 #### Parameters
 

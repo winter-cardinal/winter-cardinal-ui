@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementClipperData
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementClipperData
 
 # Interface: UtilHtmlElementClipperData
 
@@ -14,7 +14,7 @@
 
 ### creator
 
-• **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+• **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Defined in
 
@@ -34,7 +34,7 @@ ___
 
 ### styler
 
-• **styler**: [`UtilHtmlElementStyler`](../index.md#utilhtmlelementstyler)<`HTMLDivElement`\>
+• **styler**: [`UtilHtmlElementStyler`](../index.md#utilhtmlelementstyler)\<`HTMLDivElement`\>
 
 #### Defined in
 

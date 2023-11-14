@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelection
 
-# Interface: DListDataSelection<ITEM\>
+# Interface: DListDataSelection\<ITEM\>
 
 ## Type parameters
 
@@ -113,7 +113,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 Alias method for `on`
 
@@ -127,7 +127,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 #### Inherited from
 
@@ -251,7 +251,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -394,7 +394,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 Alias method for `removeListener`
 
@@ -409,7 +409,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 #### Inherited from
 
@@ -423,7 +423,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+▸ **on**(`event`, `fn`, `context?`): [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 Add a listener for a given event.
 
@@ -437,7 +437,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 `this`.
 
@@ -453,7 +453,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+▸ **once**(`event`, `fn`, `context?`): [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 Add a one-time listener for a given event.
 
@@ -467,7 +467,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 `this`.
 
@@ -507,7 +507,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+▸ **removeAllListeners**(`event?`): [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -519,7 +519,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 `this`.
 
@@ -535,7 +535,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 Remove the listeners of a given event.
 
@@ -550,7 +550,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 `this`.
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerColorAndAlpha
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerColorAndAlpha
 
 # Class: DPickerColorAndAlpha
 
@@ -29,7 +29,7 @@ A color and an alpha.
 
 ### constructor
 
-• **new DPickerColorAndAlpha**(`colorAndAlpha`, `onColorChange`, `onAlphaChange`)
+• **new DPickerColorAndAlpha**(`colorAndAlpha`, `onColorChange`, `onAlphaChange`): [`DPickerColorAndAlpha`](DPickerColorAndAlpha.md)
 
 #### Parameters
 
@@ -38,6 +38,10 @@ A color and an alpha.
 | `colorAndAlpha` | [`DColorAndAlpha`](../interfaces/DColorAndAlpha.md) |
 | `onColorChange` | (`color`: `number`) => `void` |
 | `onAlphaChange` | (`alpha`: `number`) => `void` |
+
+#### Returns
+
+[`DPickerColorAndAlpha`](DPickerColorAndAlpha.md)
 
 #### Defined in
 

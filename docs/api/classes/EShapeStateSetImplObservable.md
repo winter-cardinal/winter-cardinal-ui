@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeStateSetImplObservable
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeStateSetImplObservable
 
 # Class: EShapeStateSetImplObservable
 
@@ -205,13 +205,17 @@
 
 ### constructor
 
-• **new EShapeStateSetImplObservable**(`onChange`)
+• **new EShapeStateSetImplObservable**(`onChange`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `onChange` | [`DBaseStateSetImplObservableOnChange`](../index.md#dbasestatesetimplobservableonchange) |
+
+#### Returns
+
+[`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Inherited from
 
@@ -281,7 +285,7 @@ ___
 
 ### \_local
 
-• `Protected` **\_local**: `Map`<`string`, ``null`` \| `number`\>
+• `Protected` **\_local**: `Map`\<`string`, ``null`` \| `number`\>
 
 #### Inherited from
 
@@ -2291,11 +2295,11 @@ ___
 
 ### local
 
-• `get` **local**(): `Map`<`string`, ``null`` \| `number`\>
+• `get` **local**(): `Map`\<`string`, ``null`` \| `number`\>
 
 #### Returns
 
-`Map`<`string`, ``null`` \| `number`\>
+`Map`\<`string`, ``null`` \| `number`\>
 
 #### Inherited from
 
@@ -2967,7 +2971,7 @@ ___
 
 ### saved
 
-• `Protected` `get` **saved**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+• `get` **saved**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Returns
 
@@ -3720,7 +3724,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L154)
 
-▸ **addAll**(...`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **addAll**(`...states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -3744,7 +3748,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L156)
 
-▸ **addAll**(...`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **addAll**(`...states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -3772,7 +3776,7 @@ ___
 
 ### addAllObject
 
-▸ `Protected` **addAllObject**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **addAllObject**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -3796,7 +3800,7 @@ ___
 
 ### addAllString
 
-▸ `Protected` **addAllString**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **addAllString**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -3820,7 +3824,7 @@ ___
 
 ### begin
 
-▸ `Protected` **begin**(): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **begin**(): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Returns
 
@@ -3838,7 +3842,7 @@ ___
 
 ### checkAdded
 
-▸ `Protected` **checkAdded**(`added`, `value`): `boolean`
+▸ **checkAdded**(`added`, `value`): `boolean`
 
 #### Parameters
 
@@ -3863,7 +3867,7 @@ ___
 
 ### checkAddedsObject
 
-▸ `Protected` **checkAddedsObject**(`states`): `boolean`
+▸ **checkAddedsObject**(`states`): `boolean`
 
 #### Parameters
 
@@ -3887,7 +3891,7 @@ ___
 
 ### checkAddedsString
 
-▸ `Protected` **checkAddedsString**(`states`): `boolean`
+▸ **checkAddedsString**(`states`): `boolean`
 
 #### Parameters
 
@@ -3911,7 +3915,7 @@ ___
 
 ### checkRemoved
 
-▸ `Protected` **checkRemoved**(`removed`): `boolean`
+▸ **checkRemoved**(`removed`): `boolean`
 
 #### Parameters
 
@@ -3935,7 +3939,7 @@ ___
 
 ### checkRemovedsObject
 
-▸ `Protected` **checkRemovedsObject**(`states`): `boolean`
+▸ **checkRemovedsObject**(`states`): `boolean`
 
 #### Parameters
 
@@ -3959,7 +3963,7 @@ ___
 
 ### checkRemovedsString
 
-▸ `Protected` **checkRemovedsString**(`states`): `boolean`
+▸ **checkRemovedsString**(`states`): `boolean`
 
 #### Parameters
 
@@ -4033,7 +4037,7 @@ ___
 
 ### doSet
 
-▸ `Protected` **doSet**(`added`, `value`, `removed?`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **doSet**(`added`, `value`, `removed?`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4087,7 +4091,7 @@ ___
 
 ### end
 
-▸ `Protected` **end**(): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **end**(): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Returns
 
@@ -4208,7 +4212,7 @@ ___
 
 ### newBlinker
 
-▸ `Protected` **newBlinker**(): [`DBaseStateSetBlinker`](../interfaces/DBaseStateSetBlinker.md)
+▸ **newBlinker**(): [`DBaseStateSetBlinker`](../interfaces/DBaseStateSetBlinker.md)
 
 #### Returns
 
@@ -4226,7 +4230,7 @@ ___
 
 ### newTicker
 
-▸ `Protected` **newTicker**(): [`DBaseStateSetTicker`](../interfaces/DBaseStateSetTicker.md)
+▸ **newTicker**(): [`DBaseStateSetTicker`](../interfaces/DBaseStateSetTicker.md)
 
 #### Returns
 
@@ -4279,7 +4283,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(`newState`, `oldState`): `void`
+▸ **onChange**(`newState`, `oldState`): `void`
 
 #### Parameters
 
@@ -4433,7 +4437,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L237)
 
-▸ **removeAll**(...`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **removeAll**(`...states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4457,7 +4461,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L239)
 
-▸ **removeAll**(...`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **removeAll**(`...states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4509,7 +4513,7 @@ ___
 
 ### removeAllMatcher
 
-▸ `Protected` **removeAllMatcher**(`matcher`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **removeAllMatcher**(`matcher`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4533,7 +4537,7 @@ ___
 
 ### removeAllObject
 
-▸ `Protected` **removeAllObject**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **removeAllObject**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4557,7 +4561,7 @@ ___
 
 ### removeAllString
 
-▸ `Protected` **removeAllString**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **removeAllString**(`states`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4841,7 +4845,7 @@ ___
 
 ### setAllObject
 
-▸ `Protected` **setAllObject**(`addeds`, `removeds`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **setAllObject**(`addeds`, `removeds`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 
@@ -4866,7 +4870,7 @@ ___
 
 ### setAllString
 
-▸ `Protected` **setAllString**(`addeds`, `removeds`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
+▸ **setAllString**(`addeds`, `removeds`): [`EShapeStateSetImplObservable`](EShapeStateSetImplObservable.md)
 
 #### Parameters
 

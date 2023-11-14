@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DViewGestureOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DViewGestureOptions
 
 # Interface: DViewGestureOptions
 
@@ -21,7 +21,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`UtilGestureCheckerOptions`](UtilGestureCheckerOptions.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
+• `Optional` **checker**: [`UtilGestureCheckerOptions`](UtilGestureCheckerOptions.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 

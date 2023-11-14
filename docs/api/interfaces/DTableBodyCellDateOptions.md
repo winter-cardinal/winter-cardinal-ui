@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellDateOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellDateOptions
 
-# Interface: DTableBodyCellDateOptions<ROW, THEME\>
+# Interface: DTableBodyCellDateOptions\<ROW, THEME\>
 
 [DButtonDate](../classes/DButtonDate.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DButtonDateOptions`](DButtonDateOptions.md)<`THEME`\>
+- [`DButtonDateOptions`](DButtonDateOptions.md)\<`THEME`\>
 
   ↳ **`DTableBodyCellDateOptions`**
 
@@ -138,7 +138,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -154,7 +154,7 @@ ___
 
 ### dialog
 
-• `Optional` **dialog**: [`DDialogDateOptions`](DDialogDateOptions.md)<[`DThemeDialogDate`](DThemeDialogDate.md)\>
+• `Optional` **dialog**: [`DDialogDateOptions`](DDialogDateOptions.md)\<[`DThemeDialogDate`](DThemeDialogDate.md)\>
 
 #### Inherited from
 
@@ -168,7 +168,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -219,7 +219,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -265,7 +265,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DButtonDateOnOptions`](DButtonDateOnOptions.md)<`any`\>
+• `Optional` **on**: [`DButtonDateOnOptions`](DButtonDateOnOptions.md)\<`any`\>
 
 Mappings of event names and handlers.
 
@@ -338,7 +338,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableBodyCellDateOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -419,7 +419,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`Date`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`Date`\>
 
 #### Inherited from
 

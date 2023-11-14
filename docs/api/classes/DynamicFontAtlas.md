@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicFontAtlas
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicFontAtlas
 
 # Class: DynamicFontAtlas
 
@@ -57,7 +57,7 @@
 
 ### constructor
 
-• **new DynamicFontAtlas**(`fontId`, `fontSize`, `fontColor`, `resolution`)
+• **new DynamicFontAtlas**(`fontId`, `fontSize`, `fontColor`, `resolution`): [`DynamicFontAtlas`](DynamicFontAtlas.md)
 
 #### Parameters
 
@@ -67,6 +67,10 @@
 | `fontSize` | `number` |
 | `fontColor` | `number` |
 | `resolution` | `number` |
+
+#### Returns
+
+[`DynamicFontAtlas`](DynamicFontAtlas.md)
 
 #### Defined in
 
@@ -284,7 +288,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L301)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:303](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L303)
 
 ___
 
@@ -333,13 +337,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L166)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L168)
 
 ___
 
 ### add\_
 
-▸ `Protected` **add_**(`id`, `character`, `characters`, `type`): `void`
+▸ **add_**(`id`, `character`, `characters`, `type`): `void`
 
 #### Parameters
 
@@ -362,7 +366,7 @@ ___
 
 ### cleanup\_
 
-▸ `Protected` **cleanup_**(): `void`
+▸ **cleanup_**(): `void`
 
 #### Returns
 
@@ -370,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L152)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L154)
 
 ___
 
@@ -384,7 +388,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:305](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L305)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L307)
 
 ___
 
@@ -404,7 +408,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L186)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L188)
 
 ___
 
@@ -424,7 +428,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L190)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L192)
 
 ___
 
@@ -438,7 +442,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L198)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L200)
 
 ___
 
@@ -452,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:293](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L293)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L295)
 
 ___
 
@@ -466,13 +470,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:297](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L297)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L299)
 
 ___
 
 ### isIgnored
 
-▸ `Protected` **isIgnored**(`character`): `boolean`
+▸ **isIgnored**(`character`): `boolean`
 
 #### Parameters
 
@@ -486,7 +490,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L124)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L126)
 
 ___
 
@@ -506,13 +510,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L178)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L180)
 
 ___
 
 ### remove\_
 
-▸ `Protected` **remove_**(`id`, `characters`): `void`
+▸ **remove_**(`id`, `characters`): `void`
 
 #### Parameters
 
@@ -527,13 +531,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L140)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L142)
 
 ___
 
 ### toPadding
 
-▸ `Protected` **toPadding**(`fontSize`): `number`
+▸ **toPadding**(`fontSize`): `number`
 
 #### Parameters
 
@@ -567,7 +571,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L317)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L319)
 
 ___
 
@@ -581,4 +585,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L228)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas.ts#L230)

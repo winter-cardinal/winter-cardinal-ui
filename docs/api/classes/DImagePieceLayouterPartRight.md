@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImagePieceLayouterPartRight
+[Winter Cardinal UI - v0.374.0](../index.md) / DImagePieceLayouterPartRight
 
 # Class: DImagePieceLayouterPartRight
 
@@ -36,7 +36,11 @@
 
 ### constructor
 
-• **new DImagePieceLayouterPartRight**()
+• **new DImagePieceLayouterPartRight**(): [`DImagePieceLayouterPartRight`](DImagePieceLayouterPartRight.md)
+
+#### Returns
+
+[`DImagePieceLayouterPartRight`](DImagePieceLayouterPartRight.md)
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeRenderer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeRenderer
 
 # Class: EShapeRenderer
 
@@ -41,13 +41,17 @@
 
 ### constructor
 
-• **new EShapeRenderer**(`renderer`)
+• **new EShapeRenderer**(`renderer`): [`EShapeRenderer`](EShapeRenderer.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `renderer` | `Renderer` |
+
+#### Returns
+
+[`EShapeRenderer`](EShapeRenderer.md)
 
 #### Overrides
 
@@ -163,7 +167,7 @@ ___
 
 ### getBufferSizeMax
 
-▸ `Protected` **getBufferSizeMax**(`renderer`): `number`
+▸ **getBufferSizeMax**(`renderer`): `number`
 
 #### Parameters
 

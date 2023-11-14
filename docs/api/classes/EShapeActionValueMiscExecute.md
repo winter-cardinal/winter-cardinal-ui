@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueMiscExecute
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueMiscExecute
 
 # Class: EShapeActionValueMiscExecute
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`EXECUTE`](../index.md#execute)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<typeof [`EXECUTE`](../index.md#execute)\>
 
   ↳ **`EShapeActionValueMiscExecute`**
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new EShapeActionValueMiscExecute**(`condition`, `target`)
+• **new EShapeActionValueMiscExecute**(`condition`, `target`): [`EShapeActionValueMiscExecute`](EShapeActionValueMiscExecute.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@
 | :------ | :------ |
 | `condition` | `string` |
 | `target` | `string` |
+
+#### Returns
+
+[`EShapeActionValueMiscExecute`](EShapeActionValueMiscExecute.md)
 
 #### Overrides
 
@@ -122,7 +126,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -224,7 +228,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueMiscExecute`](EShapeActionValueMiscExecute.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueMiscExecute`](EShapeActionValueMiscExecute.md)
 
 #### Parameters
 

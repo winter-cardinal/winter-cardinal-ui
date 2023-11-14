@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisGuideSimpleShapeStrokeOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisGuideSimpleShapeStrokeOptions
 
 # Interface: DChartAxisGuideSimpleShapeStrokeOptions
 
@@ -58,7 +58,7 @@ ___
 
 ### side
 
-• `Optional` **side**: `number` \| ``"NONE"`` \| ``"ALL"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_OR_LEFT"`` \| ``"TOP_OR_RIGHT"`` \| ``"BOTTOM_OR_LEFT"`` \| ``"BOTTOM_OR_RIGHT"``
+• `Optional` **side**: `number` \| ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"ALL"`` \| ``"TOP_OR_LEFT"`` \| ``"TOP_OR_RIGHT"`` \| ``"BOTTOM_OR_LEFT"`` \| ``"BOTTOM_OR_RIGHT"``
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapePointsMarkerNoop
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapePointsMarkerNoop
 
 # Class: EShapePointsMarkerNoop
 
@@ -39,7 +39,11 @@
 
 ### constructor
 
-• **new EShapePointsMarkerNoop**()
+• **new EShapePointsMarkerNoop**(): [`EShapePointsMarkerNoop`](EShapePointsMarkerNoop.md)
+
+#### Returns
+
+[`EShapePointsMarkerNoop`](EShapePointsMarkerNoop.md)
 
 ## Properties
 

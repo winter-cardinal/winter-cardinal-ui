@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartPlotArea
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartPlotArea
 
 # Class: DThemeDarkChartPlotArea
 
@@ -70,7 +70,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartPlotArea**()
+• **new DThemeDarkChartPlotArea**(): [`DThemeDarkChartPlotArea`](DThemeDarkChartPlotArea.md)
+
+#### Returns
+
+[`DThemeDarkChartPlotArea`](DThemeDarkChartPlotArea.md)
 
 #### Inherited from
 

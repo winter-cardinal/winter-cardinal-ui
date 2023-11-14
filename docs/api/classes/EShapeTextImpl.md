@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextImpl
 
 # Class: EShapeTextImpl
 
@@ -61,7 +61,7 @@
 
 ### constructor
 
-• **new EShapeTextImpl**(`parent`, `value`, `color`, `alpha`, `family`, `size`)
+• **new EShapeTextImpl**(`parent`, `value`, `color`, `alpha`, `family`, `size`): [`EShapeTextImpl`](EShapeTextImpl.md)
 
 #### Parameters
 
@@ -73,6 +73,10 @@
 | `alpha` | `number` |
 | `family` | `string` |
 | `size` | `number` |
+
+#### Returns
+
+[`EShapeTextImpl`](EShapeTextImpl.md)
 
 #### Defined in
 
@@ -738,7 +742,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\> |
+| `target?` | [`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\> |
 
 #### Returns
 

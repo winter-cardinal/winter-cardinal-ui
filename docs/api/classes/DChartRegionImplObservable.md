@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartRegionImplObservable
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartRegionImplObservable
 
 # Class: DChartRegionImplObservable
 
@@ -33,7 +33,7 @@
 
 ### constructor
 
-• **new DChartRegionImplObservable**(`from`, `to`, `onChange`)
+• **new DChartRegionImplObservable**(`from`, `to`, `onChange`): [`DChartRegionImplObservable`](DChartRegionImplObservable.md)
 
 #### Parameters
 
@@ -42,6 +42,10 @@
 | `from` | `number` |
 | `to` | `number` |
 | `onChange` | () => `void` |
+
+#### Returns
+
+[`DChartRegionImplObservable`](DChartRegionImplObservable.md)
 
 #### Defined in
 

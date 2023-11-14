@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDialogSelectList
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDialogSelectList
 
 # Class: DThemeWhiteDialogSelectList
 
@@ -72,7 +72,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDialogSelectList**()
+• **new DThemeWhiteDialogSelectList**(): [`DThemeWhiteDialogSelectList`](DThemeWhiteDialogSelectList.md)
+
+#### Returns
+
+[`DThemeWhiteDialogSelectList`](DThemeWhiteDialogSelectList.md)
 
 #### Inherited from
 

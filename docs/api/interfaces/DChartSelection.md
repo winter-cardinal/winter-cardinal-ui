@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelection
 
-# Interface: DChartSelection<CHART\>
+# Interface: DChartSelection\<CHART\>
 
 ## Type parameters
 
@@ -41,7 +41,7 @@
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 Alias method for `on`
 
@@ -55,7 +55,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)<`CHART`\>
+[`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -75,7 +75,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 
 #### Returns
 
@@ -89,7 +89,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -190,7 +190,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 Alias method for `removeListener`
 
@@ -205,7 +205,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)<`CHART`\>
+[`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -219,7 +219,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
+▸ **on**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 Add a listener for a given event.
 
@@ -233,7 +233,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)<`CHART`\>
+[`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 `this`.
 
@@ -263,7 +263,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
+▸ **once**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 Add a one-time listener for a given event.
 
@@ -277,7 +277,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)<`CHART`\>
+[`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 `this`.
 
@@ -293,7 +293,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
+▸ **removeAllListeners**(`event?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -305,7 +305,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)<`CHART`\>
+[`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 `this`.
 
@@ -321,7 +321,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 Remove the listeners of a given event.
 
@@ -336,7 +336,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)<`CHART`\>
+[`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 `this`.
 

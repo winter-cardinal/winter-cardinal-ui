@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellColorOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellColorOptions
 
-# Interface: DTableBodyCellColorOptions<ROW, THEME\>
+# Interface: DTableBodyCellColorOptions\<ROW, THEME\>
 
 [DButtonColor](../classes/DButtonColor.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DButtonColorOptions`](DButtonColorOptions.md)<`THEME`\>
+- [`DButtonColorOptions`](DButtonColorOptions.md)\<`THEME`\>
 
   ↳ **`DTableBodyCellColorOptions`**
 
@@ -138,7 +138,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -154,7 +154,7 @@ ___
 
 ### dialog
 
-• `Optional` **dialog**: [`DDialogColorOptions`](DDialogColorOptions.md)<[`DThemeDialogColor`](DThemeDialogColor.md)\>
+• `Optional` **dialog**: [`DDialogColorOptions`](DDialogColorOptions.md)\<[`DThemeDialogColor`](DThemeDialogColor.md)\>
 
 A dialog to pick a color.
 
@@ -170,7 +170,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -221,7 +221,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -267,7 +267,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DButtonColorOnOptions`](DButtonColorOnOptions.md)<`any`\>
+• `Optional` **on**: [`DButtonColorOnOptions`](DButtonColorOnOptions.md)\<`any`\>
 
 Mappings of event names and handlers.
 
@@ -340,7 +340,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableBodyCellColorOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -421,7 +421,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<[`DColorAndAlpha`](DColorAndAlpha.md)\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<[`DColorAndAlpha`](DColorAndAlpha.md)\>
 
 #### Inherited from
 

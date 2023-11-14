@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkBoard
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkBoard
 
 # Class: DThemeDarkBoard
 
@@ -73,7 +73,11 @@
 
 ### constructor
 
-• **new DThemeDarkBoard**()
+• **new DThemeDarkBoard**(): [`DThemeDarkBoard`](DThemeDarkBoard.md)
+
+#### Returns
+
+[`DThemeDarkBoard`](DThemeDarkBoard.md)
 
 #### Inherited from
 

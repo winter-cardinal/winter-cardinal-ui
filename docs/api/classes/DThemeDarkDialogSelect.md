@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkDialogSelect
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDialogSelect
 
-# Class: DThemeDarkDialogSelect<VALUE\>
+# Class: DThemeDarkDialogSelect\<VALUE\>
 
 [DDialogSelect](DDialogSelect.md) theme.
 
@@ -18,7 +18,7 @@
 
 ## Implements
 
-- [`DThemeDialogSelect`](../interfaces/DThemeDialogSelect.md)<`VALUE`\>
+- [`DThemeDialogSelect`](../interfaces/DThemeDialogSelect.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -40,6 +40,7 @@
 - [getBorderMask](DThemeDarkDialogSelect.md#getbordermask)
 - [getBorderTexture](DThemeDarkDialogSelect.md#getbordertexture)
 - [getBorderWidth](DThemeDarkDialogSelect.md#getborderwidth)
+- [getCategoryDismissLabel](DThemeDarkDialogSelect.md#getcategorydismisslabel)
 - [getClearType](DThemeDarkDialogSelect.md#getcleartype)
 - [getColor](DThemeDarkDialogSelect.md#getcolor)
 - [getContent](DThemeDarkDialogSelect.md#getcontent)
@@ -78,6 +79,7 @@
 - [getWidth](DThemeDarkDialogSelect.md#getwidth)
 - [getX](DThemeDarkDialogSelect.md#getx)
 - [getY](DThemeDarkDialogSelect.md#gety)
+- [isCategoryDismissable](DThemeDarkDialogSelect.md#iscategorydismissable)
 - [isGestureEnabled](DThemeDarkDialogSelect.md#isgestureenabled)
 - [isSticky](DThemeDarkDialogSelect.md#issticky)
 - [newAnimation](DThemeDarkDialogSelect.md#newanimation)
@@ -89,13 +91,17 @@
 
 ### constructor
 
-• **new DThemeDarkDialogSelect**<`VALUE`\>()
+• **new DThemeDarkDialogSelect**\<`VALUE`\>(): [`DThemeDarkDialogSelect`](DThemeDarkDialogSelect.md)\<`VALUE`\>
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `VALUE` |
+
+#### Returns
+
+[`DThemeDarkDialogSelect`](DThemeDarkDialogSelect.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -447,6 +453,24 @@ Returns a border width.
 
 ___
 
+### getCategoryDismissLabel
+
+▸ **getCategoryDismissLabel**(): `string`
+
+#### Returns
+
+`string`
+
+#### Implementation of
+
+[DThemeDialogSelect](../interfaces/DThemeDialogSelect.md).[getCategoryDismissLabel](../interfaces/DThemeDialogSelect.md#getcategorydismisslabel)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-select.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-select.ts#L31)
+
+___
+
 ### getClearType
 
 ▸ **getClearType**(): `number`
@@ -502,11 +526,11 @@ ___
 
 ### getContent
 
-▸ **getContent**(): `undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+▸ **getContent**(): `undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
 
 #### Returns
 
-`undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+`undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
 
 #### Implementation of
 
@@ -712,11 +736,11 @@ ___
 
 ### getFooter
 
-▸ **getFooter**(): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+▸ **getFooter**(): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
 
 #### Implementation of
 
@@ -762,11 +786,11 @@ ___
 
 ### getHeader
 
-▸ **getHeader**(): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+▸ **getHeader**(): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
 
 #### Implementation of
 
@@ -850,11 +874,11 @@ ___
 
 ### getLayout
 
-▸ **getLayout**(): `undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
+▸ **getLayout**(): `undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Returns
 
-`undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
+`undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Implementation of
 
@@ -1394,6 +1418,24 @@ Returns a Y coordinate.
 
 ___
 
+### isCategoryDismissable
+
+▸ **isCategoryDismissable**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[DThemeDialogSelect](../interfaces/DThemeDialogSelect.md).[isCategoryDismissable](../interfaces/DThemeDialogSelect.md#iscategorydismissable)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-select.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-select.ts#L27)
+
+___
+
 ### isGestureEnabled
 
 ▸ **isGestureEnabled**(`mode`): `boolean`
@@ -1452,7 +1494,7 @@ ___
 
 ### newAnimation
 
-▸ **newAnimation**(`mode`): ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+▸ **newAnimation**(`mode`): ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Parameters
 
@@ -1462,7 +1504,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Implementation of
 

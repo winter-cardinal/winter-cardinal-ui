@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DControllerCommandImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DControllerCommandImpl
 
 # Class: DControllerCommandImpl
 
@@ -60,7 +60,11 @@
 
 ### constructor
 
-• **new DControllerCommandImpl**()
+• **new DControllerCommandImpl**(): [`DControllerCommandImpl`](DControllerCommandImpl.md)
+
+#### Returns
+
+[`DControllerCommandImpl`](DControllerCommandImpl.md)
 
 #### Overrides
 
@@ -126,7 +130,7 @@ ___
 
 ### cleanup
 
-▸ `Protected` **cleanup**(): `void`
+▸ **cleanup**(): `void`
 
 #### Returns
 
@@ -158,7 +162,7 @@ ___
 
 ### doRedo
 
-▸ `Protected` **doRedo**(): `void`
+▸ **doRedo**(): `void`
 
 #### Returns
 
@@ -172,7 +176,7 @@ ___
 
 ### doUndo
 
-▸ `Protected` **doUndo**(): `void`
+▸ **doUndo**(): `void`
 
 #### Returns
 
@@ -186,7 +190,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -243,7 +247,7 @@ ___
 
 ### execute
 
-▸ `Protected` **execute**(`command`): `void`
+▸ **execute**(`command`): `void`
 
 #### Parameters
 
@@ -377,7 +381,7 @@ ___
 
 ### merge
 
-▸ `Protected` **merge**(`command`): `void`
+▸ **merge**(`command`): `void`
 
 #### Parameters
 
@@ -464,7 +468,7 @@ ___
 
 ### onFail
 
-▸ `Protected` **onFail**(`command`): `void`
+▸ **onFail**(`command`): `void`
 
 #### Parameters
 
@@ -484,7 +488,7 @@ ___
 
 ### onRedoFail
 
-▸ `Protected` **onRedoFail**(`command`): `void`
+▸ **onRedoFail**(`command`): `void`
 
 #### Parameters
 
@@ -504,7 +508,7 @@ ___
 
 ### onRedoSuccess
 
-▸ `Protected` **onRedoSuccess**(`redoed`): `void`
+▸ **onRedoSuccess**(`redoed`): `void`
 
 #### Parameters
 
@@ -524,7 +528,7 @@ ___
 
 ### onSuccess
 
-▸ `Protected` **onSuccess**(`command`): `void`
+▸ **onSuccess**(`command`): `void`
 
 #### Parameters
 
@@ -544,7 +548,7 @@ ___
 
 ### onUndoFail
 
-▸ `Protected` **onUndoFail**(`command`): `void`
+▸ **onUndoFail**(`command`): `void`
 
 #### Parameters
 
@@ -564,7 +568,7 @@ ___
 
 ### onUndoSuccess
 
-▸ `Protected` **onUndoSuccess**(`undoed`): `void`
+▸ **onUndoSuccess**(`undoed`): `void`
 
 #### Parameters
 
@@ -660,7 +664,7 @@ ___
 
 ### remove
 
-▸ `Protected` **remove**(`size`): `boolean`
+▸ **remove**(`size`): `boolean`
 
 #### Parameters
 

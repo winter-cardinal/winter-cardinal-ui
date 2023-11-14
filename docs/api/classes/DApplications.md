@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DApplications
+[Winter Cardinal UI - v0.374.0](../index.md) / DApplications
 
 # Class: DApplications
 
@@ -33,7 +33,11 @@
 
 ### constructor
 
-• **new DApplications**()
+• **new DApplications**(): [`DApplications`](DApplications.md)
+
+#### Returns
+
+[`DApplications`](DApplications.md)
 
 ## Properties
 
@@ -49,7 +53,7 @@
 
 ### add
 
-▸ `Static` **add**(`instance`): `void`
+▸ **add**(`instance`): `void`
 
 #### Parameters
 
@@ -69,7 +73,7 @@ ___
 
 ### find
 
-▸ `Static` **find**(`target`): ``null`` \| [`DApplicationLike`](../interfaces/DApplicationLike.md)
+▸ **find**(`target`): ``null`` \| [`DApplicationLike`](../interfaces/DApplicationLike.md)
 
 #### Parameters
 
@@ -89,7 +93,7 @@ ___
 
 ### first
 
-▸ `Static` **first**(): [`DApplicationLike`](../interfaces/DApplicationLike.md)
+▸ **first**(): [`DApplicationLike`](../interfaces/DApplicationLike.md)
 
 #### Returns
 
@@ -103,7 +107,7 @@ ___
 
 ### get
 
-▸ `Static` **get**(`index`): ``null`` \| [`DApplicationLike`](../interfaces/DApplicationLike.md)
+▸ **get**(`index`): ``null`` \| [`DApplicationLike`](../interfaces/DApplicationLike.md)
 
 #### Parameters
 
@@ -123,7 +127,7 @@ ___
 
 ### getLayer
 
-▸ `Static` **getLayer**(`target`): ``null`` \| [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
+▸ **getLayer**(`target`): ``null`` \| [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
 
 #### Parameters
 
@@ -143,7 +147,7 @@ ___
 
 ### getLayerBase
 
-▸ `Static` **getLayerBase**(`target`): ``null`` \| [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
+▸ **getLayerBase**(`target`): ``null`` \| [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
 
 #### Parameters
 
@@ -163,7 +167,7 @@ ___
 
 ### getLayerOverlay
 
-▸ `Static` **getLayerOverlay**(`target`): ``null`` \| [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
+▸ **getLayerOverlay**(`target`): ``null`` \| [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
 
 #### Parameters
 
@@ -183,7 +187,7 @@ ___
 
 ### getResolution
 
-▸ `Static` **getResolution**(`target`): `number`
+▸ **getResolution**(`target`): `number`
 
 #### Parameters
 
@@ -203,7 +207,7 @@ ___
 
 ### getStage
 
-▸ `Static` `Protected` **getStage**(`target`): ``null`` \| [`DApplicationLayerStageLike`](../interfaces/DApplicationLayerStageLike.md)
+▸ **getStage**(`target`): ``null`` \| [`DApplicationLayerStageLike`](../interfaces/DApplicationLayerStageLike.md)
 
 #### Parameters
 
@@ -223,7 +227,7 @@ ___
 
 ### indexOf
 
-▸ `Static` **indexOf**(`instance`): `number`
+▸ **indexOf**(`instance`): `number`
 
 #### Parameters
 
@@ -243,7 +247,7 @@ ___
 
 ### last
 
-▸ `Static` **last**(): [`DApplicationLike`](../interfaces/DApplicationLike.md)
+▸ **last**(): [`DApplicationLike`](../interfaces/DApplicationLike.md)
 
 #### Returns
 
@@ -257,7 +261,7 @@ ___
 
 ### render
 
-▸ `Static` **render**(`target?`): `void`
+▸ **render**(`target?`): `void`
 
 #### Parameters
 
@@ -277,7 +281,7 @@ ___
 
 ### size
 
-▸ `Static` **size**(): `number`
+▸ **size**(): `number`
 
 #### Returns
 
@@ -291,7 +295,7 @@ ___
 
 ### update
 
-▸ `Static` **update**(`target?`): `void`
+▸ **update**(`target?`): `void`
 
 #### Parameters
 

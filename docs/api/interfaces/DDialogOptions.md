@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogOptions
 
-# Interface: DDialogOptions<THEME, EMITTER\>
+# Interface: DDialogOptions\<THEME, EMITTER\>
 
 [DDialog](../classes/DDialog.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DBaseOptions`](DBaseOptions.md)<`THEME`\>
+- [`DBaseOptions`](DBaseOptions.md)\<`THEME`\>
 
   ↳ **`DDialogOptions`**
 
@@ -59,7 +59,7 @@
 
 ### align
 
-• `Optional` **align**: ``null`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_CENTER"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_CENTER"`` \| ``"BOTTOM_RIGHT"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"RIGHT_BOTTOM"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
+• `Optional` **align**: ``null`` \| ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_RIGHT"`` \| ``"TOP_LEFT"`` \| ``"RIGHT_BOTTOM"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_RIGHT"`` \| ``"TOP_CENTER"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"BOTTOM_CENTER"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
 
 #### Defined in
 
@@ -69,7 +69,7 @@ ___
 
 ### animation
 
-• `Optional` **animation**: [`DAnimation`](DAnimation.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
+• `Optional` **animation**: [`DAnimation`](DAnimation.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 
@@ -169,7 +169,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -216,7 +216,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -260,7 +260,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDialogOnOptions`](DDialogOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DDialogOnOptions`](DDialogOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and handlers.
 
@@ -333,7 +333,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDialogOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.

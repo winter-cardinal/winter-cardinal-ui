@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteButtonColorGradient
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteButtonColorGradient
 
 # Class: DThemeWhiteButtonColorGradient
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteButton`](DThemeWhiteButton.md)<[`DColorGradientObservable`](DColorGradientObservable.md)\>
+- [`DThemeWhiteButton`](DThemeWhiteButton.md)\<[`DColorGradientObservable`](DColorGradientObservable.md)\>
 
   ↳ **`DThemeWhiteButtonColorGradient`**
 
@@ -115,7 +115,7 @@
 
 ### constructor
 
-• **new DThemeWhiteButtonColorGradient**(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeWhiteButtonColorGradient**(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeWhiteButtonColorGradient`](DThemeWhiteButtonColorGradient.md)
 
 #### Parameters
 
@@ -124,6 +124,10 @@
 | `backgroundColor` | `number` | `0xffffff` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeWhiteButtonColorGradient`](DThemeWhiteButtonColorGradient.md)
 
 #### Inherited from
 
@@ -1095,7 +1099,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1119,7 +1123,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1203,7 +1207,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1227,7 +1231,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -1778,7 +1782,7 @@ ___
 
 ### getTextFormatter
 
-▸ **getTextFormatter**(): (`value`: [`DColorGradientObservable`](DColorGradientObservable.md), `caller`: [`DButtonColorGradient`](DButtonColorGradient.md)<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), [`DButtonColorGradientOptions`](../interfaces/DButtonColorGradientOptions.md)<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), `any`\>\>) => `string`
+▸ **getTextFormatter**(): (`value`: [`DColorGradientObservable`](DColorGradientObservable.md), `caller`: [`DButtonColorGradient`](DButtonColorGradient.md)\<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), [`DButtonColorGradientOptions`](../interfaces/DButtonColorGradientOptions.md)\<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), `any`\>\>) => `string`
 
 #### Returns
 
@@ -1791,7 +1795,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `value` | [`DColorGradientObservable`](DColorGradientObservable.md) |
-| `caller` | [`DButtonColorGradient`](DButtonColorGradient.md)<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), [`DButtonColorGradientOptions`](../interfaces/DButtonColorGradientOptions.md)<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), `any`\>\> |
+| `caller` | [`DButtonColorGradient`](DButtonColorGradient.md)\<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), [`DButtonColorGradientOptions`](../interfaces/DButtonColorGradientOptions.md)\<[`DThemeButtonColorGradient`](../interfaces/DThemeButtonColorGradient.md), `any`\>\> |
 
 ##### Returns
 
@@ -2198,14 +2202,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorGradientObservable`](DColorGradientObservable.md)\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorGradientObservable`](DColorGradientObservable.md)\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorGradientObservable`](DColorGradientObservable.md)\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorGradientObservable`](DColorGradientObservable.md)\>
 
 #### Implementation of
 

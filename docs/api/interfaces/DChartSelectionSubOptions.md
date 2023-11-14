@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionSubOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionSubOptions
 
-# Interface: DChartSelectionSubOptions<CHART, EMITTER\>
+# Interface: DChartSelectionSubOptions\<CHART, EMITTER\>
 
 ## Type parameters
 
@@ -35,7 +35,7 @@ ___
 
 ### gridline
 
-• `Optional` **gridline**: [`DChartSelectionContainerOptions`](DChartSelectionContainerOptions.md)<`CHART`\>
+• `Optional` **gridline**: [`DChartSelectionContainerOptions`](DChartSelectionContainerOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -45,7 +45,7 @@ ___
 
 ### label
 
-• `Optional` **label**: [`DChartSelectionContainerOptions`](DChartSelectionContainerOptions.md)<`CHART`\>
+• `Optional` **label**: [`DChartSelectionContainerOptions`](DChartSelectionContainerOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -55,7 +55,7 @@ ___
 
 ### marker
 
-• `Optional` **marker**: [`DChartSelectionShapeOptions`](DChartSelectionShapeOptions.md)<`CHART`\>
+• `Optional` **marker**: [`DChartSelectionShapeOptions`](DChartSelectionShapeOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -65,7 +65,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`EMITTER`\>
 
 #### Defined in
 

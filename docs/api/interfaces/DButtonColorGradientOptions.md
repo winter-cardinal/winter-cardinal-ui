@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonColorGradientOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonColorGradientOptions
 
-# Interface: DButtonColorGradientOptions<THEME, EMITTER\>
+# Interface: DButtonColorGradientOptions\<THEME, EMITTER\>
 
 [DButtonColorGradient](../classes/DButtonColorGradient.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DButtonOptions`](DButtonOptions.md)<[`DColorGradientObservable`](../classes/DColorGradientObservable.md), `THEME`, `EMITTER`\>
+- [`DButtonOptions`](DButtonOptions.md)\<[`DColorGradientObservable`](../classes/DColorGradientObservable.md), `THEME`, `EMITTER`\>
 
   ↳ **`DButtonColorGradientOptions`**
 
@@ -138,7 +138,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -154,7 +154,7 @@ ___
 
 ### dialog
 
-• `Optional` **dialog**: [`DDialogColorGradientOptions`](DDialogColorGradientOptions.md)<[`DThemeDialogColorGradient`](DThemeDialogColorGradient.md)\>
+• `Optional` **dialog**: [`DDialogColorGradientOptions`](DDialogColorGradientOptions.md)\<[`DThemeDialogColorGradient`](DThemeDialogColorGradient.md)\>
 
 #### Defined in
 
@@ -164,7 +164,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -215,7 +215,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -261,7 +261,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DButtonColorGradientOnOptions`](DButtonColorGradientOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DButtonColorGradientOnOptions`](DButtonColorGradientOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and handlers.
 
@@ -334,7 +334,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DButtonColorGradientOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -415,7 +415,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTreeItems
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTreeItems
 
 # Class: DThemeWhiteTreeItems
 
@@ -54,7 +54,7 @@
 
 ### constructor
 
-• **new DThemeWhiteTreeItems**(`baseColor`, `isStripeEnabled`, `isVivid`)
+• **new DThemeWhiteTreeItems**(`baseColor`, `isStripeEnabled`, `isVivid`): [`DThemeWhiteTreeItems`](DThemeWhiteTreeItems.md)
 
 #### Parameters
 
@@ -63,6 +63,10 @@
 | `baseColor` | ``null`` \| `number` |
 | `isStripeEnabled` | `boolean` |
 | `isVivid` | `boolean` |
+
+#### Returns
+
+[`DThemeWhiteTreeItems`](DThemeWhiteTreeItems.md)
 
 #### Inherited from
 

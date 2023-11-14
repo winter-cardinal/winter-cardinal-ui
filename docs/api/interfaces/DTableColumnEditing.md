@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableColumnEditing
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableColumnEditing
 
-# Interface: DTableColumnEditing<ROW_VALUE, CELL_VALUE\>
+# Interface: DTableColumnEditing\<ROW_VALUE, CELL_VALUE\>
 
 ## Type parameters
 
@@ -22,7 +22,7 @@
 
 ### enable
 
-• **enable**: `boolean` \| [`DTableColumnEditable`](../index.md#dtablecolumneditable)<`ROW_VALUE`\>
+• **enable**: `boolean` \| [`DTableColumnEditable`](../index.md#dtablecolumneditable)\<`ROW_VALUE`\>
 
 #### Defined in
 
@@ -32,7 +32,7 @@ ___
 
 ### formatter
 
-• `Optional` **formatter**: [`DTableColumnEditingFormatter`](../index.md#dtablecolumneditingformatter)<`CELL_VALUE`\>
+• `Optional` **formatter**: [`DTableColumnEditingFormatter`](../index.md#dtablecolumneditingformatter)\<`CELL_VALUE`\>
 
 #### Defined in
 
@@ -42,7 +42,7 @@ ___
 
 ### unformatter
 
-• `Optional` **unformatter**: [`DTableColumnEditingUnformatter`](../index.md#dtablecolumneditingunformatter)<`CELL_VALUE`\>
+• `Optional` **unformatter**: [`DTableColumnEditingUnformatter`](../index.md#dtablecolumneditingunformatter)\<`CELL_VALUE`\>
 
 #### Defined in
 
@@ -52,7 +52,7 @@ ___
 
 ### validator
 
-• `Optional` **validator**: [`DTableColumnEditingValidator`](../index.md#dtablecolumneditingvalidator)<`CELL_VALUE`\>
+• `Optional` **validator**: [`DTableColumnEditingValidator`](../index.md#dtablecolumneditingvalidator)\<`CELL_VALUE`\>
 
 #### Defined in
 

@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilInputNumberOperation
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilInputNumberOperation
 
 # Interface: UtilInputNumberOperation
 
 ## Hierarchy
 
-- [`UtilInputInputOperation`](UtilInputInputOperation.md)<`number`\>
+- [`UtilInputInputOperation`](UtilInputInputOperation.md)\<`number`\>
 
   ↳ **`UtilInputNumberOperation`**
 
@@ -73,7 +73,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Optional` **getClipperExRects**(`result`): `void`
+▸ **getClipperExRects**(`result`): `void`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteLink
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteLink
 
 # Class: DThemeWhiteLink
 
@@ -24,7 +24,11 @@
 
 ### constructor
 
-• **new DThemeWhiteLink**()
+• **new DThemeWhiteLink**(): [`DThemeWhiteLink`](DThemeWhiteLink.md)
+
+#### Returns
+
+[`DThemeWhiteLink`](DThemeWhiteLink.md)
 
 ## Methods
 
@@ -54,7 +58,7 @@ ___
 
 ### getLabelOpenInNewWindow
 
-▸ `Protected` **getLabelOpenInNewWindow**(): `string`
+▸ **getLabelOpenInNewWindow**(): `string`
 
 #### Returns
 
@@ -68,7 +72,7 @@ ___
 
 ### getLabelOpenLink
 
-▸ `Protected` **getLabelOpenLink**(): `string`
+▸ **getLabelOpenLink**(): `string`
 
 #### Returns
 
@@ -82,11 +86,11 @@ ___
 
 ### getMenuOptions
 
-▸ **getMenuOptions**(): [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
+▸ **getMenuOptions**(): [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
 
 #### Returns
 
-[`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
+[`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
 
 #### Implementation of
 
@@ -100,7 +104,7 @@ ___
 
 ### getOpenCopyLinkAddress
 
-▸ `Protected` **getOpenCopyLinkAddress**(): `string`
+▸ **getOpenCopyLinkAddress**(): `string`
 
 #### Returns
 

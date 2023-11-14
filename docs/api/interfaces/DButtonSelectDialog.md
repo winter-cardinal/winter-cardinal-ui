@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonSelectDialog
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonSelectDialog
 
-# Interface: DButtonSelectDialog<VALUE\>
+# Interface: DButtonSelectDialog\<VALUE\>
 
 A dialog to select values.
 
@@ -34,7 +34,7 @@ A dialog to select values.
 
 ### open
 
-▸ **open**(`opener?`): `Promise`<`unknown`\>
+▸ **open**(`opener?`): `Promise`\<`unknown`\>
 
 #### Parameters
 
@@ -44,7 +44,7 @@ A dialog to select values.
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Defined in
 

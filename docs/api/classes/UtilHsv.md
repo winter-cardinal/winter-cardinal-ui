@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHsv
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHsv
 
 # Class: UtilHsv
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new UtilHsv**()
+• **new UtilHsv**(): [`UtilHsv`](UtilHsv.md)
+
+#### Returns
+
+[`UtilHsv`](UtilHsv.md)
 
 ## Methods
 
 ### fromRgb
 
-▸ `Static` **fromRgb**(`color`): [`number`, `number`, `number`]
+▸ **fromRgb**(`color`): [`number`, `number`, `number`]
 
 Returns HSV colors.
 Ranges of components are:
@@ -52,7 +56,7 @@ ___
 
 ### toRgb
 
-▸ `Static` **toRgb**(`h`, `s`, `v`): `number`
+▸ **toRgb**(`h`, `s`, `v`): `number`
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeSelectionParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeSelectionParent
 
-# Interface: DTableDataTreeSelectionParent<NODE\>
+# Interface: DTableDataTreeSelectionParent\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DTableDataSelectionParent`](DTableDataSelectionParent.md)<`NODE`\>
+- [`DTableDataSelectionParent`](DTableDataSelectionParent.md)\<`NODE`\>
 
   ↳ **`DTableDataTreeSelectionParent`**
 
@@ -21,6 +21,7 @@
 - [accessor](DTableDataTreeSelectionParent.md#accessor)
 - [filter](DTableDataTreeSelectionParent.md#filter)
 - [mapped](DTableDataTreeSelectionParent.md#mapped)
+- [rows](DTableDataTreeSelectionParent.md#rows)
 - [selection](DTableDataTreeSelectionParent.md#selection)
 - [sorter](DTableDataTreeSelectionParent.md#sorter)
 
@@ -34,19 +35,21 @@
 - [get](DTableDataTreeSelectionParent.md#get)
 - [listenerCount](DTableDataTreeSelectionParent.md#listenercount)
 - [listeners](DTableDataTreeSelectionParent.md#listeners)
+- [lock](DTableDataTreeSelectionParent.md#lock)
 - [off](DTableDataTreeSelectionParent.md#off)
 - [on](DTableDataTreeSelectionParent.md#on)
 - [once](DTableDataTreeSelectionParent.md#once)
 - [removeAllListeners](DTableDataTreeSelectionParent.md#removealllisteners)
 - [removeListener](DTableDataTreeSelectionParent.md#removelistener)
 - [size](DTableDataTreeSelectionParent.md#size)
+- [unlock](DTableDataTreeSelectionParent.md#unlock)
 - [update](DTableDataTreeSelectionParent.md#update)
 
 ## Properties
 
 ### accessor
 
-• `Readonly` **accessor**: [`DTableDataTreeItemAccessor`](../classes/DTableDataTreeItemAccessor.md)<`NODE`\>
+• `Readonly` **accessor**: [`DTableDataTreeItemAccessor`](../classes/DTableDataTreeItemAccessor.md)\<`NODE`\>
 
 #### Defined in
 
@@ -56,7 +59,7 @@ ___
 
 ### filter
 
-• `Readonly` **filter**: [`DTableDataFilter`](DTableDataFilter.md)<`NODE`\>
+• `Readonly` **filter**: [`DTableDataFilter`](DTableDataFilter.md)\<`NODE`\>
 
 A data filter.
 
@@ -66,13 +69,13 @@ A data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L106)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L108)
 
 ___
 
 ### mapped
 
-• `Readonly` **mapped**: [`DTableDataMapped`](DTableDataMapped.md)<`NODE`\>
+• `Readonly` **mapped**: [`DTableDataMapped`](DTableDataMapped.md)\<`NODE`\>
 
 Sorted and filtered data.
 
@@ -82,13 +85,29 @@ Sorted and filtered data.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L116)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L118)
+
+___
+
+### rows
+
+• `Readonly` **rows**: `NODE`[]
+
+A list of rows.
+
+#### Inherited from
+
+[DTableDataSelectionParent](DTableDataSelectionParent.md).[rows](DTableDataSelectionParent.md#rows)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L121)
 
 ___
 
 ### selection
 
-• `Readonly` **selection**: [`DTableDataSelection`](DTableDataSelection.md)<`NODE`\>
+• `Readonly` **selection**: [`DTableDataSelection`](DTableDataSelection.md)\<`NODE`\>
 
 A data selection.
 
@@ -98,13 +117,13 @@ A data selection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L101)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L103)
 
 ___
 
 ### sorter
 
-• `Readonly` **sorter**: [`DTableDataSorter`](DTableDataSorter.md)<`NODE`\>
+• `Readonly` **sorter**: [`DTableDataSorter`](DTableDataSorter.md)\<`NODE`\>
 
 A data sorter.
 
@@ -114,13 +133,13 @@ A data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L111)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L113)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -134,7 +153,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -166,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L118)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L123)
 
 ___
 
@@ -181,7 +200,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTableDataEachIteratee`](../index.md#dtabledataeachiteratee)<`NODE`\> | an function called on each datum |
+| `iteratee` | [`DTableDataEachIteratee`](../index.md#dtabledataeachiteratee)\<`NODE`\> | an function called on each datum |
 | `ifrom?` | `number` | an index to start an iteration |
 | `ito?` | `number` | an index before which an interation stops |
 
@@ -195,13 +214,13 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L141)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L152)
 
 ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -271,7 +290,7 @@ The index is an index on rows filters and sorters are not applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L131)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L142)
 
 ___
 
@@ -327,9 +346,27 @@ node_modules/pixi.js/pixi.js.d.ts:24005
 
 ___
 
+### lock
+
+▸ **lock**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[DTableDataSelectionParent](DTableDataSelectionParent.md).[lock](DTableDataSelectionParent.md#lock)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L127)
+
+___
+
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -344,7 +381,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -358,7 +395,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -372,7 +409,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 `this`.
 
@@ -388,7 +425,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -402,7 +439,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 `this`.
 
@@ -418,7 +455,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -430,7 +467,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 `this`.
 
@@ -446,7 +483,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -461,7 +498,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)<`NODE`\>
+[`DTableDataTreeSelectionParent`](DTableDataTreeSelectionParent.md)\<`NODE`\>
 
 `this`.
 
@@ -491,7 +528,31 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L123)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L134)
+
+___
+
+### unlock
+
+▸ **unlock**(`callIfNeeded`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `callIfNeeded` | `boolean` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[DTableDataSelectionParent](DTableDataSelectionParent.md).[unlock](DTableDataSelectionParent.md#unlock)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L129)
 
 ___
 

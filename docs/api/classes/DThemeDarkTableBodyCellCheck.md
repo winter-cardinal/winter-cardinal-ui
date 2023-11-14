@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableBodyCellCheck
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableBodyCellCheck
 
 # Class: DThemeDarkTableBodyCellCheck
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkButtonCheck`](DThemeDarkButtonCheck.md)<`boolean`\>
+- [`DThemeDarkButtonCheck`](DThemeDarkButtonCheck.md)\<`boolean`\>
 
   ↳ **`DThemeDarkTableBodyCellCheck`**
 
@@ -113,7 +113,7 @@
 
 ### constructor
 
-• **new DThemeDarkTableBodyCellCheck**(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeDarkTableBodyCellCheck**(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeDarkTableBodyCellCheck`](DThemeDarkTableBodyCellCheck.md)
 
 #### Parameters
 
@@ -122,6 +122,10 @@
 | `backgroundColor` | `number` | `0x484848` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeDarkTableBodyCellCheck`](DThemeDarkTableBodyCellCheck.md)
 
 #### Inherited from
 
@@ -1075,7 +1079,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1099,7 +1103,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1183,7 +1187,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1207,7 +1211,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -2160,14 +2164,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`boolean`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`boolean`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`boolean`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`boolean`\>
 
 #### Implementation of
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / ESnapperTargetValue
+[Winter Cardinal UI - v0.374.0](../index.md) / ESnapperTargetValue
 
 # Class: ESnapperTargetValue
 
@@ -21,7 +21,7 @@
 
 ### constructor
 
-• **new ESnapperTargetValue**(`type`, `position`)
+• **new ESnapperTargetValue**(`type`, `position`): [`ESnapperTargetValue`](ESnapperTargetValue.md)
 
 #### Parameters
 
@@ -29,6 +29,10 @@
 | :------ | :------ |
 | `type` | [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype-1) |
 | `position` | `number` |
+
+#### Returns
+
+[`ESnapperTargetValue`](ESnapperTargetValue.md)
 
 #### Defined in
 

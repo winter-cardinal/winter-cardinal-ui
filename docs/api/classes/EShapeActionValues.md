@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValues
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValues
 
 # Class: EShapeActionValues
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new EShapeActionValues**()
+• **new EShapeActionValues**(): [`EShapeActionValues`](EShapeActionValues.md)
+
+#### Returns
+
+[`EShapeActionValues`](EShapeActionValues.md)
 
 ## Methods
 
 ### toResource
 
-▸ `Static` **toResource**(`index`, `parsed`, `resources`): `string`
+▸ **toResource**(`index`, `parsed`, `resources`): `string`
 
 #### Parameters
 

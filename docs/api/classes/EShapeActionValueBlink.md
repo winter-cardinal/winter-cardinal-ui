@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueBlink
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueBlink
 
 # Class: EShapeActionValueBlink
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype-1)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<[`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype-1)\>
 
   ↳ **`EShapeActionValueBlink`**
 
@@ -37,7 +37,7 @@
 
 ### constructor
 
-• **new EShapeActionValueBlink**(`subtype`, `condition`, `interval`, `color`, `alpha`)
+• **new EShapeActionValueBlink**(`subtype`, `condition`, `interval`, `color`, `alpha`): [`EShapeActionValueBlink`](EShapeActionValueBlink.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@
 | `interval` | `number` |
 | `color` | `number` |
 | `alpha` | `number` |
+
+#### Returns
+
+[`EShapeActionValueBlink`](EShapeActionValueBlink.md)
 
 #### Overrides
 
@@ -147,7 +151,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -249,7 +253,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueBlink`](EShapeActionValueBlink.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueBlink`](EShapeActionValueBlink.md)
 
 #### Parameters
 

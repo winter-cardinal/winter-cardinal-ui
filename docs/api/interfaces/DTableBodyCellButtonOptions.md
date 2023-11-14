@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellButtonOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellButtonOptions
 
-# Interface: DTableBodyCellButtonOptions<ROW, VALUE, THEME\>
+# Interface: DTableBodyCellButtonOptions\<ROW, VALUE, THEME\>
 
 [DImageBase](../classes/DImageBase.md) options.
 
@@ -10,11 +10,11 @@
 | :------ | :------ |
 | `ROW` | `ROW` |
 | `VALUE` | `unknown` |
-| `THEME` | extends [`DThemeTableBodyCellButton`](DThemeTableBodyCellButton.md)<`VALUE`\> = [`DThemeTableBodyCellButton`](DThemeTableBodyCellButton.md)<`VALUE`\> |
+| `THEME` | extends [`DThemeTableBodyCellButton`](DThemeTableBodyCellButton.md)\<`VALUE`\> = [`DThemeTableBodyCellButton`](DThemeTableBodyCellButton.md)\<`VALUE`\> |
 
 ## Hierarchy
 
-- [`DTableBodyCellTextOptions`](DTableBodyCellTextOptions.md)<`ROW`, `VALUE` \| ``null``, `THEME`\>
+- [`DTableBodyCellTextOptions`](DTableBodyCellTextOptions.md)\<`ROW`, `VALUE` \| ``null``, `THEME`\>
 
   ↳ **`DTableBodyCellButtonOptions`**
 
@@ -140,7 +140,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -191,7 +191,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -237,7 +237,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)<``null`` \| `VALUE`, `any`\>
+• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)\<``null`` \| `VALUE`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -310,7 +310,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableBodyCellButtonOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -391,7 +391,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<``null`` \| `VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<``null`` \| `VALUE`\>
 
 #### Inherited from
 

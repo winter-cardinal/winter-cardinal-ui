@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTree
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTree
 
 # Class: DThemeWhiteTree
 
@@ -77,7 +77,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTree**()
+• **new DThemeWhiteTree**(): [`DThemeWhiteTree`](DThemeWhiteTree.md)
+
+#### Returns
+
+[`DThemeWhiteTree`](DThemeWhiteTree.md)
 
 #### Overrides
 
@@ -1268,7 +1272,7 @@ ___
 
 ### newStyle
 
-▸ `Protected` **newStyle**(): [`DThemeWhiteTreeItems`](DThemeWhiteTreeItems.md)
+▸ **newStyle**(): [`DThemeWhiteTreeItems`](DThemeWhiteTreeItems.md)
 
 #### Returns
 

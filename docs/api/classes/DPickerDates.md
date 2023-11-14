@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerDates
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerDates
 
 # Class: DPickerDates
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new DPickerDates**()
+• **new DPickerDates**(): [`DPickerDates`](DPickerDates.md)
+
+#### Returns
+
+[`DPickerDates`](DPickerDates.md)
 
 ## Methods
 
 ### format
 
-▸ `Static` **format**(`date`): `string`
+▸ **format**(`date`): `string`
 
 #### Parameters
 

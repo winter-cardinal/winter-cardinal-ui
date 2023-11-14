@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesBaseOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesBaseOptions
 
-# Interface: DChartSeriesBaseOptions<EMITTER\>
+# Interface: DChartSeriesBaseOptions\<EMITTER\>
 
 [DChartSeriesBase](../classes/DChartSeriesBase.md) options.
 
@@ -41,7 +41,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`EMITTER`\>
 
 #### Defined in
 

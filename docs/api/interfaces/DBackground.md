@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBackground
+[Winter Cardinal UI - v0.374.0](../index.md) / DBackground
 
 # Interface: DBackground
 
@@ -19,7 +19,7 @@
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Defined in
 
@@ -29,7 +29,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `number`\>
 
 #### Defined in
 

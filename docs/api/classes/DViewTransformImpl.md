@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DViewTransformImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DViewTransformImpl
 
 # Class: DViewTransformImpl
 
@@ -17,6 +17,7 @@
 - [\_animation](DViewTransformImpl.md#_animation)
 - [\_constraint](DViewTransformImpl.md#_constraint)
 - [\_duration](DViewTransformImpl.md#_duration)
+- [\_isStarted](DViewTransformImpl.md#_isstarted)
 - [\_newScaleX](DViewTransformImpl.md#_newscalex)
 - [\_newScaleY](DViewTransformImpl.md#_newscaley)
 - [\_newX](DViewTransformImpl.md#_newx)
@@ -25,12 +26,15 @@
 - [\_oldScaleY](DViewTransformImpl.md#_oldscaley)
 - [\_oldX](DViewTransformImpl.md#_oldx)
 - [\_oldY](DViewTransformImpl.md#_oldy)
+- [\_owner](DViewTransformImpl.md#_owner)
 - [\_parent](DViewTransformImpl.md#_parent)
-- [\_stopper](DViewTransformImpl.md#_stopper)
 - [\_toTarget](DViewTransformImpl.md#_totarget)
 
 ### Methods
 
+- [onEnd](DViewTransformImpl.md#onend)
+- [onStart](DViewTransformImpl.md#onstart)
+- [onStop](DViewTransformImpl.md#onstop)
 - [onTime](DViewTransformImpl.md#ontime)
 - [start](DViewTransformImpl.md#start)
 - [stop](DViewTransformImpl.md#stop)
@@ -39,27 +43,31 @@
 
 ### constructor
 
-• **new DViewTransformImpl**(`parent`, `toTarget`, `stopper`, `constraint`, `duration`)
+• **new DViewTransformImpl**(`owner`, `toTarget`, `parent`, `constraint`, `duration`): [`DViewTransformImpl`](DViewTransformImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `owner` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `toTarget` | [`DViewToTarget`](../index.md#dviewtotarget) |
-| `stopper` | [`DViewStopper`](../interfaces/DViewStopper.md) |
+| `parent` | [`DViewParent`](../interfaces/DViewParent.md) |
 | `constraint` | [`DViewConstraint`](../index.md#dviewconstraint) |
 | `duration` | `number` |
 
+#### Returns
+
+[`DViewTransformImpl`](DViewTransformImpl.md)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L31)
 
 ## Properties
 
 ### \_animation
 
-• `Protected` **\_animation**: [`DAnimation`](../interfaces/DAnimation.md)<`unknown`\>
+• `Protected` **\_animation**: [`DAnimation`](../interfaces/DAnimation.md)\<`unknown`\>
 
 #### Defined in
 
@@ -84,6 +92,16 @@ ___
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L28)
+
+___
+
+### \_isStarted
+
+• `Protected` **\_isStarted**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L29)
 
 ___
 
@@ -167,9 +185,9 @@ ___
 
 ___
 
-### \_parent
+### \_owner
 
-• `Protected` **\_parent**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_owner**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -177,9 +195,9 @@ ___
 
 ___
 
-### \_stopper
+### \_parent
 
-• `Protected` **\_stopper**: [`DViewStopper`](../interfaces/DViewStopper.md)
+• `Protected` **\_parent**: [`DViewParent`](../interfaces/DViewParent.md)
 
 #### Defined in
 
@@ -197,9 +215,51 @@ ___
 
 ## Methods
 
+### onEnd
+
+▸ **onEnd**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L89)
+
+___
+
+### onStart
+
+▸ **onStart**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L69)
+
+___
+
+### onStop
+
+▸ **onStop**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L94)
+
+___
+
 ### onTime
 
-▸ `Protected` **onTime**(`time`): `void`
+▸ **onTime**(`time`): `void`
 
 #### Parameters
 
@@ -213,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L58)
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L74)
 
 ___
 
@@ -245,7 +305,7 @@ Sets to the specified position and scale.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L73)
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L99)
 
 ___
 
@@ -265,4 +325,4 @@ Stops an animation if exits.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L108)
+[src/main/typescript/wcardinal/ui/d-view-transform-impl.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-transform-impl.ts#L137)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodePadding
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodePadding
 
 # Class: FormatNodePadding
 
@@ -26,7 +26,7 @@
 
 ### constructor
 
-• **new FormatNodePadding**(`length`, `character`, `node`)
+• **new FormatNodePadding**(`length`, `character`, `node`): [`FormatNodePadding`](FormatNodePadding.md)
 
 #### Parameters
 
@@ -35,6 +35,10 @@
 | `length` | `number` |
 | `character` | `string` |
 | `node` | [`FormatNode`](../interfaces/FormatNode.md) |
+
+#### Returns
+
+[`FormatNodePadding`](FormatNodePadding.md)
 
 #### Defined in
 

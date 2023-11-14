@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilExtract
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilExtract
 
 # Class: UtilExtract
 
@@ -20,13 +20,17 @@
 
 ### constructor
 
-• **new UtilExtract**()
+• **new UtilExtract**(): [`UtilExtract`](UtilExtract.md)
+
+#### Returns
+
+[`UtilExtract`](UtilExtract.md)
 
 ## Methods
 
 ### base64
 
-▸ `Static` **base64**(`options`): `string`
+▸ **base64**(`options`): `string`
 
 #### Parameters
 
@@ -46,7 +50,7 @@ ___
 
 ### canvas
 
-▸ `Static` **canvas**(`options`): `CanvasRenderTarget`
+▸ **canvas**(`options`): `CanvasRenderTarget`
 
 #### Parameters
 
@@ -66,7 +70,7 @@ ___
 
 ### file
 
-▸ `Static` **file**(`options`): `void`
+▸ **file**(`options`): `void`
 
 #### Parameters
 
@@ -86,7 +90,7 @@ ___
 
 ### pixels
 
-▸ `Static` **pixels**(`options`): [`UtilExtractorPixels`](../interfaces/UtilExtractorPixels.md)
+▸ **pixels**(`options`): [`UtilExtractorPixels`](../interfaces/UtilExtractorPixels.md)
 
 #### Parameters
 
@@ -106,7 +110,7 @@ ___
 
 ### texture
 
-▸ `Static` **texture**(`options`): `RenderTexture`
+▸ **texture**(`options`): `RenderTexture`
 
 #### Parameters
 

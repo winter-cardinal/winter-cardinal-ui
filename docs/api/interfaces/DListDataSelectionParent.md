@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataSelectionParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelectionParent
 
-# Interface: DListDataSelectionParent<ITEM\>
+# Interface: DListDataSelectionParent\<ITEM\>
 
 ## Type parameters
 

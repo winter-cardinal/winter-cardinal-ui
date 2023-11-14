@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataList
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataList
 
-# Class: DTableDataList<ROW\>
+# Class: DTableDataList\<ROW\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DTableData`](../interfaces/DTableData.md)<`ROW`\>
+- [`DTableData`](../interfaces/DTableData.md)\<`ROW`\>
 
 ## Table of contents
 
@@ -75,7 +75,7 @@
 
 ### constructor
 
-• **new DTableDataList**<`ROW`\>(`options?`)
+• **new DTableDataList**\<`ROW`\>(`options?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 #### Type parameters
 
@@ -87,7 +87,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTableDataListOptions`](../interfaces/DTableDataListOptions.md)<`ROW`\> |
+| `options?` | [`DTableDataListOptions`](../interfaces/DTableDataListOptions.md)\<`ROW`\> |
+
+#### Returns
+
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 #### Overrides
 
@@ -101,7 +105,7 @@ utils.EventEmitter.constructor
 
 ### \_filter
 
-• `Protected` **\_filter**: [`DTableDataListFilter`](DTableDataListFilter.md)<`ROW`\>
+• `Protected` **\_filter**: [`DTableDataListFilter`](DTableDataListFilter.md)\<`ROW`\>
 
 #### Defined in
 
@@ -111,7 +115,7 @@ ___
 
 ### \_mapped
 
-• `Protected` **\_mapped**: [`DTableDataMapped`](../interfaces/DTableDataMapped.md)<`ROW`\>
+• `Protected` **\_mapped**: [`DTableDataMapped`](../interfaces/DTableDataMapped.md)\<`ROW`\>
 
 #### Defined in
 
@@ -141,7 +145,7 @@ ___
 
 ### \_selection
 
-• `Protected` **\_selection**: [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+• `Protected` **\_selection**: [`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 #### Defined in
 
@@ -151,7 +155,7 @@ ___
 
 ### \_sorter
 
-• `Protected` **\_sorter**: [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+• `Protected` **\_sorter**: [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 #### Defined in
 
@@ -161,13 +165,13 @@ ___
 
 ### filter
 
-• `get` **filter**(): [`DTableDataFilter`](../interfaces/DTableDataFilter.md)<`ROW`\>
+• `get` **filter**(): [`DTableDataFilter`](../interfaces/DTableDataFilter.md)\<`ROW`\>
 
 A data filter.
 
 #### Returns
 
-[`DTableDataFilter`](../interfaces/DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](../interfaces/DTableDataFilter.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -175,19 +179,19 @@ A data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L266)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L274)
 
 ___
 
 ### mapped
 
-• `get` **mapped**(): [`DTableDataMapped`](../interfaces/DTableDataMapped.md)<`ROW`\>
+• `get` **mapped**(): [`DTableDataMapped`](../interfaces/DTableDataMapped.md)\<`ROW`\>
 
 Sorted and filtered data.
 
 #### Returns
 
-[`DTableDataMapped`](../interfaces/DTableDataMapped.md)<`ROW`\>
+[`DTableDataMapped`](../interfaces/DTableDataMapped.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -195,7 +199,7 @@ Sorted and filtered data.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L274)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:282](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L282)
 
 ___
 
@@ -203,9 +207,15 @@ ___
 
 • `get` **rows**(): `ROW`[]
 
+A list of rows.
+
 #### Returns
 
 `ROW`[]
+
+#### Implementation of
+
+[DTableData](../interfaces/DTableData.md).[rows](../interfaces/DTableData.md#rows)
 
 #### Defined in
 
@@ -215,13 +225,13 @@ ___
 
 ### selection
 
-• `get` **selection**(): [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+• `get` **selection**(): [`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 A data selection.
 
 #### Returns
 
-[`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -229,19 +239,19 @@ A data selection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L262)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L270)
 
 ___
 
 ### sorter
 
-• `get` **sorter**(): [`DTableDataSorter`](../interfaces/DTableDataSorter.md)<`ROW`\>
+• `get` **sorter**(): [`DTableDataSorter`](../interfaces/DTableDataSorter.md)\<`ROW`\>
 
 A data sorter.
 
 #### Returns
 
-[`DTableDataSorter`](../interfaces/DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](../interfaces/DTableDataSorter.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -249,7 +259,7 @@ A data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L270)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L278)
 
 ## Methods
 
@@ -270,7 +280,7 @@ A data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L161)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L163)
 
 ___
 
@@ -291,13 +301,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L182)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L186)
 
 ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataList`](DTableDataList.md)<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 Alias method for `on`
 
@@ -311,7 +321,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataList`](DTableDataList.md)<`ROW`\>
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -361,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L125)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L124)
 
 ___
 
@@ -401,7 +411,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L148)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L149)
 
 ___
 
@@ -430,13 +440,13 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L246)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L254)
 
 ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -514,7 +524,7 @@ The index is an index on rows filters and sorters are not applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L210)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L216)
 
 ___
 
@@ -586,6 +596,10 @@ ___
 
 `void`
 
+#### Implementation of
+
+[DTableData](../interfaces/DTableData.md).[lock](../interfaces/DTableData.md#lock)
+
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-table-data-list.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L106)
@@ -594,17 +608,17 @@ ___
 
 ### newSelection
 
-▸ `Protected` **newSelection**(`options?`): [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+▸ **newSelection**(`options?`): [`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)<`any`\> |
+| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)\<`any`\> |
 
 #### Returns
 
-[`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 #### Defined in
 
@@ -614,7 +628,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataList`](DTableDataList.md)<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 Alias method for `removeListener`
 
@@ -629,7 +643,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataList`](DTableDataList.md)<`ROW`\>
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -647,7 +661,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataList`](DTableDataList.md)<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 Add a listener for a given event.
 
@@ -661,7 +675,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataList`](DTableDataList.md)<`ROW`\>
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 `this`.
 
@@ -681,7 +695,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataList`](DTableDataList.md)<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 Add a one-time listener for a given event.
 
@@ -695,7 +709,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataList`](DTableDataList.md)<`ROW`\>
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 `this`.
 
@@ -729,13 +743,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L232)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L239)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataList`](DTableDataList.md)<`ROW`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -747,7 +761,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataList`](DTableDataList.md)<`ROW`\>
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 `this`.
 
@@ -767,7 +781,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataList`](DTableDataList.md)<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 Remove the listeners of a given event.
 
@@ -782,7 +796,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataList`](DTableDataList.md)<`ROW`\>
+[`DTableDataList`](DTableDataList.md)\<`ROW`\>
 
 `this`.
 
@@ -817,7 +831,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L218)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L224)
 
 ___
 
@@ -837,13 +851,13 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L121)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L120)
 
 ___
 
 ### toRows
 
-▸ `Protected` **toRows**(`row?`): `ROW`[]
+▸ **toRows**(`row?`): `ROW`[]
 
 #### Parameters
 
@@ -863,17 +877,17 @@ ___
 
 ### toSelection
 
-▸ `Protected` **toSelection**(`options?`): [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+▸ **toSelection**(`options?`): [`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)<`any`\> \| [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\> \| [`DTableDataSelectionCreator`](../index.md#dtabledataselectioncreator)<`ROW`\> |
+| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md)\<`any`\> \| [`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\> \| [`DTableDataSelectionCreator`](../index.md#dtabledataselectioncreator)\<`ROW`\> |
 
 #### Returns
 
-[`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](../interfaces/DTableDataSelection.md)\<`ROW`\>
 
 #### Defined in
 
@@ -883,11 +897,21 @@ ___
 
 ### unlock
 
-▸ **unlock**(): `void`
+▸ **unlock**(`callIfNeeded`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `callIfNeeded` | `boolean` |
 
 #### Returns
 
 `void`
+
+#### Implementation of
+
+[DTableData](../interfaces/DTableData.md).[unlock](../interfaces/DTableData.md#unlock)
 
 #### Defined in
 
@@ -897,11 +921,21 @@ ___
 
 ### update
 
-▸ **update**(): `void`
+▸ **update**(`forcibly?`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `forcibly?` | `boolean` |
 
 #### Returns
 
 `void`
+
+#### Implementation of
+
+[DTableData](../interfaces/DTableData.md).[update](../interfaces/DTableData.md#update)
 
 #### Defined in
 

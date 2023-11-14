@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataFilterObject
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataFilterObject
 
-# Interface: DTableDataFilterObject<ROW\>
+# Interface: DTableDataFilterObject\<ROW\>
 
 A filter object.
 

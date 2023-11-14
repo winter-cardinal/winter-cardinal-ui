@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupSizeViewer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupSizeViewer
 
 # Class: EShapeGroupSizeViewer
 
@@ -40,7 +40,7 @@
 
 ### constructor
 
-• **new EShapeGroupSizeViewer**(`parent`, `x`, `y`, `bx`, `by`)
+• **new EShapeGroupSizeViewer**(`parent`, `x`, `y`, `bx`, `by`): [`EShapeGroupSizeViewer`](EShapeGroupSizeViewer.md)
 
 #### Parameters
 
@@ -51,6 +51,10 @@
 | `y` | `number` |
 | `bx` | `number` |
 | `by` | `number` |
+
+#### Returns
+
+[`EShapeGroupSizeViewer`](EShapeGroupSizeViewer.md)
 
 #### Defined in
 
@@ -316,7 +320,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 

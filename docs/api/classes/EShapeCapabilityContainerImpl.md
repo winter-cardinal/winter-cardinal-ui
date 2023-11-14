@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeCapabilityContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeCapabilityContainerImpl
 
 # Class: EShapeCapabilityContainerImpl
 
@@ -32,7 +32,11 @@
 
 ### constructor
 
-• **new EShapeCapabilityContainerImpl**()
+• **new EShapeCapabilityContainerImpl**(): [`EShapeCapabilityContainerImpl`](EShapeCapabilityContainerImpl.md)
+
+#### Returns
+
+[`EShapeCapabilityContainerImpl`](EShapeCapabilityContainerImpl.md)
 
 #### Defined in
 

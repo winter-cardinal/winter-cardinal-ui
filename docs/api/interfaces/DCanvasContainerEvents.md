@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DCanvasContainerEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DCanvasContainerEvents
 
-# Interface: DCanvasContainerEvents<CANVAS, EMITTER\>
+# Interface: DCanvasContainerEvents\<CANVAS, EMITTER\>
 
 [DCanvasContainer](../classes/DCanvasContainer.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DBaseEvents`](DBaseEvents.md)<`EMITTER`\>
+- [`DBaseEvents`](DBaseEvents.md)\<`EMITTER`\>
 
   ↳ **`DCanvasContainerEvents`**
 

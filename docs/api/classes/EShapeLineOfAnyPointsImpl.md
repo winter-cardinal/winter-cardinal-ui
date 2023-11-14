@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeLineOfAnyPointsImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeLineOfAnyPointsImpl
 
 # Class: EShapeLineOfAnyPointsImpl
 
@@ -47,8 +47,10 @@
 - [clone](EShapeLineOfAnyPointsImpl.md#clone)
 - [copy](EShapeLineOfAnyPointsImpl.md#copy)
 - [getMarker](EShapeLineOfAnyPointsImpl.md#getmarker)
+- [onSizeChange](EShapeLineOfAnyPointsImpl.md#onsizechange)
 - [serialize](EShapeLineOfAnyPointsImpl.md#serialize)
 - [set](EShapeLineOfAnyPointsImpl.md#set)
+- [toFitted](EShapeLineOfAnyPointsImpl.md#tofitted)
 - [toPoints](EShapeLineOfAnyPointsImpl.md#topoints)
 - [updateUploaded](EShapeLineOfAnyPointsImpl.md#updateuploaded)
 
@@ -56,13 +58,17 @@
 
 ### constructor
 
-• **new EShapeLineOfAnyPointsImpl**(`parent`)
+• **new EShapeLineOfAnyPointsImpl**(`parent`): [`EShapeLineOfAnyPointsImpl`](EShapeLineOfAnyPointsImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShape`](../interfaces/EShape.md) |
+
+#### Returns
+
+[`EShapeLineOfAnyPointsImpl`](EShapeLineOfAnyPointsImpl.md)
 
 #### Defined in
 
@@ -478,7 +484,7 @@ ___
 
 ### calcHitPointAbs
 
-▸ **calcHitPointAbs**<`RESULT`\>(`x`, `y`, `sw`, `ss`, `sa`, `threshold`, `toRange`, `tester`, `result`): `boolean`
+▸ **calcHitPointAbs**\<`RESULT`\>(`x`, `y`, `sw`, `ss`, `sa`, `threshold`, `toRange`, `tester`, `result`): `boolean`
 
 #### Type parameters
 
@@ -497,7 +503,7 @@ ___
 | `sa` | `number` |
 | `threshold` | `number` |
 | `toRange` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToRange`](../index.md#eshapelineofanypointshittestertorange) |
-| `tester` | [`EShapeLineOfAnyPointsHitTester`](../index.md#eshapelineofanypointshittester)<`RESULT`\> |
+| `tester` | [`EShapeLineOfAnyPointsHitTester`](../index.md#eshapelineofanypointshittester)\<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns
@@ -510,7 +516,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L214)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L222)
 
 ___
 
@@ -534,7 +540,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L196)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L204)
 
 ___
 
@@ -558,7 +564,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L128)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L136)
 
 ___
 
@@ -583,6 +589,24 @@ where the EShapePointsMarkerContainer instance do not need to be created.
 
 ___
 
+### onSizeChange
+
+▸ **onSizeChange**(): `void`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[EShapeLineOfAnyPoints](../interfaces/EShapeLineOfAnyPoints.md).[onSizeChange](../interfaces/EShapeLineOfAnyPoints.md#onsizechange)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L128)
+
+___
+
 ### serialize
 
 ▸ **serialize**(`manager`): `number`
@@ -603,7 +627,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L210)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L218)
 
 ___
 
@@ -626,6 +650,31 @@ ___
 #### Implementation of
 
 [EShapeLineOfAnyPoints](../interfaces/EShapeLineOfAnyPoints.md).[set](../interfaces/EShapeLineOfAnyPoints.md#set)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L140)
+
+___
+
+### toFitted
+
+▸ **toFitted**(`x`, `y`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `number` |
+| `y` | `number` |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[EShapeLineOfAnyPoints](../interfaces/EShapeLineOfAnyPoints.md).[toFitted](../interfaces/EShapeLineOfAnyPoints.md#tofitted)
 
 #### Defined in
 
@@ -653,7 +702,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L200)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L208)
 
 ___
 
@@ -667,4 +716,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L192)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-impl.ts#L200)

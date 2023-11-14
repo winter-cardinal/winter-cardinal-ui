@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramEditorController
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramEditorController
 
 # Interface: DDiagramEditorController
 
@@ -41,7 +41,7 @@
 
 ### delete
 
-▸ **delete**(`id`): `Promise`<`void`\>
+▸ **delete**(`id`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -51,7 +51,7 @@
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
@@ -61,7 +61,7 @@ ___
 
 ### get
 
-▸ **get**(`id`): `Promise`<[`DDiagramSerialized`](DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](DDiagramSerializedSimple.md)\>
+▸ **get**(`id`): `Promise`\<[`DDiagramSerializedSimple`](DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](DDiagramSerialized.md)\>
 
 #### Parameters
 
@@ -71,7 +71,7 @@ ___
 
 #### Returns
 
-`Promise`<[`DDiagramSerialized`](DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](DDiagramSerializedSimple.md)\>
+`Promise`\<[`DDiagramSerializedSimple`](DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](DDiagramSerialized.md)\>
 
 #### Defined in
 
@@ -81,7 +81,7 @@ ___
 
 ### getByName
 
-▸ **getByName**(`name`): `Promise`<[`DDiagramSerialized`](DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](DDiagramSerializedSimple.md)\>
+▸ **getByName**(`name`): `Promise`\<[`DDiagramSerializedSimple`](DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](DDiagramSerialized.md)\>
 
 #### Parameters
 
@@ -91,7 +91,7 @@ ___
 
 #### Returns
 
-`Promise`<[`DDiagramSerialized`](DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](DDiagramSerializedSimple.md)\>
+`Promise`\<[`DDiagramSerializedSimple`](DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](DDiagramSerialized.md)\>
 
 #### Inherited from
 
@@ -105,7 +105,7 @@ ___
 
 ### save
 
-▸ **save**(`simple`): `Promise`<`number`\>
+▸ **save**(`simple`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -115,7 +115,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Defined in
 

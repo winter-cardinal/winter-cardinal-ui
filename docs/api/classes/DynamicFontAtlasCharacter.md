@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicFontAtlasCharacter
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicFontAtlasCharacter
 
 # Class: DynamicFontAtlasCharacter
 
@@ -25,17 +25,23 @@
 
 ### constructor
 
-• **new DynamicFontAtlasCharacter**(`character`, `advance`, `width`, `height`, `type`)
+• **new DynamicFontAtlasCharacter**(`type`, `character`, `x`, `y`, `width`, `height`, `advance`): [`DynamicFontAtlasCharacter`](DynamicFontAtlasCharacter.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `type` | `number` |
 | `character` | `string` |
-| `advance` | `number` |
+| `x` | `number` |
+| `y` | `number` |
 | `width` | `number` |
 | `height` | `number` |
-| `type` | `number` |
+| `advance` | `number` |
+
+#### Returns
+
+[`DynamicFontAtlasCharacter`](DynamicFontAtlasCharacter.md)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemePickerTime
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemePickerTime
 
 # Interface: DThemePickerTime
 
@@ -546,11 +546,11 @@ ___
 
 ### getHoursOptions
 
-▸ **getHoursOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+▸ **getHoursOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Defined in
 
@@ -640,11 +640,11 @@ ___
 
 ### getMinutesOptions
 
-▸ **getMinutesOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+▸ **getMinutesOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Defined in
 
@@ -891,11 +891,11 @@ ___
 
 ### getSecondsOptions
 
-▸ **getSecondsOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+▸ **getSecondsOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Defined in
 

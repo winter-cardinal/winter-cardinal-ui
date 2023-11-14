@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupPoints
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupPoints
 
 # Class: EShapeGroupPoints
 
@@ -32,6 +32,7 @@
 - [clone](EShapeGroupPoints.md#clone)
 - [copy](EShapeGroupPoints.md#copy)
 - [getMarker](EShapeGroupPoints.md#getmarker)
+- [onSizeChange](EShapeGroupPoints.md#onsizechange)
 - [serialize](EShapeGroupPoints.md#serialize)
 - [set](EShapeGroupPoints.md#set)
 - [toPoints](EShapeGroupPoints.md#topoints)
@@ -40,13 +41,17 @@
 
 ### constructor
 
-• **new EShapeGroupPoints**(`parent`)
+• **new EShapeGroupPoints**(`parent`): [`EShapeGroupPoints`](EShapeGroupPoints.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeGroupPropertyParent`](../interfaces/EShapeGroupPropertyParent.md) |
+
+#### Returns
+
+[`EShapeGroupPoints`](EShapeGroupPoints.md)
 
 #### Defined in
 
@@ -308,7 +313,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L185)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L189)
 
 ___
 
@@ -332,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L163)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L167)
 
 ___
 
@@ -357,6 +362,24 @@ where the EShapePointsMarkerContainer instance do not need to be created.
 
 ___
 
+### onSizeChange
+
+▸ **onSizeChange**(): `void`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[EShapePoints](../interfaces/EShapePoints.md).[onSizeChange](../interfaces/EShapePoints.md#onsizechange)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L163)
+
+___
+
 ### serialize
 
 ▸ **serialize**(`manager`): `number`
@@ -377,7 +400,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L200)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L204)
 
 ___
 
@@ -403,7 +426,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L174)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L178)
 
 ___
 
@@ -427,4 +450,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L189)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L193)

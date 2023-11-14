@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerTimeBoundHours
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerTimeBoundHours
 
 # Class: DPickerTimeBoundHours
 
@@ -21,13 +21,17 @@
 
 ### constructor
 
-• **new DPickerTimeBoundHours**(`parent`)
+• **new DPickerTimeBoundHours**(`parent`): [`DPickerTimeBoundHours`](DPickerTimeBoundHours.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DPickerTimeBoundHoursParent`](../interfaces/DPickerTimeBoundHoursParent.md) |
+
+#### Returns
+
+[`DPickerTimeBoundHours`](DPickerTimeBoundHours.md)
 
 #### Defined in
 

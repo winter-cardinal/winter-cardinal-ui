@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataSelectionEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionEvents
 
-# Interface: DTreeDataSelectionEvents<EMITTER\>
+# Interface: DTreeDataSelectionEvents\<EMITTER\>
 
 [DTreeDataSelection](DTreeDataSelection.md) events.
 

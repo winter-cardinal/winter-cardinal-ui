@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonSelectOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonSelectOptions
 
-# Interface: DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG, THEME, EMITTER\>
+# Interface: DButtonSelectOptions\<VALUE, DIALOG_VALUE, DIALOG_CATEGORY_ID, DIALOG, THEME, EMITTER\>
 
 [DButtonSelect](../classes/DButtonSelect.md) options.
 
@@ -10,13 +10,14 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 | `DIALOG_VALUE` | `unknown` |
-| `DIALOG` | extends [`DButtonSelectDialog`](DButtonSelectDialog.md)<`DIALOG_VALUE`\> = [`DButtonSelectDialog`](DButtonSelectDialog.md)<`DIALOG_VALUE`\> |
-| `THEME` | extends [`DThemeButtonSelect`](DThemeButtonSelect.md)<`VALUE`\> = [`DThemeButtonSelect`](DThemeButtonSelect.md)<`VALUE`\> |
+| `DIALOG_CATEGORY_ID` | `unknown` |
+| `DIALOG` | extends [`DButtonSelectDialog`](DButtonSelectDialog.md)\<`DIALOG_VALUE`\> = [`DButtonSelectDialog`](DButtonSelectDialog.md)\<`DIALOG_VALUE`\> |
+| `THEME` | extends [`DThemeButtonSelect`](DThemeButtonSelect.md)\<`VALUE`\> = [`DThemeButtonSelect`](DThemeButtonSelect.md)\<`VALUE`\> |
 | `EMITTER` | `any` |
 
 ## Hierarchy
 
-- [`DButtonOptions`](DButtonOptions.md)<`VALUE` \| ``null``, `THEME`, `EMITTER`\>
+- [`DButtonOptions`](DButtonOptions.md)\<`VALUE` \| ``null``, `THEME`, `EMITTER`\>
 
   ↳ **`DButtonSelectOptions`**
 
@@ -143,7 +144,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -159,31 +160,31 @@ ___
 
 ### dialog
 
-• `Optional` **dialog**: `DIALOG` \| [`DDialogSelectOptions`](DDialogSelectOptions.md)<`DIALOG_VALUE`, [`DThemeDialogSelect`](DThemeDialogSelect.md)<`DIALOG_VALUE`\>, `any`\>
+• `Optional` **dialog**: `DIALOG` \| [`DDialogSelectOptions`](DDialogSelectOptions.md)\<`DIALOG_VALUE`, `DIALOG_CATEGORY_ID`, [`DThemeDialogSelect`](DThemeDialogSelect.md)\<`DIALOG_VALUE`, `DIALOG_CATEGORY_ID`\>, `any`\>
 
 A dialog to select values.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-select.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L76)
+[src/main/typescript/wcardinal/ui/d-button-select.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L77)
 
 ___
 
 ### getter
 
-• `Optional` **getter**: [`DButtonSelectGetter`](../index.md#dbuttonselectgetter)<`VALUE`, `DIALOG`\>
+• `Optional` **getter**: [`DButtonSelectGetter`](../index.md#dbuttonselectgetter)\<`VALUE`, `DIALOG`\>
 
 A function to retrieve a selected value from a dialog.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-select.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L65)
+[src/main/typescript/wcardinal/ui/d-button-select.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L66)
 
 ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -234,7 +235,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -280,7 +281,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DButtonSelectOnOptions`](DButtonSelectOnOptions.md)<`VALUE`, `EMITTER`\>
+• `Optional` **on**: [`DButtonSelectOnOptions`](DButtonSelectOnOptions.md)\<`VALUE`, `EMITTER`\>
 
 Mappings of event names and handlers.
 
@@ -290,7 +291,7 @@ Mappings of event names and handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-select.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L78)
+[src/main/typescript/wcardinal/ui/d-button-select.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L79)
 
 ___
 
@@ -353,7 +354,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DButtonSelectOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -370,14 +371,14 @@ ___
 
 ### setter
 
-• `Optional` **setter**: [`DButtonSelectSetter`](../index.md#dbuttonselectsetter)<`VALUE`, `DIALOG`\>
+• `Optional` **setter**: [`DButtonSelectSetter`](../index.md#dbuttonselectsetter)\<`VALUE`, `DIALOG`\>
 
 A function to set a selected value to a dialog.
 Called before opening a dialog.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-select.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L71)
+[src/main/typescript/wcardinal/ui/d-button-select.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-select.ts#L72)
 
 ___
 
@@ -447,7 +448,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<``null`` \| `VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<``null`` \| `VALUE`\>
 
 #### Inherited from
 

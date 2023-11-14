@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartLegendItem
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChartLegendItem
 
 # Class: DThemeWhiteChartLegendItem
 
@@ -69,7 +69,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChartLegendItem**()
+• **new DThemeWhiteChartLegendItem**(): [`DThemeWhiteChartLegendItem`](DThemeWhiteChartLegendItem.md)
+
+#### Returns
+
+[`DThemeWhiteChartLegendItem`](DThemeWhiteChartLegendItem.md)
 
 #### Inherited from
 

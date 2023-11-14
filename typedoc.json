@@ -6,5 +6,6 @@
 	"excludePrivate": true,
 	"includeVersion": true,
 	"entryDocument": "index.md",
-	"entryPoints": [ "src/main/typescript/wcardinal-ui.esm.ts" ]
+	"entryPoints": [ "src/main/typescript/wcardinal-ui.esm.ts" ],
+	"plugin": [ "typedoc-plugin-markdown" ]
 }

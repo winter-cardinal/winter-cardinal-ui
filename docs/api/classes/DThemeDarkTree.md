@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTree
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTree
 
 # Class: DThemeDarkTree
 
@@ -77,7 +77,11 @@
 
 ### constructor
 
-• **new DThemeDarkTree**()
+• **new DThemeDarkTree**(): [`DThemeDarkTree`](DThemeDarkTree.md)
+
+#### Returns
+
+[`DThemeDarkTree`](DThemeDarkTree.md)
 
 #### Overrides
 
@@ -1268,7 +1272,7 @@ ___
 
 ### newStyle
 
-▸ `Protected` **newStyle**(): [`DThemeDarkTreeItems`](DThemeDarkTreeItems.md)
+▸ **newStyle**(): [`DThemeDarkTreeItems`](DThemeDarkTreeItems.md)
 
 #### Returns
 

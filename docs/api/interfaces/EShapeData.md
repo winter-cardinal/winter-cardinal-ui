@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeData
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeData
 
 # Interface: EShapeData
 
@@ -49,7 +49,7 @@
 
 ### alias
 
-• `Readonly` **alias**: `Record`<`string`, [`EShapeDataValue`](EShapeDataValue.md)\>
+• `Readonly` **alias**: `Record`\<`string`, [`EShapeDataValue`](EShapeDataValue.md)\>
 
 #### Defined in
 

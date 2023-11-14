@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / NumberFormatters
+[Winter Cardinal UI - v0.374.0](../index.md) / NumberFormatters
 
 # Class: NumberFormatters
 
@@ -18,13 +18,17 @@ An number formatter utility class.
 
 ### constructor
 
-• **new NumberFormatters**()
+• **new NumberFormatters**(): [`NumberFormatters`](NumberFormatters.md)
+
+#### Returns
+
+[`NumberFormatters`](NumberFormatters.md)
 
 ## Methods
 
 ### create
 
-▸ `Static` **create**(`format`): [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **create**(`format`): [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 Creates a number formatter of the given format.
 Please refer to [NumberFormatter](../interfaces/NumberFormatter.md) for format details.

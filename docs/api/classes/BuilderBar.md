@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderBar
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderBar
 
 # Class: BuilderBar
 
@@ -51,7 +51,7 @@
 
 ### constructor
 
-• **new BuilderBar**(`vertexOffset`, `indexOffset`)
+• **new BuilderBar**(`vertexOffset`, `indexOffset`): [`BuilderBar`](BuilderBar.md)
 
 #### Parameters
 
@@ -59,6 +59,10 @@
 | :------ | :------ |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
+
+#### Returns
+
+[`BuilderBar`](BuilderBar.md)
 
 #### Overrides
 
@@ -427,7 +431,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -452,7 +456,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -477,7 +481,7 @@ ___
 
 ### updateUv
 
-▸ `Protected` **updateUv**(`buffer`, `shape`): `void`
+▸ **updateUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -498,7 +502,7 @@ ___
 
 ### updateVertexStepAndColorFill
 
-▸ `Protected` **updateVertexStepAndColorFill**(`buffer`, `shape`): `void`
+▸ **updateVertexStepAndColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 

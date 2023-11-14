@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilGestureEasing
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilGestureEasing
 
 # Class: UtilGestureEasing
 
@@ -39,7 +39,7 @@
 
 ### constructor
 
-• **new UtilGestureEasing**(`onMove`, `onEnd`, `options?`)
+• **new UtilGestureEasing**(`onMove`, `onEnd`, `options?`): [`UtilGestureEasing`](UtilGestureEasing.md)
 
 #### Parameters
 
@@ -49,6 +49,10 @@
 | `onEnd` | [`UtilGestureEasingOnEnd`](../index.md#utilgestureeasingonend) |
 | `options?` | [`UtilGestureEasingOptions`](../interfaces/UtilGestureEasingOptions.md) |
 
+#### Returns
+
+[`UtilGestureEasing`](UtilGestureEasing.md)
+
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/util/util-gesture-easing.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing.ts#L34)
@@ -57,7 +61,7 @@
 
 ### \_animation
 
-• `Protected` **\_animation**: [`DAnimation`](../interfaces/DAnimation.md)<`unknown`\>
+• `Protected` **\_animation**: [`DAnimation`](../interfaces/DAnimation.md)\<`unknown`\>
 
 #### Defined in
 
@@ -197,7 +201,7 @@ ___
 
 ### onEase
 
-▸ `Protected` **onEase**(`t`): `void`
+▸ **onEase**(`t`): `void`
 
 #### Parameters
 
@@ -217,7 +221,7 @@ ___
 
 ### onEaseEnd
 
-▸ `Protected` **onEaseEnd**(): `void`
+▸ **onEaseEnd**(): `void`
 
 #### Returns
 
@@ -302,7 +306,7 @@ ___
 
 ### updateHistoriesSorted
 
-▸ `Protected` **updateHistoriesSorted**(`dt`): `number`
+▸ **updateHistoriesSorted**(`dt`): `number`
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilInputOperation
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilInputOperation
 
-# Interface: UtilInputOperation<VALUE, ELEMENT\>
+# Interface: UtilInputOperation\<VALUE, ELEMENT\>
 
 ## Type parameters
 
@@ -11,7 +11,7 @@
 
 ## Hierarchy
 
-- [`UtilHtmlElementOperation`](UtilHtmlElementOperation.md)<`ELEMENT`\>
+- [`UtilHtmlElementOperation`](UtilHtmlElementOperation.md)\<`ELEMENT`\>
 
   ↳ **`UtilInputOperation`**
 
@@ -80,7 +80,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Optional` **getClipperExRects**(`result`): `void`
+▸ **getClipperExRects**(`result`): `void`
 
 #### Parameters
 

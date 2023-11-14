@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteInputBoolean
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteInputBoolean
 
 # Class: DThemeWhiteInputBoolean
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeWhiteInputBoolean**()
+• **new DThemeWhiteInputBoolean**(): [`DThemeWhiteInputBoolean`](DThemeWhiteInputBoolean.md)
+
+#### Returns
+
+[`DThemeWhiteInputBoolean`](DThemeWhiteInputBoolean.md)
 
 #### Inherited from
 

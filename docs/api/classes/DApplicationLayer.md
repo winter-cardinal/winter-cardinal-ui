@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DApplicationLayer
+[Winter Cardinal UI - v0.374.0](../index.md) / DApplicationLayer
 
 # Class: DApplicationLayer
 
@@ -77,7 +77,7 @@
 
 ### constructor
 
-• **new DApplicationLayer**(`application`, `options`)
+• **new DApplicationLayer**(`application`, `options`): [`DApplicationLayer`](DApplicationLayer.md)
 
 #### Parameters
 
@@ -85,6 +85,10 @@
 | :------ | :------ |
 | `application` | [`DApplicationLike`](../interfaces/DApplicationLike.md) |
 | `options` | [`DApplicationLayerOptions`](DApplicationLayerOptions.md) |
+
+#### Returns
+
+[`DApplicationLayer`](DApplicationLayer.md)
 
 #### Overrides
 
@@ -366,7 +370,9 @@ PIXI.Application#
 
 **`Default`**
 
+```ts
 PIXI.Ticker.shared
+```
 
 #### Implementation of
 
@@ -418,7 +424,7 @@ node_modules/pixi.js/pixi.js.d.ts:1024
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:298](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L298)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L308)
 
 ___
 
@@ -436,7 +442,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:302](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L302)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L312)
 
 ___
 
@@ -454,7 +460,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L294)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L304)
 
 ## Methods
 
@@ -469,10 +475,10 @@ Destroy and don't use after this.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `removeView?` | `boolean` | Automatically remove canvas from DOM. |
-| `stageOptions?` | `Object` | Options parameter. A boolean will act as if all options  have been set to that value |
-| `stageOptions.baseTexture?` | `boolean` | Only used for child Sprites if stageOptions.children is set  to true. Should it destroy the base texture of the child sprite |
-| `stageOptions.children?` | `boolean` | if set to true, all the children will have their destroy  method called as well. 'stageOptions' will be passed on to those calls. |
-| `stageOptions.texture?` | `boolean` | Only used for child Sprites if stageOptions.children is set  to true. Should it destroy the texture of the child sprite |
+| `stageOptions?` | `Object` | Options parameter. A boolean will act as if all options have been set to that value |
+| `stageOptions.baseTexture?` | `boolean` | Only used for child Sprites if stageOptions.children is set to true. Should it destroy the base texture of the child sprite |
+| `stageOptions.children?` | `boolean` | if set to true, all the children will have their destroy method called as well. 'stageOptions' will be passed on to those calls. |
+| `stageOptions.texture?` | `boolean` | Only used for child Sprites if stageOptions.children is set to true. Should it destroy the texture of the child sprite |
 
 #### Returns
 
@@ -506,7 +512,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:338](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L338)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:348](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L348)
 
 ___
 
@@ -524,7 +530,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:334](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L334)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:344](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L344)
 
 ___
 
@@ -542,7 +548,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L326)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L336)
 
 ___
 
@@ -560,13 +566,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:330](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L330)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:340](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L340)
 
 ___
 
 ### initDoubleClickHandling
 
-▸ `Protected` **initDoubleClickHandling**(): `void`
+▸ **initDoubleClickHandling**(): `void`
 
 #### Returns
 
@@ -574,13 +580,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L222)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L232)
 
 ___
 
 ### initFocusHandling
 
-▸ `Protected` **initFocusHandling**(): `void`
+▸ **initFocusHandling**(): `void`
 
 #### Returns
 
@@ -594,7 +600,7 @@ ___
 
 ### initResizeHandling
 
-▸ `Protected` **initResizeHandling**(): `void`
+▸ **initResizeHandling**(): `void`
 
 #### Returns
 
@@ -608,7 +614,7 @@ ___
 
 ### initRootElement
 
-▸ `Protected` **initRootElement**(): `void`
+▸ **initRootElement**(): `void`
 
 #### Returns
 
@@ -622,7 +628,7 @@ ___
 
 ### initStage
 
-▸ `Protected` **initStage**(): `void`
+▸ **initStage**(): `void`
 
 #### Returns
 
@@ -636,7 +642,7 @@ ___
 
 ### initView
 
-▸ `Protected` **initView**(): `void`
+▸ **initView**(): `void`
 
 #### Returns
 
@@ -650,7 +656,7 @@ ___
 
 ### initWheelHandling
 
-▸ `Protected` **initWheelHandling**(): `void`
+▸ **initWheelHandling**(): `void`
 
 #### Returns
 
@@ -658,7 +664,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L199)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L209)
 
 ___
 
@@ -676,13 +682,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L241)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L251)
 
 ___
 
 ### newElementContainer
 
-▸ `Protected` **newElementContainer**(): `HTMLElement`
+▸ **newElementContainer**(): `HTMLElement`
 
 #### Returns
 
@@ -696,7 +702,7 @@ ___
 
 ### onResize
 
-▸ `Protected` **onResize**(): `void`
+▸ **onResize**(): `void`
 
 #### Returns
 
@@ -704,13 +710,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L181)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L190)
 
 ___
 
 ### onStageDirty
 
-▸ `Protected` **onStageDirty**(): `void`
+▸ **onStageDirty**(): `void`
 
 #### Returns
 
@@ -718,7 +724,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L255)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L265)
 
 ___
 
@@ -736,7 +742,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L306)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:316](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L316)
 
 ___
 
@@ -758,7 +764,7 @@ Application.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L276)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L286)
 
 ___
 
@@ -769,13 +775,13 @@ ___
 If `resizeTo` is set, calling this function
 will resize to the width and height of that element.
 
-**`Method`**
-
-PIXI.Application#resize
-
 #### Returns
 
 `void`
+
+**`Method`**
+
+PIXI.Application#resize
 
 #### Implementation of
 
@@ -797,13 +803,13 @@ ___
 
 Convenience method for starting the render.
 
-**`Method`**
-
-PIXI.Application#start
-
 #### Returns
 
 `void`
+
+**`Method`**
+
+PIXI.Application#start
 
 #### Implementation of
 
@@ -825,13 +831,13 @@ ___
 
 Convenience method for stopping the render.
 
-**`Method`**
-
-PIXI.Application#stop
-
 #### Returns
 
 `void`
+
+**`Method`**
+
+PIXI.Application#stop
 
 #### Implementation of
 
@@ -861,7 +867,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:245](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L245)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L255)
 
 ___
 
@@ -879,17 +885,15 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L249)
+[src/main/typescript/wcardinal/ui/d-application-layer.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer.ts#L259)
 
 ___
 
 ### registerPlugin
 
-▸ `Static` **registerPlugin**(`plugin`): `void`
+▸ **registerPlugin**(`plugin`): `void`
 
 Register a middleware plugin for the application
-
-**`Static`**
 
 #### Parameters
 
@@ -900,6 +904,8 @@ Register a middleware plugin for the application
 #### Returns
 
 `void`
+
+**`Static`**
 
 #### Inherited from
 

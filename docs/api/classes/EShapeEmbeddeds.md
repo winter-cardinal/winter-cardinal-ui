@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeEmbeddeds
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeEmbeddeds
 
 # Class: EShapeEmbeddeds
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new EShapeEmbeddeds**()
+• **new EShapeEmbeddeds**(): [`EShapeEmbeddeds`](EShapeEmbeddeds.md)
+
+#### Returns
+
+[`EShapeEmbeddeds`](EShapeEmbeddeds.md)
 
 ## Methods
 
 ### create
 
-▸ `Static` **create**(`name`, `width`, `height`, `container`, `mode`, `depth`): [`EShapeEmbedded`](EShapeEmbedded.md)
+▸ **create**(`name`, `width`, `height`, `container`, `mode`, `depth`): [`EShapeEmbedded`](EShapeEmbedded.md)
 
 #### Parameters
 
@@ -48,19 +52,19 @@ ___
 
 ### from
 
-▸ `Static` **from**(`serializedOrSimple`, `controller`, `mode`): `Promise`<[`EShapeEmbedded`](EShapeEmbedded.md)\>
+▸ **from**(`serializedOrSimple`, `controller`, `mode`): `Promise`\<[`EShapeEmbedded`](EShapeEmbedded.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `serializedOrSimple` | [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md) |
+| `serializedOrSimple` | [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) |
 | `controller` | `undefined` \| ``null`` \| [`DDiagramBaseController`](../interfaces/DDiagramBaseController.md) |
 | `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
 
 #### Returns
 
-`Promise`<[`EShapeEmbedded`](EShapeEmbedded.md)\>
+`Promise`\<[`EShapeEmbedded`](EShapeEmbedded.md)\>
 
 #### Defined in
 

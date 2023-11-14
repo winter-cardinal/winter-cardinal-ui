@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartLegend
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartLegend
 
 # Class: DThemeDarkChartLegend
 
@@ -69,7 +69,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartLegend**()
+• **new DThemeDarkChartLegend**(): [`DThemeDarkChartLegend`](DThemeDarkChartLegend.md)
+
+#### Returns
+
+[`DThemeDarkChartLegend`](DThemeDarkChartLegend.md)
 
 #### Inherited from
 

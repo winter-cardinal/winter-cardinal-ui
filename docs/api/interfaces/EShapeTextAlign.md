@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextAlign
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextAlign
 
 # Interface: EShapeTextAlign
 
@@ -65,7 +65,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeTextAlignLike`](EShapeTextAlignLike.md)\> |
+| `target?` | `Partial`\<[`EShapeTextAlignLike`](EShapeTextAlignLike.md)\> |
 
 #### Returns
 

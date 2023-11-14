@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTilePyramidOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTilePyramidOptions
 
 # Interface: DMapTilePyramidOptions
 
@@ -26,7 +26,7 @@ ___
 
 ### canvas
 
-• **canvas**: [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>
+• **canvas**: [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>
 
 #### Defined in
 

@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueOpenDialogExtension
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueOpenDialogExtension
 
 # Class: EShapeActionValueOpenDialogExtension
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`DIALOG`](../index.md#dialog)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<typeof [`DIALOG`](../index.md#dialog)\>
 
   ↳ **`EShapeActionValueOpenDialogExtension`**
 
@@ -37,7 +37,7 @@
 
 ### constructor
 
-• **new EShapeActionValueOpenDialogExtension**(`condition`, `target`, `argument`, `dialogType`)
+• **new EShapeActionValueOpenDialogExtension**(`condition`, `target`, `argument`, `dialogType`): [`EShapeActionValueOpenDialogExtension`](EShapeActionValueOpenDialogExtension.md)
 
 #### Parameters
 
@@ -47,6 +47,10 @@
 | `target` | `string` |
 | `argument` | `string` |
 | `dialogType` | `number` |
+
+#### Returns
+
+[`EShapeActionValueOpenDialogExtension`](EShapeActionValueOpenDialogExtension.md)
 
 #### Overrides
 
@@ -146,7 +150,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -248,7 +252,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueOpenDialogExtension`](EShapeActionValueOpenDialogExtension.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueOpenDialogExtension`](EShapeActionValueOpenDialogExtension.md)
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateContainerImpl
 
-# Class: DChartCoordinateContainerImpl<CHART\>
+# Class: DChartCoordinateContainerImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)<`CHART`\>
+- [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -40,20 +40,24 @@
 
 ### constructor
 
-• **new DChartCoordinateContainerImpl**<`CHART`\>(`plotArea`, `options?`)
+• **new DChartCoordinateContainerImpl**\<`CHART`\>(`plotArea`, `options?`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `options?` | [`DChartCoordinateContainerOptions`](../interfaces/DChartCoordinateContainerOptions.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `options?` | [`DChartCoordinateContainerOptions`](../interfaces/DChartCoordinateContainerOptions.md)\<`CHART`\> |
+
+#### Returns
+
+[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Defined in
 
@@ -63,7 +67,7 @@
 
 ### \_plotArea
 
-• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Defined in
 
@@ -73,7 +77,7 @@ ___
 
 ### \_x
 
-• `Protected` **\_x**: [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+• `Protected` **\_x**: [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -83,7 +87,7 @@ ___
 
 ### \_y
 
-• `Protected` **\_y**: [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+• `Protected` **\_y**: [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -93,11 +97,11 @@ ___
 
 ### plotArea
 
-• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+[`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -111,11 +115,11 @@ ___
 
 ### x
 
-• `get` **x**(): [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+• `get` **x**(): [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -129,11 +133,11 @@ ___
 
 ### y
 
-• `get` **y**(): [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+• `get` **y**(): [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -147,7 +151,7 @@ ___
 
 ### blend
 
-▸ **blend**(`ratio`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)<`CHART`\>
+▸ **blend**(`ratio`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -157,7 +161,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)<`CHART`\>
+[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -171,7 +175,7 @@ ___
 
 ### fit
 
-▸ **fit**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)<`CHART`\>
+▸ **fit**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -184,7 +188,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)<`CHART`\>
+[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -198,7 +202,7 @@ ___
 
 ### mark
 
-▸ **mark**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)<`CHART`\>
+▸ **mark**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -211,7 +215,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)<`CHART`\>
+[`DChartCoordinateContainerImpl`](DChartCoordinateContainerImpl.md)\<`CHART`\>
 
 #### Implementation of
 

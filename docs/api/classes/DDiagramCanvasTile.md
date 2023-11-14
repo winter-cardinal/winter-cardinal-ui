@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasTile
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasTile
 
 # Class: DDiagramCanvasTile
 
@@ -32,14 +32,18 @@
 
 ### constructor
 
-• **new DDiagramCanvasTile**(`canvas`, `options?`)
+• **new DDiagramCanvasTile**(`canvas`, `options?`): [`DDiagramCanvasTile`](DDiagramCanvasTile.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `canvas` | [`DDiagramCanvasBase`](DDiagramCanvasBase.md)<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md), [`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md)\>\> |
+| `canvas` | [`DDiagramCanvasBase`](DDiagramCanvasBase.md)\<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md), [`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)\<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md)\>\> |
 | `options?` | [`DDiagramCanvasTileOptions`](../interfaces/DDiagramCanvasTileOptions.md) |
+
+#### Returns
+
+[`DDiagramCanvasTile`](DDiagramCanvasTile.md)
 
 #### Defined in
 
@@ -49,7 +53,7 @@
 
 ### \_canvas
 
-• `Protected` **\_canvas**: [`DDiagramCanvasBase`](DDiagramCanvasBase.md)<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md), [`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md)\>\>
+• `Protected` **\_canvas**: [`DDiagramCanvasBase`](DDiagramCanvasBase.md)\<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md), [`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)\<[`DThemeDiagramCanvasBase`](../interfaces/DThemeDiagramCanvasBase.md)\>\>
 
 #### Defined in
 
@@ -159,7 +163,7 @@ ___
 
 ### onMappingChange
 
-▸ `Protected` **onMappingChange**(): `void`
+▸ **onMappingChange**(): `void`
 
 #### Returns
 

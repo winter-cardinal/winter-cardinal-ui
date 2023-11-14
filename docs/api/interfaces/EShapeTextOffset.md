@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextOffset
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextOffset
 
 # Interface: EShapeTextOffset
 
@@ -65,7 +65,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\> |
+| `target?` | `Partial`\<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\> |
 
 #### Returns
 

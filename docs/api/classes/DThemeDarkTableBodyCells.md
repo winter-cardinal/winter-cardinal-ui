@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableBodyCells
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableBodyCells
 
 # Class: DThemeDarkTableBodyCells
 
@@ -32,7 +32,11 @@
 
 ### constructor
 
-• **new DThemeDarkTableBodyCells**()
+• **new DThemeDarkTableBodyCells**(): [`DThemeDarkTableBodyCells`](DThemeDarkTableBodyCells.md)
+
+#### Returns
+
+[`DThemeDarkTableBodyCells`](DThemeDarkTableBodyCells.md)
 
 ## Properties
 
@@ -88,7 +92,7 @@ ___
 
 ### getAlpha
 
-▸ `Static` **getAlpha**(`state`): `number`
+▸ **getAlpha**(`state`): `number`
 
 #### Parameters
 
@@ -108,7 +112,7 @@ ___
 
 ### getBackgroundAlpha
 
-▸ `Static` **getBackgroundAlpha**(`state`): `number`
+▸ **getBackgroundAlpha**(`state`): `number`
 
 #### Parameters
 
@@ -128,7 +132,7 @@ ___
 
 ### getBackgroundColor
 
-▸ `Static` **getBackgroundColor**(`state`): ``null`` \| `number`
+▸ **getBackgroundColor**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -148,7 +152,7 @@ ___
 
 ### getBorderColor
 
-▸ `Static` **getBorderColor**(`state`): ``null`` \| `number`
+▸ **getBorderColor**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -168,7 +172,7 @@ ___
 
 ### getBorderMask
 
-▸ `Static` **getBorderMask**(`state`): `number`
+▸ **getBorderMask**(`state`): `number`
 
 #### Parameters
 
@@ -188,7 +192,7 @@ ___
 
 ### getColor
 
-▸ `Static` **getColor**(`state`): `number`
+▸ **getColor**(`state`): `number`
 
 #### Parameters
 
@@ -208,7 +212,7 @@ ___
 
 ### getCornerMask
 
-▸ `Static` **getCornerMask**(): `number`
+▸ **getCornerMask**(): `number`
 
 #### Returns
 
@@ -222,7 +226,7 @@ ___
 
 ### getHeight
 
-▸ `Static` **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
@@ -236,7 +240,7 @@ ___
 
 ### getImageTintColor
 
-▸ `Static` **getImageTintColor**(`state`, `isActive?`): ``null`` \| `number`
+▸ **getImageTintColor**(`state`, `isActive?`): ``null`` \| `number`
 
 #### Parameters
 

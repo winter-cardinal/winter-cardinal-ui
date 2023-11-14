@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerDatetimeMasks
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerDatetimeMasks
 
 # Class: DPickerDatetimeMasks
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new DPickerDatetimeMasks**()
+• **new DPickerDatetimeMasks**(): [`DPickerDatetimeMasks`](DPickerDatetimeMasks.md)
+
+#### Returns
+
+[`DPickerDatetimeMasks`](DPickerDatetimeMasks.md)
 
 ## Methods
 
 ### from
 
-▸ `Static` **from**(`themeOrThemeName?`, `options?`): `number`
+▸ **from**(`themeOrThemeName?`, `options?`): `number`
 
 #### Parameters
 

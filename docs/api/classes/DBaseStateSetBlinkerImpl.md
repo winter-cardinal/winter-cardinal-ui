@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSetBlinkerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetBlinkerImpl
 
 # Class: DBaseStateSetBlinkerImpl
 
@@ -37,13 +37,17 @@
 
 ### constructor
 
-• **new DBaseStateSetBlinkerImpl**(`parent`)
+• **new DBaseStateSetBlinkerImpl**(`parent`): [`DBaseStateSetBlinkerImpl`](DBaseStateSetBlinkerImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+
+#### Returns
+
+[`DBaseStateSetBlinkerImpl`](DBaseStateSetBlinkerImpl.md)
 
 #### Overrides
 
@@ -57,7 +61,7 @@
 
 ### \_intervalToDatum
 
-• `Protected` `Readonly` **\_intervalToDatum**: `Map`<`number`, [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)\>
+• `Protected` `Readonly` **\_intervalToDatum**: `Map`\<`number`, [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)\>
 
 #### Inherited from
 
@@ -85,7 +89,7 @@ ___
 
 ### \_stateToInterval
 
-• `Protected` `Readonly` **\_stateToInterval**: `Map`<`string`, `number`\>
+• `Protected` `Readonly` **\_stateToInterval**: `Map`\<`string`, `number`\>
 
 #### Inherited from
 
@@ -178,7 +182,7 @@ ___
 
 ### newDatum
 
-▸ `Protected` **newDatum**(`interval`): [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)
+▸ **newDatum**(`interval`): [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)
 
 #### Parameters
 

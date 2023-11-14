@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteButtonColor
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteButtonColor
 
 # Class: DThemeWhiteButtonColor
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteButton`](DThemeWhiteButton.md)<[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)\>
+- [`DThemeWhiteButton`](DThemeWhiteButton.md)\<[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)\>
 
   ↳ **`DThemeWhiteButtonColor`**
 
@@ -115,7 +115,7 @@
 
 ### constructor
 
-• **new DThemeWhiteButtonColor**(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeWhiteButtonColor**(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeWhiteButtonColor`](DThemeWhiteButtonColor.md)
 
 #### Parameters
 
@@ -124,6 +124,10 @@
 | `backgroundColor` | `number` | `0xffffff` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeWhiteButtonColor`](DThemeWhiteButtonColor.md)
 
 #### Inherited from
 
@@ -1077,7 +1081,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1101,7 +1105,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1185,7 +1189,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1209,7 +1213,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -1760,7 +1764,7 @@ ___
 
 ### getTextFormatter
 
-▸ **getTextFormatter**(): (`value`: [`DColorAndAlpha`](../interfaces/DColorAndAlpha.md), `caller`: [`DButtonColor`](DButtonColor.md)<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), [`DButtonColorOptions`](../interfaces/DButtonColorOptions.md)<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), `any`\>\>) => `string`
+▸ **getTextFormatter**(): (`value`: [`DColorAndAlpha`](../interfaces/DColorAndAlpha.md), `caller`: [`DButtonColor`](DButtonColor.md)\<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), [`DButtonColorOptions`](../interfaces/DButtonColorOptions.md)\<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), `any`\>\>) => `string`
 
 #### Returns
 
@@ -1773,7 +1777,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `value` | [`DColorAndAlpha`](../interfaces/DColorAndAlpha.md) |
-| `caller` | [`DButtonColor`](DButtonColor.md)<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), [`DButtonColorOptions`](../interfaces/DButtonColorOptions.md)<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), `any`\>\> |
+| `caller` | [`DButtonColor`](DButtonColor.md)\<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), [`DButtonColorOptions`](../interfaces/DButtonColorOptions.md)\<[`DThemeButtonColor`](../interfaces/DThemeButtonColor.md), `any`\>\> |
 
 ##### Returns
 
@@ -2162,14 +2166,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)\>
 
 #### Implementation of
 

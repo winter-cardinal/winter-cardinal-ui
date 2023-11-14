@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilFileEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilFileEvents
 
-# Interface: UtilFileEvents<EMITTER\>
+# Interface: UtilFileEvents\<EMITTER\>
 
 [UtilFileOpener](../classes/UtilFileOpener.md) events.
 
@@ -31,7 +31,7 @@
 
 ### open
 
-• **open**: [`UtilFileOnOpen`](../index.md#utilfileonopen)<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`File`, `EMITTER`\>
+• **open**: [`UtilFileOnOpen`](../index.md#utilfileonopen)\<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)\<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)\<`File`, `EMITTER`\>
 
 Triggered when a file is opened.
 
@@ -51,7 +51,7 @@ Triggered when an operation is aborted.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `e` | `ProgressEvent`<`EventTarget`\> | an event object |
+| `e` | `ProgressEvent`\<`EventTarget`\> | an event object |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns

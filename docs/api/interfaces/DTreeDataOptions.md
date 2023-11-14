@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataOptions
 
-# Interface: DTreeDataOptions<NODE\>
+# Interface: DTreeDataOptions\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DTreeNodeAccessorOptions`](DTreeNodeAccessorOptions.md)<`NODE`\>
+- [`DTreeNodeAccessorOptions`](DTreeNodeAccessorOptions.md)\<`NODE`\>
 
   ↳ **`DTreeDataOptions`**
 
@@ -81,7 +81,7 @@ ___
 
 ### selection
 
-• `Optional` **selection**: [`DTreeDataSelectionOptions`](DTreeDataSelectionOptions.md)<`NODE`, `any`\>
+• `Optional` **selection**: [`DTreeDataSelectionOptions`](DTreeDataSelectionOptions.md)\<`NODE`, `any`\>
 
 Selection options.
 

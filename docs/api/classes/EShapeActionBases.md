@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionBases
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionBases
 
 # Class: EShapeActionBases
 
@@ -19,13 +19,17 @@
 
 ### constructor
 
-• **new EShapeActionBases**()
+• **new EShapeActionBases**(): [`EShapeActionBases`](EShapeActionBases.md)
+
+#### Returns
+
+[`EShapeActionBases`](EShapeActionBases.md)
 
 ## Methods
 
 ### toBaseFill
 
-▸ `Static` **toBaseFill**(`shape`, `runtime`): [`EShapeFillLike`](../interfaces/EShapeFillLike.md)
+▸ **toBaseFill**(`shape`, `runtime`): [`EShapeFillLike`](../interfaces/EShapeFillLike.md)
 
 #### Parameters
 
@@ -46,7 +50,7 @@ ___
 
 ### toBaseStroke
 
-▸ `Static` **toBaseStroke**(`shape`, `runtime`): [`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)
+▸ **toBaseStroke**(`shape`, `runtime`): [`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)
 
 #### Parameters
 
@@ -67,7 +71,7 @@ ___
 
 ### toBaseText
 
-▸ `Static` **toBaseText**(`shape`, `runtime`): [`EShapeTextLike`](../interfaces/EShapeTextLike.md)
+▸ **toBaseText**(`shape`, `runtime`): [`EShapeTextLike`](../interfaces/EShapeTextLike.md)
 
 #### Parameters
 
@@ -88,7 +92,7 @@ ___
 
 ### toBaseTextOutline
 
-▸ `Static` **toBaseTextOutline**(`shape`, `runtime`): [`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)
+▸ **toBaseTextOutline**(`shape`, `runtime`): [`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)
 
 #### Parameters
 

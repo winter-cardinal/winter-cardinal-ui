@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeResourceManagerSerialization
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeResourceManagerSerialization
 
 # Class: EShapeResourceManagerSerialization
 
@@ -33,7 +33,11 @@
 
 ### constructor
 
-• **new EShapeResourceManagerSerialization**()
+• **new EShapeResourceManagerSerialization**(): [`EShapeResourceManagerSerialization`](EShapeResourceManagerSerialization.md)
+
+#### Returns
+
+[`EShapeResourceManagerSerialization`](EShapeResourceManagerSerialization.md)
 
 #### Defined in
 
@@ -53,7 +57,7 @@ ___
 
 ### dataToIndex
 
-• `Protected` **dataToIndex**: `Map`<`string`, `number`\>
+• `Protected` **dataToIndex**: `Map`\<`string`, `number`\>
 
 #### Defined in
 
@@ -63,7 +67,7 @@ ___
 
 ### pieceToIndex
 
-• `Protected` **pieceToIndex**: `Map`<`string`, `number`\>
+• `Protected` **pieceToIndex**: `Map`\<`string`, `number`\>
 
 #### Defined in
 
@@ -83,7 +87,7 @@ ___
 
 ### resourceToIndex
 
-• `Protected` **resourceToIndex**: `Map`<`string`, `number`\>
+• `Protected` **resourceToIndex**: `Map`\<`string`, `number`\>
 
 #### Defined in
 
@@ -113,7 +117,7 @@ ___
 
 ### uuids
 
-• `Protected` **uuids**: `Set`<`number`\>
+• `Protected` **uuids**: `Set`\<`number`\>
 
 #### Defined in
 
@@ -203,7 +207,7 @@ ___
 
 ### add\_
 
-▸ `Protected` **add_**(`target`, `array`, `map`): `number`
+▸ **add_**(`target`, `array`, `map`): `number`
 
 #### Parameters
 
@@ -211,7 +215,7 @@ ___
 | :------ | :------ |
 | `target` | `string` |
 | `array` | `string`[] |
-| `map` | `Map`<`string`, `number`\> |
+| `map` | `Map`\<`string`, `number`\> |
 
 #### Returns
 

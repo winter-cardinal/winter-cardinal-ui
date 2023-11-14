@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseOutlineOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseOutlineOptions
 
 # Interface: DBaseOutlineOptions
 
@@ -19,7 +19,7 @@
 
 ### align
 
-• `Optional` **align**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **align**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 An align or a function returning an align.
 If a computed value is undefined, falls back to an outline align of a theme.
@@ -34,7 +34,7 @@ ___
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 An alpha or a function returning an alpha.
 If a computed value is undefined, falls back to an outline alpha of a theme.
@@ -47,7 +47,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `number`\>
 
 A color code or a function returning a color code.
 If a computed value is undefined, falls back to the theme color.
@@ -61,7 +61,7 @@ ___
 
 ### mask
 
-• `Optional` **mask**: ``"NONE"`` \| ``"ALL"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| ``"RIGHT_BOTTOM"`` \| [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> \| ``"TOP_BOTTOM"`` \| ``"RIGHT_LEFT"`` \| ``"NOT_TOP"`` \| ``"NOT_RIGHT"`` \| ``"NOT_BOTTOM"`` \| ``"NOT_LEFT"``
+• `Optional` **mask**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\> \| ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_RIGHT"`` \| ``"TOP_BOTTOM"`` \| ``"TOP_LEFT"`` \| ``"RIGHT_BOTTOM"`` \| ``"RIGHT_LEFT"`` \| ``"BOTTOM_LEFT"`` \| ``"NOT_TOP"`` \| ``"NOT_RIGHT"`` \| ``"NOT_BOTTOM"`` \| ``"NOT_LEFT"`` \| ``"ALL"``
 
 Masked outlines get removed.
 
@@ -73,7 +73,7 @@ ___
 
 ### offset
 
-• `Optional` **offset**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **offset**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 An offset or a function returning an offset.
 If a computed value is undefined, falls back to an outline align of a theme.
@@ -87,7 +87,7 @@ ___
 
 ### width
 
-• `Optional` **width**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **width**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 A width or a function returning a width.
 If a computed value is undefined, falls back to an outline width of a theme.

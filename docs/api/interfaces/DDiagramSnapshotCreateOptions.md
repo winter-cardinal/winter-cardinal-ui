@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshotCreateOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSnapshotCreateOptions
 
-# Interface: DDiagramSnapshotCreateOptions<CANVAS, DATA\>
+# Interface: DDiagramSnapshotCreateOptions\<CANVAS, DATA\>
 
 ## Type parameters
 

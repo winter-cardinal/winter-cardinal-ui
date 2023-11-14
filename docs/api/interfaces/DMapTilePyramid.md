@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTilePyramid
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTilePyramid
 
 # Interface: DMapTilePyramid
 
@@ -101,7 +101,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 

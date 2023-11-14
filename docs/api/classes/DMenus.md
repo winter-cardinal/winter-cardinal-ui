@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenus
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenus
 
 # Class: DMenus
 
@@ -29,7 +29,11 @@
 
 ### constructor
 
-• **new DMenus**()
+• **new DMenus**(): [`DMenus`](DMenus.md)
+
+#### Returns
+
+[`DMenus`](DMenus.md)
 
 ## Properties
 
@@ -65,7 +69,7 @@ ___
 
 ### addItemCreator
 
-▸ `Static` **addItemCreator**(`creator`): `void`
+▸ **addItemCreator**(`creator`): `void`
 
 #### Parameters
 
@@ -85,7 +89,7 @@ ___
 
 ### newItem
 
-▸ `Static` **newItem**<`VALUE`\>(`options`, `sticky`): ``null`` \| `DisplayObject`
+▸ **newItem**\<`VALUE`\>(`options`, `sticky`): ``null`` \| `DisplayObject`
 
 #### Type parameters
 
@@ -97,7 +101,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -112,7 +116,7 @@ ___
 
 ### newItemOf
 
-▸ `Static` **newItemOf**<`VALUE`\>(`creators`, `creatorDefault`, `options`, `sticky`): ``null`` \| `DisplayObject`
+▸ **newItemOf**\<`VALUE`\>(`creators`, `creatorDefault`, `options`, `sticky`): ``null`` \| `DisplayObject`
 
 #### Type parameters
 
@@ -126,7 +130,7 @@ ___
 | :------ | :------ |
 | `creators` | [`DMenuItemCreator`](../index.md#dmenuitemcreator)[] |
 | `creatorDefault` | ``null`` \| [`DMenuItemCreator`](../index.md#dmenuitemcreator) |
-| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -141,7 +145,7 @@ ___
 
 ### newItems
 
-▸ `Static` **newItems**<`VALUE`\>(`parent`, `items`, `sticky`): `void`
+▸ **newItems**\<`VALUE`\>(`parent`, `items`, `sticky`): `void`
 
 #### Type parameters
 
@@ -154,7 +158,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `parent` | `Container` |
-| `items` | (`undefined` \| ``null`` \| `DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>)[] |
+| `items` | (`undefined` \| ``null`` \| `DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\>)[] |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -169,7 +173,7 @@ ___
 
 ### newItemsOf
 
-▸ `Static` **newItemsOf**<`VALUE`\>(`creator`, `parent`, `items`, `sticky`): `void`
+▸ **newItemsOf**\<`VALUE`\>(`creator`, `parent`, `items`, `sticky`): `void`
 
 #### Type parameters
 
@@ -182,9 +186,9 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `creator` | `Object` |
-| `creator.newItem` | (`options`: [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>, `sticky`: `boolean`) => ``null`` \| `DisplayObject` |
+| `creator.newItem` | (`options`: [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\>, `sticky`: `boolean`) => ``null`` \| `DisplayObject` |
 | `parent` | `Container` |
-| `items` | (`undefined` \| ``null`` \| `DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>)[] |
+| `items` | (`undefined` \| ``null`` \| `DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\>)[] |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -199,7 +203,7 @@ ___
 
 ### newMenu
 
-▸ `Static` **newMenu**<`VALUE`\>(`options?`): [`DMenu`](DMenu.md)<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **newMenu**\<`VALUE`\>(`options?`): [`DMenu`](DMenu.md)\<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Type parameters
 
@@ -211,11 +215,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md)\> |
+| `options?` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md)\> |
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -225,7 +229,7 @@ ___
 
 ### setItemCreatorDefault
 
-▸ `Static` **setItemCreatorDefault**(`creator`): `void`
+▸ **setItemCreatorDefault**(`creator`): `void`
 
 #### Parameters
 
@@ -245,7 +249,7 @@ ___
 
 ### setMenuCreator
 
-▸ `Static` **setMenuCreator**(`creator`): `void`
+▸ **setMenuCreator**(`creator`): `void`
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataMapped
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataMapped
 
-# Interface: DTreeDataMapped<NODE\>
+# Interface: DTreeDataMapped\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DItemUpdaterDataMapped`](DItemUpdaterDataMapped.md)<`NODE`\>
+- [`DItemUpdaterDataMapped`](DItemUpdaterDataMapped.md)\<`NODE`\>
 
   ↳ **`DTreeDataMapped`**
 

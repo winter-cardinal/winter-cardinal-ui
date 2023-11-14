@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasTickerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasTickerImpl
 
 # Class: DDiagramCanvasTickerImpl
 
@@ -28,13 +28,17 @@
 
 ### constructor
 
-• **new DDiagramCanvasTickerImpl**(`parent`)
+• **new DDiagramCanvasTickerImpl**(`parent`): [`DDiagramCanvasTickerImpl`](DDiagramCanvasTickerImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DDiagramTickerParent`](../interfaces/DDiagramTickerParent.md) |
+
+#### Returns
+
+[`DDiagramCanvasTickerImpl`](DDiagramCanvasTickerImpl.md)
 
 #### Defined in
 
@@ -44,7 +48,7 @@
 
 ### \_data
 
-• `Protected` **\_data**: `Map`<`number`, [`DDiagramTicker`](DDiagramTicker.md)\>
+• `Protected` **\_data**: `Map`\<`number`, [`DDiagramTicker`](DDiagramTicker.md)\>
 
 #### Defined in
 
@@ -124,7 +128,7 @@ ___
 
 ### toNormalized
 
-▸ `Protected` **toNormalized**(`interval`): `number`
+▸ **toNormalized**(`interval`): `number`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesScalars
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesScalars
 
 # Class: DChartSeriesScalars
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new DChartSeriesScalars**()
+• **new DChartSeriesScalars**(): [`DChartSeriesScalars`](DChartSeriesScalars.md)
+
+#### Returns
+
+[`DChartSeriesScalars`](DChartSeriesScalars.md)
 
 ## Methods
 
 ### from
 
-▸ `Static` **from**<`T`\>(`value`, `def`): [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\>
+▸ **from**\<`T`\>(`value`, `def`): [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`T`\>
 
 #### Type parameters
 
@@ -34,12 +38,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `undefined` \| `T` \| `T`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\> |
-| `def` | `T` \| `T`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\> |
+| `value` | `undefined` \| `T` \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`T`\> \| `T`[] |
+| `def` | `T` \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`T`\> \| `T`[] |
 
 #### Returns
 
-[`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\>
+[`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`T`\>
 
 #### Defined in
 

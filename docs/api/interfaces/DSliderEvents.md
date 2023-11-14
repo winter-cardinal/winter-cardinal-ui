@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DSliderEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DSliderEvents
 
-# Interface: DSliderEvents<EMITTER\>
+# Interface: DSliderEvents\<EMITTER\>
 
 [DSlider](../classes/DSlider.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DBaseEvents`](DBaseEvents.md)<`EMITTER`\>
+- [`DBaseEvents`](DBaseEvents.md)\<`EMITTER`\>
 
   ↳ **`DSliderEvents`**
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionOpenExtensions
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionOpenExtensions
 
 # Class: EShapeActionOpenExtensions
 
@@ -23,7 +23,11 @@
 
 ### constructor
 
-• **new EShapeActionOpenExtensions**()
+• **new EShapeActionOpenExtensions**(): [`EShapeActionOpenExtensions`](EShapeActionOpenExtensions.md)
+
+#### Returns
+
+[`EShapeActionOpenExtensions`](EShapeActionOpenExtensions.md)
 
 ## Properties
 
@@ -39,7 +43,7 @@ ___
 
 ### \_typeToDatum
 
-▪ `Static` `Protected` `Optional` **\_typeToDatum**: `Map`<`number`, [`EShapeActionOpenExtension`](../interfaces/EShapeActionOpenExtension.md)\>
+▪ `Static` `Protected` `Optional` **\_typeToDatum**: `Map`\<`number`, [`EShapeActionOpenExtension`](../interfaces/EShapeActionOpenExtension.md)\>
 
 #### Defined in
 
@@ -49,7 +53,7 @@ ___
 
 ### add
 
-▸ `Static` **add**(`extension`): `void`
+▸ **add**(`extension`): `void`
 
 #### Parameters
 
@@ -69,7 +73,7 @@ ___
 
 ### each
 
-▸ `Static` **each**(`iteratee`): `void`
+▸ **each**(`iteratee`): `void`
 
 #### Parameters
 
@@ -89,7 +93,7 @@ ___
 
 ### get
 
-▸ `Static` **get**(`type`): `undefined` \| [`EShapeActionOpenExtension`](../interfaces/EShapeActionOpenExtension.md)
+▸ **get**(`type`): `undefined` \| [`EShapeActionOpenExtension`](../interfaces/EShapeActionOpenExtension.md)
 
 #### Parameters
 

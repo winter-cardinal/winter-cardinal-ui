@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextOutlineImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextOutlineImpl
 
 # Class: EShapeTextOutlineImpl
 
@@ -40,7 +40,7 @@
 
 ### constructor
 
-• **new EShapeTextOutlineImpl**(`parent`, `enable`, `color`, `alpha`, `width`)
+• **new EShapeTextOutlineImpl**(`parent`, `enable`, `color`, `alpha`, `width`): [`EShapeTextOutlineImpl`](EShapeTextOutlineImpl.md)
 
 #### Parameters
 
@@ -51,6 +51,10 @@
 | `color` | `number` |
 | `alpha` | `number` |
 | `width` | `number` |
+
+#### Returns
+
+[`EShapeTextOutlineImpl`](EShapeTextOutlineImpl.md)
 
 #### Defined in
 
@@ -286,7 +290,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
+| `target?` | `Partial`\<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
 
 #### Returns
 

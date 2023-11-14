@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesContainerOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesContainerOptions
 
-# Interface: DChartSeriesContainerOptions<CHART\>
+# Interface: DChartSeriesContainerOptions\<CHART\>
 
 ## Type parameters
 
@@ -34,7 +34,7 @@ ___
 
 ### list
 
-• **list**: [`DChartSeries`](DChartSeries.md)<`CHART`\>[]
+• **list**: [`DChartSeries`](DChartSeries.md)\<`CHART`\>[]
 
 #### Defined in
 
@@ -64,7 +64,7 @@ ___
 
 ### selection
 
-• `Optional` **selection**: [`DChartSelection`](DChartSelection.md)<`CHART`\>
+• `Optional` **selection**: [`DChartSelection`](DChartSelection.md)\<`CHART`\>
 
 #### Defined in
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataSelectionOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataSelectionOptions
 
-# Interface: DTableDataSelectionOptions<EMITTER\>
+# Interface: DTableDataSelectionOptions\<EMITTER\>
 
 ## Type parameters
 
@@ -25,7 +25,7 @@
 
 ### on
 
-• `Optional` **on**: [`DTableDataSelectionOnOptions`](DTableDataSelectionOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DTableDataSelectionOnOptions`](DTableDataSelectionOnOptions.md)\<`EMITTER`\>
 
 #### Defined in
 

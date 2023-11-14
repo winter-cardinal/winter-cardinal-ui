@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilOverlay
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilOverlay
 
 # Class: UtilOverlay
 
@@ -25,7 +25,7 @@
 
 ### constructor
 
-• **new UtilOverlay**(`options?`)
+• **new UtilOverlay**(`options?`): [`UtilOverlay`](UtilOverlay.md)
 
 #### Parameters
 
@@ -33,6 +33,10 @@
 | :------ | :------ |
 | `options?` | `Object` |
 | `options.parent?` | `unknown` |
+
+#### Returns
+
+[`UtilOverlay`](UtilOverlay.md)
 
 #### Defined in
 

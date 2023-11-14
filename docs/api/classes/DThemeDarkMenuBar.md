@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkMenuBar
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkMenuBar
 
 # Class: DThemeDarkMenuBar
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeDarkMenuBar**()
+• **new DThemeDarkMenuBar**(): [`DThemeDarkMenuBar`](DThemeDarkMenuBar.md)
+
+#### Returns
+
+[`DThemeDarkMenuBar`](DThemeDarkMenuBar.md)
 
 #### Inherited from
 

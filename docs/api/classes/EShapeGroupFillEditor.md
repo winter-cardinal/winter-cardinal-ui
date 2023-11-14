@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupFillEditor
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupFillEditor
 
 # Class: EShapeGroupFillEditor
 
@@ -35,13 +35,17 @@
 
 ### constructor
 
-• **new EShapeGroupFillEditor**(`parent`)
+• **new EShapeGroupFillEditor**(`parent`): [`EShapeGroupFillEditor`](EShapeGroupFillEditor.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeGroupPropertyParent`](../interfaces/EShapeGroupPropertyParent.md) |
+
+#### Returns
+
+[`EShapeGroupFillEditor`](EShapeGroupFillEditor.md)
 
 #### Defined in
 
@@ -199,7 +203,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeFillLike`](../interfaces/EShapeFillLike.md)\> |
+| `target?` | `Partial`\<[`EShapeFillLike`](../interfaces/EShapeFillLike.md)\> |
 
 #### Returns
 

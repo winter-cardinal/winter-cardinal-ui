@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeries
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeries
 
-# Interface: DChartSeries<CHART\>
+# Interface: DChartSeries\<CHART\>
 
 ## Type parameters
 
@@ -43,7 +43,7 @@
 
 ### container
 
-• `Readonly` **container**: ``null`` \| [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\>
+• `Readonly` **container**: ``null`` \| [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -53,7 +53,7 @@ ___
 
 ### coordinate
 
-• `Readonly` **coordinate**: [`DChartSeriesCoordinateContainer`](DChartSeriesCoordinateContainer.md)<`CHART`\>
+• `Readonly` **coordinate**: [`DChartSeriesCoordinateContainer`](DChartSeriesCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -113,18 +113,18 @@ ___
 
 ### bind
 
-▸ **bind**(`container`, `index`): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **bind**(`container`, `index`): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -156,11 +156,11 @@ ___
 
 ### destroy
 
-▸ **destroy**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **destroy**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -170,11 +170,11 @@ ___
 
 ### hide
 
-▸ **hide**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **hide**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -233,11 +233,11 @@ ___
 
 ### onRender
 
-▸ **onRender**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **onRender**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -247,11 +247,11 @@ ___
 
 ### show
 
-▸ **show**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **show**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -261,11 +261,11 @@ ___
 
 ### toDirty
 
-▸ **toDirty**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **toDirty**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -275,11 +275,11 @@ ___
 
 ### unbind
 
-▸ **unbind**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **unbind**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -289,11 +289,11 @@ ___
 
 ### update
 
-▸ **update**(): [`DChartSeries`](DChartSeries.md)<`CHART`\>
+▸ **update**(): [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeries`](DChartSeries.md)<`CHART`\>
+[`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 

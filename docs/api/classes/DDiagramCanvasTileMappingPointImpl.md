@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasTileMappingPointImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasTileMappingPointImpl
 
 # Class: DDiagramCanvasTileMappingPointImpl
 
@@ -41,7 +41,7 @@
 
 ### constructor
 
-• **new DDiagramCanvasTileMappingPointImpl**(`cb`, `scope`, `x?`, `y?`)
+• **new DDiagramCanvasTileMappingPointImpl**(`cb`, `scope`, `x?`, `y?`): [`DDiagramCanvasTileMappingPointImpl`](DDiagramCanvasTileMappingPointImpl.md)
 
 #### Parameters
 
@@ -51,6 +51,10 @@
 | `scope` | `any` |
 | `x?` | `number` |
 | `y?` | `number` |
+
+#### Returns
+
+[`DDiagramCanvasTileMappingPointImpl`](DDiagramCanvasTileMappingPointImpl.md)
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicFontAtlases
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicFontAtlases
 
 # Class: DynamicFontAtlases
 
@@ -25,13 +25,17 @@
 
 ### constructor
 
-• **new DynamicFontAtlases**(`layer`)
+• **new DynamicFontAtlases**(`layer`): [`DynamicFontAtlases`](DynamicFontAtlases.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `layer` | [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md) |
+
+#### Returns
+
+[`DynamicFontAtlases`](DynamicFontAtlases.md)
 
 #### Defined in
 
@@ -41,7 +45,7 @@
 
 ### \_atlases
 
-• `Protected` **\_atlases**: `Map`<`string`, `Map`<`number`, [`DynamicFontAtlas`](DynamicFontAtlas.md)\>\>
+• `Protected` **\_atlases**: `Map`\<`string`, `Map`\<`number`, [`DynamicFontAtlas`](DynamicFontAtlas.md)\>\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSerializedTextOutline
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSerializedTextOutline
 
 # Interface: DDiagramSerializedTextOutline
 

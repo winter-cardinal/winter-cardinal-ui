@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartAxisX
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChartAxisX
 
 # Class: DThemeWhiteChartAxisX
 
@@ -88,7 +88,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChartAxisX**()
+• **new DThemeWhiteChartAxisX**(): [`DThemeWhiteChartAxisX`](DThemeWhiteChartAxisX.md)
+
+#### Returns
+
+[`DThemeWhiteChartAxisX`](DThemeWhiteChartAxisX.md)
 
 #### Inherited from
 

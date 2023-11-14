@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilGesture
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilGesture
 
-# Class: UtilGesture<TARGET\>
+# Class: UtilGesture\<TARGET\>
 
 ## Type parameters
 
@@ -20,9 +20,12 @@
 - [\_checkerStart](UtilGesture.md#_checkerstart)
 - [\_easing](UtilGesture.md#_easing)
 - [\_modifier](UtilGesture.md#_modifier)
+- [\_onEasingEnd](UtilGesture.md#_oneasingend)
+- [\_onEasingStart](UtilGesture.md#_oneasingstart)
 - [\_onEnd](UtilGesture.md#_onend)
 - [\_onMove](UtilGesture.md#_onmove)
 - [\_onStart](UtilGesture.md#_onstart)
+- [\_onStop](UtilGesture.md#_onstop)
 - [\_touch](UtilGesture.md#_touch)
 - [\_unused](UtilGesture.md#_unused)
 - [\_used](UtilGesture.md#_used)
@@ -48,7 +51,7 @@
 
 ### constructor
 
-• **new UtilGesture**<`TARGET`\>(`options`)
+• **new UtilGesture**\<`TARGET`\>(`options`): [`UtilGesture`](UtilGesture.md)\<`TARGET`\>
 
 #### Type parameters
 
@@ -60,31 +63,35 @@
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`UtilGestureOptions`](../interfaces/UtilGestureOptions.md)<`TARGET`\> |
+| `options` | [`UtilGestureOptions`](../interfaces/UtilGestureOptions.md)\<`TARGET`\> |
+
+#### Returns
+
+[`UtilGesture`](UtilGesture.md)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L88)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L101)
 
 ## Properties
 
 ### \_checkerMove
 
-• `Protected` **\_checkerMove**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
+• `Protected` **\_checkerMove**: [`UtilGestureChecker`](../index.md#utilgesturechecker)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L81)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L94)
 
 ___
 
 ### \_checkerStart
 
-• `Protected` **\_checkerStart**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
+• `Protected` **\_checkerStart**: [`UtilGestureChecker`](../index.md#utilgesturechecker)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L80)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L93)
 
 ___
 
@@ -94,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L82)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L95)
 
 ___
 
@@ -104,37 +111,67 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L79)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L92)
+
+___
+
+### \_onEasingEnd
+
+• `Protected` `Optional` **\_onEasingEnd**: [`UtilGestureOnEasingEnd`](../index.md#utilgestureoneasingend)\<`TARGET`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L91)
+
+___
+
+### \_onEasingStart
+
+• `Protected` `Optional` **\_onEasingStart**: [`UtilGestureOnEasingStart`](../index.md#utilgestureoneasingstart)\<`TARGET`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L90)
 
 ___
 
 ### \_onEnd
 
-• `Protected` `Optional` **\_onEnd**: [`UtilGestureOnEnd`](../index.md#utilgestureonend)<`TARGET`\>
+• `Protected` `Optional` **\_onEnd**: [`UtilGestureOnEnd`](../index.md#utilgestureonend)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L78)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L88)
 
 ___
 
 ### \_onMove
 
-• `Protected` `Optional` **\_onMove**: [`UtilGestureOnMove`](../index.md#utilgestureonmove)<`TARGET`\>
+• `Protected` `Optional` **\_onMove**: [`UtilGestureOnMove`](../index.md#utilgestureonmove)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L77)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L87)
 
 ___
 
 ### \_onStart
 
-• `Protected` `Optional` **\_onStart**: [`UtilGestureOnStart`](../index.md#utilgestureonstart)<`TARGET`\>
+• `Protected` `Optional` **\_onStart**: [`UtilGestureOnStart`](../index.md#utilgestureonstart)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L76)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L86)
+
+___
+
+### \_onStop
+
+• `Protected` `Optional` **\_onStop**: [`UtilGestureOnStop`](../index.md#utilgestureonstop)\<`TARGET`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L89)
 
 ___
 
@@ -144,33 +181,33 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L83)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L96)
 
 ___
 
 ### \_unused
 
-• `Protected` **\_unused**: [`UtilGestureData`](UtilGestureData.md)<`TARGET`\>[]
+• `Protected` **\_unused**: [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\>[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L85)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L98)
 
 ___
 
 ### \_used
 
-• `Protected` **\_used**: `Map`<`TARGET`, [`UtilGestureData`](UtilGestureData.md)<`TARGET`\>\>
+• `Protected` **\_used**: `Map`\<`TARGET`, [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L86)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L99)
 
 ## Methods
 
 ### bind
 
-▸ **bind**(`target`): [`UtilGesture`](UtilGesture.md)<`TARGET`\>
+▸ **bind**(`target`): [`UtilGesture`](UtilGesture.md)\<`TARGET`\>
 
 #### Parameters
 
@@ -180,23 +217,23 @@ ___
 
 #### Returns
 
-[`UtilGesture`](UtilGesture.md)<`TARGET`\>
+[`UtilGesture`](UtilGesture.md)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L166)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L185)
 
 ___
 
 ### deleteData
 
-▸ `Protected` **deleteData**(`data`): `void`
+▸ **deleteData**(`data`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -204,13 +241,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L155)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L174)
 
 ___
 
 ### isTouch
 
-▸ `Protected` **isTouch**(`e`): `boolean`
+▸ **isTouch**(`e`): `boolean`
 
 #### Parameters
 
@@ -224,13 +261,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L173)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L192)
 
 ___
 
 ### newData
 
-▸ `Protected` **newData**(`target`): [`UtilGestureData`](UtilGestureData.md)<`TARGET`\>
+▸ **newData**(`target`): [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\>
 
 #### Parameters
 
@@ -240,27 +277,7 @@ ___
 
 #### Returns
 
-[`UtilGestureData`](UtilGestureData.md)<`TARGET`\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L112)
-
-___
-
-### newEasing
-
-▸ `Protected` **newEasing**(`data`): `undefined` \| [`UtilGestureEasing`](UtilGestureEasing.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
-
-#### Returns
-
-`undefined` \| [`UtilGestureEasing`](UtilGestureEasing.md)
+[`UtilGestureData`](UtilGestureData.md)\<`TARGET`\>
 
 #### Defined in
 
@@ -268,15 +285,35 @@ ___
 
 ___
 
-### newOnEnd
+### newEasing
 
-▸ `Protected` **newOnEnd**(`data`): (`e`: `InteractionEvent`) => `void`
+▸ **newEasing**(`data`): `undefined` \| [`UtilGestureEasing`](UtilGestureEasing.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
+
+#### Returns
+
+`undefined` \| [`UtilGestureEasing`](UtilGestureEasing.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L150)
+
+___
+
+### newOnEnd
+
+▸ **newOnEnd**(`data`): (`e`: `InteractionEvent`) => `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -296,19 +333,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L234)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L253)
 
 ___
 
 ### newOnMove
 
-▸ `Protected` **newOnMove**(`data`): (`e`: `InteractionEvent`) => `void`
+▸ **newOnMove**(`data`): (`e`: `InteractionEvent`) => `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -328,7 +365,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L228)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L247)
 
 ___
 
@@ -349,19 +386,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L184)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L203)
 
 ___
 
 ### onEasingEnd
 
-▸ `Protected` **onEasingEnd**(`data`): `void`
+▸ **onEasingEnd**(`data`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -369,13 +406,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L350)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:377](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L377)
 
 ___
 
 ### onEasingMove
 
-▸ `Protected` **onEasingMove**(`dx`, `dy`, `ds`, `time`, `data`): `void`
+▸ **onEasingMove**(`dx`, `dy`, `ds`, `time`, `data`): `void`
 
 #### Parameters
 
@@ -385,7 +422,7 @@ ___
 | `dy` | `number` |
 | `ds` | `number` |
 | `time` | `number` |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -393,20 +430,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:325](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L325)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L352)
 
 ___
 
 ### onEnd
 
-▸ `Protected` **onEnd**(`e`, `data`): `void`
+▸ **onEnd**(`e`, `data`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `e` | `InteractionEvent` |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -414,20 +451,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L283)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:302](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L302)
 
 ___
 
 ### onMove
 
-▸ `Protected` **onMove**(`e`, `data`): `void`
+▸ **onMove**(`e`, `data`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `e` | `InteractionEvent` |
-| `data` | [`UtilGestureData`](UtilGestureData.md)<`TARGET`\> |
+| `data` | [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\> |
 
 #### Returns
 
@@ -435,7 +472,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L240)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L259)
 
 ___
 
@@ -455,13 +492,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L354)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L386)
 
 ___
 
 ### toEasingOptions
 
-▸ `Protected` **toEasingOptions**(`options?`): `undefined` \| [`UtilGestureEasingOptions`](../interfaces/UtilGestureEasingOptions.md)
+▸ **toEasingOptions**(`options?`): `undefined` \| [`UtilGestureEasingOptions`](../interfaces/UtilGestureEasingOptions.md)
 
 #### Parameters
 
@@ -475,4 +512,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L149)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L168)

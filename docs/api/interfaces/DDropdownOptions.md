@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDropdownOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDropdownOptions
 
-# Interface: DDropdownOptions<VALUE, THEME\>
+# Interface: DDropdownOptions\<VALUE, THEME\>
 
 Dropdown options.
 
@@ -13,7 +13,7 @@ Dropdown options.
 
 ## Hierarchy
 
-- [`DDropdownBaseOptions`](DDropdownBaseOptions.md)<`VALUE`, `string`, `THEME`\>
+- [`DDropdownBaseOptions`](DDropdownBaseOptions.md)\<`VALUE`, `string`, `THEME`\>
 
   ↳ **`DDropdownOptions`**
 
@@ -140,7 +140,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -156,7 +156,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -207,7 +207,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -237,7 +237,7 @@ ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
 
 Menu options.
 
@@ -269,7 +269,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDropdownBaseOnOptions`](DDropdownBaseOnOptions.md)<`VALUE`, `string`, `any`\>
+• `Optional` **on**: [`DDropdownBaseOnOptions`](DDropdownBaseOnOptions.md)\<`VALUE`, `string`, `any`\>
 
 Mappings of event names and handlers.
 
@@ -342,7 +342,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDropdownOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -423,7 +423,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`string`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`string`\>
 
 #### Inherited from
 

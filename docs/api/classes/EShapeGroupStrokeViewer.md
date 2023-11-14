@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupStrokeViewer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupStrokeViewer
 
 # Class: EShapeGroupStrokeViewer
 
@@ -35,7 +35,11 @@
 
 ### constructor
 
-• **new EShapeGroupStrokeViewer**()
+• **new EShapeGroupStrokeViewer**(): [`EShapeGroupStrokeViewer`](EShapeGroupStrokeViewer.md)
+
+#### Returns
+
+[`EShapeGroupStrokeViewer`](EShapeGroupStrokeViewer.md)
 
 #### Defined in
 
@@ -335,7 +339,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `target?` | `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
 
 #### Returns
 

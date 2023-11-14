@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuContext
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuContext
 
 # Class: DMenuContext
 
@@ -25,37 +25,41 @@
 
 ### constructor
 
-• **new DMenuContext**(`owner`)
+• **new DMenuContext**(`owner`): [`DMenuContext`](DMenuContext.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `owner` | [`Owner`](../interfaces/Owner.md) |
+| `owner` | [`DMenuContextOwner`](../interfaces/DMenuContextOwner.md) |
+
+#### Returns
+
+[`DMenuContext`](DMenuContext.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L24)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L20)
 
 ## Properties
 
 ### \_closeables
 
-• `Protected` **\_closeables**: [`Closeable`](../interfaces/Closeable.md)[]
+• `Protected` **\_closeables**: [`DMenuCloseable`](../interfaces/DMenuCloseable.md)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L22)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L18)
 
 ___
 
 ### \_owner
 
-• `Protected` **\_owner**: [`Owner`](../interfaces/Owner.md)
+• `Protected` **\_owner**: [`DMenuContextOwner`](../interfaces/DMenuContextOwner.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L21)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L17)
 
 ## Methods
 
@@ -67,7 +71,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `closeable` | [`Closeable`](../interfaces/Closeable.md) |
+| `closeable` | [`DMenuCloseable`](../interfaces/DMenuCloseable.md) |
 
 #### Returns
 
@@ -75,13 +79,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L41)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L37)
 
 ___
 
 ### close
 
-▸ `Protected` **close**(`index`): `void`
+▸ **close**(`index`): `void`
 
 #### Parameters
 
@@ -95,13 +99,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L33)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L29)
 
 ___
 
 ### indexOf
 
-▸ `Protected` **indexOf**(`target`): `number`
+▸ **indexOf**(`target`): `number`
 
 #### Parameters
 
@@ -115,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L29)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L25)
 
 ___
 
@@ -127,7 +131,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `closeable` | [`Closeable`](../interfaces/Closeable.md) |
+| `closeable` | [`DMenuCloseable`](../interfaces/DMenuCloseable.md) |
 
 #### Returns
 
@@ -135,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L49)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L45)
 
 ___
 
@@ -147,7 +151,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `closeable` | ``null`` \| [`Closeable`](../interfaces/Closeable.md) |
+| `closeable` | ``null`` \| [`DMenuCloseable`](../interfaces/DMenuCloseable.md) |
 
 #### Returns
 
@@ -155,4 +159,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L45)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L41)

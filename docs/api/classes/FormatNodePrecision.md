@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodePrecision
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodePrecision
 
 # Class: FormatNodePrecision
 
@@ -36,13 +36,17 @@
 
 ### constructor
 
-• **new FormatNodePrecision**(`precision?`)
+• **new FormatNodePrecision**(`precision?`): [`FormatNodePrecision`](FormatNodePrecision.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `precision?` | `string` |
+
+#### Returns
+
+[`FormatNodePrecision`](FormatNodePrecision.md)
 
 #### Defined in
 
@@ -62,7 +66,7 @@
 
 ### format
 
-▸ `Abstract` **format**(`target`, `step`, `date`): `string`
+▸ **format**(`target`, `step`, `date`): `string`
 
 #### Parameters
 

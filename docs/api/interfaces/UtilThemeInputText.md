@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilThemeInputText
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilThemeInputText
 
 # Interface: UtilThemeInputText
 
 ## Hierarchy
 
-- [`UtilThemeInputInput`](UtilThemeInputInput.md)<`string`\>
+- [`UtilThemeInputInput`](UtilThemeInputInput.md)\<`string`\>
 
   ↳ **`UtilThemeInputText`**
 
@@ -33,11 +33,11 @@
 
 ### getAfterCreator
 
-▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -51,11 +51,11 @@ ___
 
 ### getBeforeCreator
 
-▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -69,11 +69,11 @@ ___
 
 ### getClipperCreator
 
-▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -180,11 +180,11 @@ ___
 
 ### getElementCreator
 
-▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLInputElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLInputElement`\>
 
 #### Inherited from
 

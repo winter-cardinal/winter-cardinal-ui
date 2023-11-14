@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicText
+[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicText
 
 # Class: DDynamicText
 
@@ -151,14 +151,17 @@
 
 ### constructor
 
-• **new DDynamicText**(`text`, `options?`)
+• **new DDynamicText**(`options?`): [`DDynamicText`](DDynamicText.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `text` | `string` |
 | `options?` | [`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md) |
+
+#### Returns
+
+[`DDynamicText`](DDynamicText.md)
 
 #### Overrides
 
@@ -331,7 +334,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -474,7 +477,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -523,7 +528,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -573,7 +580,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -635,7 +644,9 @@ The blend mode to be applied to the Mesh. Apply a value of
 
 **`Default`**
 
+```ts
 PIXI.BLEND_MODES.NORMAL;
+```
 
 **`See`**
 
@@ -1036,7 +1047,7 @@ ___
 
 • **material**: `Shader` \| `MeshMaterial`
 
-Alias for PIXI.Mesh#shader.
+Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
 
 **`Member`**
 
@@ -1187,7 +1198,9 @@ To set the global default, change PIXI.settings.ROUND_PIXELS
 
 **`Default`**
 
+```ts
 false
+```
 
 #### Inherited from
 
@@ -1251,7 +1264,9 @@ PIXI.Mesh#size
 
 **`Default`**
 
+```ts
 0
+```
 
 #### Inherited from
 
@@ -1351,7 +1366,9 @@ PIXI.Mesh#start
 
 **`Default`**
 
+```ts
 0
+```
 
 #### Inherited from
 
@@ -1413,7 +1430,9 @@ The multiply tint applied to the Mesh. This is a hex value. A value of
 
 **`Default`**
 
+```ts
 0xFFFFFF
+```
 
 #### Inherited from
 
@@ -1658,7 +1677,7 @@ node_modules/pixi.js/pixi.js.d.ts:13144
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L147)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L146)
 
 ___
 
@@ -1676,7 +1695,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L133)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L132)
 
 • `set` **height**(`height`): `void`
 
@@ -1696,7 +1715,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L138)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L137)
 
 ___
 
@@ -1710,7 +1729,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L151)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L150)
 
 ___
 
@@ -1724,7 +1743,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L102)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L101)
 
 • `set` **text**(`text`): `void`
 
@@ -1740,7 +1759,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L106)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L105)
 
 ___
 
@@ -1758,7 +1777,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L118)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L117)
 
 • `set` **width**(`width`): `void`
 
@@ -1778,13 +1797,13 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L123)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L122)
 
 ## Methods
 
 ### \_calculateBounds
 
-▸ `Protected` **_calculateBounds**(): `void`
+▸ **_calculateBounds**(): `void`
 
 #### Returns
 
@@ -1796,7 +1815,7 @@ Mesh.\_calculateBounds
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L266)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L265)
 
 ___
 
@@ -1823,7 +1842,7 @@ ___
 
 ### \_render
 
-▸ `Protected` **_render**(`renderer?`): `void`
+▸ **_render**(`renderer?`): `void`
 
 #### Parameters
 
@@ -1841,13 +1860,13 @@ Mesh.\_render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:271](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L271)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L270)
 
 ___
 
 ### \_renderDefault
 
-▸ `Protected` **_renderDefault**(`renderer`): `void`
+▸ **_renderDefault**(`renderer`): `void`
 
 Standard non-batching way of rendering.
 
@@ -1873,7 +1892,7 @@ ___
 
 ### \_renderToBatch
 
-▸ `Protected` **_renderToBatch**(`renderer`): `void`
+▸ **_renderToBatch**(`renderer`): `void`
 
 Rendering by using the Batch system.
 
@@ -1899,7 +1918,7 @@ ___
 
 ### addChild
 
-▸ **addChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -1935,7 +1954,7 @@ ___
 
 ### addChildAt
 
-▸ **addChildAt**<`T`\>(`child`, `index`): `T`
+▸ **addChildAt**\<`T`\>(`child`, `index`): `T`
 
 Adds a child to the container at a specified index. If the index is out of bounds an error will be thrown
 
@@ -1943,7 +1962,7 @@ Adds a child to the container at a specified index. If the index is out of bound
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `DisplayObject`<`T`\> |
+| `T` | extends `DisplayObject` |
 
 #### Parameters
 
@@ -2114,8 +2133,8 @@ Destroys the Mesh object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | `Object` | Options parameter. A boolean will act as if all  options have been set to that value |
-| `options.children?` | `boolean` | if set to true, all the children will have  their destroy method called as well. 'options' will be passed on to those calls. |
+| `options?` | `Object` | Options parameter. A boolean will act as if all options have been set to that value |
+| `options.children?` | `boolean` | if set to true, all the children will have their destroy method called as well. 'options' will be passed on to those calls. |
 
 #### Returns
 
@@ -2138,6 +2157,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -2145,10 +2168,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -2162,7 +2181,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -2219,7 +2238,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -2272,14 +2291,6 @@ ___
 
 Returns the display object in the container.
 
-**`Method`**
-
-getChildByName
-
-**`Memberof`**
-
-PIXI.Container#
-
 #### Parameters
 
 | Name | Type | Description |
@@ -2291,6 +2302,14 @@ PIXI.Container#
 `DisplayObject`
 
 The child with the specified name.
+
+**`Method`**
+
+getChildByName
+
+**`Memberof`**
+
+PIXI.Container#
 
 #### Inherited from
 
@@ -2336,6 +2355,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -2343,19 +2375,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -2481,7 +2500,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
@@ -2523,7 +2542,7 @@ ___
 
 ### onChildrenChange
 
-▸ `Protected` **onChildrenChange**(): `void`
+▸ **onChildrenChange**(): `void`
 
 Overridable method that can be used by Container subclasses whenever the children array is modified
 
@@ -2549,7 +2568,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
@@ -2635,7 +2654,7 @@ ___
 
 ### removeChild
 
-▸ **removeChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -2800,7 +2819,7 @@ ___
 
 ### renderAdvanced
 
-▸ `Protected` **renderAdvanced**(`renderer`): `void`
+▸ **renderAdvanced**(`renderer`): `void`
 
 Render the object using the WebGL renderer and advanced features.
 
@@ -2868,7 +2887,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L260)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L259)
 
 ___
 
@@ -2994,7 +3013,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -3025,7 +3044,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -3054,13 +3073,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L155)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L154)
 
 ___
 
 ### updateClipping
 
-▸ `Protected` **updateClipping**(`style`, `modifier`): `boolean`
+▸ **updateClipping**(`style`, `modifier`): `boolean`
 
 #### Parameters
 
@@ -3075,7 +3094,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L205)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L204)
 
 ___
 
@@ -3101,7 +3120,7 @@ ___
 
 ### update\_
 
-▸ `Protected` **update_**(): `void`
+▸ **update_**(): `void`
 
 #### Returns
 
@@ -3109,13 +3128,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L76)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L75)
 
 ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilInputInputOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilInputInputOptions
 
-# Interface: UtilInputInputOptions<VALUE\>
+# Interface: UtilInputInputOptions\<VALUE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`UtilInputOptions`](UtilInputOptions.md)<`VALUE`, `HTMLInputElement`\>
+- [`UtilInputOptions`](UtilInputOptions.md)\<`VALUE`, `HTMLInputElement`\>
 
   ↳ **`UtilInputInputOptions`**
 
@@ -93,7 +93,7 @@ ___
 
 ### editing
 
-• `Optional` **editing**: [`UtilInputEditingOptions`](UtilInputEditingOptions.md)<`VALUE`\>
+• `Optional` **editing**: [`UtilInputEditingOptions`](UtilInputEditingOptions.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -107,7 +107,7 @@ ___
 
 ### element
 
-• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)<`HTMLInputElement`\>
+• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)\<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -135,7 +135,7 @@ ___
 
 ### when
 
-• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
+• `Optional` **when**: ``"FOCUSED"`` \| ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Inherited from
 

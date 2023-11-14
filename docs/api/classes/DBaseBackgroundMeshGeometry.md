@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseBackgroundMeshGeometry
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseBackgroundMeshGeometry
 
 # Class: DBaseBackgroundMeshGeometry
 
@@ -65,7 +65,11 @@
 
 ### constructor
 
-• **new DBaseBackgroundMeshGeometry**()
+• **new DBaseBackgroundMeshGeometry**(): [`DBaseBackgroundMeshGeometry`](DBaseBackgroundMeshGeometry.md)
+
+#### Returns
+
+[`DBaseBackgroundMeshGeometry`](DBaseBackgroundMeshGeometry.md)
 
 #### Overrides
 
@@ -273,7 +277,9 @@ PIXI.Geometry#instanceCount
 
 **`Default`**
 
+```ts
 1
+```
 
 #### Inherited from
 
@@ -612,7 +618,7 @@ ___
 
 ### fillIndices
 
-▸ `Protected` **fillIndices**(`indices`, `ia`, `ii`, `n`): `void`
+▸ **fillIndices**(`indices`, `ia`, `ii`, `n`): `void`
 
 #### Parameters
 
@@ -635,7 +641,7 @@ ___
 
 ### fillIndicesEnd
 
-▸ `Protected` **fillIndicesEnd**(`indices`, `ia`, `ii`, `n`): `void`
+▸ **fillIndicesEnd**(`indices`, `ia`, `ii`, `n`): `void`
 
 #### Parameters
 
@@ -658,7 +664,7 @@ ___
 
 ### fillVertices
 
-▸ `Protected` **fillVertices**(`vertices`, `uvs`, `iv`, `iuv`, `n`, `x`, `y`, `r`, `dr`, `table`): `void`
+▸ **fillVertices**(`vertices`, `uvs`, `iv`, `iuv`, `n`, `x`, `y`, `r`, `dr`, `table`): `void`
 
 #### Parameters
 
@@ -765,7 +771,7 @@ ___
 
 ### getTables
 
-▸ `Protected` **getTables**(): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
+▸ **getTables**(): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
 
 #### Returns
 
@@ -806,7 +812,7 @@ ___
 
 ### newTable
 
-▸ `Protected` **newTable**(`n`, `a0`, `da`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)
+▸ **newTable**(`n`, `a0`, `da`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)
 
 #### Parameters
 
@@ -832,7 +838,7 @@ ___
 
 ### newTables
 
-▸ `Protected` **newTables**(`n`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
+▸ **newTables**(`n`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
 
 #### Parameters
 
@@ -876,7 +882,7 @@ ___
 
 ### merge
 
-▸ `Static` **merge**(`geometries`): `Geometry`
+▸ **merge**(`geometries`): `Geometry`
 
 merges an array of geometries into a new single one
 geometry attribute styles must match for this operation to work

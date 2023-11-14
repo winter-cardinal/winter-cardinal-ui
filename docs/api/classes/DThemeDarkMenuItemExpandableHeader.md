@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkMenuItemExpandableHeader
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkMenuItemExpandableHeader
 
 # Class: DThemeDarkMenuItemExpandableHeader
 
@@ -103,7 +103,11 @@
 
 ### constructor
 
-• **new DThemeDarkMenuItemExpandableHeader**()
+• **new DThemeDarkMenuItemExpandableHeader**(): [`DThemeDarkMenuItemExpandableHeader`](DThemeDarkMenuItemExpandableHeader.md)
+
+#### Returns
+
+[`DThemeDarkMenuItemExpandableHeader`](DThemeDarkMenuItemExpandableHeader.md)
 
 #### Inherited from
 
@@ -171,7 +175,7 @@ ___
 
 ### getBackgroundAlphaActive
 
-▸ `Protected` **getBackgroundAlphaActive**(`state`): `number`
+▸ **getBackgroundAlphaActive**(`state`): `number`
 
 #### Parameters
 
@@ -226,7 +230,7 @@ ___
 
 ### getBackgroundColorActive
 
-▸ `Protected` **getBackgroundColorActive**(`state`): ``null`` \| `number`
+▸ **getBackgroundColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -502,7 +506,7 @@ ___
 
 ### getColorActive
 
-▸ `Protected` **getColorActive**(`state`): `number`
+▸ **getColorActive**(`state`): `number`
 
 #### Parameters
 
@@ -2010,14 +2014,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

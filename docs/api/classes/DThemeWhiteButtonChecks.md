@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteButtonChecks
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteButtonChecks
 
 # Class: DThemeWhiteButtonChecks
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new DThemeWhiteButtonChecks**()
+• **new DThemeWhiteButtonChecks**(): [`DThemeWhiteButtonChecks`](DThemeWhiteButtonChecks.md)
+
+#### Returns
+
+[`DThemeWhiteButtonChecks`](DThemeWhiteButtonChecks.md)
 
 ## Methods
 
 ### getImageSource
 
-▸ `Static` **getImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -43,7 +47,7 @@ ___
 
 ### getImageTintColor
 
-▸ `Static` **getImageTintColor**(`state`): ``null`` \| `number`
+▸ **getImageTintColor**(`state`): ``null`` \| `number`
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshot
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSnapshot
 
-# Class: DDiagramSnapshot<CANVAS\>
+# Class: DDiagramSnapshot\<CANVAS\>
 
 ## Type parameters
 
@@ -48,20 +48,24 @@
 
 ### constructor
 
-• **new DDiagramSnapshot**<`CANVAS`\>(`parent`, `options?`)
+• **new DDiagramSnapshot**\<`CANVAS`\>(`parent`, `options?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CANVAS` | extends [`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)<`CANVAS`\> = [`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md) |
+| `CANVAS` | extends [`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md) = [`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md) |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DDiagramSnapshotParent`](../interfaces/DDiagramSnapshotParent.md)<`CANVAS`\> |
-| `options?` | [`DDiagramSnapshotOptions`](../interfaces/DDiagramSnapshotOptions.md)<`CANVAS`, `any`\> |
+| `parent` | [`DDiagramSnapshotParent`](../interfaces/DDiagramSnapshotParent.md)\<`CANVAS`\> |
+| `options?` | [`DDiagramSnapshotOptions`](../interfaces/DDiagramSnapshotOptions.md)\<`CANVAS`, `any`\> |
+
+#### Returns
+
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 #### Overrides
 
@@ -75,7 +79,7 @@ utils.EventEmitter.constructor
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DDiagramSnapshotParent`](../interfaces/DDiagramSnapshotParent.md)<`CANVAS`\>
+• `Protected` **\_parent**: [`DDiagramSnapshotParent`](../interfaces/DDiagramSnapshotParent.md)\<`CANVAS`\>
 
 #### Defined in
 
@@ -85,7 +89,7 @@ utils.EventEmitter.constructor
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 Alias method for `on`
 
@@ -99,7 +103,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 #### Inherited from
 
@@ -113,7 +117,7 @@ ___
 
 ### create
 
-▸ **create**<`DATA`\>(`options`): `undefined` \| `DATA`
+▸ **create**\<`DATA`\>(`options`): `undefined` \| `DATA`
 
 #### Type parameters
 
@@ -125,7 +129,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)<`CANVAS`, `DATA`\> |
+| `options` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)\<`CANVAS`, `DATA`\> |
 
 #### Returns
 
@@ -242,7 +246,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -343,7 +347,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 Alias method for `removeListener`
 
@@ -358,7 +362,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 #### Inherited from
 
@@ -372,7 +376,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 Add a listener for a given event.
 
@@ -386,7 +390,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 `this`.
 
@@ -402,7 +406,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 Add a one-time listener for a given event.
 
@@ -416,7 +420,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 `this`.
 
@@ -432,7 +436,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+▸ **removeAllListeners**(`event?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -444,7 +448,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 `this`.
 
@@ -460,7 +464,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 Remove the listeners of a given event.
 
@@ -475,7 +479,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<`CANVAS`\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
 
 `this`.
 
@@ -491,13 +495,13 @@ ___
 
 ### toCleanupBackground
 
-▸ `Protected` **toCleanupBackground**(`options?`): `boolean`
+▸ **toCleanupBackground**(`options?`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)<`CANVAS`, `unknown`\> |
+| `options?` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)\<`CANVAS`, `unknown`\> |
 
 #### Returns
 
@@ -511,13 +515,13 @@ ___
 
 ### toCleanupReflow
 
-▸ `Protected` **toCleanupReflow**(`options?`): `boolean`
+▸ **toCleanupReflow**(`options?`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)<`CANVAS`, `unknown`\> |
+| `options?` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)\<`CANVAS`, `unknown`\> |
 
 #### Returns
 
@@ -531,13 +535,13 @@ ___
 
 ### toCleanupSnap
 
-▸ `Protected` **toCleanupSnap**(`options?`): `boolean`
+▸ **toCleanupSnap**(`options?`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)<`CANVAS`, `unknown`\> |
+| `options?` | [`DDiagramSnapshotCreateOptions`](../interfaces/DDiagramSnapshotCreateOptions.md)\<`CANVAS`, `unknown`\> |
 
 #### Returns
 
@@ -551,7 +555,7 @@ ___
 
 ### toScale
 
-▸ `Protected` **toScale**(`size`, `canvas`): `number`
+▸ **toScale**(`size`, `canvas`): `number`
 
 #### Parameters
 

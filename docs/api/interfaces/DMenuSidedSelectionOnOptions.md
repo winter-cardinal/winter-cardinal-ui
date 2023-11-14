@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuSidedSelectionOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSidedSelectionOnOptions
 
-# Interface: DMenuSidedSelectionOnOptions<EMITTER\>
+# Interface: DMenuSidedSelectionOnOptions\<EMITTER\>
 
 [DMenuSidedSelection](../classes/DMenuSidedSelection.md) "on" options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DMenuSidedSelectionEvents`](DMenuSidedSelectionEvents.md)<`EMITTER`\>\>
+- `Partial`\<[`DMenuSidedSelectionEvents`](DMenuSidedSelectionEvents.md)\<`EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -28,7 +28,7 @@
 
 ### change
 
-▸ `Optional` **change**(`emitter`): `void`
+▸ **change**(`emitter`): `void`
 
 Triggered when a selection is changed.
 

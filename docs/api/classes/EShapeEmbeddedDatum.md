@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeEmbeddedDatum
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeEmbeddedDatum
 
 # Class: EShapeEmbeddedDatum
 
@@ -19,7 +19,7 @@
 
 ### constructor
 
-• **new EShapeEmbeddedDatum**(`name`, `width`, `height`, `layer`)
+• **new EShapeEmbeddedDatum**(`name`, `width`, `height`, `layer`): [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)
 
 #### Parameters
 
@@ -29,6 +29,10 @@
 | `width` | `number` |
 | `height` | `number` |
 | `layer` | [`EShapeLayerContainer`](../interfaces/EShapeLayerContainer.md) |
+
+#### Returns
+
+[`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImageBaseThemeWrapperSecondary
+[Winter Cardinal UI - v0.374.0](../index.md) / DImageBaseThemeWrapperSecondary
 
 # Class: DImageBaseThemeWrapperSecondary
 
@@ -31,13 +31,17 @@
 
 ### constructor
 
-• **new DImageBaseThemeWrapperSecondary**(`theme`)
+• **new DImageBaseThemeWrapperSecondary**(`theme`): [`DImageBaseThemeWrapperSecondary`](DImageBaseThemeWrapperSecondary.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | [`DThemeImageBaseSecondary`](../interfaces/DThemeImageBaseSecondary.md) |
+
+#### Returns
+
+[`DImageBaseThemeWrapperSecondary`](DImageBaseThemeWrapperSecondary.md)
 
 #### Defined in
 

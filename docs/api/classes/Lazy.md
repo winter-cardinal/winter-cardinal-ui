@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / Lazy
+[Winter Cardinal UI - v0.374.0](../index.md) / Lazy
 
-# Class: Lazy<INSTANCE, OPTIONS\>
+# Class: Lazy\<INSTANCE, OPTIONS\>
 
 ## Type parameters
 
@@ -29,7 +29,7 @@
 
 ### constructor
 
-• **new Lazy**<`INSTANCE`, `OPTIONS`\>(`newInstance`, `options`, `base?`)
+• **new Lazy**\<`INSTANCE`, `OPTIONS`\>(`newInstance`, `options`, `base?`): [`Lazy`](Lazy.md)\<`INSTANCE`, `OPTIONS`\>
 
 #### Type parameters
 
@@ -44,7 +44,11 @@
 | :------ | :------ |
 | `newInstance` | (`options`: `OPTIONS`) => `INSTANCE` |
 | `options` | `OPTIONS` |
-| `base?` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base?` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+
+#### Returns
+
+[`Lazy`](Lazy.md)\<`INSTANCE`, `OPTIONS`\>
 
 #### Defined in
 
@@ -68,13 +72,17 @@ ___
 
 #### Type declaration
 
-• **new Lazy**(`options`)
+• **new newInstance**(`options`): `INSTANCE`
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options` | `OPTIONS` |
+
+##### Returns
+
+`INSTANCE`
 
 #### Defined in
 

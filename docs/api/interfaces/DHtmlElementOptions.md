@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DHtmlElementOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DHtmlElementOptions
 
-# Interface: DHtmlElementOptions<VALUE, ELEMENT, THEME\>
+# Interface: DHtmlElementOptions\<VALUE, ELEMENT, THEME\>
 
 [DImageBase](../classes/DImageBase.md) options.
 
@@ -10,13 +10,13 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 | `ELEMENT` | extends `HTMLElement` = `HTMLElement` |
-| `THEME` | extends [`DThemeHtmlElement`](DThemeHtmlElement.md)<`VALUE`, `ELEMENT`\> = [`DThemeHtmlElement`](DThemeHtmlElement.md)<`VALUE`, `ELEMENT`\> |
+| `THEME` | extends [`DThemeHtmlElement`](DThemeHtmlElement.md)\<`VALUE`, `ELEMENT`\> = [`DThemeHtmlElement`](DThemeHtmlElement.md)\<`VALUE`, `ELEMENT`\> |
 
 ## Hierarchy
 
-- [`DImageBaseOptions`](DImageBaseOptions.md)<`VALUE`, `THEME`\>
+- [`DImageBaseOptions`](DImageBaseOptions.md)\<`VALUE`, `THEME`\>
 
-- [`UtilHtmlElementOptions`](UtilHtmlElementOptions.md)<`ELEMENT`\>
+- [`UtilHtmlElementOptions`](UtilHtmlElementOptions.md)\<`ELEMENT`\>
 
   ↳ **`DHtmlElementOptions`**
 
@@ -187,7 +187,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -203,7 +203,7 @@ ___
 
 ### element
 
-• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)<`ELEMENT`\>
+• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)\<`ELEMENT`\>
 
 #### Inherited from
 
@@ -252,7 +252,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -298,7 +298,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)<`VALUE`, `any`\>
+• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)\<`VALUE`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -371,7 +371,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DHtmlElementOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -466,7 +466,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -547,7 +547,7 @@ ___
 
 ### when
 
-• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
+• `Optional` **when**: ``"FOCUSED"`` \| ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Inherited from
 

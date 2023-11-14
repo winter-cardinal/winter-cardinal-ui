@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectSearchDismissable
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectSearchDismissable
 
-# Interface: DDialogSelectSearchDismissable<VALUE\>
+# Interface: DDialogSelectSearchDismissable\<VALUE, CATEGORY_ID\>
 
 [DDialogSelect](../classes/DDialogSelect.md) dismissable search object.
 
@@ -9,10 +9,11 @@
 | Name |
 | :------ |
 | `VALUE` |
+| `CATEGORY_ID` |
 
 ## Hierarchy
 
-- [`DDialogSelectSearch`](DDialogSelectSearch.md)<`VALUE`\>
+- [`DDialogSelectSearch`](DDialogSelectSearch.md)\<`VALUE`, `CATEGORY_ID`\>
 
   ↳ **`DDialogSelectSearchDismissable`**
 
@@ -38,7 +39,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `args` | [`string`] |
+| `args` | [`string`] \| [`string`, ``null`` \| `CATEGORY_ID`] |
 
 #### Returns
 

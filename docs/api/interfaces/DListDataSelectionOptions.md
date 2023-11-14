@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataSelectionOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelectionOptions
 
-# Interface: DListDataSelectionOptions<ITEM, EMITTER\>
+# Interface: DListDataSelectionOptions\<ITEM, EMITTER\>
 
 [DListDataSelection](DListDataSelection.md) options.
 
@@ -37,7 +37,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DListDataSelectionOnOptions`](DListDataSelectionOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DListDataSelectionOnOptions`](DListDataSelectionOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and handlers.
 

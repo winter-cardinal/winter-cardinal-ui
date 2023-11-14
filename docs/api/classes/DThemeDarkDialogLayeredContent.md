@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkDialogLayeredContent
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDialogLayeredContent
 
 # Class: DThemeDarkDialogLayeredContent
 
@@ -76,7 +76,11 @@
 
 ### constructor
 
-• **new DThemeDarkDialogLayeredContent**()
+• **new DThemeDarkDialogLayeredContent**(): [`DThemeDarkDialogLayeredContent`](DThemeDarkDialogLayeredContent.md)
+
+#### Returns
+
+[`DThemeDarkDialogLayeredContent`](DThemeDarkDialogLayeredContent.md)
 
 #### Inherited from
 

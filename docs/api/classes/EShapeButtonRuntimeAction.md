@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeButtonRuntimeAction
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeButtonRuntimeAction
 
 # Class: EShapeButtonRuntimeAction
 
@@ -83,13 +83,17 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeButtonRuntimeAction**(`runtime`)
+• **new EShapeButtonRuntimeAction**(`runtime`): [`EShapeButtonRuntimeAction`](EShapeButtonRuntimeAction.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+
+#### Returns
+
+[`EShapeButtonRuntimeAction`](EShapeButtonRuntimeAction.md)
 
 #### Overrides
 
@@ -365,7 +369,7 @@ ___
 
 ### getFillAlpha
 
-▸ `Protected` **getFillAlpha**(`state`): `number`
+▸ **getFillAlpha**(`state`): `number`
 
 #### Parameters
 
@@ -385,7 +389,7 @@ ___
 
 ### getFillColor
 
-▸ `Protected` **getFillColor**(`state`): `number`
+▸ **getFillColor**(`state`): `number`
 
 #### Parameters
 
@@ -405,7 +409,7 @@ ___
 
 ### getStrokeAlpha
 
-▸ `Protected` **getStrokeAlpha**(`state`): `number`
+▸ **getStrokeAlpha**(`state`): `number`
 
 #### Parameters
 
@@ -425,7 +429,7 @@ ___
 
 ### getStrokeColor
 
-▸ `Protected` **getStrokeColor**(`state`): `number`
+▸ **getStrokeColor**(`state`): `number`
 
 #### Parameters
 
@@ -445,7 +449,7 @@ ___
 
 ### getTextAlpha
 
-▸ `Protected` **getTextAlpha**(`state`): `number`
+▸ **getTextAlpha**(`state`): `number`
 
 #### Parameters
 
@@ -465,7 +469,7 @@ ___
 
 ### getTextColor
 
-▸ `Protected` **getTextColor**(`state`): `number`
+▸ **getTextColor**(`state`): `number`
 
 #### Parameters
 
@@ -485,7 +489,7 @@ ___
 
 ### getTextOutlineAlpha
 
-▸ `Protected` **getTextOutlineAlpha**(`state`): `number`
+▸ **getTextOutlineAlpha**(`state`): `number`
 
 #### Parameters
 
@@ -505,7 +509,7 @@ ___
 
 ### getTextOutlineColor
 
-▸ `Protected` **getTextOutlineColor**(`state`): `number`
+▸ **getTextOutlineColor**(`state`): `number`
 
 #### Parameters
 
@@ -589,7 +593,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -646,7 +650,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -674,7 +678,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -869,7 +873,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -1149,7 +1153,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -1177,7 +1181,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -1205,7 +1209,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -1223,7 +1227,7 @@ ___
 
 ### toOnHovered
 
-▸ `Protected` **toOnHovered**(`color`): `number`
+▸ **toOnHovered**(`color`): `number`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSetImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetImpl
 
 # Class: DBaseStateSetImpl
 
@@ -150,7 +150,11 @@
 
 ### constructor
 
-• **new DBaseStateSetImpl**()
+• **new DBaseStateSetImpl**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+
+#### Returns
+
+[`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Defined in
 
@@ -170,7 +174,7 @@ ___
 
 ### \_local
 
-• `Protected` **\_local**: `Map`<`string`, ``null`` \| `number`\>
+• `Protected` **\_local**: `Map`\<`string`, ``null`` \| `number`\>
 
 #### Defined in
 
@@ -1244,11 +1248,11 @@ ___
 
 ### local
 
-• `get` **local**(): `Map`<`string`, ``null`` \| `number`\>
+• `get` **local**(): `Map`\<`string`, ``null`` \| `number`\>
 
 #### Returns
 
-`Map`<`string`, ``null`` \| `number`\>
+`Map`\<`string`, ``null`` \| `number`\>
 
 #### Defined in
 
@@ -2047,7 +2051,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L154)
 
-▸ **addAll**(...`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **addAll**(`...states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2067,7 +2071,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L156)
 
-▸ **addAll**(...`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **addAll**(`...states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2091,7 +2095,7 @@ ___
 
 ### addAllObject
 
-▸ `Protected` **addAllObject**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **addAllObject**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2111,7 +2115,7 @@ ___
 
 ### addAllString
 
-▸ `Protected` **addAllString**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **addAllString**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2131,7 +2135,7 @@ ___
 
 ### begin
 
-▸ `Protected` **begin**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **begin**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Returns
 
@@ -2145,7 +2149,7 @@ ___
 
 ### checkAdded
 
-▸ `Protected` **checkAdded**(`added`, `value`): `boolean`
+▸ **checkAdded**(`added`, `value`): `boolean`
 
 #### Parameters
 
@@ -2166,7 +2170,7 @@ ___
 
 ### checkAddedsObject
 
-▸ `Protected` **checkAddedsObject**(`states`): `boolean`
+▸ **checkAddedsObject**(`states`): `boolean`
 
 #### Parameters
 
@@ -2186,7 +2190,7 @@ ___
 
 ### checkAddedsString
 
-▸ `Protected` **checkAddedsString**(`states`): `boolean`
+▸ **checkAddedsString**(`states`): `boolean`
 
 #### Parameters
 
@@ -2206,7 +2210,7 @@ ___
 
 ### checkRemoved
 
-▸ `Protected` **checkRemoved**(`removed`): `boolean`
+▸ **checkRemoved**(`removed`): `boolean`
 
 #### Parameters
 
@@ -2226,7 +2230,7 @@ ___
 
 ### checkRemovedsObject
 
-▸ `Protected` **checkRemovedsObject**(`states`): `boolean`
+▸ **checkRemovedsObject**(`states`): `boolean`
 
 #### Parameters
 
@@ -2246,7 +2250,7 @@ ___
 
 ### checkRemovedsString
 
-▸ `Protected` **checkRemovedsString**(`states`): `boolean`
+▸ **checkRemovedsString**(`states`): `boolean`
 
 #### Parameters
 
@@ -2308,7 +2312,7 @@ ___
 
 ### doSet
 
-▸ `Protected` **doSet**(`added`, `value`, `removed?`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **doSet**(`added`, `value`, `removed?`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2354,7 +2358,7 @@ ___
 
 ### end
 
-▸ `Protected` **end**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **end**(): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Returns
 
@@ -2459,7 +2463,7 @@ ___
 
 ### newBlinker
 
-▸ `Protected` **newBlinker**(): [`DBaseStateSetBlinker`](../interfaces/DBaseStateSetBlinker.md)
+▸ **newBlinker**(): [`DBaseStateSetBlinker`](../interfaces/DBaseStateSetBlinker.md)
 
 #### Returns
 
@@ -2473,7 +2477,7 @@ ___
 
 ### newTicker
 
-▸ `Protected` **newTicker**(): [`DBaseStateSetTicker`](../interfaces/DBaseStateSetTicker.md)
+▸ **newTicker**(): [`DBaseStateSetTicker`](../interfaces/DBaseStateSetTicker.md)
 
 #### Returns
 
@@ -2627,7 +2631,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L237)
 
-▸ **removeAll**(...`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **removeAll**(`...states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2647,7 +2651,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L239)
 
-▸ **removeAll**(...`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **removeAll**(`...states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2691,7 +2695,7 @@ ___
 
 ### removeAllMatcher
 
-▸ `Protected` **removeAllMatcher**(`matcher`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **removeAllMatcher**(`matcher`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2711,7 +2715,7 @@ ___
 
 ### removeAllObject
 
-▸ `Protected` **removeAllObject**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **removeAllObject**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2731,7 +2735,7 @@ ___
 
 ### removeAllString
 
-▸ `Protected` **removeAllString**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **removeAllString**(`states`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2971,7 +2975,7 @@ ___
 
 ### setAllObject
 
-▸ `Protected` **setAllObject**(`addeds`, `removeds`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **setAllObject**(`addeds`, `removeds`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 
@@ -2992,7 +2996,7 @@ ___
 
 ### setAllString
 
-▸ `Protected` **setAllString**(`addeds`, `removeds`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
+▸ **setAllString**(`addeds`, `removeds`): [`DBaseStateSetImpl`](DBaseStateSetImpl.md)
 
 #### Parameters
 

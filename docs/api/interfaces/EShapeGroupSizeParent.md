@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupSizeParent
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupSizeParent
 
 # Interface: EShapeGroupSizeParent
 
@@ -11,9 +11,9 @@
 
 ### Methods
 
-- [allowOnTransformChange](EShapeGroupSizeParent.md#allowontransformchange)
-- [disallowOnTransformChange](EShapeGroupSizeParent.md#disallowontransformchange)
+- [lock](EShapeGroupSizeParent.md#lock)
 - [onSizeChange](EShapeGroupSizeParent.md#onsizechange)
+- [unlock](EShapeGroupSizeParent.md#unlock)
 - [updateTransform](EShapeGroupSizeParent.md#updatetransform)
 
 ## Properties
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L11)
 
 ___
 
@@ -34,33 +34,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L12)
 
 ## Methods
 
-### allowOnTransformChange
+### lock
 
-▸ **allowOnTransformChange**(`invokeOnTransformChange`): `void`
+▸ **lock**(`part`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `invokeOnTransformChange` | `boolean` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L14)
-
-___
-
-### disallowOnTransformChange
-
-▸ **disallowOnTransformChange**(): `void`
+| `part` | `number` |
 
 #### Returns
 
@@ -86,6 +72,27 @@ ___
 
 ___
 
+### unlock
+
+▸ **unlock**(`part`, `invoke`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `part` | `number` |
+| `invoke` | `boolean` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L14)
+
+___
+
 ### updateTransform
 
 ▸ **updateTransform**(): `void`
@@ -96,4 +103,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-parent.ts#L16)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPickerTime
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPickerTime
 
 # Class: DThemeDarkPickerTime
 
@@ -80,7 +80,11 @@
 
 ### constructor
 
-• **new DThemeDarkPickerTime**()
+• **new DThemeDarkPickerTime**(): [`DThemeDarkPickerTime`](DThemeDarkPickerTime.md)
+
+#### Returns
+
+[`DThemeDarkPickerTime`](DThemeDarkPickerTime.md)
 
 #### Inherited from
 
@@ -643,11 +647,11 @@ ___
 
 ### getHoursOptions
 
-▸ **getHoursOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+▸ **getHoursOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Implementation of
 
@@ -761,11 +765,11 @@ ___
 
 ### getMinutesOptions
 
-▸ **getMinutesOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+▸ **getMinutesOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Implementation of
 
@@ -1056,11 +1060,11 @@ ___
 
 ### getSecondsOptions
 
-▸ **getSecondsOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+▸ **getSecondsOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Implementation of
 

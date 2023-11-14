@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinate
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinate
 
-# Interface: DChartCoordinate<CHART\>
+# Interface: DChartCoordinate\<CHART\>
 
 ## Type parameters
 
@@ -70,7 +70,7 @@ ___
 
 ### transform
 
-• `Readonly` **transform**: [`DChartCoordinateTransform`](DChartCoordinateTransform.md)<`CHART`\>
+• `Readonly` **transform**: [`DChartCoordinateTransform`](DChartCoordinateTransform.md)\<`CHART`\>
 
 #### Defined in
 
@@ -86,7 +86,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\> |
+| `container` | [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\> |
 | `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection-1) |
 
 #### Returns

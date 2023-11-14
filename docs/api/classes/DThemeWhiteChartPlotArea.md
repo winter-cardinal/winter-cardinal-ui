@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartPlotArea
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChartPlotArea
 
 # Class: DThemeWhiteChartPlotArea
 
@@ -70,7 +70,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChartPlotArea**()
+• **new DThemeWhiteChartPlotArea**(): [`DThemeWhiteChartPlotArea`](DThemeWhiteChartPlotArea.md)
+
+#### Returns
+
+[`DThemeWhiteChartPlotArea`](DThemeWhiteChartPlotArea.md)
 
 #### Inherited from
 

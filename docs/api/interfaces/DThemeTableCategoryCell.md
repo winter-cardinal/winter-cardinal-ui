@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeTableCategoryCell
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeTableCategoryCell
 
 # Interface: DThemeTableCategoryCell
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeImage`](DThemeImage.md)<`string` \| ``null``\>
+- [`DThemeImage`](DThemeImage.md)\<`string` \| ``null``\>
 
   ↳ **`DThemeTableCategoryCell`**
 
@@ -1095,7 +1095,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1278,7 +1278,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1684,14 +1684,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `string`\>
 
 #### Inherited from
 

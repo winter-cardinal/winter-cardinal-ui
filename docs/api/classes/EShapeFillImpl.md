@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeFillImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeFillImpl
 
 # Class: EShapeFillImpl
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeFillImpl**(`parent`, `enable`, `color`, `alpha`)
+• **new EShapeFillImpl**(`parent`, `enable`, `color`, `alpha`): [`EShapeFillImpl`](EShapeFillImpl.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@
 | `enable` | `boolean` |
 | `color` | `number` |
 | `alpha` | `number` |
+
+#### Returns
+
+[`EShapeFillImpl`](EShapeFillImpl.md)
 
 #### Defined in
 
@@ -235,7 +239,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeFillLike`](../interfaces/EShapeFillLike.md)\> |
+| `target?` | `Partial`\<[`EShapeFillLike`](../interfaces/EShapeFillLike.md)\> |
 
 #### Returns
 

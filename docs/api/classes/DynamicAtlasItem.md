@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlasItem
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlasItem
 
 # Class: DynamicAtlasItem
 
@@ -42,7 +42,7 @@
 
 ### constructor
 
-• **new DynamicAtlasItem**(`id`, `width`, `height`, `strokeWidth`, `baseTexture`)
+• **new DynamicAtlasItem**(`id`, `width`, `height`, `strokeWidth`, `baseTexture`): [`DynamicAtlasItem`](DynamicAtlasItem.md)
 
 #### Parameters
 
@@ -53,6 +53,10 @@
 | `height` | `number` |
 | `strokeWidth` | `number` |
 | `baseTexture` | `BaseTexture` |
+
+#### Returns
+
+[`DynamicAtlasItem`](DynamicAtlasItem.md)
 
 #### Defined in
 
@@ -160,7 +164,7 @@ ___
 
 ### render
 
-▸ `Abstract` **render**(`context`): `void`
+▸ **render**(`context`): `void`
 
 #### Parameters
 

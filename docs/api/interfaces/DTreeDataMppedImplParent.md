@@ -1,12 +1,12 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataMppedImplParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataMppedImplParent
 
-# Interface: DTreeDataMppedImplParent<NODE\>
+# Interface: DTreeDataMppedImplParent\<NODE\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `NODE` |
+| Name | Type |
+| :------ | :------ |
+| `NODE` | extends [`DTreeNode`](DTreeNode.md) |
 
 ## Table of contents
 
@@ -23,11 +23,11 @@
 
 ### accessor
 
-• `Readonly` **accessor**: [`DTreeNodeAccessor`](DTreeNodeAccessor.md)<`NODE`\>
+• `Readonly` **accessor**: [`DTreeNodeAccessor`](DTreeNodeAccessor.md)\<`NODE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L12)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L11)
 
 ## Methods
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L13)

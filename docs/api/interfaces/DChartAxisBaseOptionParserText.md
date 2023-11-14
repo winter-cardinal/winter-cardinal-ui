@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptionParserText
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseOptionParserText
 
 # Interface: DChartAxisBaseOptionParserText
 
@@ -26,7 +26,7 @@
 
 ### align
 
-• `Optional` **align**: `Partial`<[`EShapeTextAlignLike`](EShapeTextAlignLike.md)\>
+• `Optional` **align**: `Partial`\<[`EShapeTextAlignLike`](EShapeTextAlignLike.md)\>
 
 #### Defined in
 
@@ -110,7 +110,7 @@ ___
 
 ### offset
 
-• `Optional` **offset**: `Partial`<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\>
+• `Optional` **offset**: `Partial`\<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -120,7 +120,7 @@ ___
 
 ### outline
 
-• `Optional` **outline**: `Partial`<[`EShapeTextOutlineLike`](EShapeTextOutlineLike.md)\>
+• `Optional` **outline**: `Partial`\<[`EShapeTextOutlineLike`](EShapeTextOutlineLike.md)\>
 
 #### Defined in
 
@@ -130,7 +130,7 @@ ___
 
 ### padding
 
-• `Optional` **padding**: `Partial`<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\>
+• `Optional` **padding**: `Partial`\<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\>
 
 #### Defined in
 
@@ -150,7 +150,7 @@ ___
 
 ### spacing
 
-• `Optional` **spacing**: `Partial`<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\>
+• `Optional` **spacing**: `Partial`\<[`EShapeTextOffsetLike`](EShapeTextOffsetLike.md)\>
 
 #### Defined in
 

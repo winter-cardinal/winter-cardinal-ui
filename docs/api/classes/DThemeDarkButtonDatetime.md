@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkButtonDatetime
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkButtonDatetime
 
 # Class: DThemeDarkButtonDatetime
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkButton`](DThemeDarkButton.md)<`Date`\>
+- [`DThemeDarkButton`](DThemeDarkButton.md)\<`Date`\>
 
   ↳ **`DThemeDarkButtonDatetime`**
 
@@ -113,7 +113,7 @@
 
 ### constructor
 
-• **new DThemeDarkButtonDatetime**(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeDarkButtonDatetime**(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeDarkButtonDatetime`](DThemeDarkButtonDatetime.md)
 
 #### Parameters
 
@@ -122,6 +122,10 @@
 | `backgroundColor` | `number` | `0x484848` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeDarkButtonDatetime`](DThemeDarkButtonDatetime.md)
 
 #### Inherited from
 
@@ -1075,7 +1079,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1099,7 +1103,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1183,7 +1187,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1207,7 +1211,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -1758,7 +1762,7 @@ ___
 
 ### getTextFormatter
 
-▸ **getTextFormatter**(): (`value`: `Date`, `caller`: [`DButtonDatetime`](DButtonDatetime.md)<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), [`DButtonDatetimeOptions`](../interfaces/DButtonDatetimeOptions.md)<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), `any`\>\>) => `string`
+▸ **getTextFormatter**(): (`value`: `Date`, `caller`: [`DButtonDatetime`](DButtonDatetime.md)\<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), [`DButtonDatetimeOptions`](../interfaces/DButtonDatetimeOptions.md)\<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), `any`\>\>) => `string`
 
 #### Returns
 
@@ -1771,7 +1775,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `value` | `Date` |
-| `caller` | [`DButtonDatetime`](DButtonDatetime.md)<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), [`DButtonDatetimeOptions`](../interfaces/DButtonDatetimeOptions.md)<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), `any`\>\> |
+| `caller` | [`DButtonDatetime`](DButtonDatetime.md)\<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), [`DButtonDatetimeOptions`](../interfaces/DButtonDatetimeOptions.md)\<[`DThemeButtonDatetime`](../interfaces/DThemeButtonDatetime.md), `any`\>\> |
 
 ##### Returns
 
@@ -2160,14 +2164,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`Date`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`Date`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`Date`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`Date`\>
 
 #### Implementation of
 

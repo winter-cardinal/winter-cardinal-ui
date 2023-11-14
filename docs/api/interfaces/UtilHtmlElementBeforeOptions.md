@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementBeforeOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementBeforeOptions
 
 # Interface: UtilHtmlElementBeforeOptions
 
@@ -13,7 +13,7 @@
 
 ### creator
 
-• `Optional` **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+• `Optional` **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Defined in
 

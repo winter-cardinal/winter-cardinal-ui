@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeLineOfAnyPointsFillImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeLineOfAnyPointsFillImpl
 
 # Class: EShapeLineOfAnyPointsFillImpl
 
@@ -38,13 +38,17 @@
 
 ### constructor
 
-• **new EShapeLineOfAnyPointsFillImpl**(`parent`)
+• **new EShapeLineOfAnyPointsFillImpl**(`parent`): [`EShapeLineOfAnyPointsFillImpl`](EShapeLineOfAnyPointsFillImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeLineOfAnyPointsFillImplParent`](../interfaces/EShapeLineOfAnyPointsFillImplParent.md) |
+
+#### Returns
+
+[`EShapeLineOfAnyPointsFillImpl`](EShapeLineOfAnyPointsFillImpl.md)
 
 #### Defined in
 

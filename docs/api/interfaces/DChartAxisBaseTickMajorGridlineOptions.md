@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseTickMajorGridlineOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseTickMajorGridlineOptions
 
 # Interface: DChartAxisBaseTickMajorGridlineOptions
 

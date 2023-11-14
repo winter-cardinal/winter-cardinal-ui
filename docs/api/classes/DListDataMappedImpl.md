@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataMappedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataMappedImpl
 
-# Class: DListDataMappedImpl<ITEM\>
+# Class: DListDataMappedImpl\<ITEM\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DListDataMapped`](../interfaces/DListDataMapped.md)<`ITEM`\>
+- [`DListDataMapped`](../interfaces/DListDataMapped.md)\<`ITEM`\>
 
 ## Table of contents
 
@@ -32,7 +32,7 @@
 
 ### constructor
 
-• **new DListDataMappedImpl**<`ITEM`\>(`parent`)
+• **new DListDataMappedImpl**\<`ITEM`\>(`parent`): [`DListDataMappedImpl`](DListDataMappedImpl.md)\<`ITEM`\>
 
 #### Type parameters
 
@@ -44,7 +44,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DListDataMppedImplParent`](../interfaces/DListDataMppedImplParent.md)<`ITEM`\> |
+| `parent` | [`DListDataMppedImplParent`](../interfaces/DListDataMppedImplParent.md)\<`ITEM`\> |
+
+#### Returns
+
+[`DListDataMappedImpl`](DListDataMappedImpl.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -54,7 +58,7 @@
 
 ### \_parent
 
-• `Protected` `Readonly` **\_parent**: [`DListDataMppedImplParent`](../interfaces/DListDataMppedImplParent.md)<`ITEM`\>
+• `Protected` `Readonly` **\_parent**: [`DListDataMppedImplParent`](../interfaces/DListDataMppedImplParent.md)\<`ITEM`\>
 
 #### Defined in
 

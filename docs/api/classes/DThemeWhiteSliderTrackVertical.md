@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteSliderTrackVertical
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteSliderTrackVertical
 
-# Class: DThemeWhiteSliderTrackVertical<VALUE\>
+# Class: DThemeWhiteSliderTrackVertical\<VALUE\>
 
 [DButton](DButton.md) theme.
 
@@ -12,13 +12,13 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteSliderTrack`](DThemeWhiteSliderTrack.md)<`VALUE`\>
+- [`DThemeWhiteSliderTrack`](DThemeWhiteSliderTrack.md)\<`VALUE`\>
 
   ↳ **`DThemeWhiteSliderTrackVertical`**
 
 ## Implements
 
-- [`DThemeSliderTrackVertical`](../interfaces/DThemeSliderTrackVertical.md)<`VALUE`\>
+- [`DThemeSliderTrackVertical`](../interfaces/DThemeSliderTrackVertical.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -119,7 +119,7 @@
 
 ### constructor
 
-• **new DThemeWhiteSliderTrackVertical**<`VALUE`\>(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeWhiteSliderTrackVertical**\<`VALUE`\>(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeWhiteSliderTrackVertical`](DThemeWhiteSliderTrackVertical.md)\<`VALUE`\>
 
 #### Type parameters
 
@@ -134,6 +134,10 @@
 | `backgroundColor` | `number` | `0xffffff` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeWhiteSliderTrackVertical`](DThemeWhiteSliderTrackVertical.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1087,7 +1091,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1111,7 +1115,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1195,7 +1199,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1219,7 +1223,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -2172,14 +2176,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Implementation of
 

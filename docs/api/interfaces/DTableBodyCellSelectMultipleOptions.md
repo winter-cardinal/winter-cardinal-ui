@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellSelectMultipleOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellSelectMultipleOptions
 
-# Interface: DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME\>
+# Interface: DTableBodyCellSelectMultipleOptions\<ROW, VALUE, THEME\>
 
 [DSelectMultiple](../classes/DSelectMultiple.md) options.
 
@@ -10,11 +10,11 @@
 | :------ | :------ |
 | `ROW` | `unknown` |
 | `VALUE` | `unknown` |
-| `THEME` | extends [`DThemeTableBodyCellSelectMultiple`](DThemeTableBodyCellSelectMultiple.md)<`VALUE`\> = [`DThemeTableBodyCellSelectMultiple`](DThemeTableBodyCellSelectMultiple.md)<`VALUE`\> |
+| `THEME` | extends [`DThemeTableBodyCellSelectMultiple`](DThemeTableBodyCellSelectMultiple.md)\<`VALUE`\> = [`DThemeTableBodyCellSelectMultiple`](DThemeTableBodyCellSelectMultiple.md)\<`VALUE`\> |
 
 ## Hierarchy
 
-- [`DSelectMultipleOptions`](DSelectMultipleOptions.md)<`VALUE`, `THEME`\>
+- [`DSelectMultipleOptions`](DSelectMultipleOptions.md)\<`VALUE`, `THEME`\>
 
   ↳ **`DTableBodyCellSelectMultipleOptions`**
 
@@ -140,7 +140,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -156,7 +156,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -207,7 +207,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -237,7 +237,7 @@ ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
 
 Menu options.
 
@@ -269,7 +269,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DSelectMultipleOnOptions`](DSelectMultipleOnOptions.md)<`VALUE`, `any`\>
+• `Optional` **on**: [`DSelectMultipleOnOptions`](DSelectMultipleOnOptions.md)\<`VALUE`, `any`\>
 
 Mappings of event names and handlers.
 
@@ -342,7 +342,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableBodyCellSelectMultipleOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -423,7 +423,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<[`DMenuItem`](../classes/DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\>[]\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<[`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\>[]\>
 
 #### Inherited from
 

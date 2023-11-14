@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesStrokeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesStrokeImpl
 
 # Class: DChartSeriesStrokeImpl
 
@@ -26,13 +26,17 @@
 
 ### constructor
 
-• **new DChartSeriesStrokeImpl**(`options?`)
+• **new DChartSeriesStrokeImpl**(`options?`): [`DChartSeriesStrokeImpl`](DChartSeriesStrokeImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DChartSeriesStrokeOptions`](../interfaces/DChartSeriesStrokeOptions.md) |
+
+#### Returns
+
+[`DChartSeriesStrokeImpl`](DChartSeriesStrokeImpl.md)
 
 #### Defined in
 
@@ -42,7 +46,7 @@
 
 ### align
 
-• **align**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **align**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -56,7 +60,7 @@ ___
 
 ### alpha
 
-• **alpha**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **alpha**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -70,7 +74,7 @@ ___
 
 ### color
 
-• **color**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **color**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -84,7 +88,7 @@ ___
 
 ### enable
 
-• **enable**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`boolean`\>
+• **enable**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`boolean`\>
 
 #### Implementation of
 
@@ -98,7 +102,7 @@ ___
 
 ### side
 
-• **side**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **side**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -112,7 +116,7 @@ ___
 
 ### style
 
-• **style**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **style**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -126,7 +130,7 @@ ___
 
 ### width
 
-• **width**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **width**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 

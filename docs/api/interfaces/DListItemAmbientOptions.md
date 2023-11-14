@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListItemAmbientOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DListItemAmbientOptions
 
-# Interface: DListItemAmbientOptions<VALUE, THEME\>
+# Interface: DListItemAmbientOptions\<VALUE, THEME\>
 
 [DListItem](../classes/DListItem.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DListItemOptions`](DListItemOptions.md)<`VALUE`, `THEME`\>
+- [`DListItemOptions`](DListItemOptions.md)\<`VALUE`, `THEME`\>
 
   ↳ **`DListItemAmbientOptions`**
 
@@ -134,7 +134,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -185,7 +185,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -231,7 +231,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DListItemOnOptions`](DListItemOnOptions.md)<`VALUE`, `any`\>
+• `Optional` **on**: [`DListItemOnOptions`](DListItemOnOptions.md)\<`VALUE`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -304,7 +304,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DListItemAmbientOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -385,7 +385,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`string`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`string`\>
 
 #### Inherited from
 

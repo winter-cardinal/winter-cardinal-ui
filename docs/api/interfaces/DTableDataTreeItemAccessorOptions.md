@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeItemAccessorOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeItemAccessorOptions
 
-# Interface: DTableDataTreeItemAccessorOptions<NODE\>
+# Interface: DTableDataTreeItemAccessorOptions\<NODE\>
 
 ## Type parameters
 
@@ -26,7 +26,7 @@
 
 ### hasChildren
 
-• `Optional` **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)<`NODE`\>
+• `Optional` **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)\<`NODE`\>
 
 #### Defined in
 
@@ -36,7 +36,7 @@ ___
 
 ### toChildren
 
-• `Optional` **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)<`NODE`\>
+• `Optional` **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)\<`NODE`\>
 
 #### Defined in
 
@@ -46,7 +46,7 @@ ___
 
 ### toParent
 
-• `Optional` **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)<`NODE`\>
+• `Optional` **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)\<`NODE`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartCoordinateTransform
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartCoordinateTransform
 
 # Class: DThemeDarkChartCoordinateTransform
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartCoordinateTransform**()
+• **new DThemeDarkChartCoordinateTransform**(): [`DThemeDarkChartCoordinateTransform`](DThemeDarkChartCoordinateTransform.md)
+
+#### Returns
+
+[`DThemeDarkChartCoordinateTransform`](DThemeDarkChartCoordinateTransform.md)
 
 ## Methods
 

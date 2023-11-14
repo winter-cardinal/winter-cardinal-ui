@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActions
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActions
 
 # Class: EShapeActions
 
@@ -22,13 +22,17 @@
 
 ### constructor
 
-• **new EShapeActions**()
+• **new EShapeActions**(): [`EShapeActions`](EShapeActions.md)
+
+#### Returns
+
+[`EShapeActions`](EShapeActions.md)
 
 ## Methods
 
 ### emit
 
-▸ `Static` **emit**(`shape`, `name`): `void`
+▸ **emit**(`shape`, `name`): `void`
 
 #### Parameters
 
@@ -43,9 +47,9 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L124)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L125)
 
-▸ `Static` **emit**(`shape`, `name`, `value`, `time`): `void`
+▸ **emit**(`shape`, `name`, `value`, `time`): `void`
 
 #### Parameters
 
@@ -62,13 +66,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L125)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L126)
 
 ___
 
 ### isContainer
 
-▸ `Static` **isContainer**(`target`): target is EShapeActionsContainer
+▸ **isContainer**(`target`): target is EShapeActionsContainer
 
 #### Parameters
 
@@ -82,13 +86,13 @@ target is EShapeActionsContainer
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L31)
 
 ___
 
 ### isEmbedded
 
-▸ `Static` **isEmbedded**(`target`): target is EShapeEmbedded
+▸ **isEmbedded**(`target`): target is EShapeEmbedded
 
 #### Parameters
 
@@ -102,13 +106,13 @@ target is EShapeEmbedded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L35)
 
 ___
 
 ### open
 
-▸ `Static` **open**(`shape`, `type`, `target`, `inNewWindow`): `void`
+▸ **open**(`shape`, `type`, `target`, `inNewWindow`): `void`
 
 #### Parameters
 
@@ -116,7 +120,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `type` | `number` |
-| `target` | `string` |
+| `target` | `unknown` |
 | `inNewWindow` | `boolean` |
 
 #### Returns
@@ -125,13 +129,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L50)
 
 ___
 
 ### toContainer
 
-▸ `Static` **toContainer**(`shape?`): ``null`` \| [`EShapeActionsContainer`](../interfaces/EShapeActionsContainer.md)
+▸ **toContainer**(`shape?`): ``null`` \| [`EShapeActionsContainer`](../interfaces/EShapeActionsContainer.md)
 
 #### Parameters
 
@@ -145,13 +149,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L39)
 
 ___
 
 ### writeLocal
 
-▸ `Static` **writeLocal**(`shape`, `id`, `value`, `time`, `state?`): `boolean`
+▸ **writeLocal**(`shape`, `id`, `value`, `time`, `state?`): `boolean`
 
 #### Parameters
 
@@ -169,13 +173,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L82)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L83)
 
 ___
 
 ### writeRemote
 
-▸ `Static` **writeRemote**(`shape`, `id`, `value`): `boolean`
+▸ **writeRemote**(`shape`, `id`, `value`): `boolean`
 
 #### Parameters
 
@@ -191,4 +195,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L116)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L117)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseReflowableImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseReflowableImpl
 
 # Class: DBaseReflowableImpl
 
@@ -26,13 +26,17 @@
 
 ### constructor
 
-• **new DBaseReflowableImpl**(`base`)
+• **new DBaseReflowableImpl**(`base`): [`DBaseReflowableImpl`](DBaseReflowableImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+
+#### Returns
+
+[`DBaseReflowableImpl`](DBaseReflowableImpl.md)
 
 #### Defined in
 
@@ -78,7 +82,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `width` | `number` |
 | `height` | `number` |
 

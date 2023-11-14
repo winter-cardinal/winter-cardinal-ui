@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataComparatorObject
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataComparatorObject
 
-# Interface: DTableDataComparatorObject<ROW\>
+# Interface: DTableDataComparatorObject\<ROW\>
 
 A row comparator object.
 

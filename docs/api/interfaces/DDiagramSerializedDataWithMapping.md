@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSerializedDataWithMapping
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSerializedDataWithMapping
 
 # Interface: DDiagramSerializedDataWithMapping
 
@@ -6,7 +6,7 @@ A serialized data with a mapping data.
 
 ## Hierarchy
 
-- `Array`<`unknown`\>
+- `Array`\<`unknown`\>
 
   ↳ **`DDiagramSerializedDataWithMapping`**
 
@@ -16,12 +16,12 @@ A serialized data with a mapping data.
 
 - [0](DDiagramSerializedDataWithMapping.md#0)
 - [1](DDiagramSerializedDataWithMapping.md#1)
+- [[unscopables]](DDiagramSerializedDataWithMapping.md#[unscopables])
 - [length](DDiagramSerializedDataWithMapping.md#length)
 
 ### Methods
 
 - [[iterator]](DDiagramSerializedDataWithMapping.md#[iterator])
-- [[unscopables]](DDiagramSerializedDataWithMapping.md#[unscopables])
 - [concat](DDiagramSerializedDataWithMapping.md#concat)
 - [copyWithin](DDiagramSerializedDataWithMapping.md#copywithin)
 - [entries](DDiagramSerializedDataWithMapping.md#entries)
@@ -79,6 +79,60 @@ A resource index number of JSON.stringify(DDiagramSerializedDataSystem).
 
 ___
 
+### [unscopables]
+
+• `Readonly` **[unscopables]**: `Object`
+
+Is an object whose properties have the value 'true'
+when they will be absent when used in a 'with' statement.
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `[unscopables]?` | `boolean` | Is an object whose properties have the value 'true' when they will be absent when used in a 'with' statement. |
+| `length?` | `boolean` | Gets or sets the length of the array. This is a number one higher than the highest index in the array. |
+| `[iterator]?` | {} | - |
+| `concat?` | {} | - |
+| `copyWithin?` | {} | - |
+| `entries?` | {} | - |
+| `every?` | {} | - |
+| `fill?` | {} | - |
+| `filter?` | {} | - |
+| `find?` | {} | - |
+| `findIndex?` | {} | - |
+| `forEach?` | {} | - |
+| `includes?` | {} | - |
+| `indexOf?` | {} | - |
+| `join?` | {} | - |
+| `keys?` | {} | - |
+| `lastIndexOf?` | {} | - |
+| `map?` | {} | - |
+| `pop?` | {} | - |
+| `push?` | {} | - |
+| `reduce?` | {} | - |
+| `reduceRight?` | {} | - |
+| `reverse?` | {} | - |
+| `shift?` | {} | - |
+| `slice?` | {} | - |
+| `some?` | {} | - |
+| `sort?` | {} | - |
+| `splice?` | {} | - |
+| `toLocaleString?` | {} | - |
+| `toString?` | {} | - |
+| `unshift?` | {} | - |
+| `values?` | {} | - |
+
+#### Inherited from
+
+Array.[unscopables]
+
+#### Defined in
+
+node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:97
+
+___
+
 ### length
 
 • **length**: `number`
@@ -91,64 +145,33 @@ Array.length
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1273
+node_modules/typescript/lib/lib.es5.d.ts:1318
 
 ## Methods
 
 ### [iterator]
 
-▸ **[iterator]**(): `IterableIterator`<`unknown`\>
+▸ **[iterator]**(): `IterableIterator`\<`unknown`\>
 
 Iterator
 
 #### Returns
 
-`IterableIterator`<`unknown`\>
+`IterableIterator`\<`unknown`\>
 
 #### Inherited from
 
-Array.\_\_@iterator@81
+Array.[iterator]
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.iterable.d.ts:60
-
-___
-
-### [unscopables]
-
-▸ **[unscopables]**(): `Object`
-
-Returns an object whose properties have the value 'true'
-when they will be absent when used in a 'with' statement.
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `copyWithin` | `boolean` |
-| `entries` | `boolean` |
-| `fill` | `boolean` |
-| `find` | `boolean` |
-| `findIndex` | `boolean` |
-| `keys` | `boolean` |
-| `values` | `boolean` |
-
-#### Inherited from
-
-Array.\_\_@unscopables@105
-
-#### Defined in
-
-node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:99
+node_modules/typescript/lib/lib.es2015.iterable.d.ts:58
 
 ___
 
 ### concat
 
-▸ **concat**(...`items`): `unknown`[]
+▸ **concat**(`...items`): `unknown`[]
 
 Combines two or more arrays.
 This method returns a new array without modifying any existing arrays.
@@ -157,7 +180,7 @@ This method returns a new array without modifying any existing arrays.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...items` | `ConcatArray`<`unknown`\>[] | Additional arrays and/or items to add to the end of the array. |
+| `...items` | `ConcatArray`\<`unknown`\>[] | Additional arrays and/or items to add to the end of the array. |
 
 #### Returns
 
@@ -169,9 +192,9 @@ Array.concat
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1297
+node_modules/typescript/lib/lib.es5.d.ts:1342
 
-▸ **concat**(...`items`): `unknown`[]
+▸ **concat**(`...items`): `unknown`[]
 
 Combines two or more arrays.
 This method returns a new array without modifying any existing arrays.
@@ -192,7 +215,7 @@ Array.concat
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1303
+node_modules/typescript/lib/lib.es5.d.ts:1348
 
 ___
 
@@ -207,8 +230,8 @@ to the same array starting at position target
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `target` | `number` | If target is negative, it is treated as length+target where length is the  length of the array. |
-| `start` | `number` | If start is negative, it is treated as length+start. If end is negative, it  is treated as length+end. |
+| `target` | `number` | If target is negative, it is treated as length+target where length is the length of the array. |
+| `start` | `number` | If start is negative, it is treated as length+start. If end is negative, it is treated as length+end. |
 | `end?` | `number` | If not specified, length of the this object is used as its default value. |
 
 #### Returns
@@ -221,19 +244,19 @@ Array.copyWithin
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.core.d.ts:64
+node_modules/typescript/lib/lib.es2015.core.d.ts:62
 
 ___
 
 ### entries
 
-▸ **entries**(): `IterableIterator`<[`number`, `unknown`]\>
+▸ **entries**(): `IterableIterator`\<[`number`, `unknown`]\>
 
 Returns an iterable of key, value pairs for every entry in the array
 
 #### Returns
 
-`IterableIterator`<[`number`, `unknown`]\>
+`IterableIterator`\<[`number`, `unknown`]\>
 
 #### Inherited from
 
@@ -241,13 +264,13 @@ Array.entries
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.iterable.d.ts:65
+node_modules/typescript/lib/lib.es2015.iterable.d.ts:63
 
 ___
 
 ### every
 
-▸ **every**<`S`\>(`predicate`, `thisArg?`): this is S[]
+▸ **every**\<`S`\>(`predicate`, `thisArg?`): this is S[]
 
 Determines whether all the members of an array satisfy the specified test.
 
@@ -261,8 +284,8 @@ Determines whether all the members of an array satisfy the specified test.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | (`value`: `unknown`, `index`: `number`, `array`: `unknown`[]) => value is S | A function that accepts up to three arguments. The every method calls  the predicate function for each element in the array until the predicate returns a value  which is coercible to the Boolean value false, or until the end of the array. |
-| `thisArg?` | `any` | An object to which the this keyword can refer in the predicate function.  If thisArg is omitted, undefined is used as the this value. |
+| `predicate` | (`value`: `unknown`, `index`: `number`, `array`: `unknown`[]) => value is S | A function that accepts up to three arguments. The every method calls the predicate function for each element in the array until the predicate returns a value which is coercible to the Boolean value false, or until the end of the array. |
+| `thisArg?` | `any` | An object to which the this keyword can refer in the predicate function. If thisArg is omitted, undefined is used as the this value. |
 
 #### Returns
 
@@ -274,7 +297,7 @@ Array.every
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1380
+node_modules/typescript/lib/lib.es5.d.ts:1425
 
 ▸ **every**(`predicate`, `thisArg?`): `boolean`
 
@@ -284,8 +307,8 @@ Determines whether all the members of an array satisfy the specified test.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | (`value`: `unknown`, `index`: `number`, `array`: `unknown`[]) => `unknown` | A function that accepts up to three arguments. The every method calls  the predicate function for each element in the array until the predicate returns a value  which is coercible to the Boolean value false, or until the end of the array. |
-| `thisArg?` | `any` | An object to which the this keyword can refer in the predicate function.  If thisArg is omitted, undefined is used as the this value. |
+| `predicate` | (`value`: `unknown`, `index`: `number`, `array`: `unknown`[]) => `unknown` | A function that accepts up to three arguments. The every method calls the predicate function for each element in the array until the predicate returns a value which is coercible to the Boolean value false, or until the end of the array. |
+| `thisArg?` | `any` | An object to which the this keyword can refer in the predicate function. If thisArg is omitted, undefined is used as the this value. |
 
 #### Returns
 
@@ -297,7 +320,7 @@ Array.every
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1389
+node_modules/typescript/lib/lib.es5.d.ts:1434
 
 ___
 
@@ -312,8 +335,8 @@ Changes all array elements from `start` to `end` index to a static `value` and r
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `value` | `unknown` | value to fill array section with |
-| `start?` | `number` | index to start filling the array at. If start is negative, it is treated as  length+start where length is the length of the array. |
-| `end?` | `number` | index to stop filling the array at. If end is negative, it is treated as  length+end. |
+| `start?` | `number` | index to start filling the array at. If start is negative, it is treated as length+start where length is the length of the array. |
+| `end?` | `number` | index to stop filling the array at. If end is negative, it is treated as length+end. |
 
 #### Returns
 
@@ -325,13 +348,13 @@ Array.fill
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.core.d.ts:53
+node_modules/typescript/lib/lib.es2015.core.d.ts:51
 
 ___
 
 ### filter
 
-▸ **filter**<`S`\>(`predicate`, `thisArg?`): `S`[]
+▸ **filter**\<`S`\>(`predicate`, `thisArg?`): `S`[]
 
 Returns the elements of an array that meet the condition specified in a callback function.
 
@@ -358,7 +381,7 @@ Array.filter
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1416
+node_modules/typescript/lib/lib.es5.d.ts:1461
 
 ▸ **filter**(`predicate`, `thisArg?`): `unknown`[]
 
@@ -381,13 +404,13 @@ Array.filter
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1422
+node_modules/typescript/lib/lib.es5.d.ts:1467
 
 ___
 
 ### find
 
-▸ **find**<`S`\>(`predicate`, `thisArg?`): `undefined` \| `S`
+▸ **find**\<`S`\>(`predicate`, `thisArg?`): `undefined` \| `S`
 
 Returns the value of the first element in the array where predicate is true, and undefined
 otherwise.
@@ -402,8 +425,8 @@ otherwise.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | (`this`: `void`, `value`: `unknown`, `index`: `number`, `obj`: `unknown`[]) => value is S | find calls predicate once for each element of the array, in ascending  order, until it finds one where predicate returns true. If such an element is found, find  immediately returns that element value. Otherwise, find returns undefined. |
-| `thisArg?` | `any` | If provided, it will be used as the this value for each invocation of  predicate. If it is not provided, undefined is used instead. |
+| `predicate` | (`value`: `unknown`, `index`: `number`, `obj`: `unknown`[]) => value is S | find calls predicate once for each element of the array, in ascending order, until it finds one where predicate returns true. If such an element is found, find immediately returns that element value. Otherwise, find returns undefined. |
+| `thisArg?` | `any` | If provided, it will be used as the this value for each invocation of predicate. If it is not provided, undefined is used instead. |
 
 #### Returns
 
@@ -415,7 +438,7 @@ Array.find
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.core.d.ts:31
+node_modules/typescript/lib/lib.es2015.core.d.ts:29
 
 ▸ **find**(`predicate`, `thisArg?`): `unknown`
 
@@ -436,7 +459,7 @@ Array.find
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.core.d.ts:32
+node_modules/typescript/lib/lib.es2015.core.d.ts:30
 
 ___
 
@@ -451,8 +474,8 @@ otherwise.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | (`value`: `unknown`, `index`: `number`, `obj`: `unknown`[]) => `unknown` | find calls predicate once for each element of the array, in ascending  order, until it finds one where predicate returns true. If such an element is found,  findIndex immediately returns that element index. Otherwise, findIndex returns -1. |
-| `thisArg?` | `any` | If provided, it will be used as the this value for each invocation of  predicate. If it is not provided, undefined is used instead. |
+| `predicate` | (`value`: `unknown`, `index`: `number`, `obj`: `unknown`[]) => `unknown` | find calls predicate once for each element of the array, in ascending order, until it finds one where predicate returns true. If such an element is found, findIndex immediately returns that element index. Otherwise, findIndex returns -1. |
+| `thisArg?` | `any` | If provided, it will be used as the this value for each invocation of predicate. If it is not provided, undefined is used instead. |
 
 #### Returns
 
@@ -464,7 +487,7 @@ Array.findIndex
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.core.d.ts:43
+node_modules/typescript/lib/lib.es2015.core.d.ts:41
 
 ___
 
@@ -491,7 +514,7 @@ Array.forEach
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1404
+node_modules/typescript/lib/lib.es5.d.ts:1449
 
 ___
 
@@ -518,7 +541,7 @@ Array.includes
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2016.array.include.d.ts:27
+node_modules/typescript/lib/lib.es2016.array.include.d.ts:25
 
 ___
 
@@ -545,7 +568,7 @@ Array.indexOf
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1365
+node_modules/typescript/lib/lib.es5.d.ts:1410
 
 ___
 
@@ -571,19 +594,19 @@ Array.join
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1308
+node_modules/typescript/lib/lib.es5.d.ts:1353
 
 ___
 
 ### keys
 
-▸ **keys**(): `IterableIterator`<`number`\>
+▸ **keys**(): `IterableIterator`\<`number`\>
 
 Returns an iterable of keys in the array
 
 #### Returns
 
-`IterableIterator`<`number`\>
+`IterableIterator`\<`number`\>
 
 #### Inherited from
 
@@ -591,7 +614,7 @@ Array.keys
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.iterable.d.ts:70
+node_modules/typescript/lib/lib.es2015.iterable.d.ts:68
 
 ___
 
@@ -618,13 +641,13 @@ Array.lastIndexOf
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1371
+node_modules/typescript/lib/lib.es5.d.ts:1416
 
 ___
 
 ### map
 
-▸ **map**<`U`\>(`callbackfn`, `thisArg?`): `U`[]
+▸ **map**\<`U`\>(`callbackfn`, `thisArg?`): `U`[]
 
 Calls a defined callback function on each element of an array, and returns an array that contains the results.
 
@@ -651,7 +674,7 @@ Array.map
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1410
+node_modules/typescript/lib/lib.es5.d.ts:1455
 
 ___
 
@@ -672,13 +695,13 @@ Array.pop
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1286
+node_modules/typescript/lib/lib.es5.d.ts:1331
 
 ___
 
 ### push
 
-▸ **push**(...`items`): `number`
+▸ **push**(`...items`): `number`
 
 Appends new elements to the end of an array, and returns the new length of the array.
 
@@ -698,7 +721,7 @@ Array.push
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1291
+node_modules/typescript/lib/lib.es5.d.ts:1336
 
 ___
 
@@ -724,7 +747,7 @@ Array.reduce
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1428
+node_modules/typescript/lib/lib.es5.d.ts:1473
 
 ▸ **reduce**(`callbackfn`, `initialValue`): `unknown`
 
@@ -745,9 +768,9 @@ Array.reduce
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1429
+node_modules/typescript/lib/lib.es5.d.ts:1474
 
-▸ **reduce**<`U`\>(`callbackfn`, `initialValue`): `U`
+▸ **reduce**\<`U`\>(`callbackfn`, `initialValue`): `U`
 
 Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
 
@@ -774,7 +797,7 @@ Array.reduce
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1435
+node_modules/typescript/lib/lib.es5.d.ts:1480
 
 ___
 
@@ -800,7 +823,7 @@ Array.reduceRight
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1441
+node_modules/typescript/lib/lib.es5.d.ts:1486
 
 ▸ **reduceRight**(`callbackfn`, `initialValue`): `unknown`
 
@@ -821,9 +844,9 @@ Array.reduceRight
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1442
+node_modules/typescript/lib/lib.es5.d.ts:1487
 
-▸ **reduceRight**<`U`\>(`callbackfn`, `initialValue`): `U`
+▸ **reduceRight**\<`U`\>(`callbackfn`, `initialValue`): `U`
 
 Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
 
@@ -850,7 +873,7 @@ Array.reduceRight
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1448
+node_modules/typescript/lib/lib.es5.d.ts:1493
 
 ___
 
@@ -871,7 +894,7 @@ Array.reverse
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1313
+node_modules/typescript/lib/lib.es5.d.ts:1358
 
 ___
 
@@ -892,7 +915,7 @@ Array.shift
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1318
+node_modules/typescript/lib/lib.es5.d.ts:1363
 
 ___
 
@@ -908,8 +931,8 @@ For example, -2 refers to the second to last element of the array.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `start?` | `number` | The beginning index of the specified portion of the array.  If start is undefined, then the slice begins at index 0. |
-| `end?` | `number` | The end index of the specified portion of the array. This is exclusive of the element at the index 'end'.  If end is undefined, then the slice extends to the end of the array. |
+| `start?` | `number` | The beginning index of the specified portion of the array. If start is undefined, then the slice begins at index 0. |
+| `end?` | `number` | The end index of the specified portion of the array. This is exclusive of the element at the index 'end'. If end is undefined, then the slice extends to the end of the array. |
 
 #### Returns
 
@@ -921,7 +944,7 @@ Array.slice
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1328
+node_modules/typescript/lib/lib.es5.d.ts:1373
 
 ___
 
@@ -935,8 +958,8 @@ Determines whether the specified callback function returns true for any element 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | (`value`: `unknown`, `index`: `number`, `array`: `unknown`[]) => `unknown` | A function that accepts up to three arguments. The some method calls  the predicate function for each element in the array until the predicate returns a value  which is coercible to the Boolean value true, or until the end of the array. |
-| `thisArg?` | `any` | An object to which the this keyword can refer in the predicate function.  If thisArg is omitted, undefined is used as the this value. |
+| `predicate` | (`value`: `unknown`, `index`: `number`, `array`: `unknown`[]) => `unknown` | A function that accepts up to three arguments. The some method calls the predicate function for each element in the array until the predicate returns a value which is coercible to the Boolean value true, or until the end of the array. |
+| `thisArg?` | `any` | An object to which the this keyword can refer in the predicate function. If thisArg is omitted, undefined is used as the this value. |
 
 #### Returns
 
@@ -948,7 +971,7 @@ Array.some
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1398
+node_modules/typescript/lib/lib.es5.d.ts:1443
 
 ___
 
@@ -963,7 +986,7 @@ This method mutates the array and returns a reference to the same array.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `compareFn?` | (`a`: `unknown`, `b`: `unknown`) => `number` | Function used to determine the order of the elements. It is expected to return  a negative value if the first argument is less than the second argument, zero if they're equal, and a positive  value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.  ```ts  [11,2,22,1].sort((a, b) => a - b)  ``` |
+| `compareFn?` | (`a`: `unknown`, `b`: `unknown`) => `number` | Function used to determine the order of the elements. It is expected to return a negative value if the first argument is less than the second argument, zero if they're equal, and a positive value otherwise. If omitted, the elements are sorted in ascending, ASCII character order. ```ts [11,2,22,1].sort((a, b) => a - b) ``` |
 
 #### Returns
 
@@ -975,7 +998,7 @@ Array.sort
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1339
+node_modules/typescript/lib/lib.es5.d.ts:1384
 
 ___
 
@@ -1004,9 +1027,9 @@ Array.splice
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1346
+node_modules/typescript/lib/lib.es5.d.ts:1391
 
-▸ **splice**(`start`, `deleteCount`, ...`items`): `unknown`[]
+▸ **splice**(`start`, `deleteCount`, `...items`): `unknown`[]
 
 Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
 
@@ -1030,7 +1053,7 @@ Array.splice
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1354
+node_modules/typescript/lib/lib.es5.d.ts:1399
 
 ___
 
@@ -1050,7 +1073,7 @@ Array.toLocaleString
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1281
+node_modules/typescript/lib/lib.es5.d.ts:1326
 
 ___
 
@@ -1070,13 +1093,13 @@ Array.toString
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1277
+node_modules/typescript/lib/lib.es5.d.ts:1322
 
 ___
 
 ### unshift
 
-▸ **unshift**(...`items`): `number`
+▸ **unshift**(`...items`): `number`
 
 Inserts new elements at the start of an array, and returns the new length of the array.
 
@@ -1096,19 +1119,19 @@ Array.unshift
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1359
+node_modules/typescript/lib/lib.es5.d.ts:1404
 
 ___
 
 ### values
 
-▸ **values**(): `IterableIterator`<`unknown`\>
+▸ **values**(): `IterableIterator`\<`unknown`\>
 
 Returns an iterable of values in the array
 
 #### Returns
 
-`IterableIterator`<`unknown`\>
+`IterableIterator`\<`unknown`\>
 
 #### Inherited from
 
@@ -1116,4 +1139,4 @@ Array.values
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es2015.iterable.d.ts:75
+node_modules/typescript/lib/lib.es2015.iterable.d.ts:73

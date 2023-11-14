@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteInputAndLabel
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteInputAndLabel
 
 # Class: DThemeWhiteInputAndLabel
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeWhiteInputAndLabel**()
+• **new DThemeWhiteInputAndLabel**(): [`DThemeWhiteInputAndLabel`](DThemeWhiteInputAndLabel.md)
+
+#### Returns
+
+[`DThemeWhiteInputAndLabel`](DThemeWhiteInputAndLabel.md)
 
 #### Inherited from
 

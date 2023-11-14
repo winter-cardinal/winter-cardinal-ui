@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateTransformMarkImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateTransformMarkImpl
 
 # Class: DChartCoordinateTransformMarkImpl
 
@@ -27,7 +27,11 @@
 
 ### constructor
 
-• **new DChartCoordinateTransformMarkImpl**()
+• **new DChartCoordinateTransformMarkImpl**(): [`DChartCoordinateTransformMarkImpl`](DChartCoordinateTransformMarkImpl.md)
+
+#### Returns
+
+[`DChartCoordinateTransformMarkImpl`](DChartCoordinateTransformMarkImpl.md)
 
 #### Defined in
 

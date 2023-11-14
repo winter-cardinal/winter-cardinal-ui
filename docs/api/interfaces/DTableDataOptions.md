@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataOptions
 
-# Interface: DTableDataOptions<ROW, EMITTER\>
+# Interface: DTableDataOptions\<ROW, EMITTER\>
 
 ## Type parameters
 
@@ -28,46 +28,46 @@
 
 ### comparator
 
-• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
+• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\>
 
 A comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L83)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L85)
 
 ___
 
 ### filter
 
-• `Optional` **filter**: [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
+• `Optional` **filter**: [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`ROW`\>
 
 A filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L78)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L80)
 
 ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L88)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L90)
 
 ___
 
 ### selection
 
-• `Optional` **selection**: [`DTableDataSelectionOptions`](DTableDataSelectionOptions.md)<`any`\> \| [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\> \| [`DTableDataSelectionCreator`](../index.md#dtabledataselectioncreator)<`ROW`\>
+• `Optional` **selection**: [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\> \| [`DTableDataSelectionCreator`](../index.md#dtabledataselectioncreator)\<`ROW`\> \| [`DTableDataSelectionOptions`](DTableDataSelectionOptions.md)\<`any`\>
 
 Selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L70)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L72)

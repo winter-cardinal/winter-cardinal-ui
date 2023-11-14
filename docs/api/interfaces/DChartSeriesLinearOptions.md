@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesLinearOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesLinearOptions
 
 # Interface: DChartSeriesLinearOptions
 
@@ -74,7 +74,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 #### Inherited from
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L31)
 
 ___
 

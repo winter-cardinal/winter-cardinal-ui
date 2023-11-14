@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataValueExtensions
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataValueExtensions
 
 # Class: EShapeDataValueExtensions
 
@@ -25,7 +25,11 @@
 
 ### constructor
 
-• **new EShapeDataValueExtensions**()
+• **new EShapeDataValueExtensions**(): [`EShapeDataValueExtensions`](EShapeDataValueExtensions.md)
+
+#### Returns
+
+[`EShapeDataValueExtensions`](EShapeDataValueExtensions.md)
 
 ## Properties
 
@@ -41,7 +45,7 @@ ___
 
 ### \_idToDatum
 
-▪ `Static` `Protected` `Optional` **\_idToDatum**: `Map`<`string`, [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)\>
+▪ `Static` `Protected` `Optional` **\_idToDatum**: `Map`\<`string`, [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)\>
 
 #### Defined in
 
@@ -51,7 +55,7 @@ ___
 
 ### \_typeToDatum
 
-▪ `Static` `Protected` `Optional` **\_typeToDatum**: `Map`<`number`, [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)\>
+▪ `Static` `Protected` `Optional` **\_typeToDatum**: `Map`\<`number`, [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)\>
 
 #### Defined in
 
@@ -61,7 +65,7 @@ ___
 
 ### add
 
-▸ `Static` **add**(`extension`): `void`
+▸ **add**(`extension`): `void`
 
 #### Parameters
 
@@ -81,7 +85,7 @@ ___
 
 ### each
 
-▸ `Static` **each**(`iteratee`): `void`
+▸ **each**(`iteratee`): `void`
 
 #### Parameters
 
@@ -101,7 +105,7 @@ ___
 
 ### get
 
-▸ `Static` **get**(`type`): `undefined` \| [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)
+▸ **get**(`type`): `undefined` \| [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)
 
 #### Parameters
 
@@ -121,7 +125,7 @@ ___
 
 ### getById
 
-▸ `Static` **getById**(`id`): `undefined` \| [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)
+▸ **getById**(`id`): `undefined` \| [`EShapeDataValueExtension`](../interfaces/EShapeDataValueExtension.md)
 
 #### Parameters
 

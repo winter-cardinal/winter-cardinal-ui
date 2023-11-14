@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogOpener
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogOpener
 
 # Interface: DDialogOpener
 
@@ -12,14 +12,14 @@
 
 ### getBounds
 
-▸ **getBounds**(`skipUpdate`, `result`): `Rectangle`
+▸ **getBounds**(`skipUpdate?`, `rect?`): `Rectangle`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `skipUpdate` | `boolean` |
-| `result` | `Rectangle` |
+| `skipUpdate?` | `boolean` |
+| `rect?` | `Rectangle` |
 
 #### Returns
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBar
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBar
 
-# Interface: DChartAxisBar<CHART\>
+# Interface: DChartAxisBar\<CHART\>
 
 ## Type parameters
 
@@ -45,7 +45,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns

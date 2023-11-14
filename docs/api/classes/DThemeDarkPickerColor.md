@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPickerColor
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPickerColor
 
 # Class: DThemeDarkPickerColor
 
@@ -60,6 +60,7 @@
 - [getInputMargin](DThemeDarkPickerColor.md#getinputmargin)
 - [getInteractive](DThemeDarkPickerColor.md#getinteractive)
 - [getLineHeight](DThemeDarkPickerColor.md#getlineheight)
+- [getMainBaseTexture](DThemeDarkPickerColor.md#getmainbasetexture)
 - [getMainHeight](DThemeDarkPickerColor.md#getmainheight)
 - [getMainPointerAlpha](DThemeDarkPickerColor.md#getmainpointeralpha)
 - [getMainPointerColor](DThemeDarkPickerColor.md#getmainpointercolor)
@@ -82,11 +83,17 @@
 - [getRecentColorMargin](DThemeDarkPickerColor.md#getrecentcolormargin)
 - [getRecentColorWidth](DThemeDarkPickerColor.md#getrecentcolorwidth)
 - [getRecentMargin](DThemeDarkPickerColor.md#getrecentmargin)
-- [getRecentNullTexture](DThemeDarkPickerColor.md#getrecentnulltexture)
-- [getRecents](DThemeDarkPickerColor.md#getrecents)
-- [getSampleCheckerboardTexture](DThemeDarkPickerColor.md#getsamplecheckerboardtexture)
-- [getSampleNullTexture](DThemeDarkPickerColor.md#getsamplenulltexture)
+- [getRecentTexture](DThemeDarkPickerColor.md#getrecenttexture)
+- [getSampleCheckerboardNewTexture](DThemeDarkPickerColor.md#getsamplecheckerboardnewtexture)
+- [getSampleCheckerboardOldTexture](DThemeDarkPickerColor.md#getsamplecheckerboardoldtexture)
+- [getSampleNewTexture](DThemeDarkPickerColor.md#getsamplenewtexture)
+- [getSampleOldTexture](DThemeDarkPickerColor.md#getsampleoldtexture)
 - [getShadow](DThemeDarkPickerColor.md#getshadow)
+- [getStandardColorCount](DThemeDarkPickerColor.md#getstandardcolorcount)
+- [getStandardColorHeight](DThemeDarkPickerColor.md#getstandardcolorheight)
+- [getStandardColorMargin](DThemeDarkPickerColor.md#getstandardcolormargin)
+- [getStandardColorWidth](DThemeDarkPickerColor.md#getstandardcolorwidth)
+- [getStandardTexture](DThemeDarkPickerColor.md#getstandardtexture)
 - [getTitle](DThemeDarkPickerColor.md#gettitle)
 - [getWeight](DThemeDarkPickerColor.md#getweight)
 - [getWidth](DThemeDarkPickerColor.md#getwidth)
@@ -100,7 +107,11 @@
 
 ### constructor
 
-• **new DThemeDarkPickerColor**()
+• **new DThemeDarkPickerColor**(): [`DThemeDarkPickerColor`](DThemeDarkPickerColor.md)
+
+#### Returns
+
+[`DThemeDarkPickerColor`](DThemeDarkPickerColor.md)
 
 #### Inherited from
 
@@ -150,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L178)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L190)
 
 ___
 
@@ -168,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L166)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L178)
 
 ___
 
@@ -186,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L170)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L182)
 
 ___
 
@@ -204,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L190)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L202)
 
 ___
 
@@ -222,7 +233,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L186)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L198)
 
 ___
 
@@ -240,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L182)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L194)
 
 ___
 
@@ -258,7 +269,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L174)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L186)
 
 ___
 
@@ -319,7 +330,7 @@ If the color is null, backgrounds are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L242)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L278)
 
 ___
 
@@ -361,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L142)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L154)
 
 ___
 
@@ -379,7 +390,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L146)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L158)
 
 ___
 
@@ -397,7 +408,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L162)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L174)
 
 ___
 
@@ -415,7 +426,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L158)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L170)
 
 ___
 
@@ -433,7 +444,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L154)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L166)
 
 ___
 
@@ -451,7 +462,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L150)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L162)
 
 ___
 
@@ -542,7 +553,7 @@ If the color is null, borders are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L246)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:282](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L282)
 
 ___
 
@@ -909,7 +920,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L230)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L238)
 
 ___
 
@@ -927,7 +938,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L226)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L234)
 
 ___
 
@@ -951,7 +962,7 @@ Returns an interactivity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L250)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L286)
 
 ___
 
@@ -977,6 +988,24 @@ ___
 
 ___
 
+### getMainBaseTexture
+
+▸ **getMainBaseTexture**(): `Texture`
+
+#### Returns
+
+`Texture`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getMainBaseTexture](../interfaces/DThemePickerColor.md#getmainbasetexture)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L138)
+
+___
+
 ### getMainHeight
 
 ▸ **getMainHeight**(): `number`
@@ -991,7 +1020,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L130)
 
 ___
 
@@ -1009,7 +1038,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L138)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L150)
 
 ___
 
@@ -1027,7 +1056,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L134)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L146)
 
 ___
 
@@ -1045,7 +1074,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L130)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L142)
 
 ___
 
@@ -1063,7 +1092,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L134)
 
 ___
 
@@ -1081,7 +1110,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L118)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L126)
 
 ___
 
@@ -1376,7 +1405,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L214)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L226)
 
 ___
 
@@ -1394,7 +1423,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L210)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L222)
 
 ___
 
@@ -1412,7 +1441,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L202)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L214)
 
 ___
 
@@ -1430,7 +1459,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L206)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L218)
 
 ___
 
@@ -1448,7 +1477,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L198)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L210)
 
 ___
 
@@ -1466,45 +1495,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L194)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L206)
 
 ___
 
-### getRecentNullTexture
+### getRecentTexture
 
-▸ **getRecentNullTexture**(): `Texture`
-
-#### Returns
-
-`Texture`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L218)
-
-___
-
-### getRecents
-
-▸ **getRecents**(): [`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)[]
-
-#### Returns
-
-[`DColorAndAlpha`](../interfaces/DColorAndAlpha.md)[]
-
-#### Implementation of
-
-[DThemePickerColor](../interfaces/DThemePickerColor.md).[getRecents](../interfaces/DThemePickerColor.md#getrecents)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L222)
-
-___
-
-### getSampleCheckerboardTexture
-
-▸ **getSampleCheckerboardTexture**(): `Texture`
+▸ **getRecentTexture**(): `Texture`
 
 #### Returns
 
@@ -1512,25 +1509,83 @@ ___
 
 #### Implementation of
 
-[DThemePickerColor](../interfaces/DThemePickerColor.md).[getSampleCheckerboardTexture](../interfaces/DThemePickerColor.md#getsamplecheckerboardtexture)
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getRecentTexture](../interfaces/DThemePickerColor.md#getrecenttexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L234)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L230)
 
 ___
 
-### getSampleNullTexture
+### getSampleCheckerboardNewTexture
 
-▸ **getSampleNullTexture**(): `Texture`
+▸ **getSampleCheckerboardNewTexture**(): `Texture`
 
 #### Returns
 
 `Texture`
 
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getSampleCheckerboardNewTexture](../interfaces/DThemePickerColor.md#getsamplecheckerboardnewtexture)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L238)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L246)
+
+___
+
+### getSampleCheckerboardOldTexture
+
+▸ **getSampleCheckerboardOldTexture**(): `Texture`
+
+#### Returns
+
+`Texture`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getSampleCheckerboardOldTexture](../interfaces/DThemePickerColor.md#getsamplecheckerboardoldtexture)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L242)
+
+___
+
+### getSampleNewTexture
+
+▸ **getSampleNewTexture**(): `Texture`
+
+#### Returns
+
+`Texture`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getSampleNewTexture](../interfaces/DThemePickerColor.md#getsamplenewtexture)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L254)
+
+___
+
+### getSampleOldTexture
+
+▸ **getSampleOldTexture**(): `Texture`
+
+#### Returns
+
+`Texture`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getSampleOldTexture](../interfaces/DThemePickerColor.md#getsampleoldtexture)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L250)
 
 ___
 
@@ -1556,6 +1611,96 @@ If a shadow is null, no shadow is rendered.
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L171)
+
+___
+
+### getStandardColorCount
+
+▸ **getStandardColorCount**(): `number`
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getStandardColorCount](../interfaces/DThemePickerColor.md#getstandardcolorcount)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L258)
+
+___
+
+### getStandardColorHeight
+
+▸ **getStandardColorHeight**(): `number`
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getStandardColorHeight](../interfaces/DThemePickerColor.md#getstandardcolorheight)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L266)
+
+___
+
+### getStandardColorMargin
+
+▸ **getStandardColorMargin**(): `number`
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getStandardColorMargin](../interfaces/DThemePickerColor.md#getstandardcolormargin)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L270)
+
+___
+
+### getStandardColorWidth
+
+▸ **getStandardColorWidth**(): `number`
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getStandardColorWidth](../interfaces/DThemePickerColor.md#getstandardcolorwidth)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L262)
+
+___
+
+### getStandardTexture
+
+▸ **getStandardTexture**(): `Texture`
+
+#### Returns
+
+`Texture`
+
+#### Implementation of
+
+[DThemePickerColor](../interfaces/DThemePickerColor.md).[getStandardTexture](../interfaces/DThemePickerColor.md#getstandardtexture)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L274)
 
 ___
 
@@ -1755,4 +1900,4 @@ Returns true if focusable.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L254)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-picker-color.ts#L290)

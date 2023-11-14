@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapePointsStyles
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapePointsStyles
 
 # Class: EShapePointsStyles
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new EShapePointsStyles**()
+• **new EShapePointsStyles**(): [`EShapePointsStyles`](EShapePointsStyles.md)
+
+#### Returns
+
+[`EShapePointsStyles`](EShapePointsStyles.md)
 
 ## Methods
 
 ### from
 
-▸ `Static` **from**(`style`): `number`
+▸ **from**(`style`): `number`
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisGuideContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisGuideContainer
 
-# Interface: DChartAxisGuideContainer<CHART\>
+# Interface: DChartAxisGuideContainer\<CHART\>
 
 ## Type parameters
 
@@ -30,17 +30,17 @@
 
 ### add
 
-▸ **add**(`guide`): [`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)<`CHART`\>
+▸ **add**(`guide`): [`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guide` | [`DChartAxisGuide`](DChartAxisGuide.md)<`CHART`\> |
+| `guide` | [`DChartAxisGuide`](DChartAxisGuide.md)\<`CHART`\> |
 
 #### Returns
 
-[`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)<`CHART`\>
+[`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -56,7 +56,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
@@ -71,11 +71,11 @@ ___
 
 ### clear
 
-▸ **clear**(): [`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)<`CHART`\>
+▸ **clear**(): [`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)<`CHART`\>
+[`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -99,7 +99,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DChartAxisGuide`](DChartAxisGuide.md)<`CHART`\>
+▸ **get**(`index`): ``null`` \| [`DChartAxisGuide`](DChartAxisGuide.md)\<`CHART`\>
 
 #### Parameters
 
@@ -109,7 +109,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartAxisGuide`](DChartAxisGuide.md)<`CHART`\>
+``null`` \| [`DChartAxisGuide`](DChartAxisGuide.md)\<`CHART`\>
 
 #### Defined in
 
@@ -125,7 +125,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `guide` | [`DChartAxisGuide`](DChartAxisGuide.md)<`CHART`\> |
+| `guide` | [`DChartAxisGuide`](DChartAxisGuide.md)\<`CHART`\> |
 
 #### Returns
 

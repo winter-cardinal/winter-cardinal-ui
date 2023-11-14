@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonColorGradientEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonColorGradientEvents
 
-# Interface: DButtonColorGradientEvents<EMITTER\>
+# Interface: DButtonColorGradientEvents\<EMITTER\>
 
 [DButtonColorGradient](../classes/DButtonColorGradient.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DButtonEvents`](DButtonEvents.md)<[`DColorGradientObservable`](../classes/DColorGradientObservable.md), `EMITTER`\>
+- [`DButtonEvents`](DButtonEvents.md)\<[`DColorGradientObservable`](../classes/DColorGradientObservable.md), `EMITTER`\>
 
   ↳ **`DButtonColorGradientEvents`**
 

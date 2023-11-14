@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeStrokeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeStrokeImpl
 
 # Class: EShapeStrokeImpl
 
@@ -46,7 +46,7 @@
 
 ### constructor
 
-• **new EShapeStrokeImpl**(`parent`, `enable`, `color`, `alpha`, `width`, `align`, `side`, `style`)
+• **new EShapeStrokeImpl**(`parent`, `enable`, `color`, `alpha`, `width`, `align`, `side`, `style`): [`EShapeStrokeImpl`](EShapeStrokeImpl.md)
 
 #### Parameters
 
@@ -60,6 +60,10 @@
 | `align` | `number` |
 | `side` | `number` |
 | `style` | `number` |
+
+#### Returns
+
+[`EShapeStrokeImpl`](EShapeStrokeImpl.md)
 
 #### Defined in
 
@@ -439,7 +443,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `target?` | `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
 
 #### Returns
 

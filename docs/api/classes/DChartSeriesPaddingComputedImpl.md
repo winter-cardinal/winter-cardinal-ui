@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesPaddingComputedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesPaddingComputedImpl
 
 # Class: DChartSeriesPaddingComputedImpl
 
@@ -25,7 +25,7 @@
 
 ### constructor
 
-• **new DChartSeriesPaddingComputedImpl**(`outer`, `inner`)
+• **new DChartSeriesPaddingComputedImpl**(`outer`, `inner`): [`DChartSeriesPaddingComputedImpl`](DChartSeriesPaddingComputedImpl.md)
 
 #### Parameters
 
@@ -33,6 +33,10 @@
 | :------ | :------ |
 | `outer` | `number` |
 | `inner` | `number` |
+
+#### Returns
+
+[`DChartSeriesPaddingComputedImpl`](DChartSeriesPaddingComputedImpl.md)
 
 #### Defined in
 
@@ -70,7 +74,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`base`, `index`, `point`): [`DChartSeriesPaddingComputed`](../interfaces/DChartSeriesPaddingComputed.md)
+▸ **from**(`base`, `index`, `point`): [`DChartSeriesPaddingComputed`](../interfaces/DChartSeriesPaddingComputed.md)
 
 #### Parameters
 

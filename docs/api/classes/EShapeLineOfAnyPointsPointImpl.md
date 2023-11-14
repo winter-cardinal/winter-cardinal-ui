@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeLineOfAnyPointsPointImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeLineOfAnyPointsPointImpl
 
 # Class: EShapeLineOfAnyPointsPointImpl
 
@@ -48,7 +48,7 @@
 
 ### constructor
 
-• **new EShapeLineOfAnyPointsPointImpl**(`parent`, `defX`, `defY`)
+• **new EShapeLineOfAnyPointsPointImpl**(`parent`, `defX`, `defY`): [`EShapeLineOfAnyPointsPointImpl`](EShapeLineOfAnyPointsPointImpl.md)
 
 #### Parameters
 
@@ -57,6 +57,10 @@
 | `parent` | [`EShapeLineOfAnyPointsPointImplParent`](../interfaces/EShapeLineOfAnyPointsPointImplParent.md) |
 | `defX` | `number` |
 | `defY` | `number` |
+
+#### Returns
+
+[`EShapeLineOfAnyPointsPointImpl`](EShapeLineOfAnyPointsPointImpl.md)
 
 #### Defined in
 
@@ -298,7 +302,7 @@ ___
 
 ### calcLimit
 
-▸ `Protected` **calcLimit**(`value`, `parentLenght`, `def`): `number`
+▸ **calcLimit**(`value`, `parentLenght`, `def`): `number`
 
 #### Parameters
 
@@ -465,7 +469,7 @@ ___
 
 ### updateLimitComputed
 
-▸ `Protected` **updateLimitComputed**(): `void`
+▸ **updateLimitComputed**(): `void`
 
 #### Returns
 

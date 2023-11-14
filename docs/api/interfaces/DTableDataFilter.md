@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataFilter
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataFilter
 
-# Interface: DTableDataFilter<ROW\>
+# Interface: DTableDataFilter\<ROW\>
 
 Table data filter.
 
@@ -75,7 +75,7 @@ Must not change this indices directly.
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 Alias method for `on`
 
@@ -89,7 +89,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 #### Inherited from
 
@@ -119,7 +119,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -168,13 +168,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`ROW`\>
 
 Returns a current filter.
 
 #### Returns
 
-``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
+``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`ROW`\>
 
 #### Defined in
 
@@ -274,7 +274,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 Alias method for `removeListener`
 
@@ -289,7 +289,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 #### Inherited from
 
@@ -303,7 +303,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 Add a listener for a given event.
 
@@ -317,7 +317,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 `this`.
 
@@ -333,7 +333,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 Add a one-time listener for a given event.
 
@@ -347,7 +347,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 `this`.
 
@@ -363,7 +363,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -375,7 +375,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 `this`.
 
@@ -391,7 +391,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 Remove the listeners of a given event.
 
@@ -406,7 +406,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)<`ROW`\>
+[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
 
 `this`.
 
@@ -430,7 +430,7 @@ Sets to the given filter.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\> | A filter |
+| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`ROW`\> | A filter |
 
 #### Returns
 

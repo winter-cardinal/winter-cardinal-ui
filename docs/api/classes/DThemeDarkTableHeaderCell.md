@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableHeaderCell
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableHeaderCell
 
 # Class: DThemeDarkTableHeaderCell
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkImage`](DThemeDarkImage.md)<`string` \| ``null``\>
+- [`DThemeDarkImage`](DThemeDarkImage.md)\<`string` \| ``null``\>
 
   ↳ **`DThemeDarkTableHeaderCell`**
 
@@ -113,7 +113,11 @@
 
 ### constructor
 
-• **new DThemeDarkTableHeaderCell**()
+• **new DThemeDarkTableHeaderCell**(): [`DThemeDarkTableHeaderCell`](DThemeDarkTableHeaderCell.md)
+
+#### Returns
+
+[`DThemeDarkTableHeaderCell`](DThemeDarkTableHeaderCell.md)
 
 #### Inherited from
 
@@ -2057,14 +2061,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `string`\>
 
 #### Implementation of
 

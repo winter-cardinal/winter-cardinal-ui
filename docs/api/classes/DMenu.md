@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenu
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenu
 
-# Class: DMenu<VALUE, THEME, OPTIONS\>
+# Class: DMenu\<VALUE, THEME, OPTIONS\>
 
 A base class for UI classes.
 See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
@@ -11,11 +11,11 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 | :------ | :------ |
 | `VALUE` | `VALUE` |
 | `THEME` | extends [`DThemeMenu`](../interfaces/DThemeMenu.md) = [`DThemeMenu`](../interfaces/DThemeMenu.md) |
-| `OPTIONS` | extends [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, `THEME`\> = [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, `THEME`\> |
+| `OPTIONS` | extends [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, `THEME`\> = [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, `THEME`\> |
 
 ## Hierarchy
 
-- [`DLayoutVertical`](DLayoutVertical.md)<`THEME`, `OPTIONS`\>
+- [`DLayoutVertical`](DLayoutVertical.md)\<`THEME`, `OPTIONS`\>
 
   ↳ **`DMenu`**
 
@@ -98,6 +98,7 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [worldVisible](DMenu.md#worldvisible)
 - [zIndex](DMenu.md#zindex)
 - [CORNER\_ADJUST\_WORK](DMenu.md#corner_adjust_work)
+- [WORK\_BOUNDS](DMenu.md#work_bounds)
 - [WORK\_CONTAINS\_POINT](DMenu.md#work_contains_point)
 
 ### Accessors
@@ -193,6 +194,7 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [isShown](DMenu.md#isshown)
 - [listenerCount](DMenu.md#listenercount)
 - [listeners](DMenu.md#listeners)
+- [newPadding](DMenu.md#newpadding)
 - [off](DMenu.md#off)
 - [on](DMenu.md#on)
 - [onBlur](DMenu.md#onblur)
@@ -262,7 +264,7 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 
 ### constructor
 
-• **new DMenu**<`VALUE`, `THEME`, `OPTIONS`\>(`options?`)
+• **new DMenu**\<`VALUE`, `THEME`, `OPTIONS`\>(`options?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Type parameters
 
@@ -270,13 +272,17 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 | :------ | :------ |
 | `VALUE` | `VALUE` |
 | `THEME` | extends [`DThemeMenu`](../interfaces/DThemeMenu.md) = [`DThemeMenu`](../interfaces/DThemeMenu.md) |
-| `OPTIONS` | extends [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, `THEME`, `OPTIONS`\> = [`DMenuOptions`](../interfaces/DMenuOptions.md)<`VALUE`, `THEME`\> |
+| `OPTIONS` | extends [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, `THEME`\> = [`DMenuOptions`](../interfaces/DMenuOptions.md)\<`VALUE`, `THEME`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -342,7 +348,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L41)
+[src/main/typescript/wcardinal/ui/d-menu.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L45)
 
 ___
 
@@ -428,7 +434,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L46)
+[src/main/typescript/wcardinal/ui/d-menu.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L50)
 
 ___
 
@@ -462,7 +468,7 @@ ___
 
 ### \_cursor
 
-• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Inherited from
 
@@ -514,7 +520,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L42)
+[src/main/typescript/wcardinal/ui/d-menu.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L46)
 
 ___
 
@@ -524,7 +530,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L49)
+[src/main/typescript/wcardinal/ui/d-menu.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L53)
 
 ___
 
@@ -579,7 +585,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -625,7 +631,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L48)
+[src/main/typescript/wcardinal/ui/d-menu.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L52)
 
 ___
 
@@ -663,17 +669,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L47)
+[src/main/typescript/wcardinal/ui/d-menu.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L51)
 
 ___
 
 ### \_owner
 
-• `Protected` **\_owner**: ``null`` \| [`DBase`](DBase.md)<`any`, `any`\>
+• `Protected` **\_owner**: ``null`` \| [`DMenuOpener`](../interfaces/DMenuOpener.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L45)
+[src/main/typescript/wcardinal/ui/d-menu.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L49)
 
 ___
 
@@ -753,7 +759,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L43)
+[src/main/typescript/wcardinal/ui/d-menu.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L47)
 
 ___
 
@@ -763,7 +769,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L44)
+[src/main/typescript/wcardinal/ui/d-menu.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L48)
 
 ___
 
@@ -856,7 +862,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -905,7 +913,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -955,7 +965,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -1646,6 +1658,16 @@ ___
 
 ___
 
+### WORK\_BOUNDS
+
+▪ `Static` `Protected` `Optional` **WORK\_BOUNDS**: `Rectangle`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-menu.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L43)
+
+___
+
 ### WORK\_CONTAINS\_POINT
 
 ▪ `Static` `Protected` **WORK\_CONTAINS\_POINT**: `Point`
@@ -1674,7 +1696,7 @@ DLayoutVertical.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1459)
+[src/main/typescript/wcardinal/ui/d-base.ts:1464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1464)
 
 ___
 
@@ -1692,7 +1714,7 @@ DLayoutVertical.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1463)
+[src/main/typescript/wcardinal/ui/d-base.ts:1468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1468)
 
 ___
 
@@ -1710,7 +1732,7 @@ DLayoutVertical.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1455](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1455)
+[src/main/typescript/wcardinal/ui/d-base.ts:1460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1460)
 
 ___
 
@@ -1728,7 +1750,7 @@ DLayoutVertical.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1378)
+[src/main/typescript/wcardinal/ui/d-base.ts:1383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1383)
 
 • `set` **height**(`height`): `void`
 
@@ -1748,7 +1770,7 @@ DLayoutVertical.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
+[src/main/typescript/wcardinal/ui/d-base.ts:1387](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1387)
 
 ___
 
@@ -1802,7 +1824,7 @@ DLayoutVertical.options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
+[src/main/typescript/wcardinal/ui/d-base.ts:1683](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1683)
 
 ___
 
@@ -1820,7 +1842,7 @@ DLayoutVertical.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1467)
+[src/main/typescript/wcardinal/ui/d-base.ts:1472](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1472)
 
 ___
 
@@ -1838,7 +1860,7 @@ DLayoutVertical.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1451)
+[src/main/typescript/wcardinal/ui/d-base.ts:1456](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1456)
 
 ___
 
@@ -1856,7 +1878,7 @@ DLayoutVertical.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1437](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1437)
+[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
 
 ___
 
@@ -1874,7 +1896,7 @@ DLayoutVertical.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1116)
+[src/main/typescript/wcardinal/ui/d-base.ts:1121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1121)
 
 ___
 
@@ -1892,7 +1914,7 @@ DLayoutVertical.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
+[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
 
 ___
 
@@ -1910,7 +1932,7 @@ DLayoutVertical.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1791](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1791)
+[src/main/typescript/wcardinal/ui/d-base.ts:1796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1796)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -1930,7 +1952,7 @@ DLayoutVertical.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1795](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1795)
+[src/main/typescript/wcardinal/ui/d-base.ts:1800](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1800)
 
 ___
 
@@ -1948,7 +1970,7 @@ DLayoutVertical.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
+[src/main/typescript/wcardinal/ui/d-base.ts:1452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1452)
 
 ___
 
@@ -1966,7 +1988,7 @@ DLayoutVertical.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1112)
+[src/main/typescript/wcardinal/ui/d-base.ts:1117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1117)
 
 ___
 
@@ -1984,7 +2006,7 @@ DLayoutVertical.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1674](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1674)
+[src/main/typescript/wcardinal/ui/d-base.ts:1679](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1679)
 
 ___
 
@@ -2002,7 +2024,7 @@ DLayoutVertical.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
+[src/main/typescript/wcardinal/ui/d-base.ts:1687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1687)
 
 • `set` **theme**(`theme`): `void`
 
@@ -2022,7 +2044,7 @@ DLayoutVertical.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1686)
+[src/main/typescript/wcardinal/ui/d-base.ts:1691](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1691)
 
 ___
 
@@ -2040,7 +2062,7 @@ DLayoutVertical.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1475)
+[src/main/typescript/wcardinal/ui/d-base.ts:1480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1480)
 
 • `set` **title**(`title`): `void`
 
@@ -2060,7 +2082,7 @@ DLayoutVertical.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1479)
+[src/main/typescript/wcardinal/ui/d-base.ts:1484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1484)
 
 ___
 
@@ -2078,7 +2100,7 @@ DLayoutVertical.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
+[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
 
 ___
 
@@ -2096,7 +2118,7 @@ DLayoutVertical.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1471)
+[src/main/typescript/wcardinal/ui/d-base.ts:1476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1476)
 
 ___
 
@@ -2114,7 +2136,7 @@ DLayoutVertical.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1137)
+[src/main/typescript/wcardinal/ui/d-base.ts:1142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1142)
 
 ___
 
@@ -2132,7 +2154,7 @@ DLayoutVertical.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1319)
+[src/main/typescript/wcardinal/ui/d-base.ts:1324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1324)
 
 • `set` **width**(`width`): `void`
 
@@ -2152,7 +2174,7 @@ DLayoutVertical.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
+[src/main/typescript/wcardinal/ui/d-base.ts:1328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1328)
 
 ___
 
@@ -2170,7 +2192,7 @@ DLayoutVertical.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
+[src/main/typescript/wcardinal/ui/d-base.ts:1244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1244)
 
 • `set` **x**(`x`): `void`
 
@@ -2190,7 +2212,7 @@ DLayoutVertical.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1243)
+[src/main/typescript/wcardinal/ui/d-base.ts:1248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1248)
 
 ___
 
@@ -2208,7 +2230,7 @@ DLayoutVertical.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1279)
+[src/main/typescript/wcardinal/ui/d-base.ts:1284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1284)
 
 • `set` **y**(`y`): `void`
 
@@ -2228,13 +2250,13 @@ DLayoutVertical.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1283)
+[src/main/typescript/wcardinal/ui/d-base.ts:1288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1288)
 
 ## Methods
 
 ### \_calculateBounds
 
-▸ `Protected` **_calculateBounds**(): `void`
+▸ **_calculateBounds**(): `void`
 
 #### Returns
 
@@ -2246,7 +2268,7 @@ DLayoutVertical.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2018](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2018)
+[src/main/typescript/wcardinal/ui/d-base.ts:2023](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2023)
 
 ___
 
@@ -2273,7 +2295,7 @@ ___
 
 ### \_render
 
-▸ `Protected` **_render**(`renderer`): `void`
+▸ **_render**(`renderer`): `void`
 
 To be overridden by the subclasses.
 
@@ -2299,7 +2321,7 @@ ___
 
 ### addChild
 
-▸ **addChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -2335,7 +2357,7 @@ ___
 
 ### addChildAt
 
-▸ **addChildAt**<`T`\>(`child`, `index`): `T`
+▸ **addChildAt**\<`T`\>(`child`, `index`): `T`
 
 Adds a child to the container at a specified index. If the index is out of bounds an error will be thrown
 
@@ -2343,7 +2365,7 @@ Adds a child to the container at a specified index. If the index is out of bound
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `DisplayObject`<`T`\> |
+| `T` | extends `DisplayObject` |
 
 #### Parameters
 
@@ -2370,7 +2392,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2382,7 +2404,7 @@ ___
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2392,7 +2414,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24103
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2404,7 +2426,7 @@ node_modules/pixi.js/pixi.js.d.ts:24103
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2418,17 +2440,17 @@ ___
 
 ### addSpace
 
-▸ **addSpace**(`options?`): [`DLayoutSpace`](DLayoutSpace.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md), [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\>\>
+▸ **addSpace**(`options?`): [`DLayoutSpace`](DLayoutSpace.md)\<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md), [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)\<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\> |
+| `options?` | [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)\<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\> |
 
 #### Returns
 
-[`DLayoutSpace`](DLayoutSpace.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md), [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\>\>
+[`DLayoutSpace`](DLayoutSpace.md)\<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md), [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)\<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\>\>
 
 #### Inherited from
 
@@ -2442,7 +2464,7 @@ ___
 
 ### applyTitle
 
-▸ `Protected` **applyTitle**(): `void`
+▸ **applyTitle**(): `void`
 
 #### Returns
 
@@ -2454,13 +2476,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1488)
+[src/main/typescript/wcardinal/ui/d-base.ts:1493](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1493)
 
 ___
 
 ### blur
 
-▸ **blur**(`recursively?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **blur**(`recursively?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2470,7 +2492,7 @@ ___
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2478,13 +2500,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1594)
+[src/main/typescript/wcardinal/ui/d-base.ts:1599](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1599)
 
 ___
 
 ### calcSpaceLeft
 
-▸ `Protected` **calcSpaceLeft**(`isOn`, `size`, `padding`, `margin`): `number`
+▸ **calcSpaceLeft**(`isOn`, `size`, `padding`, `margin`): `number`
 
 #### Parameters
 
@@ -2531,21 +2553,21 @@ ___
 
 ### close
 
-▸ **close**(): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **close**(): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L191)
+[src/main/typescript/wcardinal/ui/d-menu.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L195)
 
 ___
 
 ### containsGlobalPoint
 
-▸ `Protected` **containsGlobalPoint**(`point`): `boolean`
+▸ **containsGlobalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2563,13 +2585,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L251)
+[src/main/typescript/wcardinal/ui/d-menu.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L255)
 
 ___
 
 ### containsLocalPoint
 
-▸ `Protected` **containsLocalPoint**(`point`): `boolean`
+▸ **containsLocalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2587,7 +2609,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2047](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2047)
+[src/main/typescript/wcardinal/ui/d-base.ts:2052](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2052)
 
 ___
 
@@ -2611,13 +2633,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2034](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2034)
+[src/main/typescript/wcardinal/ui/d-base.ts:2039](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2039)
 
 ___
 
 ### countColumn
 
-▸ `Protected` **countColumn**(`istart`, `irow`, `cornerAdjustWork`): `number`
+▸ **countColumn**(`istart`, `irow`, `cornerAdjustWork`): `number`
 
 #### Parameters
 
@@ -2643,7 +2665,7 @@ ___
 
 ### countRow
 
-▸ `Protected` **countRow**(`istart`, `icolumn`, `cornerAdjustWork`): `number`
+▸ **countRow**(`istart`, `icolumn`, `cornerAdjustWork`): `number`
 
 #### Parameters
 
@@ -2681,7 +2703,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2067](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2067)
+[src/main/typescript/wcardinal/ui/d-base.ts:2072](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2072)
 
 ___
 
@@ -2692,6 +2714,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -2699,10 +2725,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -2716,7 +2738,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -2765,7 +2787,7 @@ ___
 
 ### findColumnIndexNext
 
-▸ `Protected` **findColumnIndexNext**(`istart`, `icolumn`, `cornerAdjustWork`): `number`
+▸ **findColumnIndexNext**(`istart`, `icolumn`, `cornerAdjustWork`): `number`
 
 #### Parameters
 
@@ -2791,7 +2813,7 @@ ___
 
 ### findColumnIndexPrevious
 
-▸ `Protected` **findColumnIndexPrevious**(`istart`, `icolumn`, `cornerAdjustWork`): `number`
+▸ **findColumnIndexPrevious**(`istart`, `icolumn`, `cornerAdjustWork`): `number`
 
 #### Parameters
 
@@ -2817,7 +2839,7 @@ ___
 
 ### findItem
 
-▸ **findItem**(`value`): ``null`` \| [`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
+▸ **findItem**(`value`): ``null`` \| [`DMenuItem`](DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
 
 #### Parameters
 
@@ -2827,17 +2849,17 @@ ___
 
 #### Returns
 
-``null`` \| [`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
+``null`` \| [`DMenuItem`](DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L85)
+[src/main/typescript/wcardinal/ui/d-menu.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L89)
 
 ___
 
 ### findRowIndexNext
 
-▸ `Protected` **findRowIndexNext**(`istart`, `irow`, `cornerAdjustWork`): `number`
+▸ **findRowIndexNext**(`istart`, `irow`, `cornerAdjustWork`): `number`
 
 #### Parameters
 
@@ -2863,7 +2885,7 @@ ___
 
 ### findRowIndexPrevious
 
-▸ `Protected` **findRowIndexPrevious**(`istart`, `irow`, `cornerAdjustWork`): `number`
+▸ **findRowIndexPrevious**(`istart`, `irow`, `cornerAdjustWork`): `number`
 
 #### Parameters
 
@@ -2889,11 +2911,11 @@ ___
 
 ### focus
 
-▸ **focus**(): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **focus**(): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2901,13 +2923,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1590](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1590)
+[src/main/typescript/wcardinal/ui/d-base.ts:1595](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1595)
 
 ___
 
 ### focusOnClosest
 
-▸ `Protected` **focusOnClosest**(): `void`
+▸ **focusOnClosest**(): `void`
 
 #### Returns
 
@@ -2919,7 +2941,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1958](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1958)
+[src/main/typescript/wcardinal/ui/d-base.ts:1963](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1963)
 
 ___
 
@@ -2933,7 +2955,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -2986,14 +3008,6 @@ ___
 
 Returns the display object in the container.
 
-**`Method`**
-
-getChildByName
-
-**`Memberof`**
-
-PIXI.Container#
-
 #### Parameters
 
 | Name | Type | Description |
@@ -3005,6 +3019,14 @@ PIXI.Container#
 `DisplayObject`
 
 The child with the specified name.
+
+**`Method`**
+
+getChildByName
+
+**`Memberof`**
+
+PIXI.Container#
 
 #### Inherited from
 
@@ -3058,7 +3080,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1203)
+[src/main/typescript/wcardinal/ui/d-base.ts:1208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1208)
 
 ___
 
@@ -3085,21 +3107,21 @@ Returns a clipping rect.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2060](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2060)
+[src/main/typescript/wcardinal/ui/d-base.ts:2065](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2065)
 
 ___
 
 ### getCloseable
 
-▸ **getCloseable**(): ``null`` \| [`Closeable`](../interfaces/Closeable.md)
+▸ **getCloseable**(): ``null`` \| [`DMenuCloseable`](../interfaces/DMenuCloseable.md)
 
 #### Returns
 
-``null`` \| [`Closeable`](../interfaces/Closeable.md)
+``null`` \| [`DMenuCloseable`](../interfaces/DMenuCloseable.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L104)
+[src/main/typescript/wcardinal/ui/d-menu.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L108)
 
 ___
 
@@ -3113,7 +3135,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L100)
+[src/main/typescript/wcardinal/ui/d-menu.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L104)
 
 ___
 
@@ -3123,6 +3145,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -3130,19 +3165,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -3168,7 +3190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
+[src/main/typescript/wcardinal/ui/d-base.ts:1391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1391)
 
 ___
 
@@ -3202,11 +3224,11 @@ ___
 
 ### getParentOfSize
 
-▸ `Protected` **getParentOfSize**(): ``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+▸ **getParentOfSize**(): ``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Returns
 
-``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Inherited from
 
@@ -3214,13 +3236,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1825](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1825)
+[src/main/typescript/wcardinal/ui/d-base.ts:1830](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1830)
 
 ___
 
 ### getSpaceLeft
 
-▸ `Protected` **getSpaceLeft**(`baseSize`, `margin`): `number`
+▸ **getSpaceLeft**(`baseSize`, `margin`): `number`
 
 #### Parameters
 
@@ -3245,7 +3267,7 @@ ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): `THEME`
+▸ **getThemeDefault**(): `THEME`
 
 #### Returns
 
@@ -3257,13 +3279,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2009](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2009)
+[src/main/typescript/wcardinal/ui/d-base.ts:2014](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2014)
 
 ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -3275,13 +3297,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L96)
+[src/main/typescript/wcardinal/ui/d-menu.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L100)
 
 ___
 
 ### getWeightTotal
 
-▸ `Protected` **getWeightTotal**(): `number`
+▸ **getWeightTotal**(): `number`
 
 #### Returns
 
@@ -3311,7 +3333,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+[src/main/typescript/wcardinal/ui/d-base.ts:1332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1332)
 
 ___
 
@@ -3329,7 +3351,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1247)
+[src/main/typescript/wcardinal/ui/d-base.ts:1252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1252)
 
 ___
 
@@ -3347,13 +3369,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1287)
+[src/main/typescript/wcardinal/ui/d-base.ts:1292](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1292)
 
 ___
 
 ### hasClearType
 
-▸ `Protected` **hasClearType**(`children`, `index`, `clearType`): `boolean`
+▸ **hasClearType**(`children`, `index`, `clearType`): `boolean`
 
 #### Parameters
 
@@ -3379,7 +3401,7 @@ ___
 
 ### hasClearTypeAfter
 
-▸ `Protected` **hasClearTypeAfter**(`children`, `index`): `boolean`
+▸ **hasClearTypeAfter**(`children`, `index`): `boolean`
 
 #### Parameters
 
@@ -3404,7 +3426,7 @@ ___
 
 ### hasClearTypeBefore
 
-▸ `Protected` **hasClearTypeBefore**(`children`, `index`): `boolean`
+▸ **hasClearTypeBefore**(`children`, `index`): `boolean`
 
 #### Parameters
 
@@ -3441,13 +3463,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1576)
+[src/main/typescript/wcardinal/ui/d-base.ts:1581](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1581)
 
 ___
 
 ### hasRefitableHeight
 
-▸ `Protected` **hasRefitableHeight**(`target`): target is DRefitable
+▸ **hasRefitableHeight**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3465,13 +3487,13 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1775](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1775)
+[src/main/typescript/wcardinal/ui/d-base.ts:1780](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1780)
 
 ___
 
 ### hasRefitableWidth
 
-▸ `Protected` **hasRefitableWidth**(`target`): target is DBase<any, any\>
+▸ **hasRefitableWidth**(`target`): target is DBase\<any, any\>
 
 #### Parameters
 
@@ -3481,7 +3503,7 @@ ___
 
 #### Returns
 
-target is DBase<any, any\>
+target is DBase\<any, any\>
 
 #### Inherited from
 
@@ -3489,17 +3511,17 @@ target is DBase<any, any\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1781](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1781)
+[src/main/typescript/wcardinal/ui/d-base.ts:1786](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1786)
 
 ___
 
 ### hide
 
-▸ **hide**(): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **hide**(): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3507,13 +3529,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1508)
+[src/main/typescript/wcardinal/ui/d-base.ts:1513](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1513)
 
 ___
 
 ### init
 
-▸ `Protected` **init**(`options?`): `void`
+▸ **init**(`options?`): `void`
 
 #### Parameters
 
@@ -3531,13 +3553,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L51)
+[src/main/typescript/wcardinal/ui/d-menu.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L55)
 
 ___
 
 ### initReflowable
 
-▸ `Protected` **initReflowable**(): `void`
+▸ **initReflowable**(): `void`
 
 #### Returns
 
@@ -3549,7 +3571,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
+[src/main/typescript/wcardinal/ui/d-base.ts:1125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1125)
 
 ___
 
@@ -3567,13 +3589,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1572)
+[src/main/typescript/wcardinal/ui/d-base.ts:1577](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1577)
 
 ___
 
 ### isEventTarget
 
-▸ `Protected` **isEventTarget**(`e`): `boolean`
+▸ **isEventTarget**(`e`): `boolean`
 
 #### Parameters
 
@@ -3591,7 +3613,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1903](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1903)
+[src/main/typescript/wcardinal/ui/d-base.ts:1908](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1908)
 
 ___
 
@@ -3609,7 +3631,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1518](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1518)
+[src/main/typescript/wcardinal/ui/d-base.ts:1523](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1523)
 
 ___
 
@@ -3627,13 +3649,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1564)
+[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
 
 ___
 
 ### isRefitable
 
-▸ `Protected` **isRefitable**(`target`): target is DRefitable
+▸ **isRefitable**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3651,7 +3673,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1771](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1771)
+[src/main/typescript/wcardinal/ui/d-base.ts:1776](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1776)
 
 ___
 
@@ -3669,7 +3691,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1504)
+[src/main/typescript/wcardinal/ui/d-base.ts:1509](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1509)
 
 ___
 
@@ -3725,9 +3747,35 @@ node_modules/pixi.js/pixi.js.d.ts:24005
 
 ___
 
+### newPadding
+
+▸ **newPadding**(`theme`, `options?`, `callback?`): [`DBasePadding`](DBasePadding.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
+| `callback?` | () => `void` |
+
+#### Returns
+
+[`DBasePadding`](DBasePadding.md)
+
+#### Inherited from
+
+[DLayoutVertical](DLayoutVertical.md).[newPadding](DLayoutVertical.md#newpadding)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:1096](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1096)
+
+___
+
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -3739,7 +3787,7 @@ ___
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3753,19 +3801,19 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3775,7 +3823,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24112
 
-▸ **on**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -3787,7 +3835,7 @@ node_modules/pixi.js/pixi.js.d.ts:24112
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3801,7 +3849,7 @@ ___
 
 ### onBlur
 
-▸ `Protected` **onBlur**(): `void`
+▸ **onBlur**(): `void`
 
 #### Returns
 
@@ -3813,19 +3861,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1667](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1667)
+[src/main/typescript/wcardinal/ui/d-base.ts:1672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1672)
 
 ___
 
 ### onChildBlur
 
-▸ `Protected` **onChildBlur**(`blured`): `void`
+▸ **onChildBlur**(`blured`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `blured` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `blured` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -3837,19 +3885,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1660](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1660)
+[src/main/typescript/wcardinal/ui/d-base.ts:1665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1665)
 
 ___
 
 ### onChildFocus
 
-▸ `Protected` **onChildFocus**(`focused`): `void`
+▸ **onChildFocus**(`focused`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `focused` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `focused` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -3861,13 +3909,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1646](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1646)
+[src/main/typescript/wcardinal/ui/d-base.ts:1651](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1651)
 
 ___
 
 ### onChildrenChange
 
-▸ `Protected` **onChildrenChange**(): `void`
+▸ **onChildrenChange**(): `void`
 
 #### Returns
 
@@ -3879,13 +3927,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
+[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
 
 ___
 
 ### onDblClick
 
-▸ `Protected` **onDblClick**(`e`, `interactionManager`): `boolean`
+▸ **onDblClick**(`e`, `interactionManager`): `boolean`
 
 #### Parameters
 
@@ -3904,13 +3952,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1990](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1990)
+[src/main/typescript/wcardinal/ui/d-base.ts:1995](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1995)
 
 ___
 
 ### onDown
 
-▸ `Protected` **onDown**(`e`): `void`
+▸ **onDown**(`e`): `void`
 
 #### Parameters
 
@@ -3928,13 +3976,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1917](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1917)
+[src/main/typescript/wcardinal/ui/d-base.ts:1922](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1922)
 
 ___
 
 ### onDownThis
 
-▸ `Protected` **onDownThis**(`e`): `void`
+▸ **onDownThis**(`e`): `void`
 
 #### Parameters
 
@@ -3952,13 +4000,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1924](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1924)
+[src/main/typescript/wcardinal/ui/d-base.ts:1929](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1929)
 
 ___
 
 ### onFocus
 
-▸ `Protected` **onFocus**(): `void`
+▸ **onFocus**(): `void`
 
 #### Returns
 
@@ -3970,13 +4018,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1653](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1653)
+[src/main/typescript/wcardinal/ui/d-base.ts:1658](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1658)
 
 ___
 
 ### onHierarchyDirty
 
-▸ `Protected` **onHierarchyDirty**(): `void`
+▸ **onHierarchyDirty**(): `void`
 
 #### Returns
 
@@ -3988,13 +4036,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1568)
+[src/main/typescript/wcardinal/ui/d-base.ts:1573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1573)
 
 ___
 
 ### onKeyDown
 
-▸ `Protected` **onKeyDown**(`e`): `boolean`
+▸ **onKeyDown**(`e`): `boolean`
 
 #### Parameters
 
@@ -4012,13 +4060,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L240)
+[src/main/typescript/wcardinal/ui/d-menu.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L244)
 
 ___
 
 ### onKeyUp
 
-▸ `Protected` **onKeyUp**(`e`): `boolean`
+▸ **onKeyUp**(`e`): `boolean`
 
 #### Parameters
 
@@ -4036,13 +4084,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1897](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1897)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
 ### onMove
 
-▸ `Protected` **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4063,13 +4111,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1141)
+[src/main/typescript/wcardinal/ui/d-base.ts:1146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1146)
 
 ___
 
 ### onOut
 
-▸ `Protected` **onOut**(`e`): `void`
+▸ **onOut**(`e`): `void`
 
 #### Parameters
 
@@ -4087,13 +4135,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1981](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1981)
+[src/main/typescript/wcardinal/ui/d-base.ts:1986](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1986)
 
 ___
 
 ### onOver
 
-▸ `Protected` **onOver**(`e`): `void`
+▸ **onOver**(`e`): `void`
 
 #### Parameters
 
@@ -4111,13 +4159,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1967](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1967)
+[src/main/typescript/wcardinal/ui/d-base.ts:1972](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1972)
 
 ___
 
 ### onParentMove
 
-▸ `Protected` **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 Called when a parent moved.
 
@@ -4140,7 +4188,7 @@ Called when a parent moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1881](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1881)
+[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
 
 ___
 
@@ -4168,13 +4216,13 @@ Called when a parent resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1840](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1840)
+[src/main/typescript/wcardinal/ui/d-base.ts:1845](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1845)
 
 ___
 
 ### onPrerender
 
-▸ `Protected` **onPrerender**(): `void`
+▸ **onPrerender**(): `void`
 
 #### Returns
 
@@ -4182,13 +4230,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L166)
+[src/main/typescript/wcardinal/ui/d-menu.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L170)
 
 ___
 
 ### onRefit
 
-▸ `Protected` **onRefit**(): `void`
+▸ **onRefit**(): `void`
 
 #### Returns
 
@@ -4206,7 +4254,7 @@ ___
 
 ### onReflow
 
-▸ `Protected` **onReflow**(): `void`
+▸ **onReflow**(): `void`
 
 #### Returns
 
@@ -4218,7 +4266,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1787)
+[src/main/typescript/wcardinal/ui/d-base.ts:1792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1792)
 
 ___
 
@@ -4245,13 +4293,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1207)
+[src/main/typescript/wcardinal/ui/d-base.ts:1212](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1212)
 
 ___
 
 ### onScale
 
-▸ `Protected` **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4272,13 +4320,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1224)
+[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
 
 ___
 
 ### onShortcut
 
-▸ `Protected` **onShortcut**(`e`): `void`
+▸ **onShortcut**(`e`): `void`
 
 #### Parameters
 
@@ -4296,13 +4344,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
+[src/main/typescript/wcardinal/ui/d-base.ts:1134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1134)
 
 ___
 
 ### onSkew
 
-▸ `Protected` **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4323,13 +4371,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
+[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
 
 ___
 
 ### onStateChange
 
-▸ `Protected` **onStateChange**(`newState`, `oldState`): `void`
+▸ **onStateChange**(`newState`, `oldState`): `void`
 
 #### Parameters
 
@@ -4348,13 +4396,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1617](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1617)
+[src/main/typescript/wcardinal/ui/d-base.ts:1622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1622)
 
 ___
 
 ### onUp
 
-▸ `Protected` **onUp**(`e`): `void`
+▸ **onUp**(`e`): `void`
 
 #### Parameters
 
@@ -4372,13 +4420,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1935](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1935)
+[src/main/typescript/wcardinal/ui/d-base.ts:1940](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1940)
 
 ___
 
 ### onUpThis
 
-▸ `Protected` **onUpThis**(`e`): `void`
+▸ **onUpThis**(`e`): `void`
 
 #### Parameters
 
@@ -4396,13 +4444,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1942](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1942)
+[src/main/typescript/wcardinal/ui/d-base.ts:1947](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1947)
 
 ___
 
 ### onWheel
 
-▸ `Protected` **onWheel**(`e`, `deltas`, `global`): `boolean`
+▸ **onWheel**(`e`, `deltas`, `global`): `boolean`
 
 #### Parameters
 
@@ -4422,25 +4470,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
+[src/main/typescript/wcardinal/ui/d-base.ts:1891](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1891)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4450,7 +4498,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24109
 
-▸ **once**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4462,7 +4510,7 @@ node_modules/pixi.js/pixi.js.d.ts:24109
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4476,23 +4524,23 @@ ___
 
 ### open
 
-▸ **open**(`owner`, `closeable?`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **open**(`owner`, `closeable?`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `owner` | [`DBase`](DBase.md)<`any`, `any`\> |
-| `closeable?` | ``null`` \| [`Closeable`](../interfaces/Closeable.md) |
+| `owner` | [`DMenuOpener`](../interfaces/DMenuOpener.md) |
+| `closeable?` | ``null`` \| [`DMenuCloseable`](../interfaces/DMenuCloseable.md) |
 | `context?` | ``null`` \| [`DMenuContext`](DMenuContext.md) |
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L108)
+[src/main/typescript/wcardinal/ui/d-menu.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L112)
 
 ___
 
@@ -4510,13 +4558,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1700)
+[src/main/typescript/wcardinal/ui/d-base.ts:1705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1705)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4526,7 +4574,7 @@ ___
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4536,7 +4584,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24098
 
-▸ **removeAllListeners**(`event?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4546,7 +4594,7 @@ node_modules/pixi.js/pixi.js.d.ts:24098
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4560,7 +4608,7 @@ ___
 
 ### removeChild
 
-▸ **removeChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -4651,7 +4699,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4663,7 +4711,7 @@ ___
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4673,7 +4721,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24095
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4685,7 +4733,7 @@ node_modules/pixi.js/pixi.js.d.ts:24095
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4717,13 +4765,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1999](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1999)
+[src/main/typescript/wcardinal/ui/d-base.ts:2004](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2004)
 
 ___
 
 ### renderAdvanced
 
-▸ `Protected` **renderAdvanced**(`renderer`): `void`
+▸ **renderAdvanced**(`renderer`): `void`
 
 Render the object using the WebGL renderer and advanced features.
 
@@ -4768,7 +4816,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1153)
+[src/main/typescript/wcardinal/ui/d-base.ts:1158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1158)
 
 ___
 
@@ -4801,7 +4849,7 @@ ___
 
 ### setFocused
 
-▸ `Protected` **setFocused**(`isFocused`): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **setFocused**(`isFocused`): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4811,7 +4859,7 @@ ___
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4819,7 +4867,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1580)
+[src/main/typescript/wcardinal/ui/d-base.ts:1585](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1585)
 
 ___
 
@@ -4843,7 +4891,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1390](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1390)
+[src/main/typescript/wcardinal/ui/d-base.ts:1395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1395)
 
 ___
 
@@ -4931,7 +4979,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
+[src/main/typescript/wcardinal/ui/d-base.ts:1336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1336)
 
 ___
 
@@ -4955,7 +5003,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1256)
+[src/main/typescript/wcardinal/ui/d-base.ts:1261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1261)
 
 ___
 
@@ -4979,17 +5027,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1296)
+[src/main/typescript/wcardinal/ui/d-base.ts:1301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1301)
 
 ___
 
 ### show
 
-▸ **show**(): [`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+▸ **show**(): [`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DMenu`](DMenu.md)<`VALUE`, `THEME`, `OPTIONS`\>
+[`DMenu`](DMenu.md)\<`VALUE`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4997,7 +5045,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1495](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1495)
+[src/main/typescript/wcardinal/ui/d-base.ts:1500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1500)
 
 ___
 
@@ -5050,7 +5098,7 @@ ___
 
 ### toCornerMaskColumn
 
-▸ `Protected` **toCornerMaskColumn**(`i0`, `i1`, `i2`, `n`): `number`
+▸ **toCornerMaskColumn**(`i0`, `i1`, `i2`, `n`): `number`
 
 #### Parameters
 
@@ -5077,7 +5125,7 @@ ___
 
 ### toCornerMaskRow
 
-▸ `Protected` **toCornerMaskRow**(`i0`, `i1`, `i2`, `n`): `number`
+▸ **toCornerMaskRow**(`i0`, `i1`, `i2`, `n`): `number`
 
 #### Parameters
 
@@ -5104,13 +5152,13 @@ ___
 
 ### toCursor
 
-▸ `Protected` **toCursor**(`cursor`, `state`): `string`
+▸ **toCursor**(`cursor`, `state`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\> |
+| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\> |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 
 #### Returns
@@ -5123,7 +5171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1095](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1095)
+[src/main/typescript/wcardinal/ui/d-base.ts:1100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1100)
 
 ___
 
@@ -5141,7 +5189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1522)
+[src/main/typescript/wcardinal/ui/d-base.ts:1527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1527)
 
 ___
 
@@ -5156,7 +5204,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -5189,7 +5237,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1531](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1531)
+[src/main/typescript/wcardinal/ui/d-base.ts:1536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1536)
 
 ___
 
@@ -5207,7 +5255,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1547](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1547)
+[src/main/typescript/wcardinal/ui/d-base.ts:1552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1552)
 
 ___
 
@@ -5223,7 +5271,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -5256,7 +5304,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1540](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1540)
+[src/main/typescript/wcardinal/ui/d-base.ts:1545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1545)
 
 ___
 
@@ -5274,13 +5322,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1557)
+[src/main/typescript/wcardinal/ui/d-base.ts:1562](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1562)
 
 ___
 
 ### toParentResized
 
-▸ `Protected` **toParentResized**(): `void`
+▸ **toParentResized**(): `void`
 
 #### Returns
 
@@ -5292,7 +5340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1818](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1818)
+[src/main/typescript/wcardinal/ui/d-base.ts:1823](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1823)
 
 ___
 
@@ -5318,7 +5366,7 @@ ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

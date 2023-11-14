@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeConnectorBodyImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeConnectorBodyImpl
 
 # Class: EShapeConnectorBodyImpl
 
@@ -40,7 +40,7 @@
 
 ### constructor
 
-• **new EShapeConnectorBodyImpl**(`parent`, `onChange`)
+• **new EShapeConnectorBodyImpl**(`parent`, `onChange`): [`EShapeConnectorBodyImpl`](EShapeConnectorBodyImpl.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@
 | :------ | :------ |
 | `parent` | [`EShapeConnector`](../interfaces/EShapeConnector.md) |
 | `onChange` | () => `void` |
+
+#### Returns
+
+[`EShapeConnectorBodyImpl`](EShapeConnectorBodyImpl.md)
 
 #### Defined in
 
@@ -249,7 +253,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 

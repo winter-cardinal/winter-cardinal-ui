@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectNoteOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectNoteOptions
 
 # Interface: DDialogSelectNoteOptions
 
@@ -16,7 +16,7 @@
 
 ### error
 
-• `Optional` **error**: ``null`` \| [`DNoteOptions`](DNoteOptions.md)<[`DThemeNote`](DThemeNote.md)\>
+• `Optional` **error**: ``null`` \| [`DNoteOptions`](DNoteOptions.md)\<[`DThemeNote`](DThemeNote.md)\>
 
 #### Defined in
 
@@ -26,7 +26,7 @@ ___
 
 ### noItemsFound
 
-• `Optional` **noItemsFound**: ``null`` \| [`DNoteOptions`](DNoteOptions.md)<[`DThemeNote`](DThemeNote.md)\>
+• `Optional` **noItemsFound**: ``null`` \| [`DNoteOptions`](DNoteOptions.md)\<[`DThemeNote`](DThemeNote.md)\>
 
 #### Defined in
 
@@ -36,7 +36,7 @@ ___
 
 ### searching
 
-• `Optional` **searching**: ``null`` \| [`DNoteOptions`](DNoteOptions.md)<[`DThemeNote`](DThemeNote.md)\>
+• `Optional` **searching**: ``null`` \| [`DNoteOptions`](DNoteOptions.md)\<[`DThemeNote`](DThemeNote.md)\>
 
 #### Defined in
 

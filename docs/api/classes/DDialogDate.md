@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogDate
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogDate
 
-# Class: DDialogDate<THEME, OPTIONS\>
+# Class: DDialogDate\<THEME, OPTIONS\>
 
 A dialog with a header, a content and a footer.
 Unlike [DDialogLayered](DDialogLayered.md), the width is determined by the content width.
@@ -10,11 +10,11 @@ Unlike [DDialogLayered](DDialogLayered.md), the width is determined by the conte
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemeDialogDate`](../interfaces/DThemeDialogDate.md) = [`DThemeDialogDate`](../interfaces/DThemeDialogDate.md) |
-| `OPTIONS` | extends [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)<`THEME`\> = [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)\<`THEME`\> = [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)\<`THEME`\> |
 
 ## Hierarchy
 
-- [`DDialogFitted`](DDialogFitted.md)<`Date`, `THEME`, `OPTIONS`\>
+- [`DDialogFitted`](DDialogFitted.md)\<`Date`, `THEME`, `OPTIONS`\>
 
   ↳ **`DDialogDate`**
 
@@ -207,6 +207,7 @@ Unlike [DDialogLayered](DDialogLayered.md), the width is determined by the conte
 - [newLayout](DDialogDate.md#newlayout)
 - [newLayoutChildren](DDialogDate.md#newlayoutchildren)
 - [newLayoutOptions](DDialogDate.md#newlayoutoptions)
+- [newPadding](DDialogDate.md#newpadding)
 - [off](DDialogDate.md#off)
 - [ok](DDialogDate.md#ok)
 - [on](DDialogDate.md#on)
@@ -288,20 +289,24 @@ Unlike [DDialogLayered](DDialogLayered.md), the width is determined by the conte
 
 ### constructor
 
-• **new DDialogDate**<`THEME`, `OPTIONS`\>(`options?`)
+• **new DDialogDate**\<`THEME`, `OPTIONS`\>(`options?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemeDialogDate`](../interfaces/DThemeDialogDate.md) = [`DThemeDialogDate`](../interfaces/DThemeDialogDate.md) |
-| `OPTIONS` | extends [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)<`THEME`, `OPTIONS`\> = [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)\<`THEME`\> = [`DDialogDateOptions`](../interfaces/DDialogDateOptions.md)\<`THEME`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -377,7 +382,7 @@ ___
 
 ### \_animation
 
-• `Protected` `Optional` **\_animation**: ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+• `Protected` `Optional` **\_animation**: ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Inherited from
 
@@ -481,7 +486,7 @@ ___
 
 ### \_content
 
-• `Protected` `Optional` **\_content**: [`DDialogLayeredContent`](DDialogLayeredContent.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
+• `Protected` `Optional` **\_content**: [`DDialogLayeredContent`](DDialogLayeredContent.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
 
 #### Inherited from
 
@@ -509,7 +514,7 @@ ___
 
 ### \_cursor
 
-• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Inherited from
 
@@ -557,7 +562,7 @@ ___
 
 ### \_footer
 
-• `Protected` `Optional` **\_footer**: ``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
+• `Protected` `Optional` **\_footer**: ``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
 
 #### Inherited from
 
@@ -571,7 +576,7 @@ ___
 
 ### \_gesture
 
-• `Protected` **\_gesture**: [`DDialogGesture`](../interfaces/DDialogGesture.md)<[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>\>
+• `Protected` **\_gesture**: [`DDialogGesture`](../interfaces/DDialogGesture.md)\<[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>\>
 
 #### Inherited from
 
@@ -585,7 +590,7 @@ ___
 
 ### \_header
 
-• `Protected` `Optional` **\_header**: ``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
+• `Protected` `Optional` **\_header**: ``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
 
 #### Inherited from
 
@@ -648,7 +653,7 @@ ___
 
 ### \_layout
 
-• `Protected` `Optional` **\_layout**: [`DLayoutVertical`](DLayoutVertical.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
+• `Protected` `Optional` **\_layout**: [`DLayoutVertical`](DLayoutVertical.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
 
 #### Inherited from
 
@@ -662,7 +667,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -788,7 +793,7 @@ ___
 
 ### \_picker
 
-• `Protected` `Optional` **\_picker**: [`DPickerDate`](DPickerDate.md)<[`DThemePickerDate`](../interfaces/DThemePickerDate.md), [`DPickerDateOptions`](../interfaces/DPickerDateOptions.md)<[`DThemePickerDate`](../interfaces/DThemePickerDate.md)\>\>
+• `Protected` `Optional` **\_picker**: [`DPickerDate`](DPickerDate.md)\<[`DThemePickerDate`](../interfaces/DThemePickerDate.md), [`DPickerDateOptions`](../interfaces/DPickerDateOptions.md)\<[`DThemePickerDate`](../interfaces/DThemePickerDate.md)\>\>
 
 #### Defined in
 
@@ -798,7 +803,7 @@ ___
 
 ### \_promise
 
-• `Protected` `Optional` **\_promise**: `Promise`<`Date`\>
+• `Protected` `Optional` **\_promise**: `Promise`\<`Date`\>
 
 #### Inherited from
 
@@ -854,7 +859,7 @@ ___
 
 ### \_resolve
 
-• `Protected` `Optional` **\_resolve**: (`value`: `Date` \| `PromiseLike`<`Date`\>) => `void`
+• `Protected` `Optional` **\_resolve**: (`value`: `Date` \| `PromiseLike`\<`Date`\>) => `void`
 
 #### Type declaration
 
@@ -864,7 +869,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `Date` \| `PromiseLike`<`Date`\> |
+| `value` | `Date` \| `PromiseLike`\<`Date`\> |
 
 ##### Returns
 
@@ -1011,7 +1016,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -1060,7 +1067,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -1110,7 +1119,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -1871,7 +1882,7 @@ DDialogFitted.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1459)
+[src/main/typescript/wcardinal/ui/d-base.ts:1464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1464)
 
 ___
 
@@ -1889,17 +1900,17 @@ DDialogFitted.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1463)
+[src/main/typescript/wcardinal/ui/d-base.ts:1468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1468)
 
 ___
 
 ### content
 
-• `get` **content**(): [`DDialogLayeredContent`](DDialogLayeredContent.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
+• `get` **content**(): [`DDialogLayeredContent`](DDialogLayeredContent.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
 
 #### Returns
 
-[`DDialogLayeredContent`](DDialogLayeredContent.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
+[`DDialogLayeredContent`](DDialogLayeredContent.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
 
 #### Inherited from
 
@@ -1925,7 +1936,7 @@ DDialogFitted.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1455](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1455)
+[src/main/typescript/wcardinal/ui/d-base.ts:1460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1460)
 
 ___
 
@@ -1961,11 +1972,11 @@ ___
 
 ### footer
 
-• `get` **footer**(): ``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
+• `get` **footer**(): ``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
 
 #### Returns
 
-``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
+``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
 
 #### Inherited from
 
@@ -1979,11 +1990,11 @@ ___
 
 ### gesture
 
-• `get` **gesture**(): [`DDialogGesture`](../interfaces/DDialogGesture.md)<`this`\>
+• `get` **gesture**(): [`DDialogGesture`](../interfaces/DDialogGesture.md)\<`this`\>
 
 #### Returns
 
-[`DDialogGesture`](../interfaces/DDialogGesture.md)<`this`\>
+[`DDialogGesture`](../interfaces/DDialogGesture.md)\<`this`\>
 
 #### Inherited from
 
@@ -1997,11 +2008,11 @@ ___
 
 ### header
 
-• `get` **header**(): ``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
+• `get` **header**(): ``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
 
 #### Returns
 
-``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
+``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
 
 #### Inherited from
 
@@ -2027,7 +2038,7 @@ DDialogFitted.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1378)
+[src/main/typescript/wcardinal/ui/d-base.ts:1383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1383)
 
 • `set` **height**(`height`): `void`
 
@@ -2047,7 +2058,7 @@ DDialogFitted.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
+[src/main/typescript/wcardinal/ui/d-base.ts:1387](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1387)
 
 ___
 
@@ -2071,11 +2082,11 @@ ___
 
 ### layout
 
-• `get` **layout**(): [`DLayoutVertical`](DLayoutVertical.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
+• `get` **layout**(): [`DLayoutVertical`](DLayoutVertical.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
 
 #### Returns
 
-[`DLayoutVertical`](DLayoutVertical.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
+[`DLayoutVertical`](DLayoutVertical.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
 
 #### Inherited from
 
@@ -2149,7 +2160,7 @@ DDialogFitted.options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
+[src/main/typescript/wcardinal/ui/d-base.ts:1683](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1683)
 
 ___
 
@@ -2167,7 +2178,7 @@ DDialogFitted.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1467)
+[src/main/typescript/wcardinal/ui/d-base.ts:1472](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1472)
 
 ___
 
@@ -2185,7 +2196,7 @@ DDialogFitted.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1451)
+[src/main/typescript/wcardinal/ui/d-base.ts:1456](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1456)
 
 ___
 
@@ -2221,11 +2232,11 @@ ___
 
 ### picker
 
-• `get` **picker**(): [`DPickerDate`](DPickerDate.md)<[`DThemePickerDate`](../interfaces/DThemePickerDate.md), [`DPickerDateOptions`](../interfaces/DPickerDateOptions.md)<[`DThemePickerDate`](../interfaces/DThemePickerDate.md)\>\>
+• `get` **picker**(): [`DPickerDate`](DPickerDate.md)\<[`DThemePickerDate`](../interfaces/DThemePickerDate.md), [`DPickerDateOptions`](../interfaces/DPickerDateOptions.md)\<[`DThemePickerDate`](../interfaces/DThemePickerDate.md)\>\>
 
 #### Returns
 
-[`DPickerDate`](DPickerDate.md)<[`DThemePickerDate`](../interfaces/DThemePickerDate.md), [`DPickerDateOptions`](../interfaces/DPickerDateOptions.md)<[`DThemePickerDate`](../interfaces/DThemePickerDate.md)\>\>
+[`DPickerDate`](DPickerDate.md)\<[`DThemePickerDate`](../interfaces/DThemePickerDate.md), [`DPickerDateOptions`](../interfaces/DPickerDateOptions.md)\<[`DThemePickerDate`](../interfaces/DThemePickerDate.md)\>\>
 
 #### Defined in
 
@@ -2247,7 +2258,7 @@ DDialogFitted.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1437](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1437)
+[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
 
 ___
 
@@ -2265,7 +2276,7 @@ DDialogFitted.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1116)
+[src/main/typescript/wcardinal/ui/d-base.ts:1121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1121)
 
 ___
 
@@ -2283,7 +2294,7 @@ DDialogFitted.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
+[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
 
 ___
 
@@ -2301,7 +2312,7 @@ DDialogFitted.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1791](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1791)
+[src/main/typescript/wcardinal/ui/d-base.ts:1796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1796)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -2321,7 +2332,7 @@ DDialogFitted.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1795](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1795)
+[src/main/typescript/wcardinal/ui/d-base.ts:1800](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1800)
 
 ___
 
@@ -2339,7 +2350,7 @@ DDialogFitted.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
+[src/main/typescript/wcardinal/ui/d-base.ts:1452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1452)
 
 ___
 
@@ -2357,7 +2368,7 @@ DDialogFitted.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1112)
+[src/main/typescript/wcardinal/ui/d-base.ts:1117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1117)
 
 ___
 
@@ -2375,7 +2386,7 @@ DDialogFitted.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1674](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1674)
+[src/main/typescript/wcardinal/ui/d-base.ts:1679](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1679)
 
 ___
 
@@ -2393,7 +2404,7 @@ DDialogFitted.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
+[src/main/typescript/wcardinal/ui/d-base.ts:1687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1687)
 
 • `set` **theme**(`theme`): `void`
 
@@ -2413,7 +2424,7 @@ DDialogFitted.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1686)
+[src/main/typescript/wcardinal/ui/d-base.ts:1691](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1691)
 
 ___
 
@@ -2431,7 +2442,7 @@ DDialogFitted.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1475)
+[src/main/typescript/wcardinal/ui/d-base.ts:1480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1480)
 
 • `set` **title**(`title`): `void`
 
@@ -2451,7 +2462,7 @@ DDialogFitted.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1479)
+[src/main/typescript/wcardinal/ui/d-base.ts:1484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1484)
 
 ___
 
@@ -2469,7 +2480,7 @@ DDialogFitted.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
+[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
 
 ___
 
@@ -2487,7 +2498,7 @@ DDialogFitted.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1471)
+[src/main/typescript/wcardinal/ui/d-base.ts:1476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1476)
 
 ___
 
@@ -2505,7 +2516,7 @@ DDialogFitted.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1137)
+[src/main/typescript/wcardinal/ui/d-base.ts:1142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1142)
 
 ___
 
@@ -2523,7 +2534,7 @@ DDialogFitted.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1319)
+[src/main/typescript/wcardinal/ui/d-base.ts:1324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1324)
 
 • `set` **width**(`width`): `void`
 
@@ -2543,7 +2554,7 @@ DDialogFitted.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
+[src/main/typescript/wcardinal/ui/d-base.ts:1328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1328)
 
 ___
 
@@ -2561,7 +2572,7 @@ DDialogFitted.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
+[src/main/typescript/wcardinal/ui/d-base.ts:1244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1244)
 
 • `set` **x**(`x`): `void`
 
@@ -2581,7 +2592,7 @@ DDialogFitted.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1243)
+[src/main/typescript/wcardinal/ui/d-base.ts:1248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1248)
 
 ___
 
@@ -2599,7 +2610,7 @@ DDialogFitted.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1279)
+[src/main/typescript/wcardinal/ui/d-base.ts:1284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1284)
 
 • `set` **y**(`y`): `void`
 
@@ -2619,13 +2630,13 @@ DDialogFitted.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1283)
+[src/main/typescript/wcardinal/ui/d-base.ts:1288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1288)
 
 ## Methods
 
 ### \_calculateBounds
 
-▸ `Protected` **_calculateBounds**(): `void`
+▸ **_calculateBounds**(): `void`
 
 #### Returns
 
@@ -2637,7 +2648,7 @@ DDialogFitted.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2018](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2018)
+[src/main/typescript/wcardinal/ui/d-base.ts:2023](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2023)
 
 ___
 
@@ -2664,7 +2675,7 @@ ___
 
 ### \_render
 
-▸ `Protected` **_render**(`renderer`): `void`
+▸ **_render**(`renderer`): `void`
 
 To be overridden by the subclasses.
 
@@ -2690,7 +2701,7 @@ ___
 
 ### addChild
 
-▸ **addChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -2726,7 +2737,7 @@ ___
 
 ### addChildAt
 
-▸ **addChildAt**<`T`\>(`child`, `index`): `T`
+▸ **addChildAt**\<`T`\>(`child`, `index`): `T`
 
 Adds a child to the container at a specified index. If the index is out of bounds an error will be thrown
 
@@ -2734,7 +2745,7 @@ Adds a child to the container at a specified index. If the index is out of bound
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `DisplayObject`<`T`\> |
+| `T` | extends `DisplayObject` |
 
 #### Parameters
 
@@ -2761,7 +2772,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2773,7 +2784,7 @@ ___
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2783,7 +2794,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24103
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2795,7 +2806,7 @@ node_modules/pixi.js/pixi.js.d.ts:24103
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2809,7 +2820,7 @@ ___
 
 ### applyTitle
 
-▸ `Protected` **applyTitle**(): `void`
+▸ **applyTitle**(): `void`
 
 #### Returns
 
@@ -2821,13 +2832,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1488)
+[src/main/typescript/wcardinal/ui/d-base.ts:1493](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1493)
 
 ___
 
 ### blur
 
-▸ **blur**(`recursively?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **blur**(`recursively?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2837,7 +2848,7 @@ ___
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2845,7 +2856,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1594)
+[src/main/typescript/wcardinal/ui/d-base.ts:1599](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1599)
 
 ___
 
@@ -2901,13 +2912,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:418](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L418)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:421](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L421)
 
 ___
 
 ### containsGlobalPoint
 
-▸ `Protected` **containsGlobalPoint**(`point`): `boolean`
+▸ **containsGlobalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2925,13 +2936,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:501](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L501)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L504)
 
 ___
 
 ### containsLocalPoint
 
-▸ `Protected` **containsLocalPoint**(`point`): `boolean`
+▸ **containsLocalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2949,7 +2960,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2047](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2047)
+[src/main/typescript/wcardinal/ui/d-base.ts:2052](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2052)
 
 ___
 
@@ -2973,7 +2984,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2034](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2034)
+[src/main/typescript/wcardinal/ui/d-base.ts:2039](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2039)
 
 ___
 
@@ -2991,7 +3002,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2067](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2067)
+[src/main/typescript/wcardinal/ui/d-base.ts:2072](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2072)
 
 ___
 
@@ -3002,6 +3013,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -3009,10 +3024,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -3026,7 +3037,7 @@ ___
 
 ### doReject
 
-▸ `Protected` **doReject**(`reason?`): `void`
+▸ **doReject**(`reason?`): `void`
 
 #### Parameters
 
@@ -3044,19 +3055,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:435](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L435)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:438](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L438)
 
 ___
 
 ### doResolve
 
-▸ `Protected` **doResolve**(`value`): `void`
+▸ **doResolve**(`value`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `Date` \| `PromiseLike`<`Date`\> |
+| `value` | `Date` \| `PromiseLike`\<`Date`\> |
 
 #### Returns
 
@@ -3068,13 +3079,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:422](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L422)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:425](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L425)
 
 ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -3123,7 +3134,7 @@ ___
 
 ### findFirstFocusable
 
-▸ `Protected` **findFirstFocusable**(`focusController`): ``null`` \| [`DFocusable`](../interfaces/DFocusable.md)
+▸ **findFirstFocusable**(`focusController`): ``null`` \| [`DFocusable`](../interfaces/DFocusable.md)
 
 #### Parameters
 
@@ -3147,11 +3158,11 @@ ___
 
 ### focus
 
-▸ **focus**(): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **focus**(): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3159,13 +3170,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1590](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1590)
+[src/main/typescript/wcardinal/ui/d-base.ts:1595](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1595)
 
 ___
 
 ### focusOnClosest
 
-▸ `Protected` **focusOnClosest**(): `void`
+▸ **focusOnClosest**(): `void`
 
 #### Returns
 
@@ -3177,17 +3188,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1958](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1958)
+[src/main/typescript/wcardinal/ui/d-base.ts:1963](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1963)
 
 ___
 
 ### getAnimation
 
-▸ `Protected` **getAnimation**(): ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<`unknown`\>
+▸ **getAnimation**(): ``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<`unknown`\>
 
 #### Returns
 
-``null`` \| [`DAnimation`](../interfaces/DAnimation.md)<`unknown`\>
+``null`` \| [`DAnimation`](../interfaces/DAnimation.md)\<`unknown`\>
 
 #### Inherited from
 
@@ -3209,7 +3220,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -3262,14 +3273,6 @@ ___
 
 Returns the display object in the container.
 
-**`Method`**
-
-getChildByName
-
-**`Memberof`**
-
-PIXI.Container#
-
 #### Parameters
 
 | Name | Type | Description |
@@ -3281,6 +3284,14 @@ PIXI.Container#
 `DisplayObject`
 
 The child with the specified name.
+
+**`Method`**
+
+getChildByName
+
+**`Memberof`**
+
+PIXI.Container#
 
 #### Inherited from
 
@@ -3334,7 +3345,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1203)
+[src/main/typescript/wcardinal/ui/d-base.ts:1208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1208)
 
 ___
 
@@ -3361,7 +3372,7 @@ Returns a clipping rect.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2060](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2060)
+[src/main/typescript/wcardinal/ui/d-base.ts:2065](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2065)
 
 ___
 
@@ -3371,6 +3382,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -3378,19 +3402,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -3416,7 +3427,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
+[src/main/typescript/wcardinal/ui/d-base.ts:1391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1391)
 
 ___
 
@@ -3450,11 +3461,11 @@ ___
 
 ### getParentOfSize
 
-▸ `Protected` **getParentOfSize**(): ``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+▸ **getParentOfSize**(): ``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Returns
 
-``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Inherited from
 
@@ -3462,13 +3473,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1825](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1825)
+[src/main/typescript/wcardinal/ui/d-base.ts:1830](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1830)
 
 ___
 
 ### getRejectReason
 
-▸ `Protected` **getRejectReason**(): `any`
+▸ **getRejectReason**(): `any`
 
 #### Returns
 
@@ -3486,11 +3497,11 @@ ___
 
 ### getResolvedValue
 
-▸ `Protected` **getResolvedValue**(): `Date` \| `PromiseLike`<`Date`\>
+▸ **getResolvedValue**(): `Date` \| `PromiseLike`\<`Date`\>
 
 #### Returns
 
-`Date` \| `PromiseLike`<`Date`\>
+`Date` \| `PromiseLike`\<`Date`\>
 
 #### Overrides
 
@@ -3504,7 +3515,7 @@ ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): `THEME`
+▸ **getThemeDefault**(): `THEME`
 
 #### Returns
 
@@ -3516,13 +3527,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2009](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2009)
+[src/main/typescript/wcardinal/ui/d-base.ts:2014](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2014)
 
 ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -3552,7 +3563,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+[src/main/typescript/wcardinal/ui/d-base.ts:1332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1332)
 
 ___
 
@@ -3570,7 +3581,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1247)
+[src/main/typescript/wcardinal/ui/d-base.ts:1252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1252)
 
 ___
 
@@ -3588,7 +3599,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1287)
+[src/main/typescript/wcardinal/ui/d-base.ts:1292](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1292)
 
 ___
 
@@ -3606,13 +3617,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1576)
+[src/main/typescript/wcardinal/ui/d-base.ts:1581](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1581)
 
 ___
 
 ### hasRefitableHeight
 
-▸ `Protected` **hasRefitableHeight**(`target`): target is DRefitable
+▸ **hasRefitableHeight**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3630,13 +3641,13 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1775](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1775)
+[src/main/typescript/wcardinal/ui/d-base.ts:1780](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1780)
 
 ___
 
 ### hasRefitableWidth
 
-▸ `Protected` **hasRefitableWidth**(`target`): target is DBase<any, any\>
+▸ **hasRefitableWidth**(`target`): target is DBase\<any, any\>
 
 #### Parameters
 
@@ -3646,7 +3657,7 @@ ___
 
 #### Returns
 
-target is DBase<any, any\>
+target is DBase\<any, any\>
 
 #### Inherited from
 
@@ -3654,17 +3665,17 @@ target is DBase<any, any\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1781](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1781)
+[src/main/typescript/wcardinal/ui/d-base.ts:1786](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1786)
 
 ___
 
 ### hide
 
-▸ **hide**(): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **hide**(): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3672,13 +3683,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1508)
+[src/main/typescript/wcardinal/ui/d-base.ts:1513](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1513)
 
 ___
 
 ### init
 
-▸ `Protected` **init**(`options?`): `void`
+▸ **init**(`options?`): `void`
 
 #### Parameters
 
@@ -3702,7 +3713,7 @@ ___
 
 ### initReflowable
 
-▸ `Protected` **initReflowable**(): `void`
+▸ **initReflowable**(): `void`
 
 #### Returns
 
@@ -3714,7 +3725,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
+[src/main/typescript/wcardinal/ui/d-base.ts:1125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1125)
 
 ___
 
@@ -3732,13 +3743,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1572)
+[src/main/typescript/wcardinal/ui/d-base.ts:1577](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1577)
 
 ___
 
 ### isEventTarget
 
-▸ `Protected` **isEventTarget**(`e`): `boolean`
+▸ **isEventTarget**(`e`): `boolean`
 
 #### Parameters
 
@@ -3756,7 +3767,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1903](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1903)
+[src/main/typescript/wcardinal/ui/d-base.ts:1908](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1908)
 
 ___
 
@@ -3774,7 +3785,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1518](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1518)
+[src/main/typescript/wcardinal/ui/d-base.ts:1523](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1523)
 
 ___
 
@@ -3792,7 +3803,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1564)
+[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
 
 ___
 
@@ -3810,13 +3821,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:414](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L414)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:417](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L417)
 
 ___
 
 ### isRefitable
 
-▸ `Protected` **isRefitable**(`target`): target is DRefitable
+▸ **isRefitable**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3834,7 +3845,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1771](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1771)
+[src/main/typescript/wcardinal/ui/d-base.ts:1776](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1776)
 
 ___
 
@@ -3852,7 +3863,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1504)
+[src/main/typescript/wcardinal/ui/d-base.ts:1509](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1509)
 
 ___
 
@@ -3910,11 +3921,11 @@ ___
 
 ### newContent
 
-▸ `Protected` **newContent**(): [`DDialogFittedContent`](DDialogFittedContent.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
+▸ **newContent**(): [`DDialogFittedContent`](DDialogFittedContent.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
 
 #### Returns
 
-[`DDialogFittedContent`](DDialogFittedContent.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
+[`DDialogFittedContent`](DDialogFittedContent.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md), [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>\>
 
 #### Inherited from
 
@@ -3928,7 +3939,7 @@ ___
 
 ### newContentChildren
 
-▸ `Protected` **newContentChildren**(`theme`, `options?`): (``null`` \| `DisplayObject`)[]
+▸ **newContentChildren**(`theme`, `options?`): (``null`` \| `DisplayObject`)[]
 
 #### Parameters
 
@@ -3953,11 +3964,11 @@ ___
 
 ### newFooter
 
-▸ `Protected` **newFooter**(): ``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
+▸ **newFooter**(): ``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
 
 #### Returns
 
-``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
+``null`` \| [`DDialogLayeredFooter`](DDialogLayeredFooter.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md), [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>\>
 
 #### Inherited from
 
@@ -3971,11 +3982,11 @@ ___
 
 ### newHeader
 
-▸ `Protected` **newHeader**(): ``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
+▸ **newHeader**(): ``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
 
 #### Returns
 
-``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
+``null`` \| [`DDialogLayeredHeader`](DDialogLayeredHeader.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md), [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>\>
 
 #### Inherited from
 
@@ -3989,11 +4000,11 @@ ___
 
 ### newLayout
 
-▸ `Protected` **newLayout**(): [`DLayoutVertical`](DLayoutVertical.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
+▸ **newLayout**(): [`DLayoutVertical`](DLayoutVertical.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
 
 #### Returns
 
-[`DLayoutVertical`](DLayoutVertical.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
+[`DLayoutVertical`](DLayoutVertical.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md), [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>\>
 
 #### Inherited from
 
@@ -4007,7 +4018,7 @@ ___
 
 ### newLayoutChildren
 
-▸ `Protected` **newLayoutChildren**(`theme`, `options?`): (``null`` \| `DisplayObject`)[]
+▸ **newLayoutChildren**(`theme`, `options?`): (``null`` \| `DisplayObject`)[]
 
 #### Parameters
 
@@ -4032,7 +4043,7 @@ ___
 
 ### newLayoutOptions
 
-▸ `Protected` **newLayoutOptions**(`theme`, `options?`): [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
+▸ **newLayoutOptions**(`theme`, `options?`): [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Parameters
 
@@ -4043,7 +4054,7 @@ ___
 
 #### Returns
 
-[`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
+[`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Inherited from
 
@@ -4055,9 +4066,35 @@ ___
 
 ___
 
+### newPadding
+
+▸ **newPadding**(`theme`, `options?`, `callback?`): [`DBasePadding`](DBasePadding.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
+| `callback?` | () => `void` |
+
+#### Returns
+
+[`DBasePadding`](DBasePadding.md)
+
+#### Inherited from
+
+[DDialogFitted](DDialogFitted.md).[newPadding](DDialogFitted.md#newpadding)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:1096](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1096)
+
+___
+
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4069,7 +4106,7 @@ ___
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4101,19 +4138,19 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4123,7 +4160,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24112
 
-▸ **on**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4135,7 +4172,7 @@ node_modules/pixi.js/pixi.js.d.ts:24112
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4149,7 +4186,7 @@ ___
 
 ### onAnimationEnd
 
-▸ `Protected` **onAnimationEnd**(`isReverse`): `void`
+▸ **onAnimationEnd**(`isReverse`): `void`
 
 #### Parameters
 
@@ -4173,7 +4210,7 @@ ___
 
 ### onBlur
 
-▸ `Protected` **onBlur**(): `void`
+▸ **onBlur**(): `void`
 
 #### Returns
 
@@ -4185,13 +4222,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1667](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1667)
+[src/main/typescript/wcardinal/ui/d-base.ts:1672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1672)
 
 ___
 
 ### onCancel
 
-▸ `Protected` **onCancel**(`reason`): `void`
+▸ **onCancel**(`reason`): `void`
 
 #### Parameters
 
@@ -4215,13 +4252,13 @@ ___
 
 ### onChildBlur
 
-▸ `Protected` **onChildBlur**(`blured`): `void`
+▸ **onChildBlur**(`blured`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `blured` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `blured` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -4233,19 +4270,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1660](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1660)
+[src/main/typescript/wcardinal/ui/d-base.ts:1665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1665)
 
 ___
 
 ### onChildFocus
 
-▸ `Protected` **onChildFocus**(`focused`): `void`
+▸ **onChildFocus**(`focused`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `focused` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `focused` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -4257,13 +4294,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1646](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1646)
+[src/main/typescript/wcardinal/ui/d-base.ts:1651](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1651)
 
 ___
 
 ### onChildrenChange
 
-▸ `Protected` **onChildrenChange**(): `void`
+▸ **onChildrenChange**(): `void`
 
 #### Returns
 
@@ -4275,13 +4312,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
+[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
 
 ___
 
 ### onClose
 
-▸ `Protected` **onClose**(): `void`
+▸ **onClose**(): `void`
 
 #### Returns
 
@@ -4293,13 +4330,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:448](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L448)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L451)
 
 ___
 
 ### onCloseOn
 
-▸ `Protected` **onCloseOn**(): `void`
+▸ **onCloseOn**(): `void`
 
 #### Returns
 
@@ -4311,13 +4348,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:497](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L497)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L500)
 
 ___
 
 ### onDblClick
 
-▸ `Protected` **onDblClick**(`e`, `interactionManager`): `boolean`
+▸ **onDblClick**(`e`, `interactionManager`): `boolean`
 
 #### Parameters
 
@@ -4336,13 +4373,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1990](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1990)
+[src/main/typescript/wcardinal/ui/d-base.ts:1995](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1995)
 
 ___
 
 ### onDown
 
-▸ `Protected` **onDown**(`e`): `void`
+▸ **onDown**(`e`): `void`
 
 #### Parameters
 
@@ -4360,13 +4397,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1917](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1917)
+[src/main/typescript/wcardinal/ui/d-base.ts:1922](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1922)
 
 ___
 
 ### onDownThis
 
-▸ `Protected` **onDownThis**(`e`): `void`
+▸ **onDownThis**(`e`): `void`
 
 #### Parameters
 
@@ -4384,13 +4421,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1924](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1924)
+[src/main/typescript/wcardinal/ui/d-base.ts:1929](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1929)
 
 ___
 
 ### onFocus
 
-▸ `Protected` **onFocus**(): `void`
+▸ **onFocus**(): `void`
 
 #### Returns
 
@@ -4402,13 +4439,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1653](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1653)
+[src/main/typescript/wcardinal/ui/d-base.ts:1658](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1658)
 
 ___
 
 ### onHierarchyDirty
 
-▸ `Protected` **onHierarchyDirty**(): `void`
+▸ **onHierarchyDirty**(): `void`
 
 #### Returns
 
@@ -4420,13 +4457,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1568)
+[src/main/typescript/wcardinal/ui/d-base.ts:1573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1573)
 
 ___
 
 ### onKeyDown
 
-▸ `Protected` **onKeyDown**(`e`): `boolean`
+▸ **onKeyDown**(`e`): `boolean`
 
 #### Parameters
 
@@ -4444,13 +4481,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L488)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:491](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L491)
 
 ___
 
 ### onKeyUp
 
-▸ `Protected` **onKeyUp**(`e`): `boolean`
+▸ **onKeyUp**(`e`): `boolean`
 
 #### Parameters
 
@@ -4468,13 +4505,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1897](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1897)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
 ### onMove
 
-▸ `Protected` **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4495,19 +4532,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1141)
+[src/main/typescript/wcardinal/ui/d-base.ts:1146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1146)
 
 ___
 
 ### onOk
 
-▸ `Protected` **onOk**(`value`): `void`
+▸ **onOk**(`value`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `Date` \| `PromiseLike`<`Date`\> |
+| `value` | `Date` \| `PromiseLike`\<`Date`\> |
 
 #### Returns
 
@@ -4525,7 +4562,7 @@ ___
 
 ### onOpen
 
-▸ `Protected` **onOpen**(): `void`
+▸ **onOpen**(): `void`
 
 #### Returns
 
@@ -4537,13 +4574,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:401](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L401)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L404)
 
 ___
 
 ### onOut
 
-▸ `Protected` **onOut**(`e`): `void`
+▸ **onOut**(`e`): `void`
 
 #### Parameters
 
@@ -4561,13 +4598,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1981](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1981)
+[src/main/typescript/wcardinal/ui/d-base.ts:1986](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1986)
 
 ___
 
 ### onOver
 
-▸ `Protected` **onOver**(`e`): `void`
+▸ **onOver**(`e`): `void`
 
 #### Parameters
 
@@ -4585,13 +4622,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1967](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1967)
+[src/main/typescript/wcardinal/ui/d-base.ts:1972](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1972)
 
 ___
 
 ### onParentMove
 
-▸ `Protected` **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 Called when a parent moved.
 
@@ -4614,7 +4651,7 @@ Called when a parent moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1881](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1881)
+[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
 
 ___
 
@@ -4648,7 +4685,7 @@ ___
 
 ### onPrerender
 
-▸ `Protected` **onPrerender**(): `void`
+▸ **onPrerender**(): `void`
 
 #### Returns
 
@@ -4666,7 +4703,7 @@ ___
 
 ### onRefit
 
-▸ `Protected` **onRefit**(): `void`
+▸ **onRefit**(): `void`
 
 #### Returns
 
@@ -4678,13 +4715,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1727)
+[src/main/typescript/wcardinal/ui/d-base.ts:1732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1732)
 
 ___
 
 ### onReflow
 
-▸ `Protected` **onReflow**(): `void`
+▸ **onReflow**(): `void`
 
 #### Returns
 
@@ -4696,7 +4733,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1787)
+[src/main/typescript/wcardinal/ui/d-base.ts:1792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1792)
 
 ___
 
@@ -4723,13 +4760,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1207)
+[src/main/typescript/wcardinal/ui/d-base.ts:1212](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1212)
 
 ___
 
 ### onScale
 
-▸ `Protected` **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4750,13 +4787,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1224)
+[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
 
 ___
 
 ### onShortcut
 
-▸ `Protected` **onShortcut**(`e`): `void`
+▸ **onShortcut**(`e`): `void`
 
 #### Parameters
 
@@ -4774,13 +4811,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
+[src/main/typescript/wcardinal/ui/d-base.ts:1134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1134)
 
 ___
 
 ### onSkew
 
-▸ `Protected` **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4801,13 +4838,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
+[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
 
 ___
 
 ### onStateChange
 
-▸ `Protected` **onStateChange**(`newState`, `oldState`): `void`
+▸ **onStateChange**(`newState`, `oldState`): `void`
 
 #### Parameters
 
@@ -4826,13 +4863,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1617](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1617)
+[src/main/typescript/wcardinal/ui/d-base.ts:1622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1622)
 
 ___
 
 ### onUp
 
-▸ `Protected` **onUp**(`e`): `void`
+▸ **onUp**(`e`): `void`
 
 #### Parameters
 
@@ -4850,13 +4887,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1935](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1935)
+[src/main/typescript/wcardinal/ui/d-base.ts:1940](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1940)
 
 ___
 
 ### onUpThis
 
-▸ `Protected` **onUpThis**(`e`): `void`
+▸ **onUpThis**(`e`): `void`
 
 #### Parameters
 
@@ -4874,13 +4911,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1942](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1942)
+[src/main/typescript/wcardinal/ui/d-base.ts:1947](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1947)
 
 ___
 
 ### onWheel
 
-▸ `Protected` **onWheel**(`e`, `deltas`, `global`): `boolean`
+▸ **onWheel**(`e`, `deltas`, `global`): `boolean`
 
 #### Parameters
 
@@ -4900,25 +4937,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
+[src/main/typescript/wcardinal/ui/d-base.ts:1891](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1891)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4928,7 +4965,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24109
 
-▸ **once**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4940,7 +4977,7 @@ node_modules/pixi.js/pixi.js.d.ts:24109
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4954,7 +4991,7 @@ ___
 
 ### open
 
-▸ **open**(`opener?`): `Promise`<`Date`\>
+▸ **open**(`opener?`): `Promise`\<`Date`\>
 
 Opens a dialog.
 
@@ -4966,7 +5003,7 @@ Opens a dialog.
 
 #### Returns
 
-`Promise`<`Date`\>
+`Promise`\<`Date`\>
 
 a value of this dialog
 
@@ -4994,13 +5031,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1700)
+[src/main/typescript/wcardinal/ui/d-base.ts:1705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1705)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -5010,7 +5047,7 @@ ___
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5020,7 +5057,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24098
 
-▸ **removeAllListeners**(`event?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -5030,7 +5067,7 @@ node_modules/pixi.js/pixi.js.d.ts:24098
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5044,7 +5081,7 @@ ___
 
 ### removeChild
 
-▸ **removeChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -5135,7 +5172,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -5147,7 +5184,7 @@ ___
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5157,7 +5194,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24095
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -5169,7 +5206,7 @@ node_modules/pixi.js/pixi.js.d.ts:24095
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5201,13 +5238,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1999](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1999)
+[src/main/typescript/wcardinal/ui/d-base.ts:2004](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2004)
 
 ___
 
 ### renderAdvanced
 
-▸ `Protected` **renderAdvanced**(`renderer`): `void`
+▸ **renderAdvanced**(`renderer`): `void`
 
 Render the object using the WebGL renderer and advanced features.
 
@@ -5252,7 +5289,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1153)
+[src/main/typescript/wcardinal/ui/d-base.ts:1158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1158)
 
 ___
 
@@ -5285,7 +5322,7 @@ ___
 
 ### setFocused
 
-▸ `Protected` **setFocused**(`isFocused`): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **setFocused**(`isFocused`): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -5295,7 +5332,7 @@ ___
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5303,7 +5340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1580)
+[src/main/typescript/wcardinal/ui/d-base.ts:1585](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1585)
 
 ___
 
@@ -5327,7 +5364,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1390](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1390)
+[src/main/typescript/wcardinal/ui/d-base.ts:1395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1395)
 
 ___
 
@@ -5415,7 +5452,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
+[src/main/typescript/wcardinal/ui/d-base.ts:1336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1336)
 
 ___
 
@@ -5439,7 +5476,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1256)
+[src/main/typescript/wcardinal/ui/d-base.ts:1261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1261)
 
 ___
 
@@ -5463,17 +5500,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1296)
+[src/main/typescript/wcardinal/ui/d-base.ts:1301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1301)
 
 ___
 
 ### show
 
-▸ **show**(): [`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+▸ **show**(): [`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DDialogDate`](DDialogDate.md)<`THEME`, `OPTIONS`\>
+[`DDialogDate`](DDialogDate.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5481,7 +5518,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1495](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1495)
+[src/main/typescript/wcardinal/ui/d-base.ts:1500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1500)
 
 ___
 
@@ -5534,7 +5571,7 @@ ___
 
 ### toAlign
 
-▸ `Protected` **toAlign**(`mode`, `theme`, `options?`): ``null`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
+▸ **toAlign**(`mode`, `theme`, `options?`): ``null`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
 
 #### Parameters
 
@@ -5560,7 +5597,7 @@ ___
 
 ### toCloseOn
 
-▸ `Protected` **toCloseOn**(`mode`, `theme`, `options?`): `number`
+▸ **toCloseOn**(`mode`, `theme`, `options?`): `number`
 
 #### Parameters
 
@@ -5586,7 +5623,7 @@ ___
 
 ### toContentOptions
 
-▸ `Protected` **toContentOptions**(`theme`, `options?`): [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+▸ **toContentOptions**(`theme`, `options?`): [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
 
 #### Parameters
 
@@ -5597,7 +5634,7 @@ ___
 
 #### Returns
 
-[`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+[`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
 
 #### Inherited from
 
@@ -5611,13 +5648,13 @@ ___
 
 ### toCursor
 
-▸ `Protected` **toCursor**(`cursor`, `state`): `string`
+▸ **toCursor**(`cursor`, `state`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\> |
+| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\> |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 
 #### Returns
@@ -5630,7 +5667,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1095](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1095)
+[src/main/typescript/wcardinal/ui/d-base.ts:1100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1100)
 
 ___
 
@@ -5648,13 +5685,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1522)
+[src/main/typescript/wcardinal/ui/d-base.ts:1527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1527)
 
 ___
 
 ### toFooterOptions
 
-▸ `Protected` **toFooterOptions**(`theme`, `options?`): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+▸ **toFooterOptions**(`theme`, `options?`): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
 
 #### Parameters
 
@@ -5665,7 +5702,7 @@ ___
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
 
 #### Inherited from
 
@@ -5679,7 +5716,7 @@ ___
 
 ### toGestureOptions
 
-▸ `Protected` **toGestureOptions**(`mode`, `theme`, `options?`): [`DDialogGestureOptions`](../interfaces/DDialogGestureOptions.md)
+▸ **toGestureOptions**(`mode`, `theme`, `options?`): [`DDialogGestureOptions`](../interfaces/DDialogGestureOptions.md)
 
 #### Parameters
 
@@ -5714,7 +5751,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -5747,13 +5784,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1531](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1531)
+[src/main/typescript/wcardinal/ui/d-base.ts:1536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1536)
 
 ___
 
 ### toHeaderOptions
 
-▸ `Protected` **toHeaderOptions**(`theme`, `options?`): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+▸ **toHeaderOptions**(`theme`, `options?`): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
 
 #### Parameters
 
@@ -5764,7 +5801,7 @@ ___
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
 
 #### Inherited from
 
@@ -5790,13 +5827,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1547](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1547)
+[src/main/typescript/wcardinal/ui/d-base.ts:1552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1552)
 
 ___
 
 ### toLayoutOptions
 
-▸ `Protected` **toLayoutOptions**(`theme`, `options?`): [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
+▸ **toLayoutOptions**(`theme`, `options?`): [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Parameters
 
@@ -5807,7 +5844,7 @@ ___
 
 #### Returns
 
-[`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
+[`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Inherited from
 
@@ -5831,7 +5868,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -5864,7 +5901,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1540](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1540)
+[src/main/typescript/wcardinal/ui/d-base.ts:1545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1545)
 
 ___
 
@@ -5882,13 +5919,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1557)
+[src/main/typescript/wcardinal/ui/d-base.ts:1562](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1562)
 
 ___
 
 ### toParentResized
 
-▸ `Protected` **toParentResized**(): `void`
+▸ **toParentResized**(): `void`
 
 #### Returns
 
@@ -5900,7 +5937,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1818](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1818)
+[src/main/typescript/wcardinal/ui/d-base.ts:1823](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1823)
 
 ___
 
@@ -5926,7 +5963,7 @@ ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

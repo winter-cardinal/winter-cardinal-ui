@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkScrollBarThumb
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkScrollBarThumb
 
 # Class: DThemeDarkScrollBarThumb
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeDarkScrollBarThumb**()
+• **new DThemeDarkScrollBarThumb**(): [`DThemeDarkScrollBarThumb`](DThemeDarkScrollBarThumb.md)
+
+#### Returns
+
+[`DThemeDarkScrollBarThumb`](DThemeDarkScrollBarThumb.md)
 
 #### Inherited from
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectSearhDismissableImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectSearhDismissableImpl
 
-# Class: DDialogSelectSearhDismissableImpl<VALUE\>
+# Class: DDialogSelectSearhDismissableImpl\<VALUE, CATEGORY_ID\>
 
 [DDialogSelect](DDialogSelect.md) dismissable search object.
 
@@ -9,6 +9,7 @@
 | Name |
 | :------ |
 | `VALUE` |
+| `CATEGORY_ID` |
 
 ## Hierarchy
 
@@ -18,7 +19,7 @@
 
 ## Implements
 
-- [`DDialogSelectSearchDismissable`](../interfaces/DDialogSelectSearchDismissable.md)<`VALUE`\>
+- [`DDialogSelectSearchDismissable`](../interfaces/DDialogSelectSearchDismissable.md)\<`VALUE`, `CATEGORY_ID`\>
 
 ## Table of contents
 
@@ -54,20 +55,25 @@
 
 ### constructor
 
-• **new DDialogSelectSearhDismissableImpl**<`VALUE`\>(`target`, `options`)
+• **new DDialogSelectSearhDismissableImpl**\<`VALUE`, `CATEGORY_ID`\>(`target`, `options`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `VALUE` |
+| `CATEGORY_ID` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DDialogSelectSearch`](../interfaces/DDialogSelectSearch.md)<`VALUE`\> |
-| `options` | [`DDialogSelectSearhDismissableOptions`](../interfaces/DDialogSelectSearhDismissableOptions.md)<`VALUE`\> |
+| `target` | [`DDialogSelectSearch`](../interfaces/DDialogSelectSearch.md)\<`VALUE`, `CATEGORY_ID`\> |
+| `options` | [`DDialogSelectSearhDismissableOptions`](../interfaces/DDialogSelectSearhDismissableOptions.md)\<`VALUE`, `CATEGORY_ID`\> |
+
+#### Returns
+
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Overrides
 
@@ -81,7 +87,7 @@ utils.EventEmitter.constructor
 
 ### \_args
 
-• `Protected` `Optional` **\_args**: [`string`]
+• `Protected` `Optional` **\_args**: [`string`] \| [`string`, ``null`` \| `CATEGORY_ID`]
 
 #### Defined in
 
@@ -91,7 +97,7 @@ ___
 
 ### \_filter
 
-• `Protected` `Optional` **\_filter**: [`DDialogSelectSearhDismissableFilter`](../index.md#ddialogselectsearhdismissablefilter)<`VALUE`\>
+• `Protected` `Optional` **\_filter**: [`DDialogSelectSearhDismissableFilter`](../index.md#ddialogselectsearhdismissablefilter)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Defined in
 
@@ -101,7 +107,7 @@ ___
 
 ### \_target
 
-• `Protected` **\_target**: [`DDialogSelectSearch`](../interfaces/DDialogSelectSearch.md)<`VALUE`\>
+• `Protected` **\_target**: [`DDialogSelectSearch`](../interfaces/DDialogSelectSearch.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Defined in
 
@@ -121,7 +127,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 Alias method for `on`
 
@@ -135,7 +141,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Inherited from
 
@@ -155,7 +161,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `args` | [`string`] |
+| `args` | [`string`] \| [`string`, ``null`` \| `CATEGORY_ID`] |
 
 #### Returns
 
@@ -173,7 +179,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -292,7 +298,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 Alias method for `removeListener`
 
@@ -307,7 +313,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Inherited from
 
@@ -321,7 +327,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 Add a listener for a given event.
 
@@ -335,7 +341,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 `this`.
 
@@ -355,7 +361,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 Add a one-time listener for a given event.
 
@@ -369,7 +375,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 `this`.
 
@@ -385,7 +391,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+▸ **removeAllListeners**(`event?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -397,7 +403,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 `this`.
 
@@ -413,7 +419,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 Remove the listeners of a given event.
 
@@ -428,7 +434,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)<`VALUE`\>
+[`DDialogSelectSearhDismissableImpl`](DDialogSelectSearhDismissableImpl.md)\<`VALUE`, `CATEGORY_ID`\>
 
 `this`.
 
@@ -444,13 +450,13 @@ ___
 
 ### toDismissValue
 
-▸ `Protected` **toDismissValue**(`args?`): `undefined` \| `VALUE`
+▸ **toDismissValue**(`args?`): `undefined` \| `VALUE`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `args?` | [`string`] |
+| `args?` | [`string`] \| [`string`, ``null`` \| `CATEGORY_ID`] |
 
 #### Returns
 
@@ -464,7 +470,7 @@ ___
 
 ### toDismissable
 
-▸ `Protected` **toDismissable**(`values`): `VALUE`[]
+▸ **toDismissable**(`values`): `VALUE`[]
 
 #### Parameters
 

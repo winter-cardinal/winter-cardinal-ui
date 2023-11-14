@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseReflowableContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseReflowableContainer
 
 # Class: DBaseReflowableContainer
 
@@ -26,7 +26,11 @@
 
 ### constructor
 
-• **new DBaseReflowableContainer**()
+• **new DBaseReflowableContainer**(): [`DBaseReflowableContainer`](DBaseReflowableContainer.md)
+
+#### Returns
+
+[`DBaseReflowableContainer`](DBaseReflowableContainer.md)
 
 #### Defined in
 
@@ -72,7 +76,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `width` | `number` |
 | `height` | `number` |
 

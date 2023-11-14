@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilGestureCheckerOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilGestureCheckerOptions
 
-# Interface: UtilGestureCheckerOptions<TARGET\>
+# Interface: UtilGestureCheckerOptions\<TARGET\>
 
 ## Type parameters
 
@@ -19,18 +19,18 @@
 
 ### move
 
-• `Optional` **move**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
+• `Optional` **move**: [`UtilGestureChecker`](../index.md#utilgesturechecker)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L41)
 
 ___
 
 ### start
 
-• `Optional` **start**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
+• `Optional` **start**: [`UtilGestureChecker`](../index.md#utilgesturechecker)\<`TARGET`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L37)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L40)

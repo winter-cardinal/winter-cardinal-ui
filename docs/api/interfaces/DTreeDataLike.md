@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataLike
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataLike
 
-# Interface: DTreeDataLike<NODE\>
+# Interface: DTreeDataLike\<NODE\>
 
 ## Type parameters
 
@@ -45,7 +45,7 @@
 
 ### selection
 
-• `Readonly` **selection**: [`DTreeDataSelection`](DTreeDataSelection.md)<`NODE`\>
+• `Readonly` **selection**: [`DTreeDataSelection`](DTreeDataSelection.md)\<`NODE`\>
 
 A selection.
 
@@ -201,7 +201,7 @@ If the iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> | an iteratee |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)\<`NODE`\> | an iteratee |
 
 #### Returns
 
@@ -333,10 +333,6 @@ ___
 
 Toggles the given node,
 
-**`Retrn`**
-
-true if succeeded
-
 #### Parameters
 
 | Name | Type | Description |
@@ -346,6 +342,10 @@ true if succeeded
 #### Returns
 
 `boolean`
+
+**`Retrn`**
+
+true if succeeded
 
 #### Defined in
 

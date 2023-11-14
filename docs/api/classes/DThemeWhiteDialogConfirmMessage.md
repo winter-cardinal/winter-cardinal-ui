@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDialogConfirmMessage
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDialogConfirmMessage
 
 # Class: DThemeWhiteDialogConfirmMessage
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteImage`](DThemeWhiteImage.md)<`string`\>
+- [`DThemeWhiteImage`](DThemeWhiteImage.md)\<`string`\>
 
   ↳ **`DThemeWhiteDialogConfirmMessage`**
 
@@ -102,7 +102,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDialogConfirmMessage**()
+• **new DThemeWhiteDialogConfirmMessage**(): [`DThemeWhiteDialogConfirmMessage`](DThemeWhiteDialogConfirmMessage.md)
+
+#### Returns
+
+[`DThemeWhiteDialogConfirmMessage`](DThemeWhiteDialogConfirmMessage.md)
 
 #### Inherited from
 
@@ -1937,14 +1941,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

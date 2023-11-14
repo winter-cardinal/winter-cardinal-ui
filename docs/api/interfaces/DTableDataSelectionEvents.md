@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataSelectionEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataSelectionEvents
 
-# Interface: DTableDataSelectionEvents<EMITTER\>
+# Interface: DTableDataSelectionEvents\<EMITTER\>
 
 [DTableDataSelection](DTableDataSelection.md) events.
 

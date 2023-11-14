@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DScalarFunctions
+[Winter Cardinal UI - v0.374.0](../index.md) / DScalarFunctions
 
 # Class: DScalarFunctions
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new DScalarFunctions**()
+• **new DScalarFunctions**(): [`DScalarFunctions`](DScalarFunctions.md)
+
+#### Returns
+
+[`DScalarFunctions`](DScalarFunctions.md)
 
 ## Methods
 
 ### position
 
-▸ `Static` **position**(`coordinate`): ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
+▸ **position**(`coordinate`): ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Parameters
 
@@ -43,7 +47,7 @@ ___
 
 ### size
 
-▸ `Static` **size**(`coordinate`): ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
+▸ **size**(`coordinate`): ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Parameters
 

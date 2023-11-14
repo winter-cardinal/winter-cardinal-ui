@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlasItemWhite
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlasItemWhite
 
 # Class: DynamicAtlasItemWhite
 
@@ -34,7 +34,7 @@
 
 ### constructor
 
-• **new DynamicAtlasItemWhite**(`id`, `width`, `height`, `strokeWidth`, `baseTexture`)
+• **new DynamicAtlasItemWhite**(`id`, `width`, `height`, `strokeWidth`, `baseTexture`): [`DynamicAtlasItemWhite`](DynamicAtlasItemWhite.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@
 | `height` | `number` |
 | `strokeWidth` | `number` |
 | `baseTexture` | `BaseTexture` |
+
+#### Returns
+
+[`DynamicAtlasItemWhite`](DynamicAtlasItemWhite.md)
 
 #### Inherited from
 

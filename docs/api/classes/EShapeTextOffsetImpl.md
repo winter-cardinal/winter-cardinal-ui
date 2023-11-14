@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextOffsetImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextOffsetImpl
 
 # Class: EShapeTextOffsetImpl
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new EShapeTextOffsetImpl**(`parent`, `horizontal`, `vertical`)
+• **new EShapeTextOffsetImpl**(`parent`, `horizontal`, `vertical`): [`EShapeTextOffsetImpl`](EShapeTextOffsetImpl.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@
 | `parent` | [`EShapeTextOffsetImplParent`](../interfaces/EShapeTextOffsetImplParent.md) |
 | `horizontal` | `number` |
 | `vertical` | `number` |
+
+#### Returns
+
+[`EShapeTextOffsetImpl`](EShapeTextOffsetImpl.md)
 
 #### Defined in
 
@@ -165,7 +169,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+| `target?` | `Partial`\<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTableBodyCellInputText
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTableBodyCellInputText
 
 # Class: DThemeWhiteTableBodyCellInputText
 
@@ -136,7 +136,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTableBodyCellInputText**()
+• **new DThemeWhiteTableBodyCellInputText**(): [`DThemeWhiteTableBodyCellInputText`](DThemeWhiteTableBodyCellInputText.md)
+
+#### Returns
+
+[`DThemeWhiteTableBodyCellInputText`](DThemeWhiteTableBodyCellInputText.md)
 
 #### Inherited from
 
@@ -174,11 +178,11 @@ ___
 
 ### getAfterCreator
 
-▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Implementation of
 
@@ -309,11 +313,11 @@ ___
 
 ### getBeforeCreator
 
-▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Implementation of
 
@@ -531,11 +535,11 @@ ___
 
 ### getClipperCreator
 
-▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Implementation of
 
@@ -553,7 +557,7 @@ ___
 
 ### getClipperStyleOverflow
 
-▸ `Protected` **getClipperStyleOverflow**(`rect`): `string`
+▸ **getClipperStyleOverflow**(`rect`): `string`
 
 #### Parameters
 
@@ -577,7 +581,7 @@ ___
 
 ### getClipperStylePosition
 
-▸ `Protected` **getClipperStylePosition**(`rect`): `string`
+▸ **getClipperStylePosition**(`rect`): `string`
 
 #### Parameters
 
@@ -601,7 +605,7 @@ ___
 
 ### getClipperStylePositionPosition
 
-▸ `Protected` **getClipperStylePositionPosition**(`rect`): `string`
+▸ **getClipperStylePositionPosition**(`rect`): `string`
 
 #### Parameters
 
@@ -625,7 +629,7 @@ ___
 
 ### getClipperStylePositionSize
 
-▸ `Protected` **getClipperStylePositionSize**(`rect`): `string`
+▸ **getClipperStylePositionSize**(`rect`): `string`
 
 #### Parameters
 
@@ -860,11 +864,11 @@ ___
 
 ### getElementCreator
 
-▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLInputElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLInputElement`\>
 
 #### Implementation of
 
@@ -882,7 +886,7 @@ ___
 
 ### getElementStyleBackground
 
-▸ `Protected` **getElementStyleBackground**(`state`): `string`
+▸ **getElementStyleBackground**(`state`): `string`
 
 #### Parameters
 
@@ -906,7 +910,7 @@ ___
 
 ### getElementStyleBorder
 
-▸ `Protected` **getElementStyleBorder**(`state`): `string`
+▸ **getElementStyleBorder**(`state`): `string`
 
 #### Parameters
 
@@ -930,7 +934,7 @@ ___
 
 ### getElementStyleClipPath
 
-▸ `Protected` **getElementStyleClipPath**(`state`, `clipperEx`): `string`
+▸ **getElementStyleClipPath**(`state`, `clipperEx`): `string`
 
 #### Parameters
 
@@ -955,7 +959,7 @@ ___
 
 ### getElementStyleMargin
 
-▸ `Protected` **getElementStyleMargin**(`state`): `string`
+▸ **getElementStyleMargin**(`state`): `string`
 
 #### Parameters
 
@@ -979,7 +983,7 @@ ___
 
 ### getElementStyleOutline
 
-▸ `Protected` **getElementStyleOutline**(`state`): `string`
+▸ **getElementStyleOutline**(`state`): `string`
 
 #### Parameters
 
@@ -1003,7 +1007,7 @@ ___
 
 ### getElementStylePadding
 
-▸ `Protected` **getElementStylePadding**(`state`, `padding`): `string`
+▸ **getElementStylePadding**(`state`, `padding`): `string`
 
 #### Parameters
 
@@ -1028,7 +1032,7 @@ ___
 
 ### getElementStylePointerEvent
 
-▸ `Protected` **getElementStylePointerEvent**(`state`): `string`
+▸ **getElementStylePointerEvent**(`state`): `string`
 
 #### Parameters
 
@@ -1052,7 +1056,7 @@ ___
 
 ### getElementStylePosition
 
-▸ `Protected` **getElementStylePosition**(`state`, `elementRect`, `elementMatrix`, `clipperRect`): `string`
+▸ **getElementStylePosition**(`state`, `elementRect`, `elementMatrix`, `clipperRect`): `string`
 
 #### Parameters
 
@@ -1079,7 +1083,7 @@ ___
 
 ### getElementStylePositionPosition
 
-▸ `Protected` **getElementStylePositionPosition**(`elementRect`, `clipperRect`): `string`
+▸ **getElementStylePositionPosition**(`elementRect`, `clipperRect`): `string`
 
 #### Parameters
 
@@ -1104,7 +1108,7 @@ ___
 
 ### getElementStylePositionSize
 
-▸ `Protected` **getElementStylePositionSize**(`rect`): `string`
+▸ **getElementStylePositionSize**(`rect`): `string`
 
 #### Parameters
 
@@ -1128,7 +1132,7 @@ ___
 
 ### getElementStylePositionTransform
 
-▸ `Protected` **getElementStylePositionTransform**(`matrix`): `string`
+▸ **getElementStylePositionTransform**(`matrix`): `string`
 
 #### Parameters
 
@@ -1152,7 +1156,7 @@ ___
 
 ### getElementStyleText
 
-▸ `Protected` **getElementStyleText**(`state`): `string`
+▸ **getElementStyleText**(`state`): `string`
 
 #### Parameters
 
@@ -2666,14 +2670,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

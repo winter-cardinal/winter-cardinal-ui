@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeUploadedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeUploadedImpl
 
 # Class: EShapeUploadedImpl
 
@@ -37,7 +37,7 @@
 
 ### constructor
 
-• **new EShapeUploadedImpl**(`buffer`, `vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `builders`)
+• **new EShapeUploadedImpl**(`buffer`, `vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `builders`): [`EShapeUploadedImpl`](EShapeUploadedImpl.md)
 
 #### Parameters
 
@@ -49,6 +49,10 @@
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
 | `builders` | [`Builder`](../interfaces/Builder.md)[] |
+
+#### Returns
+
+[`EShapeUploadedImpl`](EShapeUploadedImpl.md)
 
 #### Defined in
 

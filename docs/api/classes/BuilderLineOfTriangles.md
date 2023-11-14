@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderLineOfTriangles
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLineOfTriangles
 
 # Class: BuilderLineOfTriangles
 
@@ -57,7 +57,7 @@
 
 ### constructor
 
-• **new BuilderLineOfTriangles**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`)
+• **new BuilderLineOfTriangles**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`): [`BuilderLineOfTriangles`](BuilderLineOfTriangles.md)
 
 #### Parameters
 
@@ -68,6 +68,10 @@
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
 | `pointCountReserved` | `number` |
+
+#### Returns
+
+[`BuilderLineOfTriangles`](BuilderLineOfTriangles.md)
 
 #### Inherited from
 
@@ -514,7 +518,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -539,7 +543,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -564,7 +568,7 @@ ___
 
 ### updateLineOfAnyColorFill
 
-▸ `Protected` **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -591,7 +595,7 @@ ___
 
 ### updateLineOfAnyColorStroke
 
-▸ `Protected` **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -618,7 +622,7 @@ ___
 
 ### updateVertexStepAndUvs
 
-▸ `Protected` **updateVertexStepAndUvs**(`buffer`, `shape`, `points`): `void`
+▸ **updateVertexStepAndUvs**(`buffer`, `shape`, `points`): `void`
 
 #### Parameters
 

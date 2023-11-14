@@ -1,14 +1,15 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectController
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectController
 
-# Interface: DDialogSelectController<VALUE\>
+# Interface: DDialogSelectController\<VALUE, CATEGORY_ID\>
 
 [DDialogSelect](../classes/DDialogSelect.md) controller.
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `VALUE` |
+| Name | Type |
+| :------ | :------ |
+| `VALUE` | `VALUE` |
+| `CATEGORY_ID` | `unknown` |
 
 ## Table of contents
 
@@ -20,8 +21,8 @@
 
 ### search
 
-• **search**: [`DDialogSelectSearch`](DDialogSelectSearch.md)<`VALUE`\> \| [`DDialogSelectSearchFunction`](../index.md#ddialogselectsearchfunction)<`VALUE`\>
+• **search**: [`DDialogSelectSearch`](DDialogSelectSearch.md)\<`VALUE`, `CATEGORY_ID`\> \| [`DDialogSelectSearchFunction`](../index.md#ddialogselectsearchfunction)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L44)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L42)

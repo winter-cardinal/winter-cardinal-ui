@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramBaseEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramBaseEvents
 
-# Interface: DDiagramBaseEvents<CANVAS, EMITTER\>
+# Interface: DDiagramBaseEvents\<CANVAS, EMITTER\>
 
 [DDiagramBase](../classes/DDiagramBase.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DCanvasContainerEvents`](DCanvasContainerEvents.md)<`CANVAS`, `EMITTER`\>
+- [`DCanvasContainerEvents`](DCanvasContainerEvents.md)\<`CANVAS`, `EMITTER`\>
 
   ↳ **`DDiagramBaseEvents`**
 

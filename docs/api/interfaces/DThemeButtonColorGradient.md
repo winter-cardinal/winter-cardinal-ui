@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeButtonColorGradient
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeButtonColorGradient
 
 # Interface: DThemeButtonColorGradient
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeButton`](DThemeButton.md)<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
+- [`DThemeButton`](DThemeButton.md)\<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
 
   ↳ **`DThemeButtonColorGradient`**
 
@@ -1113,7 +1113,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1296,7 +1296,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1756,14 +1756,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorGradientObservable`](../classes/DColorGradientObservable.md)\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeConnectors
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeConnectors
 
 # Class: EShapeConnectors
 
@@ -23,13 +23,17 @@
 
 ### constructor
 
-• **new EShapeConnectors**()
+• **new EShapeConnectors**(): [`EShapeConnectors`](EShapeConnectors.md)
+
+#### Returns
+
+[`EShapeConnectors`](EShapeConnectors.md)
 
 ## Properties
 
 ### \_MAPPING
 
-▪ `Static` `Protected` `Optional` **\_MAPPING**: `Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
+▪ `Static` `Protected` `Optional` **\_MAPPING**: `Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
 
 #### Defined in
 
@@ -39,7 +43,7 @@
 
 ### isConnector
 
-▸ `Static` `Protected` **isConnector**(`target`): target is EShapeConnector
+▸ **isConnector**(`target`): target is EShapeConnector
 
 #### Parameters
 
@@ -59,7 +63,7 @@ ___
 
 ### move
 
-▸ `Static` **move**(`from`, `to`): `void`
+▸ **move**(`from`, `to`): `void`
 
 #### Parameters
 
@@ -80,7 +84,7 @@ ___
 
 ### moveAll
 
-▸ `Static` **moveAll**(`rootSources`, `rootDestinations`, `sources`, `destinations`, `mapping?`): `undefined` \| `Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
+▸ **moveAll**(`rootSources`, `rootDestinations`, `sources`, `destinations`, `mapping?`): `undefined` \| `Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
 
 #### Parameters
 
@@ -90,11 +94,11 @@ ___
 | `rootDestinations` | [`EShape`](../interfaces/EShape.md)[] |
 | `sources` | [`EShape`](../interfaces/EShape.md)[] |
 | `destinations` | [`EShape`](../interfaces/EShape.md)[] |
-| `mapping?` | `Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\> |
+| `mapping?` | `Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\> |
 
 #### Returns
 
-`undefined` \| `Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
+`undefined` \| `Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
 
 #### Defined in
 
@@ -104,7 +108,7 @@ ___
 
 ### newMapping
 
-▸ `Static` `Protected` **newMapping**(`sources`, `destinations`, `result?`): `Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
+▸ **newMapping**(`sources`, `destinations`, `result?`): `Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
 
 #### Parameters
 
@@ -112,11 +116,11 @@ ___
 | :------ | :------ |
 | `sources` | [`EShape`](../interfaces/EShape.md)[] |
 | `destinations` | [`EShape`](../interfaces/EShape.md)[] |
-| `result?` | `Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\> |
+| `result?` | `Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\> |
 
 #### Returns
 
-`Map`<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
+`Map`\<[`EShape`](../interfaces/EShape.md), [`EShape`](../interfaces/EShape.md)\>
 
 #### Defined in
 

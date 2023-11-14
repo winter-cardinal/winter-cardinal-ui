@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTilePyramidImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTilePyramidImpl
 
 # Class: DMapTilePyramidImpl
 
@@ -73,13 +73,17 @@
 
 ### constructor
 
-• **new DMapTilePyramidImpl**(`options`)
+• **new DMapTilePyramidImpl**(`options`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options` | [`DMapTilePyramidOptions`](../interfaces/DMapTilePyramidOptions.md) |
+
+#### Returns
+
+[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
 
 #### Overrides
 
@@ -103,7 +107,7 @@ ___
 
 ### \_canvas
 
-• `Protected` `Readonly` **\_canvas**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` `Readonly` **\_canvas**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -365,7 +369,7 @@ ___
 
 ### cleanup
 
-▸ `Protected` **cleanup**(): `void`
+▸ **cleanup**(): `void`
 
 #### Returns
 
@@ -397,7 +401,7 @@ ___
 
 ### destroyPlanesAfter
 
-▸ `Protected` **destroyPlanesAfter**(`tz`, `planes`): `void`
+▸ **destroyPlanesAfter**(`tz`, `planes`): `void`
 
 #### Parameters
 
@@ -418,7 +422,7 @@ ___
 
 ### destroyPlanesBefore
 
-▸ `Protected` **destroyPlanesBefore**(`tz`, `planes`): `void`
+▸ **destroyPlanesBefore**(`tz`, `planes`): `void`
 
 #### Parameters
 
@@ -439,7 +443,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -514,7 +518,7 @@ ___
 
 ### fitThrottled
 
-▸ `Protected` **fitThrottled**(): `void`
+▸ **fitThrottled**(): `void`
 
 #### Returns
 
@@ -616,7 +620,7 @@ ___
 
 ### newPlane
 
-▸ `Protected` **newPlane**(`tz`): [`DMapTilePlane`](DMapTilePlane.md)
+▸ **newPlane**(`tz`): [`DMapTilePlane`](DMapTilePlane.md)
 
 #### Parameters
 
@@ -703,7 +707,7 @@ ___
 
 ### onLoaded
 
-▸ `Protected` **onLoaded**(): `void`
+▸ **onLoaded**(): `void`
 
 #### Returns
 
@@ -838,13 +842,13 @@ ___
 
 ### toMapping
 
-▸ `Protected` **toMapping**(`canvas`, `mapping`, `coordinate`): [`DMapTileMappingInternal`](../interfaces/DMapTileMappingInternal.md)
+▸ **toMapping**(`canvas`, `mapping`, `coordinate`): [`DMapTileMappingInternal`](../interfaces/DMapTileMappingInternal.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `canvas` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `canvas` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `mapping` | [`DMapTileMapping`](../interfaces/DMapTileMapping.md) |
 | `coordinate` | [`DMapCoordinate`](../interfaces/DMapCoordinate.md) |
 
@@ -860,7 +864,7 @@ ___
 
 ### toTileZ
 
-▸ `Protected` **toTileZ**(`tz`): `number`
+▸ **toTileZ**(`tz`): `number`
 
 #### Parameters
 
@@ -880,7 +884,7 @@ ___
 
 ### toZ
 
-▸ `Protected` **toZ**(`scale`): `number`
+▸ **toZ**(`scale`): `number`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPaginationButtonOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DPaginationButtonOptions
 
 # Interface: DPaginationButtonOptions
 
@@ -17,70 +17,70 @@
 
 ### last
 
-• `Optional` **last**: ``null`` \| `boolean` \| [`DPaginationButtonLastOptions`](DPaginationButtonLastOptions.md)<[`DThemePaginationButtonLast`](DThemePaginationButtonLast.md)\>
+• `Optional` **last**: ``null`` \| `boolean` \| [`DPaginationButtonLastOptions`](DPaginationButtonLastOptions.md)\<[`DThemePaginationButtonLast`](DThemePaginationButtonLast.md)\>
 
 [DPagination](../classes/DPagination.md) last button options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L50)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L51)
 
 ___
 
 ### next
 
-• `Optional` **next**: ``null`` \| `boolean` \| [`DPaginationButtonNextOptions`](DPaginationButtonNextOptions.md)<[`DThemePaginationButtonNext`](DThemePaginationButtonNext.md)\>
+• `Optional` **next**: ``null`` \| `boolean` \| [`DPaginationButtonNextOptions`](DPaginationButtonNextOptions.md)\<[`DThemePaginationButtonNext`](DThemePaginationButtonNext.md)\>
 
 [DPagination](../classes/DPagination.md) next button options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L45)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L46)
 
 ___
 
 ### page
 
-• `Optional` **page**: [`DPaginationButtonPageOptions`](DPaginationButtonPageOptions.md)<[`DThemePaginationButtonPage`](DThemePaginationButtonPage.md)\>
+• `Optional` **page**: [`DPaginationButtonPageOptions`](DPaginationButtonPageOptions.md)\<[`DThemePaginationButtonPage`](DThemePaginationButtonPage.md)\>
 
 [DPagination](../classes/DPagination.md) page button options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L40)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L41)
 
 ___
 
 ### previous
 
-• `Optional` **previous**: ``null`` \| `boolean` \| [`DPaginationButtonPreviousOptions`](DPaginationButtonPreviousOptions.md)<[`DThemePaginationButtonPrevious`](DThemePaginationButtonPrevious.md)\>
+• `Optional` **previous**: ``null`` \| `boolean` \| [`DPaginationButtonPreviousOptions`](DPaginationButtonPreviousOptions.md)\<[`DThemePaginationButtonPrevious`](DThemePaginationButtonPrevious.md)\>
 
 [DPagination](../classes/DPagination.md) previous button options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L35)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L36)
 
 ___
 
 ### space
 
-• `Optional` **space**: `number`
+• `Optional` **space**: ``null`` \| `number` \| `boolean` \| [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)\<[`DThemeLayoutSpace`](DThemeLayoutSpace.md)\>
 
 A space between page buttons and next / previous buttons.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L55)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L56)
 
 ___
 
 ### top
 
-• `Optional` **top**: ``null`` \| `boolean` \| [`DPaginationButtonTopOptions`](DPaginationButtonTopOptions.md)<[`DThemePaginationButtonTop`](DThemePaginationButtonTop.md)\>
+• `Optional` **top**: ``null`` \| `boolean` \| [`DPaginationButtonTopOptions`](DPaginationButtonTopOptions.md)\<[`DThemePaginationButtonTop`](DThemePaginationButtonTop.md)\>
 
 [DPagination](../classes/DPagination.md) top button options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L30)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L31)

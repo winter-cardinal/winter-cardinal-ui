@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / ESnapperGrid
+[Winter Cardinal UI - v0.374.0](../index.md) / ESnapperGrid
 
 # Class: ESnapperGrid
 
@@ -50,7 +50,7 @@
 
 ### constructor
 
-• **new ESnapperGrid**(`theme`, `options?`)
+• **new ESnapperGrid**(`theme`, `options?`): [`ESnapperGrid`](ESnapperGrid.md)
 
 #### Parameters
 
@@ -58,6 +58,10 @@
 | :------ | :------ |
 | `theme` | [`EThemeSnapperGrid`](../interfaces/EThemeSnapperGrid.md) |
 | `options?` | [`ESnapperGridOptions`](../interfaces/ESnapperGridOptions.md) |
+
+#### Returns
+
+[`ESnapperGrid`](ESnapperGrid.md)
 
 #### Overrides
 
@@ -269,7 +273,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 

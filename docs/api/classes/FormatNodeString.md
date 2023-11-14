@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodeString
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodeString
 
 # Class: FormatNodeString
 
@@ -24,13 +24,17 @@
 
 ### constructor
 
-• **new FormatNodeString**(`str`)
+• **new FormatNodeString**(`str`): [`FormatNodeString`](FormatNodeString.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `str` | `string` |
+
+#### Returns
+
+[`FormatNodeString`](FormatNodeString.md)
 
 #### Defined in
 

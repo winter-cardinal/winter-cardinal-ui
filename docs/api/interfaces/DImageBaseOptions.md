@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImageBaseOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DImageBaseOptions
 
-# Interface: DImageBaseOptions<VALUE, THEME, EMITTER\>
+# Interface: DImageBaseOptions\<VALUE, THEME, EMITTER\>
 
 [DImageBase](../classes/DImageBase.md) options.
 
@@ -9,12 +9,12 @@
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
-| `THEME` | extends [`DThemeImageBase`](DThemeImageBase.md)<`VALUE`\> = [`DThemeImageBase`](DThemeImageBase.md)<`VALUE`\> |
+| `THEME` | extends [`DThemeImageBase`](DThemeImageBase.md)\<`VALUE`\> = [`DThemeImageBase`](DThemeImageBase.md)\<`VALUE`\> |
 | `EMITTER` | `any` |
 
 ## Hierarchy
 
-- [`DTextBaseOptions`](DTextBaseOptions.md)<`VALUE`, `THEME`, `EMITTER`\>
+- [`DTextBaseOptions`](DTextBaseOptions.md)\<`VALUE`, `THEME`, `EMITTER`\>
 
   ↳ **`DImageBaseOptions`**
 
@@ -159,7 +159,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -206,7 +206,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -252,7 +252,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)<`VALUE`, `EMITTER`\>
+• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)\<`VALUE`, `EMITTER`\>
 
 Mappings of event names and event handlers.
 
@@ -325,7 +325,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DImageBaseOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -406,7 +406,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`VALUE`\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DApplicationPadding
+[Winter Cardinal UI - v0.374.0](../index.md) / DApplicationPadding
 
 # Class: DApplicationPadding
 
@@ -33,13 +33,17 @@
 
 ### constructor
 
-• **new DApplicationPadding**(`padding?`)
+• **new DApplicationPadding**(`padding?`): [`DApplicationPadding`](DApplicationPadding.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `padding?` | `number` \| [`DPaddingLike`](../interfaces/DPaddingLike.md) |
+
+#### Returns
+
+[`DApplicationPadding`](DApplicationPadding.md)
 
 #### Defined in
 

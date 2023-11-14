@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteExpandableHeader
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteExpandableHeader
 
-# Class: DThemeWhiteExpandableHeader<VALUE\>
+# Class: DThemeWhiteExpandableHeader\<VALUE\>
 
 [DImageBase](DImageBase.md) theme.
 
@@ -12,13 +12,13 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteImage`](DThemeWhiteImage.md)<`VALUE`\>
+- [`DThemeWhiteImage`](DThemeWhiteImage.md)\<`VALUE`\>
 
   ↳ **`DThemeWhiteExpandableHeader`**
 
 ## Implements
 
-- [`DThemeExpandableHeader`](../interfaces/DThemeExpandableHeader.md)<`VALUE`\>
+- [`DThemeExpandableHeader`](../interfaces/DThemeExpandableHeader.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -106,13 +106,17 @@
 
 ### constructor
 
-• **new DThemeWhiteExpandableHeader**<`VALUE`\>()
+• **new DThemeWhiteExpandableHeader**\<`VALUE`\>(): [`DThemeWhiteExpandableHeader`](DThemeWhiteExpandableHeader.md)\<`VALUE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
+
+#### Returns
+
+[`DThemeWhiteExpandableHeader`](DThemeWhiteExpandableHeader.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1947,14 +1951,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Implementation of
 

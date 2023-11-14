@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderLineOfAny
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLineOfAny
 
 # Class: BuilderLineOfAny
 
@@ -66,7 +66,7 @@
 
 ### constructor
 
-• **new BuilderLineOfAny**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`)
+• **new BuilderLineOfAny**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`): [`BuilderLineOfAny`](BuilderLineOfAny.md)
 
 #### Parameters
 
@@ -77,6 +77,10 @@
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
 | `pointCountReserved` | `number` |
+
+#### Returns
+
+[`BuilderLineOfAny`](BuilderLineOfAny.md)
 
 #### Overrides
 
@@ -422,7 +426,7 @@ ___
 
 ### init
 
-▸ `Abstract` **init**(`buffer`): `void`
+▸ **init**(`buffer`): `void`
 
 #### Parameters
 
@@ -470,7 +474,7 @@ ___
 
 ### update
 
-▸ `Abstract` **update**(`buffer`, `shape`): `void`
+▸ **update**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -495,7 +499,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -520,7 +524,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -545,7 +549,7 @@ ___
 
 ### updateLineOfAnyColorFill
 
-▸ `Protected` **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -568,7 +572,7 @@ ___
 
 ### updateLineOfAnyColorStroke
 
-▸ `Protected` **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeFilterParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeFilterParent
 
-# Interface: DTableDataTreeFilterParent<NODE\>
+# Interface: DTableDataTreeFilterParent\<NODE\>
 
 ## Type parameters
 
@@ -24,7 +24,7 @@
 
 ### accessor
 
-• `Readonly` **accessor**: [`DTableDataTreeItemAccessor`](../classes/DTableDataTreeItemAccessor.md)<`NODE`\>
+• `Readonly` **accessor**: [`DTableDataTreeItemAccessor`](../classes/DTableDataTreeItemAccessor.md)\<`NODE`\>
 
 #### Defined in
 

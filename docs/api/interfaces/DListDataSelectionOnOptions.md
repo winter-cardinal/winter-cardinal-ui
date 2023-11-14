@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataSelectionOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelectionOnOptions
 
-# Interface: DListDataSelectionOnOptions<EMITTER\>
+# Interface: DListDataSelectionOnOptions\<EMITTER\>
 
 [DListDataSelection](DListDataSelection.md) "on" options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DListDataSelectionEvents`](DListDataSelectionEvents.md)<`EMITTER`\>\>
+- `Partial`\<[`DListDataSelectionEvents`](DListDataSelectionEvents.md)\<`EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -28,7 +28,7 @@
 
 ### change
 
-▸ `Optional` **change**(`emitter`): `void`
+▸ **change**(`emitter`): `void`
 
 Triggered when a selection is changed.
 

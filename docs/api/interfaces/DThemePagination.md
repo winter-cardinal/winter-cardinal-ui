@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemePagination
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemePagination
 
 # Interface: DThemePagination
 
@@ -328,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L96)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L97)
 
 ___
 

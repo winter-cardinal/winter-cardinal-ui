@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramBaseOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramBaseOptions
 
-# Interface: DDiagramBaseOptions<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME, EMITTER\>
+# Interface: DDiagramBaseOptions\<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME, EMITTER\>
 
 [DDiagramBase](../classes/DDiagramBase.md) options.
 
@@ -16,7 +16,7 @@
 
 ## Hierarchy
 
-- [`DCanvasContainerOptions`](DCanvasContainerOptions.md)<`CANVAS`, `CANVAS_OPTIONS`, `THEME`\>
+- [`DCanvasContainerOptions`](DCanvasContainerOptions.md)\<`CANVAS`, `CANVAS_OPTIONS`, `THEME`\>
 
   ↳ **`DDiagramBaseOptions`**
 
@@ -179,7 +179,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -216,7 +216,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -262,7 +262,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDiagramBaseOnOptions`](DDiagramBaseOnOptions.md)<`CANVAS`, `EMITTER`\>
+• `Optional` **on**: [`DDiagramBaseOnOptions`](DDiagramBaseOnOptions.md)\<`CANVAS`, `EMITTER`\>
 
 Mappings of event names and event handlers.
 
@@ -335,7 +335,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDiagramBaseOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -400,7 +400,7 @@ ___
 
 ### snapshot
 
-• `Optional` **snapshot**: [`DDiagramSnapshotOptions`](DDiagramSnapshotOptions.md)<`CANVAS`, `any`\>
+• `Optional` **snapshot**: [`DDiagramSnapshotOptions`](DDiagramSnapshotOptions.md)\<`CANVAS`, `any`\>
 
 Snapshot options.
 

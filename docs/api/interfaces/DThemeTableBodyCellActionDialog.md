@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeTableBodyCellActionDialog
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeTableBodyCellActionDialog
 
-# Interface: DThemeTableBodyCellActionDialog<VALUE\>
+# Interface: DThemeTableBodyCellActionDialog\<VALUE\>
 
 [DButton](../classes/DButton.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeTableBodyCellSelectDialog`](DThemeTableBodyCellSelectDialog.md)<`VALUE`\>
+- [`DThemeTableBodyCellSelectDialog`](DThemeTableBodyCellSelectDialog.md)\<`VALUE`\>
 
   ↳ **`DThemeTableBodyCellActionDialog`**
 
@@ -1099,7 +1099,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1282,7 +1282,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1654,7 +1654,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts#L25)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts#L26)
 
 ___
 
@@ -1746,14 +1746,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `VALUE`\>
 
 #### Inherited from
 

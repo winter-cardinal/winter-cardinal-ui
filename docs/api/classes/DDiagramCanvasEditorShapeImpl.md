@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasEditorShapeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasEditorShapeImpl
 
 # Class: DDiagramCanvasEditorShapeImpl
 
@@ -27,13 +27,17 @@
 
 ### constructor
 
-• **new DDiagramCanvasEditorShapeImpl**(`canvas`)
+• **new DDiagramCanvasEditorShapeImpl**(`canvas`): [`DDiagramCanvasEditorShapeImpl`](DDiagramCanvasEditorShapeImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `canvas` | [`DDiagramCanvasBaseShapeCanvas`](../interfaces/DDiagramCanvasBaseShapeCanvas.md) |
+
+#### Returns
+
+[`DDiagramCanvasEditorShapeImpl`](DDiagramCanvasEditorShapeImpl.md)
 
 #### Inherited from
 
@@ -86,7 +90,7 @@ ___
 
 ### each\_
 
-▸ `Protected` **each_**(`shapes`, `iteratee`, `ignoreCapability?`): `undefined` \| `boolean`
+▸ **each_**(`shapes`, `iteratee`, `ignoreCapability?`): `undefined` \| `boolean`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhitePagination
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhitePagination
 
 # Class: DThemeWhitePagination
 
@@ -75,7 +75,11 @@
 
 ### constructor
 
-• **new DThemeWhitePagination**()
+• **new DThemeWhitePagination**(): [`DThemeWhitePagination`](DThemeWhitePagination.md)
+
+#### Returns
+
+[`DThemeWhitePagination`](DThemeWhitePagination.md)
 
 #### Inherited from
 

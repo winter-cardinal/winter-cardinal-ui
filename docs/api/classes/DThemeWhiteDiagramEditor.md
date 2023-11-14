@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDiagramEditor
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDiagramEditor
 
 # Class: DThemeWhiteDiagramEditor
 
@@ -26,6 +26,7 @@
 - [getBackgroundAlpha](DThemeWhiteDiagramEditor.md#getbackgroundalpha)
 - [getBackgroundColor](DThemeWhiteDiagramEditor.md#getbackgroundcolor)
 - [getBackgroundTexture](DThemeWhiteDiagramEditor.md#getbackgroundtexture)
+- [getBaseLayerLabel](DThemeWhiteDiagramEditor.md#getbaselayerlabel)
 - [getBorderAlign](DThemeWhiteDiagramEditor.md#getborderalign)
 - [getBorderAlpha](DThemeWhiteDiagramEditor.md#getborderalpha)
 - [getBorderColor](DThemeWhiteDiagramEditor.md#getbordercolor)
@@ -82,7 +83,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDiagramEditor**()
+• **new DThemeWhiteDiagramEditor**(): [`DThemeWhiteDiagramEditor`](DThemeWhiteDiagramEditor.md)
+
+#### Returns
+
+[`DThemeWhiteDiagramEditor`](DThemeWhiteDiagramEditor.md)
 
 #### Inherited from
 
@@ -200,6 +205,24 @@ Returns a background texture.
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L88)
+
+___
+
+### getBaseLayerLabel
+
+▸ **getBaseLayerLabel**(): `string`
+
+#### Returns
+
+`string`
+
+#### Implementation of
+
+[DThemeDiagramEditor](../interfaces/DThemeDiagramEditor.md).[getBaseLayerLabel](../interfaces/DThemeDiagramEditor.md#getbaselayerlabel)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-editor.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-editor.ts#L49)
 
 ___
 

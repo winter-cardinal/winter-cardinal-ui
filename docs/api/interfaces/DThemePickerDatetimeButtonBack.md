@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemePickerDatetimeButtonBack
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemePickerDatetimeButtonBack
 
-# Interface: DThemePickerDatetimeButtonBack<VALUE\>
+# Interface: DThemePickerDatetimeButtonBack\<VALUE\>
 
 [DButton](../classes/DButton.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeButtonAmbient`](DThemeButtonAmbient.md)<`VALUE`\>
+- [`DThemeButtonAmbient`](DThemeButtonAmbient.md)\<`VALUE`\>
 
   ↳ **`DThemePickerDatetimeButtonBack`**
 
@@ -1103,7 +1103,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1286,7 +1286,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1732,14 +1732,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Inherited from
 

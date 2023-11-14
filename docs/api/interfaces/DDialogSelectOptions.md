@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectOptions
 
-# Interface: DDialogSelectOptions<VALUE, THEME, EMITTER\>
+# Interface: DDialogSelectOptions\<VALUE, CATEGORY_ID, THEME, EMITTER\>
 
 [DDialogSelect](../classes/DDialogSelect.md) options.
 
@@ -9,12 +9,13 @@
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `VALUE` |
-| `THEME` | extends [`DThemeDialogSelect`](DThemeDialogSelect.md)<`VALUE`\> = [`DThemeDialogSelect`](DThemeDialogSelect.md)<`VALUE`\> |
+| `CATEGORY_ID` | `unknown` |
+| `THEME` | extends [`DThemeDialogSelect`](DThemeDialogSelect.md)\<`VALUE`, `CATEGORY_ID`\> = [`DThemeDialogSelect`](DThemeDialogSelect.md)\<`VALUE`, `CATEGORY_ID`\> |
 | `EMITTER` | `any` |
 
 ## Hierarchy
 
-- [`DDialogLayeredOptions`](DDialogLayeredOptions.md)<`VALUE`, `THEME`\>
+- [`DDialogLayeredOptions`](DDialogLayeredOptions.md)\<`VALUE`, `THEME`\>
 
   ↳ **`DDialogSelectOptions`**
 
@@ -26,6 +27,7 @@
 - [animation](DDialogSelectOptions.md#animation)
 - [background](DDialogSelectOptions.md#background)
 - [border](DDialogSelectOptions.md#border)
+- [category](DDialogSelectOptions.md#category)
 - [children](DDialogSelectOptions.md#children)
 - [clear](DDialogSelectOptions.md#clear)
 - [closeOn](DDialogSelectOptions.md#closeon)
@@ -67,7 +69,7 @@
 
 ### align
 
-• `Optional` **align**: ``null`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_CENTER"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_CENTER"`` \| ``"BOTTOM_RIGHT"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"RIGHT_BOTTOM"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
+• `Optional` **align**: ``null`` \| ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_RIGHT"`` \| ``"TOP_LEFT"`` \| ``"RIGHT_BOTTOM"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_RIGHT"`` \| ``"TOP_CENTER"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"BOTTOM_CENTER"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
 
 #### Inherited from
 
@@ -81,7 +83,7 @@ ___
 
 ### animation
 
-• `Optional` **animation**: [`DAnimation`](DAnimation.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
+• `Optional` **animation**: [`DAnimation`](DAnimation.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
 
 #### Inherited from
 
@@ -122,6 +124,16 @@ A border options.
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-base.ts:500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L500)
+
+___
+
+### category
+
+• `Optional` **category**: [`DDialogSelectCategoryOptions`](DDialogSelectCategoryOptions.md)\<`VALUE`, `CATEGORY_ID`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L106)
 
 ___
 
@@ -173,7 +185,7 @@ ___
 
 ### content
 
-• `Optional` **content**: [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
+• `Optional` **content**: [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
 
 Content options.
 
@@ -189,11 +201,11 @@ ___
 
 ### controller
 
-• `Optional` **controller**: [`DDialogSelectController`](DDialogSelectController.md)<`VALUE`\>
+• `Optional` **controller**: [`DDialogSelectController`](DDialogSelectController.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L82)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L105)
 
 ___
 
@@ -215,7 +227,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -231,17 +243,17 @@ ___
 
 ### dismiss
 
-• `Optional` **dismiss**: [`DDialogSelectSearhDismissableOptions`](DDialogSelectSearhDismissableOptions.md)<`VALUE`\>
+• `Optional` **dismiss**: [`DDialogSelectSearhDismissableOptions`](DDialogSelectSearhDismissableOptions.md)\<`VALUE`, `CATEGORY_ID`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L83)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L107)
 
 ___
 
 ### footer
 
-• `Optional` **footer**: ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
+• `Optional` **footer**: ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
 
 A footer options.
 
@@ -271,7 +283,7 @@ ___
 
 ### header
 
-• `Optional` **header**: ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
+• `Optional` **header**: ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
 
 A header options.
 
@@ -312,13 +324,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L84)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L108)
 
 ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -334,7 +346,7 @@ ___
 
 ### layout
 
-• `Optional` **layout**: [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
+• `Optional` **layout**: [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
 
 A layout options.
 
@@ -350,11 +362,11 @@ ___
 
 ### list
 
-• `Optional` **list**: [`DListOptions`](DListOptions.md)<`VALUE`, [`DListData`](DListData.md)<`VALUE`\>, [`DThemeList`](DThemeList.md), [`DContentOptions`](DContentOptions.md)\>
+• `Optional` **list**: [`DListOptions`](DListOptions.md)\<`VALUE`, [`DListData`](DListData.md)\<`VALUE`\>, [`DThemeList`](DThemeList.md), [`DContentOptions`](DContentOptions.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L85)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L109)
 
 ___
 
@@ -396,13 +408,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L86)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L110)
 
 ___
 
 ### on
 
-• `Optional` **on**: [`DDialogSelectOnOptions`](DDialogSelectOnOptions.md)<`VALUE`, `EMITTER`\>
+• `Optional` **on**: [`DDialogSelectOnOptions`](DDialogSelectOnOptions.md)\<`VALUE`, `EMITTER`\>
 
 Mappings of event names and handlers.
 
@@ -412,7 +424,7 @@ Mappings of event names and handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L87)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L111)
 
 ___
 
@@ -475,7 +487,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDialogSelectOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.

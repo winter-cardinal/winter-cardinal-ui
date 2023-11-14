@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicSDFFontAtlas
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicSDFFontAtlas
 
 # Class: DynamicSDFFontAtlas
 
@@ -53,13 +53,17 @@
 
 ### constructor
 
-• **new DynamicSDFFontAtlas**(`fontFamily`)
+• **new DynamicSDFFontAtlas**(`fontFamily`): [`DynamicSDFFontAtlas`](DynamicSDFFontAtlas.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `fontFamily` | `string` |
+
+#### Returns
+
+[`DynamicSDFFontAtlas`](DynamicSDFFontAtlas.md)
 
 #### Defined in
 
@@ -416,7 +420,7 @@ ___
 
 ### isIgnored
 
-▸ `Protected` **isIgnored**(`character`): `boolean`
+▸ **isIgnored**(`character`): `boolean`
 
 #### Parameters
 
@@ -478,7 +482,7 @@ ___
 
 ### getAutoFontFamily
 
-▸ `Static` **getAutoFontFamily**(): `string`
+▸ **getAutoFontFamily**(): `string`
 
 #### Returns
 
@@ -492,7 +496,7 @@ ___
 
 ### toFontFamily
 
-▸ `Static` **toFontFamily**(`fontFamily`): `string`
+▸ **toFontFamily**(`fontFamily`): `string`
 
 #### Parameters
 
@@ -512,7 +516,7 @@ ___
 
 ### toPowerOf2
 
-▸ `Static` **toPowerOf2**(`size`): `number`
+▸ **toPowerOf2**(`size`): `number`
 
 #### Parameters
 

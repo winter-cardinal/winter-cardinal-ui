@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartCoordinateTick
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChartCoordinateTick
 
 # Class: DThemeWhiteChartCoordinateTick
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChartCoordinateTick**()
+• **new DThemeWhiteChartCoordinateTick**(): [`DThemeWhiteChartCoordinateTick`](DThemeWhiteChartCoordinateTick.md)
+
+#### Returns
+
+[`DThemeWhiteChartCoordinateTick`](DThemeWhiteChartCoordinateTick.md)
 
 ## Methods
 

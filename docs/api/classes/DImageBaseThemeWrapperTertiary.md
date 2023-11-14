@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImageBaseThemeWrapperTertiary
+[Winter Cardinal UI - v0.374.0](../index.md) / DImageBaseThemeWrapperTertiary
 
 # Class: DImageBaseThemeWrapperTertiary
 
@@ -31,13 +31,17 @@
 
 ### constructor
 
-• **new DImageBaseThemeWrapperTertiary**(`theme`)
+• **new DImageBaseThemeWrapperTertiary**(`theme`): [`DImageBaseThemeWrapperTertiary`](DImageBaseThemeWrapperTertiary.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | [`DThemeImageBaseTertiary`](../interfaces/DThemeImageBaseTertiary.md) |
+
+#### Returns
+
+[`DImageBaseThemeWrapperTertiary`](DImageBaseThemeWrapperTertiary.md)
 
 #### Defined in
 

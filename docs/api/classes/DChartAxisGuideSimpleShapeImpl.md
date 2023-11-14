@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisGuideSimpleShapeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisGuideSimpleShapeImpl
 
-# Class: DChartAxisGuideSimpleShapeImpl<CHART\>
+# Class: DChartAxisGuideSimpleShapeImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)<`CHART`\>
+- [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -56,13 +56,13 @@
 
 ### constructor
 
-• **new DChartAxisGuideSimpleShapeImpl**<`CHART`\>(`options?`)
+• **new DChartAxisGuideSimpleShapeImpl**\<`CHART`\>(`options?`): [`DChartAxisGuideSimpleShapeImpl`](DChartAxisGuideSimpleShapeImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
@@ -70,9 +70,13 @@
 | :------ | :------ |
 | `options?` | [`DChartAxisGuideSimpleShapeOptions`](../interfaces/DChartAxisGuideSimpleShapeOptions.md) |
 
+#### Returns
+
+[`DChartAxisGuideSimpleShapeImpl`](DChartAxisGuideSimpleShapeImpl.md)\<`CHART`\>
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L37)
 
 ## Properties
 
@@ -82,7 +86,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L31)
 
 ___
 
@@ -92,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L32)
 
 ___
 
@@ -102,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L33)
 
 ___
 
@@ -112,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L30)
 
 ___
 
@@ -122,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L34)
 
 ___
 
@@ -132,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L35)
 
 ## Accessors
 
@@ -150,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L41)
 
 ___
 
@@ -168,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L119)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L120)
 
 ___
 
@@ -182,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L141)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L142)
 
 ___
 
@@ -200,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L164)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L165)
 
 ___
 
@@ -214,7 +218,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L186)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L187)
 
 ## Methods
 
@@ -226,9 +230,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 
@@ -240,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L219)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L220)
 
 ___
 
@@ -258,13 +262,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:344](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L344)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:345](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L345)
 
 ___
 
 ### newBar
 
-▸ `Protected` **newBar**(): ``null`` \| [`EShapeBar`](EShapeBar.md)
+▸ **newBar**(): ``null`` \| [`EShapeBar`](EShapeBar.md)
 
 #### Returns
 
@@ -272,13 +276,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L49)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L50)
 
 ___
 
 ### newLabel
 
-▸ `Protected` **newLabel**(): ``null`` \| [`EShapeRectangleRounded`](EShapeRectangleRounded.md)
+▸ **newLabel**(): ``null`` \| [`EShapeRectangleRounded`](EShapeRectangleRounded.md)
 
 #### Returns
 
@@ -286,13 +290,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L128)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L129)
 
 ___
 
 ### newLabelMargin
 
-▸ `Protected` **newLabelMargin**(): `number`
+▸ **newLabelMargin**(): `number`
 
 #### Returns
 
@@ -300,13 +304,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L150)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L151)
 
 ___
 
 ### newTick
 
-▸ `Protected` **newTick**(): ``null`` \| [`EShapeBar`](EShapeBar.md)
+▸ **newTick**(): ``null`` \| [`EShapeBar`](EShapeBar.md)
 
 #### Returns
 
@@ -314,13 +318,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L173)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L174)
 
 ___
 
 ### newTickMargin
 
-▸ `Protected` **newTickMargin**(): `number`
+▸ **newTickMargin**(): `number`
 
 #### Returns
 
@@ -328,19 +332,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L195)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L196)
 
 ___
 
 ### toBarPosition
 
-▸ `Protected` **toBarPosition**(`axis`): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
+▸ **toBarPosition**(`axis`): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 
@@ -348,13 +352,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L109)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L110)
 
 ___
 
 ### toStrokeOptions
 
-▸ `Protected` **toStrokeOptions**(`options?`, `style?`): `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+▸ **toStrokeOptions**(`options?`, `style?`): `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Parameters
 
@@ -365,17 +369,17 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
+`Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L60)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L61)
 
 ___
 
 ### toTextAlignOptions
 
-▸ `Protected` **toTextAlignOptions**(`options?`): `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+▸ **toTextAlignOptions**(`options?`): `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Parameters
 
@@ -385,17 +389,17 @@ ___
 
 #### Returns
 
-`Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+`Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L99)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L100)
 
 ___
 
 ### toTextOptions
 
-▸ `Protected` **toTextOptions**(`options?`): [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+▸ **toTextOptions**(`options?`): [`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Parameters
 
@@ -405,23 +409,23 @@ ___
 
 #### Returns
 
-[`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+[`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L76)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L77)
 
 ___
 
 ### toTickPosition
 
-▸ `Protected` **toTickPosition**(`axis`): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
+▸ **toTickPosition**(`axis`): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 
@@ -429,7 +433,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L209)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L210)
 
 ___
 
@@ -447,7 +451,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L236)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L237)
 
 ___
 
@@ -477,4 +481,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L251)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape-impl.ts#L252)

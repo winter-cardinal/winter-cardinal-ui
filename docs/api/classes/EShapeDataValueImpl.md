@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataValueImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataValueImpl
 
 # Class: EShapeDataValueImpl
 
@@ -60,7 +60,11 @@
 
 ### constructor
 
-• **new EShapeDataValueImpl**()
+• **new EShapeDataValueImpl**(): [`EShapeDataValueImpl`](EShapeDataValueImpl.md)
+
+#### Returns
+
+[`EShapeDataValueImpl`](EShapeDataValueImpl.md)
 
 #### Defined in
 

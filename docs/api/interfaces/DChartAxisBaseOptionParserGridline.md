@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptionParserGridline
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseOptionParserGridline
 
 # Interface: DChartAxisBaseOptionParserGridline
 
@@ -24,7 +24,7 @@ ___
 
 ### stroke
 
-• `Optional` **stroke**: `Partial`<[`EShapeStrokeLike`](EShapeStrokeLike.md)\>
+• `Optional` **stroke**: `Partial`\<[`EShapeStrokeLike`](EShapeStrokeLike.md)\>
 
 #### Defined in
 

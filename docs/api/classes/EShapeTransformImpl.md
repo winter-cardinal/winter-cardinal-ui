@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTransformImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTransformImpl
 
 # Class: EShapeTransformImpl
 
@@ -56,13 +56,17 @@
 
 ### constructor
 
-• **new EShapeTransformImpl**(`parent`)
+• **new EShapeTransformImpl**(`parent`): [`EShapeTransformImpl`](EShapeTransformImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeTransformParent`](../interfaces/EShapeTransformParent.md) |
+
+#### Returns
+
+[`EShapeTransformImpl`](EShapeTransformImpl.md)
 
 #### Overrides
 
@@ -582,7 +586,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 Called when a value changes.
 
@@ -660,7 +664,7 @@ ___
 
 ### updateSkew
 
-▸ `Protected` **updateSkew**(): `void`
+▸ **updateSkew**(): `void`
 
 Called when the skew or the rotation changes.
 

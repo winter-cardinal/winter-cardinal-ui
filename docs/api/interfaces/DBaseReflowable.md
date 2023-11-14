@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseReflowable
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseReflowable
 
 # Interface: DBaseReflowable
 
@@ -34,7 +34,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> |
 | `width` | `number` |
 | `height` | `number` |
 

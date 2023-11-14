@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDeleter
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDeleter
 
 # Class: EShapeDeleter
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new EShapeDeleter**()
+• **new EShapeDeleter**(): [`EShapeDeleter`](EShapeDeleter.md)
+
+#### Returns
+
+[`EShapeDeleter`](EShapeDeleter.md)
 
 ## Methods
 
 ### delete
 
-▸ `Static` **delete**(`parent`, `shapes?`, `generateListOfDetachedShapes?`): ``null`` \| [`EShape`](../interfaces/EShape.md)[]
+▸ **delete**(`parent`, `shapes?`, `generateListOfDetachedShapes?`): ``null`` \| [`EShape`](../interfaces/EShape.md)[]
 
 #### Parameters
 
@@ -38,4 +42,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts#L22)

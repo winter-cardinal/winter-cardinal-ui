@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellLinkLinkOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellLinkLinkOptions
 
-# Interface: DTableBodyCellLinkLinkOptions<ROW, VALUE\>
+# Interface: DTableBodyCellLinkLinkOptions\<ROW, VALUE\>
 
 ## Type parameters
 
@@ -22,7 +22,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`DTableBodyCellLinkChecker`](../index.md#dtablebodycelllinkchecker)<`ROW`, `VALUE`\>
+• `Optional` **checker**: [`DTableBodyCellLinkChecker`](../index.md#dtablebodycelllinkchecker)\<`ROW`, `VALUE`\>
 
 #### Defined in
 
@@ -32,7 +32,7 @@ ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -42,7 +42,7 @@ ___
 
 ### target
 
-• `Optional` **target**: ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget-1)
+• `Optional` **target**: ``"NEW_WINDOW"`` \| ``"AUTO"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Defined in
 
@@ -52,7 +52,7 @@ ___
 
 ### url
 
-• `Optional` **url**: `string` \| [`DTableBodyCellLinkUrlMaker`](../index.md#dtablebodycelllinkurlmaker)<`ROW`, `VALUE`\>
+• `Optional` **url**: `string` \| [`DTableBodyCellLinkUrlMaker`](../index.md#dtablebodycelllinkurlmaker)\<`ROW`, `VALUE`\>
 
 #### Defined in
 

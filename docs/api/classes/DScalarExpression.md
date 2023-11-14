@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DScalarExpression
+[Winter Cardinal UI - v0.374.0](../index.md) / DScalarExpression
 
 # Class: DScalarExpression
 
@@ -65,13 +65,17 @@ Examples
 
 ### constructor
 
-• **new DScalarExpression**(`expression`)
+• **new DScalarExpression**(`expression`): [`DScalarExpression`](DScalarExpression.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
+
+#### Returns
+
+[`DScalarExpression`](DScalarExpression.md)
 
 #### Defined in
 
@@ -132,7 +136,7 @@ ___
 
 ### evaluate
 
-▸ `Protected` **evaluate**(`node`, `parent`, `self`, `padding`, `current`): `number`
+▸ **evaluate**(`node`, `parent`, `self`, `padding`, `current`): `number`
 
 #### Parameters
 

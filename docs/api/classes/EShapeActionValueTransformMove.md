@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueTransformMove
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueTransformMove
 
 # Class: EShapeActionValueTransformMove
 
 ## Hierarchy
 
-- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<[`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype-1), [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype-1)\>
+- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)\<[`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype-1), [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype-1)\>
 
   ↳ **`EShapeActionValueTransformMove`**
 
@@ -36,7 +36,7 @@
 
 ### constructor
 
-• **new EShapeActionValueTransformMove**(`opetype`, `condition`, `amount`)
+• **new EShapeActionValueTransformMove**(`opetype`, `condition`, `amount`): [`EShapeActionValueTransformMove`](EShapeActionValueTransformMove.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@
 | `opetype` | [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype-1) |
 | `condition` | `string` |
 | `amount` | `string` |
+
+#### Returns
+
+[`EShapeActionValueTransformMove`](EShapeActionValueTransformMove.md)
 
 #### Overrides
 
@@ -138,7 +142,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -240,7 +244,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueTransformMove`](EShapeActionValueTransformMove.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueTransformMove`](EShapeActionValueTransformMove.md)
 
 #### Parameters
 

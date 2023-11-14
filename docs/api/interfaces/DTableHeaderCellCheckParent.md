@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableHeaderCellCheckParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableHeaderCellCheckParent
 
-# Interface: DTableHeaderCellCheckParent<ROW\>
+# Interface: DTableHeaderCellCheckParent\<ROW\>
 
 ## Type parameters
 
@@ -20,11 +20,11 @@
 
 ### column
 
-• `Optional` `Readonly` **column**: [`DTableColumn`](DTableColumn.md)<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)<`unknown`\>\>
+• `Optional` `Readonly` **column**: [`DTableColumn`](DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`unknown`\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L12)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L13)
 
 ___
 
@@ -34,14 +34,14 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L13)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L14)
 
 ___
 
 ### header
 
-• `Optional` `Readonly` **header**: [`DTableHeaderCellHeader`](DTableHeaderCellHeader.md)<`ROW`\>
+• `Optional` `Readonly` **header**: [`DTableHeaderCellHeader`](DTableHeaderCellHeader.md)\<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L14)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L15)

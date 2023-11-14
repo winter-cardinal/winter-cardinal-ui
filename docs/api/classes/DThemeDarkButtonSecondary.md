@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkButtonSecondary
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkButtonSecondary
 
-# Class: DThemeDarkButtonSecondary<VALUE\>
+# Class: DThemeDarkButtonSecondary\<VALUE\>
 
 [DButtonBase](DButtonBase.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkButtonBase`](DThemeDarkButtonBase.md)<`VALUE`\>
+- [`DThemeDarkButtonBase`](DThemeDarkButtonBase.md)\<`VALUE`\>
 
   ↳ **`DThemeDarkButtonSecondary`**
 
@@ -115,13 +115,17 @@
 
 ### constructor
 
-• **new DThemeDarkButtonSecondary**<`VALUE`\>()
+• **new DThemeDarkButtonSecondary**\<`VALUE`\>(): [`DThemeDarkButtonSecondary`](DThemeDarkButtonSecondary.md)\<`VALUE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
+
+#### Returns
+
+[`DThemeDarkButtonSecondary`](DThemeDarkButtonSecondary.md)\<`VALUE`\>
 
 #### Overrides
 
@@ -939,7 +943,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -963,7 +967,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1039,7 +1043,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1063,7 +1067,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -1864,14 +1868,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Inherited from
 

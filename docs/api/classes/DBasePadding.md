@@ -1,6 +1,12 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBasePadding
+[Winter Cardinal UI - v0.374.0](../index.md) / DBasePadding
 
 # Class: DBasePadding
+
+## Hierarchy
+
+- **`DBasePadding`**
+
+  ↳ [`DBasePaddingAdjustable`](DBasePaddingAdjustable.md)
 
 ## Implements
 
@@ -43,15 +49,19 @@
 
 ### constructor
 
-• **new DBasePadding**(`theme`, `options?`, `callback?`)
+• **new DBasePadding**(`theme`, `options?`, `callback?`): [`DBasePadding`](DBasePadding.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | [`DThemeBase`](../interfaces/DThemeBase.md) |
-| `options?` | [`DBaseOptions`](../interfaces/DBaseOptions.md)<`any`, `any`\> |
+| `options?` | [`DBaseOptions`](../interfaces/DBaseOptions.md)\<`any`, `any`\> |
 | `callback?` | () => `void` |
+
+#### Returns
+
+[`DBasePadding`](DBasePadding.md)
 
 #### Defined in
 

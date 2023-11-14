@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderRectangle
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderRectangle
 
 # Class: BuilderRectangle
 
@@ -48,7 +48,7 @@
 
 ### constructor
 
-• **new BuilderRectangle**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`)
+• **new BuilderRectangle**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`): [`BuilderRectangle`](BuilderRectangle.md)
 
 #### Parameters
 
@@ -58,6 +58,10 @@
 | `indexOffset` | `number` |
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
+
+#### Returns
+
+[`BuilderRectangle`](BuilderRectangle.md)
 
 #### Inherited from
 
@@ -406,7 +410,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -431,7 +435,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -456,7 +460,7 @@ ___
 
 ### updateVertexClippingStepAndUv
 
-▸ `Protected` **updateVertexClippingStepAndUv**(`buffer`, `shape`): `void`
+▸ **updateVertexClippingStepAndUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 

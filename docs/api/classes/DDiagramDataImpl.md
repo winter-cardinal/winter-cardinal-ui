@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramDataImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramDataImpl
 
 # Class: DDiagramDataImpl
 
@@ -53,7 +53,7 @@ A data helper class for diagrams.
 
 ### constructor
 
-• **new DDiagramDataImpl**(`diagram`, `options?`)
+• **new DDiagramDataImpl**(`diagram`, `options?`): [`DDiagramDataImpl`](DDiagramDataImpl.md)
 
 #### Parameters
 
@@ -61,6 +61,10 @@ A data helper class for diagrams.
 | :------ | :------ |
 | `diagram` | [`DDiagramDataDiagram`](../interfaces/DDiagramDataDiagram.md) |
 | `options?` | [`DDiagramDataOptions`](../interfaces/DDiagramDataOptions.md) |
+
+#### Returns
+
+[`DDiagramDataImpl`](DDiagramDataImpl.md)
 
 #### Defined in
 

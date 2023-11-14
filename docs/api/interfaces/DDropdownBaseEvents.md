@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDropdownBaseEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DDropdownBaseEvents
 
-# Interface: DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER\>
+# Interface: DDropdownBaseEvents\<VALUE, TEXT_VALUE, EMITTER\>
 
 [DDropdownBase](../classes/DDropdownBase.md) events.
 
@@ -14,7 +14,7 @@
 
 ## Hierarchy
 
-- [`DButtonBaseEvents`](DButtonBaseEvents.md)<`VALUE`, `EMITTER`\>
+- [`DButtonBaseEvents`](DButtonBaseEvents.md)\<`VALUE`, `EMITTER`\>
 
   ↳ **`DDropdownBaseEvents`**
 
@@ -333,7 +333,7 @@ Triggered when a menu is opened.
 
 | Name | Type |
 | :------ | :------ |
-| `menu` | [`DMenu`](../classes/DMenu.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\> |
+| `menu` | [`DMenu`](../classes/DMenu.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\> |
 | `emitter` | `EMITTER` |
 
 #### Returns
@@ -523,7 +523,7 @@ Triggered when a menu item is selected.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `value` | `VALUE` | a value of a selected menu item |
-| `item` | [`DMenuItem`](../classes/DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a selected menu item |
+| `item` | [`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a selected menu item |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns

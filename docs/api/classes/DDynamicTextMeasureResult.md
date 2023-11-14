@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextMeasureResult
+[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextMeasureResult
 
 # Class: DDynamicTextMeasureResult
 
@@ -37,7 +37,11 @@
 
 ### constructor
 
-• **new DDynamicTextMeasureResult**()
+• **new DDynamicTextMeasureResult**(): [`DDynamicTextMeasureResult`](DDynamicTextMeasureResult.md)
+
+#### Returns
+
+[`DDynamicTextMeasureResult`](DDynamicTextMeasureResult.md)
 
 #### Defined in
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesCoordinateContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesCoordinateContainer
 
-# Interface: DChartSeriesCoordinateContainer<CHART\>
+# Interface: DChartSeriesCoordinateContainer\<CHART\>
 
 ## Type parameters
 
@@ -23,11 +23,11 @@
 
 ### x
 
-• `get` **x**(): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+• `get` **x**(): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 
@@ -39,7 +39,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | ``null`` \| `number` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | ``null`` \| `number` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 
@@ -53,11 +53,11 @@ ___
 
 ### y
 
-• `get` **y**(): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+• `get` **y**(): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 
@@ -69,7 +69,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | ``null`` \| `number` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | ``null`` \| `number` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 

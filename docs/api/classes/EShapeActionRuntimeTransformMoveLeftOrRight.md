@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeTransformMoveLeftOrRight
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeTransformMoveLeftOrRight
 
 # Class: EShapeActionRuntimeTransformMoveLeftOrRight
 
@@ -55,13 +55,17 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeActionRuntimeTransformMoveLeftOrRight**(`value`)
+• **new EShapeActionRuntimeTransformMoveLeftOrRight**(`value`): [`EShapeActionRuntimeTransformMoveLeftOrRight`](EShapeActionRuntimeTransformMoveLeftOrRight.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueTransformMove`](EShapeActionValueTransformMove.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeTransformMoveLeftOrRight`](EShapeActionRuntimeTransformMoveLeftOrRight.md)
 
 #### Overrides
 
@@ -75,7 +79,7 @@ A base class of action runtimes.
 
 ### amount
 
-• `Protected` `Readonly` **amount**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
+• `Protected` `Readonly` **amount**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`number`\>
 
 #### Inherited from
 
@@ -89,7 +93,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -209,7 +213,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -266,7 +270,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -294,7 +298,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -489,7 +493,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -769,7 +773,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -797,7 +801,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -825,7 +829,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DControllers
+[Winter Cardinal UI - v0.374.0](../index.md) / DControllers
 
 # Class: DControllers
 
@@ -27,7 +27,11 @@
 
 ### constructor
 
-• **new DControllers**()
+• **new DControllers**(): [`DControllers`](DControllers.md)
+
+#### Returns
+
+[`DControllers`](DControllers.md)
 
 ## Properties
 
@@ -43,7 +47,7 @@ ___
 
 ### DOCUMENT
 
-▪ `Static` `Protected` **DOCUMENT**: ``null`` \| [`DControllerDocument`](../interfaces/DControllerDocument.md)<`any`\>
+▪ `Static` `Protected` **DOCUMENT**: ``null`` \| [`DControllerDocument`](../interfaces/DControllerDocument.md)\<`any`\>
 
 #### Defined in
 
@@ -63,7 +67,7 @@ ___
 
 ### getCommandController
 
-▸ `Static` **getCommandController**(): [`DControllerCommand`](../interfaces/DControllerCommand.md)
+▸ **getCommandController**(): [`DControllerCommand`](../interfaces/DControllerCommand.md)
 
 #### Returns
 
@@ -77,7 +81,7 @@ ___
 
 ### getDocumentController
 
-▸ `Static` **getDocumentController**<`DOCUMENT`\>(): [`DControllerDocument`](../interfaces/DControllerDocument.md)<`DOCUMENT`\>
+▸ **getDocumentController**\<`DOCUMENT`\>(): [`DControllerDocument`](../interfaces/DControllerDocument.md)\<`DOCUMENT`\>
 
 #### Type parameters
 
@@ -87,7 +91,7 @@ ___
 
 #### Returns
 
-[`DControllerDocument`](../interfaces/DControllerDocument.md)<`DOCUMENT`\>
+[`DControllerDocument`](../interfaces/DControllerDocument.md)\<`DOCUMENT`\>
 
 #### Defined in
 
@@ -97,7 +101,7 @@ ___
 
 ### getKeyboardController
 
-▸ `Static` **getKeyboardController**(): [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
+▸ **getKeyboardController**(): [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Returns
 
@@ -111,7 +115,7 @@ ___
 
 ### setCommandController
 
-▸ `Static` **setCommandController**(`instance`): ``null`` \| [`DControllerCommand`](../interfaces/DControllerCommand.md)
+▸ **setCommandController**(`instance`): ``null`` \| [`DControllerCommand`](../interfaces/DControllerCommand.md)
 
 #### Parameters
 
@@ -131,7 +135,7 @@ ___
 
 ### setDocumentController
 
-▸ `Static` **setDocumentController**<`DOCUMENT`\>(`instance`): ``null`` \| [`DControllerDocument`](../interfaces/DControllerDocument.md)<`DOCUMENT`\>
+▸ **setDocumentController**\<`DOCUMENT`\>(`instance`): ``null`` \| [`DControllerDocument`](../interfaces/DControllerDocument.md)\<`DOCUMENT`\>
 
 #### Type parameters
 
@@ -143,11 +147,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `instance` | [`DControllerDocument`](../interfaces/DControllerDocument.md)<`DOCUMENT`\> |
+| `instance` | [`DControllerDocument`](../interfaces/DControllerDocument.md)\<`DOCUMENT`\> |
 
 #### Returns
 
-``null`` \| [`DControllerDocument`](../interfaces/DControllerDocument.md)<`DOCUMENT`\>
+``null`` \| [`DControllerDocument`](../interfaces/DControllerDocument.md)\<`DOCUMENT`\>
 
 #### Defined in
 
@@ -157,7 +161,7 @@ ___
 
 ### setKeyboardController
 
-▸ `Static` **setKeyboardController**(`instance`): ``null`` \| [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
+▸ **setKeyboardController**(`instance`): ``null`` \| [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Parameters
 

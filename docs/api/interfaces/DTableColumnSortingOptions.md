@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableColumnSortingOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableColumnSortingOptions
 
-# Interface: DTableColumnSortingOptions<ROW_VALUE\>
+# Interface: DTableColumnSortingOptions\<ROW_VALUE\>
 
 ## Type parameters
 
@@ -19,7 +19,7 @@
 
 ### comparator
 
-• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW_VALUE`\>
+• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW_VALUE`\>
 
 #### Defined in
 

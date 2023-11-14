@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionContainerOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionContainerOptions
 
-# Interface: DChartSelectionContainerOptions<CHART\>
+# Interface: DChartSelectionContainerOptions\<CHART\>
 
 ## Type parameters
 
@@ -19,7 +19,7 @@
 
 ### x
 
-• `Optional` **x**: [`DChartSelectionShapeOptions`](DChartSelectionShapeOptions.md)<`CHART`\>
+• `Optional` **x**: [`DChartSelectionShapeOptions`](DChartSelectionShapeOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -29,7 +29,7 @@ ___
 
 ### y
 
-• `Optional` **y**: [`DChartSelectionShapeOptions`](DChartSelectionShapeOptions.md)<`CHART`\>
+• `Optional` **y**: [`DChartSelectionShapeOptions`](DChartSelectionShapeOptions.md)\<`CHART`\>
 
 #### Defined in
 

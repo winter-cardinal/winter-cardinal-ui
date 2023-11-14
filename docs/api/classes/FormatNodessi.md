@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodessi
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodessi
 
 # Class: FormatNodessi
 
@@ -28,13 +28,17 @@
 
 ### constructor
 
-• **new FormatNodessi**(`precision?`)
+• **new FormatNodessi**(`precision?`): [`FormatNodessi`](FormatNodessi.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `precision?` | `string` |
+
+#### Returns
+
+[`FormatNodessi`](FormatNodessi.md)
 
 #### Inherited from
 
@@ -88,7 +92,7 @@ ___
 
 ### format\_
 
-▸ `Protected` **format_**(`target`, `unitInverse`, `postfix`): `string`
+▸ **format_**(`target`, `unitInverse`, `postfix`): `string`
 
 #### Parameters
 
@@ -114,7 +118,7 @@ ___
 
 ### toAbs
 
-▸ `Protected` **toAbs**(`target`, `step`, `date`): `number`
+▸ **toAbs**(`target`, `step`, `date`): `number`
 
 #### Parameters
 

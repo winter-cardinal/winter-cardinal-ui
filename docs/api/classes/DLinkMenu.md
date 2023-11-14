@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DLinkMenu
+[Winter Cardinal UI - v0.374.0](../index.md) / DLinkMenu
 
 # Class: DLinkMenu
 
@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new DLinkMenu**(`parent`, `options`)
+• **new DLinkMenu**(`parent`, `options`): [`DLinkMenu`](DLinkMenu.md)
 
 #### Parameters
 
@@ -39,6 +39,10 @@
 | :------ | :------ |
 | `parent` | [`DLinkMenuParent`](../interfaces/DLinkMenuParent.md) |
 | `options` | [`DLinkMenuOptions`](../index.md#dlinkmenuoptions) |
+
+#### Returns
+
+[`DLinkMenu`](DLinkMenu.md)
 
 #### Defined in
 
@@ -58,7 +62,7 @@ ___
 
 ### \_menu
 
-• `Protected` `Optional` **\_menu**: [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+• `Protected` `Optional` **\_menu**: [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -68,7 +72,7 @@ ___
 
 ### \_options
 
-• `Protected` **\_options**: [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+• `Protected` **\_options**: [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -118,11 +122,11 @@ ___
 
 ### get
 
-▸ **get**(): [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **get**(): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Returns
 
-[`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -132,17 +136,17 @@ ___
 
 ### newMenu
 
-▸ `Protected` **newMenu**(`options`): [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **newMenu**(`options`): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> |
+| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> |
 
 #### Returns
 
-[`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -152,15 +156,15 @@ ___
 
 ### onSelect
 
-▸ `Protected` **onSelect**(`value`, `item`, `menu`): `void`
+▸ **onSelect**(`value`, `item`, `menu`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1) |
-| `item` | [`DMenuItem`](DMenuItem.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\> |
-| `menu` | [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
+| `item` | [`DMenuItem`](DMenuItem.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\> |
+| `menu` | [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
 
 #### Returns
 
@@ -180,7 +184,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -194,17 +198,17 @@ ___
 
 ### toMenu
 
-▸ `Protected` **toMenu**(`options`): [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **toMenu**(`options`): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
+| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
 
 #### Returns
 
-[`DMenu`](DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 

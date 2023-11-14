@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlasItemImage
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlasItemImage
 
 # Class: DynamicAtlasItemImage
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new DynamicAtlasItemImage**(`image`, `baseTexture`)
+• **new DynamicAtlasItemImage**(`image`, `baseTexture`): [`DynamicAtlasItemImage`](DynamicAtlasItemImage.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@
 | :------ | :------ |
 | `image` | `HTMLImageElement` |
 | `baseTexture` | `BaseTexture` |
+
+#### Returns
+
+[`DynamicAtlasItemImage`](DynamicAtlasItemImage.md)
 
 #### Overrides
 

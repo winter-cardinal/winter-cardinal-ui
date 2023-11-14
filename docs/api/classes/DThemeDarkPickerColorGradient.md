@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPickerColorGradient
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPickerColorGradient
 
 # Class: DThemeDarkPickerColorGradient
 
@@ -82,7 +82,11 @@
 
 ### constructor
 
-• **new DThemeDarkPickerColorGradient**()
+• **new DThemeDarkPickerColorGradient**(): [`DThemeDarkPickerColorGradient`](DThemeDarkPickerColorGradient.md)
+
+#### Returns
+
+[`DThemeDarkPickerColorGradient`](DThemeDarkPickerColorGradient.md)
 
 #### Inherited from
 

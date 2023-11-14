@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogProcessingOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogProcessingOptions
 
-# Interface: DDialogProcessingOptions<THEME\>
+# Interface: DDialogProcessingOptions\<THEME\>
 
 [DDialogLayered](../classes/DDialogLayered.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DDialogConfirmOptions`](DDialogConfirmOptions.md)<`THEME`\>
+- [`DDialogConfirmOptions`](DDialogConfirmOptions.md)\<`THEME`\>
 
   ↳ **`DDialogProcessingOptions`**
 
@@ -62,7 +62,7 @@
 
 ### align
 
-• `Optional` **align**: ``null`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_CENTER"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_CENTER"`` \| ``"BOTTOM_RIGHT"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"RIGHT_BOTTOM"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
+• `Optional` **align**: ``null`` \| ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_RIGHT"`` \| ``"TOP_LEFT"`` \| ``"RIGHT_BOTTOM"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_RIGHT"`` \| ``"TOP_CENTER"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"BOTTOM_CENTER"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ ___
 
 ### animation
 
-• `Optional` **animation**: [`DAnimation`](DAnimation.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
+• `Optional` **animation**: [`DAnimation`](DAnimation.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
 
 #### Inherited from
 
@@ -168,7 +168,7 @@ ___
 
 ### content
 
-• `Optional` **content**: [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
+• `Optional` **content**: [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
 
 Content options.
 
@@ -200,7 +200,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -226,7 +226,7 @@ ___
 
 ### footer
 
-• `Optional` **footer**: ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
+• `Optional` **footer**: ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
 
 A footer options.
 
@@ -256,7 +256,7 @@ ___
 
 ### header
 
-• `Optional` **header**: ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
+• `Optional` **header**: ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
 
 A header options.
 
@@ -293,7 +293,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -309,7 +309,7 @@ ___
 
 ### layout
 
-• `Optional` **layout**: [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
+• `Optional` **layout**: [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
 
 A layout options.
 
@@ -325,7 +325,7 @@ ___
 
 ### message
 
-• `Optional` **message**: [`DStateAwareOrValue`](../index.md#dstateawareorvalue)<`string`\> \| [`DDialogConfirmMessageOptions`](DDialogConfirmMessageOptions.md)<[`DThemeDialogConfirmMessage`](DThemeDialogConfirmMessage.md)\> \| [`DDialogConfirmMessage`](../classes/DDialogConfirmMessage.md)<[`DThemeDialogConfirmMessage`](DThemeDialogConfirmMessage.md), [`DDialogConfirmMessageOptions`](DDialogConfirmMessageOptions.md)<[`DThemeDialogConfirmMessage`](DThemeDialogConfirmMessage.md)\>\>
+• `Optional` **message**: [`DStateAwareOrValue`](../index.md#dstateawareorvalue)\<`string`\> \| [`DDialogConfirmMessageOptions`](DDialogConfirmMessageOptions.md)\<[`DThemeDialogConfirmMessage`](DThemeDialogConfirmMessage.md)\> \| [`DDialogConfirmMessage`](../classes/DDialogConfirmMessage.md)\<[`DThemeDialogConfirmMessage`](DThemeDialogConfirmMessage.md), [`DDialogConfirmMessageOptions`](DDialogConfirmMessageOptions.md)\<[`DThemeDialogConfirmMessage`](DThemeDialogConfirmMessage.md)\>\>
 
 #### Inherited from
 
@@ -371,7 +371,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDialogLayeredOnOptions`](DDialogLayeredOnOptions.md)<`void`, `any`\>
+• `Optional` **on**: [`DDialogLayeredOnOptions`](DDialogLayeredOnOptions.md)\<`void`, `any`\>
 
 Mappings of event names and handlers.
 
@@ -444,7 +444,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDialogProcessingOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.

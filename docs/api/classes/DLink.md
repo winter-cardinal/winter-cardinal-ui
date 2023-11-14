@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DLink
+[Winter Cardinal UI - v0.374.0](../index.md) / DLink
 
 # Class: DLink
 
@@ -44,13 +44,17 @@
 
 ### constructor
 
-• **new DLink**(`options?`)
+• **new DLink**(`options?`): [`DLink`](DLink.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DLinkOptions`](../interfaces/DLinkOptions.md) |
+
+#### Returns
+
+[`DLink`](DLink.md)
 
 #### Defined in
 
@@ -343,7 +347,7 @@ Returns true if the URL need to be opened in a new window.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `e?` | `InteractionEvent` \| `KeyboardEvent` \| `MouseEvent` \| `TouchEvent` | An event object. |
+| `e?` | `MouseEvent` \| `KeyboardEvent` \| `TouchEvent` \| `InteractionEvent` | An event object. |
 
 #### Returns
 
@@ -357,7 +361,7 @@ ___
 
 ### newMenu
 
-▸ `Protected` **newMenu**(): [`DLinkMenu`](DLinkMenu.md)
+▸ **newMenu**(): [`DLinkMenu`](DLinkMenu.md)
 
 #### Returns
 
@@ -377,7 +381,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `e` | `InteractionEvent` |
 
 #### Returns
@@ -400,7 +404,7 @@ Checks and opens the URL.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `e?` | `InteractionEvent` \| `KeyboardEvent` \| `MouseEvent` \| `TouchEvent` | An event object which triggered this method call. |
+| `e?` | `MouseEvent` \| `KeyboardEvent` \| `TouchEvent` \| `InteractionEvent` | An event object which triggered this method call. |
 
 #### Returns
 
@@ -432,7 +436,7 @@ ___
 
 ### toNormalizedTarget
 
-▸ `Protected` **toNormalizedTarget**(`target`): [`DLinkTarget`](../index.md#dlinktarget-1)
+▸ **toNormalizedTarget**(`target`): [`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Parameters
 
@@ -452,7 +456,7 @@ ___
 
 ### toNormalizedUrl
 
-▸ `Protected` **toNormalizedUrl**(`url`): `string`
+▸ **toNormalizedUrl**(`url`): `string`
 
 #### Parameters
 
@@ -472,7 +476,7 @@ ___
 
 ### toStringifiedUrl
 
-▸ `Protected` **toStringifiedUrl**(`target`, `onResolved`): `void`
+▸ **toStringifiedUrl**(`target`, `onResolved`): `void`
 
 #### Parameters
 

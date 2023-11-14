@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / ESnapper
+[Winter Cardinal UI - v0.374.0](../index.md) / ESnapper
 
 # Class: ESnapper
 
@@ -75,7 +75,7 @@
 
 ### constructor
 
-• **new ESnapper**(`parent`, `theme`, `options?`)
+• **new ESnapper**(`parent`, `theme`, `options?`): [`ESnapper`](ESnapper.md)
 
 #### Parameters
 
@@ -84,6 +84,10 @@
 | `parent` | [`ESnapperParent`](../interfaces/ESnapperParent.md) |
 | `theme` | [`EThemeSnapper`](../interfaces/EThemeSnapper.md) |
 | `options?` | [`ESnapperOptions`](../interfaces/ESnapperOptions.md) |
+
+#### Returns
+
+[`ESnapper`](ESnapper.md)
 
 #### Overrides
 
@@ -305,7 +309,7 @@ ___
 
 ### calcNormalizedVector
 
-▸ `Protected` **calcNormalizedVector**(`p0`, `p1`, `result`): `number`
+▸ **calcNormalizedVector**(`p0`, `p1`, `result`): `number`
 
 #### Parameters
 
@@ -327,7 +331,7 @@ ___
 
 ### calcScaleSnapped1D
 
-▸ `Protected` **calcScaleSnapped1D**(`transform`, `point`, `normal`, `length`, `axis`, `result`): `void`
+▸ **calcScaleSnapped1D**(`transform`, `point`, `normal`, `length`, `axis`, `result`): `void`
 
 #### Parameters
 
@@ -376,7 +380,7 @@ ___
 
 ### calcScaleSnappedX
 
-▸ `Protected` **calcScaleSnappedX**(`transform`, `point`, `normal`, `length`, `result`): `void`
+▸ **calcScaleSnappedX**(`transform`, `point`, `normal`, `length`, `result`): `void`
 
 #### Parameters
 
@@ -400,7 +404,7 @@ ___
 
 ### calcScaleSnappedXY
 
-▸ `Protected` **calcScaleSnappedXY**(`transform`, `pointO`, `pointX`, `pointY`, `normals`, `lengths`, `result`): `void`
+▸ **calcScaleSnappedXY**(`transform`, `pointO`, `pointX`, `pointY`, `normals`, `lengths`, `result`): `void`
 
 #### Parameters
 
@@ -426,7 +430,7 @@ ___
 
 ### calcScaleSnappedY
 
-▸ `Protected` **calcScaleSnappedY**(`transform`, `point`, `normal`, `length`, `result`): `void`
+▸ **calcScaleSnappedY**(`transform`, `point`, `normal`, `length`, `result`): `void`
 
 #### Parameters
 
@@ -470,7 +474,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -519,7 +523,7 @@ ___
 
 ### getGridSizeRotation
 
-▸ `Protected` **getGridSizeRotation**(): `number`
+▸ **getGridSizeRotation**(): `number`
 
 #### Returns
 
@@ -674,7 +678,7 @@ ___
 
 ### prepare
 
-▸ `Protected` **prepare**(`modifier`): `void`
+▸ **prepare**(`modifier`): `void`
 
 #### Parameters
 
@@ -842,7 +846,7 @@ ___
 
 ### setScaleSnappedResult
 
-▸ `Protected` **setScaleSnappedResult**(`distance`, `length`, `move`, `axis`, `result`): `void`
+▸ **setScaleSnappedResult**(`distance`, `length`, `move`, `axis`, `result`): `void`
 
 #### Parameters
 
@@ -866,7 +870,7 @@ ___
 
 ### snap
 
-▸ `Protected` **snap**(`point`, `result`): `IPoint`
+▸ **snap**(`point`, `result`): `IPoint`
 
 #### Parameters
 
@@ -887,7 +891,7 @@ ___
 
 ### toDegree
 
-▸ `Protected` **toDegree**(`value`): `number`
+▸ **toDegree**(`value`): `number`
 
 #### Parameters
 
@@ -907,7 +911,7 @@ ___
 
 ### toRadian
 
-▸ `Protected` **toRadian**(`value`): `number`
+▸ **toRadian**(`value`): `number`
 
 #### Parameters
 

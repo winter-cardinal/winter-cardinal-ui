@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellsColumn
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellsColumn
 
-# Interface: DTableBodyCellsColumn<ROW\>
+# Interface: DTableBodyCellsColumn\<ROW\>
 
 ## Type parameters
 
@@ -20,7 +20,7 @@
 
 ### editing
 
-• **editing**: [`DTableBodyCellsColumnEditing`](DTableBodyCellsColumnEditing.md)<`ROW`\>
+• **editing**: [`DTableBodyCellsColumnEditing`](DTableBodyCellsColumnEditing.md)\<`ROW`\>
 
 #### Defined in
 
@@ -30,7 +30,7 @@ ___
 
 ### renderable
 
-• **renderable**: `boolean` \| [`DTableColumnRenderable`](../index.md#dtablecolumnrenderable)<`ROW`\>
+• **renderable**: `boolean` \| [`DTableColumnRenderable`](../index.md#dtablecolumnrenderable)\<`ROW`\>
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### state
 
-• **state**: [`DTableColumnState`](DTableColumnState.md)<`ROW`\>
+• **state**: [`DTableColumnState`](DTableColumnState.md)\<`ROW`\>
 
 #### Defined in
 

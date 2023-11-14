@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeConnectorBodies
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeConnectorBodies
 
 # Class: EShapeConnectorBodies
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new EShapeConnectorBodies**()
+• **new EShapeConnectorBodies**(): [`EShapeConnectorBodies`](EShapeConnectorBodies.md)
+
+#### Returns
+
+[`EShapeConnectorBodies`](EShapeConnectorBodies.md)
 
 ## Methods
 
 ### from
 
-▸ `Static` **from**(`values`, `tailMargin`, `headMargin`): `number`[]
+▸ **from**(`values`, `tailMargin`, `headMargin`): `number`[]
 
 #### Parameters
 

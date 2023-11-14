@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListItemAccessorLink
+[Winter Cardinal UI - v0.374.0](../index.md) / DListItemAccessorLink
 
-# Interface: DListItemAccessorLink<VALUE\>
+# Interface: DListItemAccessorLink\<VALUE\>
 
 ## Type parameters
 
@@ -20,7 +20,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`DListItemLinkChecker`](../index.md#dlistitemlinkchecker)<`VALUE`\>
+• `Optional` **checker**: [`DListItemLinkChecker`](../index.md#dlistitemlinkchecker)\<`VALUE`\>
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### toUrl
 
-• **toUrl**: [`DListItemToLinkUrl`](../index.md#dlistitemtolinkurl)<`VALUE`\>
+• **toUrl**: [`DListItemToLinkUrl`](../index.md#dlistitemtolinkurl)\<`VALUE`\>
 
 #### Defined in
 

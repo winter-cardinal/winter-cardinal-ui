@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesStrokeComputedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesStrokeComputedImpl
 
 # Class: DChartSeriesStrokeComputedImpl
 
@@ -30,7 +30,7 @@
 
 ### constructor
 
-• **new DChartSeriesStrokeComputedImpl**(`enable`, `color`, `alpha`, `width`, `align`, `side`, `style`)
+• **new DChartSeriesStrokeComputedImpl**(`enable`, `color`, `alpha`, `width`, `align`, `side`, `style`): [`DChartSeriesStrokeComputedImpl`](DChartSeriesStrokeComputedImpl.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@
 | `align` | `number` |
 | `side` | `number` |
 | `style` | `number` |
+
+#### Returns
+
+[`DChartSeriesStrokeComputedImpl`](DChartSeriesStrokeComputedImpl.md)
 
 #### Defined in
 
@@ -150,7 +154,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`base`, `index`, `stroke?`): [`DChartSeriesStrokeComputed`](../interfaces/DChartSeriesStrokeComputed.md)
+▸ **from**(`base`, `index`, `stroke?`): [`DChartSeriesStrokeComputed`](../interfaces/DChartSeriesStrokeComputed.md)
 
 #### Parameters
 

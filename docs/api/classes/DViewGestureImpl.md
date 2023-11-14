@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DViewGestureImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DViewGestureImpl
 
 # Class: DViewGestureImpl
 
@@ -16,31 +16,38 @@
 
 - [\_constraint](DViewGestureImpl.md#_constraint)
 - [\_gestureUtil](DViewGestureImpl.md#_gestureutil)
+- [\_owner](DViewGestureImpl.md#_owner)
 - [\_parent](DViewGestureImpl.md#_parent)
-- [\_stopper](DViewGestureImpl.md#_stopper)
 
 ### Methods
 
 - [onDown](DViewGestureImpl.md#ondown)
+- [onEnd](DViewGestureImpl.md#onend)
 - [onGestureMove](DViewGestureImpl.md#ongesturemove)
+- [onStart](DViewGestureImpl.md#onstart)
+- [onStop](DViewGestureImpl.md#onstop)
 - [stop](DViewGestureImpl.md#stop)
 
 ## Constructors
 
 ### constructor
 
-• **new DViewGestureImpl**(`parent`, `toTarget`, `stopper`, `constraint`, `theme`, `options?`)
+• **new DViewGestureImpl**(`owner`, `toTarget`, `parent`, `constraint`, `theme`, `options?`): [`DViewGestureImpl`](DViewGestureImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `owner` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `toTarget` | [`DViewToTarget`](../index.md#dviewtotarget) |
-| `stopper` | [`DViewStopper`](../interfaces/DViewStopper.md) |
+| `parent` | [`DViewParent`](../interfaces/DViewParent.md) |
 | `constraint` | [`DViewConstraint`](../index.md#dviewconstraint) |
 | `theme` | [`DThemeViewGesture`](../interfaces/DThemeViewGesture.md) |
 | `options?` | [`DViewGestureOptions`](../interfaces/DViewGestureOptions.md) |
+
+#### Returns
+
+[`DViewGestureImpl`](DViewGestureImpl.md)
 
 #### Defined in
 
@@ -60,7 +67,7 @@ ___
 
 ### \_gestureUtil
 
-• `Protected` `Optional` **\_gestureUtil**: [`UtilGesture`](UtilGesture.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+• `Protected` `Optional` **\_gestureUtil**: [`UtilGesture`](UtilGesture.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 
@@ -68,9 +75,9 @@ ___
 
 ___
 
-### \_parent
+### \_owner
 
-• `Protected` **\_parent**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_owner**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -78,9 +85,9 @@ ___
 
 ___
 
-### \_stopper
+### \_parent
 
-• `Protected` **\_stopper**: [`DViewStopper`](../interfaces/DViewStopper.md)
+• `Protected` **\_parent**: [`DViewParent`](../interfaces/DViewParent.md)
 
 #### Defined in
 
@@ -104,13 +111,33 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L107)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L131)
+
+___
+
+### onEnd
+
+▸ **onEnd**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L81)
 
 ___
 
 ### onGestureMove
 
-▸ `Protected` **onGestureMove**(`target`, `dx`, `dy`, `x`, `y`, `ds`): `void`
+▸ **onGestureMove**(`target`, `dx`, `dy`, `x`, `y`, `ds`): `void`
 
 #### Parameters
 
@@ -129,7 +156,47 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L67)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L91)
+
+___
+
+### onStart
+
+▸ **onStart**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L75)
+
+___
+
+### onStop
+
+▸ **onStop**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L86)
 
 ___
 
@@ -149,4 +216,4 @@ Stops an animation if sxists.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L103)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L127)

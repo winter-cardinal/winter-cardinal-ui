@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderSemicircle
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderSemicircle
 
 # Class: BuilderSemicircle
 
@@ -49,7 +49,7 @@
 
 ### constructor
 
-• **new BuilderSemicircle**(`vertexOffset`, `indexOffset`)
+• **new BuilderSemicircle**(`vertexOffset`, `indexOffset`): [`BuilderSemicircle`](BuilderSemicircle.md)
 
 #### Parameters
 
@@ -57,6 +57,10 @@
 | :------ | :------ |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
+
+#### Returns
+
+[`BuilderSemicircle`](BuilderSemicircle.md)
 
 #### Overrides
 
@@ -405,7 +409,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -430,7 +434,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -455,7 +459,7 @@ ___
 
 ### updateUv
 
-▸ `Protected` **updateUv**(`buffer`, `shape`): `void`
+▸ **updateUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -476,7 +480,7 @@ ___
 
 ### updateVertexAndStep
 
-▸ `Protected` **updateVertexAndStep**(`buffer`, `shape`): `void`
+▸ **updateVertexAndStep**(`buffer`, `shape`): `void`
 
 #### Parameters
 

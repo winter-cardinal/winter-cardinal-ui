@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateLinearTick
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateLinearTick
 
-# Class: DChartCoordinateLinearTick<CHART\>
+# Class: DChartCoordinateLinearTick\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)<`CHART`\>
+- [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -37,19 +37,23 @@
 
 ### constructor
 
-• **new DChartCoordinateLinearTick**<`CHART`\>(`options?`)
+• **new DChartCoordinateLinearTick**\<`CHART`\>(`options?`): [`DChartCoordinateLinearTick`](DChartCoordinateLinearTick.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DChartCoordinateTickOptions`](../interfaces/DChartCoordinateTickOptions.md) |
+
+#### Returns
+
+[`DChartCoordinateLinearTick`](DChartCoordinateLinearTick.md)\<`CHART`\>
 
 #### Defined in
 
@@ -69,7 +73,7 @@
 
 ### calcStepMinor
 
-▸ `Protected` **calcStepMinor**(`majorStep`, `minorCount`): `number`
+▸ **calcStepMinor**(`majorStep`, `minorCount`): `number`
 
 #### Parameters
 
@@ -90,7 +94,7 @@ ___
 
 ### calcTickMinorPositions
 
-▸ `Protected` **calcTickMinorPositions**(`step`, `count`, `majorPosition`, `rangeMin`, `rangeMax`, `iresult`, `result`): `void`
+▸ **calcTickMinorPositions**(`step`, `count`, `majorPosition`, `rangeMin`, `rangeMax`, `iresult`, `result`): `void`
 
 #### Parameters
 
@@ -134,7 +138,7 @@ ___
 | `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
 | `majorResult` | `number`[] |
 | `minorResult` | `number`[] |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 
@@ -152,7 +156,7 @@ ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): [`DThemeChartCoordinateTick`](../interfaces/DThemeChartCoordinateTick.md)
+▸ **getThemeDefault**(): [`DThemeChartCoordinateTick`](../interfaces/DThemeChartCoordinateTick.md)
 
 #### Returns
 
@@ -166,7 +170,7 @@ ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -180,7 +184,7 @@ ___
 
 ### toMajorStep
 
-▸ `Protected` **toMajorStep**(`domainMin`, `domainMax`, `majorCount`, `majorStep?`): `number`
+▸ **toMajorStep**(`domainMin`, `domainMax`, `majorCount`, `majorStep?`): `number`
 
 #### Parameters
 
@@ -203,7 +207,7 @@ ___
 
 ### toMinorStep
 
-▸ `Protected` **toMinorStep**(`majorStep`, `minorCount`, `minorStep?`): `number`
+▸ **toMinorStep**(`majorStep`, `minorCount`, `minorStep?`): `number`
 
 #### Parameters
 
@@ -225,7 +229,7 @@ ___
 
 ### toTheme
 
-▸ `Protected` **toTheme**(`options?`): [`DThemeChartCoordinateTick`](../interfaces/DThemeChartCoordinateTick.md)
+▸ **toTheme**(`options?`): [`DThemeChartCoordinateTick`](../interfaces/DThemeChartCoordinateTick.md)
 
 #### Parameters
 

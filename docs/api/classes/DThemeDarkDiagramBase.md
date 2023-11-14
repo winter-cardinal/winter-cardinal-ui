@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkDiagramBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDiagramBase
 
 # Class: DThemeDarkDiagramBase
 
@@ -78,7 +78,11 @@
 
 ### constructor
 
-• **new DThemeDarkDiagramBase**()
+• **new DThemeDarkDiagramBase**(): [`DThemeDarkDiagramBase`](DThemeDarkDiagramBase.md)
+
+#### Returns
+
+[`DThemeDarkDiagramBase`](DThemeDarkDiagramBase.md)
 
 #### Inherited from
 

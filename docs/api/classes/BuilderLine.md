@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderLine
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLine
 
 # Class: BuilderLine
 
@@ -54,7 +54,7 @@
 
 ### constructor
 
-• **new BuilderLine**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`)
+• **new BuilderLine**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`): [`BuilderLine`](BuilderLine.md)
 
 #### Parameters
 
@@ -64,6 +64,10 @@
 | `indexOffset` | `number` |
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
+
+#### Returns
+
+[`BuilderLine`](BuilderLine.md)
 
 #### Overrides
 
@@ -452,7 +456,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -477,7 +481,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -502,7 +506,7 @@ ___
 
 ### updateLineClipping
 
-▸ `Protected` **updateLineClipping**(`buffer`, `shape`): `void`
+▸ **updateLineClipping**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -523,7 +527,7 @@ ___
 
 ### updateLineUv
 
-▸ `Protected` **updateLineUv**(`buffer`, `shape`): `void`
+▸ **updateLineUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -544,7 +548,7 @@ ___
 
 ### updateLineVertexStepAndColorFill
 
-▸ `Protected` **updateLineVertexStepAndColorFill**(`buffer`, `shape`): `void`
+▸ **updateLineVertexStepAndColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 

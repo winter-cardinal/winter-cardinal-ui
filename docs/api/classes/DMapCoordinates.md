@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapCoordinates
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapCoordinates
 
 # Class: DMapCoordinates
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new DMapCoordinates**()
+• **new DMapCoordinates**(): [`DMapCoordinates`](DMapCoordinates.md)
+
+#### Returns
+
+[`DMapCoordinates`](DMapCoordinates.md)
 
 ## Properties
 
@@ -36,7 +40,7 @@
 
 ### DEFAULT
 
-• `Static` `get` **DEFAULT**(): [`DMapCoordinate`](../interfaces/DMapCoordinate.md)
+• `get` **DEFAULT**(): [`DMapCoordinate`](../interfaces/DMapCoordinate.md)
 
 #### Returns
 

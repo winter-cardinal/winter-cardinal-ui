@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableColumnSelectingDialog
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableColumnSelectingDialog
 
-# Interface: DTableColumnSelectingDialog<DIALOG_VALUE\>
+# Interface: DTableColumnSelectingDialog\<DIALOG_VALUE\>
 
 ## Type parameters
 
@@ -32,7 +32,7 @@
 
 ### open
 
-▸ **open**(`owner?`): `Promise`<`DIALOG_VALUE`\>
+▸ **open**(`owner?`): `Promise`\<`DIALOG_VALUE`\>
 
 #### Parameters
 
@@ -42,7 +42,7 @@
 
 #### Returns
 
-`Promise`<`DIALOG_VALUE`\>
+`Promise`\<`DIALOG_VALUE`\>
 
 #### Defined in
 

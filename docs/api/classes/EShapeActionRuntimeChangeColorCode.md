@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeChangeColorCode
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeChangeColorCode
 
 # Class: EShapeActionRuntimeChangeColorCode
 
@@ -56,13 +56,17 @@
 
 ### constructor
 
-• **new EShapeActionRuntimeChangeColorCode**(`value`)
+• **new EShapeActionRuntimeChangeColorCode**(`value`): [`EShapeActionRuntimeChangeColorCode`](EShapeActionRuntimeChangeColorCode.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueChangeColorCode`](EShapeActionValueChangeColorCode.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeChangeColorCode`](EShapeActionRuntimeChangeColorCode.md)
 
 #### Overrides
 
@@ -76,7 +80,7 @@ EShapeActionRuntimeChangeColorBase.constructor
 
 ### alpha
 
-• `Protected` `Readonly` **alpha**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **alpha**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -86,7 +90,7 @@ ___
 
 ### blend
 
-• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -96,7 +100,7 @@ ___
 
 ### color
 
-• `Protected` `Readonly` **color**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **color**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -106,7 +110,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -218,7 +222,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -271,7 +275,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -297,7 +301,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -478,7 +482,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -738,7 +742,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -764,7 +768,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -790,7 +794,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -808,7 +812,7 @@ ___
 
 ### set
 
-▸ `Protected` **set**(`shape`, `runtime`, `time`, `color`, `alpha`, `blend`): `void`
+▸ **set**(`shape`, `runtime`, `time`, `color`, `alpha`, `blend`): `void`
 
 #### Parameters
 

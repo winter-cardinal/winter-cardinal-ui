@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementClipperExImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementClipperExImpl
 
 # Class: UtilHtmlElementClipperExImpl
 
@@ -26,13 +26,17 @@
 
 ### constructor
 
-• **new UtilHtmlElementClipperExImpl**(`container`)
+• **new UtilHtmlElementClipperExImpl**(`container`): [`UtilHtmlElementClipperExImpl`](UtilHtmlElementClipperExImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `container` | `HTMLElement` |
+
+#### Returns
+
+[`UtilHtmlElementClipperExImpl`](UtilHtmlElementClipperExImpl.md)
 
 #### Defined in
 
@@ -60,7 +64,7 @@
 
 ### toD
 
-▸ `Protected` **toD**(`elementRect`, `elementMatrix`, `clipperExRects`): `string`
+▸ **toD**(`elementRect`, `elementMatrix`, `clipperExRects`): `string`
 
 #### Parameters
 
@@ -82,7 +86,7 @@ ___
 
 ### toRects
 
-▸ `Protected` **toRects**(`clipperExRects`, `result`): `number`
+▸ **toRects**(`clipperExRects`, `result`): `number`
 
 #### Parameters
 

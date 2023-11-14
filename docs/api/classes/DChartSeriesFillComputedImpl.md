@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesFillComputedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesFillComputedImpl
 
 # Class: DChartSeriesFillComputedImpl
 
@@ -26,7 +26,7 @@
 
 ### constructor
 
-• **new DChartSeriesFillComputedImpl**(`enable`, `color`, `alpha`)
+• **new DChartSeriesFillComputedImpl**(`enable`, `color`, `alpha`): [`DChartSeriesFillComputedImpl`](DChartSeriesFillComputedImpl.md)
 
 #### Parameters
 
@@ -35,6 +35,10 @@
 | `enable` | `boolean` |
 | `color` | `number` |
 | `alpha` | `number` |
+
+#### Returns
+
+[`DChartSeriesFillComputedImpl`](DChartSeriesFillComputedImpl.md)
 
 #### Defined in
 
@@ -86,7 +90,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`base`, `index`, `fill?`): [`DChartSeriesFillComputed`](../interfaces/DChartSeriesFillComputed.md)
+▸ **from**(`base`, `index`, `fill?`): [`DChartSeriesFillComputed`](../interfaces/DChartSeriesFillComputed.md)
 
 #### Parameters
 

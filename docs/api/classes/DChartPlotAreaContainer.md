@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartPlotAreaContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartPlotAreaContainer
 
 # Class: DChartPlotAreaContainer
 
@@ -128,13 +128,17 @@
 
 ### constructor
 
-• **new DChartPlotAreaContainer**(`onChange`)
+• **new DChartPlotAreaContainer**(`onChange`): [`DChartPlotAreaContainer`](DChartPlotAreaContainer.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `onChange` | () => `void` |
+
+#### Returns
+
+[`DChartPlotAreaContainer`](DChartPlotAreaContainer.md)
 
 #### Overrides
 
@@ -327,7 +331,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -548,7 +552,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -597,7 +603,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -647,7 +655,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -1302,11 +1312,11 @@ node_modules/pixi.js/pixi.js.d.ts:9263
 The coordinate of the object relative to the local coordinates of the parent.
 Assignment by value since pixi-v4.
 
-**`Member`**
-
 #### Returns
 
 [`DBasePoint`](DBasePoint.md)
+
+**`Member`**
 
 #### Implementation of
 
@@ -1329,11 +1339,11 @@ ___
 The scale factor of the object.
 Assignment by value since pixi-v4.
 
-**`Member`**
-
 #### Returns
 
 [`DBasePoint`](DBasePoint.md)
+
+**`Member`**
 
 #### Implementation of
 
@@ -1485,6 +1495,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -1492,10 +1506,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -1509,7 +1519,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -1614,7 +1624,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -1675,6 +1685,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -1682,19 +1705,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -2265,7 +2275,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -2296,7 +2306,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -2381,7 +2391,7 @@ ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeButton
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeButton
 
-# Interface: DThemeButton<VALUE\>
+# Interface: DThemeButton\<VALUE\>
 
 [DButton](../classes/DButton.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeButtonBase`](DThemeButtonBase.md)<`VALUE`\>
+- [`DThemeButtonBase`](DThemeButtonBase.md)\<`VALUE`\>
 
   ↳ **`DThemeButton`**
 
@@ -1139,7 +1139,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1322,7 +1322,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1768,14 +1768,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Inherited from
 

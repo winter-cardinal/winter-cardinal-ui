@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartRegionImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartRegionImpl
 
 # Class: DChartRegionImpl
 
@@ -27,7 +27,7 @@
 
 ### constructor
 
-• **new DChartRegionImpl**(`from`, `to`)
+• **new DChartRegionImpl**(`from`, `to`): [`DChartRegionImpl`](DChartRegionImpl.md)
 
 #### Parameters
 
@@ -35,6 +35,10 @@
 | :------ | :------ |
 | `from` | `number` |
 | `to` | `number` |
+
+#### Returns
+
+[`DChartRegionImpl`](DChartRegionImpl.md)
 
 #### Defined in
 

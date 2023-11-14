@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextGeometry
+[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextGeometry
 
 # Class: DDynamicTextGeometry
 
@@ -45,7 +45,11 @@
 
 ### constructor
 
-• **new DDynamicTextGeometry**()
+• **new DDynamicTextGeometry**(): [`DDynamicTextGeometry`](DDynamicTextGeometry.md)
+
+#### Returns
+
+[`DDynamicTextGeometry`](DDynamicTextGeometry.md)
 
 #### Overrides
 
@@ -105,7 +109,9 @@ PIXI.Geometry#instanceCount
 
 **`Default`**
 
+```ts
 1
+```
 
 #### Inherited from
 
@@ -417,7 +423,7 @@ ___
 
 ### writeCharacter
 
-▸ `Protected` **writeCharacter**(`vertices`, `uvs`, `indices`, `index`, `x`, `y`, `scale`, `character`, `width`, `height`): `void`
+▸ **writeCharacter**(`vertices`, `uvs`, `indices`, `index`, `x`, `y`, `scale`, `character`, `width`, `height`): `void`
 
 #### Parameters
 
@@ -446,7 +452,7 @@ ___
 
 ### writeCharacterEmpty
 
-▸ `Protected` **writeCharacterEmpty**(`vertices`, `uvs`, `indices`, `index`): `void`
+▸ **writeCharacterEmpty**(`vertices`, `uvs`, `indices`, `index`): `void`
 
 #### Parameters
 
@@ -469,7 +475,7 @@ ___
 
 ### merge
 
-▸ `Static` **merge**(`geometries`): `Geometry`
+▸ **merge**(`geometries`): `Geometry`
 
 merges an array of geometries into a new single one
 geometry attribute styles must match for this operation to work

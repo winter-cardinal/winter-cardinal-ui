@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSet
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSet
 
 # Interface: DBaseStateSet
 
@@ -949,7 +949,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L155)
 
-▸ **addAll**(...`states`): [`DBaseStateSet`](DBaseStateSet.md)
+▸ **addAll**(`...states`): [`DBaseStateSet`](DBaseStateSet.md)
 
 #### Parameters
 
@@ -965,7 +965,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L157)
 
-▸ **addAll**(...`states`): [`DBaseStateSet`](DBaseStateSet.md)
+▸ **addAll**(`...states`): [`DBaseStateSet`](DBaseStateSet.md)
 
 #### Parameters
 
@@ -1234,7 +1234,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L164)
 
-▸ **removeAll**(...`states`): [`DBaseStateSet`](DBaseStateSet.md)
+▸ **removeAll**(`...states`): [`DBaseStateSet`](DBaseStateSet.md)
 
 #### Parameters
 
@@ -1250,7 +1250,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L166)
 
-▸ **removeAll**(...`states`): [`DBaseStateSet`](DBaseStateSet.md)
+▸ **removeAll**(`...states`): [`DBaseStateSet`](DBaseStateSet.md)
 
 #### Parameters
 

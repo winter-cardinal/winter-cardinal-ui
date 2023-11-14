@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonColorEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonColorEvents
 
-# Interface: DButtonColorEvents<EMITTER\>
+# Interface: DButtonColorEvents\<EMITTER\>
 
 [DButtonColor](../classes/DButtonColor.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DButtonEvents`](DButtonEvents.md)<[`DColorAndAlpha`](DColorAndAlpha.md), `EMITTER`\>
+- [`DButtonEvents`](DButtonEvents.md)\<[`DColorAndAlpha`](DColorAndAlpha.md), `EMITTER`\>
 
   ↳ **`DButtonColorEvents`**
 

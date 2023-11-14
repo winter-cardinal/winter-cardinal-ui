@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataSelectionEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelectionEvents
 
-# Interface: DListDataSelectionEvents<EMITTER\>
+# Interface: DListDataSelectionEvents\<EMITTER\>
 
 [DListDataSelection](DListDataSelection.md) events.
 

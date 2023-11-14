@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeBarPoints
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeBarPoints
 
 # Class: EShapeBarPoints
 
@@ -49,6 +49,7 @@
 - [getComputedSize](EShapeBarPoints.md#getcomputedsize)
 - [getMarker](EShapeBarPoints.md#getmarker)
 - [moveTo](EShapeBarPoints.md#moveto)
+- [onSizeChange](EShapeBarPoints.md#onsizechange)
 - [serialize](EShapeBarPoints.md#serialize)
 - [set](EShapeBarPoints.md#set)
 - [toPoints](EShapeBarPoints.md#topoints)
@@ -58,13 +59,17 @@
 
 ### constructor
 
-• **new EShapeBarPoints**(`parent`)
+• **new EShapeBarPoints**(`parent`): [`EShapeBarPoints`](EShapeBarPoints.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShape`](../interfaces/EShape.md) |
+
+#### Returns
+
+[`EShapeBarPoints`](EShapeBarPoints.md)
 
 #### Defined in
 
@@ -206,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L192)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L196)
 
 ___
 
@@ -224,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L184)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L188)
 
 • `set` **formatter**(`formatter`): `void`
 
@@ -244,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L188)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L192)
 
 ___
 
@@ -262,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L125)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L129)
 
 ___
 
@@ -280,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L121)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L125)
 
 ___
 
@@ -298,7 +303,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L171)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L175)
 
 ___
 
@@ -312,7 +317,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L155)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L159)
 
 • `set` **position**(`position`): `void`
 
@@ -328,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L159)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L163)
 
 ___
 
@@ -346,7 +351,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L139)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L143)
 
 • `set` **segments**(`segments`): `void`
 
@@ -366,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L143)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L147)
 
 ___
 
@@ -380,7 +385,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L147)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L151)
 
 • `set` **size**(`size`): `void`
 
@@ -396,7 +401,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L151)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L155)
 
 ___
 
@@ -414,7 +419,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L163)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L167)
 
 • `set` **style**(`style`): `void`
 
@@ -434,7 +439,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L167)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L171)
 
 ___
 
@@ -452,7 +457,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L130)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L134)
 
 • `set` **values**(`values`): `void`
 
@@ -472,13 +477,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L135)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L139)
 
 ## Methods
 
 ### calcHitPointAbs
 
-▸ **calcHitPointAbs**<`RESULT`\>(`x`, `y`, `ax`, `ay`, `threshold`, `toRange`, `tester`, `result`): `boolean`
+▸ **calcHitPointAbs**\<`RESULT`\>(`x`, `y`, `ax`, `ay`, `threshold`, `toRange`, `tester`, `result`): `boolean`
 
 #### Type parameters
 
@@ -496,7 +501,7 @@ ___
 | `ay` | `number` |
 | `threshold` | `number` |
 | `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../index.md#eshapelinebasepointshittestertorange) |
-| `tester` | [`EShapeLineBasePointsHitTester`](../index.md#eshapelinebasepointshittester)<`RESULT`\> |
+| `tester` | [`EShapeLineBasePointsHitTester`](../index.md#eshapelinebasepointshittester)\<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns
@@ -509,7 +514,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:272](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L272)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L276)
 
 ___
 
@@ -533,7 +538,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L246)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L250)
 
 ___
 
@@ -557,7 +562,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L196)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L200)
 
 ___
 
@@ -578,13 +583,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L264)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:268](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L268)
 
 ___
 
 ### getComputedSize
 
-▸ `Protected` **getComputedSize**(`size`, `position`, `sizeX`, `sizeY`): `number`
+▸ **getComputedSize**(`size`, `position`, `sizeX`, `sizeY`): `number`
 
 #### Parameters
 
@@ -622,13 +627,13 @@ where the EShapePointsMarkerContainer instance do not need to be created.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L180)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L184)
 
 ___
 
 ### moveTo
 
-▸ `Protected` **moveTo**(`position?`, `size?`, `style?`): [`EShapeBarPoints`](EShapeBarPoints.md)
+▸ **moveTo**(`position?`, `size?`, `style?`): [`EShapeBarPoints`](EShapeBarPoints.md)
 
 #### Parameters
 
@@ -644,7 +649,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L221)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L225)
+
+___
+
+### onSizeChange
+
+▸ **onSizeChange**(): `void`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[EShapeLineBasePoints](../interfaces/EShapeLineBasePoints.md).[onSizeChange](../interfaces/EShapeLineBasePoints.md#onsizechange)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L71)
 
 ___
 
@@ -668,7 +691,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L260)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L264)
 
 ___
 
@@ -694,7 +717,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L204)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L208)
 
 ___
 
@@ -718,13 +741,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L250)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L254)
 
 ___
 
 ### update
 
-▸ `Protected` **update**(): `void`
+▸ **update**(): `void`
 
 #### Returns
 
@@ -732,4 +755,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L71)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L75)

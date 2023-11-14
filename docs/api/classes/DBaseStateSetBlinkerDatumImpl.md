@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSetBlinkerDatumImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetBlinkerDatumImpl
 
 # Class: DBaseStateSetBlinkerDatumImpl
 
@@ -32,13 +32,17 @@
 
 ### constructor
 
-• **new DBaseStateSetBlinkerDatumImpl**(`interval`)
+• **new DBaseStateSetBlinkerDatumImpl**(`interval`): [`DBaseStateSetBlinkerDatumImpl`](DBaseStateSetBlinkerDatumImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `interval` | `number` |
+
+#### Returns
+
+[`DBaseStateSetBlinkerDatumImpl`](DBaseStateSetBlinkerDatumImpl.md)
 
 #### Inherited from
 
@@ -95,7 +99,7 @@ ___
 
 ### newOn
 
-▸ `Protected` **newOn**(`now`, `interval`): `boolean`
+▸ **newOn**(`now`, `interval`): `boolean`
 
 #### Parameters
 
@@ -120,7 +124,7 @@ ___
 
 ### newValue
 
-▸ `Protected` **newValue**(`now`, `interval`): ``null`` \| `number`
+▸ **newValue**(`now`, `interval`): ``null`` \| `number`
 
 #### Parameters
 
@@ -145,7 +149,7 @@ ___
 
 ### onTime
 
-▸ `Protected` **onTime**(): `void`
+▸ **onTime**(): `void`
 
 #### Returns
 
@@ -188,7 +192,7 @@ ___
 
 ### start
 
-▸ `Protected` **start**(): [`DBaseStateSetBlinkerDatumImpl`](DBaseStateSetBlinkerDatumImpl.md)
+▸ **start**(): [`DBaseStateSetBlinkerDatumImpl`](DBaseStateSetBlinkerDatumImpl.md)
 
 #### Returns
 
@@ -206,7 +210,7 @@ ___
 
 ### stop
 
-▸ `Protected` **stop**(): [`DBaseStateSetBlinkerDatumImpl`](DBaseStateSetBlinkerDatumImpl.md)
+▸ **stop**(): [`DBaseStateSetBlinkerDatumImpl`](DBaseStateSetBlinkerDatumImpl.md)
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapCoordinateEPSG3857
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapCoordinateEPSG3857
 
 # Class: DMapCoordinateEPSG3857
 
@@ -40,13 +40,17 @@
 
 ### constructor
 
-• **new DMapCoordinateEPSG3857**(`tileSize?`)
+• **new DMapCoordinateEPSG3857**(`tileSize?`): [`DMapCoordinateEPSG3857`](DMapCoordinateEPSG3857.md)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `tileSize` | `number` | `256` |
+
+#### Returns
+
+[`DMapCoordinateEPSG3857`](DMapCoordinateEPSG3857.md)
 
 #### Defined in
 
@@ -100,11 +104,6 @@ Converts the given (lon, lat) point in WGS84 to (x, y) in EPSG:900913.
 The origin of the converted point (x, y) is at the middle-left corner.
 The `meters` can be the same instance that is passed in as the `lonlat`.
 
-**`See`**
-
- - https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/
- - https://qiita.com/MALORGIS/items/1a9114dd090e5b891bf7
-
 #### Parameters
 
 | Name | Type | Description |
@@ -117,6 +116,11 @@ The `meters` can be the same instance that is passed in as the `lonlat`.
 [`DMapPoint`](../interfaces/DMapPoint.md)
 
 (x, y) point in meters
+
+**`See`**
+
+ - https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/
+ - https://qiita.com/MALORGIS/items/1a9114dd090e5b891bf7
 
 #### Implementation of
 
@@ -415,7 +419,7 @@ ___
 
 ### toResolution
 
-▸ `Protected` **toResolution**(`tz`, `tileSize`): `number`
+▸ **toResolution**(`tz`, `tileSize`): `number`
 
 #### Parameters
 
@@ -436,7 +440,7 @@ ___
 
 ### toResolutionMeter
 
-▸ `Protected` **toResolutionMeter**(`tz`): `number`
+▸ **toResolutionMeter**(`tz`): `number`
 
 #### Parameters
 

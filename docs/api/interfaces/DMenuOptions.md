@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuOptions
 
-# Interface: DMenuOptions<VALUE, THEME\>
+# Interface: DMenuOptions\<VALUE, THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)<`THEME`\>
+- [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)\<`THEME`\>
 
   ↳ **`DMenuOptions`**
 
@@ -60,11 +60,11 @@
 
 ### align
 
-• `Optional` **align**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_CENTER"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_CENTER"`` \| ``"BOTTOM_RIGHT"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"RIGHT_BOTTOM"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
+• `Optional` **align**: ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_RIGHT"`` \| ``"TOP_LEFT"`` \| ``"RIGHT_BOTTOM"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_RIGHT"`` \| ``"TOP_CENTER"`` \| ``"LEFT_TOP"`` \| ``"LEFT_MIDDLE"`` \| ``"LEFT_BOTTOM"`` \| ``"RIGHT_TOP"`` \| ``"RIGHT_MIDDLE"`` \| ``"BOTTOM_CENTER"`` \| ``"OVER"`` \| [`UtilAttachAlign`](../index.md#utilattachalign-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L25)
+[src/main/typescript/wcardinal/ui/d-menu.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L27)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -180,7 +180,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: ``"HORIZONTAL"`` \| ``"VERTICAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
+• `Optional` **direction**: ``"VERTICAL"`` \| ``"HORIZONTAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
 
 #### Inherited from
 
@@ -198,7 +198,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L26)
+[src/main/typescript/wcardinal/ui/d-menu.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L28)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -241,11 +241,11 @@ ___
 
 ### items
 
-• `Optional` **items**: (`undefined` \| ``null`` \| `DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>)[]
+• `Optional` **items**: (`undefined` \| ``null`` \| `DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\>)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L28)
+[src/main/typescript/wcardinal/ui/d-menu.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L30)
 
 ___
 
@@ -281,7 +281,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -354,7 +354,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DMenuOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -467,7 +467,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L27)
+[src/main/typescript/wcardinal/ui/d-menu.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu.ts#L29)
 
 ___
 

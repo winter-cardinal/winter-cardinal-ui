@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseTickMajorGridline
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseTickMajorGridline
 
-# Class: DChartAxisBaseTickMajorGridline<CHART\>
+# Class: DChartAxisBaseTickMajorGridline\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartAxisTickMajorGridline`](../interfaces/DChartAxisTickMajorGridline.md)<`CHART`\>
+- [`DChartAxisTickMajorGridline`](../interfaces/DChartAxisTickMajorGridline.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -41,19 +41,23 @@
 
 ### constructor
 
-• **new DChartAxisBaseTickMajorGridline**<`CHART`\>(`parser`)
+• **new DChartAxisBaseTickMajorGridline**\<`CHART`\>(`parser`): [`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+
+#### Returns
+
+[`DChartAxisBaseTickMajorGridline`](DChartAxisBaseTickMajorGridline.md)\<`CHART`\>
 
 #### Defined in
 
@@ -63,7 +67,7 @@
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -83,7 +87,7 @@ ___
 
 ### \_parser
 
-• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
 
 #### Defined in
 
@@ -127,7 +131,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
@@ -156,7 +160,7 @@ ___
 
 ### newShapePosition
 
-▸ `Protected` **newShapePosition**(): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
+▸ **newShapePosition**(): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
 
 #### Returns
 
@@ -170,7 +174,7 @@ ___
 
 ### newShapes
 
-▸ `Protected` **newShapes**(): [`EShape`](../interfaces/EShape.md)[]
+▸ **newShapes**(): [`EShape`](../interfaces/EShape.md)[]
 
 #### Returns
 

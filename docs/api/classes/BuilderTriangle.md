@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderTriangle
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderTriangle
 
 # Class: BuilderTriangle
 
@@ -48,7 +48,7 @@
 
 ### constructor
 
-• **new BuilderTriangle**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`)
+• **new BuilderTriangle**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`): [`BuilderTriangle`](BuilderTriangle.md)
 
 #### Parameters
 
@@ -58,6 +58,10 @@
 | `indexOffset` | `number` |
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
+
+#### Returns
+
+[`BuilderTriangle`](BuilderTriangle.md)
 
 #### Inherited from
 
@@ -406,7 +410,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -431,7 +435,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -456,7 +460,7 @@ ___
 
 ### updateVertexStepAndUv
 
-▸ `Protected` **updateVertexStepAndUv**(`buffer`, `shape`): `void`
+▸ **updateVertexStepAndUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 

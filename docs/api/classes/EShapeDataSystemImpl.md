@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataSystemImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataSystemImpl
 
 # Class: EShapeDataSystemImpl
 
@@ -33,7 +33,11 @@
 
 ### constructor
 
-• **new EShapeDataSystemImpl**()
+• **new EShapeDataSystemImpl**(): [`EShapeDataSystemImpl`](EShapeDataSystemImpl.md)
+
+#### Returns
+
+[`EShapeDataSystemImpl`](EShapeDataSystemImpl.md)
 
 #### Defined in
 
@@ -43,7 +47,7 @@
 
 ### \_data
 
-• `Protected` **\_data**: `Map`<`string`, `string`\>
+• `Protected` **\_data**: `Map`\<`string`, `string`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeOpenDialogTime
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeOpenDialogTime
 
 # Class: EShapeActionRuntimeOpenDialogTime
 
@@ -6,7 +6,7 @@ A base class of action runtimes.
 
 ## Hierarchy
 
-- [`EShapeActionRuntimeOpenDialog`](EShapeActionRuntimeOpenDialog.md)<`string`, `unknown`\>
+- [`EShapeActionRuntimeOpenDialog`](EShapeActionRuntimeOpenDialog.md)\<`string`, `unknown`\>
 
   ↳ **`EShapeActionRuntimeOpenDialogTime`**
 
@@ -75,13 +75,17 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeActionRuntimeOpenDialogTime**(`value`)
+• **new EShapeActionRuntimeOpenDialogTime**(`value`): [`EShapeActionRuntimeOpenDialogTime`](EShapeActionRuntimeOpenDialogTime.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueOpenDialog`](EShapeActionValueOpenDialog.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeOpenDialogTime`](EShapeActionRuntimeOpenDialogTime.md)
 
 #### Overrides
 
@@ -95,7 +99,7 @@ A base class of action runtimes.
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -109,7 +113,7 @@ ___
 
 ### initial
 
-• `Protected` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`unknown`\>
+• `Protected` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`unknown`\>
 
 #### Overrides
 
@@ -137,7 +141,7 @@ ___
 
 ### max
 
-• `Protected` **max**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **max**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Inherited from
 
@@ -151,7 +155,7 @@ ___
 
 ### min
 
-• `Protected` **min**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **min**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Inherited from
 
@@ -193,7 +197,7 @@ ___
 
 ### step
 
-• `Protected` **step**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **step**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Inherited from
 
@@ -207,7 +211,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -221,7 +225,7 @@ ___
 
 ### DIALOG
 
-▪ `Static` `Protected` `Optional` **DIALOG**: [`DDialogTime`](DDialogTime.md)<[`DThemeDialogTime`](../interfaces/DThemeDialogTime.md), [`DDialogTimeOptions`](../interfaces/DDialogTimeOptions.md)<[`DThemeDialogTime`](../interfaces/DThemeDialogTime.md)\>\>
+▪ `Static` `Protected` `Optional` **DIALOG**: [`DDialogTime`](DDialogTime.md)\<[`DThemeDialogTime`](../interfaces/DThemeDialogTime.md), [`DDialogTimeOptions`](../interfaces/DDialogTimeOptions.md)\<[`DThemeDialogTime`](../interfaces/DThemeDialogTime.md)\>\>
 
 #### Defined in
 
@@ -279,7 +283,7 @@ ___
 
 ### getFormatter
 
-▸ `Protected` **getFormatter**(): [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **getFormatter**(): [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 #### Returns
 
@@ -293,7 +297,7 @@ ___
 
 ### getPattern
 
-▸ `Protected` **getPattern**(): `RegExp`
+▸ **getPattern**(): `RegExp`
 
 #### Returns
 
@@ -334,7 +338,7 @@ ___
 
 ### newFormatter
 
-▸ `Protected` **newFormatter**(): [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **newFormatter**(): [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 #### Returns
 
@@ -348,7 +352,7 @@ ___
 
 ### newPattern
 
-▸ `Protected` **newPattern**(): `RegExp`
+▸ **newPattern**(): `RegExp`
 
 #### Returns
 
@@ -399,7 +403,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -456,7 +460,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -484,7 +488,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -679,7 +683,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -959,7 +963,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -987,7 +991,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -1015,7 +1019,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -1033,7 +1037,7 @@ ___
 
 ### open
 
-▸ `Protected` **open**(`shape`, `target`, `initial`, `step`, `min`, `max`): `Promise`<`string`\>
+▸ **open**(`shape`, `target`, `initial`, `step`, `min`, `max`): `Promise`\<`string`\>
 
 #### Parameters
 
@@ -1048,7 +1052,7 @@ ___
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Overrides
 
@@ -1062,7 +1066,7 @@ ___
 
 ### toDate
 
-▸ `Protected` **toDate**(`value`): `Date`
+▸ **toDate**(`value`): `Date`
 
 #### Parameters
 
@@ -1082,7 +1086,7 @@ ___
 
 ### toHours
 
-▸ `Protected` **toHours**(`value`): ``null`` \| `number`
+▸ **toHours**(`value`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1102,7 +1106,7 @@ ___
 
 ### toMilliseconds
 
-▸ `Protected` **toMilliseconds**(`value`): ``null`` \| `number`
+▸ **toMilliseconds**(`value`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1122,7 +1126,7 @@ ___
 
 ### toMinutes
 
-▸ `Protected` **toMinutes**(`value`): ``null`` \| `number`
+▸ **toMinutes**(`value`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1142,7 +1146,7 @@ ___
 
 ### toNumber
 
-▸ `Protected` **toNumber**(`value`, `min`, `max`): ``null`` \| `number`
+▸ **toNumber**(`value`, `min`, `max`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1164,7 +1168,7 @@ ___
 
 ### toSeconds
 
-▸ `Protected` **toSeconds**(`value`): ``null`` \| `number`
+▸ **toSeconds**(`value`): ``null`` \| `number`
 
 #### Parameters
 

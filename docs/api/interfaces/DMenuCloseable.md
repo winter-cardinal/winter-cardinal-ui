@@ -1,87 +1,87 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / Closeable
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuCloseable
 
-# Interface: Closeable
+# Interface: DMenuCloseable
 
 ## Hierarchy
 
 - `DisplayObject`
 
-  ↳ **`Closeable`**
+  ↳ **`DMenuCloseable`**
 
 ## Table of contents
 
 ### Properties
 
-- [\_accessibleActive](Closeable.md#_accessibleactive)
-- [\_accessibleDiv](Closeable.md#_accessiblediv)
-- [\_bounds](Closeable.md#_bounds)
-- [\_destroyed](Closeable.md#_destroyed)
-- [\_lastSortedIndex](Closeable.md#_lastsortedindex)
-- [\_mask](Closeable.md#_mask)
-- [\_tempDisplayObjectParent](Closeable.md#_tempdisplayobjectparent)
-- [\_zIndex](Closeable.md#_zindex)
-- [accessible](Closeable.md#accessible)
-- [accessibleChildren](Closeable.md#accessiblechildren)
-- [accessibleHint](Closeable.md#accessiblehint)
-- [accessiblePointerEvents](Closeable.md#accessiblepointerevents)
-- [accessibleTitle](Closeable.md#accessibletitle)
-- [accessibleType](Closeable.md#accessibletype)
-- [alpha](Closeable.md#alpha)
-- [angle](Closeable.md#angle)
-- [buttonMode](Closeable.md#buttonmode)
-- [cacheAsBitmap](Closeable.md#cacheasbitmap)
-- [cursor](Closeable.md#cursor)
-- [filterArea](Closeable.md#filterarea)
-- [filters](Closeable.md#filters)
-- [hitArea](Closeable.md#hitarea)
-- [interactive](Closeable.md#interactive)
-- [isMask](Closeable.md#ismask)
-- [isSprite](Closeable.md#issprite)
-- [localTransform](Closeable.md#localtransform)
-- [mask](Closeable.md#mask)
-- [name](Closeable.md#name)
-- [parent](Closeable.md#parent)
-- [pivot](Closeable.md#pivot)
-- [position](Closeable.md#position)
-- [renderable](Closeable.md#renderable)
-- [rotation](Closeable.md#rotation)
-- [scale](Closeable.md#scale)
-- [skew](Closeable.md#skew)
-- [transform](Closeable.md#transform)
-- [visible](Closeable.md#visible)
-- [worldAlpha](Closeable.md#worldalpha)
-- [worldTransform](Closeable.md#worldtransform)
-- [worldVisible](Closeable.md#worldvisible)
-- [x](Closeable.md#x)
-- [y](Closeable.md#y)
-- [zIndex](Closeable.md#zindex)
+- [\_accessibleActive](DMenuCloseable.md#_accessibleactive)
+- [\_accessibleDiv](DMenuCloseable.md#_accessiblediv)
+- [\_bounds](DMenuCloseable.md#_bounds)
+- [\_destroyed](DMenuCloseable.md#_destroyed)
+- [\_lastSortedIndex](DMenuCloseable.md#_lastsortedindex)
+- [\_mask](DMenuCloseable.md#_mask)
+- [\_tempDisplayObjectParent](DMenuCloseable.md#_tempdisplayobjectparent)
+- [\_zIndex](DMenuCloseable.md#_zindex)
+- [accessible](DMenuCloseable.md#accessible)
+- [accessibleChildren](DMenuCloseable.md#accessiblechildren)
+- [accessibleHint](DMenuCloseable.md#accessiblehint)
+- [accessiblePointerEvents](DMenuCloseable.md#accessiblepointerevents)
+- [accessibleTitle](DMenuCloseable.md#accessibletitle)
+- [accessibleType](DMenuCloseable.md#accessibletype)
+- [alpha](DMenuCloseable.md#alpha)
+- [angle](DMenuCloseable.md#angle)
+- [buttonMode](DMenuCloseable.md#buttonmode)
+- [cacheAsBitmap](DMenuCloseable.md#cacheasbitmap)
+- [cursor](DMenuCloseable.md#cursor)
+- [filterArea](DMenuCloseable.md#filterarea)
+- [filters](DMenuCloseable.md#filters)
+- [hitArea](DMenuCloseable.md#hitarea)
+- [interactive](DMenuCloseable.md#interactive)
+- [isMask](DMenuCloseable.md#ismask)
+- [isSprite](DMenuCloseable.md#issprite)
+- [localTransform](DMenuCloseable.md#localtransform)
+- [mask](DMenuCloseable.md#mask)
+- [name](DMenuCloseable.md#name)
+- [parent](DMenuCloseable.md#parent)
+- [pivot](DMenuCloseable.md#pivot)
+- [position](DMenuCloseable.md#position)
+- [renderable](DMenuCloseable.md#renderable)
+- [rotation](DMenuCloseable.md#rotation)
+- [scale](DMenuCloseable.md#scale)
+- [skew](DMenuCloseable.md#skew)
+- [transform](DMenuCloseable.md#transform)
+- [visible](DMenuCloseable.md#visible)
+- [worldAlpha](DMenuCloseable.md#worldalpha)
+- [worldTransform](DMenuCloseable.md#worldtransform)
+- [worldVisible](DMenuCloseable.md#worldvisible)
+- [x](DMenuCloseable.md#x)
+- [y](DMenuCloseable.md#y)
+- [zIndex](DMenuCloseable.md#zindex)
 
 ### Methods
 
-- [\_recursivePostUpdateTransform](Closeable.md#_recursivepostupdatetransform)
-- [addListener](Closeable.md#addlistener)
-- [calculateBounds](Closeable.md#calculatebounds)
-- [close](Closeable.md#close)
-- [destroy](Closeable.md#destroy)
-- [displayObjectUpdateTransform](Closeable.md#displayobjectupdatetransform)
-- [emit](Closeable.md#emit)
-- [eventNames](Closeable.md#eventnames)
-- [getBounds](Closeable.md#getbounds)
-- [getGlobalPosition](Closeable.md#getglobalposition)
-- [getLocalBounds](Closeable.md#getlocalbounds)
-- [listenerCount](Closeable.md#listenercount)
-- [listeners](Closeable.md#listeners)
-- [off](Closeable.md#off)
-- [on](Closeable.md#on)
-- [once](Closeable.md#once)
-- [removeAllListeners](Closeable.md#removealllisteners)
-- [removeListener](Closeable.md#removelistener)
-- [render](Closeable.md#render)
-- [setParent](Closeable.md#setparent)
-- [setTransform](Closeable.md#settransform)
-- [toGlobal](Closeable.md#toglobal)
-- [toLocal](Closeable.md#tolocal)
-- [updateTransform](Closeable.md#updatetransform)
+- [\_recursivePostUpdateTransform](DMenuCloseable.md#_recursivepostupdatetransform)
+- [addListener](DMenuCloseable.md#addlistener)
+- [calculateBounds](DMenuCloseable.md#calculatebounds)
+- [close](DMenuCloseable.md#close)
+- [destroy](DMenuCloseable.md#destroy)
+- [displayObjectUpdateTransform](DMenuCloseable.md#displayobjectupdatetransform)
+- [emit](DMenuCloseable.md#emit)
+- [eventNames](DMenuCloseable.md#eventnames)
+- [getBounds](DMenuCloseable.md#getbounds)
+- [getGlobalPosition](DMenuCloseable.md#getglobalposition)
+- [getLocalBounds](DMenuCloseable.md#getlocalbounds)
+- [listenerCount](DMenuCloseable.md#listenercount)
+- [listeners](DMenuCloseable.md#listeners)
+- [off](DMenuCloseable.md#off)
+- [on](DMenuCloseable.md#on)
+- [once](DMenuCloseable.md#once)
+- [removeAllListeners](DMenuCloseable.md#removealllisteners)
+- [removeListener](DMenuCloseable.md#removelistener)
+- [render](DMenuCloseable.md#render)
+- [setParent](DMenuCloseable.md#setparent)
+- [setTransform](DMenuCloseable.md#settransform)
+- [toGlobal](DMenuCloseable.md#toglobal)
+- [toLocal](DMenuCloseable.md#tolocal)
+- [updateTransform](DMenuCloseable.md#updatetransform)
 
 ## Properties
 
@@ -196,7 +196,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -289,7 +289,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -338,7 +340,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -388,7 +392,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -1083,7 +1089,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`Closeable`](Closeable.md)
+▸ **addListener**(`event`, `fn`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1095,7 +1101,7 @@ ___
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1105,7 +1111,7 @@ DisplayObject.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:24103
 
-▸ **addListener**(`event`, `fn`, `context?`): [`Closeable`](Closeable.md)
+▸ **addListener**(`event`, `fn`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1117,7 +1123,7 @@ node_modules/pixi.js/pixi.js.d.ts:24103
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1161,7 +1167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-context.ts#L17)
+[src/main/typescript/wcardinal/ui/d-menu-closeable.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-closeable.ts#L4)
 
 ___
 
@@ -1195,6 +1201,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -1202,10 +1212,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -1219,7 +1225,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -1276,7 +1282,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -1301,6 +1307,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -1308,19 +1327,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -1414,7 +1420,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`Closeable`](Closeable.md)
+▸ **off**(`event`, `fn?`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1426,7 +1432,7 @@ ___
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1436,7 +1442,7 @@ DisplayObject.off
 
 node_modules/pixi.js/pixi.js.d.ts:24100
 
-▸ **off**(`event`, `fn?`, `context?`): [`Closeable`](Closeable.md)
+▸ **off**(`event`, `fn?`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1448,7 +1454,7 @@ node_modules/pixi.js/pixi.js.d.ts:24100
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1462,7 +1468,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`Closeable`](Closeable.md)
+▸ **on**(`event`, `fn`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1474,7 +1480,7 @@ ___
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1484,7 +1490,7 @@ DisplayObject.on
 
 node_modules/pixi.js/pixi.js.d.ts:24089
 
-▸ **on**(`event`, `fn`, `context?`): [`Closeable`](Closeable.md)
+▸ **on**(`event`, `fn`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1496,7 +1502,7 @@ node_modules/pixi.js/pixi.js.d.ts:24089
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1510,7 +1516,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`Closeable`](Closeable.md)
+▸ **once**(`event`, `fn`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1522,7 +1528,7 @@ ___
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1532,7 +1538,7 @@ DisplayObject.once
 
 node_modules/pixi.js/pixi.js.d.ts:24092
 
-▸ **once**(`event`, `fn`, `context?`): [`Closeable`](Closeable.md)
+▸ **once**(`event`, `fn`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1544,7 +1550,7 @@ node_modules/pixi.js/pixi.js.d.ts:24092
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1558,7 +1564,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`Closeable`](Closeable.md)
+▸ **removeAllListeners**(`event?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1568,7 +1574,7 @@ ___
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1578,7 +1584,7 @@ DisplayObject.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:24098
 
-▸ **removeAllListeners**(`event?`): [`Closeable`](Closeable.md)
+▸ **removeAllListeners**(`event?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1588,7 +1594,7 @@ node_modules/pixi.js/pixi.js.d.ts:24098
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1602,7 +1608,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`Closeable`](Closeable.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1614,7 +1620,7 @@ ___
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1624,7 +1630,7 @@ DisplayObject.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:24095
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`Closeable`](Closeable.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenuCloseable`](DMenuCloseable.md)
 
 #### Parameters
 
@@ -1636,7 +1642,7 @@ node_modules/pixi.js/pixi.js.d.ts:24095
 
 #### Returns
 
-[`Closeable`](Closeable.md)
+[`DMenuCloseable`](DMenuCloseable.md)
 
 #### Inherited from
 
@@ -1749,7 +1755,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -1780,7 +1786,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns

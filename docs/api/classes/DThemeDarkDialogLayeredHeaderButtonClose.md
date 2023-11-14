@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkDialogLayeredHeaderButtonClose
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDialogLayeredHeaderButtonClose
 
 # Class: DThemeDarkDialogLayeredHeaderButtonClose
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkButtonAmbient`](DThemeDarkButtonAmbient.md)<`string`\>
+- [`DThemeDarkButtonAmbient`](DThemeDarkButtonAmbient.md)\<`string`\>
 
   ↳ **`DThemeDarkDialogLayeredHeaderButtonClose`**
 
@@ -114,7 +114,7 @@
 
 ### constructor
 
-• **new DThemeDarkDialogLayeredHeaderButtonClose**(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeDarkDialogLayeredHeaderButtonClose**(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeDarkDialogLayeredHeaderButtonClose`](DThemeDarkDialogLayeredHeaderButtonClose.md)
 
 #### Parameters
 
@@ -123,6 +123,10 @@
 | `backgroundColor` | `number` | `0x484848` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeDarkDialogLayeredHeaderButtonClose`](DThemeDarkDialogLayeredHeaderButtonClose.md)
 
 #### Inherited from
 
@@ -1076,7 +1080,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1100,7 +1104,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1184,7 +1188,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1208,7 +1212,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -2185,14 +2189,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

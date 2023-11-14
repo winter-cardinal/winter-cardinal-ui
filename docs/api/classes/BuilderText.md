@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderText
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderText
 
 # Class: BuilderText
 
@@ -62,7 +62,7 @@
 
 ### constructor
 
-• **new BuilderText**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`)
+• **new BuilderText**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`): [`BuilderText`](BuilderText.md)
 
 #### Parameters
 
@@ -72,6 +72,10 @@
 | `indexOffset` | `number` |
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
+
+#### Returns
+
+[`BuilderText`](BuilderText.md)
 
 #### Defined in
 
@@ -514,7 +518,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -535,7 +539,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -556,7 +560,7 @@ ___
 
 ### updateStep
 
-▸ `Protected` **updateStep**(`buffer`, `shape`): `void`
+▸ **updateStep**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -577,7 +581,7 @@ ___
 
 ### updateVertex
 
-▸ `Protected` **updateVertex**(`buffer`, `shape`, `textAtlas`): `void`
+▸ **updateVertex**(`buffer`, `shape`, `textAtlas`): `void`
 
 #### Parameters
 

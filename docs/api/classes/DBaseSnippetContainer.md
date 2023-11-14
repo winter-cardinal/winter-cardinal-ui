@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseSnippetContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseSnippetContainer
 
 # Class: DBaseSnippetContainer
 
@@ -30,13 +30,17 @@
 
 ### constructor
 
-• **new DBaseSnippetContainer**(`parent`)
+• **new DBaseSnippetContainer**(`parent`): [`DBaseSnippetContainer`](DBaseSnippetContainer.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | `Container` |
+
+#### Returns
+
+[`DBaseSnippetContainer`](DBaseSnippetContainer.md)
 
 #### Defined in
 

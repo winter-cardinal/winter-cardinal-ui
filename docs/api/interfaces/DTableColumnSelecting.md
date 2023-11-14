@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableColumnSelecting
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableColumnSelecting
 
-# Interface: DTableColumnSelecting<CELL_VALUE, DIALOG_VALUE, DIALOG\>
+# Interface: DTableColumnSelecting\<CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
 ## Type parameters
 
@@ -8,7 +8,7 @@
 | :------ | :------ |
 | `CELL_VALUE` | `CELL_VALUE` |
 | `DIALOG_VALUE` | `DIALOG_VALUE` |
-| `DIALOG` | extends [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)<`DIALOG_VALUE`\> |
+| `DIALOG` | extends [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`DIALOG_VALUE`\> |
 
 ## Table of contents
 
@@ -35,7 +35,7 @@ ___
 
 ### getter
 
-• **getter**: [`DTableColumnSelectingGetter`](../index.md#dtablecolumnselectinggetter)<`CELL_VALUE`, `DIALOG`\>
+• **getter**: [`DTableColumnSelectingGetter`](../index.md#dtablecolumnselectinggetter)\<`CELL_VALUE`, `DIALOG`\>
 
 #### Defined in
 
@@ -45,7 +45,7 @@ ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenu`](../classes/DMenu.md)<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenu`](../classes/DMenu.md)\<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -55,7 +55,7 @@ ___
 
 ### multiple
 
-• `Optional` **multiple**: [`DMenu`](../classes/DMenu.md)<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **multiple**: [`DMenu`](../classes/DMenu.md)\<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`CELL_VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -65,15 +65,15 @@ ___
 
 ### promise
 
-• `Optional` **promise**: () => `Promise`<`CELL_VALUE`\>
+• `Optional` **promise**: () => `Promise`\<`CELL_VALUE`\>
 
 #### Type declaration
 
-▸ (): `Promise`<`CELL_VALUE`\>
+▸ (): `Promise`\<`CELL_VALUE`\>
 
 ##### Returns
 
-`Promise`<`CELL_VALUE`\>
+`Promise`\<`CELL_VALUE`\>
 
 #### Defined in
 
@@ -83,7 +83,7 @@ ___
 
 ### setter
 
-• **setter**: [`DTableColumnSelectingSetter`](../index.md#dtablecolumnselectingsetter)<`CELL_VALUE`, `DIALOG`\>
+• **setter**: [`DTableColumnSelectingSetter`](../index.md#dtablecolumnselectingsetter)\<`CELL_VALUE`, `DIALOG`\>
 
 #### Defined in
 

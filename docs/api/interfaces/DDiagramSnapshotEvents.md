@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshotEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSnapshotEvents
 
-# Interface: DDiagramSnapshotEvents<CANVAS, EMITTER\>
+# Interface: DDiagramSnapshotEvents\<CANVAS, EMITTER\>
 
 ## Type parameters
 

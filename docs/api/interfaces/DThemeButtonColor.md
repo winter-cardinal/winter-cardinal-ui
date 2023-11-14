@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeButtonColor
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeButtonColor
 
 # Interface: DThemeButtonColor
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeButton`](DThemeButton.md)<[`DColorAndAlpha`](DColorAndAlpha.md)\>
+- [`DThemeButton`](DThemeButton.md)\<[`DColorAndAlpha`](DColorAndAlpha.md)\>
 
   ↳ **`DThemeButtonColor`**
 
@@ -1099,7 +1099,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1282,7 +1282,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1728,14 +1728,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorAndAlpha`](DColorAndAlpha.md)\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorAndAlpha`](DColorAndAlpha.md)\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DColorAndAlpha`](DColorAndAlpha.md)\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<[`DColorAndAlpha`](DColorAndAlpha.md)\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeAcceptors
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeAcceptors
 
 # Class: EShapeAcceptors
 
@@ -10,37 +10,43 @@
 
 ### Properties
 
-- [\_default](EShapeAcceptors.md#_default)
-- [\_typeToAcceptor](EShapeAcceptors.md#_typetoacceptor)
+- [\_acceptors](EShapeAcceptors.md#_acceptors)
+- [\_defaults](EShapeAcceptors.md#_defaults)
 
 ### Methods
 
 - [get](EShapeAcceptors.md#get)
-- [getDefault](EShapeAcceptors.md#getdefault)
-- [newDefault](EShapeAcceptors.md#newdefault)
+- [initDefault](EShapeAcceptors.md#initdefault)
+- [newDefaultEmbedded](EShapeAcceptors.md#newdefaultembedded)
+- [newDefaultEmbeddedAcceptorEdge](EShapeAcceptors.md#newdefaultembeddedacceptoredge)
+- [newDefaultOther](EShapeAcceptors.md#newdefaultother)
 - [set](EShapeAcceptors.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new EShapeAcceptors**()
+• **new EShapeAcceptors**(): [`EShapeAcceptors`](EShapeAcceptors.md)
+
+#### Returns
+
+[`EShapeAcceptors`](EShapeAcceptors.md)
 
 ## Properties
 
-### \_default
+### \_acceptors
 
-▪ `Static` `Protected` `Optional` **\_default**: [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+▪ `Static` `Protected` `Optional` **\_acceptors**: `Map`\<`number`, [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L14)
 
 ___
 
-### \_typeToAcceptor
+### \_defaults
 
-▪ `Static` `Protected` `Optional` **\_typeToAcceptor**: `Map`<`number`, [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)\>
+▪ `Static` `Protected` `Optional` **\_defaults**: `Map`\<``null`` \| `number`, [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)\>
 
 #### Defined in
 
@@ -50,7 +56,7 @@ ___
 
 ### get
 
-▸ `Static` **get**(`type`): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+▸ **get**(`type`): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
 
 #### Parameters
 
@@ -64,13 +70,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L25)
 
 ___
 
-### getDefault
+### initDefault
 
-▸ `Static` `Protected` **getDefault**(): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+▸ **initDefault**(`result`): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `result` | [`EShapeAcceptorImpl`](EShapeAcceptorImpl.md) |
 
 #### Returns
 
@@ -78,13 +90,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L73)
 
 ___
 
-### newDefault
+### newDefaultEmbedded
 
-▸ `Static` `Protected` **newDefault**(): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+▸ **newDefaultEmbedded**(): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
 
 #### Returns
 
@@ -92,13 +104,41 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L59)
+
+___
+
+### newDefaultEmbeddedAcceptorEdge
+
+▸ **newDefaultEmbeddedAcceptorEdge**(): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+
+#### Returns
+
+[`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L63)
+
+___
+
+### newDefaultOther
+
+▸ **newDefaultOther**(): [`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+
+#### Returns
+
+[`EShapeAcceptor`](../interfaces/EShapeAcceptor.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L69)
 
 ___
 
 ### set
 
-▸ `Static` **set**(`type`, `acceptor`): `void`
+▸ **set**(`type`, `acceptor`): `void`
 
 #### Parameters
 
@@ -113,4 +153,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptors.ts#L16)

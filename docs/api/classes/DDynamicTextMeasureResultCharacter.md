@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextMeasureResultCharacter
+[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextMeasureResultCharacter
 
 # Class: DDynamicTextMeasureResultCharacter
 
@@ -23,7 +23,7 @@
 
 ### constructor
 
-• **new DDynamicTextMeasureResultCharacter**(`x`, `y`, `character`, `wrappable`)
+• **new DDynamicTextMeasureResultCharacter**(`x`, `y`, `character`, `wrappable`): [`DDynamicTextMeasureResultCharacter`](DDynamicTextMeasureResultCharacter.md)
 
 #### Parameters
 
@@ -33,6 +33,10 @@
 | `y` | `number` |
 | `character` | [`DynamicFontAtlasCharacter`](DynamicFontAtlasCharacter.md) |
 | `wrappable` | `boolean` |
+
+#### Returns
+
+[`DDynamicTextMeasureResultCharacter`](DDynamicTextMeasureResultCharacter.md)
 
 #### Defined in
 

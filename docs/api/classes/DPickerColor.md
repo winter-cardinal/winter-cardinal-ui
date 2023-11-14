@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerColor
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerColor
 
-# Class: DPickerColor<THEME, OPTIONS\>
+# Class: DPickerColor\<THEME, OPTIONS\>
 
 A base class for UI classes.
 See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
@@ -10,11 +10,11 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemePickerColor`](../interfaces/DThemePickerColor.md) = [`DThemePickerColor`](../interfaces/DThemePickerColor.md) |
-| `OPTIONS` | extends [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)<`THEME`\> = [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)\<`THEME`\> = [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)\<`THEME`\> |
 
 ## Hierarchy
 
-- [`DBase`](DBase.md)<`THEME`, `OPTIONS`\>
+- [`DBase`](DBase.md)\<`THEME`, `OPTIONS`\>
 
   ↳ **`DPickerColor`**
 
@@ -51,6 +51,7 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [\_mainBaseSprite](DPickerColor.md#_mainbasesprite)
 - [\_mainPointerSprite](DPickerColor.md#_mainpointersprite)
 - [\_mainSprite](DPickerColor.md#_mainsprite)
+- [\_mainStandardColor](DPickerColor.md#_mainstandardcolor)
 - [\_mask](DPickerColor.md#_mask)
 - [\_new](DPickerColor.md#_new)
 - [\_newPicker](DPickerColor.md#_newpicker)
@@ -73,8 +74,11 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [\_sampleNewSprite](DPickerColor.md#_samplenewsprite)
 - [\_shortcuts](DPickerColor.md#_shortcuts)
 - [\_snippet](DPickerColor.md#_snippet)
+- [\_standard](DPickerColor.md#_standard)
+- [\_standardColorSprites](DPickerColor.md#_standardcolorsprites)
 - [\_tempDisplayObjectParent](DPickerColor.md#_tempdisplayobjectparent)
 - [\_title](DPickerColor.md#_title)
+- [\_typeSelector](DPickerColor.md#_typeselector)
 - [\_zIndex](DPickerColor.md#_zindex)
 - [accessible](DPickerColor.md#accessible)
 - [accessibleChildren](DPickerColor.md#accessiblechildren)
@@ -110,7 +114,6 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [worldTransform](DPickerColor.md#worldtransform)
 - [worldVisible](DPickerColor.md#worldvisible)
 - [zIndex](DPickerColor.md#zindex)
-- [RECENT\_COLORS](DPickerColor.md#recent_colors)
 - [WORK\_CONTAINS\_POINT](DPickerColor.md#work_contains_point)
 
 ### Accessors
@@ -131,6 +134,7 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [shadow](DPickerColor.md#shadow)
 - [skew](DPickerColor.md#skew)
 - [snippet](DPickerColor.md#snippet)
+- [standard](DPickerColor.md#standard)
 - [state](DPickerColor.md#state)
 - [theme](DPickerColor.md#theme)
 - [title](DPickerColor.md#title)
@@ -190,6 +194,7 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [isShown](DPickerColor.md#isshown)
 - [listenerCount](DPickerColor.md#listenercount)
 - [listeners](DPickerColor.md#listeners)
+- [newPadding](DPickerColor.md#newpadding)
 - [off](DPickerColor.md#off)
 - [on](DPickerColor.md#on)
 - [onAlphaDown](DPickerColor.md#onalphadown)
@@ -230,7 +235,9 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 - [onScale](DPickerColor.md#onscale)
 - [onShortcut](DPickerColor.md#onshortcut)
 - [onSkew](DPickerColor.md#onskew)
+- [onStandardChange](DPickerColor.md#onstandardchange)
 - [onStateChange](DPickerColor.md#onstatechange)
+- [onTypeChange](DPickerColor.md#ontypechange)
 - [onUp](DPickerColor.md#onup)
 - [onUpThis](DPickerColor.md#onupthis)
 - [onWheel](DPickerColor.md#onwheel)
@@ -280,20 +287,24 @@ See [DBaseEvents](../interfaces/DBaseEvents.md) for event details.
 
 ### constructor
 
-• **new DPickerColor**<`THEME`, `OPTIONS`\>(`options?`)
+• **new DPickerColor**\<`THEME`, `OPTIONS`\>(`options?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemePickerColor`](../interfaces/DThemePickerColor.md) = [`DThemePickerColor`](../interfaces/DThemePickerColor.md) |
-| `OPTIONS` | extends [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)<`THEME`, `OPTIONS`\> = [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)\<`THEME`\> = [`DPickerColorOptions`](../interfaces/DPickerColorOptions.md)\<`THEME`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -359,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L78)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L96)
 
 ___
 
@@ -369,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L80)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L98)
 
 ___
 
@@ -379,7 +390,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L79)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L97)
 
 ___
 
@@ -417,7 +428,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L97)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L115)
 
 ___
 
@@ -427,7 +438,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L74)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L92)
 
 ___
 
@@ -437,7 +448,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L73)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L91)
 
 ___
 
@@ -509,7 +520,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L95)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L113)
 
 ___
 
@@ -519,13 +530,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L96)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L114)
 
 ___
 
 ### \_cursor
 
-• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Inherited from
 
@@ -559,21 +570,21 @@ ___
 
 ### \_inputAndLabelAlpha
 
-• `Protected` **\_inputAndLabelAlpha**: [`DInputRealAndLabel`](DInputRealAndLabel.md)<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md), [`DInputRealAndLabelOptions`](../interfaces/DInputRealAndLabelOptions.md)<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md)\>\>
+• `Protected` **\_inputAndLabelAlpha**: [`DInputRealAndLabel`](DInputRealAndLabel.md)\<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md), [`DInputRealAndLabelOptions`](../interfaces/DInputRealAndLabelOptions.md)\<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L88)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L106)
 
 ___
 
 ### \_inputAndLabelColor
 
-• `Protected` **\_inputAndLabelColor**: [`DInputTextAndLabel`](DInputTextAndLabel.md)<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md), [`DInputTextAndLabelOptions`](../interfaces/DInputTextAndLabelOptions.md)<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md)\>\>
+• `Protected` **\_inputAndLabelColor**: [`DInputTextAndLabel`](DInputTextAndLabel.md)\<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md), [`DInputTextAndLabelOptions`](../interfaces/DInputTextAndLabelOptions.md)\<[`DThemeInputAndLabel`](../interfaces/DThemeInputAndLabel.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L87)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L105)
 
 ___
 
@@ -618,7 +629,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L66)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L80)
 
 ___
 
@@ -628,7 +639,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L68)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L82)
 
 ___
 
@@ -638,13 +649,23 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L67)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L81)
+
+___
+
+### \_mainStandardColor
+
+• `Protected` **\_mainStandardColor**: [`DLayoutHorizontal`](DLayoutHorizontal.md)\<[`DThemeLayoutHorizontal`](../interfaces/DThemeLayoutHorizontal.md), [`DLayoutHorizontalOptions`](../interfaces/DLayoutHorizontalOptions.md)\<[`DThemeLayoutHorizontal`](../interfaces/DThemeLayoutHorizontal.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L84)
 
 ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -668,7 +689,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L98)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L116)
 
 ___
 
@@ -678,7 +699,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L99)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L117)
 
 ___
 
@@ -702,7 +723,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L81)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L99)
 
 ___
 
@@ -726,7 +747,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L82)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L100)
 
 ___
 
@@ -750,7 +771,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L75)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L93)
 
 ___
 
@@ -774,7 +795,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L76)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L94)
 
 ___
 
@@ -798,7 +819,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L70)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L85)
 
 ___
 
@@ -822,7 +843,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L71)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L86)
 
 ___
 
@@ -874,17 +895,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L69)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L83)
 
 ___
 
 ### \_recent
 
-• `Protected` **\_recent**: [`DPickerColorRecent`](DPickerColorRecent.md)
+• `Protected` **\_recent**: [`DColorRecent`](DColorRecent.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L85)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L103)
 
 ___
 
@@ -894,7 +915,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L84)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L102)
 
 ___
 
@@ -918,7 +939,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L90)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L108)
 
 ___
 
@@ -928,7 +949,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L91)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L109)
 
 ___
 
@@ -938,7 +959,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L92)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L110)
 
 ___
 
@@ -948,7 +969,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L93)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L111)
 
 ___
 
@@ -980,6 +1001,26 @@ ___
 
 ___
 
+### \_standard
+
+• `Protected` **\_standard**: [`DColorStandard`](DColorStandard.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L89)
+
+___
+
+### \_standardColorSprites
+
+• `Protected` **\_standardColorSprites**: `Sprite`[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L88)
+
+___
+
 ### \_tempDisplayObjectParent
 
 • `Protected` **\_tempDisplayObjectParent**: `DisplayObject`
@@ -1007,6 +1048,16 @@ ___
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-base.ts:788](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L788)
+
+___
+
+### \_typeSelector
+
+• `Protected` **\_typeSelector**: [`DSelect`](DSelect.md)\<[`DColorType`](../index.md#dcolortype-1), [`DThemeSelect`](../interfaces/DThemeSelect.md)\<[`DColorType`](../index.md#dcolortype-1)\>, [`DSelectOptions`](../interfaces/DSelectOptions.md)\<[`DColorType`](../index.md#dcolortype-1), [`DThemeSelect`](../interfaces/DThemeSelect.md)\<[`DColorType`](../index.md#dcolortype-1)\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L119)
 
 ___
 
@@ -1069,7 +1120,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -1118,7 +1171,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -1168,7 +1223,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -1845,16 +1902,6 @@ node_modules/pixi.js/pixi.js.d.ts:8780
 
 ___
 
-### RECENT\_COLORS
-
-▪ `Static` `Protected` **RECENT\_COLORS**: ``null`` \| [`DPickerColorRecent`](DPickerColorRecent.md) = `null`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L64)
-
-___
-
 ### WORK\_CONTAINS\_POINT
 
 ▪ `Static` `Protected` **WORK\_CONTAINS\_POINT**: `Point`
@@ -1883,7 +1930,7 @@ DBase.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1459)
+[src/main/typescript/wcardinal/ui/d-base.ts:1464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1464)
 
 ___
 
@@ -1901,7 +1948,7 @@ DBase.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1463)
+[src/main/typescript/wcardinal/ui/d-base.ts:1468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1468)
 
 ___
 
@@ -1919,7 +1966,7 @@ DBase.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1455](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1455)
+[src/main/typescript/wcardinal/ui/d-base.ts:1460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1460)
 
 ___
 
@@ -1933,7 +1980,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L101)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L121)
 
 ___
 
@@ -1951,7 +1998,7 @@ DBase.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1378)
+[src/main/typescript/wcardinal/ui/d-base.ts:1383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1383)
 
 • `set` **height**(`height`): `void`
 
@@ -1971,7 +2018,7 @@ DBase.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
+[src/main/typescript/wcardinal/ui/d-base.ts:1387](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1387)
 
 ___
 
@@ -1985,7 +2032,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L105)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L125)
 
 ___
 
@@ -2003,7 +2050,7 @@ DBase.options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
+[src/main/typescript/wcardinal/ui/d-base.ts:1683](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1683)
 
 ___
 
@@ -2021,7 +2068,7 @@ DBase.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1467)
+[src/main/typescript/wcardinal/ui/d-base.ts:1472](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1472)
 
 ___
 
@@ -2039,7 +2086,7 @@ DBase.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1451)
+[src/main/typescript/wcardinal/ui/d-base.ts:1456](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1456)
 
 ___
 
@@ -2057,21 +2104,21 @@ DBase.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1437](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1437)
+[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
 
 ___
 
 ### recent
 
-• `get` **recent**(): [`DPickerColorRecent`](DPickerColorRecent.md)
+• `get` **recent**(): [`DColorRecent`](DColorRecent.md)
 
 #### Returns
 
-[`DPickerColorRecent`](DPickerColorRecent.md)
+[`DColorRecent`](DColorRecent.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L109)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L129)
 
 ___
 
@@ -2089,7 +2136,7 @@ DBase.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1116)
+[src/main/typescript/wcardinal/ui/d-base.ts:1121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1121)
 
 ___
 
@@ -2107,7 +2154,7 @@ DBase.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
+[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
 
 ___
 
@@ -2125,7 +2172,7 @@ DBase.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1791](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1791)
+[src/main/typescript/wcardinal/ui/d-base.ts:1796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1796)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -2145,7 +2192,7 @@ DBase.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1795](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1795)
+[src/main/typescript/wcardinal/ui/d-base.ts:1800](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1800)
 
 ___
 
@@ -2163,7 +2210,7 @@ DBase.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
+[src/main/typescript/wcardinal/ui/d-base.ts:1452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1452)
 
 ___
 
@@ -2181,7 +2228,21 @@ DBase.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1112)
+[src/main/typescript/wcardinal/ui/d-base.ts:1117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1117)
+
+___
+
+### standard
+
+• `get` **standard**(): [`DColorStandard`](DColorStandard.md)
+
+#### Returns
+
+[`DColorStandard`](DColorStandard.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L133)
 
 ___
 
@@ -2199,7 +2260,7 @@ DBase.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1674](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1674)
+[src/main/typescript/wcardinal/ui/d-base.ts:1679](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1679)
 
 ___
 
@@ -2217,7 +2278,7 @@ DBase.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
+[src/main/typescript/wcardinal/ui/d-base.ts:1687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1687)
 
 • `set` **theme**(`theme`): `void`
 
@@ -2237,7 +2298,7 @@ DBase.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1686)
+[src/main/typescript/wcardinal/ui/d-base.ts:1691](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1691)
 
 ___
 
@@ -2255,7 +2316,7 @@ DBase.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1475)
+[src/main/typescript/wcardinal/ui/d-base.ts:1480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1480)
 
 • `set` **title**(`title`): `void`
 
@@ -2275,7 +2336,7 @@ DBase.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1479)
+[src/main/typescript/wcardinal/ui/d-base.ts:1484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1484)
 
 ___
 
@@ -2293,7 +2354,7 @@ DBase.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
+[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
 
 ___
 
@@ -2311,7 +2372,7 @@ DBase.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1471)
+[src/main/typescript/wcardinal/ui/d-base.ts:1476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1476)
 
 ___
 
@@ -2329,7 +2390,7 @@ DBase.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1137)
+[src/main/typescript/wcardinal/ui/d-base.ts:1142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1142)
 
 ___
 
@@ -2347,7 +2408,7 @@ DBase.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1319)
+[src/main/typescript/wcardinal/ui/d-base.ts:1324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1324)
 
 • `set` **width**(`width`): `void`
 
@@ -2367,7 +2428,7 @@ DBase.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
+[src/main/typescript/wcardinal/ui/d-base.ts:1328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1328)
 
 ___
 
@@ -2385,7 +2446,7 @@ DBase.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
+[src/main/typescript/wcardinal/ui/d-base.ts:1244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1244)
 
 • `set` **x**(`x`): `void`
 
@@ -2405,7 +2466,7 @@ DBase.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1243)
+[src/main/typescript/wcardinal/ui/d-base.ts:1248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1248)
 
 ___
 
@@ -2423,7 +2484,7 @@ DBase.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1279)
+[src/main/typescript/wcardinal/ui/d-base.ts:1284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1284)
 
 • `set` **y**(`y`): `void`
 
@@ -2443,13 +2504,13 @@ DBase.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1283)
+[src/main/typescript/wcardinal/ui/d-base.ts:1288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1288)
 
 ## Methods
 
 ### \_calculateBounds
 
-▸ `Protected` **_calculateBounds**(): `void`
+▸ **_calculateBounds**(): `void`
 
 #### Returns
 
@@ -2461,7 +2522,7 @@ DBase.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2018](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2018)
+[src/main/typescript/wcardinal/ui/d-base.ts:2023](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2023)
 
 ___
 
@@ -2488,7 +2549,7 @@ ___
 
 ### \_render
 
-▸ `Protected` **_render**(`renderer`): `void`
+▸ **_render**(`renderer`): `void`
 
 To be overridden by the subclasses.
 
@@ -2514,7 +2575,7 @@ ___
 
 ### addChild
 
-▸ **addChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -2550,7 +2611,7 @@ ___
 
 ### addChildAt
 
-▸ **addChildAt**<`T`\>(`child`, `index`): `T`
+▸ **addChildAt**\<`T`\>(`child`, `index`): `T`
 
 Adds a child to the container at a specified index. If the index is out of bounds an error will be thrown
 
@@ -2558,7 +2619,7 @@ Adds a child to the container at a specified index. If the index is out of bound
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `DisplayObject`<`T`\> |
+| `T` | extends `DisplayObject` |
 
 #### Parameters
 
@@ -2585,7 +2646,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2597,7 +2658,7 @@ ___
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2607,7 +2668,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24103
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2619,7 +2680,7 @@ node_modules/pixi.js/pixi.js.d.ts:24103
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2633,7 +2694,7 @@ ___
 
 ### applyTitle
 
-▸ `Protected` **applyTitle**(): `void`
+▸ **applyTitle**(): `void`
 
 #### Returns
 
@@ -2645,13 +2706,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1488)
+[src/main/typescript/wcardinal/ui/d-base.ts:1493](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1493)
 
 ___
 
 ### blur
 
-▸ **blur**(`recursively?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **blur**(`recursively?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2661,7 +2722,7 @@ ___
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2669,7 +2730,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1594)
+[src/main/typescript/wcardinal/ui/d-base.ts:1599](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1599)
 
 ___
 
@@ -2695,7 +2756,7 @@ ___
 
 ### containsGlobalPoint
 
-▸ `Protected` **containsGlobalPoint**(`point`): `boolean`
+▸ **containsGlobalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2713,13 +2774,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2043](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2043)
+[src/main/typescript/wcardinal/ui/d-base.ts:2048](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2048)
 
 ___
 
 ### containsLocalPoint
 
-▸ `Protected` **containsLocalPoint**(`point`): `boolean`
+▸ **containsLocalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2737,7 +2798,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2047](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2047)
+[src/main/typescript/wcardinal/ui/d-base.ts:2052](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2052)
 
 ___
 
@@ -2761,7 +2822,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2034](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2034)
+[src/main/typescript/wcardinal/ui/d-base.ts:2039](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2039)
 
 ___
 
@@ -2779,7 +2840,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2067](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2067)
+[src/main/typescript/wcardinal/ui/d-base.ts:2072](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2072)
 
 ___
 
@@ -2790,6 +2851,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -2797,10 +2862,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -2814,7 +2875,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -2863,11 +2924,11 @@ ___
 
 ### focus
 
-▸ **focus**(): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **focus**(): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2875,13 +2936,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1590](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1590)
+[src/main/typescript/wcardinal/ui/d-base.ts:1595](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1595)
 
 ___
 
 ### focusOnClosest
 
-▸ `Protected` **focusOnClosest**(): `void`
+▸ **focusOnClosest**(): `void`
 
 #### Returns
 
@@ -2893,7 +2954,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1958](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1958)
+[src/main/typescript/wcardinal/ui/d-base.ts:1963](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1963)
 
 ___
 
@@ -2907,7 +2968,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -2960,14 +3021,6 @@ ___
 
 Returns the display object in the container.
 
-**`Method`**
-
-getChildByName
-
-**`Memberof`**
-
-PIXI.Container#
-
 #### Parameters
 
 | Name | Type | Description |
@@ -2979,6 +3032,14 @@ PIXI.Container#
 `DisplayObject`
 
 The child with the specified name.
+
+**`Method`**
+
+getChildByName
+
+**`Memberof`**
+
+PIXI.Container#
 
 #### Inherited from
 
@@ -3032,7 +3093,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1203)
+[src/main/typescript/wcardinal/ui/d-base.ts:1208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1208)
 
 ___
 
@@ -3059,7 +3120,7 @@ Returns a clipping rect.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2060](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2060)
+[src/main/typescript/wcardinal/ui/d-base.ts:2065](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2065)
 
 ___
 
@@ -3069,6 +3130,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -3076,19 +3150,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -3114,7 +3175,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
+[src/main/typescript/wcardinal/ui/d-base.ts:1391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1391)
 
 ___
 
@@ -3148,11 +3209,11 @@ ___
 
 ### getParentOfSize
 
-▸ `Protected` **getParentOfSize**(): ``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+▸ **getParentOfSize**(): ``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Returns
 
-``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Inherited from
 
@@ -3160,13 +3221,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1825](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1825)
+[src/main/typescript/wcardinal/ui/d-base.ts:1830](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1830)
 
 ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): `THEME`
+▸ **getThemeDefault**(): `THEME`
 
 #### Returns
 
@@ -3178,13 +3239,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2009](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2009)
+[src/main/typescript/wcardinal/ui/d-base.ts:2014](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2014)
 
 ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -3196,7 +3257,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:719](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L719)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:852](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L852)
 
 ___
 
@@ -3214,7 +3275,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+[src/main/typescript/wcardinal/ui/d-base.ts:1332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1332)
 
 ___
 
@@ -3232,7 +3293,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1247)
+[src/main/typescript/wcardinal/ui/d-base.ts:1252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1252)
 
 ___
 
@@ -3250,7 +3311,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1287)
+[src/main/typescript/wcardinal/ui/d-base.ts:1292](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1292)
 
 ___
 
@@ -3268,13 +3329,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1576)
+[src/main/typescript/wcardinal/ui/d-base.ts:1581](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1581)
 
 ___
 
 ### hasRefitableHeight
 
-▸ `Protected` **hasRefitableHeight**(`target`): target is DRefitable
+▸ **hasRefitableHeight**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3292,13 +3353,13 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1775](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1775)
+[src/main/typescript/wcardinal/ui/d-base.ts:1780](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1780)
 
 ___
 
 ### hasRefitableWidth
 
-▸ `Protected` **hasRefitableWidth**(`target`): target is DBase<any, any\>
+▸ **hasRefitableWidth**(`target`): target is DBase\<any, any\>
 
 #### Parameters
 
@@ -3308,7 +3369,7 @@ ___
 
 #### Returns
 
-target is DBase<any, any\>
+target is DBase\<any, any\>
 
 #### Inherited from
 
@@ -3316,17 +3377,17 @@ target is DBase<any, any\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1781](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1781)
+[src/main/typescript/wcardinal/ui/d-base.ts:1786](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1786)
 
 ___
 
 ### hide
 
-▸ **hide**(): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **hide**(): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3334,13 +3395,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1508)
+[src/main/typescript/wcardinal/ui/d-base.ts:1513](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1513)
 
 ___
 
 ### init
 
-▸ `Protected` **init**(`options?`): `void`
+▸ **init**(`options?`): `void`
 
 #### Parameters
 
@@ -3358,13 +3419,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L113)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L137)
 
 ___
 
 ### initReflowable
 
-▸ `Protected` **initReflowable**(): `void`
+▸ **initReflowable**(): `void`
 
 #### Returns
 
@@ -3376,7 +3437,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
+[src/main/typescript/wcardinal/ui/d-base.ts:1125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1125)
 
 ___
 
@@ -3394,13 +3455,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1572)
+[src/main/typescript/wcardinal/ui/d-base.ts:1577](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1577)
 
 ___
 
 ### isEventTarget
 
-▸ `Protected` **isEventTarget**(`e`): `boolean`
+▸ **isEventTarget**(`e`): `boolean`
 
 #### Parameters
 
@@ -3418,7 +3479,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1903](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1903)
+[src/main/typescript/wcardinal/ui/d-base.ts:1908](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1908)
 
 ___
 
@@ -3436,7 +3497,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1518](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1518)
+[src/main/typescript/wcardinal/ui/d-base.ts:1523](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1523)
 
 ___
 
@@ -3454,13 +3515,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1564)
+[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
 
 ___
 
 ### isRefitable
 
-▸ `Protected` **isRefitable**(`target`): target is DRefitable
+▸ **isRefitable**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3478,7 +3539,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1771](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1771)
+[src/main/typescript/wcardinal/ui/d-base.ts:1776](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1776)
 
 ___
 
@@ -3496,7 +3557,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1504)
+[src/main/typescript/wcardinal/ui/d-base.ts:1509](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1509)
 
 ___
 
@@ -3552,9 +3613,35 @@ node_modules/pixi.js/pixi.js.d.ts:24005
 
 ___
 
+### newPadding
+
+▸ **newPadding**(`theme`, `options?`, `callback?`): [`DBasePadding`](DBasePadding.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
+| `callback?` | () => `void` |
+
+#### Returns
+
+[`DBasePadding`](DBasePadding.md)
+
+#### Inherited from
+
+[DBase](DBase.md).[newPadding](DBase.md#newpadding)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:1096](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1096)
+
+___
+
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -3566,7 +3653,7 @@ ___
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3580,19 +3667,19 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3602,7 +3689,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24112
 
-▸ **on**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -3614,7 +3701,7 @@ node_modules/pixi.js/pixi.js.d.ts:24112
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3628,7 +3715,7 @@ ___
 
 ### onAlphaDown
 
-▸ `Protected` **onAlphaDown**(`e`): `void`
+▸ **onAlphaDown**(`e`): `void`
 
 #### Parameters
 
@@ -3642,13 +3729,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:647](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L647)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L743)
 
 ___
 
 ### onAlphaMove
 
-▸ `Protected` **onAlphaMove**(`e`): `void`
+▸ **onAlphaMove**(`e`): `void`
 
 #### Parameters
 
@@ -3662,13 +3749,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:658](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L658)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:754](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L754)
 
 ___
 
 ### onAlphaNew
 
-▸ `Protected` **onAlphaNew**(`alpha`): `void`
+▸ **onAlphaNew**(`alpha`): `void`
 
 #### Parameters
 
@@ -3682,13 +3769,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:689](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L689)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:785](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L785)
 
 ___
 
 ### onAlphaPick
 
-▸ `Protected` **onAlphaPick**(`global`): `void`
+▸ **onAlphaPick**(`global`): `void`
 
 #### Parameters
 
@@ -3702,13 +3789,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:671](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L671)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:767](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L767)
 
 ___
 
 ### onAlphaUp
 
-▸ `Protected` **onAlphaUp**(`e`): `void`
+▸ **onAlphaUp**(`e`): `void`
 
 #### Parameters
 
@@ -3722,13 +3809,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:662](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L662)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:758](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L758)
 
 ___
 
 ### onBaseDown
 
-▸ `Protected` **onBaseDown**(`e`): `void`
+▸ **onBaseDown**(`e`): `void`
 
 #### Parameters
 
@@ -3742,13 +3829,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:559](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L559)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:655](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L655)
 
 ___
 
 ### onBaseMove
 
-▸ `Protected` **onBaseMove**(`e`): `void`
+▸ **onBaseMove**(`e`): `void`
 
 #### Parameters
 
@@ -3762,13 +3849,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:570](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L570)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:666](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L666)
 
 ___
 
 ### onBasePick
 
-▸ `Protected` **onBasePick**(`global`): `void`
+▸ **onBasePick**(`global`): `void`
 
 #### Parameters
 
@@ -3782,13 +3869,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:608](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L608)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:704](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L704)
 
 ___
 
 ### onBaseUp
 
-▸ `Protected` **onBaseUp**(`e`): `void`
+▸ **onBaseUp**(`e`): `void`
 
 #### Parameters
 
@@ -3802,13 +3889,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:574](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L574)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:670](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L670)
 
 ___
 
 ### onBlur
 
-▸ `Protected` **onBlur**(): `void`
+▸ **onBlur**(): `void`
 
 #### Returns
 
@@ -3820,19 +3907,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1667](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1667)
+[src/main/typescript/wcardinal/ui/d-base.ts:1672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1672)
 
 ___
 
 ### onChildBlur
 
-▸ `Protected` **onChildBlur**(`blured`): `void`
+▸ **onChildBlur**(`blured`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `blured` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `blured` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -3844,19 +3931,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1660](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1660)
+[src/main/typescript/wcardinal/ui/d-base.ts:1665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1665)
 
 ___
 
 ### onChildFocus
 
-▸ `Protected` **onChildFocus**(`focused`): `void`
+▸ **onChildFocus**(`focused`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `focused` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `focused` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -3868,13 +3955,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1646](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1646)
+[src/main/typescript/wcardinal/ui/d-base.ts:1651](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1651)
 
 ___
 
 ### onChildrenChange
 
-▸ `Protected` **onChildrenChange**(): `void`
+▸ **onChildrenChange**(): `void`
 
 #### Returns
 
@@ -3886,13 +3973,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
+[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
 
 ___
 
 ### onColorBase
 
-▸ `Protected` **onColorBase**(`color`): `void`
+▸ **onColorBase**(`color`): `void`
 
 #### Parameters
 
@@ -3906,13 +3993,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:628](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L628)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:724](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L724)
 
 ___
 
 ### onColorNew
 
-▸ `Protected` **onColorNew**(`color`): `void`
+▸ **onColorNew**(`color`): `void`
 
 #### Parameters
 
@@ -3926,13 +4013,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L545)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:641](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L641)
 
 ___
 
 ### onDblClick
 
-▸ `Protected` **onDblClick**(`e`, `interactionManager`): `boolean`
+▸ **onDblClick**(`e`, `interactionManager`): `boolean`
 
 #### Parameters
 
@@ -3951,13 +4038,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1990](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1990)
+[src/main/typescript/wcardinal/ui/d-base.ts:1995](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1995)
 
 ___
 
 ### onDown
 
-▸ `Protected` **onDown**(`e`): `void`
+▸ **onDown**(`e`): `void`
 
 #### Parameters
 
@@ -3975,13 +4062,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1917](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1917)
+[src/main/typescript/wcardinal/ui/d-base.ts:1922](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1922)
 
 ___
 
 ### onDownThis
 
-▸ `Protected` **onDownThis**(`e`): `void`
+▸ **onDownThis**(`e`): `void`
 
 #### Parameters
 
@@ -3999,13 +4086,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1924](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1924)
+[src/main/typescript/wcardinal/ui/d-base.ts:1929](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1929)
 
 ___
 
 ### onFocus
 
-▸ `Protected` **onFocus**(): `void`
+▸ **onFocus**(): `void`
 
 #### Returns
 
@@ -4017,13 +4104,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1653](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1653)
+[src/main/typescript/wcardinal/ui/d-base.ts:1658](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1658)
 
 ___
 
 ### onHierarchyDirty
 
-▸ `Protected` **onHierarchyDirty**(): `void`
+▸ **onHierarchyDirty**(): `void`
 
 #### Returns
 
@@ -4035,13 +4122,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1568)
+[src/main/typescript/wcardinal/ui/d-base.ts:1573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1573)
 
 ___
 
 ### onKeyDown
 
-▸ `Protected` **onKeyDown**(`e`): `boolean`
+▸ **onKeyDown**(`e`): `boolean`
 
 #### Parameters
 
@@ -4059,13 +4146,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1892](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1892)
+[src/main/typescript/wcardinal/ui/d-base.ts:1897](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1897)
 
 ___
 
 ### onKeyUp
 
-▸ `Protected` **onKeyUp**(`e`): `boolean`
+▸ **onKeyUp**(`e`): `boolean`
 
 #### Parameters
 
@@ -4083,13 +4170,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1897](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1897)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
 ### onMainDown
 
-▸ `Protected` **onMainDown**(`e`): `void`
+▸ **onMainDown**(`e`): `void`
 
 #### Parameters
 
@@ -4103,13 +4190,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L447)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L544)
 
 ___
 
 ### onMainMove
 
-▸ `Protected` **onMainMove**(`e`): `void`
+▸ **onMainMove**(`e`): `void`
 
 #### Parameters
 
@@ -4123,13 +4210,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:458](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L458)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:556](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L556)
 
 ___
 
 ### onMainPick
 
-▸ `Protected` **onMainPick**(`global`): `void`
+▸ **onMainPick**(`global`): `void`
 
 #### Parameters
 
@@ -4143,13 +4230,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:493](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L493)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:591](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L591)
 
 ___
 
 ### onMainUp
 
-▸ `Protected` **onMainUp**(`e`): `void`
+▸ **onMainUp**(`e`): `void`
 
 #### Parameters
 
@@ -4163,13 +4250,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:462](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L462)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:560](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L560)
 
 ___
 
 ### onMove
 
-▸ `Protected` **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4190,13 +4277,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1141)
+[src/main/typescript/wcardinal/ui/d-base.ts:1146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1146)
 
 ___
 
 ### onOut
 
-▸ `Protected` **onOut**(`e`): `void`
+▸ **onOut**(`e`): `void`
 
 #### Parameters
 
@@ -4214,13 +4301,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1981](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1981)
+[src/main/typescript/wcardinal/ui/d-base.ts:1986](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1986)
 
 ___
 
 ### onOver
 
-▸ `Protected` **onOver**(`e`): `void`
+▸ **onOver**(`e`): `void`
 
 #### Parameters
 
@@ -4238,13 +4325,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1967](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1967)
+[src/main/typescript/wcardinal/ui/d-base.ts:1972](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1972)
 
 ___
 
 ### onParentMove
 
-▸ `Protected` **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 Called when a parent moved.
 
@@ -4267,7 +4354,7 @@ Called when a parent moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1881](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1881)
+[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
 
 ___
 
@@ -4295,13 +4382,13 @@ Called when a parent resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1840](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1840)
+[src/main/typescript/wcardinal/ui/d-base.ts:1845](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1845)
 
 ___
 
 ### onRecentChange
 
-▸ `Protected` **onRecentChange**(): `void`
+▸ **onRecentChange**(): `void`
 
 #### Returns
 
@@ -4309,13 +4396,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:703](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L703)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:799](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L799)
 
 ___
 
 ### onRefit
 
-▸ `Protected` **onRefit**(): `void`
+▸ **onRefit**(): `void`
 
 #### Returns
 
@@ -4327,13 +4414,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1727)
+[src/main/typescript/wcardinal/ui/d-base.ts:1732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1732)
 
 ___
 
 ### onReflow
 
-▸ `Protected` **onReflow**(): `void`
+▸ **onReflow**(): `void`
 
 #### Returns
 
@@ -4345,7 +4432,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1787)
+[src/main/typescript/wcardinal/ui/d-base.ts:1792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1792)
 
 ___
 
@@ -4372,13 +4459,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1207)
+[src/main/typescript/wcardinal/ui/d-base.ts:1212](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1212)
 
 ___
 
 ### onScale
 
-▸ `Protected` **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4399,13 +4486,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1224)
+[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
 
 ___
 
 ### onShortcut
 
-▸ `Protected` **onShortcut**(`e`): `void`
+▸ **onShortcut**(`e`): `void`
 
 #### Parameters
 
@@ -4423,13 +4510,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
+[src/main/typescript/wcardinal/ui/d-base.ts:1134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1134)
 
 ___
 
 ### onSkew
 
-▸ `Protected` **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4450,13 +4537,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
+[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
+
+___
+
+### onStandardChange
+
+▸ **onStandardChange**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:815](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L815)
 
 ___
 
 ### onStateChange
 
-▸ `Protected` **onStateChange**(`newState`, `oldState`): `void`
+▸ **onStateChange**(`newState`, `oldState`): `void`
 
 #### Parameters
 
@@ -4475,13 +4576,33 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1617](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1617)
+[src/main/typescript/wcardinal/ui/d-base.ts:1622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1622)
+
+___
+
+### onTypeChange
+
+▸ **onTypeChange**(`type`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `type` | [`DColorType`](../index.md#dcolortype-1) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:831](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L831)
 
 ___
 
 ### onUp
 
-▸ `Protected` **onUp**(`e`): `void`
+▸ **onUp**(`e`): `void`
 
 #### Parameters
 
@@ -4499,13 +4620,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1935](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1935)
+[src/main/typescript/wcardinal/ui/d-base.ts:1940](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1940)
 
 ___
 
 ### onUpThis
 
-▸ `Protected` **onUpThis**(`e`): `void`
+▸ **onUpThis**(`e`): `void`
 
 #### Parameters
 
@@ -4523,13 +4644,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1942](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1942)
+[src/main/typescript/wcardinal/ui/d-base.ts:1947](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1947)
 
 ___
 
 ### onWheel
 
-▸ `Protected` **onWheel**(`e`, `deltas`, `global`): `boolean`
+▸ **onWheel**(`e`, `deltas`, `global`): `boolean`
 
 #### Parameters
 
@@ -4549,25 +4670,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
+[src/main/typescript/wcardinal/ui/d-base.ts:1891](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1891)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4577,7 +4698,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24109
 
-▸ **once**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4589,7 +4710,7 @@ node_modules/pixi.js/pixi.js.d.ts:24109
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4615,13 +4736,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1700)
+[src/main/typescript/wcardinal/ui/d-base.ts:1705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1705)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4631,7 +4752,7 @@ ___
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4641,7 +4762,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24098
 
-▸ **removeAllListeners**(`event?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4651,7 +4772,7 @@ node_modules/pixi.js/pixi.js.d.ts:24098
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4665,7 +4786,7 @@ ___
 
 ### removeChild
 
-▸ **removeChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -4756,7 +4877,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4768,7 +4889,7 @@ ___
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4778,7 +4899,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24095
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4790,7 +4911,7 @@ node_modules/pixi.js/pixi.js.d.ts:24095
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4822,13 +4943,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1999](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1999)
+[src/main/typescript/wcardinal/ui/d-base.ts:2004](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2004)
 
 ___
 
 ### renderAdvanced
 
-▸ `Protected` **renderAdvanced**(`renderer`): `void`
+▸ **renderAdvanced**(`renderer`): `void`
 
 Render the object using the WebGL renderer and advanced features.
 
@@ -4873,13 +4994,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1153)
+[src/main/typescript/wcardinal/ui/d-base.ts:1158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1158)
 
 ___
 
 ### setAlphaCurrent
 
-▸ `Protected` **setAlphaCurrent**(`alpha`): `void`
+▸ **setAlphaCurrent**(`alpha`): `void`
 
 #### Parameters
 
@@ -4893,13 +5014,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:513](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L513)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:609](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L609)
 
 ___
 
 ### setAlphaNew
 
-▸ `Protected` **setAlphaNew**(`alpha`): `void`
+▸ **setAlphaNew**(`alpha`): `void`
 
 #### Parameters
 
@@ -4913,7 +5034,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L682)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:778](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L778)
 
 ___
 
@@ -4946,7 +5067,7 @@ ___
 
 ### setColorBase
 
-▸ `Protected` **setColorBase**(`h`): `void`
+▸ **setColorBase**(`h`): `void`
 
 #### Parameters
 
@@ -4960,13 +5081,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:620](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L620)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:716](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L716)
 
 ___
 
 ### setColorCurrent
 
-▸ `Protected` **setColorCurrent**(`color`): `void`
+▸ **setColorCurrent**(`color`): `void`
 
 #### Parameters
 
@@ -4980,13 +5101,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:509](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L509)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:605](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L605)
 
 ___
 
 ### setColorNew
 
-▸ `Protected` **setColorNew**(`color`): `void`
+▸ **setColorNew**(`color`): `void`
 
 #### Parameters
 
@@ -5000,13 +5121,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:517](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L517)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:613](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L613)
 
 ___
 
 ### setFocused
 
-▸ `Protected` **setFocused**(`isFocused`): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **setFocused**(`isFocused`): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -5016,7 +5137,7 @@ ___
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5024,7 +5145,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1580)
+[src/main/typescript/wcardinal/ui/d-base.ts:1585](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1585)
 
 ___
 
@@ -5048,7 +5169,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1390](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1390)
+[src/main/typescript/wcardinal/ui/d-base.ts:1395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1395)
 
 ___
 
@@ -5136,7 +5257,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
+[src/main/typescript/wcardinal/ui/d-base.ts:1336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1336)
 
 ___
 
@@ -5160,7 +5281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1256)
+[src/main/typescript/wcardinal/ui/d-base.ts:1261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1261)
 
 ___
 
@@ -5184,17 +5305,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1296)
+[src/main/typescript/wcardinal/ui/d-base.ts:1301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1301)
 
 ___
 
 ### show
 
-▸ **show**(): [`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+▸ **show**(): [`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DPickerColor`](DPickerColor.md)<`THEME`, `OPTIONS`\>
+[`DPickerColor`](DPickerColor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5202,7 +5323,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1495](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1495)
+[src/main/typescript/wcardinal/ui/d-base.ts:1500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1500)
 
 ___
 
@@ -5255,7 +5376,7 @@ ___
 
 ### toBaseColor
 
-▸ `Protected` **toBaseColor**(`t`): `number`
+▸ **toBaseColor**(`t`): `number`
 
 #### Parameters
 
@@ -5269,13 +5390,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:587](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L587)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:683](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L683)
 
 ___
 
 ### toBaseHex
 
-▸ `Protected` **toBaseHex**(`t`, `shift`): `number`
+▸ **toBaseHex**(`t`, `shift`): `number`
 
 #### Parameters
 
@@ -5290,19 +5411,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:583](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L583)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:679](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L679)
 
 ___
 
 ### toCursor
 
-▸ `Protected` **toCursor**(`cursor`, `state`): `string`
+▸ **toCursor**(`cursor`, `state`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\> |
+| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\> |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 
 #### Returns
@@ -5315,7 +5436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1095](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1095)
+[src/main/typescript/wcardinal/ui/d-base.ts:1100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1100)
 
 ___
 
@@ -5333,7 +5454,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1522)
+[src/main/typescript/wcardinal/ui/d-base.ts:1527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1527)
 
 ___
 
@@ -5348,7 +5469,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -5381,7 +5502,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1531](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1531)
+[src/main/typescript/wcardinal/ui/d-base.ts:1536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1536)
 
 ___
 
@@ -5399,7 +5520,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1547](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1547)
+[src/main/typescript/wcardinal/ui/d-base.ts:1552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1552)
 
 ___
 
@@ -5415,7 +5536,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -5436,7 +5557,7 @@ ___
 
 ### toMainColor
 
-▸ `Protected` **toMainColor**(`base`, `tx`, `ty`, `width`, `height`): `number`
+▸ **toMainColor**(`base`, `tx`, `ty`, `width`, `height`): `number`
 
 #### Parameters
 
@@ -5454,13 +5575,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L475)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L573)
 
 ___
 
 ### toMainHex
 
-▸ `Protected` **toMainHex**(`b`, `w0`, `w1`, `shift`): `number`
+▸ **toMainHex**(`b`, `w0`, `w1`, `shift`): `number`
 
 #### Parameters
 
@@ -5477,7 +5598,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color.ts:471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L471)
+[src/main/typescript/wcardinal/ui/d-picker-color.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color.ts#L569)
 
 ___
 
@@ -5495,7 +5616,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1540](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1540)
+[src/main/typescript/wcardinal/ui/d-base.ts:1545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1545)
 
 ___
 
@@ -5513,13 +5634,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1557)
+[src/main/typescript/wcardinal/ui/d-base.ts:1562](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1562)
 
 ___
 
 ### toParentResized
 
-▸ `Protected` **toParentResized**(): `void`
+▸ **toParentResized**(): `void`
 
 #### Returns
 
@@ -5531,7 +5652,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1818](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1818)
+[src/main/typescript/wcardinal/ui/d-base.ts:1823](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1823)
 
 ___
 
@@ -5557,7 +5678,7 @@ ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

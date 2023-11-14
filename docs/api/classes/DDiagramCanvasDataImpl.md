@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasDataImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasDataImpl
 
 # Class: DDiagramCanvasDataImpl
 
@@ -50,13 +50,17 @@
 
 ### constructor
 
-• **new DDiagramCanvasDataImpl**()
+• **new DDiagramCanvasDataImpl**(): [`DDiagramCanvasDataImpl`](DDiagramCanvasDataImpl.md)
+
+#### Returns
+
+[`DDiagramCanvasDataImpl`](DDiagramCanvasDataImpl.md)
 
 ## Properties
 
 ### \_data
 
-• `Protected` `Optional` **\_data**: `Map`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)[]\>
+• `Protected` `Optional` **\_data**: `Map`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)[]\>
 
 #### Defined in
 
@@ -265,7 +269,7 @@ ___
 
 ### newExtended
 
-▸ `Protected` **newExtended**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
+▸ **newExtended**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
 
 #### Returns
 
@@ -279,7 +283,7 @@ ___
 
 ### newPrivate
 
-▸ `Protected` **newPrivate**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
+▸ **newPrivate**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
 
 #### Returns
 
@@ -293,7 +297,7 @@ ___
 
 ### newProtected
 
-▸ `Protected` **newProtected**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
+▸ **newProtected**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
 
 #### Returns
 

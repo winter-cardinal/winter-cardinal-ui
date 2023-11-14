@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableCategoryOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableCategoryOptions
 
-# Interface: DTableCategoryOptions<THEME\>
+# Interface: DTableCategoryOptions\<THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DTableRowOptions`](DTableRowOptions.md)<`unknown`, [`DTableCategoryColumn`](DTableCategoryColumn.md), `THEME`\>
+- [`DTableRowOptions`](DTableRowOptions.md)\<`unknown`, [`DTableCategoryColumn`](DTableCategoryColumn.md), `THEME`\>
 
   ↳ **`DTableCategoryOptions`**
 
@@ -91,7 +91,7 @@ ___
 
 ### cell
 
-• `Optional` **cell**: [`DTableCategoryCellOptions`](DTableCategoryCellOptions.md)<[`DThemeTableCategoryCell`](DThemeTableCategoryCell.md)\>
+• `Optional` **cell**: [`DTableCategoryCellOptions`](DTableCategoryCellOptions.md)\<[`DThemeTableCategoryCell`](DThemeTableCategoryCell.md)\>
 
 #### Defined in
 
@@ -177,7 +177,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -193,7 +193,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: ``"HORIZONTAL"`` \| ``"VERTICAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
+• `Optional` **direction**: ``"VERTICAL"`` \| ``"HORIZONTAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
 
 #### Inherited from
 
@@ -242,7 +242,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -298,7 +298,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -371,7 +371,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableCategoryOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateTick
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateTick
 
-# Interface: DChartCoordinateTick<CHART\>
+# Interface: DChartCoordinateTick\<CHART\>
 
 ## Type parameters
 
@@ -41,7 +41,7 @@
 | `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
 | `majorResult` | `number`[] |
 | `minorResult` | `number`[] |
-| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 

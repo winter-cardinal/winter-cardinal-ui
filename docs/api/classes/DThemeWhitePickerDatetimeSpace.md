@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhitePickerDatetimeSpace
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhitePickerDatetimeSpace
 
 # Class: DThemeWhitePickerDatetimeSpace
 
@@ -69,7 +69,11 @@
 
 ### constructor
 
-• **new DThemeWhitePickerDatetimeSpace**()
+• **new DThemeWhitePickerDatetimeSpace**(): [`DThemeWhitePickerDatetimeSpace`](DThemeWhitePickerDatetimeSpace.md)
+
+#### Returns
+
+[`DThemeWhitePickerDatetimeSpace`](DThemeWhitePickerDatetimeSpace.md)
 
 #### Inherited from
 

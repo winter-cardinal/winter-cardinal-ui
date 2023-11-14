@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilFileOpener
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilFileOpener
 
 # Class: UtilFileOpener
 
@@ -29,7 +29,7 @@ An utility class for opening files.
 
 ### constructor
 
-• **new UtilFileOpener**(`as`, `facade`)
+• **new UtilFileOpener**(`as`, `facade`): [`UtilFileOpener`](UtilFileOpener.md)
 
 #### Parameters
 
@@ -37,6 +37,10 @@ An utility class for opening files.
 | :------ | :------ |
 | `as` | [`UtilFileAs`](../index.md#utilfileas-1) |
 | `facade` | [`UtilFileFacade`](../interfaces/UtilFileFacade.md) |
+
+#### Returns
+
+[`UtilFileOpener`](UtilFileOpener.md)
 
 #### Defined in
 
@@ -76,7 +80,7 @@ ___
 
 ### getOrCreateInput
 
-▸ `Protected` **getOrCreateInput**(): ``null`` \| `HTMLInputElement`
+▸ **getOrCreateInput**(): ``null`` \| `HTMLInputElement`
 
 #### Returns
 
@@ -90,13 +94,13 @@ ___
 
 ### onAboart
 
-▸ `Protected` **onAboart**(`e`): `void`
+▸ **onAboart**(`e`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `ProgressEvent`<`EventTarget`\> |
+| `e` | `ProgressEvent`\<`EventTarget`\> |
 
 #### Returns
 
@@ -110,7 +114,7 @@ ___
 
 ### onCancel
 
-▸ `Protected` **onCancel**(): `void`
+▸ **onCancel**(): `void`
 
 #### Returns
 
@@ -124,7 +128,7 @@ ___
 
 ### onInputChange
 
-▸ `Protected` **onInputChange**(`input`): `void`
+▸ **onInputChange**(`input`): `void`
 
 #### Parameters
 
@@ -144,13 +148,13 @@ ___
 
 ### onOpen
 
-▸ `Protected` **onOpen**(`result`, `file`): `void`
+▸ **onOpen**(`result`, `file`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `result` | `string` \| `File` \| `ArrayBuffer` |
+| `result` | `string` \| `ArrayBuffer` \| `File` |
 | `file` | `File` |
 
 #### Returns

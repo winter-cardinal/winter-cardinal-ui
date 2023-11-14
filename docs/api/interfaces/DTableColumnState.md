@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableColumnState
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableColumnState
 
-# Interface: DTableColumnState<ROW_VALUE\>
+# Interface: DTableColumnState\<ROW_VALUE\>
 
 ## Type parameters
 
@@ -29,7 +29,7 @@ ___
 
 ### modifier
 
-• `Optional` **modifier**: [`DTableColumnStateModifier`](../index.md#dtablecolumnstatemodifier)<`ROW_VALUE`\>
+• `Optional` **modifier**: [`DTableColumnStateModifier`](../index.md#dtablecolumnstatemodifier)\<`ROW_VALUE`\>
 
 #### Defined in
 

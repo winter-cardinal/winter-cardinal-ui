@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapePointsMarkerTail
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapePointsMarkerTail
 
 # Class: EShapePointsMarkerTail
 
@@ -55,13 +55,17 @@
 
 ### constructor
 
-• **new EShapePointsMarkerTail**(`parent`)
+• **new EShapePointsMarkerTail**(`parent`): [`EShapePointsMarkerTail`](EShapePointsMarkerTail.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapePointsMarkerBaseParent`](../interfaces/EShapePointsMarkerBaseParent.md) |
+
+#### Returns
+
+[`EShapePointsMarkerTail`](EShapePointsMarkerTail.md)
 
 #### Inherited from
 
@@ -374,7 +378,7 @@ ___
 
 ### newFill
 
-▸ `Protected` **newFill**(): [`EShapeFill`](../interfaces/EShapeFill.md)
+▸ **newFill**(): [`EShapeFill`](../interfaces/EShapeFill.md)
 
 #### Returns
 
@@ -392,7 +396,7 @@ ___
 
 ### onFillChange
 
-▸ `Protected` **onFillChange**(): `void`
+▸ **onFillChange**(): `void`
 
 #### Returns
 
@@ -410,7 +414,7 @@ ___
 
 ### onSizeChange
 
-▸ `Protected` **onSizeChange**(): `void`
+▸ **onSizeChange**(): `void`
 
 #### Returns
 
@@ -428,7 +432,7 @@ ___
 
 ### onTypeChange
 
-▸ `Protected` **onTypeChange**(): `void`
+▸ **onTypeChange**(): `void`
 
 #### Returns
 
@@ -496,7 +500,7 @@ ___
 
 ### toTransform
 
-▸ `Protected` **toTransform**(`values`, `result`): `Matrix`
+▸ **toTransform**(`values`, `result`): `Matrix`
 
 #### Parameters
 
@@ -521,7 +525,7 @@ ___
 
 ### toTransformMatrix
 
-▸ `Protected` **toTransformMatrix**(`x0`, `y0`, `x1`, `y1`, `result`): `Matrix`
+▸ **toTransformMatrix**(`x0`, `y0`, `x1`, `y1`, `result`): `Matrix`
 
 #### Parameters
 
@@ -567,7 +571,7 @@ ___
 
 ### updateTransform
 
-▸ `Protected` **updateTransform**(): `Matrix`
+▸ **updateTransform**(): `Matrix`
 
 #### Returns
 

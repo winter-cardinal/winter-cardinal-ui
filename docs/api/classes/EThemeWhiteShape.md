@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EThemeWhiteShape
+[Winter Cardinal UI - v0.374.0](../index.md) / EThemeWhiteShape
 
 # Class: EThemeWhiteShape
 
@@ -37,7 +37,11 @@
 
 ### constructor
 
-• **new EThemeWhiteShape**()
+• **new EThemeWhiteShape**(): [`EThemeWhiteShape`](EThemeWhiteShape.md)
+
+#### Returns
+
+[`EThemeWhiteShape`](EThemeWhiteShape.md)
 
 ## Methods
 

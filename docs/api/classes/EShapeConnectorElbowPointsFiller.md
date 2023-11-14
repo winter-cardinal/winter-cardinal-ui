@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeConnectorElbowPointsFiller
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeConnectorElbowPointsFiller
 
 # Class: EShapeConnectorElbowPointsFiller
 
@@ -30,13 +30,14 @@
 - [tail](EShapeConnectorElbowPointsFiller.md#tail)
 - [toAxis](EShapeConnectorElbowPointsFiller.md#toaxis)
 - [toHeadAxis](EShapeConnectorElbowPointsFiller.md#toheadaxis)
+- [toSide](EShapeConnectorElbowPointsFiller.md#toside)
 - [toTailAxis](EShapeConnectorElbowPointsFiller.md#totailaxis)
 
 ## Constructors
 
 ### constructor
 
-• **new EShapeConnectorElbowPointsFiller**(`x`, `y`, `values`)
+• **new EShapeConnectorElbowPointsFiller**(`x`, `y`, `values`): [`EShapeConnectorElbowPointsFiller`](EShapeConnectorElbowPointsFiller.md)
 
 #### Parameters
 
@@ -46,9 +47,13 @@
 | `y` | `number` |
 | `values` | `number`[] |
 
+#### Returns
+
+[`EShapeConnectorElbowPointsFiller`](EShapeConnectorElbowPointsFiller.md)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L16)
 
 ## Properties
 
@@ -58,7 +63,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L14)
 
 ___
 
@@ -68,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L12)
 
 ___
 
@@ -78,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L9)
 
 ___
 
@@ -88,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L10)
 
 ___
 
@@ -98,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L11)
 
 ___
 
@@ -108,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L13)
 
 ## Accessors
 
@@ -122,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L26)
 
 • `set` **x**(`x`): `void`
 
@@ -138,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L30)
 
 ___
 
@@ -152,7 +157,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L45)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L47)
 
 • `set` **y**(`y`): `void`
 
@@ -168,13 +173,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L51)
 
 ## Methods
 
 ### head
 
-▸ **head**(`x`, `y`, `nx`, `ny`, `sxh`, `syh`, `margin`): `void`
+▸ **head**(`x`, `y`, `nx`, `ny`, `sxh`, `syh`, `margin`, `side`): `void`
 
 #### Parameters
 
@@ -187,6 +192,7 @@ ___
 | `sxh` | `number` |
 | `syh` | `number` |
 | `margin` | `number` |
+| `side` | `number` |
 
 #### Returns
 
@@ -194,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L204)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L228)
 
 ___
 
@@ -215,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:245](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L245)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L270)
 
 ___
 
@@ -236,13 +242,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L190)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L208)
 
 ___
 
 ### tail
 
-▸ **tail**(`x`, `y`, `nx`, `ny`, `sxh`, `syh`, `margin`): `void`
+▸ **tail**(`x`, `y`, `nx`, `ny`, `sxh`, `syh`, `margin`, `side`): `void`
 
 #### Parameters
 
@@ -255,6 +261,7 @@ ___
 | `sxh` | `number` |
 | `syh` | `number` |
 | `margin` | `number` |
+| `side` | `number` |
 
 #### Returns
 
@@ -262,13 +269,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L145)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L162)
 
 ___
 
 ### toAxis
 
-▸ `Protected` **toAxis**(`dx`, `dy`, `nx`, `ny`): ``0`` \| ``1`` \| ``2`` \| ``3``
+▸ **toAxis**(`dx`, `dy`, `nx`, `ny`, `side`): ``0`` \| ``2`` \| ``1`` \| ``3``
 
 #### Parameters
 
@@ -278,20 +285,21 @@ ___
 | `dy` | `number` |
 | `nx` | `number` |
 | `ny` | `number` |
+| `side` | `number` |
 
 #### Returns
 
-``0`` \| ``1`` \| ``2`` \| ``3``
+``0`` \| ``2`` \| ``1`` \| ``3``
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L66)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L86)
 
 ___
 
 ### toHeadAxis
 
-▸ `Protected` **toHeadAxis**(`x`, `y`, `nx`, `ny`): ``0`` \| ``1`` \| ``2`` \| ``3``
+▸ **toHeadAxis**(`x`, `y`, `nx`, `ny`, `side`): ``0`` \| ``2`` \| ``1`` \| ``3``
 
 #### Parameters
 
@@ -301,20 +309,42 @@ ___
 | `y` | `number` |
 | `nx` | `number` |
 | `ny` | `number` |
+| `side` | `number` |
 
 #### Returns
 
-``0`` \| ``1`` \| ``2`` \| ``3``
+``0`` \| ``2`` \| ``1`` \| ``3``
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L200)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L218)
+
+___
+
+### toSide
+
+▸ **toSide**(`x`, `y`): ``0`` \| ``2`` \| ``1`` \| ``3``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `number` |
+| `y` | `number` |
+
+#### Returns
+
+``0`` \| ``2`` \| ``1`` \| ``3``
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L68)
 
 ___
 
 ### toTailAxis
 
-▸ `Protected` **toTailAxis**(`x`, `y`, `nx`, `ny`): ``0`` \| ``1`` \| ``2`` \| ``3``
+▸ **toTailAxis**(`x`, `y`, `nx`, `ny`, `side`): ``0`` \| ``2`` \| ``1`` \| ``3``
 
 #### Parameters
 
@@ -324,11 +354,12 @@ ___
 | `y` | `number` |
 | `nx` | `number` |
 | `ny` | `number` |
+| `side` | `number` |
 
 #### Returns
 
-``0`` \| ``1`` \| ``2`` \| ``3``
+``0`` \| ``2`` \| ``1`` \| ``3``
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L141)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-connector-elbow-points-filler.ts#L152)

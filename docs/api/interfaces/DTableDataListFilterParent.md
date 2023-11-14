@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataListFilterParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataListFilterParent
 
-# Interface: DTableDataListFilterParent<ROW\>
+# Interface: DTableDataListFilterParent\<ROW\>
 
 ## Type parameters
 
@@ -33,7 +33,7 @@ ___
 
 ### sorter
 
-• `Readonly` **sorter**: [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+• `Readonly` **sorter**: [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 #### Defined in
 

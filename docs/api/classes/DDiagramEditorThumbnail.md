@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramEditorThumbnail
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramEditorThumbnail
 
 # Class: DDiagramEditorThumbnail
 
@@ -32,7 +32,7 @@
 
 ### constructor
 
-• **new DDiagramEditorThumbnail**(`snapshot`, `theme`, `options?`)
+• **new DDiagramEditorThumbnail**(`snapshot`, `theme`, `options?`): [`DDiagramEditorThumbnail`](DDiagramEditorThumbnail.md)
 
 #### Parameters
 
@@ -41,6 +41,10 @@
 | `snapshot` | [`DDiagramEditorThumbnailSnapshot`](../interfaces/DDiagramEditorThumbnailSnapshot.md) |
 | `theme` | [`DThemeDiagramEditorThumbnail`](../interfaces/DThemeDiagramEditorThumbnail.md) |
 | `options?` | [`DDiagramEditorThumbnailOptions`](../interfaces/DDiagramEditorThumbnailOptions.md) |
+
+#### Returns
+
+[`DDiagramEditorThumbnail`](DDiagramEditorThumbnail.md)
 
 #### Defined in
 
@@ -168,7 +172,7 @@ ___
 
 ### toCleanup
 
-▸ `Protected` **toCleanup**(`theme`, `cleanup?`): [`DDiagramEditorThumbnailSnapshotCleanupOptions`](../interfaces/DDiagramEditorThumbnailSnapshotCleanupOptions.md)
+▸ **toCleanup**(`theme`, `cleanup?`): [`DDiagramEditorThumbnailSnapshotCleanupOptions`](../interfaces/DDiagramEditorThumbnailSnapshotCleanupOptions.md)
 
 #### Parameters
 
@@ -189,7 +193,7 @@ ___
 
 ### toCreateAsUrlOptions
 
-▸ `Protected` **toCreateAsUrlOptions**(`theme`, `options?`): [`DDiagramEditorThumbnailSnapshotCreateAsUrlOptions`](../interfaces/DDiagramEditorThumbnailSnapshotCreateAsUrlOptions.md)
+▸ **toCreateAsUrlOptions**(`theme`, `options?`): [`DDiagramEditorThumbnailSnapshotCreateAsUrlOptions`](../interfaces/DDiagramEditorThumbnailSnapshotCreateAsUrlOptions.md)
 
 #### Parameters
 
@@ -210,7 +214,7 @@ ___
 
 ### toIsEnabled
 
-▸ `Protected` **toIsEnabled**(`theme`, `options?`): `boolean`
+▸ **toIsEnabled**(`theme`, `options?`): `boolean`
 
 #### Parameters
 
@@ -231,7 +235,7 @@ ___
 
 ### toSize
 
-▸ `Protected` **toSize**(`theme`, `options?`): ``null`` \| `number`
+▸ **toSize**(`theme`, `options?`): ``null`` \| `number`
 
 #### Parameters
 

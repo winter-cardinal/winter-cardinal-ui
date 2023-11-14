@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementElementOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementElementOptions
 
-# Interface: UtilHtmlElementElementOptions<ELEMENT\>
+# Interface: UtilHtmlElementElementOptions\<ELEMENT\>
 
 ## Type parameters
 
@@ -19,7 +19,7 @@
 
 ### creator
 
-• `Optional` **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
+• `Optional` **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`ELEMENT`\>
 
 #### Defined in
 
@@ -29,7 +29,7 @@ ___
 
 ### styler
 
-• `Optional` **styler**: [`UtilHtmlElementStyler`](../index.md#utilhtmlelementstyler)<`ELEMENT`\>
+• `Optional` **styler**: [`UtilHtmlElementStyler`](../index.md#utilhtmlelementstyler)\<`ELEMENT`\>
 
 #### Defined in
 

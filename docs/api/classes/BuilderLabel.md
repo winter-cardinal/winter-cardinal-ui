@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderLabel
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLabel
 
 # Class: BuilderLabel
 
@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new BuilderLabel**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`)
+• **new BuilderLabel**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`): [`BuilderLabel`](BuilderLabel.md)
 
 #### Parameters
 
@@ -41,6 +41,10 @@
 | `indexOffset` | `number` |
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
+
+#### Returns
+
+[`BuilderLabel`](BuilderLabel.md)
 
 #### Defined in
 

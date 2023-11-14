@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseEvents
 
-# Interface: DBaseEvents<EMITTER\>
+# Interface: DBaseEvents\<EMITTER\>
 
 [DBase](../classes/DBase.md) events.
 

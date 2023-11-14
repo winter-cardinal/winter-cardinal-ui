@@ -1,13 +1,13 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonGroup
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonGroup
 
-# Class: DButtonGroup<BUTTON, OPTIONS\>
+# Class: DButtonGroup\<BUTTON, OPTIONS\>
 
 ## Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `BUTTON` | extends [`DButtonBase`](DButtonBase.md)<`any`, `any`, `any`\> = [`DButtonBase`](DButtonBase.md)<`any`, `any`, `any`\> |
-| `OPTIONS` | extends [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)<`BUTTON`\> = [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)<`BUTTON`\> |
+| `BUTTON` | extends [`DButtonBase`](DButtonBase.md)\<`any`, `any`, `any`\> = [`DButtonBase`](DButtonBase.md)\<`any`, `any`, `any`\> |
+| `OPTIONS` | extends [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)\<`BUTTON`\> = [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)\<`BUTTON`\> |
 
 ## Hierarchy
 
@@ -58,20 +58,24 @@
 
 ### constructor
 
-• **new DButtonGroup**<`BUTTON`, `OPTIONS`\>(`options?`)
+• **new DButtonGroup**\<`BUTTON`, `OPTIONS`\>(`options?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `BUTTON` | extends [`DButtonBase`](DButtonBase.md)<`any`, `any`, `any`, `BUTTON`\> = [`DButtonBase`](DButtonBase.md)<`any`, `any`, `any`\> |
-| `OPTIONS` | extends [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)<`BUTTON`, `any`, `OPTIONS`\> = [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)<`BUTTON`, `any`\> |
+| `BUTTON` | extends [`DButtonBase`](DButtonBase.md)\<`any`, `any`, `any`\> = [`DButtonBase`](DButtonBase.md)\<`any`, `any`, `any`\> |
+| `OPTIONS` | extends [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)\<`BUTTON`, `any`\> = [`DButtonGroupOptions`](../interfaces/DButtonGroupOptions.md)\<`BUTTON`, `any`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 #### Overrides
 
@@ -189,7 +193,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 Alias method for `on`
 
@@ -203,7 +207,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -299,7 +303,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -414,7 +418,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 Alias method for `removeListener`
 
@@ -429,7 +433,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -443,7 +447,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 Add a listener for a given event.
 
@@ -457,7 +461,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 `this`.
 
@@ -473,7 +477,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 Add a one-time listener for a given event.
 
@@ -487,7 +491,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 `this`.
 
@@ -523,7 +527,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -535,7 +539,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 `this`.
 
@@ -551,7 +555,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 Remove the listeners of a given event.
 
@@ -566,7 +570,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)<`BUTTON`, `OPTIONS`\>
+[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
 
 `this`.
 

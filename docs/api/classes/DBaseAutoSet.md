@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseAutoSet
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseAutoSet
 
 # Class: DBaseAutoSet
 
@@ -17,7 +17,11 @@
 
 ### constructor
 
-• **new DBaseAutoSet**()
+• **new DBaseAutoSet**(): [`DBaseAutoSet`](DBaseAutoSet.md)
+
+#### Returns
+
+[`DBaseAutoSet`](DBaseAutoSet.md)
 
 #### Defined in
 

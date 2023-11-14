@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemes
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemes
 
 # Class: DThemes
 
@@ -24,13 +24,17 @@
 
 ### constructor
 
-• **new DThemes**()
+• **new DThemes**(): [`DThemes`](DThemes.md)
+
+#### Returns
+
+[`DThemes`](DThemes.md)
 
 ## Methods
 
 ### get
 
-▸ `Static` **get**<`THEME`\>(`type`): `THEME`
+▸ **get**\<`THEME`\>(`type`): `THEME`
 
 #### Type parameters
 
@@ -56,7 +60,7 @@ ___
 
 ### getAtlas
 
-▸ `Static` **getAtlas**(): [`UtilSvgAtlasBuilder`](UtilSvgAtlasBuilder.md)
+▸ **getAtlas**(): [`UtilSvgAtlasBuilder`](UtilSvgAtlasBuilder.md)
 
 #### Returns
 
@@ -70,7 +74,7 @@ ___
 
 ### getClass
 
-▸ `Static` **getClass**<`THEME`\>(`type`): () => `THEME`
+▸ **getClass**\<`THEME`\>(`type`): () => `THEME`
 
 #### Type parameters
 
@@ -88,7 +92,11 @@ ___
 
 `fn`
 
-• **new getClass**()
+• **new getClass**(): `THEME`
+
+##### Returns
+
+`THEME`
 
 #### Defined in
 
@@ -98,7 +106,7 @@ ___
 
 ### getDefaultThemeClass
 
-▸ `Static` **getDefaultThemeClass**(): ``null`` \| () => [`DTheme`](../interfaces/DTheme.md)
+▸ **getDefaultThemeClass**(): ``null`` \| () => [`DTheme`](../interfaces/DTheme.md)
 
 #### Returns
 
@@ -112,7 +120,7 @@ ___
 
 ### getInstance
 
-▸ `Static` **getInstance**(): [`DTheme`](../interfaces/DTheme.md)
+▸ **getInstance**(): [`DTheme`](../interfaces/DTheme.md)
 
 #### Returns
 
@@ -126,7 +134,7 @@ ___
 
 ### set
 
-▸ `Static` **set**<`THEME`\>(`type`, `instance`): `void`
+▸ **set**\<`THEME`\>(`type`, `instance`): `void`
 
 #### Type parameters
 
@@ -153,7 +161,7 @@ ___
 
 ### setClass
 
-▸ `Static` **setClass**<`THEME`\>(`type`, `themeClass`): `void`
+▸ **setClass**\<`THEME`\>(`type`, `themeClass`): `void`
 
 #### Type parameters
 
@@ -180,7 +188,7 @@ ___
 
 ### setDefaultThemeClass
 
-▸ `Static` **setDefaultThemeClass**(`theme`): `void`
+▸ **setDefaultThemeClass**(`theme`): `void`
 
 #### Parameters
 
@@ -200,7 +208,7 @@ ___
 
 ### setInstance
 
-▸ `Static` **setInstance**(`instance`): ``null`` \| [`DTheme`](../interfaces/DTheme.md)
+▸ **setInstance**(`instance`): ``null`` \| [`DTheme`](../interfaces/DTheme.md)
 
 #### Parameters
 

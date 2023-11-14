@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisXOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisXOptions
 
-# Interface: DChartAxisXOptions<THEME\>
+# Interface: DChartAxisXOptions\<THEME\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DChartAxisBaseOptions`](DChartAxisBaseOptions.md)<`THEME`\>
+- [`DChartAxisBaseOptions`](DChartAxisBaseOptions.md)\<`THEME`\>
 
   ↳ **`DChartAxisXOptions`**
 

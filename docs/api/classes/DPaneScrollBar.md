@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPaneScrollBar
+[Winter Cardinal UI - v0.374.0](../index.md) / DPaneScrollBar
 
-# Class: DPaneScrollBar<PARENT\>
+# Class: DPaneScrollBar\<PARENT\>
 
 ## Type parameters
 
@@ -45,7 +45,7 @@
 
 ### constructor
 
-• **new DPaneScrollBar**<`PARENT`\>(`parent`, `options`, `onUpdate`)
+• **new DPaneScrollBar**\<`PARENT`\>(`parent`, `options`, `onUpdate`): [`DPaneScrollBar`](DPaneScrollBar.md)\<`PARENT`\>
 
 #### Type parameters
 
@@ -60,6 +60,10 @@
 | `parent` | `PARENT` |
 | `options` | `undefined` \| [`DPaneScrollBarOptions`](../interfaces/DPaneScrollBarOptions.md) |
 | `onUpdate` | (`isRegionVisible`: `boolean`) => `void` |
+
+#### Returns
+
+[`DPaneScrollBar`](DPaneScrollBar.md)\<`PARENT`\>
 
 #### Defined in
 
@@ -133,7 +137,7 @@ ___
 
 ### horizontal
 
-• `Readonly` **horizontal**: [`DScrollBarHorizontal`](DScrollBarHorizontal.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
+• `Readonly` **horizontal**: [`DScrollBarHorizontal`](DScrollBarHorizontal.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
 
 #### Defined in
 
@@ -143,7 +147,7 @@ ___
 
 ### vertical
 
-• `Readonly` **vertical**: [`DScrollBarVertical`](DScrollBarVertical.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
+• `Readonly` **vertical**: [`DScrollBarVertical`](DScrollBarVertical.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
 
 #### Defined in
 
@@ -153,7 +157,7 @@ ___
 
 ### getOffsetHorizontalEnd
 
-▸ `Protected` **getOffsetHorizontalEnd**(`size`): `number`
+▸ **getOffsetHorizontalEnd**(`size`): `number`
 
 #### Parameters
 
@@ -173,7 +177,7 @@ ___
 
 ### getOffsetHorizontalStart
 
-▸ `Protected` **getOffsetHorizontalStart**(`size`): `number`
+▸ **getOffsetHorizontalStart**(`size`): `number`
 
 #### Parameters
 
@@ -193,7 +197,7 @@ ___
 
 ### getOffsetVerticalEnd
 
-▸ `Protected` **getOffsetVerticalEnd**(`size`): `number`
+▸ **getOffsetVerticalEnd**(`size`): `number`
 
 #### Parameters
 
@@ -213,7 +217,7 @@ ___
 
 ### getOffsetVerticalStart
 
-▸ `Protected` **getOffsetVerticalStart**(`size`): `number`
+▸ **getOffsetVerticalStart**(`size`): `number`
 
 #### Parameters
 

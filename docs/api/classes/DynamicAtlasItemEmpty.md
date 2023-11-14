@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlasItemEmpty
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlasItemEmpty
 
 # Class: DynamicAtlasItemEmpty
 
@@ -34,7 +34,7 @@
 
 ### constructor
 
-• **new DynamicAtlasItemEmpty**(`id`, `width`, `height`, `strokeWidth`, `baseTexture`)
+• **new DynamicAtlasItemEmpty**(`id`, `width`, `height`, `strokeWidth`, `baseTexture`): [`DynamicAtlasItemEmpty`](DynamicAtlasItemEmpty.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@
 | `height` | `number` |
 | `strokeWidth` | `number` |
 | `baseTexture` | `BaseTexture` |
+
+#### Returns
+
+[`DynamicAtlasItemEmpty`](DynamicAtlasItemEmpty.md)
 
 #### Inherited from
 

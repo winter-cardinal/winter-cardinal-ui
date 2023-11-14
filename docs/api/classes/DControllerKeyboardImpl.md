@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DControllerKeyboardImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DControllerKeyboardImpl
 
 # Class: DControllerKeyboardImpl
 
@@ -34,7 +34,11 @@
 
 ### constructor
 
-• **new DControllerKeyboardImpl**()
+• **new DControllerKeyboardImpl**(): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+
+#### Returns
+
+[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
 
 #### Inherited from
 
@@ -72,7 +76,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -121,7 +125,7 @@ ___
 
 ### hasOnKeyDown
 
-▸ `Protected` **hasOnKeyDown**(`target`): target is Object
+▸ **hasOnKeyDown**(`target`): target is Object
 
 #### Parameters
 
@@ -141,7 +145,7 @@ ___
 
 ### hasOnKeyUp
 
-▸ `Protected` **hasOnKeyUp**(`target`): target is Object
+▸ **hasOnKeyUp**(`target`): target is Object
 
 #### Parameters
 

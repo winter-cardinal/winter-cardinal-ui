@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeResourceManagerDeserialization
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeResourceManagerDeserialization
 
 # Class: EShapeResourceManagerDeserialization
 
@@ -70,7 +70,7 @@
 
 ### constructor
 
-• **new EShapeResourceManagerDeserialization**(`serialized`, `pieces`, `pieceData`, `mode`, `depth`)
+• **new EShapeResourceManagerDeserialization**(`serialized`, `pieces`, `pieceData`, `mode`, `depth`): [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md)
 
 #### Parameters
 
@@ -78,9 +78,13 @@
 | :------ | :------ |
 | `serialized` | [`EShapeResourceManagerDeserializationSerialized`](../interfaces/EShapeResourceManagerDeserializationSerialized.md) |
 | `pieces` | `undefined` \| `string`[] |
-| `pieceData` | `undefined` \| `Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\> |
+| `pieceData` | `undefined` \| `Map`\<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\> |
 | `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
 | `depth` | `number` |
+
+#### Returns
+
+[`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md)
 
 #### Defined in
 
@@ -90,7 +94,7 @@
 
 ### \_actions
 
-• `Protected` **\_actions**: `Map`<`number`, [`EShapeActionValue`](../interfaces/EShapeActionValue.md)\>
+• `Protected` **\_actions**: `Map`\<`number`, [`EShapeActionValue`](../interfaces/EShapeActionValue.md)\>
 
 #### Defined in
 
@@ -100,7 +104,7 @@ ___
 
 ### \_aligns
 
-• `Protected` **\_aligns**: `Map`<`number`, [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)]\>
+• `Protected` **\_aligns**: `Map`\<`number`, [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)]\>
 
 #### Defined in
 
@@ -110,7 +114,7 @@ ___
 
 ### \_capabilities
 
-• `Protected` **\_capabilities**: `Map`<`number`, [`number`, `number`]\>
+• `Protected` **\_capabilities**: `Map`\<`number`, [`number`, `number`]\>
 
 #### Defined in
 
@@ -120,7 +124,7 @@ ___
 
 ### \_data
 
-• `Protected` **\_data**: `Map`<`number`, [`DDiagramSerializedData`](../index.md#ddiagramserializeddata)\>
+• `Protected` **\_data**: `Map`\<`number`, [`DDiagramSerializedData`](../index.md#ddiagramserializeddata)\>
 
 #### Defined in
 
@@ -130,7 +134,7 @@ ___
 
 ### \_dataDestinations
 
-• `Protected` **\_dataDestinations**: `Map`<`string`, ``null`` \| `string`[]\>
+• `Protected` **\_dataDestinations**: `Map`\<`string`, ``null`` \| `string`[]\>
 
 #### Defined in
 
@@ -140,7 +144,7 @@ ___
 
 ### \_dataMappers
 
-• `Protected` **\_dataMappers**: `Map`<`string`, ``null`` \| [`EShapeDataMapper`](../interfaces/EShapeDataMapper.md)\>
+• `Protected` **\_dataMappers**: `Map`\<`string`, ``null`` \| [`EShapeDataMapper`](../interfaces/EShapeDataMapper.md)\>
 
 #### Defined in
 
@@ -150,7 +154,7 @@ ___
 
 ### \_dataMapping
 
-• `Protected` **\_dataMapping**: `Map`<`number`, [`DDiagramSerializedDataMapping`](../index.md#ddiagramserializeddatamapping)\>
+• `Protected` **\_dataMapping**: `Map`\<`number`, [`DDiagramSerializedDataMapping`](../index.md#ddiagramserializeddatamapping)\>
 
 #### Defined in
 
@@ -160,7 +164,7 @@ ___
 
 ### \_dataSystem
 
-• `Protected` **\_dataSystem**: `Map`<`number`, [`DDiagramSerializedDataSystem`](../index.md#ddiagramserializeddatasystem)\>
+• `Protected` **\_dataSystem**: `Map`\<`number`, [`DDiagramSerializedDataSystem`](../index.md#ddiagramserializeddatasystem)\>
 
 #### Defined in
 
@@ -170,7 +174,7 @@ ___
 
 ### \_dataValues
 
-• `Protected` **\_dataValues**: `Map`<`number`, [`DDiagramSerializedDataValue`](../interfaces/DDiagramSerializedDataValue.md)\>
+• `Protected` **\_dataValues**: `Map`\<`number`, [`DDiagramSerializedDataValue`](../interfaces/DDiagramSerializedDataValue.md)\>
 
 #### Defined in
 
@@ -180,7 +184,7 @@ ___
 
 ### \_extensions
 
-• `Protected` **\_extensions**: `Map`<`number`, `unknown`\>
+• `Protected` **\_extensions**: `Map`\<`number`, `unknown`\>
 
 #### Defined in
 
@@ -190,7 +194,7 @@ ___
 
 ### \_fills
 
-• `Protected` **\_fills**: `Map`<`number`, [`DDiagramSerializedFill`](../interfaces/DDiagramSerializedFill.md)\>
+• `Protected` **\_fills**: `Map`\<`number`, [`DDiagramSerializedFill`](../interfaces/DDiagramSerializedFill.md)\>
 
 #### Defined in
 
@@ -200,7 +204,7 @@ ___
 
 ### \_margins
 
-• `Protected` **\_margins**: `Map`<`number`, [`number`, `number`]\>
+• `Protected` **\_margins**: `Map`\<`number`, [`number`, `number`]\>
 
 #### Defined in
 
@@ -210,7 +214,7 @@ ___
 
 ### \_ranges
 
-• `Protected` **\_ranges**: `Map`<`number`, [`DDiagramSerializedDataRange`](../interfaces/DDiagramSerializedDataRange.md)\>
+• `Protected` **\_ranges**: `Map`\<`number`, [`DDiagramSerializedDataRange`](../interfaces/DDiagramSerializedDataRange.md)\>
 
 #### Defined in
 
@@ -220,7 +224,7 @@ ___
 
 ### \_strokes
 
-• `Protected` **\_strokes**: `Map`<`number`, [`DDiagramSerializedStroke`](../interfaces/DDiagramSerializedStroke.md)\>
+• `Protected` **\_strokes**: `Map`\<`number`, [`DDiagramSerializedStroke`](../interfaces/DDiagramSerializedStroke.md)\>
 
 #### Defined in
 
@@ -230,7 +234,7 @@ ___
 
 ### \_textOutlines
 
-• `Protected` **\_textOutlines**: `Map`<`number`, [`DDiagramSerializedTextOutline`](../interfaces/DDiagramSerializedTextOutline.md)\>
+• `Protected` **\_textOutlines**: `Map`\<`number`, [`DDiagramSerializedTextOutline`](../interfaces/DDiagramSerializedTextOutline.md)\>
 
 #### Defined in
 
@@ -240,7 +244,7 @@ ___
 
 ### \_texts
 
-• `Protected` **\_texts**: `Map`<`number`, [`DDiagramSerializedText`](../interfaces/DDiagramSerializedText.md)\>
+• `Protected` **\_texts**: `Map`\<`number`, [`DDiagramSerializedText`](../interfaces/DDiagramSerializedText.md)\>
 
 #### Defined in
 
@@ -280,7 +284,7 @@ ___
 
 ### pieceData
 
-• `Optional` **pieceData**: `Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>
+• `Optional` **pieceData**: `Map`\<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>
 
 #### Defined in
 
@@ -490,7 +494,7 @@ ___
 
 ### getExtension
 
-▸ **getExtension**<`T`\>(`id`): `undefined` \| `T`
+▸ **getExtension**\<`T`\>(`id`): `undefined` \| `T`
 
 #### Type parameters
 

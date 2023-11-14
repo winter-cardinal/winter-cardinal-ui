@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilKeyboardEvent
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilKeyboardEvent
 
 # Class: UtilKeyboardEvent
 
@@ -36,13 +36,17 @@
 
 ### constructor
 
-• **new UtilKeyboardEvent**()
+• **new UtilKeyboardEvent**(): [`UtilKeyboardEvent`](UtilKeyboardEvent.md)
+
+#### Returns
+
+[`UtilKeyboardEvent`](UtilKeyboardEvent.md)
 
 ## Methods
 
 ### getFocusDirection
 
-▸ `Static` **getFocusDirection**(`e`): `boolean`
+▸ **getFocusDirection**(`e`): `boolean`
 
 #### Parameters
 
@@ -62,7 +66,7 @@ ___
 
 ### isActivateKey
 
-▸ `Static` **isActivateKey**(`e`): `boolean`
+▸ **isActivateKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -82,7 +86,7 @@ ___
 
 ### isArrowDownKey
 
-▸ `Static` **isArrowDownKey**(`e`): `boolean`
+▸ **isArrowDownKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -102,7 +106,7 @@ ___
 
 ### isArrowLeftKey
 
-▸ `Static` **isArrowLeftKey**(`e`): `boolean`
+▸ **isArrowLeftKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -122,7 +126,7 @@ ___
 
 ### isArrowRightKey
 
-▸ `Static` **isArrowRightKey**(`e`): `boolean`
+▸ **isArrowRightKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -142,7 +146,7 @@ ___
 
 ### isArrowUpKey
 
-▸ `Static` **isArrowUpKey**(`e`): `boolean`
+▸ **isArrowUpKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -162,7 +166,7 @@ ___
 
 ### isCancelKey
 
-▸ `Static` **isCancelKey**(`e`): `boolean`
+▸ **isCancelKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -182,7 +186,7 @@ ___
 
 ### isDeleteKey
 
-▸ `Static` **isDeleteKey**(`e`): `boolean`
+▸ **isDeleteKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -202,7 +206,7 @@ ___
 
 ### isFocusKey
 
-▸ `Static` **isFocusKey**(`e`): `boolean`
+▸ **isFocusKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -222,7 +226,7 @@ ___
 
 ### isOkKey
 
-▸ `Static` **isOkKey**(`e`): `boolean`
+▸ **isOkKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -242,7 +246,7 @@ ___
 
 ### isRedoKey
 
-▸ `Static` **isRedoKey**(`e`): `boolean`
+▸ **isRedoKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -262,7 +266,7 @@ ___
 
 ### isSaveAsKey
 
-▸ `Static` **isSaveAsKey**(`e`): `boolean`
+▸ **isSaveAsKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -282,7 +286,7 @@ ___
 
 ### isSaveKey
 
-▸ `Static` **isSaveKey**(`e`): `boolean`
+▸ **isSaveKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -302,7 +306,7 @@ ___
 
 ### isSelectAllKey
 
-▸ `Static` **isSelectAllKey**(`e`): `boolean`
+▸ **isSelectAllKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -322,7 +326,7 @@ ___
 
 ### isUndoKey
 
-▸ `Static` **isUndoKey**(`e`): `boolean`
+▸ **isUndoKey**(`e`): `boolean`
 
 #### Parameters
 
@@ -342,14 +346,14 @@ ___
 
 ### moveFocus
 
-▸ `Static` **moveFocus**(`direction`, `target`, `picker?`): `boolean`
+▸ **moveFocus**(`direction`, `target`, `picker?`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `direction` | `boolean` |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `picker?` | [`UtilKeyboardEventLayerPicker`](../interfaces/UtilKeyboardEventLayerPicker.md) |
 
 #### Returns
@@ -364,14 +368,14 @@ ___
 
 ### moveFocusHorizontally
 
-▸ `Static` **moveFocusHorizontally**(`e`, `target`, `picker?`): `boolean`
+▸ **moveFocusHorizontally**(`e`, `target`, `picker?`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `e` | `KeyboardEvent` |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `picker?` | [`UtilKeyboardEventLayerPicker`](../interfaces/UtilKeyboardEventLayerPicker.md) |
 
 #### Returns
@@ -386,14 +390,14 @@ ___
 
 ### moveFocusVertically
 
-▸ `Static` **moveFocusVertically**(`e`, `target`, `picker?`): `boolean`
+▸ **moveFocusVertically**(`e`, `target`, `picker?`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `e` | `KeyboardEvent` |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `picker?` | [`UtilKeyboardEventLayerPicker`](../interfaces/UtilKeyboardEventLayerPicker.md) |
 
 #### Returns
@@ -408,7 +412,7 @@ ___
 
 ### on
 
-▸ `Static` **on**(`target`, `expressionOrShortcut`, `handler?`): `void`
+▸ **on**(`target`, `expressionOrShortcut`, `handler?`): `void`
 
 #### Parameters
 
@@ -430,7 +434,7 @@ ___
 
 ### toShortcut
 
-▸ `Static` **toShortcut**(`expressionOrShortcut`): [`UtilKeyboardEventShortcut`](../interfaces/UtilKeyboardEventShortcut.md)
+▸ **toShortcut**(`expressionOrShortcut`): [`UtilKeyboardEventShortcut`](../interfaces/UtilKeyboardEventShortcut.md)
 
 #### Parameters
 
@@ -450,7 +454,7 @@ ___
 
 ### toString
 
-▸ `Static` **toString**(`shortcut`): `string`
+▸ **toString**(`shortcut`): `string`
 
 #### Parameters
 

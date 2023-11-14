@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilTransition
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilTransition
 
 # Class: UtilTransition
 
@@ -25,13 +25,17 @@
 
 ### constructor
 
-• **new UtilTransition**(`options?`)
+• **new UtilTransition**(`options?`): [`UtilTransition`](UtilTransition.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`UtilTransitionOptions`](../interfaces/UtilTransitionOptions.md) |
+
+#### Returns
+
+[`UtilTransition`](UtilTransition.md)
 
 #### Defined in
 
@@ -41,7 +45,7 @@
 
 ### \_current
 
-• `Protected` **\_current**: `undefined` \| ``null`` \| [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_current**: `undefined` \| ``null`` \| [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -101,7 +105,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `next` | `undefined` \| ``null`` \| [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `next` | `undefined` \| ``null`` \| [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `forcibly?` | `boolean` |
 
 #### Returns
@@ -116,14 +120,14 @@ ___
 
 ### update
 
-▸ `Protected` **update**(`now`, `next`): `void`
+▸ **update**(`now`, `next`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `now` | `number` |
-| `next` | `undefined` \| ``null`` \| [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `next` | `undefined` \| ``null`` \| [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 

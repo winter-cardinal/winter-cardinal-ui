@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisTickMajor
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisTickMajor
 
-# Interface: DChartAxisTickMajor<CHART\>
+# Interface: DChartAxisTickMajor\<CHART\>
 
 ## Type parameters
 
@@ -29,7 +29,7 @@
 
 ### gridline
 
-• `Readonly` **gridline**: [`DChartAxisTickMajorGridline`](DChartAxisTickMajorGridline.md)<`CHART`\>
+• `Readonly` **gridline**: [`DChartAxisTickMajorGridline`](DChartAxisTickMajorGridline.md)\<`CHART`\>
 
 #### Defined in
 
@@ -55,7 +55,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns

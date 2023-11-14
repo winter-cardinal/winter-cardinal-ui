@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeNodeAccessorImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeNodeAccessorImpl
 
-# Class: DTreeNodeAccessorImpl<NODE\>
+# Class: DTreeNodeAccessorImpl\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)<`NODE`\>
+- [`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -30,7 +30,7 @@
 
 ### constructor
 
-• **new DTreeNodeAccessorImpl**<`NODE`\>(`options?`)
+• **new DTreeNodeAccessorImpl**\<`NODE`\>(`options?`): [`DTreeNodeAccessorImpl`](DTreeNodeAccessorImpl.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -42,7 +42,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTreeNodeAccessorOptions`](../interfaces/DTreeNodeAccessorOptions.md)<`NODE`\> |
+| `options?` | [`DTreeNodeAccessorOptions`](../interfaces/DTreeNodeAccessorOptions.md)\<`NODE`\> |
+
+#### Returns
+
+[`DTreeNodeAccessorImpl`](DTreeNodeAccessorImpl.md)\<`NODE`\>
 
 #### Defined in
 

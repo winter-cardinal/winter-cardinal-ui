@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonGroupOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonGroupOnOptions
 
-# Interface: DButtonGroupOnOptions<BUTTON, EMITTER\>
+# Interface: DButtonGroupOnOptions\<BUTTON, EMITTER\>
 
 [DButtonGroup](../classes/DButtonGroup.md) "on" options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DButtonGroupEvents`](DButtonGroupEvents.md)<`BUTTON`, `EMITTER`\>\>
+- `Partial`\<[`DButtonGroupEvents`](DButtonGroupEvents.md)\<`BUTTON`, `EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -29,7 +29,7 @@
 
 ### active
 
-▸ `Optional` **active**(`newActive`, `oldActive`, `emitter`): `void`
+▸ **active**(`newActive`, `oldActive`, `emitter`): `void`
 
 Triggered when the active button is changed.
 

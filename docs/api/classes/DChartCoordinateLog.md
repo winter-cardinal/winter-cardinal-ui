@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateLog
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateLog
 
-# Class: DChartCoordinateLog<CHART\>
+# Class: DChartCoordinateLog\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DChartCoordinateBase`](DChartCoordinateBase.md)<`CHART`\>
+- [`DChartCoordinateBase`](DChartCoordinateBase.md)\<`CHART`\>
 
   ↳ **`DChartCoordinateLog`**
 
@@ -70,19 +70,23 @@
 
 ### constructor
 
-• **new DChartCoordinateLog**<`CHART`\>(`options?`)
+• **new DChartCoordinateLog**\<`CHART`\>(`options?`): [`DChartCoordinateLog`](DChartCoordinateLog.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DChartCoordinateOptions`](../interfaces/DChartCoordinateOptions.md) |
+
+#### Returns
+
+[`DChartCoordinateLog`](DChartCoordinateLog.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -96,7 +100,7 @@
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -180,7 +184,7 @@ ___
 
 ### \_tick
 
-• `Protected` **\_tick**: [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)<`CHART`\>
+• `Protected` **\_tick**: [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -208,7 +212,7 @@ ___
 
 ### \_transform
 
-• `Protected` **\_transform**: [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\>
+• `Protected` **\_transform**: [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -332,11 +336,11 @@ ___
 
 ### transform
 
-• `get` **transform**(): [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\>
+• `get` **transform**(): [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\>
+[`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -356,7 +360,7 @@ DChartCoordinateBase.transform
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\> |
+| `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\> |
 | `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection-1) |
 
 #### Returns
@@ -399,7 +403,7 @@ ___
 
 ### doFit
 
-▸ `Protected` **doFit**(`from`, `to`, `result`): `void`
+▸ **doFit**(`from`, `to`, `result`): `void`
 
 #### Parameters
 
@@ -407,7 +411,7 @@ ___
 | :------ | :------ |
 | `from` | `undefined` \| `number` |
 | `to` | `undefined` \| `number` |
-| `result` | [`DChartCoordinateTransformMark`](../interfaces/DChartCoordinateTransformMark.md) \| [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\> |
+| `result` | [`DChartCoordinateTransformMark`](../interfaces/DChartCoordinateTransformMark.md) \| [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\> |
 
 #### Returns
 
@@ -425,7 +429,7 @@ ___
 
 ### doFit\_
 
-▸ `Protected` **doFit_**(`pixelFrom`, `pixelTo`, `region`, `result`): `void`
+▸ **doFit_**(`pixelFrom`, `pixelTo`, `region`, `result`): `void`
 
 #### Parameters
 
@@ -434,7 +438,7 @@ ___
 | `pixelFrom` | `number` |
 | `pixelTo` | `number` |
 | `region` | [`DChartRegion`](../interfaces/DChartRegion.md) |
-| `result` | [`DChartCoordinateTransformMark`](../interfaces/DChartCoordinateTransformMark.md) \| [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\> |
+| `result` | [`DChartCoordinateTransformMark`](../interfaces/DChartCoordinateTransformMark.md) \| [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\> |
 
 #### Returns
 
@@ -480,13 +484,13 @@ ___
 
 ### getPixelDomain
 
-▸ `Protected` **getPixelDomain**(`plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **getPixelDomain**(`plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -505,13 +509,13 @@ ___
 
 ### getPixelRange
 
-▸ `Protected` **getPixelRange**(`plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **getPixelRange**(`plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -530,7 +534,7 @@ ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): [`DThemeChartCoordinate`](../interfaces/DThemeChartCoordinate.md)
+▸ **getThemeDefault**(): [`DThemeChartCoordinate`](../interfaces/DThemeChartCoordinate.md)
 
 #### Returns
 
@@ -548,7 +552,7 @@ ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -649,7 +653,7 @@ ___
 
 ### newMark
 
-▸ `Protected` **newMark**(): [`DChartCoordinateTransformMark`](../interfaces/DChartCoordinateTransformMark.md)
+▸ **newMark**(): [`DChartCoordinateTransformMark`](../interfaces/DChartCoordinateTransformMark.md)
 
 #### Returns
 
@@ -667,7 +671,7 @@ ___
 
 ### newRegion
 
-▸ `Protected` **newRegion**(): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **newRegion**(): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Returns
 
@@ -685,7 +689,7 @@ ___
 
 ### newTick
 
-▸ `Protected` **newTick**(`options?`): [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)<`CHART`\>
+▸ **newTick**(`options?`): [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)\<`CHART`\>
 
 #### Parameters
 
@@ -695,7 +699,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)<`CHART`\>
+[`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)\<`CHART`\>
 
 #### Overrides
 
@@ -709,7 +713,7 @@ ___
 
 ### newTransform
 
-▸ `Protected` **newTransform**(`options?`): [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\>
+▸ **newTransform**(`options?`): [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\>
 
 #### Parameters
 
@@ -719,7 +723,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\>
+[`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -770,7 +774,7 @@ ___
 
 ### toFitDomain
 
-▸ `Protected` **toFitDomain**(`from`, `to`, `plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **toFitDomain**(`from`, `to`, `plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
@@ -778,7 +782,7 @@ ___
 | :------ | :------ |
 | `from` | `undefined` \| `number` |
 | `to` | `undefined` \| `number` |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -797,7 +801,7 @@ ___
 
 ### toFitRange
 
-▸ `Protected` **toFitRange**(`from`, `to`, `plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **toFitRange**(`from`, `to`, `plotArea`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
@@ -805,7 +809,7 @@ ___
 | :------ | :------ |
 | `from` | `undefined` \| `number` |
 | `to` | `undefined` \| `number` |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -824,7 +828,7 @@ ___
 
 ### toTheme
 
-▸ `Protected` **toTheme**(`options?`): [`DThemeChartCoordinate`](../interfaces/DThemeChartCoordinate.md)
+▸ **toTheme**(`options?`): [`DThemeChartCoordinate`](../interfaces/DThemeChartCoordinate.md)
 
 #### Parameters
 

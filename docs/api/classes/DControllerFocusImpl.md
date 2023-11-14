@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DControllerFocusImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DControllerFocusImpl
 
 # Class: DControllerFocusImpl
 
@@ -48,7 +48,11 @@
 
 ### constructor
 
-• **new DControllerFocusImpl**()
+• **new DControllerFocusImpl**(): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
 
 #### Inherited from
 
@@ -132,7 +136,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -224,7 +228,7 @@ ___
 
 ### findNext
 
-▸ `Protected` **findNext**(`target`, `includesTarget`, `includesTargetChildren`): ``null`` \| [`DFocusable`](../interfaces/DFocusable.md)
+▸ **findNext**(`target`, `includesTarget`, `includesTargetChildren`): ``null`` \| [`DFocusable`](../interfaces/DFocusable.md)
 
 #### Parameters
 
@@ -273,7 +277,7 @@ ___
 
 ### findPrevious
 
-▸ `Protected` **findPrevious**(`target`, `includesTarget`, `includesTargetChildren`): ``null`` \| [`DFocusable`](../interfaces/DFocusable.md)
+▸ **findPrevious**(`target`, `includesTarget`, `includesTargetChildren`): ``null`` \| [`DFocusable`](../interfaces/DFocusable.md)
 
 #### Parameters
 
@@ -337,7 +341,7 @@ ___
 
 ### isFocusReverse
 
-▸ `Protected` **isFocusReverse**(`target`): `boolean`
+▸ **isFocusReverse**(`target`): `boolean`
 
 #### Parameters
 
@@ -357,7 +361,7 @@ ___
 
 ### isFocusRoot
 
-▸ `Protected` **isFocusRoot**(`target`, `root`): target is DFocusable
+▸ **isFocusRoot**(`target`, `root`): target is DFocusable
 
 #### Parameters
 
@@ -378,7 +382,7 @@ ___
 
 ### isFocusable
 
-▸ `Protected` **isFocusable**(`target`): target is DFocusable
+▸ **isFocusable**(`target`): target is DFocusable
 
 #### Parameters
 
@@ -398,7 +402,7 @@ ___
 
 ### isFocusableContainer
 
-▸ `Protected` **isFocusableContainer**(`target`): target is DFocusableContainer
+▸ **isFocusableContainer**(`target`): target is DFocusableContainer
 
 #### Parameters
 

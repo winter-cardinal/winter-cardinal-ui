@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataSelectionOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataSelectionOnOptions
 
-# Interface: DTableDataSelectionOnOptions<EMITTER\>
+# Interface: DTableDataSelectionOnOptions\<EMITTER\>
 
 [DTableDataSelection](DTableDataSelection.md) "on" options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DTableDataSelectionEvents`](DTableDataSelectionEvents.md)<`EMITTER`\>\>
+- `Partial`\<[`DTableDataSelectionEvents`](DTableDataSelectionEvents.md)\<`EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -28,7 +28,7 @@
 
 ### change
 
-▸ `Optional` **change**(`emitter`): `void`
+▸ **change**(`emitter`): `void`
 
 Triggered when s selection is changed.
 

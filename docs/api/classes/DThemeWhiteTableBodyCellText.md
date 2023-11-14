@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTableBodyCellText
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTableBodyCellText
 
 # Class: DThemeWhiteTableBodyCellText
 
@@ -6,11 +6,13 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteImageBase`](DThemeWhiteImageBase.md)<`unknown`\>
+- [`DThemeWhiteImageBase`](DThemeWhiteImageBase.md)\<`unknown`\>
 
   ↳ **`DThemeWhiteTableBodyCellText`**
 
   ↳↳ [`DThemeWhiteTableBodyCellButton`](DThemeWhiteTableBodyCellButton.md)
+
+  ↳↳ [`DThemeWhiteTableBodyCellTextArea`](DThemeWhiteTableBodyCellTextArea.md)
 
 ## Implements
 
@@ -102,7 +104,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTableBodyCellText**()
+• **new DThemeWhiteTableBodyCellText**(): [`DThemeWhiteTableBodyCellText`](DThemeWhiteTableBodyCellText.md)
+
+#### Returns
+
+[`DThemeWhiteTableBodyCellText`](DThemeWhiteTableBodyCellText.md)
 
 #### Inherited from
 

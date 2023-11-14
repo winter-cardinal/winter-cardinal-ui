@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicSDFFontAtlases
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicSDFFontAtlases
 
 # Class: DynamicSDFFontAtlases
 
@@ -25,7 +25,11 @@
 
 ### constructor
 
-• **new DynamicSDFFontAtlases**()
+• **new DynamicSDFFontAtlases**(): [`DynamicSDFFontAtlases`](DynamicSDFFontAtlases.md)
+
+#### Returns
+
+[`DynamicSDFFontAtlases`](DynamicSDFFontAtlases.md)
 
 #### Defined in
 
@@ -35,7 +39,7 @@
 
 ### \_atlases
 
-• `Protected` **\_atlases**: `Record`<`string`, [`DynamicSDFFontAtlas`](DynamicSDFFontAtlas.md)\>
+• `Protected` **\_atlases**: `Record`\<`string`, [`DynamicSDFFontAtlas`](DynamicSDFFontAtlas.md)\>
 
 #### Defined in
 

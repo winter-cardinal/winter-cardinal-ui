@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DViewZoomWheelOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DViewZoomWheelOptions
 
 # Interface: DViewZoomWheelOptions
 
@@ -24,7 +24,7 @@ If a checker returns false, wheel zooms will be canceled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L36)
+[src/main/typescript/wcardinal/ui/d-view.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L37)
 
 ___
 
@@ -36,7 +36,7 @@ True to enable wheel zoom
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L24)
+[src/main/typescript/wcardinal/ui/d-view.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L25)
 
 ___
 
@@ -48,7 +48,7 @@ Mouse modifiers
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L30)
+[src/main/typescript/wcardinal/ui/d-view.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L31)
 
 ___
 
@@ -60,4 +60,4 @@ Zoom speed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L27)
+[src/main/typescript/wcardinal/ui/d-view.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L28)

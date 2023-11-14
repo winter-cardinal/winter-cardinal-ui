@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDropdown
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDropdown
 
 # Class: DThemeWhiteDropdown
 
@@ -6,7 +6,7 @@ A dropdown theme.
 
 ## Hierarchy
 
-- `DThemeWhiteDropdownBase`<`string`\>
+- `DThemeWhiteDropdownBase`\<`string`\>
 
   ↳ **`DThemeWhiteDropdown`**
 
@@ -114,11 +114,15 @@ A dropdown theme.
 
 ### constructor
 
-• **new DThemeWhiteDropdown**()
+• **new DThemeWhiteDropdown**(): [`DThemeWhiteDropdown`](DThemeWhiteDropdown.md)
+
+#### Returns
+
+[`DThemeWhiteDropdown`](DThemeWhiteDropdown.md)
 
 #### Inherited from
 
-DThemeWhiteDropdownBase<string\>.constructor
+DThemeWhiteDropdownBase\<string\>.constructor
 
 #### Defined in
 
@@ -1068,7 +1072,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1092,7 +1096,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1176,7 +1180,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1200,7 +1204,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -2181,14 +2185,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

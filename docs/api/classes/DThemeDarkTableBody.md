@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableBody
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableBody
 
 # Class: DThemeDarkTableBody
 
@@ -70,7 +70,11 @@
 
 ### constructor
 
-• **new DThemeDarkTableBody**()
+• **new DThemeDarkTableBody**(): [`DThemeDarkTableBody`](DThemeDarkTableBody.md)
+
+#### Returns
+
+[`DThemeDarkTableBody`](DThemeDarkTableBody.md)
 
 #### Inherited from
 

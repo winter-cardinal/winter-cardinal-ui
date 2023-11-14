@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSetTickerDatumImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetTickerDatumImpl
 
 # Class: DBaseStateSetTickerDatumImpl
 
@@ -32,13 +32,17 @@
 
 ### constructor
 
-• **new DBaseStateSetTickerDatumImpl**(`interval`)
+• **new DBaseStateSetTickerDatumImpl**(`interval`): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `interval` | `number` |
+
+#### Returns
+
+[`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
 
 #### Inherited from
 
@@ -95,7 +99,7 @@ ___
 
 ### newOn
 
-▸ `Protected` **newOn**(`now`, `interval`): `boolean`
+▸ **newOn**(`now`, `interval`): `boolean`
 
 #### Parameters
 
@@ -120,7 +124,7 @@ ___
 
 ### newValue
 
-▸ `Protected` **newValue**(`now`, `interval`): ``null`` \| `number`
+▸ **newValue**(`now`, `interval`): ``null`` \| `number`
 
 #### Parameters
 
@@ -145,7 +149,7 @@ ___
 
 ### onTime
 
-▸ `Protected` **onTime**(): `void`
+▸ **onTime**(): `void`
 
 #### Returns
 
@@ -188,7 +192,7 @@ ___
 
 ### start
 
-▸ `Protected` **start**(): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+▸ **start**(): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
 
 #### Returns
 
@@ -206,7 +210,7 @@ ___
 
 ### stop
 
-▸ `Protected` **stop**(): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+▸ **stop**(): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
 
 #### Returns
 

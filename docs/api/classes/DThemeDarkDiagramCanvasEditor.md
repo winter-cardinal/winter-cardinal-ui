@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkDiagramCanvasEditor
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDiagramCanvasEditor
 
 # Class: DThemeDarkDiagramCanvasEditor
 
@@ -85,7 +85,11 @@
 
 ### constructor
 
-• **new DThemeDarkDiagramCanvasEditor**()
+• **new DThemeDarkDiagramCanvasEditor**(): [`DThemeDarkDiagramCanvasEditor`](DThemeDarkDiagramCanvasEditor.md)
+
+#### Returns
+
+[`DThemeDarkDiagramCanvasEditor`](DThemeDarkDiagramCanvasEditor.md)
 
 #### Inherited from
 

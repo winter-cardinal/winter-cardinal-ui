@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectSearch
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectSearch
 
-# Interface: DDialogSelectSearch<VALUE\>
+# Interface: DDialogSelectSearch\<VALUE, CATEGORY_ID\>
 
 [DDialogSelect](../classes/DDialogSelect.md) search object.
 
@@ -9,6 +9,7 @@
 | Name |
 | :------ |
 | `VALUE` |
+| `CATEGORY_ID` |
 
 ## Hierarchy
 
@@ -38,7 +39,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `args` | [`string`] |
+| `args` | [`string`] \| [`string`, ``null`` \| `CATEGORY_ID`] |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartSelectionGridlineX
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartSelectionGridlineX
 
 # Class: DThemeDarkChartSelectionGridlineX
 
@@ -23,7 +23,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartSelectionGridlineX**()
+• **new DThemeDarkChartSelectionGridlineX**(): [`DThemeDarkChartSelectionGridlineX`](DThemeDarkChartSelectionGridlineX.md)
+
+#### Returns
+
+[`DThemeDarkChartSelectionGridlineX`](DThemeDarkChartSelectionGridlineX.md)
 
 #### Inherited from
 

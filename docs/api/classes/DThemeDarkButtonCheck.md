@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkButtonCheck
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkButtonCheck
 
-# Class: DThemeDarkButtonCheck<VALUE\>
+# Class: DThemeDarkButtonCheck\<VALUE\>
 
 [DButtonBase](DButtonBase.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkButtonAmbient`](DThemeDarkButtonAmbient.md)<`VALUE`\>
+- [`DThemeDarkButtonAmbient`](DThemeDarkButtonAmbient.md)\<`VALUE`\>
 
   ↳ **`DThemeDarkButtonCheck`**
 
@@ -22,7 +22,7 @@
 
 ## Implements
 
-- [`DThemeButtonCheck`](../interfaces/DThemeButtonCheck.md)<`VALUE`\>
+- [`DThemeButtonCheck`](../interfaces/DThemeButtonCheck.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -123,7 +123,7 @@
 
 ### constructor
 
-• **new DThemeDarkButtonCheck**<`VALUE`\>(`backgroundColor?`, `hover?`, `pressed?`)
+• **new DThemeDarkButtonCheck**\<`VALUE`\>(`backgroundColor?`, `hover?`, `pressed?`): [`DThemeDarkButtonCheck`](DThemeDarkButtonCheck.md)\<`VALUE`\>
 
 #### Type parameters
 
@@ -138,6 +138,10 @@
 | `backgroundColor` | `number` | `0x484848` |
 | `hover` | `number` | `0.017` |
 | `pressed` | `number` | `0.034` |
+
+#### Returns
+
+[`DThemeDarkButtonCheck`](DThemeDarkButtonCheck.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1091,7 +1095,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1115,7 +1119,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1199,7 +1203,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1223,7 +1227,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -2176,14 +2180,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Implementation of
 

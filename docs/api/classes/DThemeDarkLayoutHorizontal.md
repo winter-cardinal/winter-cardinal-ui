@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkLayoutHorizontal
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkLayoutHorizontal
 
 # Class: DThemeDarkLayoutHorizontal
 
@@ -86,7 +86,11 @@
 
 ### constructor
 
-• **new DThemeDarkLayoutHorizontal**()
+• **new DThemeDarkLayoutHorizontal**(): [`DThemeDarkLayoutHorizontal`](DThemeDarkLayoutHorizontal.md)
+
+#### Returns
+
+[`DThemeDarkLayoutHorizontal`](DThemeDarkLayoutHorizontal.md)
 
 #### Inherited from
 

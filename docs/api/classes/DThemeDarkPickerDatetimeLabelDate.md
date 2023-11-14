@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPickerDatetimeLabelDate
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPickerDatetimeLabelDate
 
-# Class: DThemeDarkPickerDatetimeLabelDate<VALUE\>
+# Class: DThemeDarkPickerDatetimeLabelDate\<VALUE\>
 
 [DTextBase](DTextBase.md) theme.
 
@@ -12,13 +12,13 @@
 
 ## Hierarchy
 
-- [`DThemeDarkText`](DThemeDarkText.md)<`VALUE`\>
+- [`DThemeDarkText`](DThemeDarkText.md)\<`VALUE`\>
 
   ↳ **`DThemeDarkPickerDatetimeLabelDate`**
 
 ## Implements
 
-- [`DThemePickerDatetimeLabelDate`](../interfaces/DThemePickerDatetimeLabelDate.md)<`VALUE`\>
+- [`DThemePickerDatetimeLabelDate`](../interfaces/DThemePickerDatetimeLabelDate.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -84,13 +84,17 @@
 
 ### constructor
 
-• **new DThemeDarkPickerDatetimeLabelDate**<`VALUE`\>()
+• **new DThemeDarkPickerDatetimeLabelDate**\<`VALUE`\>(): [`DThemeDarkPickerDatetimeLabelDate`](DThemeDarkPickerDatetimeLabelDate.md)\<`VALUE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
+
+#### Returns
+
+[`DThemeDarkPickerDatetimeLabelDate`](DThemeDarkPickerDatetimeLabelDate.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1399,14 +1403,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Implementation of
 

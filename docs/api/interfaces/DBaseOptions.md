@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseOptions
 
-# Interface: DBaseOptions<THEME, EMITTER\>
+# Interface: DBaseOptions\<THEME, EMITTER\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -159,7 +159,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -188,7 +188,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -212,7 +212,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and event handlers.
 

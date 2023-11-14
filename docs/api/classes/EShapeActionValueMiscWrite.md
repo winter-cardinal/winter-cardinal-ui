@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueMiscWrite
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueMiscWrite
 
 # Class: EShapeActionValueMiscWrite
 
@@ -37,7 +37,7 @@
 
 ### constructor
 
-• **new EShapeActionValueMiscWrite**(`subtype`, `condition`, `target`, `value`)
+• **new EShapeActionValueMiscWrite**(`subtype`, `condition`, `target`, `value`): [`EShapeActionValueMiscWrite`](EShapeActionValueMiscWrite.md)
 
 #### Parameters
 
@@ -47,6 +47,10 @@
 | `condition` | `string` |
 | `target` | `string` |
 | `value` | `string` |
+
+#### Returns
+
+[`EShapeActionValueMiscWrite`](EShapeActionValueMiscWrite.md)
 
 #### Overrides
 
@@ -158,7 +162,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -260,7 +264,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueMisc`](EShapeActionValueMisc.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueMisc`](EShapeActionValueMisc.md)
 
 #### Parameters
 

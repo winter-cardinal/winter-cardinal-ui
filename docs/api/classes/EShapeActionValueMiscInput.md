@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueMiscInput
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueMiscInput
 
 # Class: EShapeActionValueMiscInput
 
@@ -37,16 +37,20 @@
 
 ### constructor
 
-• **new EShapeActionValueMiscInput**(`subtype`, `when`, `target`, `onInputAction`)
+• **new EShapeActionValueMiscInput**(`subtype`, `when`, `target`, `onInputAction`): [`EShapeActionValueMiscInput`](EShapeActionValueMiscInput.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `subtype` | ``0`` \| ``1`` \| ``2`` |
+| `subtype` | ``0`` \| ``2`` \| ``1`` |
 | `when` | `string` |
 | `target` | `string` |
 | `onInputAction` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction-1) |
+
+#### Returns
+
+[`EShapeActionValueMiscInput`](EShapeActionValueMiscInput.md)
 
 #### Overrides
 
@@ -158,7 +162,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -260,7 +264,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueMisc`](EShapeActionValueMisc.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueMisc`](EShapeActionValueMisc.md)
 
 #### Parameters
 

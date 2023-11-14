@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DSelectOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DSelectOnOptions
 
-# Interface: DSelectOnOptions<VALUE, EMITTER\>
+# Interface: DSelectOnOptions\<VALUE, EMITTER\>
 
 [DSelect](../classes/DSelect.md) "on" options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DSelectEvents`](DSelectEvents.md)<`VALUE`, `EMITTER`\>\>
+- `Partial`\<[`DSelectEvents`](DSelectEvents.md)\<`VALUE`, `EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -53,7 +53,7 @@
 
 ### active
 
-▸ `Optional` **active**(`emitter`): `void`
+▸ **active**(`emitter`): `void`
 
 Triggered when the button is activated.
 
@@ -79,7 +79,7 @@ ___
 
 ### added
 
-▸ `Optional` **added**(`container`): `void`
+▸ **added**(`container`): `void`
 
 Triggered when added to a container.
 
@@ -105,7 +105,7 @@ ___
 
 ### change
 
-▸ `Optional` **change**(`newValue`, `oldValue`, `item`, `emitter`): `void`
+▸ **change**(`newValue`, `oldValue`, `item`, `emitter`): `void`
 
 Triggered when a selection is changed.
 
@@ -115,7 +115,7 @@ Triggered when a selection is changed.
 | :------ | :------ | :------ |
 | `newValue` | ``null`` \| `VALUE` | - |
 | `oldValue` | ``null`` \| `VALUE` | a previously-selected value |
-| `item` | ``null`` \| [`DMenuItem`](../classes/DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a newly-selected item |
+| `item` | ``null`` \| [`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a newly-selected item |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -134,7 +134,7 @@ ___
 
 ### click
 
-▸ `Optional` **click**(`e`, `emitter`): `void`
+▸ **click**(`e`, `emitter`): `void`
 
 Triggered when an emitter is clicked.
 
@@ -161,7 +161,7 @@ ___
 
 ### dblclick
 
-▸ `Optional` **dblclick**(`e`, `interactionManager`, `emitter`): `void`
+▸ **dblclick**(`e`, `interactionManager`, `emitter`): `void`
 
 Triggered when an emitter is double clicked.
 
@@ -189,7 +189,7 @@ ___
 
 ### down
 
-▸ `Optional` **down**(`e`, `emitter`): `void`
+▸ **down**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets down on an emitter.
 
@@ -216,7 +216,7 @@ ___
 
 ### inactive
 
-▸ `Optional` **inactive**(`emitter`): `void`
+▸ **inactive**(`emitter`): `void`
 
 Triggered when the button is inactivated.
 
@@ -242,7 +242,7 @@ ___
 
 ### init
 
-▸ `Optional` **init**(`emitter`): `void`
+▸ **init**(`emitter`): `void`
 
 Triggered when an initialization is finished.
 
@@ -268,7 +268,7 @@ ___
 
 ### keydown
 
-▸ `Optional` **keydown**(`e`, `emitter`): `void`
+▸ **keydown**(`e`, `emitter`): `void`
 
 Triggered when a key gets down.
 
@@ -295,7 +295,7 @@ ___
 
 ### keyup
 
-▸ `Optional` **keyup**(`e`, `emitter`): `void`
+▸ **keyup**(`e`, `emitter`): `void`
 
 Triggered when a key gets up.
 
@@ -322,7 +322,7 @@ ___
 
 ### move
 
-▸ `Optional` **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when moved.
 
@@ -352,7 +352,7 @@ ___
 
 ### open
 
-▸ `Optional` **open**(`menu`, `emitter`): `void`
+▸ **open**(`menu`, `emitter`): `void`
 
 Triggered when a menu is opened.
 
@@ -360,7 +360,7 @@ Triggered when a menu is opened.
 
 | Name | Type |
 | :------ | :------ |
-| `menu` | [`DMenu`](../classes/DMenu.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\> |
+| `menu` | [`DMenu`](../classes/DMenu.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\> |
 | `emitter` | `EMITTER` |
 
 #### Returns
@@ -379,7 +379,7 @@ ___
 
 ### out
 
-▸ `Optional` **out**(`e`, `emitter`): `void`
+▸ **out**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets out of an emitter.
 
@@ -406,7 +406,7 @@ ___
 
 ### over
 
-▸ `Optional` **over**(`e`, `emitter`): `void`
+▸ **over**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets on an emitter.
 
@@ -433,7 +433,7 @@ ___
 
 ### press
 
-▸ `Optional` **press**(`emitter`): `void`
+▸ **press**(`emitter`): `void`
 
 Triggered when the button is pressed.
 
@@ -459,7 +459,7 @@ ___
 
 ### removed
 
-▸ `Optional` **removed**(`container`): `void`
+▸ **removed**(`container`): `void`
 
 Triggered when removed from a container.
 
@@ -485,7 +485,7 @@ ___
 
 ### resize
 
-▸ `Optional` **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
+▸ **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
 
 Triggered when resized.
 
@@ -515,7 +515,7 @@ ___
 
 ### scale
 
-▸ `Optional` **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when scaled.
 
@@ -545,7 +545,7 @@ ___
 
 ### select
 
-▸ `Optional` **select**(`value`, `item`, `emitter`): `void`
+▸ **select**(`value`, `item`, `emitter`): `void`
 
 Triggered when a menu item is selected.
 
@@ -554,7 +554,7 @@ Triggered when a menu item is selected.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `value` | `VALUE` | a value of a selected menu item |
-| `item` | [`DMenuItem`](../classes/DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a selected menu item |
+| `item` | [`DMenuItem`](../classes/DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md), [`DMenuItemOptions`](DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](DThemeMenuItem.md)\>\> | a selected menu item |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -573,7 +573,7 @@ ___
 
 ### shortcut
 
-▸ `Optional` **shortcut**(`e`, `emitter`): `void`
+▸ **shortcut**(`e`, `emitter`): `void`
 
 Triggered when a shortcut is pressed.
 
@@ -600,7 +600,7 @@ ___
 
 ### skew
 
-▸ `Optional` **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when skewed.
 
@@ -630,7 +630,7 @@ ___
 
 ### statechange
 
-▸ `Optional` **statechange**(`newState`, `oldState`, `emitter`): `void`
+▸ **statechange**(`newState`, `oldState`, `emitter`): `void`
 
 Triggered when a state is changed.
 
@@ -658,7 +658,7 @@ ___
 
 ### unpress
 
-▸ `Optional` **unpress**(`emitter`): `void`
+▸ **unpress**(`emitter`): `void`
 
 Triggered when the button is released.
 
@@ -684,7 +684,7 @@ ___
 
 ### up
 
-▸ `Optional` **up**(`e`, `emitter`): `void`
+▸ **up**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets up on an emitter.
 
@@ -711,7 +711,7 @@ ___
 
 ### wheel
 
-▸ `Optional` **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
+▸ **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
 
 Triggered when a wheel moves.
 

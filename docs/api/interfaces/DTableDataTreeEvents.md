@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeEvents
 
-# Interface: DTableDataTreeEvents<NODE, EMITTER\>
+# Interface: DTableDataTreeEvents\<NODE, EMITTER\>
 
 [DTableDataTree](../classes/DTableDataTree.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DBaseEvents`](DBaseEvents.md)<`EMITTER`\>
+- [`DBaseEvents`](DBaseEvents.md)\<`EMITTER`\>
 
   ↳ **`DTableDataTreeEvents`**
 
@@ -116,7 +116,7 @@ Triggered when a node is collapsed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L49)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L54)
 
 ___
 
@@ -194,7 +194,7 @@ Triggered when a node is expanded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L41)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L46)
 
 ___
 

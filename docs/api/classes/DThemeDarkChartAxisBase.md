@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartAxisBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartAxisBase
 
 # Class: DThemeDarkChartAxisBase
 
@@ -92,7 +92,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartAxisBase**()
+• **new DThemeDarkChartAxisBase**(): [`DThemeDarkChartAxisBase`](DThemeDarkChartAxisBase.md)
+
+#### Returns
+
+[`DThemeDarkChartAxisBase`](DThemeDarkChartAxisBase.md)
 
 ## Methods
 

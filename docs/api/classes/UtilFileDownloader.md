@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilFileDownloader
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilFileDownloader
 
 # Class: UtilFileDownloader
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new UtilFileDownloader**()
+• **new UtilFileDownloader**(): [`UtilFileDownloader`](UtilFileDownloader.md)
+
+#### Returns
+
+[`UtilFileDownloader`](UtilFileDownloader.md)
 
 ## Methods
 
 ### download
 
-▸ `Static` **download**(`filename`, `contents`, `insertBom?`): `void`
+▸ **download**(`filename`, `contents`, `insertBom?`): `void`
 
 Downloads a file of the given name with the given contents.
 
@@ -47,7 +51,7 @@ ___
 
 ### downloadUrl
 
-▸ `Static` **downloadUrl**(`filename`, `url`): `void`
+▸ **downloadUrl**(`filename`, `url`): `void`
 
 Downloads a file of the given name and URL.
 

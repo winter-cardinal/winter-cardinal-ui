@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodeH
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodeH
 
 # Class: FormatNodeH
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new FormatNodeH**()
+• **new FormatNodeH**(): [`FormatNodeH`](FormatNodeH.md)
+
+#### Returns
+
+[`FormatNodeH`](FormatNodeH.md)
 
 ## Methods
 

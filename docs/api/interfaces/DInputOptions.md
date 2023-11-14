@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DInputOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DInputOptions
 
-# Interface: DInputOptions<VALUE, ELEMENT, THEME\>
+# Interface: DInputOptions\<VALUE, ELEMENT, THEME\>
 
 [DImageBase](../classes/DImageBase.md) options.
 
@@ -10,13 +10,13 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 | `ELEMENT` | extends `HTMLInputElement` \| `HTMLTextAreaElement` = `HTMLInputElement` \| `HTMLTextAreaElement` |
-| `THEME` | extends [`DThemeInput`](DThemeInput.md)<`VALUE`, `ELEMENT`\> = [`DThemeInput`](DThemeInput.md)<`VALUE`, `ELEMENT`\> |
+| `THEME` | extends [`DThemeInput`](DThemeInput.md)\<`VALUE`, `ELEMENT`\> = [`DThemeInput`](DThemeInput.md)\<`VALUE`, `ELEMENT`\> |
 
 ## Hierarchy
 
-- [`DHtmlElementOptions`](DHtmlElementOptions.md)<`VALUE`, `ELEMENT`, `THEME`\>
+- [`DHtmlElementOptions`](DHtmlElementOptions.md)\<`VALUE`, `ELEMENT`, `THEME`\>
 
-- [`UtilInputOptions`](UtilInputOptions.md)<`VALUE`, `ELEMENT`\>
+- [`UtilInputOptions`](UtilInputOptions.md)\<`VALUE`, `ELEMENT`\>
 
   ↳ **`DInputOptions`**
 
@@ -191,7 +191,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -221,7 +221,7 @@ ___
 
 ### editing
 
-• `Optional` **editing**: [`UtilInputEditingOptions`](UtilInputEditingOptions.md)<`VALUE`\>
+• `Optional` **editing**: [`UtilInputEditingOptions`](UtilInputEditingOptions.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -235,7 +235,7 @@ ___
 
 ### element
 
-• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)<`ELEMENT`\>
+• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)\<`ELEMENT`\>
 
 #### Inherited from
 
@@ -284,7 +284,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -330,7 +330,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)<`VALUE`, `any`\>
+• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)\<`VALUE`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -403,7 +403,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DInputOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -498,7 +498,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -579,7 +579,7 @@ ___
 
 ### when
 
-• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
+• `Optional` **when**: ``"FOCUSED"`` \| ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Inherited from
 

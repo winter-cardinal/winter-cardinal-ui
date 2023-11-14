@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DApplicationLayerLike
+[Winter Cardinal UI - v0.374.0](../index.md) / DApplicationLayerLike
 
 # Interface: DApplicationLayerLike
 
@@ -194,7 +194,9 @@ PIXI.Application#
 
 **`Default`**
 
+```ts
 PIXI.Ticker.shared
+```
 
 #### Inherited from
 
@@ -245,10 +247,10 @@ Destroy and don't use after this.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `removeView?` | `boolean` | Automatically remove canvas from DOM. |
-| `stageOptions?` | `Object` | Options parameter. A boolean will act as if all options  have been set to that value |
-| `stageOptions.baseTexture?` | `boolean` | Only used for child Sprites if stageOptions.children is set  to true. Should it destroy the base texture of the child sprite |
-| `stageOptions.children?` | `boolean` | if set to true, all the children will have their destroy  method called as well. 'stageOptions' will be passed on to those calls. |
-| `stageOptions.texture?` | `boolean` | Only used for child Sprites if stageOptions.children is set  to true. Should it destroy the texture of the child sprite |
+| `stageOptions?` | `Object` | Options parameter. A boolean will act as if all options have been set to that value |
+| `stageOptions.baseTexture?` | `boolean` | Only used for child Sprites if stageOptions.children is set to true. Should it destroy the base texture of the child sprite |
+| `stageOptions.children?` | `boolean` | if set to true, all the children will have their destroy method called as well. 'stageOptions' will be passed on to those calls. |
+| `stageOptions.texture?` | `boolean` | Only used for child Sprites if stageOptions.children is set to true. Should it destroy the texture of the child sprite |
 
 #### Returns
 
@@ -373,13 +375,13 @@ ___
 If `resizeTo` is set, calling this function
 will resize to the width and height of that element.
 
-**`Method`**
-
-PIXI.Application#resize
-
 #### Returns
 
 `void`
+
+**`Method`**
+
+PIXI.Application#resize
 
 #### Inherited from
 
@@ -397,13 +399,13 @@ ___
 
 Convenience method for starting the render.
 
-**`Method`**
-
-PIXI.Application#start
-
 #### Returns
 
 `void`
+
+**`Method`**
+
+PIXI.Application#start
 
 #### Inherited from
 
@@ -421,13 +423,13 @@ ___
 
 Convenience method for stopping the render.
 
-**`Method`**
-
-PIXI.Application#stop
-
 #### Returns
 
 `void`
+
+**`Method`**
+
+PIXI.Application#stop
 
 #### Inherited from
 

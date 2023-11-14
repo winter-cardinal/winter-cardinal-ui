@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextStyle
+[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextStyle
 
 # Class: DDynamicTextStyle
 
@@ -71,7 +71,7 @@
 
 ### constructor
 
-• **new DDynamicTextStyle**(`options`, `onChange`)
+• **new DDynamicTextStyle**(`options`, `onChange`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
 
 #### Parameters
 
@@ -79,6 +79,10 @@
 | :------ | :------ |
 | `options` | `undefined` \| [`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md) |
 | `onChange` | () => `void` |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
 
 #### Defined in
 
@@ -316,7 +320,7 @@ ___
 
 ### DEFAULT\_OPTIONS
 
-▪ `Static` `Protected` `Optional` **DEFAULT\_OPTIONS**: `Required`<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+▪ `Static` `Protected` `Optional` **DEFAULT\_OPTIONS**: `Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
 
 #### Defined in
 
@@ -803,11 +807,11 @@ ___
 
 ### getDefaultOptions
 
-▸ `Protected` **getDefaultOptions**(): `Required`<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+▸ **getDefaultOptions**(): `Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
 
 #### Returns
 
-`Required`<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+`Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
 
 #### Defined in
 
@@ -817,11 +821,11 @@ ___
 
 ### newDefaultOptions
 
-▸ `Protected` **newDefaultOptions**(): `Required`<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+▸ **newDefaultOptions**(): `Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
 
 #### Returns
 
-`Required`<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+`Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
 
 #### Defined in
 
@@ -831,7 +835,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 
@@ -879,7 +883,7 @@ ___
 
 ### update
 
-▸ `Protected` **update**(): `void`
+▸ **update**(): `void`
 
 #### Returns
 

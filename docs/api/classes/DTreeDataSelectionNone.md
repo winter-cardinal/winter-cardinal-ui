@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataSelectionNone
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionNone
 
-# Class: DTreeDataSelectionNone<NODE\>
+# Class: DTreeDataSelectionNone\<NODE\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)<`NODE`\>
+- [`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -64,7 +64,7 @@
 
 ### constructor
 
-• **new DTreeDataSelectionNone**<`NODE`\>(`parent`, `options?`)
+• **new DTreeDataSelectionNone**\<`NODE`\>(`parent`, `options?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -76,8 +76,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)<`NODE`\> |
-| `options?` | [`DTreeDataSelectionOptions`](../interfaces/DTreeDataSelectionOptions.md)<`NODE`, `any`\> |
+| `parent` | [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)\<`NODE`\> |
+| `options?` | [`DTreeDataSelectionOptions`](../interfaces/DTreeDataSelectionOptions.md)\<`NODE`, `any`\> |
+
+#### Returns
+
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 #### Overrides
 
@@ -91,7 +95,7 @@ utils.EventEmitter.constructor
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)<`NODE`\>
+• `Protected` **\_parent**: [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)\<`NODE`\>
 
 #### Defined in
 
@@ -189,7 +193,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -203,7 +207,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -351,7 +355,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -518,7 +522,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -533,7 +537,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -551,7 +555,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -565,7 +569,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 `this`.
 
@@ -605,7 +609,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -619,7 +623,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 `this`.
 
@@ -667,7 +671,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -679,7 +683,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 `this`.
 
@@ -699,7 +703,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -714,7 +718,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)<`NODE`\>
+[`DTreeDataSelectionNone`](DTreeDataSelectionNone.md)\<`NODE`\>
 
 `this`.
 

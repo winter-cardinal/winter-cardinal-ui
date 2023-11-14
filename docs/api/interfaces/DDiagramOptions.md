@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramOptions
 
-# Interface: DDiagramOptions<THEME, EMITTER\>
+# Interface: DDiagramOptions\<THEME, EMITTER\>
 
 [DDiagram](../classes/DDiagram.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DDiagramBaseOptions`](DDiagramBaseOptions.md)<[`DDiagramCanvas`](../classes/DDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md), [`DDiagramController`](DDiagramController.md), `THEME`, `EMITTER`\>
+- [`DDiagramBaseOptions`](DDiagramBaseOptions.md)\<[`DDiagramCanvas`](../classes/DDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md), [`DDiagramController`](DDiagramController.md), `THEME`, `EMITTER`\>
 
   ↳ **`DDiagramOptions`**
 
@@ -106,7 +106,7 @@ ___
 
 ### canvas
 
-• `Optional` **canvas**: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>
+• `Optional` **canvas**: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>
 
 #### Inherited from
 
@@ -182,7 +182,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -229,7 +229,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -275,7 +275,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDiagramBaseOnOptions`](DDiagramBaseOnOptions.md)<[`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>, `EMITTER`\>
+• `Optional` **on**: [`DDiagramBaseOnOptions`](DDiagramBaseOnOptions.md)\<[`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>, `EMITTER`\>
 
 Mappings of event names and event handlers.
 
@@ -348,7 +348,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDiagramOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -413,7 +413,7 @@ ___
 
 ### snapshot
 
-• `Optional` **snapshot**: [`DDiagramSnapshotOptions`](DDiagramSnapshotOptions.md)<[`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>, `any`\>
+• `Optional` **snapshot**: [`DDiagramSnapshotOptions`](DDiagramSnapshotOptions.md)\<[`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>, `any`\>
 
 Snapshot options.
 

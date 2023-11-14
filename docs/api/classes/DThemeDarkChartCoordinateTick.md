@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartCoordinateTick
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartCoordinateTick
 
 # Class: DThemeDarkChartCoordinateTick
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartCoordinateTick**()
+• **new DThemeDarkChartCoordinateTick**(): [`DThemeDarkChartCoordinateTick`](DThemeDarkChartCoordinateTick.md)
+
+#### Returns
+
+[`DThemeDarkChartCoordinateTick`](DThemeDarkChartCoordinateTick.md)
 
 ## Methods
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DAnimationTimings
+[Winter Cardinal UI - v0.374.0](../index.md) / DAnimationTimings
 
 # Class: DAnimationTimings
 
@@ -18,13 +18,17 @@
 
 ### constructor
 
-• **new DAnimationTimings**()
+• **new DAnimationTimings**(): [`DAnimationTimings`](DAnimationTimings.md)
+
+#### Returns
+
+[`DAnimationTimings`](DAnimationTimings.md)
 
 ## Methods
 
 ### ELASTIC
 
-▸ `Static` **ELASTIC**(`t`): `number`
+▸ **ELASTIC**(`t`): `number`
 
 #### Parameters
 
@@ -44,7 +48,7 @@ ___
 
 ### LINEAR
 
-▸ `Static` **LINEAR**(`t`): `number`
+▸ **LINEAR**(`t`): `number`
 
 #### Parameters
 
@@ -64,7 +68,7 @@ ___
 
 ### QUAD\_IN\_OUT
 
-▸ `Static` **QUAD_IN_OUT**(`t`): `number`
+▸ **QUAD_IN_OUT**(`t`): `number`
 
 #### Parameters
 

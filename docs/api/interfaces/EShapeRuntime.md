@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeRuntime
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeRuntime
 
 # Interface: EShapeRuntime
 
@@ -266,7 +266,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](EShape.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -309,7 +309,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](EShape.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -603,7 +603,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](EShape.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 

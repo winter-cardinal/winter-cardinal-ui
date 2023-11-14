@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesHitResult
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesHitResult
 
 # Class: DChartSeriesHitResult
 
@@ -29,7 +29,11 @@
 
 ### constructor
 
-• **new DChartSeriesHitResult**()
+• **new DChartSeriesHitResult**(): [`DChartSeriesHitResult`](DChartSeriesHitResult.md)
+
+#### Returns
+
+[`DChartSeriesHitResult`](DChartSeriesHitResult.md)
 
 #### Defined in
 

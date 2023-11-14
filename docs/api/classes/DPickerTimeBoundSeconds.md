@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerTimeBoundSeconds
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerTimeBoundSeconds
 
 # Class: DPickerTimeBoundSeconds
 
@@ -21,13 +21,17 @@
 
 ### constructor
 
-• **new DPickerTimeBoundSeconds**(`parent`)
+• **new DPickerTimeBoundSeconds**(`parent`): [`DPickerTimeBoundSeconds`](DPickerTimeBoundSeconds.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DPickerTimeBoundSecondsParent`](../interfaces/DPickerTimeBoundSecondsParent.md) |
+
+#### Returns
+
+[`DPickerTimeBoundSeconds`](DPickerTimeBoundSeconds.md)
 
 #### Defined in
 

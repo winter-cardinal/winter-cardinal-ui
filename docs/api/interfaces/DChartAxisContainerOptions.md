@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisContainerOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisContainerOptions
 
-# Interface: DChartAxisContainerOptions<CHART\>
+# Interface: DChartAxisContainerOptions\<CHART\>
 
 ## Type parameters
 
@@ -18,7 +18,7 @@
 
 ### list
 
-• `Optional` **list**: [`DChartAxis`](DChartAxis.md)<`CHART`\>[]
+• `Optional` **list**: [`DChartAxis`](DChartAxis.md)\<`CHART`\>[]
 
 #### Defined in
 

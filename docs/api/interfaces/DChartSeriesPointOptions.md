@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesPointOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesPointOptions
 
 # Interface: DChartSeriesPointOptions
 
@@ -13,7 +13,7 @@
 
 ### x
 
-• `Optional` **x**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• `Optional` **x**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Defined in
 
@@ -23,7 +23,7 @@ ___
 
 ### y
 
-• `Optional` **y**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• `Optional` **y**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Defined in
 

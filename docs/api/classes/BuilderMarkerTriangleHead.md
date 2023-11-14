@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderMarkerTriangleHead
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderMarkerTriangleHead
 
 # Class: BuilderMarkerTriangleHead
 
@@ -51,7 +51,7 @@
 
 ### constructor
 
-• **new BuilderMarkerTriangleHead**(`vertexOffset`, `indexOffset`)
+• **new BuilderMarkerTriangleHead**(`vertexOffset`, `indexOffset`): [`BuilderMarkerTriangleHead`](BuilderMarkerTriangleHead.md)
 
 #### Parameters
 
@@ -59,6 +59,10 @@
 | :------ | :------ |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
+
+#### Returns
+
+[`BuilderMarkerTriangleHead`](BuilderMarkerTriangleHead.md)
 
 #### Inherited from
 
@@ -410,7 +414,7 @@ ___
 
 ### toMarker
 
-▸ `Protected` **toMarker**(`container`): [`EShapePointsMarker`](../interfaces/EShapePointsMarker.md)
+▸ **toMarker**(`container`): [`EShapePointsMarker`](../interfaces/EShapePointsMarker.md)
 
 #### Parameters
 
@@ -459,7 +463,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -484,7 +488,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -509,7 +513,7 @@ ___
 
 ### updateVertexStepAndUv
 
-▸ `Protected` **updateVertexStepAndUv**(`buffer`, `shape`): `void`
+▸ **updateVertexStepAndUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 

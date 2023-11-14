@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableHeaderCellCheck
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableHeaderCellCheck
 
-# Class: DTableHeaderCellCheck<ROW\>
+# Class: DTableHeaderCellCheck\<ROW\>
 
 ## Type parameters
 
@@ -36,7 +36,7 @@
 
 ### constructor
 
-• **new DTableHeaderCellCheck**<`ROW`\>(`parent`, `options?`)
+• **new DTableHeaderCellCheck**\<`ROW`\>(`parent`, `options?`): [`DTableHeaderCellCheck`](DTableHeaderCellCheck.md)\<`ROW`\>
 
 #### Type parameters
 
@@ -48,12 +48,16 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableHeaderCellCheckParent`](../interfaces/DTableHeaderCellCheckParent.md)<`ROW`\> |
+| `parent` | [`DTableHeaderCellCheckParent`](../interfaces/DTableHeaderCellCheckParent.md)\<`ROW`\> |
 | `options?` | [`DTableHeaderCellCheckOptions`](../interfaces/DTableHeaderCellCheckOptions.md) |
+
+#### Returns
+
+[`DTableHeaderCellCheck`](DTableHeaderCellCheck.md)\<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L23)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L24)
 
 ## Properties
 
@@ -63,7 +67,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L21)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L22)
 
 ___
 
@@ -73,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L19)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L20)
 
 ___
 
@@ -83,17 +87,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L20)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L21)
 
 ___
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTableHeaderCellCheckParent`](../interfaces/DTableHeaderCellCheckParent.md)<`ROW`\>
+• `Protected` **\_parent**: [`DTableHeaderCellCheckParent`](../interfaces/DTableHeaderCellCheckParent.md)\<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L18)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L19)
 
 ## Accessors
 
@@ -107,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L42)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L43)
 
 • `set` **isEmittable**(`isEmittable`): `void`
 
@@ -123,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L46)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L47)
 
 ___
 
@@ -137,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L30)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L31)
 
 ___
 
@@ -151,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L34)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L35)
 
 • `set` **isFilterable**(`isFilterable`): `void`
 
@@ -167,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L38)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L39)
 
 ## Methods
 
@@ -187,19 +191,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L91)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L92)
 
 ___
 
 ### newIteratee
 
-▸ `Protected` **newIteratee**(`table`, `isChecked`): ``null`` \| (`row`: `ROW`, `rowIndex`: `number`) => `boolean`
+▸ **newIteratee**(`table`, `isChecked`): ``null`` \| (`row`: `ROW`, `rowIndex`: `number`) => `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `table` | [`DTableHeaderTable`](../interfaces/DTableHeaderTable.md)<`ROW`\> |
+| `table` | [`DTableHeaderTable`](../interfaces/DTableHeaderTable.md)\<`ROW`\> |
 | `isChecked` | `boolean` |
 
 #### Returns
@@ -208,4 +212,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L50)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L51)

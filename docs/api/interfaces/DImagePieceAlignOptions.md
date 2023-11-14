@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImagePieceAlignOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DImagePieceAlignOptions
 
 # Interface: DImagePieceAlignOptions
 
@@ -14,7 +14,7 @@
 
 ### horizontal
 
-• `Optional` **horizontal**: ``"CENTER"`` \| ``"RIGHT"`` \| ``"LEFT"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+• `Optional` **horizontal**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Defined in
 
@@ -34,7 +34,7 @@ ___
 
 ### with
 
-• `Optional` **with**: ``"TEXT"`` \| ``"PADDING"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith-1)
+• `Optional` **with**: ``"PADDING"`` \| ``"TEXT"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith-1)
 
 #### Defined in
 

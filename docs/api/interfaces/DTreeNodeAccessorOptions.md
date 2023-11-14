@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeNodeAccessorOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeNodeAccessorOptions
 
-# Interface: DTreeNodeAccessorOptions<NODE\>
+# Interface: DTreeNodeAccessorOptions\<NODE\>
 
 ## Type parameters
 

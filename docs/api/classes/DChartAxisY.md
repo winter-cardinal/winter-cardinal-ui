@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisY
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisY
 
-# Class: DChartAxisY<CHART, THEME, OPTIONS\>
+# Class: DChartAxisY\<CHART, THEME, OPTIONS\>
 
 An Y axis.
 
@@ -10,11 +10,11 @@ An Y axis.
 | :------ | :------ |
 | `CHART` | extends [`DBase`](DBase.md) = [`DBase`](DBase.md) |
 | `THEME` | extends [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `OPTIONS` | extends [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)<`THEME`\> = [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)\<`THEME`\> = [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)\<`THEME`\> |
 
 ## Hierarchy
 
-- [`DChartAxisBase`](DChartAxisBase.md)<`CHART`, `THEME`, `OPTIONS`\>
+- [`DChartAxisBase`](DChartAxisBase.md)\<`CHART`, `THEME`, `OPTIONS`\>
 
   ↳ **`DChartAxisY`**
 
@@ -62,21 +62,25 @@ An Y axis.
 
 ### constructor
 
-• **new DChartAxisY**<`CHART`, `THEME`, `OPTIONS`\>(`options?`)
+• **new DChartAxisY**\<`CHART`, `THEME`, `OPTIONS`\>(`options?`): [`DChartAxisY`](DChartAxisY.md)\<`CHART`, `THEME`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `THEME` | extends [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `OPTIONS` | extends [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)<`THEME`, `OPTIONS`\> = [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)\<`THEME`\> = [`DChartAxisYOptions`](../interfaces/DChartAxisYOptions.md)\<`THEME`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DChartAxisY`](DChartAxisY.md)\<`CHART`, `THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -90,7 +94,7 @@ An Y axis.
 
 ### \_bar
 
-• `Protected` **\_bar**: [`DChartAxisBar`](../interfaces/DChartAxisBar.md)<`CHART`\>
+• `Protected` **\_bar**: [`DChartAxisBar`](../interfaces/DChartAxisBar.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -104,7 +108,7 @@ ___
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -118,7 +122,7 @@ ___
 
 ### \_guide
 
-• `Protected` **\_guide**: [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)<`CHART`\>
+• `Protected` **\_guide**: [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -146,7 +150,7 @@ ___
 
 ### \_parser
 
-• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\>\>
+• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\>\>
 
 #### Inherited from
 
@@ -174,7 +178,7 @@ ___
 
 ### \_tick
 
-• `Protected` **\_tick**: [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)<`CHART`\>
+• `Protected` **\_tick**: [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -188,11 +192,11 @@ ___
 
 ### bar
 
-• `get` **bar**(): [`DChartAxisBar`](../interfaces/DChartAxisBar.md)<`CHART`\>
+• `get` **bar**(): [`DChartAxisBar`](../interfaces/DChartAxisBar.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisBar`](../interfaces/DChartAxisBar.md)<`CHART`\>
+[`DChartAxisBar`](../interfaces/DChartAxisBar.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -244,11 +248,11 @@ ___
 
 ### guide
 
-• `get` **guide**(): [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)<`CHART`\>
+• `get` **guide**(): [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)<`CHART`\>
+[`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -338,11 +342,11 @@ ___
 
 ### tick
 
-• `get` **tick**(): [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)<`CHART`\>
+• `get` **tick**(): [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)<`CHART`\>
+[`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -362,7 +366,7 @@ DChartAxisBase.tick
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
@@ -399,7 +403,7 @@ ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): `THEME`
+▸ **getThemeDefault**(): `THEME`
 
 #### Returns
 
@@ -417,7 +421,7 @@ ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -435,19 +439,19 @@ ___
 
 ### newBar
 
-▸ `Protected` **newBar**(`parser`, `theme`, `options?`): [`DChartAxisBar`](../interfaces/DChartAxisBar.md)<`CHART`\>
+▸ **newBar**(`parser`, `theme`, `options?`): [`DChartAxisBar`](../interfaces/DChartAxisBar.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\>\> |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
 
 #### Returns
 
-[`DChartAxisBar`](../interfaces/DChartAxisBar.md)<`CHART`\>
+[`DChartAxisBar`](../interfaces/DChartAxisBar.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -461,19 +465,19 @@ ___
 
 ### newGuide
 
-▸ `Protected` **newGuide**(`parser`, `theme`, `options?`): [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)<`CHART`\>
+▸ **newGuide**(`parser`, `theme`, `options?`): [`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\>\> |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
 
 #### Returns
 
-[`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)<`CHART`\>
+[`DChartAxisGuideContainer`](../interfaces/DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -487,7 +491,7 @@ ___
 
 ### newParser
 
-▸ `Protected` **newParser**(`theme`, `options?`): [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\>\>
+▸ **newParser**(`theme`, `options?`): [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\>\>
 
 #### Parameters
 
@@ -498,7 +502,7 @@ ___
 
 #### Returns
 
-[`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\>\>
+[`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\>\>
 
 #### Inherited from
 
@@ -512,19 +516,19 @@ ___
 
 ### newTick
 
-▸ `Protected` **newTick**(`parser`, `theme`, `options?`): [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)<`CHART`\>
+▸ **newTick**(`parser`, `theme`, `options?`): [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<`THEME`, [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\>\> |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
 
 #### Returns
 
-[`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)<`CHART`\>
+[`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -556,13 +560,13 @@ ___
 
 ### toTheme
 
-▸ `Protected` **toTheme**(`options?`): `THEME`
+▸ **toTheme**(`options?`): `THEME`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> |
+| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<`THEME`\> |
 
 #### Returns
 

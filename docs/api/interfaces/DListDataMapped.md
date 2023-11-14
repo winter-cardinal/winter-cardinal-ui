@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataMapped
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataMapped
 
-# Interface: DListDataMapped<ITEM\>
+# Interface: DListDataMapped\<ITEM\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DItemUpdaterDataMapped`](DItemUpdaterDataMapped.md)<`ITEM`\>
+- [`DItemUpdaterDataMapped`](DItemUpdaterDataMapped.md)\<`ITEM`\>
 
   ↳ **`DListDataMapped`**
 

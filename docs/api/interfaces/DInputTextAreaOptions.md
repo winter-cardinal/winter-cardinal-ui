@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DInputTextAreaOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DInputTextAreaOptions
 
-# Interface: DInputTextAreaOptions<THEME\>
+# Interface: DInputTextAreaOptions\<THEME\>
 
 [DImageBase](../classes/DImageBase.md) options.
 
@@ -12,11 +12,13 @@
 
 ## Hierarchy
 
-- [`DInputOptions`](DInputOptions.md)<`string`, `HTMLTextAreaElement`, `THEME`\>
+- [`DInputOptions`](DInputOptions.md)\<`string`, `HTMLTextAreaElement`, `THEME`\>
 
 - [`UtilInputTextAreaOptions`](UtilInputTextAreaOptions.md)
 
   ↳ **`DInputTextAreaOptions`**
+
+  ↳↳ [`DTableBodyCellInputTextAreaOptions`](DTableBodyCellInputTextAreaOptions.md)
 
 ## Table of contents
 
@@ -185,7 +187,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -215,7 +217,7 @@ ___
 
 ### editing
 
-• `Optional` **editing**: [`UtilInputEditingOptions`](UtilInputEditingOptions.md)<`string`\>
+• `Optional` **editing**: [`UtilInputEditingOptions`](UtilInputEditingOptions.md)\<`string`\>
 
 #### Inherited from
 
@@ -229,7 +231,7 @@ ___
 
 ### element
 
-• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)<`HTMLTextAreaElement`\>
+• `Optional` **element**: [`UtilHtmlElementElementOptions`](UtilHtmlElementElementOptions.md)\<`HTMLTextAreaElement`\>
 
 #### Inherited from
 
@@ -278,7 +280,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -324,7 +326,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)<`string`, `any`\>
+• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)\<`string`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -397,7 +399,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DInputTextAreaOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -492,7 +494,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`string`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`string`\>
 
 #### Inherited from
 
@@ -573,7 +575,7 @@ ___
 
 ### when
 
-• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
+• `Optional` **when**: ``"FOCUSED"`` \| ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodeg
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodeg
 
 # Class: FormatNodeg
 
@@ -26,13 +26,17 @@
 
 ### constructor
 
-• **new FormatNodeg**(`precision?`)
+• **new FormatNodeg**(`precision?`): [`FormatNodeg`](FormatNodeg.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `precision?` | `string` |
+
+#### Returns
+
+[`FormatNodeg`](FormatNodeg.md)
 
 #### Inherited from
 

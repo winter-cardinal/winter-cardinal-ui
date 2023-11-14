@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicFontAtlasCharacterOrigin
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicFontAtlasCharacterOrigin
 
 # Class: DynamicFontAtlasCharacterOrigin
 
@@ -17,7 +17,7 @@
 
 ### constructor
 
-• **new DynamicFontAtlasCharacterOrigin**(`x`, `y`)
+• **new DynamicFontAtlasCharacterOrigin**(`x`, `y`): [`DynamicFontAtlasCharacterOrigin`](DynamicFontAtlasCharacterOrigin.md)
 
 #### Parameters
 
@@ -25,6 +25,10 @@
 | :------ | :------ |
 | `x` | `number` |
 | `y` | `number` |
+
+#### Returns
+
+[`DynamicFontAtlasCharacterOrigin`](DynamicFontAtlasCharacterOrigin.md)
 
 #### Defined in
 

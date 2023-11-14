@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataScopedImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataScopedImpl
 
 # Class: EShapeDataScopedImpl
 
@@ -31,13 +31,17 @@
 
 ### constructor
 
-• **new EShapeDataScopedImpl**()
+• **new EShapeDataScopedImpl**(): [`EShapeDataScopedImpl`](EShapeDataScopedImpl.md)
+
+#### Returns
+
+[`EShapeDataScopedImpl`](EShapeDataScopedImpl.md)
 
 ## Properties
 
 ### \_data
 
-• `Protected` `Optional` **\_data**: `Map`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)[]\>
+• `Protected` `Optional` **\_data**: `Map`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)[]\>
 
 #### Defined in
 

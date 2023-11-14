@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueChangeColorTypes
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueChangeColorTypes
 
 # Class: EShapeActionValueChangeColorTypes
 
@@ -18,13 +18,17 @@
 
 ### constructor
 
-• **new EShapeActionValueChangeColorTypes**()
+• **new EShapeActionValueChangeColorTypes**(): [`EShapeActionValueChangeColorTypes`](EShapeActionValueChangeColorTypes.md)
+
+#### Returns
+
+[`EShapeActionValueChangeColorTypes`](EShapeActionValueChangeColorTypes.md)
 
 ## Methods
 
 ### from
 
-▸ `Static` **from**(`serialized`): `number`
+▸ **from**(`serialized`): `number`
 
 #### Parameters
 
@@ -44,7 +48,7 @@ ___
 
 ### pack
 
-▸ `Static` **pack**(`types`): `number`
+▸ **pack**(`types`): `number`
 
 #### Parameters
 
@@ -64,7 +68,7 @@ ___
 
 ### unpack
 
-▸ `Static` **unpack**(`type`): `number`[]
+▸ **unpack**(`type`): `number`[]
 
 #### Parameters
 

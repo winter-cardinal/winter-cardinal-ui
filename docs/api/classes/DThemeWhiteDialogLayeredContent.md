@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDialogLayeredContent
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDialogLayeredContent
 
 # Class: DThemeWhiteDialogLayeredContent
 
@@ -76,7 +76,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDialogLayeredContent**()
+• **new DThemeWhiteDialogLayeredContent**(): [`DThemeWhiteDialogLayeredContent`](DThemeWhiteDialogLayeredContent.md)
+
+#### Returns
+
+[`DThemeWhiteDialogLayeredContent`](DThemeWhiteDialogLayeredContent.md)
 
 #### Inherited from
 

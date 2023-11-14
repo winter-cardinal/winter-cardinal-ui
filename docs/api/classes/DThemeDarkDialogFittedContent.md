@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkDialogFittedContent
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDialogFittedContent
 
 # Class: DThemeDarkDialogFittedContent
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeDarkDialogFittedContent**()
+• **new DThemeDarkDialogFittedContent**(): [`DThemeDarkDialogFittedContent`](DThemeDarkDialogFittedContent.md)
+
+#### Returns
+
+[`DThemeDarkDialogFittedContent`](DThemeDarkDialogFittedContent.md)
 
 #### Inherited from
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableHeaderCellOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableHeaderCellOptions
 
-# Interface: DTableHeaderCellOptions<ROW, THEME\>
+# Interface: DTableHeaderCellOptions\<ROW, THEME\>
 
 [DImageBase](../classes/DImageBase.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DImageOptions`](DImageOptions.md)<`string` \| ``null``, `THEME`\>
+- [`DImageOptions`](DImageOptions.md)\<`string` \| ``null``, `THEME`\>
 
   ↳ **`DTableHeaderCellOptions`**
 
@@ -132,7 +132,7 @@ ___
 
 ### column
 
-• `Optional` **column**: [`DTableColumn`](DTableColumn.md)<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)<`unknown`\>\>
+• `Optional` **column**: [`DTableColumn`](DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`unknown`\>\>
 
 #### Defined in
 
@@ -168,7 +168,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -184,7 +184,7 @@ ___
 
 ### header
 
-• `Optional` **header**: [`DTableHeaderCellHeader`](DTableHeaderCellHeader.md)<`ROW`\>
+• `Optional` **header**: [`DTableHeaderCellHeader`](DTableHeaderCellHeader.md)\<`ROW`\>
 
 #### Defined in
 
@@ -229,7 +229,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -275,7 +275,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)<``null`` \| `string`, `any`\>
+• `Optional` **on**: [`DImageBaseOnOptions`](DImageBaseOnOptions.md)\<``null`` \| `string`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -348,7 +348,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableHeaderCellOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -429,7 +429,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<``null`` \| `string`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<``null`` \| `string`\>
 
 #### Inherited from
 

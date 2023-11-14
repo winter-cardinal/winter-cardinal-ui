@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkMenuItemSpace
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkMenuItemSpace
 
 # Class: DThemeDarkMenuItemSpace
 
@@ -73,7 +73,11 @@
 
 ### constructor
 
-• **new DThemeDarkMenuItemSpace**()
+• **new DThemeDarkMenuItemSpace**(): [`DThemeDarkMenuItemSpace`](DThemeDarkMenuItemSpace.md)
+
+#### Returns
+
+[`DThemeDarkMenuItemSpace`](DThemeDarkMenuItemSpace.md)
 
 #### Inherited from
 

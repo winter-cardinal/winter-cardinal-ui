@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkLayoutSpace
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkLayoutSpace
 
 # Class: DThemeDarkLayoutSpace
 
@@ -71,7 +71,11 @@
 
 ### constructor
 
-• **new DThemeDarkLayoutSpace**()
+• **new DThemeDarkLayoutSpace**(): [`DThemeDarkLayoutSpace`](DThemeDarkLayoutSpace.md)
+
+#### Returns
+
+[`DThemeDarkLayoutSpace`](DThemeDarkLayoutSpace.md)
 
 #### Inherited from
 

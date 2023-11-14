@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListItemAccessorImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DListItemAccessorImpl
 
-# Class: DListItemAccessorImpl<VALUE\>
+# Class: DListItemAccessorImpl\<VALUE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DListItemAccessor`](../interfaces/DListItemAccessor.md)<`VALUE`\>
+- [`DListItemAccessor`](../interfaces/DListItemAccessor.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -34,7 +34,7 @@
 
 ### constructor
 
-• **new DListItemAccessorImpl**<`VALUE`\>(`options?`)
+• **new DListItemAccessorImpl**\<`VALUE`\>(`options?`): [`DListItemAccessorImpl`](DListItemAccessorImpl.md)\<`VALUE`\>
 
 #### Type parameters
 
@@ -46,7 +46,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DListItemAccessorOptions`](../interfaces/DListItemAccessorOptions.md)<`VALUE`\> |
+| `options?` | [`DListItemAccessorOptions`](../interfaces/DListItemAccessorOptions.md)\<`VALUE`\> |
+
+#### Returns
+
+[`DListItemAccessorImpl`](DListItemAccessorImpl.md)\<`VALUE`\>
 
 #### Defined in
 
@@ -56,7 +60,7 @@
 
 ### link
 
-• `Optional` **link**: [`DListItemAccessorLink`](../interfaces/DListItemAccessorLink.md)<`VALUE`\>
+• `Optional` **link**: [`DListItemAccessorLink`](../interfaces/DListItemAccessorLink.md)\<`VALUE`\>
 
 #### Implementation of
 
@@ -70,7 +74,7 @@ ___
 
 ### toId
 
-• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)<`VALUE`\>
+• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)\<`VALUE`\>
 
 #### Implementation of
 
@@ -84,7 +88,7 @@ ___
 
 ### toImage
 
-• **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)<`VALUE`\>
+• **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)\<`VALUE`\>
 
 #### Implementation of
 
@@ -98,7 +102,7 @@ ___
 
 ### toLabel
 
-• **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)<`VALUE`\>
+• **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)\<`VALUE`\>
 
 #### Implementation of
 
@@ -112,7 +116,7 @@ ___
 
 ### toTitle
 
-• **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)<`VALUE`\>
+• **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)\<`VALUE`\>
 
 #### Implementation of
 
@@ -126,17 +130,17 @@ ___
 
 ### toLink
 
-▸ `Protected` **toLink**(`options?`): `undefined` \| [`DListItemAccessorLink`](../interfaces/DListItemAccessorLink.md)<`VALUE`\>
+▸ **toLink**(`options?`): `undefined` \| [`DListItemAccessorLink`](../interfaces/DListItemAccessorLink.md)\<`VALUE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DListItemAccessorOptions`](../interfaces/DListItemAccessorOptions.md)<`VALUE`\> |
+| `options?` | [`DListItemAccessorOptions`](../interfaces/DListItemAccessorOptions.md)\<`VALUE`\> |
 
 #### Returns
 
-`undefined` \| [`DListItemAccessorLink`](../interfaces/DListItemAccessorLink.md)<`VALUE`\>
+`undefined` \| [`DListItemAccessorLink`](../interfaces/DListItemAccessorLink.md)\<`VALUE`\>
 
 #### Defined in
 

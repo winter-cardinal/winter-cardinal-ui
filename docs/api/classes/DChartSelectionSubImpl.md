@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionSubImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionSubImpl
 
-# Class: DChartSelectionSubImpl<CHART\>
+# Class: DChartSelectionSubImpl\<CHART\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DChartSelectionSub`](../interfaces/DChartSelectionSub.md)<`CHART`\>
+- [`DChartSelectionSub`](../interfaces/DChartSelectionSub.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -67,19 +67,23 @@
 
 ### constructor
 
-• **new DChartSelectionSubImpl**<`CHART`\>(`options`)
+• **new DChartSelectionSubImpl**\<`CHART`\>(`options`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DChartSelectionSubOptions`](../interfaces/DChartSelectionSubOptions.md)<`CHART`, `any`\> |
+| `options` | [`DChartSelectionSubOptions`](../interfaces/DChartSelectionSubOptions.md)\<`CHART`, `any`\> |
+
+#### Returns
+
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 #### Overrides
 
@@ -93,7 +97,7 @@ utils.EventEmitter.constructor
 
 ### \_container
 
-• `Protected` **\_container**: ``null`` \| [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\>
+• `Protected` **\_container**: ``null`` \| [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -103,7 +107,7 @@ ___
 
 ### \_coordinateX
 
-• `Protected` **\_coordinateX**: ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+• `Protected` **\_coordinateX**: ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 
@@ -113,7 +117,7 @@ ___
 
 ### \_coordinateY
 
-• `Protected` **\_coordinateY**: ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+• `Protected` **\_coordinateY**: ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 
@@ -123,7 +127,7 @@ ___
 
 ### \_gridline
 
-• `Protected` **\_gridline**: [`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)<`CHART`\>
+• `Protected` **\_gridline**: [`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -143,7 +147,7 @@ ___
 
 ### \_marker
 
-• `Protected` **\_marker**: [`DChartSelectionMarker`](DChartSelectionMarker.md)<`CHART`\>
+• `Protected` **\_marker**: [`DChartSelectionMarker`](DChartSelectionMarker.md)\<`CHART`\>
 
 #### Defined in
 
@@ -173,7 +177,7 @@ ___
 
 ### \_series
 
-• `Protected` **\_series**: ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+• `Protected` **\_series**: ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -203,11 +207,11 @@ ___
 
 ### gridline
 
-• `get` **gridline**(): [`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)<`CHART`\>
+• `get` **gridline**(): [`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)<`CHART`\>
+[`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -217,11 +221,11 @@ ___
 
 ### marker
 
-• `get` **marker**(): [`DChartSelectionMarker`](DChartSelectionMarker.md)<`CHART`\>
+• `get` **marker**(): [`DChartSelectionMarker`](DChartSelectionMarker.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSelectionMarker`](DChartSelectionMarker.md)<`CHART`\>
+[`DChartSelectionMarker`](DChartSelectionMarker.md)\<`CHART`\>
 
 #### Defined in
 
@@ -249,11 +253,11 @@ ___
 
 ### series
 
-• `get` **series**(): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+• `get` **series**(): ``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Returns
 
-``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+``null`` \| [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -267,7 +271,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 Alias method for `on`
 
@@ -281,7 +285,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -305,7 +309,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 
 #### Returns
 
@@ -323,7 +327,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -440,7 +444,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 Alias method for `removeListener`
 
@@ -455,7 +459,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -473,7 +477,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+▸ **on**(`event`, `fn`, `context?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 Add a listener for a given event.
 
@@ -487,7 +491,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 `this`.
 
@@ -507,7 +511,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+▸ **once**(`event`, `fn`, `context?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 Add a one-time listener for a given event.
 
@@ -521,7 +525,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 `this`.
 
@@ -541,7 +545,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+▸ **removeAllListeners**(`event?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -553,7 +557,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 `this`.
 
@@ -573,7 +577,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 Remove the listeners of a given event.
 
@@ -588,7 +592,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)<`CHART`\>
+[`DChartSelectionSubImpl`](DChartSelectionSubImpl.md)\<`CHART`\>
 
 `this`.
 
@@ -614,8 +618,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
-| `result` | [`DChartSeriesHitResult`](DChartSeriesHitResult.md) \| [`DChartSelectionSub`](../interfaces/DChartSelectionSub.md)<`CHART`\> |
+| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\> |
+| `result` | [`DChartSeriesHitResult`](DChartSeriesHitResult.md) \| [`DChartSelectionSub`](../interfaces/DChartSelectionSub.md)\<`CHART`\> |
 
 #### Returns
 

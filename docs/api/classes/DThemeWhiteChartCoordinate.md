@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartCoordinate
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChartCoordinate
 
 # Class: DThemeWhiteChartCoordinate
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChartCoordinate**()
+• **new DThemeWhiteChartCoordinate**(): [`DThemeWhiteChartCoordinate`](DThemeWhiteChartCoordinate.md)
+
+#### Returns
+
+[`DThemeWhiteChartCoordinate`](DThemeWhiteChartCoordinate.md)
 
 ## Methods
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptionParserTickMinor
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseOptionParserTickMinor
 
 # Interface: DChartAxisBaseOptionParserTickMinor
 
@@ -69,7 +69,7 @@ ___
 
 ### stroke
 
-• `Optional` **stroke**: `Partial`<[`EShapeStrokeLike`](EShapeStrokeLike.md)\>
+• `Optional` **stroke**: `Partial`\<[`EShapeStrokeLike`](EShapeStrokeLike.md)\>
 
 #### Defined in
 

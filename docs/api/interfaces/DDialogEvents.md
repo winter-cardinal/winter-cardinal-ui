@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogEvents
 
-# Interface: DDialogEvents<EMITTER\>
+# Interface: DDialogEvents\<EMITTER\>
 
 [DDialog](../classes/DDialog.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DBaseEvents`](DBaseEvents.md)<`EMITTER`\>
+- [`DBaseEvents`](DBaseEvents.md)\<`EMITTER`\>
 
   ↳ **`DDialogEvents`**
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapePointsMarkerBase
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapePointsMarkerBase
 
 # Class: EShapePointsMarkerBase
 
@@ -61,13 +61,17 @@
 
 ### constructor
 
-• **new EShapePointsMarkerBase**(`parent`)
+• **new EShapePointsMarkerBase**(`parent`): [`EShapePointsMarkerBase`](EShapePointsMarkerBase.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapePointsMarkerBaseParent`](../interfaces/EShapePointsMarkerBaseParent.md) |
+
+#### Returns
+
+[`EShapePointsMarkerBase`](EShapePointsMarkerBase.md)
 
 #### Defined in
 
@@ -336,7 +340,7 @@ ___
 
 ### newFill
 
-▸ `Protected` **newFill**(): [`EShapeFill`](../interfaces/EShapeFill.md)
+▸ **newFill**(): [`EShapeFill`](../interfaces/EShapeFill.md)
 
 #### Returns
 
@@ -350,7 +354,7 @@ ___
 
 ### onFillChange
 
-▸ `Protected` **onFillChange**(): `void`
+▸ **onFillChange**(): `void`
 
 #### Returns
 
@@ -364,7 +368,7 @@ ___
 
 ### onSizeChange
 
-▸ `Protected` **onSizeChange**(): `void`
+▸ **onSizeChange**(): `void`
 
 #### Returns
 
@@ -378,7 +382,7 @@ ___
 
 ### onTypeChange
 
-▸ `Protected` **onTypeChange**(): `void`
+▸ **onTypeChange**(): `void`
 
 #### Returns
 
@@ -442,7 +446,7 @@ ___
 
 ### toTransform
 
-▸ `Protected` `Abstract` **toTransform**(`values`, `result`): `Matrix`
+▸ **toTransform**(`values`, `result`): `Matrix`
 
 #### Parameters
 
@@ -463,7 +467,7 @@ ___
 
 ### toTransformMatrix
 
-▸ `Protected` **toTransformMatrix**(`x0`, `y0`, `x1`, `y1`, `result`): `Matrix`
+▸ **toTransformMatrix**(`x0`, `y0`, `x1`, `y1`, `result`): `Matrix`
 
 #### Parameters
 
@@ -505,7 +509,7 @@ ___
 
 ### updateTransform
 
-▸ `Protected` **updateTransform**(): `Matrix`
+▸ **updateTransform**(): `Matrix`
 
 #### Returns
 

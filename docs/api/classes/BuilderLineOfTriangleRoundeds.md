@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderLineOfTriangleRoundeds
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLineOfTriangleRoundeds
 
 # Class: BuilderLineOfTriangleRoundeds
 
@@ -59,7 +59,7 @@
 
 ### constructor
 
-• **new BuilderLineOfTriangleRoundeds**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`)
+• **new BuilderLineOfTriangleRoundeds**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`): [`BuilderLineOfTriangleRoundeds`](BuilderLineOfTriangleRoundeds.md)
 
 #### Parameters
 
@@ -70,6 +70,10 @@
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
 | `pointCountReserved` | `number` |
+
+#### Returns
+
+[`BuilderLineOfTriangleRoundeds`](BuilderLineOfTriangleRoundeds.md)
 
 #### Overrides
 
@@ -536,7 +540,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -561,7 +565,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -586,7 +590,7 @@ ___
 
 ### updateLineOfAnyColorFill
 
-▸ `Protected` **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -613,7 +617,7 @@ ___
 
 ### updateLineOfAnyColorStroke
 
-▸ `Protected` **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -640,7 +644,7 @@ ___
 
 ### updateVertexClippingStepAndUv
 
-▸ `Protected` **updateVertexClippingStepAndUv**(`buffer`, `shape`, `points`): `void`
+▸ **updateVertexClippingStepAndUv**(`buffer`, `shape`, `points`): `void`
 
 #### Parameters
 

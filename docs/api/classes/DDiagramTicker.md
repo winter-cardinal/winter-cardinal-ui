@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramTicker
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramTicker
 
 # Class: DDiagramTicker
 
@@ -28,7 +28,7 @@
 
 ### constructor
 
-• **new DDiagramTicker**(`parent`, `interval`)
+• **new DDiagramTicker**(`parent`, `interval`): [`DDiagramTicker`](DDiagramTicker.md)
 
 #### Parameters
 
@@ -36,6 +36,10 @@
 | :------ | :------ |
 | `parent` | [`DDiagramTickerParent`](../interfaces/DDiagramTickerParent.md) |
 | `interval` | `number` |
+
+#### Returns
+
+[`DDiagramTicker`](DDiagramTicker.md)
 
 #### Defined in
 
@@ -123,7 +127,7 @@ ___
 
 ### getInterval
 
-▸ `Protected` **getInterval**(): `number`
+▸ **getInterval**(): `number`
 
 #### Returns
 
@@ -137,7 +141,7 @@ ___
 
 ### onTime
 
-▸ `Protected` **onTime**(): `void`
+▸ **onTime**(): `void`
 
 #### Returns
 

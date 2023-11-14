@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeBuffer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeBuffer
 
 # Class: EShapeBuffer
 
@@ -54,7 +54,7 @@
 
 ### constructor
 
-• **new EShapeBuffer**(`ntriangles`, `renderer`)
+• **new EShapeBuffer**(`ntriangles`, `renderer`): [`EShapeBuffer`](EShapeBuffer.md)
 
 #### Parameters
 
@@ -62,6 +62,10 @@
 | :------ | :------ |
 | `ntriangles` | `number` |
 | `renderer` | `Renderer` |
+
+#### Returns
+
+[`EShapeBuffer`](EShapeBuffer.md)
 
 #### Defined in
 
@@ -328,7 +332,7 @@ ___
 
 ### getGeometry
 
-▸ `Protected` **getGeometry**(): `Geometry`
+▸ **getGeometry**(): `Geometry`
 
 #### Returns
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateContainer
 
-# Interface: DChartCoordinateContainer<CHART\>
+# Interface: DChartCoordinateContainer\<CHART\>
 
 ## Type parameters
 
@@ -30,7 +30,7 @@
 
 ### plotArea
 
-• **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)<`CHART`\>
+• **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)\<`CHART`\>
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### x
 
-• **x**: [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+• **x**: [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -50,7 +50,7 @@ ___
 
 ### y
 
-• **y**: [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+• **y**: [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -60,7 +60,7 @@ ___
 
 ### blend
 
-▸ **blend**(`ratio`): [`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+▸ **blend**(`ratio`): [`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Parameters
 
@@ -70,7 +70,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+[`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -80,7 +80,7 @@ ___
 
 ### fit
 
-▸ **fit**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+▸ **fit**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Parameters
 
@@ -93,7 +93,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+[`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -103,7 +103,7 @@ ___
 
 ### mark
 
-▸ **mark**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+▸ **mark**(`domainFrom?`, `domainTo?`, `rangeFrom?`, `rangeTo?`): [`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Parameters
 
@@ -116,7 +116,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+[`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 

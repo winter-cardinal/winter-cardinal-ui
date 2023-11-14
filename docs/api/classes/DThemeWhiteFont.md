@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteFont
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteFont
 
 # Class: DThemeWhiteFont
 
@@ -33,7 +33,11 @@
 
 ### constructor
 
-• **new DThemeWhiteFont**()
+• **new DThemeWhiteFont**(): [`DThemeWhiteFont`](DThemeWhiteFont.md)
+
+#### Returns
+
+[`DThemeWhiteFont`](DThemeWhiteFont.md)
 
 ## Methods
 

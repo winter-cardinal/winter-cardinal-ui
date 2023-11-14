@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DInputIntegerAndLabelOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DInputIntegerAndLabelOptions
 
-# Interface: DInputIntegerAndLabelOptions<THEME\>
+# Interface: DInputIntegerAndLabelOptions\<THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DInputAndLabelOptions`](DInputAndLabelOptions.md)<[`DInputIntegerOptions`](DInputIntegerOptions.md), `THEME`\>
+- [`DInputAndLabelOptions`](DInputAndLabelOptions.md)\<[`DInputIntegerOptions`](DInputIntegerOptions.md), `THEME`\>
 
   ↳ **`DInputIntegerAndLabelOptions`**
 
@@ -152,7 +152,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -168,7 +168,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: ``"HORIZONTAL"`` \| ``"VERTICAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
+• `Optional` **direction**: ``"VERTICAL"`` \| ``"HORIZONTAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
 
 #### Inherited from
 
@@ -203,7 +203,7 @@ ___
 
 ### input
 
-• `Optional` **input**: [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+• `Optional` **input**: [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Inherited from
 
@@ -217,7 +217,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -233,7 +233,7 @@ ___
 
 ### label
 
-• `Optional` **label**: [`DInputLabelOptions`](DInputLabelOptions.md)<`unknown`, [`DThemeText`](DThemeText.md)<`unknown`\>\>
+• `Optional` **label**: [`DInputLabelOptions`](DInputLabelOptions.md)\<`unknown`, [`DThemeText`](DThemeText.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -277,7 +277,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -350,7 +350,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DInputIntegerAndLabelOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -443,7 +443,7 @@ ___
 
 ### space
 
-• `Optional` **space**: [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](DThemeLayoutSpace.md)\>
+• `Optional` **space**: [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)\<[`DThemeLayoutSpace`](DThemeLayoutSpace.md)\>
 
 #### Inherited from
 

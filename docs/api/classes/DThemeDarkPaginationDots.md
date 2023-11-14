@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPaginationDots
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPaginationDots
 
 # Class: DThemeDarkPaginationDots
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)<`string`\>
+- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)\<`string`\>
 
   ↳ **`DThemeDarkPaginationDots`**
 
@@ -100,7 +100,11 @@
 
 ### constructor
 
-• **new DThemeDarkPaginationDots**()
+• **new DThemeDarkPaginationDots**(): [`DThemeDarkPaginationDots`](DThemeDarkPaginationDots.md)
+
+#### Returns
+
+[`DThemeDarkPaginationDots`](DThemeDarkPaginationDots.md)
 
 #### Inherited from
 
@@ -657,7 +661,7 @@ Returns a height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L30)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L33)
 
 ___
 
@@ -673,13 +677,13 @@ ___
 
 [DThemePaginationDots](../interfaces/DThemePaginationDots.md).[getImageAlignHorizontal](../interfaces/DThemePaginationDots.md#getimagealignhorizontal)
 
-#### Inherited from
+#### Overrides
 
 [DThemeDarkImageBase](DThemeDarkImageBase.md).[getImageAlignHorizontal](DThemeDarkImageBase.md#getimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L50)
 
 ___
 
@@ -717,13 +721,13 @@ ___
 
 [DThemePaginationDots](../interfaces/DThemePaginationDots.md).[getImageAlignWith](../interfaces/DThemePaginationDots.md#getimagealignwith)
 
-#### Inherited from
+#### Overrides
 
 [DThemeDarkImageBase](DThemeDarkImageBase.md).[getImageAlignWith](DThemeDarkImageBase.md#getimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L54)
 
 ___
 
@@ -795,7 +799,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L46)
 
 ___
 
@@ -869,13 +873,13 @@ Returns an interactivity.
 
 [DThemePaginationDots](../interfaces/DThemePaginationDots.md).[getInteractive](../interfaces/DThemePaginationDots.md#getinteractive)
 
-#### Inherited from
+#### Overrides
 
 [DThemeDarkImageBase](DThemeDarkImageBase.md).[getInteractive](DThemeDarkImageBase.md#getinteractive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L175)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L37)
 
 ___
 
@@ -1781,7 +1785,7 @@ Returns a width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L29)
 
 ___
 
@@ -1929,20 +1933,20 @@ Returns true if focusable.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L34)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-dots.ts#L41)
 
 ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

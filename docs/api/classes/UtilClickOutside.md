@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilClickOutside
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilClickOutside
 
 # Class: UtilClickOutside
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new UtilClickOutside**()
+• **new UtilClickOutside**(): [`UtilClickOutside`](UtilClickOutside.md)
+
+#### Returns
+
+[`UtilClickOutside`](UtilClickOutside.md)
 
 ## Properties
 
@@ -36,13 +40,13 @@
 
 ### apply
 
-▸ `Static` **apply**(`target`, `onClick`): `void`
+▸ **apply**(`target`, `onClick`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `onClick` | [`UtilClickOutsideOnClick`](../index.md#utilclickoutsideonclick) |
 
 #### Returns

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuItemBaseSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuItemBaseSelection
 
 # Interface: DMenuItemBaseSelection
 
@@ -18,7 +18,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> |
+| `item` | [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> |
 
 #### Returns
 

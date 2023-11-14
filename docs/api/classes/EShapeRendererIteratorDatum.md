@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeRendererIteratorDatum
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeRendererIteratorDatum
 
 # Class: EShapeRendererIteratorDatum
 
@@ -18,7 +18,11 @@
 
 ### constructor
 
-• **new EShapeRendererIteratorDatum**()
+• **new EShapeRendererIteratorDatum**(): [`EShapeRendererIteratorDatum`](EShapeRendererIteratorDatum.md)
+
+#### Returns
+
+[`EShapeRendererIteratorDatum`](EShapeRendererIteratorDatum.md)
 
 #### Defined in
 

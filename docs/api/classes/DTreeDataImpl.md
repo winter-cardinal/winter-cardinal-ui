@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataImpl
 
-# Class: DTreeDataImpl<NODE\>
+# Class: DTreeDataImpl\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>
+- [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -57,7 +57,7 @@
 
 ### constructor
 
-• **new DTreeDataImpl**<`NODE`\>(`parent`, `options?`)
+• **new DTreeDataImpl**\<`NODE`\>(`parent`, `options?`): [`DTreeDataImpl`](DTreeDataImpl.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -70,7 +70,11 @@
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DTreeDataImplParent`](../interfaces/DTreeDataImplParent.md) |
-| `options?` | [`DTreeDataOptions`](../interfaces/DTreeDataOptions.md)<`NODE`\> |
+| `options?` | [`DTreeDataOptions`](../interfaces/DTreeDataOptions.md)\<`NODE`\> |
+
+#### Returns
+
+[`DTreeDataImpl`](DTreeDataImpl.md)\<`NODE`\>
 
 #### Defined in
 
@@ -80,7 +84,7 @@
 
 ### \_accessor
 
-• `Protected` **\_accessor**: [`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)<`NODE`\>
+• `Protected` **\_accessor**: [`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)\<`NODE`\>
 
 #### Defined in
 
@@ -90,7 +94,7 @@ ___
 
 ### \_mapped
 
-• `Protected` **\_mapped**: [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)<`NODE`\>
+• `Protected` **\_mapped**: [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)\<`NODE`\>
 
 #### Defined in
 
@@ -100,7 +104,7 @@ ___
 
 ### \_nodeToFlag
 
-• `Protected` **\_nodeToFlag**: `WeakMap`<`NODE`, `number`\>
+• `Protected` **\_nodeToFlag**: `WeakMap`\<`NODE`, `number`\>
 
 #### Defined in
 
@@ -130,7 +134,7 @@ ___
 
 ### \_selection
 
-• `Protected` **\_selection**: [`DTreeDataImplSelection`](../interfaces/DTreeDataImplSelection.md)<`NODE`\>
+• `Protected` **\_selection**: [`DTreeDataImplSelection`](../interfaces/DTreeDataImplSelection.md)\<`NODE`\>
 
 #### Defined in
 
@@ -140,11 +144,11 @@ ___
 
 ### accessor
 
-• `get` **accessor**(): [`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)<`NODE`\>
+• `get` **accessor**(): [`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)\<`NODE`\>
 
 #### Returns
 
-[`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)<`NODE`\>
+[`DTreeNodeAccessor`](../interfaces/DTreeNodeAccessor.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -158,11 +162,11 @@ ___
 
 ### mapped
 
-• `get` **mapped**(): [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)<`NODE`\>
+• `get` **mapped**(): [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)\<`NODE`\>
 
 #### Returns
 
-[`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)<`NODE`\>
+[`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -214,13 +218,13 @@ ___
 
 ### selection
 
-• `get` **selection**(): [`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)<`NODE`\>
+• `get` **selection**(): [`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)\<`NODE`\>
 
 A selection.
 
 #### Returns
 
-[`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)<`NODE`\>
+[`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)\<`NODE`\>
 
 a selection
 
@@ -404,7 +408,7 @@ If the iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> | an iteratee |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)\<`NODE`\> | an iteratee |
 
 #### Returns
 
@@ -422,7 +426,7 @@ ___
 
 ### each\_
 
-▸ `Protected` **each_**(`nodes`, `parent`, `iteratee`): `void`
+▸ **each_**(`nodes`, `parent`, `iteratee`): `void`
 
 #### Parameters
 
@@ -430,7 +434,7 @@ ___
 | :------ | :------ |
 | `nodes` | `NODE`[] |
 | `parent` | ``null`` \| `NODE` |
-| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)\<`NODE`\> |
 
 #### Returns
 
@@ -578,17 +582,17 @@ ___
 
 ### toSelection
 
-▸ `Protected` **toSelection**(`options?`): [`DTreeDataImplSelection`](../interfaces/DTreeDataImplSelection.md)<`NODE`\>
+▸ **toSelection**(`options?`): [`DTreeDataImplSelection`](../interfaces/DTreeDataImplSelection.md)\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTreeDataOptions`](../interfaces/DTreeDataOptions.md)<`NODE`\> |
+| `options?` | [`DTreeDataOptions`](../interfaces/DTreeDataOptions.md)\<`NODE`\> |
 
 #### Returns
 
-[`DTreeDataImplSelection`](../interfaces/DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](../interfaces/DTreeDataImplSelection.md)\<`NODE`\>
 
 #### Defined in
 
@@ -602,10 +606,6 @@ ___
 
 Toggles the given node,
 
-**`Retrn`**
-
-true if succeeded
-
 #### Parameters
 
 | Name | Type | Description |
@@ -615,6 +615,10 @@ true if succeeded
 #### Returns
 
 `boolean`
+
+**`Retrn`**
+
+true if succeeded
 
 #### Implementation of
 

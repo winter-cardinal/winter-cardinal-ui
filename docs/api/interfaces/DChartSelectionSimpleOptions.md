@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionSimpleOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionSimpleOptions
 
-# Interface: DChartSelectionSimpleOptions<CHART, EMITTER\>
+# Interface: DChartSelectionSimpleOptions\<CHART, EMITTER\>
 
 ## Type parameters
 
@@ -22,7 +22,7 @@
 
 ### hovered
 
-• `Optional` **hovered**: [`DChartSelectionSubOptions`](DChartSelectionSubOptions.md)<`CHART`, `any`\>
+• `Optional` **hovered**: [`DChartSelectionSubOptions`](DChartSelectionSubOptions.md)\<`CHART`, `any`\>
 
 #### Defined in
 
@@ -32,7 +32,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`EMITTER`\>
 
 #### Defined in
 
@@ -52,7 +52,7 @@ ___
 
 ### selected
 
-• `Optional` **selected**: [`DChartSelectionSubOptions`](DChartSelectionSubOptions.md)<`CHART`, `any`\>
+• `Optional` **selected**: [`DChartSelectionSubOptions`](DChartSelectionSubOptions.md)\<`CHART`, `any`\>
 
 #### Defined in
 

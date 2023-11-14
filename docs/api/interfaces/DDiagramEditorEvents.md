@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramEditorEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramEditorEvents
 
-# Interface: DDiagramEditorEvents<EMITTER\>
+# Interface: DDiagramEditorEvents\<EMITTER\>
 
 [DDiagramEditor](../classes/DDiagramEditor.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DDiagramBaseEvents`](DDiagramBaseEvents.md)<[`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md), `EMITTER`\>
+- [`DDiagramBaseEvents`](DDiagramBaseEvents.md)\<[`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md), `EMITTER`\>
 
   ↳ **`DDiagramEditorEvents`**
 
@@ -98,7 +98,7 @@ This happens, for instance, when the name or the ID of the serialized data is ch
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L42)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L43)
 
 ___
 
@@ -176,7 +176,7 @@ Triggered when deleted successfully or when failed to delete.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L104)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L105)
 
 ___
 
@@ -198,7 +198,7 @@ Triggered before deleting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L96)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L97)
 
 ___
 
@@ -358,7 +358,7 @@ Triggered when opened successfully or when failed to open.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L89)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L90)
 
 ___
 
@@ -380,7 +380,7 @@ Triggered before opening.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L81)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L82)
 
 ___
 
@@ -539,7 +539,7 @@ Triggered when saved successfully or when failed to save.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L74)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L75)
 
 ___
 
@@ -562,7 +562,7 @@ Triggered before saving.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L66)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L67)
 
 ___
 
@@ -606,7 +606,7 @@ Triggered when serialized successfully or when failed to serialize.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | - |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | - |
 | `reason` | ``null`` \| `string` | Null if succeeded. Otherwise, a string representing a reason why failed. |
 | `emitter` | `EMITTER` | an emitter |
 
@@ -616,7 +616,7 @@ Triggered when serialized successfully or when failed to serialize.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L58)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L59)
 
 ___
 
@@ -630,7 +630,7 @@ Triggered before serializing a canvas.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a canvas |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a canvas |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -639,7 +639,7 @@ Triggered before serializing a canvas.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L50)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L51)
 
 ___
 
@@ -653,7 +653,7 @@ Triggered when a canvas is set.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a new canvas |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a new canvas |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -765,7 +765,7 @@ Triggered when a canvas is removed.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a removed canvas |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a removed canvas |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns

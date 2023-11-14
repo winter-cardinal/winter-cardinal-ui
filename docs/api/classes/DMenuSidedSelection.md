@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuSidedSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSidedSelection
 
-# Class: DMenuSidedSelection<VALUE\>
+# Class: DMenuSidedSelection\<VALUE\>
 
 ## Type parameters
 
@@ -61,7 +61,7 @@
 
 ### constructor
 
-• **new DMenuSidedSelection**<`VALUE`\>(`content`, `options?`)
+• **new DMenuSidedSelection**\<`VALUE`\>(`content`, `options?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 #### Type parameters
 
@@ -74,7 +74,11 @@
 | Name | Type |
 | :------ | :------ |
 | `content` | `Container` |
-| `options?` | [`DMenuSidedSelectionOptions`](../interfaces/DMenuSidedSelectionOptions.md)<`any`\> |
+| `options?` | [`DMenuSidedSelectionOptions`](../interfaces/DMenuSidedSelectionOptions.md)\<`any`\> |
+
+#### Returns
+
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 #### Overrides
 
@@ -98,7 +102,7 @@ ___
 
 ### \_filter
 
-• `Protected` **\_filter**: (`item`: ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>) => `boolean`
+• `Protected` **\_filter**: (`item`: ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>) => `boolean`
 
 #### Type declaration
 
@@ -108,7 +112,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `item` | ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
+| `item` | ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
 
 ##### Returns
 
@@ -132,7 +136,7 @@ ___
 
 ### \_item
 
-• `Protected` **\_item**: ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
+• `Protected` **\_item**: ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
 
 #### Defined in
 
@@ -158,7 +162,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
+| `item` | [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
 
 #### Returns
 
@@ -172,7 +176,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 Alias method for `on`
 
@@ -186,7 +190,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -214,7 +218,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -263,11 +267,11 @@ ___
 
 ### first
 
-▸ **first**(): ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
+▸ **first**(): ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
 
 #### Returns
 
-``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
+``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
 
 #### Defined in
 
@@ -277,7 +281,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
+▸ **get**(`index`): ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
 
 #### Parameters
 
@@ -287,7 +291,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
+``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>
 
 #### Defined in
 
@@ -297,7 +301,7 @@ ___
 
 ### getFilterDefault
 
-▸ `Protected` **getFilterDefault**(): (`item`: ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>) => `boolean`
+▸ **getFilterDefault**(): (`item`: ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\>) => `boolean`
 
 #### Returns
 
@@ -309,7 +313,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `item` | ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
+| `item` | ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
 
 ##### Returns
 
@@ -343,7 +347,7 @@ ___
 
 ### hasMenu
 
-▸ `Protected` **hasMenu**(`child`): child is Object
+▸ **hasMenu**(`child`): child is Object
 
 #### Parameters
 
@@ -429,7 +433,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 Alias method for `removeListener`
 
@@ -444,7 +448,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -458,7 +462,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 Add a listener for a given event.
 
@@ -472,7 +476,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 `this`.
 
@@ -488,7 +492,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 Add a one-time listener for a given event.
 
@@ -502,7 +506,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 `this`.
 
@@ -524,7 +528,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `item` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -538,7 +542,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+▸ **removeAllListeners**(`event?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -550,7 +554,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 `this`.
 
@@ -566,7 +570,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 Remove the listeners of a given event.
 
@@ -581,7 +585,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DMenuSidedSelection`](DMenuSidedSelection.md)<`VALUE`\>
+[`DMenuSidedSelection`](DMenuSidedSelection.md)\<`VALUE`\>
 
 `this`.
 
@@ -603,7 +607,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
+| `item` | [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
 
 #### Returns
 
@@ -617,13 +621,13 @@ ___
 
 ### setState
 
-▸ `Protected` **setState**(`item`, `mode`, `isOn`): `void`
+▸ **setState**(`item`, `mode`, `isOn`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `item` | ``null`` \| [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `item` | ``null`` \| [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `mode` | [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype-1) |
 | `isOn` | `boolean` |
 
@@ -639,13 +643,13 @@ ___
 
 ### set\_
 
-▸ `Protected` **set_**(`item`, `emit`): `void`
+▸ **set_**(`item`, `emit`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `item` | ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
+| `item` | ``null`` \| [`DMenuItemBase`](DMenuItemBase.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md), [`DMenuItemBaseOptions`](../interfaces/DMenuItemBaseOptions.md)\<`VALUE`, [`DThemeMenuItemBase`](../interfaces/DThemeMenuItemBase.md)\>\> |
 | `emit` | `boolean` |
 
 #### Returns
@@ -702,7 +706,7 @@ ___
 
 ### update\_
 
-▸ `Protected` **update_**(`root`): `void`
+▸ **update_**(`root`): `void`
 
 #### Parameters
 

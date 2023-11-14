@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteSelect
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteSelect
 
-# Class: DThemeWhiteSelect<VALUE\>
+# Class: DThemeWhiteSelect\<VALUE\>
 
 [DSelect](DSelect.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `DThemeWhiteDropdownBase`<[`DMenuItem`](DMenuItem.md)<`VALUE`\> \| ``null``\>
+- `DThemeWhiteDropdownBase`\<[`DMenuItem`](DMenuItem.md)\<`VALUE`\> \| ``null``\>
 
   ↳ **`DThemeWhiteSelect`**
 
@@ -20,7 +20,7 @@
 
 ## Implements
 
-- [`DThemeSelect`](../interfaces/DThemeSelect.md)<`VALUE`\>
+- [`DThemeSelect`](../interfaces/DThemeSelect.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -122,7 +122,7 @@
 
 ### constructor
 
-• **new DThemeWhiteSelect**<`VALUE`\>()
+• **new DThemeWhiteSelect**\<`VALUE`\>(): [`DThemeWhiteSelect`](DThemeWhiteSelect.md)\<`VALUE`\>
 
 #### Type parameters
 
@@ -130,9 +130,13 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 
+#### Returns
+
+[`DThemeWhiteSelect`](DThemeWhiteSelect.md)\<`VALUE`\>
+
 #### Inherited from
 
-DThemeWhiteDropdownBase<DMenuItem<VALUE\> \| null\>.constructor
+DThemeWhiteDropdownBase\<DMenuItem\<VALUE\> \| null\>.constructor
 
 #### Defined in
 
@@ -1082,7 +1086,7 @@ ___
 
 ### getOutlineColorActive
 
-▸ `Protected` **getOutlineColorActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1106,7 +1110,7 @@ ___
 
 ### getOutlineColorNonActive
 
-▸ `Protected` **getOutlineColorNonActive**(`state`): ``null`` \| `number`
+▸ **getOutlineColorNonActive**(`state`): ``null`` \| `number`
 
 #### Parameters
 
@@ -1190,7 +1194,7 @@ ___
 
 ### getOutlineOffsetActive
 
-▸ `Protected` **getOutlineOffsetActive**(`state`): `number`
+▸ **getOutlineOffsetActive**(`state`): `number`
 
 #### Parameters
 
@@ -1214,7 +1218,7 @@ ___
 
 ### getOutlineOffsetNonActive
 
-▸ `Protected` **getOutlineOffsetNonActive**(`state`): `number`
+▸ **getOutlineOffsetNonActive**(`state`): `number`
 
 #### Parameters
 
@@ -1793,7 +1797,7 @@ ___
 
 ### getTextFormatter
 
-▸ **getTextFormatter**(): (`value`: ``null`` \| [`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>, `caller`: `any`) => `string`
+▸ **getTextFormatter**(): (`value`: ``null`` \| [`DMenuItem`](DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>, `caller`: `any`) => `string`
 
 #### Returns
 
@@ -1805,7 +1809,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | ``null`` \| [`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\> |
+| `value` | ``null`` \| [`DMenuItem`](DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\> |
 | `caller` | `any` |
 
 ##### Returns
@@ -1894,7 +1898,7 @@ ___
 
 ### getTextValue
 
-▸ **getTextValue**(`state`): `undefined` \| ``null`` \| [`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
+▸ **getTextValue**(`state`): `undefined` \| ``null`` \| [`DMenuItem`](DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
 
 Returns a text value.
 Called to get a text vale if there is no text value.
@@ -1907,7 +1911,7 @@ Called to get a text vale if there is no text value.
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
+`undefined` \| ``null`` \| [`DMenuItem`](DMenuItem.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>
 
 #### Implementation of
 
@@ -2195,14 +2199,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| [`DMenuItem`](DMenuItem.md)<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| [`DMenuItem`](DMenuItem.md)\<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| [`DMenuItem`](DMenuItem.md)<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| [`DMenuItem`](DMenuItem.md)\<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<`any`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>\>
 
 #### Implementation of
 

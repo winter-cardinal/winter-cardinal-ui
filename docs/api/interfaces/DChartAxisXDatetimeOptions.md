@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisXDatetimeOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisXDatetimeOptions
 
-# Interface: DChartAxisXDatetimeOptions<THEME\>
+# Interface: DChartAxisXDatetimeOptions\<THEME\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DChartAxisXOptions`](DChartAxisXOptions.md)<`THEME`\>
+- [`DChartAxisXOptions`](DChartAxisXOptions.md)\<`THEME`\>
 
   ↳ **`DChartAxisXDatetimeOptions`**
 

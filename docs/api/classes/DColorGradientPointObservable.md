@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DColorGradientPointObservable
+[Winter Cardinal UI - v0.374.0](../index.md) / DColorGradientPointObservable
 
 # Class: DColorGradientPointObservable
 
@@ -36,7 +36,7 @@
 
 ### constructor
 
-• **new DColorGradientPointObservable**(`color`, `alpha`, `position`, `selected`, `callback`)
+• **new DColorGradientPointObservable**(`color`, `alpha`, `position`, `selected`, `callback`): [`DColorGradientPointObservable`](DColorGradientPointObservable.md)
 
 #### Parameters
 
@@ -47,6 +47,10 @@
 | `position` | `number` |
 | `selected` | `boolean` |
 | `callback` | (`target`: [`DColorGradientPointObservable`](DColorGradientPointObservable.md)) => `void` |
+
+#### Returns
+
+[`DColorGradientPointObservable`](DColorGradientPointObservable.md)
 
 #### Defined in
 

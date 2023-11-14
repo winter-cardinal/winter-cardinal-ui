@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhitePickerDatetimeLabel
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhitePickerDatetimeLabel
 
 # Class: DThemeWhitePickerDatetimeLabel
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteText`](DThemeWhiteText.md)<`Date`\>
+- [`DThemeWhiteText`](DThemeWhiteText.md)\<`Date`\>
 
   ↳ **`DThemeWhitePickerDatetimeLabel`**
 
@@ -78,7 +78,11 @@
 
 ### constructor
 
-• **new DThemeWhitePickerDatetimeLabel**()
+• **new DThemeWhitePickerDatetimeLabel**(): [`DThemeWhitePickerDatetimeLabel`](DThemeWhitePickerDatetimeLabel.md)
+
+#### Returns
+
+[`DThemeWhitePickerDatetimeLabel`](DThemeWhitePickerDatetimeLabel.md)
 
 #### Inherited from
 
@@ -1387,14 +1391,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`Date`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`Date`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`Date`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`Date`\>
 
 #### Implementation of
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeLineOfAnyPointsStrokeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeLineOfAnyPointsStrokeImpl
 
 # Class: EShapeLineOfAnyPointsStrokeImpl
 
@@ -38,13 +38,17 @@
 
 ### constructor
 
-• **new EShapeLineOfAnyPointsStrokeImpl**(`parent`)
+• **new EShapeLineOfAnyPointsStrokeImpl**(`parent`): [`EShapeLineOfAnyPointsStrokeImpl`](EShapeLineOfAnyPointsStrokeImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeLineOfAnyPointsStrokeImplParent`](../interfaces/EShapeLineOfAnyPointsStrokeImplParent.md) |
+
+#### Returns
+
+[`EShapeLineOfAnyPointsStrokeImpl`](EShapeLineOfAnyPointsStrokeImpl.md)
 
 #### Defined in
 

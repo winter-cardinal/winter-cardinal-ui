@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhitePickerDate
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhitePickerDate
 
 # Class: DThemeWhitePickerDate
 
@@ -84,7 +84,11 @@
 
 ### constructor
 
-• **new DThemeWhitePickerDate**()
+• **new DThemeWhitePickerDate**(): [`DThemeWhitePickerDate`](DThemeWhitePickerDate.md)
+
+#### Returns
+
+[`DThemeWhitePickerDate`](DThemeWhitePickerDate.md)
 
 #### Inherited from
 
@@ -122,11 +126,11 @@ ___
 
 ### getBackButtonOptions
 
-▸ **getBackButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonBackOptions`](../interfaces/DPickerDatetimeButtonBackOptions.md)<`unknown`, [`DThemePickerDatetimeButtonBack`](../interfaces/DThemePickerDatetimeButtonBack.md)<`unknown`\>\>
+▸ **getBackButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonBackOptions`](../interfaces/DPickerDatetimeButtonBackOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonBack`](../interfaces/DThemePickerDatetimeButtonBack.md)\<`unknown`\>\>
 
 #### Returns
 
-``null`` \| [`DPickerDatetimeButtonBackOptions`](../interfaces/DPickerDatetimeButtonBackOptions.md)<`unknown`, [`DThemePickerDatetimeButtonBack`](../interfaces/DThemePickerDatetimeButtonBack.md)<`unknown`\>\>
+``null`` \| [`DPickerDatetimeButtonBackOptions`](../interfaces/DPickerDatetimeButtonBackOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonBack`](../interfaces/DThemePickerDatetimeButtonBack.md)\<`unknown`\>\>
 
 #### Implementation of
 
@@ -735,11 +739,11 @@ ___
 
 ### getHoursOptions
 
-▸ **getHoursOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+▸ **getHoursOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Implementation of
 
@@ -891,11 +895,11 @@ ___
 
 ### getMinutesOptions
 
-▸ **getMinutesOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+▸ **getMinutesOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Implementation of
 
@@ -913,11 +917,11 @@ ___
 
 ### getNextButtonOptions
 
-▸ **getNextButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonNextOptions`](../interfaces/DPickerDatetimeButtonNextOptions.md)<`unknown`, [`DThemePickerDatetimeButtonNext`](../interfaces/DThemePickerDatetimeButtonNext.md)<`unknown`\>\>
+▸ **getNextButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonNextOptions`](../interfaces/DPickerDatetimeButtonNextOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonNext`](../interfaces/DThemePickerDatetimeButtonNext.md)\<`unknown`\>\>
 
 #### Returns
 
-``null`` \| [`DPickerDatetimeButtonNextOptions`](../interfaces/DPickerDatetimeButtonNextOptions.md)<`unknown`, [`DThemePickerDatetimeButtonNext`](../interfaces/DThemePickerDatetimeButtonNext.md)<`unknown`\>\>
+``null`` \| [`DPickerDatetimeButtonNextOptions`](../interfaces/DPickerDatetimeButtonNextOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonNext`](../interfaces/DThemePickerDatetimeButtonNext.md)\<`unknown`\>\>
 
 #### Implementation of
 
@@ -1212,11 +1216,11 @@ ___
 
 ### getSecondsOptions
 
-▸ **getSecondsOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+▸ **getSecondsOptions**(): [`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](../interfaces/DInputIntegerOptions.md)\<[`DThemeInputInteger`](../interfaces/DThemeInputInteger.md)\>
 
 #### Implementation of
 

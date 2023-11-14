@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilGestureEasingHistory
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilGestureEasingHistory
 
 # Class: UtilGestureEasingHistory
 
@@ -23,7 +23,7 @@
 
 ### constructor
 
-• **new UtilGestureEasingHistory**(`dx`, `dy`, `ds`, `dt`)
+• **new UtilGestureEasingHistory**(`dx`, `dy`, `ds`, `dt`): [`UtilGestureEasingHistory`](UtilGestureEasingHistory.md)
 
 #### Parameters
 
@@ -33,6 +33,10 @@
 | `dy` | `number` |
 | `ds` | `number` |
 | `dt` | `number` |
+
+#### Returns
+
+[`UtilGestureEasingHistory`](UtilGestureEasingHistory.md)
 
 #### Defined in
 

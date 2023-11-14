@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesFillImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesFillImpl
 
 # Class: DChartSeriesFillImpl
 
@@ -22,13 +22,17 @@
 
 ### constructor
 
-• **new DChartSeriesFillImpl**(`options?`)
+• **new DChartSeriesFillImpl**(`options?`): [`DChartSeriesFillImpl`](DChartSeriesFillImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DChartSeriesFillOptions`](../interfaces/DChartSeriesFillOptions.md) |
+
+#### Returns
+
+[`DChartSeriesFillImpl`](DChartSeriesFillImpl.md)
 
 #### Defined in
 
@@ -38,7 +42,7 @@
 
 ### alpha
 
-• **alpha**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **alpha**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -52,7 +56,7 @@ ___
 
 ### color
 
-• **color**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **color**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -66,7 +70,7 @@ ___
 
 ### enable
 
-• **enable**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`boolean`\>
+• **enable**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`boolean`\>
 
 #### Implementation of
 

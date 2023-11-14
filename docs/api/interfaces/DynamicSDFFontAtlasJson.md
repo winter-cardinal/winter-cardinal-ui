@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicSDFFontAtlasJson
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicSDFFontAtlasJson
 
 # Interface: DynamicSDFFontAtlasJson
 

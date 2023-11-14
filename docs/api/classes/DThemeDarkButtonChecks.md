@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkButtonChecks
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkButtonChecks
 
 # Class: DThemeDarkButtonChecks
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new DThemeDarkButtonChecks**()
+• **new DThemeDarkButtonChecks**(): [`DThemeDarkButtonChecks`](DThemeDarkButtonChecks.md)
+
+#### Returns
+
+[`DThemeDarkButtonChecks`](DThemeDarkButtonChecks.md)
 
 ## Methods
 
 ### getImageSource
 
-▸ `Static` **getImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -43,7 +47,7 @@ ___
 
 ### getImageTintColor
 
-▸ `Static` **getImageTintColor**(`state`): ``null`` \| `number`
+▸ **getImageTintColor**(`state`): ``null`` \| `number`
 
 #### Parameters
 

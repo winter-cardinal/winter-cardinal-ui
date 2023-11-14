@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPaneScrollBarOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DPaneScrollBarOptions
 
 # Interface: DPaneScrollBarOptions
 
@@ -13,7 +13,7 @@
 
 ### horizontal
 
-• `Optional` **horizontal**: [`DScrollBarOptions`](DScrollBarOptions.md)<[`DThemeScrollBar`](DThemeScrollBar.md)\>
+• `Optional` **horizontal**: [`DScrollBarOptions`](DScrollBarOptions.md)\<[`DThemeScrollBar`](DThemeScrollBar.md)\>
 
 #### Defined in
 
@@ -23,7 +23,7 @@ ___
 
 ### vertical
 
-• `Optional` **vertical**: [`DScrollBarOptions`](DScrollBarOptions.md)<[`DThemeScrollBar`](DThemeScrollBar.md)\>
+• `Optional` **vertical**: [`DScrollBarOptions`](DScrollBarOptions.md)\<[`DThemeScrollBar`](DThemeScrollBar.md)\>
 
 #### Defined in
 

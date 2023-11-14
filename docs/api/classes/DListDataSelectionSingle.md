@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataSelectionSingle
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelectionSingle
 
-# Class: DListDataSelectionSingle<ITEM\>
+# Class: DListDataSelectionSingle\<ITEM\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DListDataSelection`](../interfaces/DListDataSelection.md)<`ITEM`\>
+- [`DListDataSelection`](../interfaces/DListDataSelection.md)\<`ITEM`\>
 
 ## Table of contents
 
@@ -69,7 +69,7 @@
 
 ### constructor
 
-• **new DListDataSelectionSingle**<`ITEM`\>(`parent`, `accessor`, `options?`)
+• **new DListDataSelectionSingle**\<`ITEM`\>(`parent`, `accessor`, `options?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 #### Type parameters
 
@@ -81,9 +81,13 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DListDataSelectionParent`](../interfaces/DListDataSelectionParent.md)<`ITEM`\> |
-| `accessor` | [`DListItemAccessor`](../interfaces/DListItemAccessor.md)<`ITEM`\> |
-| `options?` | [`DListDataSelectionOptions`](../interfaces/DListDataSelectionOptions.md)<`ITEM`, `any`\> |
+| `parent` | [`DListDataSelectionParent`](../interfaces/DListDataSelectionParent.md)\<`ITEM`\> |
+| `accessor` | [`DListItemAccessor`](../interfaces/DListItemAccessor.md)\<`ITEM`\> |
+| `options?` | [`DListDataSelectionOptions`](../interfaces/DListDataSelectionOptions.md)\<`ITEM`, `any`\> |
+
+#### Returns
+
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 #### Overrides
 
@@ -97,7 +101,7 @@ utils.EventEmitter.constructor
 
 ### \_accessor
 
-• `Protected` **\_accessor**: [`DListItemAccessor`](../interfaces/DListItemAccessor.md)<`ITEM`\>
+• `Protected` **\_accessor**: [`DListItemAccessor`](../interfaces/DListItemAccessor.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -117,7 +121,7 @@ ___
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DListDataSelectionParent`](../interfaces/DListDataSelectionParent.md)<`ITEM`\>
+• `Protected` **\_parent**: [`DListDataSelectionParent`](../interfaces/DListDataSelectionParent.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -209,7 +213,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 Alias method for `on`
 
@@ -223,7 +227,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 #### Implementation of
 
@@ -371,7 +375,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -428,7 +432,7 @@ ___
 
 ### find
 
-▸ `Protected` **find**(`target`, `items`): ``null`` \| `ITEM`
+▸ **find**(`target`, `items`): ``null`` \| `ITEM`
 
 #### Parameters
 
@@ -449,14 +453,14 @@ ___
 
 ### findById
 
-▸ `Protected` **findById**(`id`, `toId`, `items`): ``null`` \| `ITEM`
+▸ **findById**(`id`, `toId`, `items`): ``null`` \| `ITEM`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `id` | `unknown` |
-| `toId` | [`DListItemToId`](../index.md#dlistitemtoid)<`ITEM`\> |
+| `toId` | [`DListItemToId`](../index.md#dlistitemtoid)\<`ITEM`\> |
 | `items` | `ITEM`[] |
 
 #### Returns
@@ -581,7 +585,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 Alias method for `removeListener`
 
@@ -596,7 +600,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 #### Implementation of
 
@@ -614,7 +618,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+▸ **on**(`event`, `fn`, `context?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 Add a listener for a given event.
 
@@ -628,7 +632,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 `this`.
 
@@ -648,7 +652,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 
@@ -684,7 +688,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+▸ **once**(`event`, `fn`, `context?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 Add a one-time listener for a given event.
 
@@ -698,7 +702,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 `this`.
 
@@ -746,7 +750,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+▸ **removeAllListeners**(`event?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -758,7 +762,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 `this`.
 
@@ -778,7 +782,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 Remove the listeners of a given event.
 
@@ -793,7 +797,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DListDataSelectionSingle`](DListDataSelectionSingle.md)<`ITEM`\>
+[`DListDataSelectionSingle`](DListDataSelectionSingle.md)\<`ITEM`\>
 
 `this`.
 

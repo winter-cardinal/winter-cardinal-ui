@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeCapabilities
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeCapabilities
 
 # Class: EShapeCapabilities
 
@@ -22,13 +22,17 @@
 
 ### constructor
 
-• **new EShapeCapabilities**()
+• **new EShapeCapabilities**(): [`EShapeCapabilities`](EShapeCapabilities.md)
+
+#### Returns
+
+[`EShapeCapabilities`](EShapeCapabilities.md)
 
 ## Properties
 
 ### mappings
 
-▪ `Static` **mappings**: `Record`<`number`, `undefined` \| `number`\> = `{}`
+▪ `Static` **mappings**: `Record`\<`number`, `undefined` \| `number`\> = `{}`
 
 #### Defined in
 
@@ -38,7 +42,7 @@
 
 ### contains
 
-▸ `Static` **contains**(`shape`, `target`): `boolean`
+▸ **contains**(`shape`, `target`): `boolean`
 
 #### Parameters
 
@@ -59,7 +63,7 @@ ___
 
 ### get
 
-▸ `Static` **get**(`type`): `number`
+▸ **get**(`type`): `number`
 
 #### Parameters
 
@@ -79,7 +83,7 @@ ___
 
 ### set
 
-▸ `Static` **set**(`type`, `capability`): `void`
+▸ **set**(`type`, `capability`): `void`
 
 #### Parameters
 

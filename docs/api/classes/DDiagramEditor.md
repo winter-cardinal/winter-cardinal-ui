@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramEditor
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramEditor
 
-# Class: DDiagramEditor<THEME, OPTIONS\>
+# Class: DDiagramEditor\<THEME, OPTIONS\>
 
 A canvas container.
 
@@ -9,17 +9,17 @@ A canvas container.
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemeDiagramEditor`](../interfaces/DThemeDiagramEditor.md) = [`DThemeDiagramEditor`](../interfaces/DThemeDiagramEditor.md) |
-| `OPTIONS` | extends [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)<`THEME`\> = [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)<`THEME`\> |
+| `OPTIONS` | extends [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)\<`THEME`\> = [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)\<`THEME`\> |
 
 ## Hierarchy
 
-- [`DDiagramBase`](DDiagramBase.md)<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md), [`DDiagramEditorController`](../interfaces/DDiagramEditorController.md), `THEME`, `OPTIONS`\>
+- [`DDiagramBase`](DDiagramBase.md)\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md), [`DDiagramEditorController`](../interfaces/DDiagramEditorController.md), `THEME`, `OPTIONS`\>
 
   ↳ **`DDiagramEditor`**
 
 ## Implements
 
-- [`DControllerDocument`](../interfaces/DControllerDocument.md)<[`DDiagramSerialized`](../interfaces/DDiagramSerialized.md)\>
+- [`DControllerDocument`](../interfaces/DControllerDocument.md)\<[`DDiagramSerialized`](../interfaces/DDiagramSerialized.md)\>
 
 ## Table of contents
 
@@ -191,6 +191,7 @@ A canvas container.
 - [listeners](DDiagramEditor.md#listeners)
 - [newCanvas](DDiagramEditor.md#newcanvas)
 - [newLayer](DDiagramEditor.md#newlayer)
+- [newPadding](DDiagramEditor.md#newpadding)
 - [off](DDiagramEditor.md#off)
 - [on](DDiagramEditor.md#on)
 - [onBlur](DDiagramEditor.md#onblur)
@@ -268,14 +269,14 @@ A canvas container.
 
 ### constructor
 
-• **new DDiagramEditor**<`THEME`, `OPTIONS`\>(`options?`)
+• **new DDiagramEditor**\<`THEME`, `OPTIONS`\>(`options?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `THEME` | extends [`DThemeDiagramEditor`](../interfaces/DThemeDiagramEditor.md) = [`DThemeDiagramEditor`](../interfaces/DThemeDiagramEditor.md) |
-| `OPTIONS` | extends [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)<`THEME`, `any`, `OPTIONS`\> = [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)<`THEME`, `any`\> |
+| `OPTIONS` | extends [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)\<`THEME`, `any`\> = [`DDiagramEditorOptions`](../interfaces/DDiagramEditorOptions.md)\<`THEME`, `any`\> |
 
 #### Parameters
 
@@ -283,13 +284,17 @@ A canvas container.
 | :------ | :------ |
 | `options?` | `OPTIONS` |
 
+#### Returns
+
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
+
 #### Overrides
 
 [DDiagramBase](DDiagramBase.md).[constructor](DDiagramBase.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L158)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L172)
 
 ## Properties
 
@@ -405,7 +410,7 @@ ___
 
 ### \_canvas
 
-• `Protected` **\_canvas**: ``null`` \| [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
+• `Protected` **\_canvas**: ``null`` \| [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
 
 #### Inherited from
 
@@ -461,7 +466,7 @@ ___
 
 ### \_cursor
 
-• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Inherited from
 
@@ -513,7 +518,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L154)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L168)
 
 ___
 
@@ -554,7 +559,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -690,13 +695,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L155)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L169)
 
 ___
 
 ### \_snapshot
 
-• `Protected` **\_snapshot**: [`DDiagramSnapshot`](DDiagramSnapshot.md)<[`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)\>
+• `Protected` **\_snapshot**: [`DDiagramSnapshot`](DDiagramSnapshot.md)\<[`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)\>
 
 #### Inherited from
 
@@ -744,7 +749,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L156)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L170)
 
 ___
 
@@ -849,7 +854,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -898,7 +905,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -948,7 +957,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -1653,7 +1664,7 @@ DDiagramBase.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1459)
+[src/main/typescript/wcardinal/ui/d-base.ts:1464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1464)
 
 ___
 
@@ -1671,7 +1682,7 @@ DDiagramBase.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1463)
+[src/main/typescript/wcardinal/ui/d-base.ts:1468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1468)
 
 ___
 
@@ -1745,7 +1756,7 @@ DDiagramBase.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1455](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1455)
+[src/main/typescript/wcardinal/ui/d-base.ts:1460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1460)
 
 ___
 
@@ -1763,7 +1774,7 @@ DDiagramBase.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1378)
+[src/main/typescript/wcardinal/ui/d-base.ts:1383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1383)
 
 • `set` **height**(`height`): `void`
 
@@ -1783,7 +1794,7 @@ DDiagramBase.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
+[src/main/typescript/wcardinal/ui/d-base.ts:1387](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1387)
 
 ___
 
@@ -1801,7 +1812,7 @@ DDiagramBase.layer
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L253)
+[src/main/typescript/wcardinal/ui/d-diagram-base.ts:257](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L257)
 
 ___
 
@@ -1819,7 +1830,7 @@ DDiagramBase.options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
+[src/main/typescript/wcardinal/ui/d-base.ts:1683](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1683)
 
 ___
 
@@ -1837,7 +1848,7 @@ DDiagramBase.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1467)
+[src/main/typescript/wcardinal/ui/d-base.ts:1472](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1472)
 
 ___
 
@@ -1855,7 +1866,7 @@ DDiagramBase.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1451)
+[src/main/typescript/wcardinal/ui/d-base.ts:1456](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1456)
 
 ___
 
@@ -1873,7 +1884,7 @@ DDiagramBase.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1437](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1437)
+[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
 
 ___
 
@@ -1891,7 +1902,7 @@ DDiagramBase.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1116)
+[src/main/typescript/wcardinal/ui/d-base.ts:1121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1121)
 
 ___
 
@@ -1909,7 +1920,7 @@ DDiagramBase.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1442)
+[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
 
 ___
 
@@ -1927,7 +1938,7 @@ DDiagramBase.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1791](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1791)
+[src/main/typescript/wcardinal/ui/d-base.ts:1796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1796)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -1947,7 +1958,7 @@ DDiagramBase.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1795](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1795)
+[src/main/typescript/wcardinal/ui/d-base.ts:1800](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1800)
 
 ___
 
@@ -1965,7 +1976,7 @@ DDiagramBase.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1447)
+[src/main/typescript/wcardinal/ui/d-base.ts:1452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1452)
 
 ___
 
@@ -1979,17 +1990,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L179)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L193)
 
 ___
 
 ### snapshot
 
-• `get` **snapshot**(): [`DDiagramSnapshot`](DDiagramSnapshot.md)<[`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)\>
+• `get` **snapshot**(): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<[`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)\>
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)<[`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)\>
+[`DDiagramSnapshot`](DDiagramSnapshot.md)\<[`DDiagramSnapshotCanvas`](../interfaces/DDiagramSnapshotCanvas.md)\>
 
 #### Inherited from
 
@@ -2015,7 +2026,7 @@ DDiagramBase.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1112)
+[src/main/typescript/wcardinal/ui/d-base.ts:1117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1117)
 
 ___
 
@@ -2033,7 +2044,7 @@ DDiagramBase.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1674](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1674)
+[src/main/typescript/wcardinal/ui/d-base.ts:1679](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1679)
 
 ___
 
@@ -2051,7 +2062,7 @@ DDiagramBase.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
+[src/main/typescript/wcardinal/ui/d-base.ts:1687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1687)
 
 • `set` **theme**(`theme`): `void`
 
@@ -2071,7 +2082,7 @@ DDiagramBase.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1686)
+[src/main/typescript/wcardinal/ui/d-base.ts:1691](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1691)
 
 ___
 
@@ -2085,7 +2096,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L175)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L189)
 
 ___
 
@@ -2103,7 +2114,7 @@ DDiagramBase.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1475)
+[src/main/typescript/wcardinal/ui/d-base.ts:1480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1480)
 
 • `set` **title**(`title`): `void`
 
@@ -2123,7 +2134,7 @@ DDiagramBase.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1479)
+[src/main/typescript/wcardinal/ui/d-base.ts:1484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1484)
 
 ___
 
@@ -2141,7 +2152,7 @@ DDiagramBase.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
+[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
 
 ___
 
@@ -2159,7 +2170,7 @@ DDiagramBase.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1471)
+[src/main/typescript/wcardinal/ui/d-base.ts:1476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1476)
 
 ___
 
@@ -2195,7 +2206,7 @@ DDiagramBase.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1137)
+[src/main/typescript/wcardinal/ui/d-base.ts:1142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1142)
 
 ___
 
@@ -2213,7 +2224,7 @@ DDiagramBase.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1319)
+[src/main/typescript/wcardinal/ui/d-base.ts:1324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1324)
 
 • `set` **width**(`width`): `void`
 
@@ -2233,7 +2244,7 @@ DDiagramBase.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
+[src/main/typescript/wcardinal/ui/d-base.ts:1328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1328)
 
 ___
 
@@ -2251,7 +2262,7 @@ DDiagramBase.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1239)
+[src/main/typescript/wcardinal/ui/d-base.ts:1244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1244)
 
 • `set` **x**(`x`): `void`
 
@@ -2271,7 +2282,7 @@ DDiagramBase.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1243)
+[src/main/typescript/wcardinal/ui/d-base.ts:1248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1248)
 
 ___
 
@@ -2289,7 +2300,7 @@ DDiagramBase.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1279)
+[src/main/typescript/wcardinal/ui/d-base.ts:1284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1284)
 
 • `set` **y**(`y`): `void`
 
@@ -2309,13 +2320,13 @@ DDiagramBase.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1283)
+[src/main/typescript/wcardinal/ui/d-base.ts:1288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1288)
 
 ## Methods
 
 ### \_calculateBounds
 
-▸ `Protected` **_calculateBounds**(): `void`
+▸ **_calculateBounds**(): `void`
 
 #### Returns
 
@@ -2327,7 +2338,7 @@ DDiagramBase.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2018](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2018)
+[src/main/typescript/wcardinal/ui/d-base.ts:2023](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2023)
 
 ___
 
@@ -2354,7 +2365,7 @@ ___
 
 ### \_render
 
-▸ `Protected` **_render**(`renderer`): `void`
+▸ **_render**(`renderer`): `void`
 
 To be overridden by the subclasses.
 
@@ -2380,7 +2391,7 @@ ___
 
 ### addChild
 
-▸ **addChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -2416,7 +2427,7 @@ ___
 
 ### addChildAt
 
-▸ **addChildAt**<`T`\>(`child`, `index`): `T`
+▸ **addChildAt**\<`T`\>(`child`, `index`): `T`
 
 Adds a child to the container at a specified index. If the index is out of bounds an error will be thrown
 
@@ -2424,7 +2435,7 @@ Adds a child to the container at a specified index. If the index is out of bound
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `DisplayObject`<`T`\> |
+| `T` | extends `DisplayObject` |
 
 #### Parameters
 
@@ -2451,7 +2462,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2463,7 +2474,7 @@ ___
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2473,7 +2484,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24103
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2485,7 +2496,7 @@ node_modules/pixi.js/pixi.js.d.ts:24103
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2499,7 +2510,7 @@ ___
 
 ### applyTitle
 
-▸ `Protected` **applyTitle**(): `void`
+▸ **applyTitle**(): `void`
 
 #### Returns
 
@@ -2511,13 +2522,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1488)
+[src/main/typescript/wcardinal/ui/d-base.ts:1493](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1493)
 
 ___
 
 ### blur
 
-▸ **blur**(`recursively?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **blur**(`recursively?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -2527,7 +2538,7 @@ ___
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2535,7 +2546,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1594)
+[src/main/typescript/wcardinal/ui/d-base.ts:1599](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1599)
 
 ___
 
@@ -2561,21 +2572,21 @@ ___
 
 ### close
 
-▸ **close**(): `Promise`<`unknown`\>
+▸ **close**(): `Promise`\<`unknown`\>
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:381](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L381)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:400](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L400)
 
 ___
 
 ### containsGlobalPoint
 
-▸ `Protected` **containsGlobalPoint**(`point`): `boolean`
+▸ **containsGlobalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2593,13 +2604,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2043](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2043)
+[src/main/typescript/wcardinal/ui/d-base.ts:2048](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2048)
 
 ___
 
 ### containsLocalPoint
 
-▸ `Protected` **containsLocalPoint**(`point`): `boolean`
+▸ **containsLocalPoint**(`point`): `boolean`
 
 #### Parameters
 
@@ -2617,7 +2628,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2047](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2047)
+[src/main/typescript/wcardinal/ui/d-base.ts:2052](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2052)
 
 ___
 
@@ -2641,39 +2652,37 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2034](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2034)
+[src/main/typescript/wcardinal/ui/d-base.ts:2039](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2039)
 
 ___
 
 ### create
 
-▸ **create**(`name`, `width`, `height`): `Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+▸ **create**(`options`): `Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
-| `width` | `number` |
-| `height` | `number` |
+| `options` | [`DDiagramEditorCreateOptions`](../interfaces/DDiagramEditorCreateOptions.md) |
 
 #### Returns
 
-`Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+`Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L317)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L331)
 
 ___
 
 ### delete
 
-▸ **delete**(): `Promise`<`unknown`\>
+▸ **delete**(): `Promise`\<`unknown`\>
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Implementation of
 
@@ -2681,7 +2690,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L290)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L304)
 
 ___
 
@@ -2710,6 +2719,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -2717,10 +2730,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -2734,7 +2743,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -2783,11 +2792,11 @@ ___
 
 ### focus
 
-▸ **focus**(): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **focus**(): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -2795,13 +2804,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1590](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1590)
+[src/main/typescript/wcardinal/ui/d-base.ts:1595](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1595)
 
 ___
 
 ### focusOnClosest
 
-▸ `Protected` **focusOnClosest**(): `void`
+▸ **focusOnClosest**(): `void`
 
 #### Returns
 
@@ -2813,7 +2822,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1958](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1958)
+[src/main/typescript/wcardinal/ui/d-base.ts:1963](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1963)
 
 ___
 
@@ -2835,7 +2844,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L249)
+[src/main/typescript/wcardinal/ui/d-diagram-base.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L253)
 
 ___
 
@@ -2849,7 +2858,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -2902,14 +2911,6 @@ ___
 
 Returns the display object in the container.
 
-**`Method`**
-
-getChildByName
-
-**`Memberof`**
-
-PIXI.Container#
-
 #### Parameters
 
 | Name | Type | Description |
@@ -2921,6 +2922,14 @@ PIXI.Container#
 `DisplayObject`
 
 The child with the specified name.
+
+**`Method`**
+
+getChildByName
+
+**`Memberof`**
+
+PIXI.Container#
 
 #### Inherited from
 
@@ -2974,7 +2983,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1203)
+[src/main/typescript/wcardinal/ui/d-base.ts:1208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1208)
 
 ___
 
@@ -3001,7 +3010,7 @@ Returns a clipping rect.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2060](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2060)
+[src/main/typescript/wcardinal/ui/d-base.ts:2065](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2065)
 
 ___
 
@@ -3011,6 +3020,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -3018,19 +3040,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -3056,7 +3065,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
+[src/main/typescript/wcardinal/ui/d-base.ts:1391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1391)
 
 ___
 
@@ -3102,13 +3111,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:397](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L397)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:416](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L416)
 
 ___
 
 ### getOverflowMask
 
-▸ `Protected` **getOverflowMask**(): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **getOverflowMask**(): [`DBaseOverflowMask`](DBaseOverflowMask.md)
 
 #### Returns
 
@@ -3126,11 +3135,11 @@ ___
 
 ### getParentOfSize
 
-▸ `Protected` **getParentOfSize**(): ``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+▸ **getParentOfSize**(): ``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Returns
 
-``null`` \| { `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
+``null`` \| \{ `height`: `number` ; `padding`: [`DPadding`](../interfaces/DPadding.md) ; `width`: `number`  }
 
 #### Inherited from
 
@@ -3138,13 +3147,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1825](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1825)
+[src/main/typescript/wcardinal/ui/d-base.ts:1830](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1830)
 
 ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): `THEME`
+▸ **getThemeDefault**(): `THEME`
 
 #### Returns
 
@@ -3156,13 +3165,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2009](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2009)
+[src/main/typescript/wcardinal/ui/d-base.ts:2014](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2014)
 
 ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -3174,7 +3183,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:405](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L405)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:424](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L424)
 
 ___
 
@@ -3192,7 +3201,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+[src/main/typescript/wcardinal/ui/d-base.ts:1332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1332)
 
 ___
 
@@ -3210,7 +3219,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1247)
+[src/main/typescript/wcardinal/ui/d-base.ts:1252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1252)
 
 ___
 
@@ -3228,7 +3237,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1287)
+[src/main/typescript/wcardinal/ui/d-base.ts:1292](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1292)
 
 ___
 
@@ -3246,13 +3255,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1576)
+[src/main/typescript/wcardinal/ui/d-base.ts:1581](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1581)
 
 ___
 
 ### hasRefitableHeight
 
-▸ `Protected` **hasRefitableHeight**(`target`): target is DRefitable
+▸ **hasRefitableHeight**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3270,13 +3279,13 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1775](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1775)
+[src/main/typescript/wcardinal/ui/d-base.ts:1780](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1780)
 
 ___
 
 ### hasRefitableWidth
 
-▸ `Protected` **hasRefitableWidth**(`target`): target is DBase<any, any\>
+▸ **hasRefitableWidth**(`target`): target is DBase\<any, any\>
 
 #### Parameters
 
@@ -3286,7 +3295,7 @@ ___
 
 #### Returns
 
-target is DBase<any, any\>
+target is DBase\<any, any\>
 
 #### Inherited from
 
@@ -3294,17 +3303,17 @@ target is DBase<any, any\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1781](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1781)
+[src/main/typescript/wcardinal/ui/d-base.ts:1786](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1786)
 
 ___
 
 ### hide
 
-▸ **hide**(): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **hide**(): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3312,13 +3321,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1508)
+[src/main/typescript/wcardinal/ui/d-base.ts:1513](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1513)
 
 ___
 
 ### init
 
-▸ `Protected` **init**(`options?`): `void`
+▸ **init**(`options?`): `void`
 
 #### Parameters
 
@@ -3342,19 +3351,19 @@ ___
 
 ### initLayer
 
-▸ `Protected` **initLayer**(`canvas`, `shapes`, `mapper?`): [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
+▸ **initLayer**(`canvas`, `shapes`, `mapper?`): [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\> |
+| `canvas` | [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\> |
 | `shapes` | [`EShape`](../interfaces/EShape.md)[] |
 | `mapper?` | ``null`` \| [`DDiagramDataMapper`](../index.md#ddiagramdatamapper) |
 
 #### Returns
 
-[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
+[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
 
 #### Inherited from
 
@@ -3368,7 +3377,7 @@ ___
 
 ### initReflowable
 
-▸ `Protected` **initReflowable**(): `void`
+▸ **initReflowable**(): `void`
 
 #### Returns
 
@@ -3380,7 +3389,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
+[src/main/typescript/wcardinal/ui/d-base.ts:1125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1125)
 
 ___
 
@@ -3398,7 +3407,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:385](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L385)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L404)
 
 ___
 
@@ -3416,13 +3425,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1572)
+[src/main/typescript/wcardinal/ui/d-base.ts:1577](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1577)
 
 ___
 
 ### isEventTarget
 
-▸ `Protected` **isEventTarget**(`e`): `boolean`
+▸ **isEventTarget**(`e`): `boolean`
 
 #### Parameters
 
@@ -3440,7 +3449,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1903](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1903)
+[src/main/typescript/wcardinal/ui/d-base.ts:1908](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1908)
 
 ___
 
@@ -3458,7 +3467,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1518](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1518)
+[src/main/typescript/wcardinal/ui/d-base.ts:1523](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1523)
 
 ___
 
@@ -3476,7 +3485,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1564)
+[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
 
 ___
 
@@ -3494,13 +3503,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:389](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L389)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:408](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L408)
 
 ___
 
 ### isRefitable
 
-▸ `Protected` **isRefitable**(`target`): target is DRefitable
+▸ **isRefitable**(`target`): target is DRefitable
 
 #### Parameters
 
@@ -3518,7 +3527,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1771](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1771)
+[src/main/typescript/wcardinal/ui/d-base.ts:1776](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1776)
 
 ___
 
@@ -3536,7 +3545,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1504)
+[src/main/typescript/wcardinal/ui/d-base.ts:1509](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1509)
 
 ___
 
@@ -3594,7 +3603,7 @@ ___
 
 ### newCanvas
 
-▸ `Protected` **newCanvas**(`serialized`): [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
+▸ **newCanvas**(`serialized`): [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
 
 #### Parameters
 
@@ -3604,7 +3613,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
+[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>
 
 #### Overrides
 
@@ -3612,27 +3621,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L190)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L204)
 
 ___
 
 ### newLayer
 
-▸ `Protected` **newLayer**(`serialized`, `canvas`, `mode`, `pieces?`, `pieceData?`): `Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+▸ **newLayer**(`serialized`, `canvas`, `mode`, `pieces?`, `pieceData?`): `Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `serialized` | [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) |
-| `canvas` | [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\> |
+| `canvas` | [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\> |
 | `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
 | `pieces?` | `string`[] |
-| `pieceData?` | `Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\> |
+| `pieceData?` | `Map`\<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\> |
 
 #### Returns
 
-`Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+`Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Inherited from
 
@@ -3644,9 +3653,35 @@ ___
 
 ___
 
+### newPadding
+
+▸ **newPadding**(`theme`, `options?`, `callback?`): [`DBasePadding`](DBasePadding.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
+| `callback?` | () => `void` |
+
+#### Returns
+
+[`DBasePadding`](DBasePadding.md)
+
+#### Inherited from
+
+[DDiagramBase](DDiagramBase.md).[newPadding](DDiagramBase.md#newpadding)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:1096](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1096)
+
+___
+
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -3658,7 +3693,7 @@ ___
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3672,19 +3707,19 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3694,7 +3729,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24112
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -3706,7 +3741,7 @@ node_modules/pixi.js/pixi.js.d.ts:24112
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -3720,7 +3755,7 @@ ___
 
 ### onBlur
 
-▸ `Protected` **onBlur**(): `void`
+▸ **onBlur**(): `void`
 
 #### Returns
 
@@ -3732,19 +3767,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1667](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1667)
+[src/main/typescript/wcardinal/ui/d-base.ts:1672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1672)
 
 ___
 
 ### onChildBlur
 
-▸ `Protected` **onChildBlur**(`blured`): `void`
+▸ **onChildBlur**(`blured`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `blured` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `blured` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -3756,19 +3791,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1660](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1660)
+[src/main/typescript/wcardinal/ui/d-base.ts:1665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1665)
 
 ___
 
 ### onChildFocus
 
-▸ `Protected` **onChildFocus**(`focused`): `void`
+▸ **onChildFocus**(`focused`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `focused` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `focused` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -3780,13 +3815,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1646](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1646)
+[src/main/typescript/wcardinal/ui/d-base.ts:1651](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1651)
 
 ___
 
 ### onChildrenChange
 
-▸ `Protected` **onChildrenChange**(): `void`
+▸ **onChildrenChange**(): `void`
 
 #### Returns
 
@@ -3798,13 +3833,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
+[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
 
 ___
 
 ### onDblClick
 
-▸ `Protected` **onDblClick**(`e`, `interactionManager`, `skipView?`): `boolean`
+▸ **onDblClick**(`e`, `interactionManager`, `skipView?`): `boolean`
 
 #### Parameters
 
@@ -3830,7 +3865,7 @@ ___
 
 ### onDown
 
-▸ `Protected` **onDown**(`e`, `skipView?`): `void`
+▸ **onDown**(`e`, `skipView?`): `void`
 
 #### Parameters
 
@@ -3855,7 +3890,7 @@ ___
 
 ### onDownThis
 
-▸ `Protected` **onDownThis**(`e`): `void`
+▸ **onDownThis**(`e`): `void`
 
 #### Parameters
 
@@ -3873,13 +3908,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1924](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1924)
+[src/main/typescript/wcardinal/ui/d-base.ts:1929](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1929)
 
 ___
 
 ### onFocus
 
-▸ `Protected` **onFocus**(): `void`
+▸ **onFocus**(): `void`
 
 #### Returns
 
@@ -3891,13 +3926,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1653](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1653)
+[src/main/typescript/wcardinal/ui/d-base.ts:1658](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1658)
 
 ___
 
 ### onHierarchyDirty
 
-▸ `Protected` **onHierarchyDirty**(): `void`
+▸ **onHierarchyDirty**(): `void`
 
 #### Returns
 
@@ -3909,13 +3944,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1568)
+[src/main/typescript/wcardinal/ui/d-base.ts:1573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1573)
 
 ___
 
 ### onKeyDown
 
-▸ `Protected` **onKeyDown**(`e`): `boolean`
+▸ **onKeyDown**(`e`): `boolean`
 
 #### Parameters
 
@@ -3933,13 +3968,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1892](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1892)
+[src/main/typescript/wcardinal/ui/d-base.ts:1897](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1897)
 
 ___
 
 ### onKeyUp
 
-▸ `Protected` **onKeyUp**(`e`): `boolean`
+▸ **onKeyUp**(`e`): `boolean`
 
 #### Parameters
 
@@ -3957,13 +3992,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1897](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1897)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
 ### onMove
 
-▸ `Protected` **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -3984,13 +4019,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1141)
+[src/main/typescript/wcardinal/ui/d-base.ts:1146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1146)
 
 ___
 
 ### onOut
 
-▸ `Protected` **onOut**(`e`): `void`
+▸ **onOut**(`e`): `void`
 
 #### Parameters
 
@@ -4008,13 +4043,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1981](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1981)
+[src/main/typescript/wcardinal/ui/d-base.ts:1986](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1986)
 
 ___
 
 ### onOver
 
-▸ `Protected` **onOver**(`e`): `void`
+▸ **onOver**(`e`): `void`
 
 #### Parameters
 
@@ -4032,13 +4067,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1967](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1967)
+[src/main/typescript/wcardinal/ui/d-base.ts:1972](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1972)
 
 ___
 
 ### onParentMove
 
-▸ `Protected` **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onParentMove**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 Called when a parent moved.
 
@@ -4061,7 +4096,7 @@ Called when a parent moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1881](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1881)
+[src/main/typescript/wcardinal/ui/d-base.ts:1886](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1886)
 
 ___
 
@@ -4089,13 +4124,13 @@ Called when a parent resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1840](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1840)
+[src/main/typescript/wcardinal/ui/d-base.ts:1845](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1845)
 
 ___
 
 ### onRefit
 
-▸ `Protected` **onRefit**(): `void`
+▸ **onRefit**(): `void`
 
 #### Returns
 
@@ -4107,13 +4142,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1727)
+[src/main/typescript/wcardinal/ui/d-base.ts:1732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1732)
 
 ___
 
 ### onReflow
 
-▸ `Protected` **onReflow**(): `void`
+▸ **onReflow**(): `void`
 
 #### Returns
 
@@ -4125,7 +4160,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1787)
+[src/main/typescript/wcardinal/ui/d-base.ts:1792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1792)
 
 ___
 
@@ -4158,7 +4193,7 @@ ___
 
 ### onScale
 
-▸ `Protected` **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4179,20 +4214,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1224)
+[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
 
 ___
 
 ### onSet
 
-▸ `Protected` **onSet**(`serialized`, `canvas`): `void`
+▸ **onSet**(`serialized`, `canvas`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `serialized` | [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) |
-| `canvas` | [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\> |
+| `canvas` | [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\> |
 
 #### Returns
 
@@ -4204,13 +4239,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L332)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:351](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L351)
 
 ___
 
 ### onShortcut
 
-▸ `Protected` **onShortcut**(`e`): `void`
+▸ **onShortcut**(`e`): `void`
 
 #### Parameters
 
@@ -4228,13 +4263,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
+[src/main/typescript/wcardinal/ui/d-base.ts:1134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1134)
 
 ___
 
 ### onSkew
 
-▸ `Protected` **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
+▸ **onSkew**(`newX`, `newY`, `oldX`, `oldY`): `void`
 
 #### Parameters
 
@@ -4255,13 +4290,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1229)
+[src/main/typescript/wcardinal/ui/d-base.ts:1234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1234)
 
 ___
 
 ### onStateChange
 
-▸ `Protected` **onStateChange**(`newState`, `oldState`): `void`
+▸ **onStateChange**(`newState`, `oldState`): `void`
 
 #### Parameters
 
@@ -4280,13 +4315,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1617](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1617)
+[src/main/typescript/wcardinal/ui/d-base.ts:1622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1622)
 
 ___
 
 ### onUnset
 
-▸ `Protected` **onUnset**(): `void`
+▸ **onUnset**(): `void`
 
 #### Returns
 
@@ -4298,13 +4333,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L355)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:374](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L374)
 
 ___
 
 ### onUp
 
-▸ `Protected` **onUp**(`e`): `void`
+▸ **onUp**(`e`): `void`
 
 #### Parameters
 
@@ -4322,13 +4357,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1935](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1935)
+[src/main/typescript/wcardinal/ui/d-base.ts:1940](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1940)
 
 ___
 
 ### onUpThis
 
-▸ `Protected` **onUpThis**(`e`): `void`
+▸ **onUpThis**(`e`): `void`
 
 #### Parameters
 
@@ -4346,13 +4381,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1942](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1942)
+[src/main/typescript/wcardinal/ui/d-base.ts:1947](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1947)
 
 ___
 
 ### onWheel
 
-▸ `Protected` **onWheel**(`e`, `deltas`, `global`): `boolean`
+▸ **onWheel**(`e`, `deltas`, `global`): `boolean`
 
 #### Parameters
 
@@ -4378,19 +4413,19 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4400,7 +4435,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24109
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4412,7 +4447,7 @@ node_modules/pixi.js/pixi.js.d.ts:24109
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4426,7 +4461,7 @@ ___
 
 ### open
 
-▸ **open**(`id`): `Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+▸ **open**(`id`): `Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Parameters
 
@@ -4436,11 +4471,11 @@ ___
 
 #### Returns
 
-`Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+`Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:361](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L361)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:380](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L380)
 
 ___
 
@@ -4458,13 +4493,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1700)
+[src/main/typescript/wcardinal/ui/d-base.ts:1705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1705)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4474,7 +4509,7 @@ ___
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4484,7 +4519,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24098
 
-▸ **removeAllListeners**(`event?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4494,7 +4529,7 @@ node_modules/pixi.js/pixi.js.d.ts:24098
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4508,7 +4543,7 @@ ___
 
 ### removeChild
 
-▸ **removeChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -4599,7 +4634,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4611,7 +4646,7 @@ ___
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4621,7 +4656,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:24095
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4633,7 +4668,7 @@ node_modules/pixi.js/pixi.js.d.ts:24095
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4665,13 +4700,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1999](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1999)
+[src/main/typescript/wcardinal/ui/d-base.ts:2004](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L2004)
 
 ___
 
 ### renderAdvanced
 
-▸ `Protected` **renderAdvanced**(`renderer`): `void`
+▸ **renderAdvanced**(`renderer`): `void`
 
 Render the object using the WebGL renderer and advanced features.
 
@@ -4716,17 +4751,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1153)
+[src/main/typescript/wcardinal/ui/d-base.ts:1158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1158)
 
 ___
 
 ### save
 
-▸ **save**(): `Promise`<`unknown`\>
+▸ **save**(): `Promise`\<`unknown`\>
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Implementation of
 
@@ -4734,13 +4769,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L228)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L242)
 
 ___
 
 ### saveAs
 
-▸ **saveAs**(`name`): `Promise`<`unknown`\>
+▸ **saveAs**(`name`): `Promise`\<`unknown`\>
 
 #### Parameters
 
@@ -4750,7 +4785,7 @@ ___
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Implementation of
 
@@ -4758,7 +4793,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L256)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L270)
 
 ___
 
@@ -4772,13 +4807,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L211)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L225)
 
 ___
 
 ### set
 
-▸ **set**(`serialized`): `Promise`<``null``\>
+▸ **set**(`serialized`): `Promise`\<``null``\>
 
 #### Parameters
 
@@ -4788,7 +4823,7 @@ ___
 
 #### Returns
 
-`Promise`<``null``\>
+`Promise`\<``null``\>
 
 #### Inherited from
 
@@ -4798,7 +4833,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-diagram-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L126)
 
-▸ **set**(`serialized`): `Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+▸ **set**(`serialized`): `Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Parameters
 
@@ -4808,7 +4843,7 @@ ___
 
 #### Returns
 
-`Promise`<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+`Promise`\<[`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Inherited from
 
@@ -4818,7 +4853,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-diagram-base.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L127)
 
-▸ **set**(`serialized`): `Promise`<``null`` \| [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+▸ **set**(`serialized`): `Promise`\<``null`` \| [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Parameters
 
@@ -4828,7 +4863,7 @@ ___
 
 #### Returns
 
-`Promise`<``null`` \| [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
+`Promise`\<``null`` \| [`DDiagramCanvasEditor`](DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>\>\>
 
 #### Inherited from
 
@@ -4869,7 +4904,7 @@ ___
 
 ### setFocused
 
-▸ `Protected` **setFocused**(`isFocused`): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **setFocused**(`isFocused`): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Parameters
 
@@ -4879,7 +4914,7 @@ ___
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -4887,7 +4922,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1580)
+[src/main/typescript/wcardinal/ui/d-base.ts:1585](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1585)
 
 ___
 
@@ -4911,7 +4946,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1390](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1390)
+[src/main/typescript/wcardinal/ui/d-base.ts:1395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1395)
 
 ___
 
@@ -4999,7 +5034,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
+[src/main/typescript/wcardinal/ui/d-base.ts:1336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1336)
 
 ___
 
@@ -5023,7 +5058,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1256)
+[src/main/typescript/wcardinal/ui/d-base.ts:1261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1261)
 
 ___
 
@@ -5047,17 +5082,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1296)
+[src/main/typescript/wcardinal/ui/d-base.ts:1301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1301)
 
 ___
 
 ### show
 
-▸ **show**(): [`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+▸ **show**(): [`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`DDiagramEditor`](DDiagramEditor.md)<`THEME`, `OPTIONS`\>
+[`DDiagramEditor`](DDiagramEditor.md)\<`THEME`, `OPTIONS`\>
 
 #### Inherited from
 
@@ -5065,7 +5100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1495](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1495)
+[src/main/typescript/wcardinal/ui/d-base.ts:1500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1500)
 
 ___
 
@@ -5118,7 +5153,7 @@ ___
 
 ### toCanvasBaseBackgroundOptions
 
-▸ `Protected` **toCanvasBaseBackgroundOptions**(`serialized`, `theme`, `isAmbient`): [`DDiagramCanvasBackgroundOptions`](../interfaces/DDiagramCanvasBackgroundOptions.md)
+▸ **toCanvasBaseBackgroundOptions**(`serialized`, `theme`, `isAmbient`): [`DDiagramCanvasBackgroundOptions`](../interfaces/DDiagramCanvasBackgroundOptions.md)
 
 #### Parameters
 
@@ -5138,13 +5173,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L226)
+[src/main/typescript/wcardinal/ui/d-diagram-base.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L230)
 
 ___
 
 ### toCanvasBaseOptions
 
-▸ `Protected` **toCanvasBaseOptions**(`serialized`): [`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)<`any`\>
+▸ **toCanvasBaseOptions**(`serialized`): [`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)\<`any`\>
 
 #### Parameters
 
@@ -5154,7 +5189,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)<`any`\>
+[`DDiagramCanvasBaseOptions`](../interfaces/DDiagramCanvasBaseOptions.md)\<`any`\>
 
 #### Inherited from
 
@@ -5168,7 +5203,7 @@ ___
 
 ### toCanvasOptions
 
-▸ `Protected` **toCanvasOptions**(`serialized`): [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>
+▸ **toCanvasOptions**(`serialized`): [`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>
 
 #### Parameters
 
@@ -5178,23 +5213,23 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>
+[`DDiagramCanvasEditorOptions`](../interfaces/DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](../interfaces/DThemeDiagramCanvasEditor.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L194)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L208)
 
 ___
 
 ### toCursor
 
-▸ `Protected` **toCursor**(`cursor`, `state`): `string`
+▸ **toCursor**(`cursor`, `state`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\> |
+| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\> |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 
 #### Returns
@@ -5207,7 +5242,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1095](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1095)
+[src/main/typescript/wcardinal/ui/d-base.ts:1100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1100)
 
 ___
 
@@ -5225,7 +5260,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1522)
+[src/main/typescript/wcardinal/ui/d-base.ts:1527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1527)
 
 ___
 
@@ -5240,7 +5275,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -5273,7 +5308,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1531](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1531)
+[src/main/typescript/wcardinal/ui/d-base.ts:1536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1536)
 
 ___
 
@@ -5291,7 +5326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1547](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1547)
+[src/main/typescript/wcardinal/ui/d-base.ts:1552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1552)
 
 ___
 
@@ -5307,7 +5342,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -5328,7 +5363,7 @@ ___
 
 ### toMode
 
-▸ `Protected` **toMode**(`options?`): [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1)
+▸ **toMode**(`options?`): [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1)
 
 #### Parameters
 
@@ -5346,7 +5381,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L183)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L197)
 
 ___
 
@@ -5364,7 +5399,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1540](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1540)
+[src/main/typescript/wcardinal/ui/d-base.ts:1545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1545)
 
 ___
 
@@ -5382,13 +5417,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1557)
+[src/main/typescript/wcardinal/ui/d-base.ts:1562](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1562)
 
 ___
 
 ### toParentResized
 
-▸ `Protected` **toParentResized**(): `void`
+▸ **toParentResized**(): `void`
 
 #### Returns
 
@@ -5400,13 +5435,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1818](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1818)
+[src/main/typescript/wcardinal/ui/d-base.ts:1823](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L1823)
 
 ___
 
 ### updateContentSize
 
-▸ `Protected` **updateContentSize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`): `void`
+▸ **updateContentSize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`): `void`
 
 #### Parameters
 
@@ -5453,7 +5488,7 @@ ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

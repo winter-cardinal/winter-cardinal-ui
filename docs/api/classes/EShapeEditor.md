@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeEditor
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeEditor
 
 # Class: EShapeEditor
 
@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new EShapeEditor**()
+• **new EShapeEditor**(): [`EShapeEditor`](EShapeEditor.md)
+
+#### Returns
+
+[`EShapeEditor`](EShapeEditor.md)
 
 #### Defined in
 

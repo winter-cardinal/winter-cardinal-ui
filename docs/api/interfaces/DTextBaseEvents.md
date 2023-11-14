@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTextBaseEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DTextBaseEvents
 
-# Interface: DTextBaseEvents<VALUE, EMITTER\>
+# Interface: DTextBaseEvents\<VALUE, EMITTER\>
 
 [DTextBase](../classes/DTextBase.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DBaseEvents`](DBaseEvents.md)<`EMITTER`\>
+- [`DBaseEvents`](DBaseEvents.md)\<`EMITTER`\>
 
   ↳ **`DTextBaseEvents`**
 

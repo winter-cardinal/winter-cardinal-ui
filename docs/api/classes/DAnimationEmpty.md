@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DAnimationEmpty
+[Winter Cardinal UI - v0.374.0](../index.md) / DAnimationEmpty
 
-# Class: DAnimationEmpty<TARGET\>
+# Class: DAnimationEmpty\<TARGET\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DAnimation`](../interfaces/DAnimation.md)<`TARGET`\>
+- [`DAnimation`](../interfaces/DAnimation.md)\<`TARGET`\>
 
 ## Table of contents
 
@@ -63,7 +63,7 @@
 
 ### constructor
 
-• **new DAnimationEmpty**<`TARGET`\>(`options?`)
+• **new DAnimationEmpty**\<`TARGET`\>(`options?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 #### Type parameters
 
@@ -75,7 +75,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DAnimationOptions`](../interfaces/DAnimationOptions.md)<`TARGET`, [`DAnimation`](../interfaces/DAnimation.md)<`TARGET`\>\> |
+| `options?` | [`DAnimationOptions`](../interfaces/DAnimationOptions.md)\<`TARGET`, [`DAnimation`](../interfaces/DAnimation.md)\<`TARGET`\>\> |
+
+#### Returns
+
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 #### Overrides
 
@@ -99,7 +103,7 @@ ___
 
 ### \_onEnd
 
-• `Protected` **\_onEnd**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
+• `Protected` **\_onEnd**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)\<`TARGET`\>
 
 #### Defined in
 
@@ -109,7 +113,7 @@ ___
 
 ### \_onStart
 
-• `Protected` **\_onStart**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
+• `Protected` **\_onStart**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)\<`TARGET`\>
 
 #### Defined in
 
@@ -119,7 +123,7 @@ ___
 
 ### \_onTime
 
-• `Protected` **\_onTime**: `undefined` \| [`DAnimationOnTime`](../index.md#danimationontime)<`TARGET`\>
+• `Protected` **\_onTime**: `undefined` \| [`DAnimationOnTime`](../index.md#danimationontime)\<`TARGET`\>
 
 #### Defined in
 
@@ -233,7 +237,7 @@ An animation target.
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 Alias method for `on`
 
@@ -247,7 +251,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 #### Implementation of
 
@@ -265,7 +269,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -442,7 +446,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 Alias method for `removeListener`
 
@@ -457,7 +461,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 #### Implementation of
 
@@ -475,7 +479,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+▸ **on**(`event`, `fn`, `context?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 Add a listener for a given event.
 
@@ -489,7 +493,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 `this`.
 
@@ -509,7 +513,7 @@ ___
 
 ### onEnd
 
-▸ `Protected` **onEnd**(`isReverse`): `void`
+▸ **onEnd**(`isReverse`): `void`
 
 #### Parameters
 
@@ -529,7 +533,7 @@ ___
 
 ### onStart
 
-▸ `Protected` **onStart**(`isReverse`): `void`
+▸ **onStart**(`isReverse`): `void`
 
 #### Parameters
 
@@ -549,7 +553,7 @@ ___
 
 ### onTime
 
-▸ `Protected` **onTime**(`time`, `isReverse`, `elapsedTime`): `void`
+▸ **onTime**(`time`, `isReverse`, `elapsedTime`): `void`
 
 #### Parameters
 
@@ -571,7 +575,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+▸ **once**(`event`, `fn`, `context?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 Add a one-time listener for a given event.
 
@@ -585,7 +589,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 `this`.
 
@@ -605,7 +609,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+▸ **removeAllListeners**(`event?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -617,7 +621,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 `this`.
 
@@ -637,7 +641,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 Remove the listeners of a given event.
 
@@ -652,7 +656,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DAnimationEmpty`](DAnimationEmpty.md)<`TARGET`\>
+[`DAnimationEmpty`](DAnimationEmpty.md)\<`TARGET`\>
 
 `this`.
 

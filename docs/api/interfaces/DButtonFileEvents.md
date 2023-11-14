@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonFileEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonFileEvents
 
-# Interface: DButtonFileEvents<VALUE, EMITTER\>
+# Interface: DButtonFileEvents\<VALUE, EMITTER\>
 
 [DButtonFile](../classes/DButtonFile.md) events.
 
@@ -13,9 +13,9 @@
 
 ## Hierarchy
 
-- [`DButtonEvents`](DButtonEvents.md)<`VALUE`, `EMITTER`\>
+- [`DButtonEvents`](DButtonEvents.md)\<`VALUE`, `EMITTER`\>
 
-- [`UtilFileEvents`](UtilFileEvents.md)<`EMITTER`\>
+- [`UtilFileEvents`](UtilFileEvents.md)\<`EMITTER`\>
 
   ↳ **`DButtonFileEvents`**
 
@@ -56,7 +56,7 @@
 
 ### open
 
-• **open**: [`UtilFileOnOpen`](../index.md#utilfileonopen)<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`File`, `EMITTER`\>
+• **open**: [`UtilFileOnOpen`](../index.md#utilfileonopen)\<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)\<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)\<`File`, `EMITTER`\>
 
 Triggered when a file is opened.
 
@@ -80,7 +80,7 @@ Triggered when an operation is aborted.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `e` | `ProgressEvent`<`EventTarget`\> | an event object |
+| `e` | `ProgressEvent`\<`EventTarget`\> | an event object |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns

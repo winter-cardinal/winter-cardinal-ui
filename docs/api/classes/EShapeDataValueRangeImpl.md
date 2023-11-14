@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataValueRangeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataValueRangeImpl
 
 # Class: EShapeDataValueRangeImpl
 
@@ -40,7 +40,11 @@
 
 ### constructor
 
-• **new EShapeDataValueRangeImpl**()
+• **new EShapeDataValueRangeImpl**(): [`EShapeDataValueRangeImpl`](EShapeDataValueRangeImpl.md)
+
+#### Returns
+
+[`EShapeDataValueRangeImpl`](EShapeDataValueRangeImpl.md)
 
 #### Defined in
 
@@ -232,7 +236,7 @@ ___
 
 ### copy\_
 
-▸ `Protected` **copy_**(`type`, `from`, `to`): [`EShapeDataValueRangeImpl`](EShapeDataValueRangeImpl.md)
+▸ **copy_**(`type`, `from`, `to`): [`EShapeDataValueRangeImpl`](EShapeDataValueRangeImpl.md)
 
 #### Parameters
 

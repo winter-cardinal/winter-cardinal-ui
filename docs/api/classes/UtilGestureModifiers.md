@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilGestureModifiers
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilGestureModifiers
 
 # Class: UtilGestureModifiers
 
@@ -17,13 +17,17 @@
 
 ### constructor
 
-• **new UtilGestureModifiers**()
+• **new UtilGestureModifiers**(): [`UtilGestureModifiers`](UtilGestureModifiers.md)
+
+#### Returns
+
+[`UtilGestureModifiers`](UtilGestureModifiers.md)
 
 ## Methods
 
 ### from
 
-▸ `Static` **from**(`e`): `number`
+▸ **from**(`e`): `number`
 
 #### Parameters
 
@@ -43,7 +47,7 @@ ___
 
 ### match
 
-▸ `Static` **match**(`e`, `modifier`): `boolean`
+▸ **match**(`e`, `modifier`): `boolean`
 
 #### Parameters
 

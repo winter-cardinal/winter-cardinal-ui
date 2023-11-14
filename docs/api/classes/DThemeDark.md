@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDark
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDark
 
 # Class: DThemeDark
 
@@ -30,7 +30,11 @@
 
 ### constructor
 
-• **new DThemeDark**()
+• **new DThemeDark**(): [`DThemeDark`](DThemeDark.md)
+
+#### Returns
+
+[`DThemeDark`](DThemeDark.md)
 
 #### Defined in
 
@@ -40,7 +44,7 @@
 
 ### \_instances
 
-• `Protected` **\_instances**: `Record`<`string`, `unknown`\>
+• `Protected` **\_instances**: `Record`\<`string`, `unknown`\>
 
 #### Defined in
 
@@ -50,7 +54,7 @@ ___
 
 ### \_classes
 
-▪ `Static` `Protected` **\_classes**: `Record`<`string`, () => `any`\> = `{}`
+▪ `Static` `Protected` **\_classes**: `Record`\<`string`, () => `any`\> = `{}`
 
 #### Defined in
 
@@ -60,7 +64,7 @@ ___
 
 ### get
 
-▸ **get**<`THEME`\>(`type`): `THEME`
+▸ **get**\<`THEME`\>(`type`): `THEME`
 
 #### Type parameters
 
@@ -108,7 +112,7 @@ ___
 
 ### getClass
 
-▸ **getClass**<`THEME`\>(`type`): () => `THEME`
+▸ **getClass**\<`THEME`\>(`type`): () => `THEME`
 
 #### Type parameters
 
@@ -126,7 +130,11 @@ ___
 
 `fn`
 
-• **new getClass**()
+• **new getClass**(): `THEME`
+
+##### Returns
+
+`THEME`
 
 #### Implementation of
 
@@ -140,7 +148,7 @@ ___
 
 ### set
 
-▸ **set**<`THEME`\>(`type`, `instance`): [`DThemeDark`](DThemeDark.md)
+▸ **set**\<`THEME`\>(`type`, `instance`): [`DThemeDark`](DThemeDark.md)
 
 #### Type parameters
 
@@ -171,7 +179,7 @@ ___
 
 ### setClass
 
-▸ **setClass**<`THEME`\>(`type`, `themeClass`): [`DThemeDark`](DThemeDark.md)
+▸ **setClass**\<`THEME`\>(`type`, `themeClass`): [`DThemeDark`](DThemeDark.md)
 
 #### Type parameters
 
@@ -202,7 +210,7 @@ ___
 
 ### set
 
-▸ `Static` **set**<`THEME`\>(`type`, `themeClass`): `void`
+▸ **set**\<`THEME`\>(`type`, `themeClass`): `void`
 
 #### Type parameters
 

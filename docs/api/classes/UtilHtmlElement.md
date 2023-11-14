@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElement
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElement
 
-# Class: UtilHtmlElement<ELEMENT, TARGET, OPERATION, THEME, OPTIONS\>
+# Class: UtilHtmlElement\<ELEMENT, TARGET, OPERATION, THEME, OPTIONS\>
 
 ## Type parameters
 
@@ -8,9 +8,9 @@
 | :------ | :------ |
 | `ELEMENT` | extends `HTMLElement` = `HTMLElement` |
 | `TARGET` | extends [`UtilHtmlElementTarget`](../interfaces/UtilHtmlElementTarget.md) = [`UtilHtmlElementTarget`](../interfaces/UtilHtmlElementTarget.md) |
-| `OPERATION` | extends [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)<`ELEMENT`\> = [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)<`ELEMENT`\> |
-| `THEME` | extends [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)<`ELEMENT`\> = [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)<`ELEMENT`\> |
-| `OPTIONS` | extends [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`ELEMENT`\> = [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`ELEMENT`\> |
+| `OPERATION` | extends [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)\<`ELEMENT`\> = [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)\<`ELEMENT`\> |
+| `THEME` | extends [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)\<`ELEMENT`\> = [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)\<`ELEMENT`\> |
+| `OPTIONS` | extends [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`ELEMENT`\> = [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`ELEMENT`\> |
 
 ## Hierarchy
 
@@ -107,7 +107,7 @@
 
 ### constructor
 
-• **new UtilHtmlElement**<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>(`target`, `operation`, `theme`, `options?`)
+• **new UtilHtmlElement**\<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>(`target`, `operation`, `theme`, `options?`): [`UtilHtmlElement`](UtilHtmlElement.md)\<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Type parameters
 
@@ -115,9 +115,9 @@
 | :------ | :------ |
 | `ELEMENT` | extends `HTMLElement` = `HTMLElement` |
 | `TARGET` | extends [`UtilHtmlElementTarget`](../interfaces/UtilHtmlElementTarget.md) = [`UtilHtmlElementTarget`](../interfaces/UtilHtmlElementTarget.md) |
-| `OPERATION` | extends [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)<`ELEMENT`, `OPERATION`\> = [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)<`ELEMENT`\> |
-| `THEME` | extends [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)<`ELEMENT`, `THEME`\> = [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)<`ELEMENT`\> |
-| `OPTIONS` | extends [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`ELEMENT`, `OPTIONS`\> = [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)<`ELEMENT`\> |
+| `OPERATION` | extends [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)\<`ELEMENT`\> = [`UtilHtmlElementOperation`](../interfaces/UtilHtmlElementOperation.md)\<`ELEMENT`\> |
+| `THEME` | extends [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)\<`ELEMENT`\> = [`UtilThemeHtmlElement`](../interfaces/UtilThemeHtmlElement.md)\<`ELEMENT`\> |
+| `OPTIONS` | extends [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`ELEMENT`\> = [`UtilHtmlElementOptions`](../interfaces/UtilHtmlElementOptions.md)\<`ELEMENT`\> |
 
 #### Parameters
 
@@ -127,6 +127,10 @@
 | `operation` | `OPERATION` |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`UtilHtmlElement`](UtilHtmlElement.md)\<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Defined in
 
@@ -196,7 +200,7 @@ ___
 
 ### \_data
 
-• `Protected` **\_data**: [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)<`ELEMENT`\>
+• `Protected` **\_data**: [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)\<`ELEMENT`\>
 
 #### Defined in
 
@@ -456,7 +460,7 @@ ___
 
 ### doSelect
 
-▸ `Protected` **doSelect**(): `void`
+▸ **doSelect**(): `void`
 
 #### Returns
 
@@ -470,7 +474,7 @@ ___
 
 ### doStart
 
-▸ `Protected` **doStart**(`renderer?`): `void`
+▸ **doStart**(`renderer?`): `void`
 
 #### Parameters
 
@@ -504,7 +508,7 @@ ___
 
 ### fillClipperExRects
 
-▸ `Protected` **fillClipperExRects**(`resolution`, `result`): `boolean`
+▸ **fillClipperExRects**(`resolution`, `result`): `boolean`
 
 #### Parameters
 
@@ -525,7 +529,7 @@ ___
 
 ### getAfter
 
-▸ `Protected` **getAfter**(`clipper`): ``null`` \| `HTMLDivElement`
+▸ **getAfter**(`clipper`): ``null`` \| `HTMLDivElement`
 
 #### Parameters
 
@@ -545,7 +549,7 @@ ___
 
 ### getBefore
 
-▸ `Protected` **getBefore**(`clipper`): ``null`` \| `HTMLDivElement`
+▸ **getBefore**(`clipper`): ``null`` \| `HTMLDivElement`
 
 #### Parameters
 
@@ -565,7 +569,7 @@ ___
 
 ### getClipper
 
-▸ `Protected` **getClipper**(): ``null`` \| `HTMLDivElement`
+▸ **getClipper**(): ``null`` \| `HTMLDivElement`
 
 #### Returns
 
@@ -579,7 +583,7 @@ ___
 
 ### getClipperEx
 
-▸ `Protected` **getClipperEx**(`clipper`): ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)
+▸ **getClipperEx**(`clipper`): ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)
 
 #### Parameters
 
@@ -599,7 +603,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Protected` **getClipperExRects**(): ``null`` \| [`UtilHtmlElementClipperExRects`](../interfaces/UtilHtmlElementClipperExRects.md)
+▸ **getClipperExRects**(): ``null`` \| [`UtilHtmlElementClipperExRects`](../interfaces/UtilHtmlElementClipperExRects.md)
 
 #### Returns
 
@@ -613,7 +617,7 @@ ___
 
 ### getClipperRect
 
-▸ `Protected` **getClipperRect**(`resolution`): ``null`` \| `Rectangle`
+▸ **getClipperRect**(`resolution`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -633,7 +637,7 @@ ___
 
 ### getElement
 
-▸ `Protected` **getElement**(`clipper`): ``null`` \| `ELEMENT`
+▸ **getElement**(`clipper`): ``null`` \| `ELEMENT`
 
 #### Parameters
 
@@ -653,7 +657,7 @@ ___
 
 ### getElementMatrix
 
-▸ `Protected` **getElementMatrix**(): ``null`` \| `Matrix`
+▸ **getElementMatrix**(): ``null`` \| `Matrix`
 
 #### Returns
 
@@ -667,7 +671,7 @@ ___
 
 ### getElementRect
 
-▸ `Protected` **getElementRect**(`resolution`): ``null`` \| `Rectangle`
+▸ **getElementRect**(`resolution`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -715,7 +719,7 @@ ___
 
 ### newAfterStyler
 
-▸ `Protected` **newAfterStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
+▸ **newAfterStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
 
 #### Parameters
 
@@ -747,7 +751,7 @@ ___
 
 ### newBeforeStyler
 
-▸ `Protected` **newBeforeStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
+▸ **newBeforeStyler**(`theme`): (`target`: `HTMLDivElement`) => `void`
 
 #### Parameters
 
@@ -779,7 +783,7 @@ ___
 
 ### newClipperStyler
 
-▸ `Protected` **newClipperStyler**(`theme`): (`target`: `HTMLDivElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
+▸ **newClipperStyler**(`theme`): (`target`: `HTMLDivElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
 
 #### Parameters
 
@@ -817,7 +821,7 @@ ___
 
 ### newElementStyler
 
-▸ `Protected` **newElementStyler**(`theme`): (`target`: `ELEMENT`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
+▸ **newElementStyler**(`theme`): (`target`: `ELEMENT`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`, `clipperEx`: `undefined` \| ``null`` \| [`UtilHtmlElementClipperEx`](../interfaces/UtilHtmlElementClipperEx.md)) => `void`
 
 #### Parameters
 
@@ -855,7 +859,7 @@ ___
 
 ### onAfterFocus
 
-▸ `Protected` **onAfterFocus**(`e`): `void`
+▸ **onAfterFocus**(`e`): `void`
 
 #### Parameters
 
@@ -875,7 +879,7 @@ ___
 
 ### onBeforeFocus
 
-▸ `Protected` **onBeforeFocus**(`e`): `void`
+▸ **onBeforeFocus**(`e`): `void`
 
 #### Parameters
 
@@ -909,7 +913,7 @@ ___
 
 ### onCancel
 
-▸ `Protected` **onCancel**(): `void`
+▸ **onCancel**(): `void`
 
 #### Returns
 
@@ -929,7 +933,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `KeyboardEvent` \| `MouseEvent` \| `TouchEvent` |
+| `e` | `MouseEvent` \| `KeyboardEvent` \| `TouchEvent` |
 | `interactionManager` | `InteractionManager` |
 
 #### Returns
@@ -950,7 +954,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -970,7 +974,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -984,7 +988,7 @@ ___
 
 ### onElementAttached
 
-▸ `Protected` **onElementAttached**(`element`, `before?`, `after?`): `void`
+▸ **onElementAttached**(`element`, `before?`, `after?`): `void`
 
 #### Parameters
 
@@ -1006,7 +1010,7 @@ ___
 
 ### onElementDetached
 
-▸ `Protected` **onElementDetached**(`element`, `before?`, `after?`): `void`
+▸ **onElementDetached**(`element`, `before?`, `after?`): `void`
 
 #### Parameters
 
@@ -1028,7 +1032,7 @@ ___
 
 ### onElementFocus
 
-▸ `Protected` **onElementFocus**(`e`): `void`
+▸ **onElementFocus**(`e`): `void`
 
 #### Parameters
 
@@ -1048,7 +1052,7 @@ ___
 
 ### onEnd
 
-▸ `Protected` **onEnd**(): `void`
+▸ **onEnd**(): `void`
 
 #### Returns
 
@@ -1062,7 +1066,7 @@ ___
 
 ### onEndByBlur
 
-▸ `Protected` **onEndByBlur**(): `void`
+▸ **onEndByBlur**(): `void`
 
 #### Returns
 
@@ -1110,7 +1114,7 @@ ___
 
 ### onStart
 
-▸ `Protected` **onStart**(): `void`
+▸ **onStart**(): `void`
 
 #### Returns
 
@@ -1124,11 +1128,11 @@ ___
 
 ### select
 
-▸ **select**(): [`UtilHtmlElement`](UtilHtmlElement.md)<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
+▸ **select**(): [`UtilHtmlElement`](UtilHtmlElement.md)\<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Returns
 
-[`UtilHtmlElement`](UtilHtmlElement.md)<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
+[`UtilHtmlElement`](UtilHtmlElement.md)\<`ELEMENT`, `TARGET`, `OPERATION`, `THEME`, `OPTIONS`\>
 
 #### Defined in
 
@@ -1152,7 +1156,7 @@ ___
 
 ### toAfterData
 
-▸ `Protected` **toAfterData**(`theme`, `options?`): [`UtilHtmlElementAfterData`](../interfaces/UtilHtmlElementAfterData.md)
+▸ **toAfterData**(`theme`, `options?`): [`UtilHtmlElementAfterData`](../interfaces/UtilHtmlElementAfterData.md)
 
 #### Parameters
 
@@ -1173,7 +1177,7 @@ ___
 
 ### toBeforeData
 
-▸ `Protected` **toBeforeData**(`theme`, `options?`): [`UtilHtmlElementBeforeData`](../interfaces/UtilHtmlElementBeforeData.md)
+▸ **toBeforeData**(`theme`, `options?`): [`UtilHtmlElementBeforeData`](../interfaces/UtilHtmlElementBeforeData.md)
 
 #### Parameters
 
@@ -1194,7 +1198,7 @@ ___
 
 ### toClipperData
 
-▸ `Protected` **toClipperData**(`theme`, `options?`): [`UtilHtmlElementClipperData`](../interfaces/UtilHtmlElementClipperData.md)
+▸ **toClipperData**(`theme`, `options?`): [`UtilHtmlElementClipperData`](../interfaces/UtilHtmlElementClipperData.md)
 
 #### Parameters
 
@@ -1215,7 +1219,7 @@ ___
 
 ### toClipperRectAdjusted
 
-▸ `Protected` **toClipperRectAdjusted**(`elementRect`, `elementMatrix`, `clipperRect`): ``null`` \| `Rectangle`
+▸ **toClipperRectAdjusted**(`elementRect`, `elementMatrix`, `clipperRect`): ``null`` \| `Rectangle`
 
 #### Parameters
 
@@ -1237,7 +1241,7 @@ ___
 
 ### toData
 
-▸ `Protected` **toData**(`theme`, `options?`): [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)<`ELEMENT`\>
+▸ **toData**(`theme`, `options?`): [`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)\<`ELEMENT`\>
 
 #### Parameters
 
@@ -1248,7 +1252,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)<`ELEMENT`\>
+[`UtilHtmlElementData`](../interfaces/UtilHtmlElementData.md)\<`ELEMENT`\>
 
 #### Defined in
 
@@ -1258,7 +1262,7 @@ ___
 
 ### toElementData
 
-▸ `Protected` **toElementData**(`theme`, `options?`): [`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)<`ELEMENT`\>
+▸ **toElementData**(`theme`, `options?`): [`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)\<`ELEMENT`\>
 
 #### Parameters
 
@@ -1269,7 +1273,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)<`ELEMENT`\>
+[`UtilHtmlElementElementData`](../interfaces/UtilHtmlElementElementData.md)\<`ELEMENT`\>
 
 #### Defined in
 
@@ -1279,7 +1283,7 @@ ___
 
 ### toElementFocused
 
-▸ `Protected` **toElementFocused**(`element`): `void`
+▸ **toElementFocused**(`element`): `void`
 
 #### Parameters
 
@@ -1299,7 +1303,7 @@ ___
 
 ### updateElement
 
-▸ `Protected` **updateElement**(`renderer`): `void`
+▸ **updateElement**(`renderer`): `void`
 
 #### Parameters
 
@@ -1319,7 +1323,7 @@ ___
 
 ### getClipperRect
 
-▸ `Static` **getClipperRect**(`parent`, `target`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
+▸ **getClipperRect**(`parent`, `target`, `resolution`, `point`, `result`): ``null`` \| `Rectangle`
 
 #### Parameters
 

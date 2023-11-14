@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilAlpha
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilAlpha
 
 # Class: UtilAlpha
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new UtilAlpha**()
+• **new UtilAlpha**(): [`UtilAlpha`](UtilAlpha.md)
+
+#### Returns
+
+[`UtilAlpha`](UtilAlpha.md)
 
 ## Methods
 
 ### blend
 
-▸ `Static` **blend**(`alphaA`, `alphaB`, `t`): `number`
+▸ **blend**(`alphaA`, `alphaB`, `t`): `number`
 
 #### Parameters
 

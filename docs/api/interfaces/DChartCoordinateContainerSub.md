@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateContainerSub
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateContainerSub
 
-# Interface: DChartCoordinateContainerSub<CHART\>
+# Interface: DChartCoordinateContainerSub\<CHART\>
 
 ## Type parameters
 
@@ -35,7 +35,7 @@
 
 ### container
 
-• `Readonly` **container**: [`DChartCoordinateContainer`](DChartCoordinateContainer.md)<`CHART`\>
+• `Readonly` **container**: [`DChartCoordinateContainer`](DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -45,18 +45,18 @@
 
 ### add
 
-▸ **add**(`coordinate`, `index?`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+▸ **add**(`coordinate`, `index?`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 | `index?` | `number` |
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -66,7 +66,7 @@ ___
 
 ### blend
 
-▸ **blend**(`ratio`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+▸ **blend**(`ratio`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Parameters
 
@@ -76,7 +76,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -86,11 +86,11 @@ ___
 
 ### clear
 
-▸ **clear**(): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+▸ **clear**(): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -100,11 +100,11 @@ ___
 
 ### destroy
 
-▸ **destroy**(): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+▸ **destroy**(): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -114,7 +114,7 @@ ___
 
 ### fit
 
-▸ **fit**(`from?`, `to?`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+▸ **fit**(`from?`, `to?`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Parameters
 
@@ -125,7 +125,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -135,7 +135,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+▸ **get**(`index`): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Parameters
 
@@ -145,7 +145,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 
@@ -161,7 +161,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 
@@ -175,7 +175,7 @@ ___
 
 ### mark
 
-▸ **mark**(`from?`, `to?`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+▸ **mark**(`from?`, `to?`): [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Parameters
 
@@ -186,7 +186,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\>
+[`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)\<`CHART`\>
 
 #### Defined in
 
@@ -196,23 +196,23 @@ ___
 
 ### remove
 
-▸ **remove**(`coordinate`): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+▸ **remove**(`coordinate`): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-chart-coordinate-container-sub.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-container-sub.ts#L16)
 
-▸ **remove**(`index`): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+▸ **remove**(`index`): ``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Parameters
 
@@ -222,7 +222,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>
 
 #### Defined in
 

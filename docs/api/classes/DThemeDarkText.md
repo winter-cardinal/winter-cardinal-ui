@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkText
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkText
 
-# Class: DThemeDarkText<VALUE\>
+# Class: DThemeDarkText\<VALUE\>
 
 [DTextBase](DTextBase.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkTextBase`](DThemeDarkTextBase.md)<`VALUE`\>
+- [`DThemeDarkTextBase`](DThemeDarkTextBase.md)\<`VALUE`\>
 
   ↳ **`DThemeDarkText`**
 
@@ -24,7 +24,7 @@
 
 ## Implements
 
-- [`DThemeText`](../interfaces/DThemeText.md)<`VALUE`\>
+- [`DThemeText`](../interfaces/DThemeText.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -90,13 +90,17 @@
 
 ### constructor
 
-• **new DThemeDarkText**<`VALUE`\>()
+• **new DThemeDarkText**\<`VALUE`\>(): [`DThemeDarkText`](DThemeDarkText.md)\<`VALUE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
+
+#### Returns
+
+[`DThemeDarkText`](DThemeDarkText.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1405,14 +1409,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Implementation of
 

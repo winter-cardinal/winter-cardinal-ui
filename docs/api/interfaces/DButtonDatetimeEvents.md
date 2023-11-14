@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonDatetimeEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonDatetimeEvents
 
-# Interface: DButtonDatetimeEvents<EMITTER\>
+# Interface: DButtonDatetimeEvents\<EMITTER\>
 
 [DButtonDatetime](../classes/DButtonDatetime.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DButtonEvents`](DButtonEvents.md)<`Date`, `EMITTER`\>
+- [`DButtonEvents`](DButtonEvents.md)\<`Date`, `EMITTER`\>
 
   ↳ **`DButtonDatetimeEvents`**
 

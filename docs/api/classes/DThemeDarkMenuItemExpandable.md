@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkMenuItemExpandable
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkMenuItemExpandable
 
 # Class: DThemeDarkMenuItemExpandable
 
@@ -76,7 +76,11 @@
 
 ### constructor
 
-• **new DThemeDarkMenuItemExpandable**()
+• **new DThemeDarkMenuItemExpandable**(): [`DThemeDarkMenuItemExpandable`](DThemeDarkMenuItemExpandable.md)
+
+#### Returns
+
+[`DThemeDarkMenuItemExpandable`](DThemeDarkMenuItemExpandable.md)
 
 #### Inherited from
 

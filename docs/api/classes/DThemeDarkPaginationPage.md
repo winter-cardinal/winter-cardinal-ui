@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPaginationPage
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPaginationPage
 
 # Class: DThemeDarkPaginationPage
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)<`number`\>
+- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)\<`number`\>
 
   ↳ **`DThemeDarkPaginationPage`**
 
@@ -100,7 +100,11 @@
 
 ### constructor
 
-• **new DThemeDarkPaginationPage**()
+• **new DThemeDarkPaginationPage**(): [`DThemeDarkPaginationPage`](DThemeDarkPaginationPage.md)
+
+#### Returns
+
+[`DThemeDarkPaginationPage`](DThemeDarkPaginationPage.md)
 
 #### Inherited from
 
@@ -1553,7 +1557,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts#L37)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts#L42)
 
 ___
 
@@ -1632,7 +1636,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts#L33)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts#L38)
 
 ___
 
@@ -1923,26 +1927,26 @@ Returns true if focusable.
 
 [DThemePaginationPage](../interfaces/DThemePaginationPage.md).[newState](../interfaces/DThemePaginationPage.md#newstate)
 
-#### Inherited from
+#### Overrides
 
 [DThemeDarkImageBase](DThemeDarkImageBase.md).[newState](DThemeDarkImageBase.md#newstate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L179)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-pagination-page.ts#L33)
 
 ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Implementation of
 

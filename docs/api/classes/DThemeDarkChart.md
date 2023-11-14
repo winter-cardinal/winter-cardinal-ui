@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChart
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChart
 
 # Class: DThemeDarkChart
 
@@ -70,7 +70,11 @@
 
 ### constructor
 
-• **new DThemeDarkChart**()
+• **new DThemeDarkChart**(): [`DThemeDarkChart`](DThemeDarkChart.md)
+
+#### Returns
+
+[`DThemeDarkChart`](DThemeDarkChart.md)
 
 #### Inherited from
 

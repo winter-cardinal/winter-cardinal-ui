@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteExpandable
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteExpandable
 
 # Class: DThemeWhiteExpandable
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeWhiteExpandable**()
+• **new DThemeWhiteExpandable**(): [`DThemeWhiteExpandable`](DThemeWhiteExpandable.md)
+
+#### Returns
+
+[`DThemeWhiteExpandable`](DThemeWhiteExpandable.md)
 
 #### Inherited from
 

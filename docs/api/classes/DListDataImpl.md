@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataImpl
 
-# Class: DListDataImpl<ITEM\>
+# Class: DListDataImpl\<ITEM\>
 
 [DList](DList.md) data.
 
@@ -12,7 +12,7 @@
 
 ## Implements
 
-- [`DListData`](../interfaces/DListData.md)<`ITEM`\>
+- [`DListData`](../interfaces/DListData.md)\<`ITEM`\>
 
 ## Table of contents
 
@@ -59,7 +59,7 @@
 
 ### constructor
 
-• **new DListDataImpl**<`ITEM`\>(`parent`, `options?`)
+• **new DListDataImpl**\<`ITEM`\>(`parent`, `options?`): [`DListDataImpl`](DListDataImpl.md)\<`ITEM`\>
 
 #### Type parameters
 
@@ -72,7 +72,11 @@
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DListDataImplParent`](../interfaces/DListDataImplParent.md) |
-| `options?` | [`DListDataOptions`](../interfaces/DListDataOptions.md)<`ITEM`\> |
+| `options?` | [`DListDataOptions`](../interfaces/DListDataOptions.md)\<`ITEM`\> |
+
+#### Returns
+
+[`DListDataImpl`](DListDataImpl.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -82,7 +86,7 @@
 
 ### \_accessor
 
-• `Protected` **\_accessor**: [`DListItemAccessorImpl`](DListItemAccessorImpl.md)<`ITEM`\>
+• `Protected` **\_accessor**: [`DListItemAccessorImpl`](DListItemAccessorImpl.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -122,7 +126,7 @@ ___
 
 ### \_mapped
 
-• `Protected` **\_mapped**: [`DListDataMapped`](../interfaces/DListDataMapped.md)<`ITEM`\>
+• `Protected` **\_mapped**: [`DListDataMapped`](../interfaces/DListDataMapped.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -142,7 +146,7 @@ ___
 
 ### \_selection
 
-• `Protected` **\_selection**: [`DListDataImplSelection`](../interfaces/DListDataImplSelection.md)<`ITEM`\>
+• `Protected` **\_selection**: [`DListDataImplSelection`](../interfaces/DListDataImplSelection.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -152,11 +156,11 @@ ___
 
 ### accessor
 
-• `get` **accessor**(): [`DListItemAccessor`](../interfaces/DListItemAccessor.md)<`ITEM`\>
+• `get` **accessor**(): [`DListItemAccessor`](../interfaces/DListItemAccessor.md)\<`ITEM`\>
 
 #### Returns
 
-[`DListItemAccessor`](../interfaces/DListItemAccessor.md)<`ITEM`\>
+[`DListItemAccessor`](../interfaces/DListItemAccessor.md)\<`ITEM`\>
 
 #### Implementation of
 
@@ -284,11 +288,11 @@ ___
 
 ### mapped
 
-• `get` **mapped**(): [`DListDataMapped`](../interfaces/DListDataMapped.md)<`ITEM`\>
+• `get` **mapped**(): [`DListDataMapped`](../interfaces/DListDataMapped.md)\<`ITEM`\>
 
 #### Returns
 
-[`DListDataMapped`](../interfaces/DListDataMapped.md)<`ITEM`\>
+[`DListDataMapped`](../interfaces/DListDataMapped.md)\<`ITEM`\>
 
 #### Implementation of
 
@@ -302,11 +306,11 @@ ___
 
 ### selection
 
-• `get` **selection**(): [`DListDataSelection`](../interfaces/DListDataSelection.md)<`ITEM`\>
+• `get` **selection**(): [`DListDataSelection`](../interfaces/DListDataSelection.md)\<`ITEM`\>
 
 #### Returns
 
-[`DListDataSelection`](../interfaces/DListDataSelection.md)<`ITEM`\>
+[`DListDataSelection`](../interfaces/DListDataSelection.md)\<`ITEM`\>
 
 #### Implementation of
 
@@ -467,7 +471,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)<`ITEM`\> | an function called on each datum |
+| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)\<`ITEM`\> | an function called on each datum |
 | `from?` | `number` | an index to start an iteration |
 | `to?` | `number` | an index before which an interation stops |
 
@@ -514,7 +518,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 
@@ -605,18 +609,18 @@ ___
 
 ### toSelection
 
-▸ `Protected` **toSelection**(`accessor`, `options?`): [`DListDataImplSelection`](../interfaces/DListDataImplSelection.md)<`ITEM`\>
+▸ **toSelection**(`accessor`, `options?`): [`DListDataImplSelection`](../interfaces/DListDataImplSelection.md)\<`ITEM`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `accessor` | [`DListItemAccessorImpl`](DListItemAccessorImpl.md)<`ITEM`\> |
-| `options?` | [`DListDataOptions`](../interfaces/DListDataOptions.md)<`ITEM`\> |
+| `accessor` | [`DListItemAccessorImpl`](DListItemAccessorImpl.md)\<`ITEM`\> |
+| `options?` | [`DListDataOptions`](../interfaces/DListDataOptions.md)\<`ITEM`\> |
 
 #### Returns
 
-[`DListDataImplSelection`](../interfaces/DListDataImplSelection.md)<`ITEM`\>
+[`DListDataImplSelection`](../interfaces/DListDataImplSelection.md)\<`ITEM`\>
 
 #### Defined in
 

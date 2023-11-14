@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListItemAccessorOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DListItemAccessorOptions
 
-# Interface: DListItemAccessorOptions<VALUE\>
+# Interface: DListItemAccessorOptions\<VALUE\>
 
 ## Type parameters
 
@@ -28,7 +28,7 @@
 
 ### link
 
-• `Optional` **link**: [`DListItemAccessorLinkOptions`](DListItemAccessorLinkOptions.md)<`VALUE`\>
+• `Optional` **link**: [`DListItemAccessorLinkOptions`](DListItemAccessorLinkOptions.md)\<`VALUE`\>
 
 #### Defined in
 
@@ -38,7 +38,7 @@ ___
 
 ### toId
 
-• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)<`VALUE`\>
+• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)\<`VALUE`\>
 
 #### Defined in
 
@@ -48,7 +48,7 @@ ___
 
 ### toImage
 
-• `Optional` **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)<`VALUE`\>
+• `Optional` **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)\<`VALUE`\>
 
 #### Defined in
 
@@ -58,7 +58,7 @@ ___
 
 ### toLabel
 
-• `Optional` **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)<`VALUE`\>
+• `Optional` **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)\<`VALUE`\>
 
 #### Defined in
 
@@ -68,7 +68,7 @@ ___
 
 ### toTitle
 
-• `Optional` **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)<`VALUE`\>
+• `Optional` **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)\<`VALUE`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkNoteSmallError
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkNoteSmallError
 
 # Class: DThemeDarkNoteSmallError
 
@@ -96,7 +96,11 @@
 
 ### constructor
 
-• **new DThemeDarkNoteSmallError**()
+• **new DThemeDarkNoteSmallError**(): [`DThemeDarkNoteSmallError`](DThemeDarkNoteSmallError.md)
+
+#### Returns
+
+[`DThemeDarkNoteSmallError`](DThemeDarkNoteSmallError.md)
 
 #### Inherited from
 
@@ -1637,14 +1641,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Overrides
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeItemTextEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeItemTextEvents
 
-# Interface: DTreeItemTextEvents<NODE, EMITTER\>
+# Interface: DTreeItemTextEvents\<NODE, EMITTER\>
 
 [DTreeItemText](../classes/DTreeItemText.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DImageBaseEvents`](DImageBaseEvents.md)<`NODE`, `EMITTER`\>
+- [`DImageBaseEvents`](DImageBaseEvents.md)\<`NODE`, `EMITTER`\>
 
   ↳ **`DTreeItemTextEvents`**
 

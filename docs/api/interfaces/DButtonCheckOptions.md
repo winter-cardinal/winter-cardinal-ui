@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonCheckOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonCheckOptions
 
-# Interface: DButtonCheckOptions<VALUE, THEME\>
+# Interface: DButtonCheckOptions\<VALUE, THEME\>
 
 [DButtonBase](../classes/DButtonBase.md) options.
 
@@ -9,11 +9,11 @@
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
-| `THEME` | extends [`DThemeButtonCheck`](DThemeButtonCheck.md)<`VALUE`\> = [`DThemeButtonCheck`](DThemeButtonCheck.md)<`VALUE`\> |
+| `THEME` | extends [`DThemeButtonCheck`](DThemeButtonCheck.md)\<`VALUE`\> = [`DThemeButtonCheck`](DThemeButtonCheck.md)\<`VALUE`\> |
 
 ## Hierarchy
 
-- [`DButtonBaseOptions`](DButtonBaseOptions.md)<`VALUE`, `THEME`\>
+- [`DButtonBaseOptions`](DButtonBaseOptions.md)\<`VALUE`, `THEME`\>
 
   ↳ **`DButtonCheckOptions`**
 
@@ -141,7 +141,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -157,7 +157,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -208,7 +208,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -254,7 +254,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DButtonBaseOnOptions`](DButtonBaseOnOptions.md)<`VALUE`, `any`\>
+• `Optional` **on**: [`DButtonBaseOnOptions`](DButtonBaseOnOptions.md)\<`VALUE`, `any`\>
 
 Mappings of event names and handlers.
 
@@ -327,7 +327,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DButtonCheckOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -408,7 +408,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`VALUE`\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementAfterData
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementAfterData
 
 # Interface: UtilHtmlElementAfterData
 
@@ -13,7 +13,7 @@
 
 ### creator
 
-• **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+• **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)\<`HTMLDivElement`\>
 
 #### Defined in
 

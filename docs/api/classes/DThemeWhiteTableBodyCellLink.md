@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTableBodyCellLink
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTableBodyCellLink
 
 # Class: DThemeWhiteTableBodyCellLink
 
@@ -104,7 +104,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTableBodyCellLink**()
+• **new DThemeWhiteTableBodyCellLink**(): [`DThemeWhiteTableBodyCellLink`](DThemeWhiteTableBodyCellLink.md)
+
+#### Returns
+
+[`DThemeWhiteTableBodyCellLink`](DThemeWhiteTableBodyCellLink.md)
 
 #### Overrides
 

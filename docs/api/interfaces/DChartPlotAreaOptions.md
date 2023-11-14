@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartPlotAreaOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartPlotAreaOptions
 
-# Interface: DChartPlotAreaOptions<CHART, THEME\>
+# Interface: DChartPlotAreaOptions\<CHART, THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DBaseOptions`](DBaseOptions.md)<`THEME`\>
+- [`DBaseOptions`](DBaseOptions.md)\<`THEME`\>
 
   ↳ **`DChartPlotAreaOptions`**
 
@@ -56,7 +56,7 @@
 
 ### axis
 
-• `Optional` **axis**: [`DChartAxisContainerOptions`](DChartAxisContainerOptions.md)<`CHART`\>
+• `Optional` **axis**: [`DChartAxisContainerOptions`](DChartAxisContainerOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -130,7 +130,7 @@ ___
 
 ### coordinate
 
-• `Optional` **coordinate**: [`DChartCoordinateContainerOptions`](DChartCoordinateContainerOptions.md)<`CHART`\>
+• `Optional` **coordinate**: [`DChartCoordinateContainerOptions`](DChartCoordinateContainerOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -156,7 +156,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -193,7 +193,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -235,7 +235,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -308,7 +308,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DChartPlotAreaOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -325,7 +325,7 @@ ___
 
 ### series
 
-• `Optional` **series**: [`DChartSeriesContainerOptions`](DChartSeriesContainerOptions.md)<`CHART`\>
+• `Optional` **series**: [`DChartSeriesContainerOptions`](DChartSeriesContainerOptions.md)\<`CHART`\>
 
 #### Defined in
 

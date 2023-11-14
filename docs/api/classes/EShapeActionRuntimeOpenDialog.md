@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeOpenDialog
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeOpenDialog
 
-# Class: EShapeActionRuntimeOpenDialog<VALUE, INITIAL\>
+# Class: EShapeActionRuntimeOpenDialog\<VALUE, INITIAL\>
 
 A base class of action runtimes.
 
@@ -83,7 +83,7 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeActionRuntimeOpenDialog**<`VALUE`, `INITIAL`\>(`value`)
+• **new EShapeActionRuntimeOpenDialog**\<`VALUE`, `INITIAL`\>(`value`): [`EShapeActionRuntimeOpenDialog`](EShapeActionRuntimeOpenDialog.md)\<`VALUE`, `INITIAL`\>
 
 #### Type parameters
 
@@ -98,6 +98,10 @@ A base class of action runtimes.
 | :------ | :------ |
 | `value` | [`EShapeActionValueOpenDialog`](EShapeActionValueOpenDialog.md) |
 
+#### Returns
+
+[`EShapeActionRuntimeOpenDialog`](EShapeActionRuntimeOpenDialog.md)\<`VALUE`, `INITIAL`\>
+
 #### Overrides
 
 [EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[constructor](EShapeActionRuntimeConditional.md#constructor)
@@ -110,7 +114,7 @@ A base class of action runtimes.
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -124,7 +128,7 @@ ___
 
 ### initial
 
-• `Protected` `Abstract` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`INITIAL`\>
+• `Protected` `Abstract` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`INITIAL`\>
 
 #### Defined in
 
@@ -144,7 +148,7 @@ ___
 
 ### max
 
-• `Protected` **max**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **max**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -154,7 +158,7 @@ ___
 
 ### min
 
-• `Protected` **min**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **min**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -188,7 +192,7 @@ ___
 
 ### step
 
-• `Protected` **step**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **step**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -198,7 +202,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Defined in
 
@@ -300,7 +304,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -357,7 +361,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -385,7 +389,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -580,7 +584,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -860,7 +864,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -888,7 +892,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -916,7 +920,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -934,7 +938,7 @@ ___
 
 ### open
 
-▸ `Protected` `Abstract` **open**(`shape`, `target`, `initial`, `step`, `min`, `max`): `Promise`<`VALUE`\>
+▸ **open**(`shape`, `target`, `initial`, `step`, `min`, `max`): `Promise`\<`VALUE`\>
 
 #### Parameters
 
@@ -949,7 +953,7 @@ ___
 
 #### Returns
 
-`Promise`<`VALUE`\>
+`Promise`\<`VALUE`\>
 
 #### Defined in
 

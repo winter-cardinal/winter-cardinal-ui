@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextMeasure
+[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextMeasure
 
 # Class: DDynamicTextMeasure
 
@@ -21,7 +21,11 @@
 
 ### constructor
 
-• **new DDynamicTextMeasure**()
+• **new DDynamicTextMeasure**(): [`DDynamicTextMeasure`](DDynamicTextMeasure.md)
+
+#### Returns
+
+[`DDynamicTextMeasure`](DDynamicTextMeasure.md)
 
 ## Properties
 
@@ -37,7 +41,7 @@
 
 ### measure
 
-▸ `Static` **measure**(`text`, `atlas`, `modifier`): [`DDynamicTextMeasureResult`](DDynamicTextMeasureResult.md)
+▸ **measure**(`text`, `atlas`, `modifier`): [`DDynamicTextMeasureResult`](DDynamicTextMeasureResult.md)
 
 #### Parameters
 
@@ -59,7 +63,7 @@ ___
 
 ### measure5
 
-▸ `Static` **measure5**(`iterator`, `clippingWidth`, `lineHeight`, `atlas`, `result`, `close`): `void`
+▸ **measure5**(`iterator`, `clippingWidth`, `lineHeight`, `atlas`, `result`, `close`): `void`
 
 #### Parameters
 
@@ -78,4 +82,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:309](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L309)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L327)

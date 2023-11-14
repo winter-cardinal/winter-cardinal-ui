@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDropdownBaseOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDropdownBaseOptions
 
-# Interface: DDropdownBaseOptions<VALUE, TEXT_VALUE, THEME, EMITTER\>
+# Interface: DDropdownBaseOptions\<VALUE, TEXT_VALUE, THEME, EMITTER\>
 
 [DDropdownBase](../classes/DDropdownBase.md) options.
 
@@ -10,12 +10,12 @@
 | :------ | :------ |
 | `VALUE` | `unknown` |
 | `TEXT_VALUE` | `string` |
-| `THEME` | extends [`DThemeDropdownBase`](DThemeDropdownBase.md)<`TEXT_VALUE`\> = [`DThemeDropdownBase`](DThemeDropdownBase.md)<`TEXT_VALUE`\> |
+| `THEME` | extends [`DThemeDropdownBase`](DThemeDropdownBase.md)\<`TEXT_VALUE`\> = [`DThemeDropdownBase`](DThemeDropdownBase.md)\<`TEXT_VALUE`\> |
 | `EMITTER` | `any` |
 
 ## Hierarchy
 
-- [`DButtonBaseOptions`](DButtonBaseOptions.md)<`TEXT_VALUE`, `THEME`, `EMITTER`\>
+- [`DButtonBaseOptions`](DButtonBaseOptions.md)\<`TEXT_VALUE`, `THEME`, `EMITTER`\>
 
   ↳ **`DDropdownBaseOptions`**
 
@@ -146,7 +146,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -162,7 +162,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -213,7 +213,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -243,7 +243,7 @@ ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)\<`VALUE`, [`DThemeMenu`](DThemeMenu.md)\>\>
 
 Menu options.
 
@@ -271,7 +271,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDropdownBaseOnOptions`](DDropdownBaseOnOptions.md)<`VALUE`, `TEXT_VALUE`, `EMITTER`\>
+• `Optional` **on**: [`DDropdownBaseOnOptions`](DDropdownBaseOnOptions.md)\<`VALUE`, `TEXT_VALUE`, `EMITTER`\>
 
 Mappings of event names and handlers.
 
@@ -344,7 +344,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDropdownBaseOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -425,7 +425,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`TEXT_VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`TEXT_VALUE`\>
 
 #### Inherited from
 

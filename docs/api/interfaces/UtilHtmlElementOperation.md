@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementOperation
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementOperation
 
-# Interface: UtilHtmlElementOperation<ELEMENT\>
+# Interface: UtilHtmlElementOperation\<ELEMENT\>
 
 ## Type parameters
 
@@ -52,7 +52,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Optional` **getClipperExRects**(`result`): `void`
+▸ **getClipperExRects**(`result`): `void`
 
 #### Parameters
 

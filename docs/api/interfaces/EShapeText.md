@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeText
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeText
 
 # Interface: EShapeText
 
@@ -304,7 +304,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](EShapeTextLike.md)\> |
+| `target?` | [`DeepPartial`](../index.md#deeppartial)\<[`EShapeTextLike`](EShapeTextLike.md)\> |
 
 #### Returns
 

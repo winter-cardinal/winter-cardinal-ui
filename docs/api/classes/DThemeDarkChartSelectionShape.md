@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartSelectionShape
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartSelectionShape
 
 # Class: DThemeDarkChartSelectionShape
 
@@ -31,13 +31,17 @@
 
 ### constructor
 
-• **new DThemeDarkChartSelectionShape**()
+• **new DThemeDarkChartSelectionShape**(): [`DThemeDarkChartSelectionShape`](DThemeDarkChartSelectionShape.md)
+
+#### Returns
+
+[`DThemeDarkChartSelectionShape`](DThemeDarkChartSelectionShape.md)
 
 ## Methods
 
 ### isEnabled
 
-▸ `Abstract` **isEnabled**(`state`): `boolean`
+▸ **isEnabled**(`state`): `boolean`
 
 #### Parameters
 
@@ -61,7 +65,7 @@ ___
 
 ### newShape
 
-▸ `Abstract` **newShape**(`state`): [`EShape`](../interfaces/EShape.md)
+▸ **newShape**(`state`): [`EShape`](../interfaces/EShape.md)
 
 #### Parameters
 

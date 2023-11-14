@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueChangeCursor
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueChangeCursor
 
 # Class: EShapeActionValueChangeCursor
 
@@ -34,7 +34,7 @@
 
 ### constructor
 
-• **new EShapeActionValueChangeCursor**(`condition`, `name`)
+• **new EShapeActionValueChangeCursor**(`condition`, `name`): [`EShapeActionValueChangeCursor`](EShapeActionValueChangeCursor.md)
 
 #### Parameters
 
@@ -42,6 +42,10 @@
 | :------ | :------ |
 | `condition` | `string` |
 | `name` | `string` |
+
+#### Returns
+
+[`EShapeActionValueChangeCursor`](EShapeActionValueChangeCursor.md)
 
 #### Overrides
 
@@ -107,7 +111,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -209,7 +213,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueChangeCursor`](EShapeActionValueChangeCursor.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueChangeCursor`](EShapeActionValueChangeCursor.md)
 
 #### Parameters
 

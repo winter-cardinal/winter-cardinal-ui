@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTilePyramids
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTilePyramids
 
 # Class: DMapTilePyramids
 
@@ -23,7 +23,11 @@
 
 ### constructor
 
-• **new DMapTilePyramids**()
+• **new DMapTilePyramids**(): [`DMapTilePyramids`](DMapTilePyramids.md)
+
+#### Returns
+
+[`DMapTilePyramids`](DMapTilePyramids.md)
 
 ## Properties
 
@@ -59,7 +63,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`options`): [`DMapTilePyramid`](../interfaces/DMapTilePyramid.md)
+▸ **from**(`options`): [`DMapTilePyramid`](../interfaces/DMapTilePyramid.md)
 
 #### Parameters
 
@@ -79,7 +83,7 @@ ___
 
 ### toPlaneOptions
 
-▸ `Static` `Protected` **toPlaneOptions**(`options`): [`DMapTilePyramidPlaneOptions`](../interfaces/DMapTilePyramidPlaneOptions.md)
+▸ **toPlaneOptions**(`options`): [`DMapTilePyramidPlaneOptions`](../interfaces/DMapTilePyramidPlaneOptions.md)
 
 #### Parameters
 

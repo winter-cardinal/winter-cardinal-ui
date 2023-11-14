@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilPointerEvent
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilPointerEvent
 
 # Class: UtilPointerEvent
 
@@ -42,7 +42,11 @@
 
 ### constructor
 
-• **new UtilPointerEvent**()
+• **new UtilPointerEvent**(): [`UtilPointerEvent`](UtilPointerEvent.md)
+
+#### Returns
+
+[`UtilPointerEvent`](UtilPointerEvent.md)
 
 ## Properties
 
@@ -78,7 +82,7 @@ ___
 
 ### cancel
 
-• `Static` `get` **cancel**(): `string`
+• `get` **cancel**(): `string`
 
 #### Returns
 
@@ -92,7 +96,7 @@ ___
 
 ### down
 
-• `Static` `get` **down**(): `string`
+• `get` **down**(): `string`
 
 #### Returns
 
@@ -106,7 +110,7 @@ ___
 
 ### enter
 
-• `Static` `get` **enter**(): `string`
+• `get` **enter**(): `string`
 
 #### Returns
 
@@ -120,7 +124,7 @@ ___
 
 ### leave
 
-• `Static` `get` **leave**(): `string`
+• `get` **leave**(): `string`
 
 #### Returns
 
@@ -134,7 +138,7 @@ ___
 
 ### move
 
-• `Static` `get` **move**(): `string`
+• `get` **move**(): `string`
 
 #### Returns
 
@@ -148,7 +152,7 @@ ___
 
 ### out
 
-• `Static` `get` **out**(): `string`
+• `get` **out**(): `string`
 
 #### Returns
 
@@ -162,7 +166,7 @@ ___
 
 ### over
 
-• `Static` `get` **over**(): `string`
+• `get` **over**(): `string`
 
 #### Returns
 
@@ -176,7 +180,7 @@ ___
 
 ### rightdown
 
-• `Static` `get` **rightdown**(): `string`
+• `get` **rightdown**(): `string`
 
 #### Returns
 
@@ -190,7 +194,7 @@ ___
 
 ### righttap
 
-• `Static` `get` **righttap**(): `string`
+• `get` **righttap**(): `string`
 
 #### Returns
 
@@ -204,7 +208,7 @@ ___
 
 ### rightup
 
-• `Static` `get` **rightup**(): `string`
+• `get` **rightup**(): `string`
 
 #### Returns
 
@@ -218,7 +222,7 @@ ___
 
 ### rightupoutside
 
-• `Static` `get` **rightupoutside**(): `string`
+• `get` **rightupoutside**(): `string`
 
 #### Returns
 
@@ -232,7 +236,7 @@ ___
 
 ### tap
 
-• `Static` `get` **tap**(): `string`
+• `get` **tap**(): `string`
 
 #### Returns
 
@@ -246,7 +250,7 @@ ___
 
 ### touchable
 
-• `Static` `get` **touchable**(): `boolean`
+• `get` **touchable**(): `boolean`
 
 #### Returns
 
@@ -260,7 +264,7 @@ ___
 
 ### up
 
-• `Static` `get` **up**(): `string`
+• `get` **up**(): `string`
 
 #### Returns
 
@@ -274,7 +278,7 @@ ___
 
 ### upoutside
 
-• `Static` `get` **upoutside**(): `string`
+• `get` **upoutside**(): `string`
 
 #### Returns
 
@@ -288,7 +292,7 @@ ___
 
 ### contains
 
-▸ `Static` **contains**(`target`, `targetOrChild`): `boolean`
+▸ **contains**(`target`, `targetOrChild`): `boolean`
 
 #### Parameters
 
@@ -309,7 +313,7 @@ ___
 
 ### onDblClick
 
-▸ `Static` **onDblClick**(`target`, `onDblClick`): `void`
+▸ **onDblClick**(`target`, `onDblClick`): `void`
 
 #### Parameters
 
@@ -330,7 +334,7 @@ ___
 
 ### toGlobal
 
-▸ `Static` **toGlobal**(`e`, `interactionManager`, `result`): `Point`
+▸ **toGlobal**(`e`, `interactionManager`, `result`): `Point`
 
 #### Parameters
 

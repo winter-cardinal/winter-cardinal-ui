@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeConnectorContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeConnectorContainerImpl
 
 # Class: EShapeConnectorContainerImpl
 
@@ -39,13 +39,17 @@
 
 ### constructor
 
-• **new EShapeConnectorContainerImpl**(`parent`)
+• **new EShapeConnectorContainerImpl**(`parent`): [`EShapeConnectorContainerImpl`](EShapeConnectorContainerImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShape`](../interfaces/EShape.md) |
+
+#### Returns
+
+[`EShapeConnectorContainerImpl`](EShapeConnectorContainerImpl.md)
 
 #### Defined in
 
@@ -55,7 +59,7 @@
 
 ### \_edges
 
-• `Protected` **\_edges**: `Set`<[`EShapeConnectorEdge`](../interfaces/EShapeConnectorEdge.md)\>
+• `Protected` **\_edges**: `Set`\<[`EShapeConnectorEdge`](../interfaces/EShapeConnectorEdge.md)\>
 
 #### Defined in
 
@@ -231,7 +235,13 @@ ___
 
 ### detach
 
-▸ **detach**(): [`EShapeConnectorContainerImpl`](EShapeConnectorContainerImpl.md)
+▸ **detach**(`exceptions?`): [`EShapeConnectorContainerImpl`](EShapeConnectorContainerImpl.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `exceptions?` | `Set`\<[`EShape`](../interfaces/EShape.md)\> |
 
 #### Returns
 
@@ -297,7 +307,7 @@ ___
 
 ### newOnFitBound
 
-▸ `Protected` **newOnFitBound**(`forcibly?`): (`edge`: [`EShapeConnectorEdge`](../interfaces/EShapeConnectorEdge.md)) => `void`
+▸ **newOnFitBound**(`forcibly?`): (`edge`: [`EShapeConnectorEdge`](../interfaces/EShapeConnectorEdge.md)) => `void`
 
 #### Parameters
 
@@ -329,7 +339,7 @@ ___
 
 ### onFit
 
-▸ `Protected` **onFit**(`target`, `forcibly?`): `void`
+▸ **onFit**(`target`, `forcibly?`): `void`
 
 #### Parameters
 
@@ -392,7 +402,7 @@ ___
 
 ### toOnFitBound
 
-▸ `Protected` **toOnFitBound**(`forcibly?`): (`connector`: [`EShapeConnectorEdge`](../interfaces/EShapeConnectorEdge.md)) => `void`
+▸ **toOnFitBound**(`forcibly?`): (`connector`: [`EShapeConnectorEdge`](../interfaces/EShapeConnectorEdge.md)) => `void`
 
 #### Parameters
 

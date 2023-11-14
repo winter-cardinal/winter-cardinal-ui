@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListDataOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DListDataOptions
 
-# Interface: DListDataOptions<ITEM\>
+# Interface: DListDataOptions\<ITEM\>
 
 [DListData](DListData.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DListItemAccessorOptions`](DListItemAccessorOptions.md)<`ITEM`\>
+- [`DListItemAccessorOptions`](DListItemAccessorOptions.md)\<`ITEM`\>
 
   ↳ **`DListDataOptions`**
 
@@ -70,7 +70,7 @@ ___
 
 ### link
 
-• `Optional` **link**: [`DListItemAccessorLinkOptions`](DListItemAccessorLinkOptions.md)<`ITEM`\>
+• `Optional` **link**: [`DListItemAccessorLinkOptions`](DListItemAccessorLinkOptions.md)\<`ITEM`\>
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ ___
 
 ### selection
 
-• `Optional` **selection**: [`DListDataSelectionOptions`](DListDataSelectionOptions.md)<`ITEM`, `any`\>
+• `Optional` **selection**: [`DListDataSelectionOptions`](DListDataSelectionOptions.md)\<`ITEM`, `any`\>
 
 A selection options.
 
@@ -96,7 +96,7 @@ ___
 
 ### toId
 
-• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)<`ITEM`\>
+• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)\<`ITEM`\>
 
 #### Inherited from
 
@@ -110,7 +110,7 @@ ___
 
 ### toImage
 
-• `Optional` **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)<`ITEM`\>
+• `Optional` **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)\<`ITEM`\>
 
 #### Inherited from
 
@@ -124,7 +124,7 @@ ___
 
 ### toLabel
 
-• `Optional` **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)<`ITEM`\>
+• `Optional` **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)\<`ITEM`\>
 
 #### Inherited from
 
@@ -138,7 +138,7 @@ ___
 
 ### toTitle
 
-• `Optional` **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)<`ITEM`\>
+• `Optional` **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)\<`ITEM`\>
 
 #### Inherited from
 

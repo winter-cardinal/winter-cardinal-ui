@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemePickerDate
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemePickerDate
 
 # Interface: DThemePickerDate
 
@@ -105,11 +105,11 @@ ___
 
 ### getBackButtonOptions
 
-▸ **getBackButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonBackOptions`](DPickerDatetimeButtonBackOptions.md)<`unknown`, [`DThemePickerDatetimeButtonBack`](DThemePickerDatetimeButtonBack.md)<`unknown`\>\>
+▸ **getBackButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonBackOptions`](DPickerDatetimeButtonBackOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonBack`](DThemePickerDatetimeButtonBack.md)\<`unknown`\>\>
 
 #### Returns
 
-``null`` \| [`DPickerDatetimeButtonBackOptions`](DPickerDatetimeButtonBackOptions.md)<`unknown`, [`DThemePickerDatetimeButtonBack`](DThemePickerDatetimeButtonBack.md)<`unknown`\>\>
+``null`` \| [`DPickerDatetimeButtonBackOptions`](DPickerDatetimeButtonBackOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonBack`](DThemePickerDatetimeButtonBack.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -622,11 +622,11 @@ ___
 
 ### getHoursOptions
 
-▸ **getHoursOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+▸ **getHoursOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Inherited from
 
@@ -750,11 +750,11 @@ ___
 
 ### getMinutesOptions
 
-▸ **getMinutesOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+▸ **getMinutesOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Inherited from
 
@@ -768,11 +768,11 @@ ___
 
 ### getNextButtonOptions
 
-▸ **getNextButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonNextOptions`](DPickerDatetimeButtonNextOptions.md)<`unknown`, [`DThemePickerDatetimeButtonNext`](DThemePickerDatetimeButtonNext.md)<`unknown`\>\>
+▸ **getNextButtonOptions**(): ``null`` \| [`DPickerDatetimeButtonNextOptions`](DPickerDatetimeButtonNextOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonNext`](DThemePickerDatetimeButtonNext.md)\<`unknown`\>\>
 
 #### Returns
 
-``null`` \| [`DPickerDatetimeButtonNextOptions`](DPickerDatetimeButtonNextOptions.md)<`unknown`, [`DThemePickerDatetimeButtonNext`](DThemePickerDatetimeButtonNext.md)<`unknown`\>\>
+``null`` \| [`DPickerDatetimeButtonNextOptions`](DPickerDatetimeButtonNextOptions.md)\<`unknown`, [`DThemePickerDatetimeButtonNext`](DThemePickerDatetimeButtonNext.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -1023,11 +1023,11 @@ ___
 
 ### getSecondsOptions
 
-▸ **getSecondsOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+▸ **getSecondsOptions**(): [`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Returns
 
-[`DInputIntegerOptions`](DInputIntegerOptions.md)<[`DThemeInputInteger`](DThemeInputInteger.md)\>
+[`DInputIntegerOptions`](DInputIntegerOptions.md)\<[`DThemeInputInteger`](DThemeInputInteger.md)\>
 
 #### Inherited from
 

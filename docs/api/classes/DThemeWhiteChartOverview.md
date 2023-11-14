@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartOverview
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChartOverview
 
 # Class: DThemeWhiteChartOverview
 
@@ -69,7 +69,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChartOverview**()
+• **new DThemeWhiteChartOverview**(): [`DThemeWhiteChartOverview`](DThemeWhiteChartOverview.md)
+
+#### Returns
+
+[`DThemeWhiteChartOverview`](DThemeWhiteChartOverview.md)
 
 #### Inherited from
 

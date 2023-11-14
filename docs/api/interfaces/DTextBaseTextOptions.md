@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTextBaseTextOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTextBaseTextOptions
 
-# Interface: DTextBaseTextOptions<VALUE\>
+# Interface: DTextBaseTextOptions\<VALUE\>
 
 [DTextBase](../classes/DTextBase.md) text options.
 
@@ -35,7 +35,7 @@ ___
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Defined in
 
@@ -45,7 +45,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`number`\>
 
 #### Defined in
 
@@ -90,7 +90,7 @@ ___
 
 ### value
 
-• `Optional` **value**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+• `Optional` **value**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Defined in
 

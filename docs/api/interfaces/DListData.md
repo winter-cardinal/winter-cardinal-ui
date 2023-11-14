@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListData
+[Winter Cardinal UI - v0.374.0](../index.md) / DListData
 
-# Interface: DListData<ITEM\>
+# Interface: DListData\<ITEM\>
 
 [DList](../classes/DList.md) data.
 
@@ -42,7 +42,7 @@
 
 ### accessor
 
-• `Readonly` **accessor**: [`DListItemAccessor`](DListItemAccessor.md)<`ITEM`\>
+• `Readonly` **accessor**: [`DListItemAccessor`](DListItemAccessor.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -82,7 +82,7 @@ ___
 
 ### mapped
 
-• `Readonly` **mapped**: [`DListDataMapped`](DListDataMapped.md)<`ITEM`\>
+• `Readonly` **mapped**: [`DListDataMapped`](DListDataMapped.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -92,7 +92,7 @@ ___
 
 ### selection
 
-• `Readonly` **selection**: [`DListDataSelection`](DListDataSelection.md)<`ITEM`\>
+• `Readonly` **selection**: [`DListDataSelection`](DListDataSelection.md)\<`ITEM`\>
 
 #### Defined in
 
@@ -229,7 +229,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)<`ITEM`\> | an function called on each datum |
+| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)\<`ITEM`\> | an function called on each datum |
 | `ifrom?` | `number` | an index to start an iteration |
 | `ito?` | `number` | an index before which an interation stops |
 

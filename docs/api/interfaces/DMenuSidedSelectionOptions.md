@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuSidedSelectionOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSidedSelectionOptions
 
-# Interface: DMenuSidedSelectionOptions<EMITTER\>
+# Interface: DMenuSidedSelectionOptions\<EMITTER\>
 
 [DMenuSidedSelection](../classes/DMenuSidedSelection.md) options.
 
@@ -23,7 +23,7 @@
 
 ### filter
 
-• `Optional` **filter**: (`item`: ``null`` \| [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>) => `boolean`
+• `Optional` **filter**: (`item`: ``null`` \| [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>) => `boolean`
 
 #### Type declaration
 
@@ -33,7 +33,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `item` | ``null`` \| [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> |
+| `item` | ``null`` \| [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> |
 
 ##### Returns
 
@@ -61,7 +61,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DMenuSidedSelectionOnOptions`](DMenuSidedSelectionOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DMenuSidedSelectionOnOptions`](DMenuSidedSelectionOnOptions.md)\<`EMITTER`\>
 
 #### Defined in
 

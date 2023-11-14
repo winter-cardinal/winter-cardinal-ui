@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionContainerImpl
 
-# Class: DChartSelectionContainerImpl<CHART\>
+# Class: DChartSelectionContainerImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)<`CHART`\>
+- [`DChartSelectionContainer`](../interfaces/DChartSelectionContainer.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -40,20 +40,24 @@
 
 ### constructor
 
-• **new DChartSelectionContainerImpl**<`CHART`\>(`x`, `y`)
+• **new DChartSelectionContainerImpl**\<`CHART`\>(`x`, `y`): [`DChartSelectionContainerImpl`](DChartSelectionContainerImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `x` | [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\> |
-| `y` | [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\> |
+| `x` | [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\> |
+| `y` | [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\> |
+
+#### Returns
+
+[`DChartSelectionContainerImpl`](DChartSelectionContainerImpl.md)\<`CHART`\>
 
 #### Defined in
 
@@ -63,7 +67,7 @@
 
 ### \_x
 
-• `Protected` **\_x**: [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+• `Protected` **\_x**: [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 #### Defined in
 
@@ -73,7 +77,7 @@ ___
 
 ### \_y
 
-• `Protected` **\_y**: [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+• `Protected` **\_y**: [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 #### Defined in
 
@@ -83,11 +87,11 @@ ___
 
 ### x
 
-• `get` **x**(): [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+• `get` **x**(): [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+[`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -101,11 +105,11 @@ ___
 
 ### y
 
-• `get` **y**(): [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+• `get` **y**(): [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+[`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -125,7 +129,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 
 #### Returns
 
@@ -149,10 +153,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
-| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -212,7 +216,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
 

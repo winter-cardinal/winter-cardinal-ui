@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeData
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeData
 
-# Interface: DTreeData<NODE\>
+# Interface: DTreeData\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DTreeDataLike`](DTreeDataLike.md)<`NODE`\>
+- [`DTreeDataLike`](DTreeDataLike.md)\<`NODE`\>
 
   ↳ **`DTreeData`**
 
@@ -48,7 +48,7 @@
 
 ### accessor
 
-• `Readonly` **accessor**: [`DTreeNodeAccessor`](DTreeNodeAccessor.md)<`NODE`\>
+• `Readonly` **accessor**: [`DTreeNodeAccessor`](DTreeNodeAccessor.md)\<`NODE`\>
 
 #### Defined in
 
@@ -58,7 +58,7 @@ ___
 
 ### mapped
 
-• **mapped**: [`DTreeDataMapped`](DTreeDataMapped.md)<`NODE`\>
+• **mapped**: [`DTreeDataMapped`](DTreeDataMapped.md)\<`NODE`\>
 
 #### Defined in
 
@@ -78,7 +78,7 @@ ___
 
 ### selection
 
-• `Readonly` **selection**: [`DTreeDataSelection`](DTreeDataSelection.md)<`NODE`\>
+• `Readonly` **selection**: [`DTreeDataSelection`](DTreeDataSelection.md)\<`NODE`\>
 
 A selection.
 
@@ -262,7 +262,7 @@ If the iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> | an iteratee |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)\<`NODE`\> | an iteratee |
 
 #### Returns
 
@@ -418,10 +418,6 @@ ___
 
 Toggles the given node,
 
-**`Retrn`**
-
-true if succeeded
-
 #### Parameters
 
 | Name | Type | Description |
@@ -431,6 +427,10 @@ true if succeeded
 #### Returns
 
 `boolean`
+
+**`Retrn`**
+
+true if succeeded
 
 #### Inherited from
 

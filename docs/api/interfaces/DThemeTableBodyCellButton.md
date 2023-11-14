@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeTableBodyCellButton
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeTableBodyCellButton
 
-# Interface: DThemeTableBodyCellButton<VALUE\>
+# Interface: DThemeTableBodyCellButton\<VALUE\>
 
 [DImageBase](../classes/DImageBase.md) theme.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DThemeTableBodyCellText`](DThemeTableBodyCellText.md)<`VALUE` \| ``null``\>
+- [`DThemeTableBodyCellText`](DThemeTableBodyCellText.md)\<`VALUE` \| ``null``\>
 
   ↳ **`DThemeTableBodyCellButton`**
 
@@ -1105,7 +1105,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1288,7 +1288,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1694,14 +1694,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `VALUE`\>
 
 #### Inherited from
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseTickContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseTickContainer
 
-# Class: DChartAxisBaseTickContainer<CHART, OPTIONS\>
+# Class: DChartAxisBaseTickContainer\<CHART, OPTIONS\>
 
 ## Type parameters
 
@@ -11,7 +11,7 @@
 
 ## Implements
 
-- [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)<`CHART`\>
+- [`DChartAxisTickContainer`](../interfaces/DChartAxisTickContainer.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -61,35 +61,39 @@
 
 ### constructor
 
-• **new DChartAxisBaseTickContainer**<`CHART`, `OPTIONS`\>(`parser`, `options?`)
+• **new DChartAxisBaseTickContainer**\<`CHART`, `OPTIONS`\>(`parser`, `options?`): [`DChartAxisBaseTickContainer`](DChartAxisBaseTickContainer.md)\<`CHART`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `OPTIONS` | extends [`DChartAxisBaseTickContainerOptions`](../interfaces/DChartAxisBaseTickContainerOptions.md) = [`DChartAxisBaseTickContainerOptions`](../interfaces/DChartAxisBaseTickContainerOptions.md) |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DChartAxisBaseTickContainer`](DChartAxisBaseTickContainer.md)\<`CHART`, `OPTIONS`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L35)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L36)
 
 ## Properties
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L28)
 
 ___
 
@@ -99,17 +103,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L29)
 
 ___
 
 ### \_major
 
-• `Protected` **\_major**: [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)<`CHART`\>
+• `Protected` **\_major**: [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L30)
 
 ___
 
@@ -119,17 +123,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L32)
 
 ___
 
 ### \_minor
 
-• `Protected` **\_minor**: [`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)<`CHART`\>
+• `Protected` **\_minor**: [`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L31)
 
 ___
 
@@ -139,17 +143,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L33)
 
 ___
 
 ### \_parser
 
-• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+• `Protected` **\_parser**: [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L27)
 
 ___
 
@@ -159,17 +163,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L34)
 
 ## Accessors
 
 ### major
 
-• `get` **major**(): [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)<`CHART`\>
+• `get` **major**(): [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)<`CHART`\>
+[`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -177,17 +181,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L45)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L46)
 
 ___
 
 ### minor
 
-• `get` **minor**(): [`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)<`CHART`\>
+• `get` **minor**(): [`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)<`CHART`\>
+[`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -195,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L56)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L57)
 
 ## Methods
 
@@ -207,7 +211,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
@@ -220,7 +224,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L67)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L68)
 
 ___
 
@@ -238,20 +242,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:510](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L510)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:511](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L511)
 
 ___
 
 ### getDomain
 
-▸ `Protected` **getDomain**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **getDomain**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -260,20 +264,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L200)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L201)
 
 ___
 
 ### getDomainVisible
 
-▸ `Protected` **getDomainVisible**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **getDomainVisible**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -282,20 +286,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:213](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L213)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L214)
 
 ___
 
 ### getRange
 
-▸ `Protected` **getRange**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **getRange**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -304,20 +308,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L221)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L222)
 
 ___
 
 ### getRangeVisible
 
-▸ `Protected` **getRangeVisible**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
+▸ **getRangeVisible**(`plotArea`, `coordinate`, `result`): [`DChartRegion`](../interfaces/DChartRegion.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `result` | [`DChartRegion`](../interfaces/DChartRegion.md) |
 
 #### Returns
@@ -326,13 +330,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L234)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L235)
 
 ___
 
 ### hideMajor
 
-▸ `Protected` **hideMajor**(`shape`): `void`
+▸ **hideMajor**(`shape`): `void`
 
 #### Parameters
 
@@ -346,13 +350,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L459)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L460)
 
 ___
 
 ### hideMajorGridline
 
-▸ `Protected` **hideMajorGridline**(`shape`): `void`
+▸ **hideMajorGridline**(`shape`): `void`
 
 #### Parameters
 
@@ -366,13 +370,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L463)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L464)
 
 ___
 
 ### hideMinor
 
-▸ `Protected` **hideMinor**(`shape`): `void`
+▸ **hideMinor**(`shape`): `void`
 
 #### Parameters
 
@@ -386,61 +390,61 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L475)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L476)
 
 ___
 
 ### newMajor
 
-▸ `Protected` **newMajor**(`parser`, `options?`): [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)<`CHART`\>
+▸ **newMajor**(`parser`, `options?`): [`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
 | `options?` | `OPTIONS` |
 
 #### Returns
 
-[`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)<`CHART`\>
+[`DChartAxisTickMajor`](../interfaces/DChartAxisTickMajor.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L49)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L50)
 
 ___
 
 ### newMinor
 
-▸ `Protected` **newMinor**(`parser`, `options?`): [`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)<`CHART`\>
+▸ **newMinor**(`parser`, `options?`): [`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
+| `parser` | [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\> |
 | `options?` | `OPTIONS` |
 
 #### Returns
 
-[`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)<`CHART`\>
+[`DChartAxisTickMinor`](../interfaces/DChartAxisTickMinor.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L60)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L61)
 
 ___
 
 ### newTicks
 
-▸ `Protected` **newTicks**(`coordinate`, `domainFrom`, `domainTo`, `domainVisibleFrom`, `domainVisibleTo`, `majorCount`, `majorCapacity`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`): `void`
+▸ **newTicks**(`coordinate`, `domainFrom`, `domainTo`, `domainVisibleFrom`, `domainVisibleTo`, `majorCount`, `majorCapacity`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `domainFrom` | `number` |
 | `domainTo` | `number` |
 | `domainVisibleFrom` | `number` |
@@ -460,13 +464,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L479)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L480)
 
 ___
 
 ### showMajor
 
-▸ `Protected` **showMajor**(`shape`, `x`, `y`, `text?`): `void`
+▸ **showMajor**(`shape`, `x`, `y`, `text?`): `void`
 
 #### Parameters
 
@@ -483,13 +487,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L436)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:437](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L437)
 
 ___
 
 ### showMajorGridline
 
-▸ `Protected` **showMajorGridline**(`shape`, `value`, `x`, `y`, `sx`, `sy`): `void`
+▸ **showMajorGridline**(`shape`, `value`, `x`, `y`, `sx`, `sy`): `void`
 
 #### Parameters
 
@@ -508,13 +512,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:444](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L444)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L445)
 
 ___
 
 ### showMinor
 
-▸ `Protected` **showMinor**(`shape`, `x`, `y`, `text?`): `void`
+▸ **showMinor**(`shape`, `x`, `y`, `text?`): `void`
 
 #### Parameters
 
@@ -531,7 +535,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L467)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L468)
 
 ___
 
@@ -549,7 +553,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L74)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L75)
 
 ___
 
@@ -567,13 +571,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L81)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L82)
 
 ___
 
 ### updateX
 
-▸ `Protected` **updateX**(`domainFrom`, `domainTo`, `domainVisibleFrom`, `domainVisibleTo`, `coordinate`, `majorShapes`, `minorShapes`, `gridlineShapes`, `shapePositionY`, `transform`, `plotAreaHeight`): `boolean`
+▸ **updateX**(`domainFrom`, `domainTo`, `domainVisibleFrom`, `domainVisibleTo`, `coordinate`, `majorShapes`, `minorShapes`, `gridlineShapes`, `shapePositionY`, `transform`, `plotAreaHeight`): `boolean`
 
 #### Parameters
 
@@ -583,7 +587,7 @@ ___
 | `domainTo` | `number` |
 | `domainVisibleFrom` | `number` |
 | `domainVisibleTo` | `number` |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `majorShapes` | [`EShape`](../interfaces/EShape.md)[] |
 | `minorShapes` | [`EShape`](../interfaces/EShape.md)[] |
 | `gridlineShapes` | [`EShape`](../interfaces/EShape.md)[] |
@@ -597,13 +601,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L242)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L243)
 
 ___
 
 ### updateY
 
-▸ `Protected` **updateY**(`rangeFrom`, `rangeTo`, `rangeVisibleFrom`, `rangeVisibleTo`, `coordinate`, `majorShapes`, `minorShapes`, `gridlineShapes`, `shapePositionX`, `transform`, `plotAreaWidth`): `boolean`
+▸ **updateY**(`rangeFrom`, `rangeTo`, `rangeVisibleFrom`, `rangeVisibleTo`, `coordinate`, `majorShapes`, `minorShapes`, `gridlineShapes`, `shapePositionX`, `transform`, `plotAreaWidth`): `boolean`
 
 #### Parameters
 
@@ -613,7 +617,7 @@ ___
 | `rangeTo` | `number` |
 | `rangeVisibleFrom` | `number` |
 | `rangeVisibleTo` | `number` |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `majorShapes` | [`EShape`](../interfaces/EShape.md)[] |
 | `minorShapes` | [`EShape`](../interfaces/EShape.md)[] |
 | `gridlineShapes` | [`EShape`](../interfaces/EShape.md)[] |
@@ -627,4 +631,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:339](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L339)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:340](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L340)

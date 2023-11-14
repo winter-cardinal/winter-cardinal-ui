@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesPointImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesPointImpl
 
 # Class: DChartSeriesPointImpl
 
@@ -21,13 +21,17 @@
 
 ### constructor
 
-• **new DChartSeriesPointImpl**(`options`)
+• **new DChartSeriesPointImpl**(`options`): [`DChartSeriesPointImpl`](DChartSeriesPointImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options` | `undefined` \| [`DChartSeriesPointOptions`](../interfaces/DChartSeriesPointOptions.md) |
+
+#### Returns
+
+[`DChartSeriesPointImpl`](DChartSeriesPointImpl.md)
 
 #### Defined in
 
@@ -37,7 +41,7 @@
 
 ### x
 
-• `Optional` **x**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• `Optional` **x**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -51,7 +55,7 @@ ___
 
 ### y
 
-• `Optional` **y**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• `Optional` **y**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeSelection
 
-# Interface: DTableDataTreeSelection<NODE\>
+# Interface: DTableDataTreeSelection\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DTableDataSelection`](DTableDataSelection.md)<`NODE`\>
+- [`DTableDataSelection`](DTableDataSelection.md)\<`NODE`\>
 
   ↳ **`DTableDataTreeSelection`**
 
@@ -110,7 +110,7 @@ ___
 
 ### parent
 
-• `Readonly` **parent**: [`DTableData`](DTableData.md)<`NODE`\>
+• `Readonly` **parent**: [`DTableData`](DTableData.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -203,7 +203,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -217,7 +217,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -399,7 +399,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -518,7 +518,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -533,7 +533,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -547,7 +547,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -561,7 +561,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -597,7 +597,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -611,7 +611,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -651,7 +651,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -663,7 +663,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -679,7 +679,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -694,7 +694,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -774,11 +774,11 @@ ___
 
 ### toMap
 
-▸ **toMap**(): `Map`<`number`, `NODE`\>
+▸ **toMap**(): `Map`\<`number`, `NODE`\>
 
 #### Returns
 
-`Map`<`number`, `NODE`\>
+`Map`\<`number`, `NODE`\>
 
 #### Inherited from
 
@@ -792,11 +792,11 @@ ___
 
 ### toObject
 
-▸ **toObject**(): `Record`<`number`, `NODE`\>
+▸ **toObject**(): `Record`\<`number`, `NODE`\>
 
 #### Returns
 
-`Record`<`number`, `NODE`\>
+`Record`\<`number`, `NODE`\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteSliderHorizontal
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteSliderHorizontal
 
 # Class: DThemeWhiteSliderHorizontal
 
@@ -69,7 +69,11 @@
 
 ### constructor
 
-• **new DThemeWhiteSliderHorizontal**()
+• **new DThemeWhiteSliderHorizontal**(): [`DThemeWhiteSliderHorizontal`](DThemeWhiteSliderHorizontal.md)
+
+#### Returns
+
+[`DThemeWhiteSliderHorizontal`](DThemeWhiteSliderHorizontal.md)
 
 #### Inherited from
 

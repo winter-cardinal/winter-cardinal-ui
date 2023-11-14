@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseCornerOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseCornerOptions
 
 # Interface: DBaseCornerOptions
 
@@ -21,7 +21,7 @@
 
 ### mask
 
-• `Optional` **mask**: `number` \| ``"NONE"`` \| ``"ALL"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| ``"BOTTOM_RIGHT"``
+• `Optional` **mask**: `number` \| ``"NONE"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_RIGHT"`` \| ``"TOP_LEFT"`` \| ``"BOTTOM_LEFT"`` \| ``"ALL"`` \| ``"BOTTOM_RIGHT"``
 
 Masked corners get unrounded.
 

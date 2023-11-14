@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkListItemAmbient
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkListItemAmbient
 
 # Class: DThemeDarkListItemAmbient
 
@@ -105,7 +105,11 @@
 
 ### constructor
 
-• **new DThemeDarkListItemAmbient**()
+• **new DThemeDarkListItemAmbient**(): [`DThemeDarkListItemAmbient`](DThemeDarkListItemAmbient.md)
+
+#### Returns
+
+[`DThemeDarkListItemAmbient`](DThemeDarkListItemAmbient.md)
 
 #### Inherited from
 
@@ -1958,7 +1962,7 @@ ___
 
 ### newStyle
 
-▸ `Protected` **newStyle**(): [`DThemeDarkListItems`](DThemeDarkListItems.md)
+▸ **newStyle**(): [`DThemeDarkListItems`](DThemeDarkListItems.md)
 
 #### Returns
 
@@ -1976,14 +1980,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

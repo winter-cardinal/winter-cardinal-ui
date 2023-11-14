@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataMapperImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataMapperImpl
 
 # Class: EShapeDataMapperImpl
 
@@ -30,13 +30,17 @@ An EShape data mapper.
 
 ### constructor
 
-• **new EShapeDataMapperImpl**(`source?`)
+• **new EShapeDataMapperImpl**(`source?`): [`EShapeDataMapperImpl`](EShapeDataMapperImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `source?` | ``null`` \| `string` |
+
+#### Returns
+
+[`EShapeDataMapperImpl`](EShapeDataMapperImpl.md)
 
 #### Defined in
 
@@ -102,7 +106,7 @@ ___
 
 ### newSources
 
-▸ `Protected` **newSources**(`source?`): ``null`` \| `string`[]
+▸ **newSources**(`source?`): ``null`` \| `string`[]
 
 #### Parameters
 
@@ -122,7 +126,7 @@ ___
 
 ### split
 
-▸ `Static` **split**(`target?`): ``null`` \| `string`[]
+▸ **split**(`target?`): ``null`` \| `string`[]
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeTableBodyCellCheck
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeTableBodyCellCheck
 
 # Interface: DThemeTableBodyCellCheck
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeButtonCheck`](DThemeButtonCheck.md)<`boolean`\>
+- [`DThemeButtonCheck`](DThemeButtonCheck.md)\<`boolean`\>
 
   ↳ **`DThemeTableBodyCellCheck`**
 
@@ -1097,7 +1097,7 @@ ___
 
 ### getSecondaryImageSource
 
-▸ `Optional` **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getSecondaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1280,7 +1280,7 @@ ___
 
 ### getTertiaryImageSource
 
-▸ `Optional` **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
+▸ **getTertiaryImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -1726,14 +1726,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`boolean`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`boolean`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`boolean`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`boolean`\>
 
 #### Inherited from
 

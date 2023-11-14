@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisContainer
 
-# Interface: DChartAxisContainer<CHART\>
+# Interface: DChartAxisContainer\<CHART\>
 
 ## Type parameters
 
@@ -44,7 +44,7 @@ ___
 
 ### plotArea
 
-• `Readonly` **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)<`CHART`\>
+• `Readonly` **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)\<`CHART`\>
 
 #### Defined in
 
@@ -60,7 +60,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 
@@ -74,7 +74,7 @@ ___
 
 ### clear
 
-▸ **clear**(`position`): [`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\>
+▸ **clear**(`position`): [`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\>
 
 #### Parameters
 
@@ -84,7 +84,7 @@ ___
 
 #### Returns
 
-[`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\>
+[`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -108,7 +108,7 @@ ___
 
 ### get
 
-▸ **get**(`position`, `index`): ``null`` \| [`DChartAxis`](DChartAxis.md)<`CHART`\>
+▸ **get**(`position`, `index`): ``null`` \| [`DChartAxis`](DChartAxis.md)\<`CHART`\>
 
 #### Parameters
 
@@ -119,7 +119,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartAxis`](DChartAxis.md)<`CHART`\>
+``null`` \| [`DChartAxis`](DChartAxis.md)\<`CHART`\>
 
 #### Defined in
 
@@ -135,7 +135,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 

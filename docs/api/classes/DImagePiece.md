@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImagePiece
+[Winter Cardinal UI - v0.374.0](../index.md) / DImagePiece
 
 # Class: DImagePiece
 
@@ -48,7 +48,7 @@
 
 ### constructor
 
-• **new DImagePiece**(`parent`, `theme`, `textAlign`, `options?`)
+• **new DImagePiece**(`parent`, `theme`, `textAlign`, `options?`): [`DImagePiece`](DImagePiece.md)
 
 #### Parameters
 
@@ -58,6 +58,10 @@
 | `theme` | [`DThemeImagePiece`](../interfaces/DThemeImagePiece.md) |
 | `textAlign` | [`DImagePieceTextAlign`](../interfaces/DImagePieceTextAlign.md) |
 | `options?` | [`DImagePieceOptions`](../interfaces/DImagePieceOptions.md) |
+
+#### Returns
+
+[`DImagePiece`](DImagePiece.md)
 
 #### Defined in
 
@@ -145,7 +149,7 @@ ___
 
 ### \_source
 
-• `Protected` **\_source**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `DisplayObject` \| `Texture`\>
+• `Protected` **\_source**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `DisplayObject` \| `Texture`\>
 
 #### Defined in
 
@@ -241,11 +245,11 @@ ___
 
 ### source
 
-• `get` **source**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `DisplayObject` \| `Texture`\>
+• `get` **source**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `DisplayObject` \| `Texture`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `DisplayObject` \| `Texture`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `DisplayObject` \| `Texture`\>
 
 #### Defined in
 
@@ -257,7 +261,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `DisplayObject` \| `Texture`\> |
+| `source` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `DisplayObject` \| `Texture`\> |
 
 #### Returns
 
@@ -271,7 +275,7 @@ ___
 
 ### computeSource
 
-▸ `Protected` **computeSource**(): ``null`` \| `DisplayObject` \| `Texture`
+▸ **computeSource**(): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Returns
 
@@ -319,7 +323,7 @@ ___
 
 ### isTintAware
 
-▸ `Protected` **isTintAware**(`target`): target is DisplayObject & Object
+▸ **isTintAware**(`target`): target is DisplayObject & Object
 
 #### Parameters
 
@@ -360,7 +364,7 @@ ___
 
 ### onUpdate
 
-▸ `Protected` **onUpdate**(): `void`
+▸ **onUpdate**(): `void`
 
 #### Returns
 
@@ -374,7 +378,7 @@ ___
 
 ### toTintAlpha
 
-▸ `Protected` **toTintAlpha**(`theme`, `state`): `number`
+▸ **toTintAlpha**(`theme`, `state`): `number`
 
 #### Parameters
 
@@ -395,7 +399,7 @@ ___
 
 ### toTintColor
 
-▸ `Protected` **toTintColor**(`theme`, `state`): ``null`` \| `number`
+▸ **toTintColor**(`theme`, `state`): ``null`` \| `number`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DLinks
+[Winter Cardinal UI - v0.374.0](../index.md) / DLinks
 
 # Class: DLinks
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new DLinks**()
+• **new DLinks**(): [`DLinks`](DLinks.md)
+
+#### Returns
+
+[`DLinks`](DLinks.md)
 
 ## Methods
 
 ### toStateOptions
 
-▸ `Static` **toStateOptions**<`OPTIONS`\>(`target?`, `options?`): `undefined` \| `OPTIONS`
+▸ **toStateOptions**\<`OPTIONS`\>(`target?`, `options?`): `undefined` \| `OPTIONS`
 
 #### Type parameters
 
@@ -34,7 +38,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget-1) |
+| `target?` | ``"NEW_WINDOW"`` \| ``"AUTO"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget-1) |
 | `options?` | `OPTIONS` |
 
 #### Returns

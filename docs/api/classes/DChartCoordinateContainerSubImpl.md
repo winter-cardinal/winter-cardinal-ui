@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateContainerSubImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateContainerSubImpl
 
-# Class: DChartCoordinateContainerSubImpl<CHART\>
+# Class: DChartCoordinateContainerSubImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\>
+- [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -45,20 +45,24 @@
 
 ### constructor
 
-• **new DChartCoordinateContainerSubImpl**<`CHART`\>(`container`, `direction`)
+• **new DChartCoordinateContainerSubImpl**\<`CHART`\>(`container`, `direction`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)<`CHART`\> |
+| `container` | [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)\<`CHART`\> |
 | `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection-1) |
+
+#### Returns
+
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Defined in
 
@@ -68,7 +72,7 @@
 
 ### \_container
 
-• `Protected` **\_container**: [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)<`CHART`\>
+• `Protected` **\_container**: [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -88,7 +92,7 @@ ___
 
 ### \_list
 
-• `Protected` **\_list**: [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>[]
+• `Protected` **\_list**: [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>[]
 
 #### Defined in
 
@@ -98,11 +102,11 @@ ___
 
 ### container
 
-• `get` **container**(): [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)<`CHART`\>
+• `get` **container**(): [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)<`CHART`\>
+[`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -116,18 +120,18 @@ ___
 
 ### add
 
-▸ **add**(`coordinate`, `index?`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+▸ **add**(`coordinate`, `index?`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 | `index?` | `number` |
 
 #### Returns
 
-[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -141,7 +145,7 @@ ___
 
 ### blend
 
-▸ **blend**(`ratio`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+▸ **blend**(`ratio`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -151,7 +155,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -165,11 +169,11 @@ ___
 
 ### clear
 
-▸ **clear**(): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+▸ **clear**(): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -183,11 +187,11 @@ ___
 
 ### destroy
 
-▸ **destroy**(): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+▸ **destroy**(): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -201,7 +205,7 @@ ___
 
 ### fit
 
-▸ **fit**(`from?`, `to?`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+▸ **fit**(`from?`, `to?`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -212,7 +216,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -226,7 +230,7 @@ ___
 
 ### get
 
-▸ **get**(`index`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+▸ **get**(`index`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Parameters
 
@@ -236,7 +240,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -256,7 +260,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 
@@ -274,7 +278,7 @@ ___
 
 ### mark
 
-▸ **mark**(`from?`, `to?`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+▸ **mark**(`from?`, `to?`): [`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -285,7 +289,7 @@ ___
 
 #### Returns
 
-[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)<`CHART`\>
+[`DChartCoordinateContainerSubImpl`](DChartCoordinateContainerSubImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -299,17 +303,17 @@ ___
 
 ### remove
 
-▸ **remove**(`coordinate`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+▸ **remove**(`coordinate`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\> |
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -319,7 +323,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-chart-coordinate-container-sub-impl.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-container-sub-impl.ts#L55)
 
-▸ **remove**(`index`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+▸ **remove**(`index`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Parameters
 
@@ -329,7 +333,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\>
+``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
 #### Implementation of
 

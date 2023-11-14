@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisTickContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisTickContainer
 
-# Interface: DChartAxisTickContainer<CHART\>
+# Interface: DChartAxisTickContainer\<CHART\>
 
 ## Type parameters
 
@@ -30,7 +30,7 @@
 
 ### major
 
-• `Readonly` **major**: [`DChartAxisTickMajor`](DChartAxisTickMajor.md)<`CHART`\>
+• `Readonly` **major**: [`DChartAxisTickMajor`](DChartAxisTickMajor.md)\<`CHART`\>
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### minor
 
-• `Readonly` **minor**: [`DChartAxisTickMinor`](DChartAxisTickMinor.md)<`CHART`\>
+• `Readonly` **minor**: [`DChartAxisTickMinor`](DChartAxisTickMinor.md)\<`CHART`\>
 
 #### Defined in
 
@@ -56,7 +56,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns

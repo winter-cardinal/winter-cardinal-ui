@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramEditorOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramEditorOnOptions
 
-# Interface: DDiagramEditorOnOptions<EMITTER\>
+# Interface: DDiagramEditorOnOptions\<EMITTER\>
 
 [DDiagramEditor](../classes/DDiagramEditor.md) "on" options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DDiagramEditorEvents`](DDiagramEditorEvents.md)<`EMITTER`\>\>
+- `Partial`\<[`DDiagramEditorEvents`](DDiagramEditorEvents.md)\<`EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -57,7 +57,7 @@
 
 ### added
 
-▸ `Optional` **added**(`container`): `void`
+▸ **added**(`container`): `void`
 
 Triggered when added to a container.
 
@@ -83,7 +83,7 @@ ___
 
 ### change
 
-▸ `Optional` **change**(`emitter`): `void`
+▸ **change**(`emitter`): `void`
 
 Triggered when a serialized data is changed without using the set / unset methods.
 This happens, for instance, when the name or the ID of the serialized data is changed.
@@ -104,13 +104,13 @@ Partial.change
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L42)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L43)
 
 ___
 
 ### click
 
-▸ `Optional` **click**(`e`, `emitter`): `void`
+▸ **click**(`e`, `emitter`): `void`
 
 Triggered when an emitter is clicked.
 
@@ -137,7 +137,7 @@ ___
 
 ### dblclick
 
-▸ `Optional` **dblclick**(`e`, `interactionManager`, `emitter`): `void`
+▸ **dblclick**(`e`, `interactionManager`, `emitter`): `void`
 
 Triggered when an emitter is double clicked.
 
@@ -165,7 +165,7 @@ ___
 
 ### deleted
 
-▸ `Optional` **deleted**(`reason`, `emitter`): `void`
+▸ **deleted**(`reason`, `emitter`): `void`
 
 Triggered when deleted successfully or when failed to delete.
 
@@ -186,13 +186,13 @@ Partial.deleted
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L104)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L105)
 
 ___
 
 ### deleting
 
-▸ `Optional` **deleting**(`emitter`): `void`
+▸ **deleting**(`emitter`): `void`
 
 Triggered before deleting.
 
@@ -212,13 +212,13 @@ Partial.deleting
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L96)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L97)
 
 ___
 
 ### down
 
-▸ `Optional` **down**(`e`, `emitter`): `void`
+▸ **down**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets down on an emitter.
 
@@ -245,7 +245,7 @@ ___
 
 ### init
 
-▸ `Optional` **init**(`emitter`): `void`
+▸ **init**(`emitter`): `void`
 
 Triggered when an initialization is finished.
 
@@ -271,7 +271,7 @@ ___
 
 ### keydown
 
-▸ `Optional` **keydown**(`e`, `emitter`): `void`
+▸ **keydown**(`e`, `emitter`): `void`
 
 Triggered when a key gets down.
 
@@ -298,7 +298,7 @@ ___
 
 ### keyup
 
-▸ `Optional` **keyup**(`e`, `emitter`): `void`
+▸ **keyup**(`e`, `emitter`): `void`
 
 Triggered when a key gets up.
 
@@ -325,7 +325,7 @@ ___
 
 ### move
 
-▸ `Optional` **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when moved.
 
@@ -355,7 +355,7 @@ ___
 
 ### opened
 
-▸ `Optional` **opened**(`reason`, `emitter`): `void`
+▸ **opened**(`reason`, `emitter`): `void`
 
 Triggered when opened successfully or when failed to open.
 
@@ -376,13 +376,13 @@ Partial.opened
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L89)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L90)
 
 ___
 
 ### opening
 
-▸ `Optional` **opening**(`emitter`): `void`
+▸ **opening**(`emitter`): `void`
 
 Triggered before opening.
 
@@ -402,13 +402,13 @@ Partial.opening
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L81)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L82)
 
 ___
 
 ### out
 
-▸ `Optional` **out**(`e`, `emitter`): `void`
+▸ **out**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets out of an emitter.
 
@@ -435,7 +435,7 @@ ___
 
 ### over
 
-▸ `Optional` **over**(`e`, `emitter`): `void`
+▸ **over**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets on an emitter.
 
@@ -462,7 +462,7 @@ ___
 
 ### ready
 
-▸ `Optional` **ready**(`emitter`): `void`
+▸ **ready**(`emitter`): `void`
 
 Triggered when all the shape initializations are finished.
 
@@ -488,7 +488,7 @@ ___
 
 ### removed
 
-▸ `Optional` **removed**(`container`): `void`
+▸ **removed**(`container`): `void`
 
 Triggered when removed from a container.
 
@@ -514,7 +514,7 @@ ___
 
 ### resize
 
-▸ `Optional` **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
+▸ **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
 
 Triggered when resized.
 
@@ -544,7 +544,7 @@ ___
 
 ### saved
 
-▸ `Optional` **saved**(`reason`, `emitter`): `void`
+▸ **saved**(`reason`, `emitter`): `void`
 
 Triggered when saved successfully or when failed to save.
 
@@ -565,13 +565,13 @@ Partial.saved
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L74)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L75)
 
 ___
 
 ### saving
 
-▸ `Optional` **saving**(`simple`, `emitter`): `void`
+▸ **saving**(`simple`, `emitter`): `void`
 
 Triggered before saving.
 
@@ -592,13 +592,13 @@ Partial.saving
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L66)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L67)
 
 ___
 
 ### scale
 
-▸ `Optional` **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when scaled.
 
@@ -628,7 +628,7 @@ ___
 
 ### serialized
 
-▸ `Optional` **serialized**(`canvas`, `reason`, `emitter`): `void`
+▸ **serialized**(`canvas`, `reason`, `emitter`): `void`
 
 Triggered when serialized successfully or when failed to serialize.
 
@@ -636,7 +636,7 @@ Triggered when serialized successfully or when failed to serialize.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | - |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | - |
 | `reason` | ``null`` \| `string` | Null if succeeded. Otherwise, a string representing a reason why failed. |
 | `emitter` | `EMITTER` | an emitter |
 
@@ -650,13 +650,13 @@ Partial.serialized
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L58)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L59)
 
 ___
 
 ### serializing
 
-▸ `Optional` **serializing**(`canvas`, `emitter`): `void`
+▸ **serializing**(`canvas`, `emitter`): `void`
 
 Triggered before serializing a canvas.
 
@@ -664,7 +664,7 @@ Triggered before serializing a canvas.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a canvas |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a canvas |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -677,13 +677,13 @@ Partial.serializing
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L50)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L51)
 
 ___
 
 ### set
 
-▸ `Optional` **set**(`canvas`, `emitter`): `void`
+▸ **set**(`canvas`, `emitter`): `void`
 
 Triggered when a canvas is set.
 
@@ -691,7 +691,7 @@ Triggered when a canvas is set.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a new canvas |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a new canvas |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -710,7 +710,7 @@ ___
 
 ### shortcut
 
-▸ `Optional` **shortcut**(`e`, `emitter`): `void`
+▸ **shortcut**(`e`, `emitter`): `void`
 
 Triggered when a shortcut is pressed.
 
@@ -737,7 +737,7 @@ ___
 
 ### skew
 
-▸ `Optional` **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when skewed.
 
@@ -767,7 +767,7 @@ ___
 
 ### statechange
 
-▸ `Optional` **statechange**(`newState`, `oldState`, `emitter`): `void`
+▸ **statechange**(`newState`, `oldState`, `emitter`): `void`
 
 Triggered when a state is changed.
 
@@ -795,7 +795,7 @@ ___
 
 ### unset
 
-▸ `Optional` **unset**(`canvas`, `emitter`): `void`
+▸ **unset**(`canvas`, `emitter`): `void`
 
 Triggered when a canvas is removed.
 
@@ -803,7 +803,7 @@ Triggered when a canvas is removed.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a removed canvas |
+| `canvas` | [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\> | a removed canvas |
 | `emitter` | `EMITTER` | an emitter |
 
 #### Returns
@@ -822,7 +822,7 @@ ___
 
 ### up
 
-▸ `Optional` **up**(`e`, `emitter`): `void`
+▸ **up**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets up on an emitter.
 
@@ -849,7 +849,7 @@ ___
 
 ### wheel
 
-▸ `Optional` **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
+▸ **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
 
 Triggered when a wheel moves.
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataSelection
 
-# Interface: DTableDataSelection<ROW\>
+# Interface: DTableDataSelection\<ROW\>
 
 ## Type parameters
 
@@ -99,7 +99,7 @@ ___
 
 ### parent
 
-• `Readonly` **parent**: [`DTableData`](DTableData.md)<`ROW`\>
+• `Readonly` **parent**: [`DTableData`](DTableData.md)\<`ROW`\>
 
 #### Defined in
 
@@ -172,7 +172,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 Alias method for `on`
 
@@ -186,7 +186,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 #### Inherited from
 
@@ -340,7 +340,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -455,7 +455,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 Alias method for `removeListener`
 
@@ -470,7 +470,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 #### Inherited from
 
@@ -484,7 +484,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 Add a listener for a given event.
 
@@ -498,7 +498,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -514,7 +514,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 Add a one-time listener for a given event.
 
@@ -528,7 +528,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -564,7 +564,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -576,7 +576,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -592,7 +592,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 Remove the listeners of a given event.
 
@@ -607,7 +607,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataSelection`](DTableDataSelection.md)<`ROW`\>
+[`DTableDataSelection`](DTableDataSelection.md)\<`ROW`\>
 
 `this`.
 
@@ -675,11 +675,11 @@ ___
 
 ### toMap
 
-▸ **toMap**(): `Map`<`number`, `ROW`\>
+▸ **toMap**(): `Map`\<`number`, `ROW`\>
 
 #### Returns
 
-`Map`<`number`, `ROW`\>
+`Map`\<`number`, `ROW`\>
 
 #### Defined in
 
@@ -689,11 +689,11 @@ ___
 
 ### toObject
 
-▸ **toObject**(): `Record`<`number`, `ROW`\>
+▸ **toObject**(): `Record`\<`number`, `ROW`\>
 
 #### Returns
 
-`Record`<`number`, `ROW`\>
+`Record`\<`number`, `ROW`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPane
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPane
 
 # Class: DThemeDarkPane
 
@@ -80,7 +80,11 @@
 
 ### constructor
 
-• **new DThemeDarkPane**()
+• **new DThemeDarkPane**(): [`DThemeDarkPane`](DThemeDarkPane.md)
+
+#### Returns
+
+[`DThemeDarkPane`](DThemeDarkPane.md)
 
 #### Inherited from
 

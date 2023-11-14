@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseBorderMeshGeometry
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseBorderMeshGeometry
 
 # Class: DBaseBorderMeshGeometry
 
@@ -68,7 +68,11 @@
 
 ### constructor
 
-• **new DBaseBorderMeshGeometry**()
+• **new DBaseBorderMeshGeometry**(): [`DBaseBorderMeshGeometry`](DBaseBorderMeshGeometry.md)
+
+#### Returns
+
+[`DBaseBorderMeshGeometry`](DBaseBorderMeshGeometry.md)
 
 #### Overrides
 
@@ -296,7 +300,9 @@ PIXI.Geometry#instanceCount
 
 **`Default`**
 
+```ts
 1
+```
 
 #### Inherited from
 
@@ -695,7 +701,7 @@ ___
 
 ### fillIndices
 
-▸ `Protected` **fillIndices**(`indices`, `ia`, `ii`, `n`, `end`, `loop`): `void`
+▸ **fillIndices**(`indices`, `ia`, `ii`, `n`, `end`, `loop`): `void`
 
 #### Parameters
 
@@ -720,7 +726,7 @@ ___
 
 ### fillVertices
 
-▸ `Protected` **fillVertices**(`vertices`, `uvs`, `iv`, `iuv`, `n`, `x`, `y`, `r`, `dr`, `borderWidth`, `table`): `void`
+▸ **fillVertices**(`vertices`, `uvs`, `iv`, `iuv`, `n`, `x`, `y`, `r`, `dr`, `borderWidth`, `table`): `void`
 
 #### Parameters
 
@@ -828,7 +834,7 @@ ___
 
 ### getTables
 
-▸ `Protected` **getTables**(): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
+▸ **getTables**(): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
 
 #### Returns
 
@@ -869,7 +875,7 @@ ___
 
 ### newTable
 
-▸ `Protected` **newTable**(`n`, `a0`, `da`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)
+▸ **newTable**(`n`, `a0`, `da`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)
 
 #### Parameters
 
@@ -895,7 +901,7 @@ ___
 
 ### newTables
 
-▸ `Protected` **newTables**(`n`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
+▸ **newTables**(`n`): [`DBaseMeshGeometryTable`](../interfaces/DBaseMeshGeometryTable.md)[]
 
 #### Parameters
 
@@ -939,7 +945,7 @@ ___
 
 ### merge
 
-▸ `Static` **merge**(`geometries`): `Geometry`
+▸ **merge**(`geometries`): `Geometry`
 
 merges an array of geometries into a new single one
 geometry attribute styles must match for this operation to work

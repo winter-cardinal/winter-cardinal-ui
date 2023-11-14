@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellsColumnEditing
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellsColumnEditing
 
-# Interface: DTableBodyCellsColumnEditing<ROW\>
+# Interface: DTableBodyCellsColumnEditing\<ROW\>
 
 ## Type parameters
 
@@ -18,7 +18,7 @@
 
 ### enable
 
-• **enable**: `boolean` \| [`DTableColumnEditable`](../index.md#dtablecolumneditable)<`ROW`\>
+• **enable**: `boolean` \| [`DTableColumnEditable`](../index.md#dtablecolumneditable)\<`ROW`\>
 
 #### Defined in
 

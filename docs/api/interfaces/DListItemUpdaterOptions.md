@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DListItemUpdaterOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DListItemUpdaterOptions
 
-# Interface: DListItemUpdaterOptions<VALUE\>
+# Interface: DListItemUpdaterOptions\<VALUE\>
 
 Item updater options.
 
@@ -12,7 +12,7 @@ Item updater options.
 
 ## Hierarchy
 
-- [`DItemUpdaterOptions`](DItemUpdaterOptions.md)<`VALUE`, [`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`\>\>
+- [`DItemUpdaterOptions`](DItemUpdaterOptions.md)\<`VALUE`, [`DListData`](DListData.md)\<`VALUE`\>, [`DListItem`](../classes/DListItem.md)\<`VALUE`\>\>
 
   ↳ **`DListItemUpdaterOptions`**
 
@@ -28,7 +28,7 @@ Item updater options.
 
 ### initItem
 
-• `Optional` **initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
+• `Optional` **initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<[`DListData`](DListData.md)\<`VALUE`\>, [`DListItem`](../classes/DListItem.md)\<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)\<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
 
 Called to initialize items.
 
@@ -44,7 +44,7 @@ ___
 
 ### newItem
 
-• `Optional` **newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
+• `Optional` **newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<[`DListData`](DListData.md)\<`VALUE`\>, [`DListItem`](../classes/DListItem.md)\<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)\<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
 
 Called to create items.
 

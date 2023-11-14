@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyOptions
 
-# Interface: DTableBodyOptions<ROW, DATA, THEME, EMITTER\>
+# Interface: DTableBodyOptions\<ROW, DATA, THEME, EMITTER\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -9,13 +9,13 @@
 | Name | Type |
 | :------ | :------ |
 | `ROW` | `ROW` |
-| `DATA` | extends [`DTableData`](DTableData.md)<`ROW`\> = [`DTableDataList`](../classes/DTableDataList.md)<`ROW`\> |
+| `DATA` | extends [`DTableData`](DTableData.md)\<`ROW`\> = [`DTableDataList`](../classes/DTableDataList.md)\<`ROW`\> |
 | `THEME` | extends [`DThemeTableBody`](DThemeTableBody.md) = [`DThemeTableBody`](DThemeTableBody.md) |
 | `EMITTER` | `any` |
 
 ## Hierarchy
 
-- [`DBaseOptions`](DBaseOptions.md)<`THEME`, `EMITTER`\>
+- [`DBaseOptions`](DBaseOptions.md)\<`THEME`, `EMITTER`\>
 
   ↳ **`DTableBodyOptions`**
 
@@ -122,11 +122,11 @@ ___
 
 ### columns
 
-• `Optional` **columns**: [`DTableColumn`](DTableColumn.md)<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)<`unknown`\>\>[]
+• `Optional` **columns**: [`DTableColumn`](DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`unknown`\>\>[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L56)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L57)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -164,11 +164,11 @@ ___
 
 ### data
 
-• `Optional` **data**: `DATA` \| [`DTableDataListOptions`](DTableDataListOptions.md)<`ROW`\>
+• `Optional` **data**: `DATA` \| [`DTableDataListOptions`](DTableDataListOptions.md)\<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L58)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L59)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L60)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L61)
 
 ___
 
@@ -205,7 +205,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -241,13 +241,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L59)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L60)
 
 ___
 
 ### on
 
-• `Optional` **on**: [`DTableBodyOnOptions`](DTableBodyOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DTableBodyOnOptions`](DTableBodyOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and event handlers.
 
@@ -257,7 +257,7 @@ Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L61)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L62)
 
 ___
 
@@ -320,7 +320,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableBodyOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -337,11 +337,11 @@ ___
 
 ### row
 
-• `Optional` **row**: [`DTableBodyRowOptions`](DTableBodyRowOptions.md)<`ROW`, [`DThemeTableBodyRow`](DThemeTableBodyRow.md)\>
+• `Optional` **row**: [`DTableBodyRowOptions`](DTableBodyRowOptions.md)\<`ROW`, [`DThemeTableBodyRow`](DThemeTableBodyRow.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L57)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L58)
 
 ___
 

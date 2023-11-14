@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCells
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCells
 
 # Class: DTableBodyCells
 
@@ -18,13 +18,17 @@
 
 ### constructor
 
-• **new DTableBodyCells**()
+• **new DTableBodyCells**(): [`DTableBodyCells`](DTableBodyCells.md)
+
+#### Returns
+
+[`DTableBodyCells`](DTableBodyCells.md)
 
 ## Methods
 
 ### set
 
-▸ `Static` **set**<`ROW`\>(`target`, `row`, `columnIndex`, `column`, `readOnly?`): `void`
+▸ **set**\<`ROW`\>(`target`, `row`, `columnIndex`, `column`, `readOnly?`): `void`
 
 #### Type parameters
 
@@ -39,7 +43,7 @@
 | `target` | [`DTableBodyCellsTarget`](../interfaces/DTableBodyCellsTarget.md) |
 | `row` | `ROW` |
 | `columnIndex` | `number` |
-| `column` | [`DTableBodyCellsColumn`](../interfaces/DTableBodyCellsColumn.md)<`ROW`\> |
+| `column` | [`DTableBodyCellsColumn`](../interfaces/DTableBodyCellsColumn.md)\<`ROW`\> |
 | `readOnly?` | `boolean` |
 
 #### Returns
@@ -54,7 +58,7 @@ ___
 
 ### toReadOnly
 
-▸ `Static` **toReadOnly**<`ROW`\>(`row`, `columnIndex`, `column`): `boolean`
+▸ **toReadOnly**\<`ROW`\>(`row`, `columnIndex`, `column`): `boolean`
 
 #### Type parameters
 
@@ -68,7 +72,7 @@ ___
 | :------ | :------ |
 | `row` | `ROW` |
 | `columnIndex` | `number` |
-| `column` | [`DTableBodyCellsColumn`](../interfaces/DTableBodyCellsColumn.md)<`ROW`\> |
+| `column` | [`DTableBodyCellsColumn`](../interfaces/DTableBodyCellsColumn.md)\<`ROW`\> |
 
 #### Returns
 
@@ -82,7 +86,7 @@ ___
 
 ### toRenderable
 
-▸ `Static` **toRenderable**<`ROW`\>(`row`, `columnIndex`, `column`): `boolean`
+▸ **toRenderable**\<`ROW`\>(`row`, `columnIndex`, `column`): `boolean`
 
 #### Type parameters
 
@@ -96,7 +100,7 @@ ___
 | :------ | :------ |
 | `row` | `ROW` |
 | `columnIndex` | `number` |
-| `column` | [`DTableBodyCellsColumn`](../interfaces/DTableBodyCellsColumn.md)<`ROW`\> |
+| `column` | [`DTableBodyCellsColumn`](../interfaces/DTableBodyCellsColumn.md)\<`ROW`\> |
 
 #### Returns
 

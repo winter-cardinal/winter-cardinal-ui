@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DInputAndLabelOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DInputAndLabelOptions
 
-# Interface: DInputAndLabelOptions<INPUT_OPTIONS, THEME\>
+# Interface: DInputAndLabelOptions\<INPUT_OPTIONS, THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DLayoutOptions`](DLayoutOptions.md)<`THEME`\>
+- [`DLayoutOptions`](DLayoutOptions.md)\<`THEME`\>
 
   ↳ **`DInputAndLabelOptions`**
 
@@ -159,7 +159,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -175,7 +175,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: ``"HORIZONTAL"`` \| ``"VERTICAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
+• `Optional` **direction**: ``"VERTICAL"`` \| ``"HORIZONTAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
 
 #### Inherited from
 
@@ -220,7 +220,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -236,7 +236,7 @@ ___
 
 ### label
 
-• `Optional` **label**: [`DInputLabelOptions`](DInputLabelOptions.md)<`unknown`, [`DThemeText`](DThemeText.md)<`unknown`\>\>
+• `Optional` **label**: [`DInputLabelOptions`](DInputLabelOptions.md)\<`unknown`, [`DThemeText`](DThemeText.md)\<`unknown`\>\>
 
 #### Defined in
 
@@ -276,7 +276,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -349,7 +349,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DInputAndLabelOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -442,7 +442,7 @@ ___
 
 ### space
 
-• `Optional` **space**: [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](DThemeLayoutSpace.md)\>
+• `Optional` **space**: [`DLayoutSpaceOptions`](DLayoutSpaceOptions.md)\<[`DThemeLayoutSpace`](DThemeLayoutSpace.md)\>
 
 #### Defined in
 

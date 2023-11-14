@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderMarkerCircleTail
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderMarkerCircleTail
 
 # Class: BuilderMarkerCircleTail
 
@@ -52,7 +52,7 @@
 
 ### constructor
 
-• **new BuilderMarkerCircleTail**(`vertexOffset`, `indexOffset`)
+• **new BuilderMarkerCircleTail**(`vertexOffset`, `indexOffset`): [`BuilderMarkerCircleTail`](BuilderMarkerCircleTail.md)
 
 #### Parameters
 
@@ -60,6 +60,10 @@
 | :------ | :------ |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
+
+#### Returns
+
+[`BuilderMarkerCircleTail`](BuilderMarkerCircleTail.md)
 
 #### Inherited from
 
@@ -411,7 +415,7 @@ ___
 
 ### toMarker
 
-▸ `Protected` **toMarker**(`container`): [`EShapePointsMarker`](../interfaces/EShapePointsMarker.md)
+▸ **toMarker**(`container`): [`EShapePointsMarker`](../interfaces/EShapePointsMarker.md)
 
 #### Parameters
 
@@ -460,7 +464,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -485,7 +489,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -510,7 +514,7 @@ ___
 
 ### updateUv
 
-▸ `Protected` **updateUv**(`buffer`, `shape`): `void`
+▸ **updateUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -535,7 +539,7 @@ ___
 
 ### updateVertexAndStep
 
-▸ `Protected` **updateVertexAndStep**(`buffer`, `shape`): `void`
+▸ **updateVertexAndStep**(`buffer`, `shape`): `void`
 
 #### Parameters
 

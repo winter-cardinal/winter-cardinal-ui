@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderNull
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderNull
 
 # Class: BuilderNull
 
@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new BuilderNull**(`vertexOffset`, `indexOffset`)
+• **new BuilderNull**(`vertexOffset`, `indexOffset`): [`BuilderNull`](BuilderNull.md)
 
 #### Parameters
 
@@ -39,6 +39,10 @@
 | :------ | :------ |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
+
+#### Returns
+
+[`BuilderNull`](BuilderNull.md)
 
 #### Defined in
 

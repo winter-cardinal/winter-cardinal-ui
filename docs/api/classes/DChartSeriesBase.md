@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesBase
 
-# Class: DChartSeriesBase<CHART\>
+# Class: DChartSeriesBase\<CHART\>
 
 A series represents a polyline.
 
@@ -24,7 +24,7 @@ A series represents a polyline.
 
 ## Implements
 
-- [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\>
+- [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -86,19 +86,23 @@ A series represents a polyline.
 
 ### constructor
 
-• **new DChartSeriesBase**<`CHART`\>(`options?`)
+• **new DChartSeriesBase**\<`CHART`\>(`options?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DChartSeriesBaseOptions`](../interfaces/DChartSeriesBaseOptions.md)<`any`\> |
+| `options?` | [`DChartSeriesBaseOptions`](../interfaces/DChartSeriesBaseOptions.md)\<`any`\> |
+
+#### Returns
+
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Overrides
 
@@ -112,7 +116,7 @@ utils.EventEmitter.constructor
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -122,7 +126,7 @@ ___
 
 ### \_coordinate
 
-• `Protected` **\_coordinate**: [`DChartSeriesBaseCoordinateContainer`](DChartSeriesBaseCoordinateContainer.md)<`CHART`\>
+• `Protected` **\_coordinate**: [`DChartSeriesBaseCoordinateContainer`](DChartSeriesBaseCoordinateContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -206,11 +210,11 @@ ___
 
 ### container
 
-• `get` **container**(): ``null`` \| [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\>
+• `get` **container**(): ``null`` \| [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\>
 
 #### Returns
 
-``null`` \| [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\>
+``null`` \| [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -224,11 +228,11 @@ ___
 
 ### coordinate
 
-• `get` **coordinate**(): [`DChartSeriesCoordinateContainer`](../interfaces/DChartSeriesCoordinateContainer.md)<`CHART`\>
+• `get` **coordinate**(): [`DChartSeriesCoordinateContainer`](../interfaces/DChartSeriesCoordinateContainer.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesCoordinateContainer`](../interfaces/DChartSeriesCoordinateContainer.md)<`CHART`\>
+[`DChartSeriesCoordinateContainer`](../interfaces/DChartSeriesCoordinateContainer.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -314,7 +318,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 Alias method for `on`
 
@@ -328,7 +332,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -342,18 +346,18 @@ ___
 
 ### bind
 
-▸ **bind**(`container`, `index`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **bind**(`container`, `index`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -393,11 +397,11 @@ ___
 
 ### destroy
 
-▸ **destroy**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **destroy**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -411,7 +415,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -460,11 +464,11 @@ ___
 
 ### hide
 
-▸ **hide**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **hide**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -591,7 +595,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 Alias method for `removeListener`
 
@@ -606,7 +610,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -620,7 +624,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **on**(`event`, `fn`, `context?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 Add a listener for a given event.
 
@@ -634,7 +638,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 `this`.
 
@@ -650,7 +654,7 @@ ___
 
 ### onHide
 
-▸ `Protected` **onHide**(): `void`
+▸ **onHide**(): `void`
 
 #### Returns
 
@@ -664,11 +668,11 @@ ___
 
 ### onRender
 
-▸ `Abstract` **onRender**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **onRender**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -682,7 +686,7 @@ ___
 
 ### onShow
 
-▸ `Protected` **onShow**(): `void`
+▸ **onShow**(): `void`
 
 #### Returns
 
@@ -696,7 +700,7 @@ ___
 
 ### onStateChange
 
-▸ `Protected` **onStateChange**(`newState`, `oldState`): `void`
+▸ **onStateChange**(`newState`, `oldState`): `void`
 
 #### Parameters
 
@@ -717,7 +721,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **once**(`event`, `fn`, `context?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 Add a one-time listener for a given event.
 
@@ -731,7 +735,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 `this`.
 
@@ -747,7 +751,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **removeAllListeners**(`event?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -759,7 +763,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 `this`.
 
@@ -775,7 +779,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 Remove the listeners of a given event.
 
@@ -790,7 +794,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 `this`.
 
@@ -806,11 +810,11 @@ ___
 
 ### show
 
-▸ **show**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **show**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -824,11 +828,11 @@ ___
 
 ### toDirty
 
-▸ `Abstract` **toDirty**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **toDirty**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -842,11 +846,11 @@ ___
 
 ### unbind
 
-▸ **unbind**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **unbind**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -860,11 +864,11 @@ ___
 
 ### update
 
-▸ `Abstract` **update**(): [`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+▸ **update**(): [`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartSeriesBase`](DChartSeriesBase.md)<`CHART`\>
+[`DChartSeriesBase`](DChartSeriesBase.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -878,7 +882,7 @@ ___
 
 ### updateRegion
 
-▸ `Protected` `Abstract` **updateRegion**(): `void`
+▸ **updateRegion**(): `void`
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisGuideSimpleShapeLabelOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisGuideSimpleShapeLabelOptions
 
 # Interface: DChartAxisGuideSimpleShapeLabelOptions
 
@@ -28,7 +28,7 @@ ___
 
 ### fill
 
-• `Optional` **fill**: `Partial`<[`EShapeFillLike`](EShapeFillLike.md)\>
+• `Optional` **fill**: `Partial`\<[`EShapeFillLike`](EShapeFillLike.md)\>
 
 #### Defined in
 

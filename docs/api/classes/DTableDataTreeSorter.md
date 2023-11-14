@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeSorter
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeSorter
 
-# Class: DTableDataTreeSorter<NODE\>
+# Class: DTableDataTreeSorter\<NODE\>
 
 Table data sorter.
 
@@ -18,7 +18,7 @@ Table data sorter.
 
 ## Implements
 
-- [`DTableDataSorter`](../interfaces/DTableDataSorter.md)<`NODE`\>
+- [`DTableDataSorter`](../interfaces/DTableDataSorter.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -58,13 +58,17 @@ Table data sorter.
 
 ### constructor
 
-• **new DTableDataTreeSorter**<`NODE`\>()
+• **new DTableDataTreeSorter**\<`NODE`\>(): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `NODE` |
+
+#### Returns
+
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 #### Overrides
 
@@ -159,7 +163,7 @@ A sort order.
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -173,7 +177,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -211,7 +215,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -268,13 +272,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`NODE`\>
+▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`NODE`\>
 
 Returns a current comparator.
 
 #### Returns
 
-``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`NODE`\>
+``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`NODE`\>
 
 #### Implementation of
 
@@ -394,7 +398,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -409,7 +413,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -427,7 +431,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -441,7 +445,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 `this`.
 
@@ -461,7 +465,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -475,7 +479,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 `this`.
 
@@ -495,7 +499,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -507,7 +511,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 `this`.
 
@@ -527,7 +531,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -542,7 +546,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataTreeSorter`](DTableDataTreeSorter.md)<`NODE`\>
+[`DTableDataTreeSorter`](DTableDataTreeSorter.md)\<`NODE`\>
 
 `this`.
 
@@ -570,7 +574,7 @@ Sets to the given comparator.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`NODE`\> | A comparator |
+| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`NODE`\> | A comparator |
 
 #### Returns
 

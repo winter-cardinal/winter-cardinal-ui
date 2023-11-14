@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkNoteSearching
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkNoteSearching
 
 # Class: DThemeDarkNoteSearching
 
@@ -96,7 +96,11 @@
 
 ### constructor
 
-• **new DThemeDarkNoteSearching**()
+• **new DThemeDarkNoteSearching**(): [`DThemeDarkNoteSearching`](DThemeDarkNoteSearching.md)
+
+#### Returns
+
+[`DThemeDarkNoteSearching`](DThemeDarkNoteSearching.md)
 
 #### Inherited from
 
@@ -1637,14 +1641,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Overrides
 

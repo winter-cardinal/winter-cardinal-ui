@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupFillViewer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupFillViewer
 
 # Class: EShapeGroupFillViewer
 
@@ -31,7 +31,11 @@
 
 ### constructor
 
-• **new EShapeGroupFillViewer**()
+• **new EShapeGroupFillViewer**(): [`EShapeGroupFillViewer`](EShapeGroupFillViewer.md)
+
+#### Returns
+
+[`EShapeGroupFillViewer`](EShapeGroupFillViewer.md)
 
 #### Defined in
 
@@ -179,7 +183,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeFillLike`](../interfaces/EShapeFillLike.md)\> |
+| `target?` | `Partial`\<[`EShapeFillLike`](../interfaces/EShapeFillLike.md)\> |
 
 #### Returns
 

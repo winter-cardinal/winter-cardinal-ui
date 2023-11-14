@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataSelectionMultiple
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionMultiple
 
-# Class: DTreeDataSelectionMultiple<NODE\>
+# Class: DTreeDataSelectionMultiple\<NODE\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Implements
 
-- [`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)<`NODE`\>
+- [`DTreeDataSelection`](../interfaces/DTreeDataSelection.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -67,7 +67,7 @@
 
 ### constructor
 
-• **new DTreeDataSelectionMultiple**<`NODE`\>(`parent`, `options?`)
+• **new DTreeDataSelectionMultiple**\<`NODE`\>(`parent`, `options?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -79,8 +79,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)<`NODE`\> |
-| `options?` | [`DTreeDataSelectionOptions`](../interfaces/DTreeDataSelectionOptions.md)<`NODE`, `any`\> |
+| `parent` | [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)\<`NODE`\> |
+| `options?` | [`DTreeDataSelectionOptions`](../interfaces/DTreeDataSelectionOptions.md)\<`NODE`, `any`\> |
+
+#### Returns
+
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 #### Overrides
 
@@ -94,7 +98,7 @@ utils.EventEmitter.constructor
 
 ### \_nodes
 
-• `Protected` **\_nodes**: `Set`<`NODE`\>
+• `Protected` **\_nodes**: `Set`\<`NODE`\>
 
 #### Defined in
 
@@ -104,7 +108,7 @@ ___
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)<`NODE`\>
+• `Protected` **\_parent**: [`DTreeDataSelectionParent`](../interfaces/DTreeDataSelectionParent.md)\<`NODE`\>
 
 #### Defined in
 
@@ -202,7 +206,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -216,7 +220,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -364,7 +368,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -531,19 +535,19 @@ ___
 
 ### newNodes
 
-▸ `Protected` **newNodes**(`items`, `existing`, `result`): `Set`<`NODE`\>
+▸ **newNodes**(`items`, `existing`, `result`): `Set`\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `items` | `NODE`[] |
-| `existing` | `Set`<`NODE`\> |
-| `result` | `Set`<`NODE`\> |
+| `existing` | `Set`\<`NODE`\> |
+| `result` | `Set`\<`NODE`\> |
 
 #### Returns
 
-`Set`<`NODE`\>
+`Set`\<`NODE`\>
 
 #### Defined in
 
@@ -553,7 +557,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -568,7 +572,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -586,7 +590,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -600,7 +604,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 `this`.
 
@@ -620,7 +624,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 #### Returns
 
@@ -654,7 +658,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -668,7 +672,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 `this`.
 
@@ -716,7 +720,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -728,7 +732,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 `this`.
 
@@ -748,7 +752,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -763,7 +767,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)<`NODE`\>
+[`DTreeDataSelectionMultiple`](DTreeDataSelectionMultiple.md)\<`NODE`\>
 
 `this`.
 

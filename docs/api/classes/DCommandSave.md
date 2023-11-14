@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DCommandSave
+[Winter Cardinal UI - v0.374.0](../index.md) / DCommandSave
 
 # Class: DCommandSave
 
@@ -30,7 +30,11 @@
 
 ### constructor
 
-• **new DCommandSave**()
+• **new DCommandSave**(): [`DCommandSave`](DCommandSave.md)
+
+#### Returns
+
+[`DCommandSave`](DCommandSave.md)
 
 #### Inherited from
 

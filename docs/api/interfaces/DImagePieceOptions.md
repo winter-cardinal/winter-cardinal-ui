@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImagePieceOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DImagePieceOptions
 
 # Interface: DImagePieceOptions
 
@@ -35,7 +35,7 @@ ___
 
 ### source
 
-• `Optional` **source**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `DisplayObject` \| `Texture`\>
+• `Optional` **source**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `DisplayObject` \| `Texture`\>
 
 #### Defined in
 

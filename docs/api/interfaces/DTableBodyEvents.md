@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyEvents
 
-# Interface: DTableBodyEvents<EMITTER\>
+# Interface: DTableBodyEvents\<EMITTER\>
 
 [DTableBody](../classes/DTableBody.md) events.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DBaseEvents`](DBaseEvents.md)<`EMITTER`\>
+- [`DBaseEvents`](DBaseEvents.md)\<`EMITTER`\>
 
   ↳ **`DTableBodyEvents`**
 
@@ -539,7 +539,7 @@ For instance, An index range of [0.5, 2.5] means:
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L41)
 
 ___
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramEditorOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramEditorOptions
 
-# Interface: DDiagramEditorOptions<THEME, EMITTER\>
+# Interface: DDiagramEditorOptions\<THEME, EMITTER\>
 
 [DDiagramEditor](../classes/DDiagramEditor.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DDiagramBaseOptions`](DDiagramBaseOptions.md)<[`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md), [`DDiagramEditorController`](DDiagramEditorController.md), `THEME`\>
+- [`DDiagramBaseOptions`](DDiagramBaseOptions.md)\<[`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md), [`DDiagramEditorController`](DDiagramEditorController.md), `THEME`\>
 
   ↳ **`DDiagramEditorOptions`**
 
@@ -107,7 +107,7 @@ ___
 
 ### canvas
 
-• `Optional` **canvas**: [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\>
+• `Optional` **canvas**: [`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\>
 
 #### Inherited from
 
@@ -161,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L126)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L127)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -220,7 +220,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L129)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L130)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DDiagramEditorOnOptions`](DDiagramEditorOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DDiagramEditorOnOptions`](DDiagramEditorOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and event handlers.
 
@@ -286,7 +286,7 @@ Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L127)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L128)
 
 ___
 
@@ -349,7 +349,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDiagramEditorOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -418,13 +418,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L130)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L131)
 
 ___
 
 ### snapshot
 
-• `Optional` **snapshot**: [`DDiagramSnapshotOptions`](DDiagramSnapshotOptions.md)<[`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\>, `any`\>
+• `Optional` **snapshot**: [`DDiagramSnapshotOptions`](DDiagramSnapshotOptions.md)\<[`DDiagramCanvasEditor`](../classes/DDiagramCanvasEditor.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md), [`DDiagramCanvasEditorOptions`](DDiagramCanvasEditorOptions.md)\<[`DThemeDiagramCanvasEditor`](DThemeDiagramCanvasEditor.md)\>\>, `any`\>
 
 Snapshot options.
 
@@ -476,7 +476,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L128)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L129)
 
 ___
 

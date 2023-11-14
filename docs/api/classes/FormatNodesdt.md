@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodesdt
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodesdt
 
 # Class: FormatNodesdt
 
@@ -30,7 +30,7 @@
 
 ### constructor
 
-• **new FormatNodesdt**(`Y`, `M`, `D`, `H`, `m`, `s`, `mi`)
+• **new FormatNodesdt**(`Y`, `M`, `D`, `H`, `m`, `s`, `mi`): [`FormatNodesdt`](FormatNodesdt.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@
 | `m` | [`FormatNode`](../interfaces/FormatNode.md) |
 | `s` | [`FormatNode`](../interfaces/FormatNode.md) |
 | `mi` | [`FormatNode`](../interfaces/FormatNode.md) |
+
+#### Returns
+
+[`FormatNodesdt`](FormatNodesdt.md)
 
 #### Defined in
 

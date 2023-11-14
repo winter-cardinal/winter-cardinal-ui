@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeOptions
 
-# Interface: DTreeOptions<NODE, DATA, THEME, CONTENT_OPTIONS\>
+# Interface: DTreeOptions\<NODE, DATA, THEME, CONTENT_OPTIONS\>
 
 [DPane](../classes/DPane.md) options.
 
@@ -9,13 +9,13 @@
 | Name | Type |
 | :------ | :------ |
 | `NODE` | extends [`DTreeNode`](DTreeNode.md) = [`DTreeNode`](DTreeNode.md) |
-| `DATA` | extends [`DTreeData`](DTreeData.md)<`NODE`\> = [`DTreeData`](DTreeData.md)<`NODE`\> |
+| `DATA` | extends [`DTreeData`](DTreeData.md)\<`NODE`\> = [`DTreeData`](DTreeData.md)\<`NODE`\> |
 | `THEME` | extends [`DThemeTree`](DThemeTree.md) = [`DThemeTree`](DThemeTree.md) |
 | `CONTENT_OPTIONS` | extends [`DBaseOptions`](DBaseOptions.md) = [`DContentOptions`](DContentOptions.md) |
 
 ## Hierarchy
 
-- [`DPaneOptions`](DPaneOptions.md)<`THEME`, `CONTENT_OPTIONS`\>
+- [`DPaneOptions`](DPaneOptions.md)\<`THEME`, `CONTENT_OPTIONS`\>
 
   ↳ **`DTreeOptions`**
 
@@ -125,7 +125,7 @@ ___
 
 ### content
 
-• `Optional` **content**: [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> \| `CONTENT_OPTIONS`
+• `Optional` **content**: [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> \| `CONTENT_OPTIONS`
 
 Content options or a content.
 
@@ -157,7 +157,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -173,7 +173,7 @@ ___
 
 ### data
 
-• `Optional` **data**: `DATA` \| `NODE`[] \| [`DTreeDataOptions`](DTreeDataOptions.md)<`NODE`\>
+• `Optional` **data**: `DATA` \| `NODE`[] \| [`DTreeDataOptions`](DTreeDataOptions.md)\<`NODE`\>
 
 A data options.
 
@@ -222,7 +222,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -282,7 +282,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -355,7 +355,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTreeOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -484,7 +484,7 @@ ___
 
 ### updater
 
-• `Optional` **updater**: [`DTreeItemUpdaterOptions`](DTreeItemUpdaterOptions.md)<`NODE`\>
+• `Optional` **updater**: [`DTreeItemUpdaterOptions`](DTreeItemUpdaterOptions.md)\<`NODE`\>
 
 An updater options.
 

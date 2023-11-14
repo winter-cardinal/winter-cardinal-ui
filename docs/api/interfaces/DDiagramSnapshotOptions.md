@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshotOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSnapshotOptions
 
-# Interface: DDiagramSnapshotOptions<CANVAS, EMITTER\>
+# Interface: DDiagramSnapshotOptions\<CANVAS, EMITTER\>
 
 ## Type parameters
 
@@ -19,7 +19,7 @@
 
 ### on
 
-• `Optional` **on**: [`DDiagramSnapshotOnOptions`](DDiagramSnapshotOnOptions.md)<`CANVAS`, `EMITTER`\>
+• `Optional` **on**: [`DDiagramSnapshotOnOptions`](DDiagramSnapshotOnOptions.md)\<`CANVAS`, `EMITTER`\>
 
 #### Defined in
 

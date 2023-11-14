@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeFill
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeFill
 
 # Interface: EShapeFill
 
@@ -99,7 +99,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeFillLike`](EShapeFillLike.md)\> |
+| `target?` | `Partial`\<[`EShapeFillLike`](EShapeFillLike.md)\> |
 
 #### Returns
 

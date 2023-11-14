@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DCommandClear
+[Winter Cardinal UI - v0.374.0](../index.md) / DCommandClear
 
 # Class: DCommandClear
 
@@ -30,7 +30,11 @@
 
 ### constructor
 
-• **new DCommandClear**()
+• **new DCommandClear**(): [`DCommandClear`](DCommandClear.md)
+
+#### Returns
+
+[`DCommandClear`](DCommandClear.md)
 
 #### Inherited from
 

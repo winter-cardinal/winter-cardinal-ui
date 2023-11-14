@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteSliderValue
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteSliderValue
 
-# Class: DThemeWhiteSliderValue<VALUE\>
+# Class: DThemeWhiteSliderValue\<VALUE\>
 
 [DTextBase](DTextBase.md) theme.
 
@@ -12,13 +12,13 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteTextBase`](DThemeWhiteTextBase.md)<`VALUE`\>
+- [`DThemeWhiteTextBase`](DThemeWhiteTextBase.md)\<`VALUE`\>
 
   ↳ **`DThemeWhiteSliderValue`**
 
 ## Implements
 
-- [`DThemeSliderValue`](../interfaces/DThemeSliderValue.md)<`VALUE`\>
+- [`DThemeSliderValue`](../interfaces/DThemeSliderValue.md)\<`VALUE`\>
 
 ## Table of contents
 
@@ -85,13 +85,17 @@
 
 ### constructor
 
-• **new DThemeWhiteSliderValue**<`VALUE`\>()
+• **new DThemeWhiteSliderValue**\<`VALUE`\>(): [`DThemeWhiteSliderValue`](DThemeWhiteSliderValue.md)\<`VALUE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
+
+#### Returns
+
+[`DThemeWhiteSliderValue`](DThemeWhiteSliderValue.md)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1418,14 +1422,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`VALUE`\>
 
 #### Implementation of
 

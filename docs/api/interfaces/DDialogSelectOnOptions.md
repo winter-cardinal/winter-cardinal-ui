@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogSelectOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectOnOptions
 
-# Interface: DDialogSelectOnOptions<VALUE, EMITTER\>
+# Interface: DDialogSelectOnOptions\<VALUE, EMITTER\>
 
 [DDialogSelect](../classes/DDialogSelect.md) "on" options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DDialogSelectEvents`](DDialogSelectEvents.md)<`VALUE`, `EMITTER`\>\>
+- `Partial`\<[`DDialogSelectEvents`](DDialogSelectEvents.md)\<`VALUE`, `EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -51,7 +51,7 @@
 
 ### added
 
-▸ `Optional` **added**(`container`): `void`
+▸ **added**(`container`): `void`
 
 Triggered when added to a container.
 
@@ -77,7 +77,7 @@ ___
 
 ### cancel
 
-▸ `Optional` **cancel**(`reason`, `emitter`): `void`
+▸ **cancel**(`reason`, `emitter`): `void`
 
 Triggered when a dialog is canceled.
 
@@ -104,7 +104,7 @@ ___
 
 ### click
 
-▸ `Optional` **click**(`e`, `emitter`): `void`
+▸ **click**(`e`, `emitter`): `void`
 
 Triggered when an emitter is clicked.
 
@@ -131,7 +131,7 @@ ___
 
 ### close
 
-▸ `Optional` **close**(`emitter`): `void`
+▸ **close**(`emitter`): `void`
 
 Triggered when a dialog is closed.
 
@@ -157,7 +157,7 @@ ___
 
 ### dblclick
 
-▸ `Optional` **dblclick**(`e`, `interactionManager`, `emitter`): `void`
+▸ **dblclick**(`e`, `interactionManager`, `emitter`): `void`
 
 Triggered when an emitter is double clicked.
 
@@ -185,7 +185,7 @@ ___
 
 ### down
 
-▸ `Optional` **down**(`e`, `emitter`): `void`
+▸ **down**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets down on an emitter.
 
@@ -212,7 +212,7 @@ ___
 
 ### init
 
-▸ `Optional` **init**(`emitter`): `void`
+▸ **init**(`emitter`): `void`
 
 Triggered when an initialization is finished.
 
@@ -238,7 +238,7 @@ ___
 
 ### keydown
 
-▸ `Optional` **keydown**(`e`, `emitter`): `void`
+▸ **keydown**(`e`, `emitter`): `void`
 
 Triggered when a key gets down.
 
@@ -265,7 +265,7 @@ ___
 
 ### keyup
 
-▸ `Optional` **keyup**(`e`, `emitter`): `void`
+▸ **keyup**(`e`, `emitter`): `void`
 
 Triggered when a key gets up.
 
@@ -292,7 +292,7 @@ ___
 
 ### move
 
-▸ `Optional` **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when moved.
 
@@ -322,7 +322,7 @@ ___
 
 ### ok
 
-▸ `Optional` **ok**(`value`, `emitter`): `void`
+▸ **ok**(`value`, `emitter`): `void`
 
 Triggered when a dialog is successfully finished.
 
@@ -349,7 +349,7 @@ ___
 
 ### open
 
-▸ `Optional` **open**(`emitter`): `void`
+▸ **open**(`emitter`): `void`
 
 Triggered when a dialog is opened.
 
@@ -375,7 +375,7 @@ ___
 
 ### out
 
-▸ `Optional` **out**(`e`, `emitter`): `void`
+▸ **out**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets out of an emitter.
 
@@ -402,7 +402,7 @@ ___
 
 ### over
 
-▸ `Optional` **over**(`e`, `emitter`): `void`
+▸ **over**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets on an emitter.
 
@@ -429,7 +429,7 @@ ___
 
 ### removed
 
-▸ `Optional` **removed**(`container`): `void`
+▸ **removed**(`container`): `void`
 
 Triggered when removed from a container.
 
@@ -455,7 +455,7 @@ ___
 
 ### resize
 
-▸ `Optional` **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
+▸ **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
 
 Triggered when resized.
 
@@ -485,7 +485,7 @@ ___
 
 ### scale
 
-▸ `Optional` **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when scaled.
 
@@ -515,7 +515,7 @@ ___
 
 ### select
 
-▸ `Optional` **select**(`value`, `self`): `void`
+▸ **select**(`value`, `self`): `void`
 
 #### Parameters
 
@@ -540,7 +540,7 @@ ___
 
 ### shortcut
 
-▸ `Optional` **shortcut**(`e`, `emitter`): `void`
+▸ **shortcut**(`e`, `emitter`): `void`
 
 Triggered when a shortcut is pressed.
 
@@ -567,7 +567,7 @@ ___
 
 ### skew
 
-▸ `Optional` **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when skewed.
 
@@ -597,7 +597,7 @@ ___
 
 ### statechange
 
-▸ `Optional` **statechange**(`newState`, `oldState`, `emitter`): `void`
+▸ **statechange**(`newState`, `oldState`, `emitter`): `void`
 
 Triggered when a state is changed.
 
@@ -625,7 +625,7 @@ ___
 
 ### up
 
-▸ `Optional` **up**(`e`, `emitter`): `void`
+▸ **up**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets up on an emitter.
 
@@ -652,7 +652,7 @@ ___
 
 ### wheel
 
-▸ `Optional` **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
+▸ **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
 
 Triggered when a wheel moves.
 

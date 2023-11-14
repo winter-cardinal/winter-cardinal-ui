@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPaginationOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DPaginationOptions
 
-# Interface: DPaginationOptions<THEME\>
+# Interface: DPaginationOptions\<THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DLayoutHorizontalOptions`](DLayoutHorizontalOptions.md)<`THEME`\>
+- [`DLayoutHorizontalOptions`](DLayoutHorizontalOptions.md)\<`THEME`\>
 
   ↳ **`DPaginationOptions`**
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L87)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L88)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -183,7 +183,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: ``"HORIZONTAL"`` \| ``"VERTICAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
+• `Optional` **direction**: ``"VERTICAL"`` \| ``"HORIZONTAL"`` \| [`DLayoutDirection`](../index.md#dlayoutdirection-1)
 
 #### Inherited from
 
@@ -218,7 +218,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -264,7 +264,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -312,13 +312,13 @@ ___
 
 ### page
 
-• `Optional` **page**: [`DPaginationPageOptions`](DPaginationPageOptions.md)<[`DThemePaginationPage`](DThemePaginationPage.md)\>
+• `Optional` **page**: [`DPaginationPageOptions`](DPaginationPageOptions.md)\<[`DThemePaginationPage`](DThemePaginationPage.md)\>
 
 [DPagination](../classes/DPagination.md) page options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L92)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L93)
 
 ___
 
@@ -349,7 +349,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DPaginationOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -404,7 +404,7 @@ in favor of [value](DPaginationOptions.md#value).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L70)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L71)
 
 ___
 
@@ -464,7 +464,7 @@ A total number of pages.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L75)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L76)
 
 ___
 
@@ -528,7 +528,7 @@ in favor of [size](DPaginationOptions.md#size);
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L82)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L83)
 
 ___
 
@@ -540,7 +540,7 @@ An index number of a selected page.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L63)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L64)
 
 ___
 

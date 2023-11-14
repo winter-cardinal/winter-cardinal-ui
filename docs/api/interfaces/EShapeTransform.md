@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTransform
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTransform
 
 # Interface: EShapeTransform
 
@@ -412,7 +412,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(): `void`
+▸ **onChange**(): `void`
 
 Called when a value changes.
 
@@ -478,7 +478,7 @@ ___
 
 ### updateSkew
 
-▸ `Protected` **updateSkew**(): `void`
+▸ **updateSkew**(): `void`
 
 Called when the skew or the rotation changes.
 

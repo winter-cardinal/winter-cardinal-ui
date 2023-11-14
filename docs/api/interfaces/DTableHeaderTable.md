@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableHeaderTable
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableHeaderTable
 
-# Interface: DTableHeaderTable<ROW\>
+# Interface: DTableHeaderTable\<ROW\>
 
 ## Type parameters
 
@@ -29,7 +29,7 @@ ___
 
 ### data
 
-• `Readonly` **data**: [`DTableData`](DTableData.md)<`ROW`\>
+• `Readonly` **data**: [`DTableData`](DTableData.md)\<`ROW`\>
 
 #### Defined in
 

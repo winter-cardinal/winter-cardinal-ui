@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DControllerCommand
+[Winter Cardinal UI - v0.374.0](../index.md) / DControllerCommand
 
 # Interface: DControllerCommand
 
@@ -81,7 +81,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 

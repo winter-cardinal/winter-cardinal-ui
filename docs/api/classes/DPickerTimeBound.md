@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerTimeBound
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerTimeBound
 
 # Class: DPickerTimeBound
 
@@ -23,7 +23,7 @@
 
 ### constructor
 
-• **new DPickerTimeBound**(`options`, `onChange`)
+• **new DPickerTimeBound**(`options`, `onChange`): [`DPickerTimeBound`](DPickerTimeBound.md)
 
 #### Parameters
 
@@ -31,6 +31,10 @@
 | :------ | :------ |
 | `options` | `undefined` \| [`DPickerTimeBoundOptions`](../interfaces/DPickerTimeBoundOptions.md) |
 | `onChange` | () => `void` |
+
+#### Returns
+
+[`DPickerTimeBound`](DPickerTimeBound.md)
 
 #### Defined in
 

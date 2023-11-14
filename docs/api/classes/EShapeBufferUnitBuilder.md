@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeBufferUnitBuilder
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeBufferUnitBuilder
 
 # Class: EShapeBufferUnitBuilder
 
@@ -25,7 +25,11 @@
 
 ### constructor
 
-• **new EShapeBufferUnitBuilder**()
+• **new EShapeBufferUnitBuilder**(): [`EShapeBufferUnitBuilder`](EShapeBufferUnitBuilder.md)
+
+#### Returns
+
+[`EShapeBufferUnitBuilder`](EShapeBufferUnitBuilder.md)
 
 #### Defined in
 

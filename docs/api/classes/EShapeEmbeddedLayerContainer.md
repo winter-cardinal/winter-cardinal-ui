@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeEmbeddedLayerContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeEmbeddedLayerContainer
 
 # Class: EShapeEmbeddedLayerContainer
 
@@ -30,7 +30,7 @@
 
 ### constructor
 
-• **new EShapeEmbeddedLayerContainer**(`width`, `height`)
+• **new EShapeEmbeddedLayerContainer**(`width`, `height`): [`EShapeEmbeddedLayerContainer`](EShapeEmbeddedLayerContainer.md)
 
 #### Parameters
 
@@ -38,6 +38,10 @@
 | :------ | :------ |
 | `width` | `number` |
 | `height` | `number` |
+
+#### Returns
+
+[`EShapeEmbeddedLayerContainer`](EShapeEmbeddedLayerContainer.md)
 
 #### Defined in
 
@@ -47,7 +51,7 @@
 
 ### \_hasConnectors
 
-• `Protected` `Optional` **\_hasConnectors**: `Map`<[`EShapeEmbeddedLayer`](EShapeEmbeddedLayer.md), `boolean`\>
+• `Protected` `Optional` **\_hasConnectors**: `Map`\<[`EShapeEmbeddedLayer`](EShapeEmbeddedLayer.md), `boolean`\>
 
 #### Defined in
 
@@ -140,7 +144,7 @@ ___
 
 ### hasConnectors
 
-▸ `Protected` **hasConnectors**(`shapes`): `boolean`
+▸ **hasConnectors**(`shapes`): `boolean`
 
 #### Parameters
 
@@ -160,11 +164,11 @@ ___
 
 ### newHasConnectors
 
-▸ `Protected` **newHasConnectors**(): `Map`<[`EShapeEmbeddedLayer`](EShapeEmbeddedLayer.md), `boolean`\>
+▸ **newHasConnectors**(): `Map`\<[`EShapeEmbeddedLayer`](EShapeEmbeddedLayer.md), `boolean`\>
 
 #### Returns
 
-`Map`<[`EShapeEmbeddedLayer`](EShapeEmbeddedLayer.md), `boolean`\>
+`Map`\<[`EShapeEmbeddedLayer`](EShapeEmbeddedLayer.md), `boolean`\>
 
 #### Defined in
 

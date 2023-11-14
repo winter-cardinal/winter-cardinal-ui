@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilHtmlElementData
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilHtmlElementData
 
-# Interface: UtilHtmlElementData<ELEMENT\>
+# Interface: UtilHtmlElementData\<ELEMENT\>
 
 ## Type parameters
 
@@ -53,7 +53,7 @@ ___
 
 ### element
 
-• **element**: [`UtilHtmlElementElementData`](UtilHtmlElementElementData.md)<`ELEMENT`\>
+• **element**: [`UtilHtmlElementElementData`](UtilHtmlElementElementData.md)\<`ELEMENT`\>
 
 #### Defined in
 

@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueGesture
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueGesture
 
 # Class: EShapeActionValueGesture
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueGestureType`](../index.md#eshapeactionvaluegesturetype-1)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<[`EShapeActionValueGestureType`](../index.md#eshapeactionvaluegesturetype-1)\>
 
   ↳ **`EShapeActionValueGesture`**
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeActionValueGesture**(`condition?`, `subtype`, `operationType`, `scaleMin?`, `scaleMax?`)
+• **new EShapeActionValueGesture**(`condition?`, `subtype`, `operationType`, `scaleMin?`, `scaleMax?`): [`EShapeActionValueGesture`](EShapeActionValueGesture.md)
 
 #### Parameters
 
@@ -49,6 +49,10 @@
 | `operationType` | `number` | `undefined` |
 | `scaleMin` | `number` | `0.05` |
 | `scaleMax` | `number` | `20` |
+
+#### Returns
+
+[`EShapeActionValueGesture`](EShapeActionValueGesture.md)
 
 #### Overrides
 
@@ -148,7 +152,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -250,7 +254,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueGesture`](EShapeActionValueGesture.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueGesture`](EShapeActionValueGesture.md)
 
 #### Parameters
 
@@ -271,7 +275,7 @@ ___
 
 ### toSubType
 
-▸ `Static` `Protected` **toSubType**(`serialized`): [`EShapeActionValueGestureType`](../index.md#eshapeactionvaluegesturetype-1)
+▸ **toSubType**(`serialized`): [`EShapeActionValueGestureType`](../index.md#eshapeactionvaluegesturetype-1)
 
 #### Parameters
 

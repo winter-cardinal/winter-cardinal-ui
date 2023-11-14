@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisContainerImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisContainerImpl
 
-# Class: DChartAxisContainerImpl<CHART\>
+# Class: DChartAxisContainerImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+- [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -44,20 +44,24 @@
 
 ### constructor
 
-• **new DChartAxisContainerImpl**<`CHART`\>(`plotArea`, `options?`)
+• **new DChartAxisContainerImpl**\<`CHART`\>(`plotArea`, `options?`): [`DChartAxisContainerImpl`](DChartAxisContainerImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\> |
-| `options?` | [`DChartAxisContainerOptions`](../interfaces/DChartAxisContainerOptions.md)<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `options?` | [`DChartAxisContainerOptions`](../interfaces/DChartAxisContainerOptions.md)\<`CHART`\> |
+
+#### Returns
+
+[`DChartAxisContainerImpl`](DChartAxisContainerImpl.md)\<`CHART`\>
 
 #### Defined in
 
@@ -77,7 +81,7 @@ ___
 
 ### \_list
 
-• `Protected` **\_list**: `Map`<[`DChartAxisPosition`](../index.md#dchartaxisposition-1), [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>[]\>
+• `Protected` **\_list**: `Map`\<[`DChartAxisPosition`](../index.md#dchartaxisposition-1), [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\>[]\>
 
 #### Defined in
 
@@ -87,7 +91,7 @@ ___
 
 ### \_plotArea
 
-• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Defined in
 
@@ -115,11 +119,11 @@ ___
 
 ### plotArea
 
-• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartPlotArea`](../interfaces/DChartPlotArea.md)<`CHART`\>
+[`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -139,7 +143,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 
@@ -157,7 +161,7 @@ ___
 
 ### clear
 
-▸ **clear**(`position`): [`DChartAxisContainerImpl`](DChartAxisContainerImpl.md)<`CHART`\>
+▸ **clear**(`position`): [`DChartAxisContainerImpl`](DChartAxisContainerImpl.md)\<`CHART`\>
 
 #### Parameters
 
@@ -167,7 +171,7 @@ ___
 
 #### Returns
 
-[`DChartAxisContainerImpl`](DChartAxisContainerImpl.md)<`CHART`\>
+[`DChartAxisContainerImpl`](DChartAxisContainerImpl.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -199,7 +203,7 @@ ___
 
 ### get
 
-▸ **get**(`position`, `index`): ``null`` \| [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>
+▸ **get**(`position`, `index`): ``null`` \| [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\>
 
 #### Parameters
 
@@ -210,7 +214,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>
+``null`` \| [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -230,7 +234,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramLayerBackground
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramLayerBackground
 
 # Interface: DDiagramLayerBackground
 
@@ -95,7 +95,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeFillLike`](EShapeFillLike.md)\> |
+| `target?` | `Partial`\<[`EShapeFillLike`](EShapeFillLike.md)\> |
 
 #### Returns
 

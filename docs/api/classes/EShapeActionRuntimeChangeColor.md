@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeChangeColor
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeChangeColor
 
 # Class: EShapeActionRuntimeChangeColor
 
@@ -56,13 +56,17 @@
 
 ### constructor
 
-• **new EShapeActionRuntimeChangeColor**(`value`)
+• **new EShapeActionRuntimeChangeColor**(`value`): [`EShapeActionRuntimeChangeColor`](EShapeActionRuntimeChangeColor.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueChangeColor`](EShapeActionValueChangeColor.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeChangeColor`](EShapeActionRuntimeChangeColor.md)
 
 #### Overrides
 
@@ -86,7 +90,7 @@ ___
 
 ### blend
 
-• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Defined in
 
@@ -106,7 +110,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -218,7 +222,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -271,7 +275,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -297,7 +301,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -478,7 +482,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -738,7 +742,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -764,7 +768,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -790,7 +794,7 @@ ___
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| `e` | `KeyboardEvent` \| `InteractionEvent` |
 
 #### Returns
 
@@ -808,7 +812,7 @@ ___
 
 ### set
 
-▸ `Protected` **set**(`shape`, `runtime`, `time`, `color`, `alpha`, `blend`): `void`
+▸ **set**(`shape`, `runtime`, `time`, `color`, `alpha`, `blend`): `void`
 
 #### Parameters
 

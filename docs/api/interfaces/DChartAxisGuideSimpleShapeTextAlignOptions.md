@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisGuideSimpleShapeTextAlignOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisGuideSimpleShapeTextAlignOptions
 
 # Interface: DChartAxisGuideSimpleShapeTextAlignOptions
 
@@ -13,7 +13,7 @@
 
 ### horizontal
 
-• `Optional` **horizontal**: ``"CENTER"`` \| ``"RIGHT"`` \| ``"LEFT"`` \| ``"OUTSIDE_LEFT"`` \| ``"OUTSIDE_RIGHT"`` \| [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1)
+• `Optional` **horizontal**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| ``"OUTSIDE_LEFT"`` \| ``"OUTSIDE_RIGHT"`` \| [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1)
 
 #### Defined in
 

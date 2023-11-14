@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChart
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteChart
 
 # Class: DThemeWhiteChart
 
@@ -70,7 +70,11 @@
 
 ### constructor
 
-• **new DThemeWhiteChart**()
+• **new DThemeWhiteChart**(): [`DThemeWhiteChart`](DThemeWhiteChart.md)
+
+#### Returns
+
+[`DThemeWhiteChart`](DThemeWhiteChart.md)
 
 #### Inherited from
 

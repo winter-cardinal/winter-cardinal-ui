@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodeSpace
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodeSpace
 
 # Class: FormatNodeSpace
 
@@ -20,13 +20,17 @@
 
 ### constructor
 
-• **new FormatNodeSpace**(`node`)
+• **new FormatNodeSpace**(`node`): [`FormatNodeSpace`](FormatNodeSpace.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | [`FormatNode`](../interfaces/FormatNode.md) |
+
+#### Returns
+
+[`FormatNodeSpace`](FormatNodeSpace.md)
 
 #### Defined in
 

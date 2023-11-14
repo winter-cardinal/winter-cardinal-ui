@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkChartSelectionMarker
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkChartSelectionMarker
 
 # Class: DThemeDarkChartSelectionMarker
 
@@ -23,7 +23,11 @@
 
 ### constructor
 
-• **new DThemeDarkChartSelectionMarker**()
+• **new DThemeDarkChartSelectionMarker**(): [`DThemeDarkChartSelectionMarker`](DThemeDarkChartSelectionMarker.md)
+
+#### Returns
+
+[`DThemeDarkChartSelectionMarker`](DThemeDarkChartSelectionMarker.md)
 
 #### Inherited from
 

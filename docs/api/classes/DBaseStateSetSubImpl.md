@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSetSubImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetSubImpl
 
 # Class: DBaseStateSetSubImpl
 
@@ -39,14 +39,18 @@
 
 ### constructor
 
-• **new DBaseStateSetSubImpl**(`parent`, `intervalToDatum`)
+• **new DBaseStateSetSubImpl**(`parent`, `intervalToDatum`): [`DBaseStateSetSubImpl`](DBaseStateSetSubImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
-| `intervalToDatum` | `Map`<`number`, [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)\> |
+| `intervalToDatum` | `Map`\<`number`, [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)\> |
+
+#### Returns
+
+[`DBaseStateSetSubImpl`](DBaseStateSetSubImpl.md)
 
 #### Defined in
 
@@ -56,7 +60,7 @@
 
 ### \_intervalToDatum
 
-• `Protected` `Readonly` **\_intervalToDatum**: `Map`<`number`, [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)\>
+• `Protected` `Readonly` **\_intervalToDatum**: `Map`\<`number`, [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)\>
 
 #### Defined in
 
@@ -76,7 +80,7 @@ ___
 
 ### \_stateToInterval
 
-• `Protected` `Readonly` **\_stateToInterval**: `Map`<`string`, `number`\>
+• `Protected` `Readonly` **\_stateToInterval**: `Map`\<`string`, `number`\>
 
 #### Defined in
 
@@ -153,7 +157,7 @@ ___
 
 ### newDatum
 
-▸ `Protected` `Abstract` **newDatum**(`interval`): [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)
+▸ **newDatum**(`interval`): [`DBaseStateSetSubDatum`](../interfaces/DBaseStateSetSubDatum.md)
 
 #### Parameters
 

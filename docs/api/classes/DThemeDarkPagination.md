@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkPagination
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkPagination
 
 # Class: DThemeDarkPagination
 
@@ -75,7 +75,11 @@
 
 ### constructor
 
-• **new DThemeDarkPagination**()
+• **new DThemeDarkPagination**(): [`DThemeDarkPagination`](DThemeDarkPagination.md)
+
+#### Returns
+
+[`DThemeDarkPagination`](DThemeDarkPagination.md)
 
 #### Inherited from
 

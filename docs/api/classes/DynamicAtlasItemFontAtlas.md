@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlasItemFontAtlas
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlasItemFontAtlas
 
 # Class: DynamicAtlasItemFontAtlas
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new DynamicAtlasItemFontAtlas**(`atlas`, `baseTexture`)
+• **new DynamicAtlasItemFontAtlas**(`atlas`, `baseTexture`): [`DynamicAtlasItemFontAtlas`](DynamicAtlasItemFontAtlas.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@
 | :------ | :------ |
 | `atlas` | [`DynamicSDFFontAtlas`](DynamicSDFFontAtlas.md) |
 | `baseTexture` | `BaseTexture` |
+
+#### Returns
+
+[`DynamicAtlasItemFontAtlas`](DynamicAtlasItemFontAtlas.md)
 
 #### Overrides
 

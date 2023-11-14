@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTreeItemText
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTreeItemText
 
 # Class: DThemeDarkTreeItemText
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)<`string`\>
+- [`DThemeDarkImageBase`](DThemeDarkImageBase.md)\<`string`\>
 
   ↳ **`DThemeDarkTreeItemText`**
 
@@ -108,7 +108,11 @@
 
 ### constructor
 
-• **new DThemeDarkTreeItemText**()
+• **new DThemeDarkTreeItemText**(): [`DThemeDarkTreeItemText`](DThemeDarkTreeItemText.md)
+
+#### Returns
+
+[`DThemeDarkTreeItemText`](DThemeDarkTreeItemText.md)
 
 #### Overrides
 
@@ -1981,7 +1985,7 @@ ___
 
 ### newStyle
 
-▸ `Protected` **newStyle**(): [`DThemeDarkTreeItems`](DThemeDarkTreeItems.md)
+▸ **newStyle**(): [`DThemeDarkTreeItems`](DThemeDarkTreeItems.md)
 
 #### Returns
 
@@ -1995,14 +1999,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

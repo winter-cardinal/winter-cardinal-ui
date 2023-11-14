@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionSub
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionSub
 
-# Interface: DChartSelectionSub<CHART\>
+# Interface: DChartSelectionSub\<CHART\>
 
 ## Type parameters
 
@@ -57,7 +57,7 @@ ___
 
 ### series
 
-• `Readonly` **series**: ``null`` \| [`DChartSeries`](DChartSeries.md)<`CHART`\>
+• `Readonly` **series**: ``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\>
 
 #### Defined in
 
@@ -67,7 +67,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 Alias method for `on`
 
@@ -81,7 +81,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -101,7 +101,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 
 #### Returns
 
@@ -115,7 +115,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -216,7 +216,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 Alias method for `removeListener`
 
@@ -231,7 +231,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 #### Inherited from
 
@@ -245,7 +245,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+▸ **on**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 Add a listener for a given event.
 
@@ -259,7 +259,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 `this`.
 
@@ -275,7 +275,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+▸ **once**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 Add a one-time listener for a given event.
 
@@ -289,7 +289,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 `this`.
 
@@ -305,7 +305,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+▸ **removeAllListeners**(`event?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -317,7 +317,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 `this`.
 
@@ -333,7 +333,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 Remove the listeners of a given event.
 
@@ -348,7 +348,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\>
+[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
 
 `this`.
 
@@ -370,8 +370,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `series` | [`DChartSeries`](DChartSeries.md)<`CHART`\> |
-| `result` | [`DChartSeriesHitResult`](../classes/DChartSeriesHitResult.md) \| [`DChartSelectionSub`](DChartSelectionSub.md)<`CHART`\> |
+| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
+| `result` | [`DChartSeriesHitResult`](../classes/DChartSeriesHitResult.md) \| [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\> |
 
 #### Returns
 

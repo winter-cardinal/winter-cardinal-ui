@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionShapeBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionShapeBase
 
-# Class: DChartSelectionShapeBase<CHART\>
+# Class: DChartSelectionShapeBase\<CHART\>
 
 ## Type parameters
 
@@ -20,7 +20,7 @@
 
 ## Implements
 
-- [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)<`CHART`\>
+- [`DChartSelectionShape`](../interfaces/DChartSelectionShape.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -55,19 +55,23 @@
 
 ### constructor
 
-• **new DChartSelectionShapeBase**<`CHART`\>(`options?`)
+• **new DChartSelectionShapeBase**\<`CHART`\>(`options?`): [`DChartSelectionShapeBase`](DChartSelectionShapeBase.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)<`CHART`\> |
+| `options?` | [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)\<`CHART`\> |
+
+#### Returns
+
+[`DChartSelectionShapeBase`](DChartSelectionShapeBase.md)\<`CHART`\>
 
 #### Defined in
 
@@ -111,7 +115,7 @@ ___
 
 ### \_options
 
-• `Protected` `Optional` **\_options**: [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)<`CHART`\>
+• `Protected` `Optional` **\_options**: [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)\<`CHART`\>
 
 #### Defined in
 
@@ -141,7 +145,7 @@ ___
 
 ### \_style
 
-• `Protected` **\_style**: [`DChartSelectionStyle`](../index.md#dchartselectionstyle)<`CHART`\>
+• `Protected` **\_style**: [`DChartSelectionStyle`](../index.md#dchartselectionstyle)\<`CHART`\>
 
 #### Defined in
 
@@ -167,7 +171,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 
 #### Returns
 
@@ -185,7 +189,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(`type`): [`DThemeChartSelectionShape`](../interfaces/DThemeChartSelectionShape.md)
+▸ **getTheme**(`type`): [`DThemeChartSelectionShape`](../interfaces/DThemeChartSelectionShape.md)
 
 #### Parameters
 
@@ -205,7 +209,7 @@ ___
 
 ### getType
 
-▸ `Protected` `Abstract` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -219,7 +223,7 @@ ___
 
 ### newShape
 
-▸ `Protected` **newShape**(`state`, `theme`): [`EShape`](../interfaces/EShape.md)
+▸ **newShape**(`state`, `theme`): [`EShape`](../interfaces/EShape.md)
 
 #### Parameters
 
@@ -246,10 +250,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
-| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -267,7 +271,7 @@ ___
 
 ### setStyle
 
-▸ `Protected` **setStyle**(`this`, `shape`, `series`): `void`
+▸ **setStyle**(`this`, `shape`, `series`): `void`
 
 #### Parameters
 
@@ -275,7 +279,7 @@ ___
 | :------ | :------ |
 | `this` | `unknown` |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](../interfaces/DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -289,13 +293,13 @@ ___
 
 ### toTheme
 
-▸ `Protected` **toTheme**(`options?`): [`DThemeChartSelectionShape`](../interfaces/DThemeChartSelectionShape.md)
+▸ **toTheme**(`options?`): [`DThemeChartSelectionShape`](../interfaces/DThemeChartSelectionShape.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)<`CHART`\> |
+| `options?` | [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)\<`CHART`\> |
 
 #### Returns
 
@@ -345,13 +349,13 @@ ___
 
 ### update
 
-▸ `Abstract` **update**(`container`, `position`, `mappedPosition`): `boolean`
+▸ **update**(`container`, `position`, `mappedPosition`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
 

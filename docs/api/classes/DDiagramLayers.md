@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramLayers
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramLayers
 
 # Class: DDiagramLayers
 
@@ -24,13 +24,17 @@
 
 ### constructor
 
-• **new DDiagramLayers**()
+• **new DDiagramLayers**(): [`DDiagramLayers`](DDiagramLayers.md)
+
+#### Returns
+
+[`DDiagramLayers`](DDiagramLayers.md)
 
 ## Methods
 
 ### bringAllToFront
 
-▸ `Static` **bringAllToFront**(`targets`): `boolean`
+▸ **bringAllToFront**(`targets`): `boolean`
 
 #### Parameters
 
@@ -50,7 +54,7 @@ ___
 
 ### bringToFront
 
-▸ `Static` **bringToFront**(`target`): `boolean`
+▸ **bringToFront**(`target`): `boolean`
 
 #### Parameters
 
@@ -70,7 +74,7 @@ ___
 
 ### doBringToFront
 
-▸ `Static` `Protected` **doBringToFront**(`target`, `layers`, `offset`): `boolean`
+▸ **doBringToFront**(`target`, `layers`, `offset`): `boolean`
 
 #### Parameters
 
@@ -92,7 +96,7 @@ ___
 
 ### hide
 
-▸ `Static` **hide**(`target`): `boolean`
+▸ **hide**(`target`): `boolean`
 
 #### Parameters
 
@@ -112,7 +116,7 @@ ___
 
 ### hideAll
 
-▸ `Static` **hideAll**(`targets`): `boolean`
+▸ **hideAll**(`targets`): `boolean`
 
 #### Parameters
 
@@ -132,7 +136,7 @@ ___
 
 ### show
 
-▸ `Static` **show**(`target`): `boolean`
+▸ **show**(`target`): `boolean`
 
 #### Parameters
 
@@ -152,7 +156,7 @@ ___
 
 ### showAll
 
-▸ `Static` **showAll**(`targets`): `boolean`
+▸ **showAll**(`targets`): `boolean`
 
 #### Parameters
 
@@ -172,7 +176,7 @@ ___
 
 ### toLayer
 
-▸ `Static` **toLayer**(`shape`): `undefined` \| ``null`` \| [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)
+▸ **toLayer**(`shape`): `undefined` \| ``null`` \| [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)
 
 #### Parameters
 
@@ -192,7 +196,7 @@ ___
 
 ### toLayers
 
-▸ `Static` **toLayers**(`shape`, `indices`): [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)[]
+▸ **toLayers**(`shape`, `indices`): [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)[]
 
 #### Parameters
 

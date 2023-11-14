@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapePointsMarkerContainerImplNoop
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapePointsMarkerContainerImplNoop
 
 # Class: EShapePointsMarkerContainerImplNoop
 
@@ -35,7 +35,11 @@
 
 ### constructor
 
-• `Protected` **new EShapePointsMarkerContainerImplNoop**()
+• **new EShapePointsMarkerContainerImplNoop**(): [`EShapePointsMarkerContainerImplNoop`](EShapePointsMarkerContainerImplNoop.md)
+
+#### Returns
+
+[`EShapePointsMarkerContainerImplNoop`](EShapePointsMarkerContainerImplNoop.md)
 
 #### Defined in
 
@@ -210,7 +214,7 @@ ___
 
 ### getInstance
 
-▸ `Static` **getInstance**(): [`EShapePointsMarkerContainerImplNoop`](EShapePointsMarkerContainerImplNoop.md)
+▸ **getInstance**(): [`EShapePointsMarkerContainerImplNoop`](EShapePointsMarkerContainerImplNoop.md)
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / FormatNodee
+[Winter Cardinal UI - v0.374.0](../index.md) / FormatNodee
 
 # Class: FormatNodee
 
@@ -26,13 +26,17 @@
 
 ### constructor
 
-• **new FormatNodee**(`precision?`)
+• **new FormatNodee**(`precision?`): [`FormatNodee`](FormatNodee.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `precision?` | `string` |
+
+#### Returns
+
+[`FormatNodee`](FormatNodee.md)
 
 #### Inherited from
 

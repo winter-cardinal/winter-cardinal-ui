@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueShowHideLayer
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueShowHideLayer
 
 # Class: EShapeActionValueShowHideLayer
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`LAYER`](../index.md#layer)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<typeof [`LAYER`](../index.md#layer)\>
 
   ↳ **`EShapeActionValueShowHideLayer`**
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeActionValueShowHideLayer**(`condition`, `layers`, `bringToFront`)
+• **new EShapeActionValueShowHideLayer**(`condition`, `layers`, `bringToFront`): [`EShapeActionValueShowHideLayer`](EShapeActionValueShowHideLayer.md)
 
 #### Parameters
 
@@ -47,6 +47,10 @@
 | `condition` | `string` |
 | `layers` | `number`[] |
 | `bringToFront` | `boolean` |
+
+#### Returns
+
+[`EShapeActionValueShowHideLayer`](EShapeActionValueShowHideLayer.md)
 
 #### Overrides
 
@@ -136,7 +140,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -202,7 +206,7 @@ ___
 
 ### serializeLayers
 
-▸ `Protected` **serializeLayers**(`manager`): `number`
+▸ **serializeLayers**(`manager`): `number`
 
 #### Parameters
 
@@ -258,7 +262,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueShowHideLayer`](EShapeActionValueShowHideLayer.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueShowHideLayer`](EShapeActionValueShowHideLayer.md)
 
 #### Parameters
 
@@ -279,7 +283,7 @@ ___
 
 ### deserializeLayers
 
-▸ `Static` **deserializeLayers**(`target`, `manager`): `number`[]
+▸ **deserializeLayers**(`target`, `manager`): `number`[]
 
 #### Parameters
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableBodyCellActionDialogOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableBodyCellActionDialogOptions
 
-# Interface: DTableBodyCellActionDialogOptions<ROW, VALUE, THEME\>
+# Interface: DTableBodyCellActionDialogOptions\<ROW, VALUE, THEME\>
 
 [DButton](../classes/DButton.md) options.
 
@@ -10,11 +10,11 @@
 | :------ | :------ |
 | `ROW` | `unknown` |
 | `VALUE` | `unknown` |
-| `THEME` | extends [`DThemeTableBodyCellActionDialog`](DThemeTableBodyCellActionDialog.md)<`VALUE`\> = [`DThemeTableBodyCellActionDialog`](DThemeTableBodyCellActionDialog.md)<`VALUE`\> |
+| `THEME` | extends [`DThemeTableBodyCellActionDialog`](DThemeTableBodyCellActionDialog.md)\<`VALUE`\> = [`DThemeTableBodyCellActionDialog`](DThemeTableBodyCellActionDialog.md)\<`VALUE`\> |
 
 ## Hierarchy
 
-- [`DTableBodyCellSelectDialogOptions`](DTableBodyCellSelectDialogOptions.md)<`ROW`, `VALUE`, `THEME`\>
+- [`DTableBodyCellSelectDialogOptions`](DTableBodyCellSelectDialogOptions.md)\<`ROW`, `VALUE`, `THEME`\>
 
   ↳ **`DTableBodyCellActionDialogOptions`**
 
@@ -139,7 +139,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -155,7 +155,7 @@ ___
 
 ### group
 
-• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)<[`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\>, `any`\>\>
+• `Optional` **group**: [`DButtonGroup`](../classes/DButtonGroup.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, [`DButtonGroupOptions`](DButtonGroupOptions.md)\<[`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\>, `any`\>\>
 
 A button group.
 
@@ -206,7 +206,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -252,7 +252,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DButtonOnOptions`](DButtonOnOptions.md)<``null`` \| `VALUE`, `any`\>
+• `Optional` **on**: [`DButtonOnOptions`](DButtonOnOptions.md)\<``null`` \| `VALUE`, `any`\>
 
 Mappings of event names and handlers.
 
@@ -325,7 +325,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DTableBodyCellActionDialogOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -416,13 +416,13 @@ False to stop synchronization of the selected value and the text.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts#L20)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-cell-select-dialog.ts#L21)
 
 ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<``null`` \| `VALUE`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<``null`` \| `VALUE`\>
 
 #### Inherited from
 

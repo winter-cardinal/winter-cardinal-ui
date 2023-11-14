@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTilePyramidsFromOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTilePyramidsFromOptions
 
 # Interface: DMapTilePyramidsFromOptions
 
@@ -25,7 +25,7 @@ ___
 
 ### canvas
 
-• **canvas**: [`DDiagramCanvasBase`](../classes/DDiagramCanvasBase.md)<`any`, `any`\>
+• **canvas**: [`DDiagramCanvasBase`](../classes/DDiagramCanvasBase.md)\<`any`, `any`\>
 
 #### Defined in
 
@@ -45,7 +45,7 @@ ___
 
 ### plane
 
-• `Optional` **plane**: `Partial`<[`DMapTilePyramidPlaneOptions`](DMapTilePyramidPlaneOptions.md)\>
+• `Optional` **plane**: `Partial`\<[`DMapTilePyramidPlaneOptions`](DMapTilePyramidPlaneOptions.md)\>
 
 #### Defined in
 

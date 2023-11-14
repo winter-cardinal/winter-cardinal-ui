@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataImpl
 
 # Class: EShapeDataImpl
 
@@ -67,7 +67,11 @@
 
 ### constructor
 
-• **new EShapeDataImpl**()
+• **new EShapeDataImpl**(): [`EShapeDataImpl`](EShapeDataImpl.md)
+
+#### Returns
+
+[`EShapeDataImpl`](EShapeDataImpl.md)
 
 #### Defined in
 
@@ -77,7 +81,7 @@
 
 ### \_alias
 
-• `Protected` `Optional` **\_alias**: `Record`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
+• `Protected` `Optional` **\_alias**: `Record`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
 
 #### Defined in
 
@@ -137,11 +141,11 @@ ___
 
 ### alias
 
-• `get` **alias**(): `Record`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
+• `get` **alias**(): `Record`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
 
 #### Returns
 
-`Record`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
+`Record`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
 
 #### Implementation of
 
@@ -737,7 +741,7 @@ ___
 
 ### isMapped
 
-▸ `Protected` **isMapped**(`target`): target is DDiagramSerializedDataWithMapping
+▸ **isMapped**(`target`): target is DDiagramSerializedDataWithMapping
 
 #### Parameters
 
@@ -757,11 +761,11 @@ ___
 
 ### newAlias
 
-▸ `Protected` **newAlias**(): `Record`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
+▸ **newAlias**(): `Record`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
 
 #### Returns
 
-`Record`<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
+`Record`\<`string`, [`EShapeDataValue`](../interfaces/EShapeDataValue.md)\>
 
 #### Defined in
 
@@ -771,7 +775,7 @@ ___
 
 ### newMapping
 
-▸ `Protected` **newMapping**(): [`EShapeDataMapping`](../interfaces/EShapeDataMapping.md)
+▸ **newMapping**(): [`EShapeDataMapping`](../interfaces/EShapeDataMapping.md)
 
 #### Returns
 
@@ -785,7 +789,7 @@ ___
 
 ### newPrivate
 
-▸ `Protected` **newPrivate**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
+▸ **newPrivate**(): [`EShapeDataScoped`](../interfaces/EShapeDataScoped.md)
 
 #### Returns
 
@@ -799,7 +803,7 @@ ___
 
 ### newSystem
 
-▸ `Protected` **newSystem**(): [`EShapeDataSystem`](../interfaces/EShapeDataSystem.md)
+▸ **newSystem**(): [`EShapeDataSystem`](../interfaces/EShapeDataSystem.md)
 
 #### Returns
 

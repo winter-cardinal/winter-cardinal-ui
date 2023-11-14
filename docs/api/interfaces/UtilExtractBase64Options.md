@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilExtractBase64Options
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilExtractBase64Options
 
 # Interface: UtilExtractBase64Options
 
@@ -148,7 +148,7 @@ ___
 
 ### target
 
-• **target**: [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>
+• **target**: [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>
 
 #### Inherited from
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDialogGestureImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDialogGestureImpl
 
-# Class: DDialogGestureImpl<PARENT\>
+# Class: DDialogGestureImpl\<PARENT\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DDialogGesture`](../interfaces/DDialogGesture.md)<`PARENT`\>
+- [`DDialogGesture`](../interfaces/DDialogGesture.md)\<`PARENT`\>
 
 ## Table of contents
 
@@ -48,13 +48,13 @@
 
 ### constructor
 
-• **new DDialogGestureImpl**<`PARENT`\>(`parent`, `options`)
+• **new DDialogGestureImpl**\<`PARENT`\>(`parent`, `options`): [`DDialogGestureImpl`](DDialogGestureImpl.md)\<`PARENT`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `PARENT` | extends [`DDialogGestureParent`](../interfaces/DDialogGestureParent.md)<`PARENT`\> |
+| `PARENT` | extends [`DDialogGestureParent`](../interfaces/DDialogGestureParent.md) |
 
 #### Parameters
 
@@ -62,6 +62,10 @@
 | :------ | :------ |
 | `parent` | `PARENT` |
 | `options` | [`DDialogGestureOptions`](../interfaces/DDialogGestureOptions.md) |
+
+#### Returns
+
+[`DDialogGestureImpl`](DDialogGestureImpl.md)\<`PARENT`\>
 
 #### Defined in
 
@@ -131,7 +135,7 @@ ___
 
 ### \_util
 
-• `Protected` `Optional` **\_util**: [`UtilGesture`](UtilGesture.md)<`any`\>
+• `Protected` `Optional` **\_util**: [`UtilGesture`](UtilGesture.md)\<`any`\>
 
 #### Defined in
 
@@ -285,7 +289,7 @@ ___
 
 ### newConstraint
 
-▸ `Protected` **newConstraint**(): [`DDialogGestureConstraint`](../index.md#ddialoggestureconstraint)
+▸ **newConstraint**(): [`DDialogGestureConstraint`](../index.md#ddialoggestureconstraint)
 
 #### Returns
 
@@ -299,11 +303,11 @@ ___
 
 ### newUtil
 
-▸ `Protected` **newUtil**(): [`UtilGesture`](UtilGesture.md)<`any`\>
+▸ **newUtil**(): [`UtilGesture`](UtilGesture.md)\<`any`\>
 
 #### Returns
 
-[`UtilGesture`](UtilGesture.md)<`any`\>
+[`UtilGesture`](UtilGesture.md)\<`any`\>
 
 #### Defined in
 
@@ -333,13 +337,13 @@ ___
 
 ### toConstrained
 
-▸ `Protected` **toConstrained**(`target`, `layer`, `x`, `y`): `void`
+▸ **toConstrained**(`target`, `layer`, `x`, `y`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `layer` | [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md) |
 | `x` | `number` |
 | `y` | `number` |

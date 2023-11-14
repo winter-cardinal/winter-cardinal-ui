@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeTableBody
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeTableBody
 
 # Interface: DThemeTableBody
 
@@ -819,7 +819,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L65)
+[src/main/typescript/wcardinal/ui/d-table-body.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body.ts#L66)
 
 ___
 

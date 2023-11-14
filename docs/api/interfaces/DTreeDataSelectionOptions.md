@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataSelectionOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionOptions
 
-# Interface: DTreeDataSelectionOptions<ITEM, EMITTER\>
+# Interface: DTreeDataSelectionOptions\<ITEM, EMITTER\>
 
 [DTreeDataSelection](DTreeDataSelection.md) options.
 
@@ -22,7 +22,7 @@
 
 ### on
 
-• `Optional` **on**: [`DTreeDataSelectionOnOptions`](DTreeDataSelectionOnOptions.md)<`EMITTER`\>
+• `Optional` **on**: [`DTreeDataSelectionOnOptions`](DTreeDataSelectionOnOptions.md)\<`EMITTER`\>
 
 Mappings of event names and handlers.
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisGuideSimple
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisGuideSimple
 
-# Class: DChartAxisGuideSimple<CHART\>
+# Class: DChartAxisGuideSimple\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)<`CHART`\>
+- [`DChartAxisGuide`](../interfaces/DChartAxisGuide.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -50,19 +50,23 @@
 
 ### constructor
 
-• **new DChartAxisGuideSimple**<`CHART`\>(`options?`)
+• **new DChartAxisGuideSimple**\<`CHART`\>(`options?`): [`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DChartAxisGuideSimpleOptions`](../interfaces/DChartAxisGuideSimpleOptions.md) |
+
+#### Returns
+
+[`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)\<`CHART`\>
 
 #### Defined in
 
@@ -72,7 +76,7 @@
 
 ### \_axis
 
-• `Protected` `Optional` **\_axis**: [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>
+• `Protected` `Optional` **\_axis**: [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\>
 
 #### Defined in
 
@@ -82,7 +86,7 @@ ___
 
 ### \_container
 
-• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\>
+• `Protected` `Optional` **\_container**: [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -132,7 +136,7 @@ ___
 
 ### \_shape
 
-• `Protected` `Optional` **\_shape**: [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+• `Protected` `Optional` **\_shape**: [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 
@@ -190,11 +194,11 @@ ___
 
 ### shape
 
-• `get` **shape**(): [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+• `get` **shape**(): [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Returns
 
-[`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+[`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 
@@ -210,9 +214,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](../interfaces/DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
-| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\> |
+| `axis` | [`DChartAxis`](../interfaces/DChartAxis.md)\<`CHART`\> |
 
 #### Returns
 
@@ -248,11 +252,11 @@ ___
 
 ### hide
 
-▸ **hide**(): [`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)<`CHART`\>
+▸ **hide**(): [`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)<`CHART`\>
+[`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -302,11 +306,11 @@ ___
 
 ### newShape
 
-▸ `Protected` **newShape**(): [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+▸ **newShape**(): [`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Returns
 
-[`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+[`DChartAxisGuideSimpleShape`](../interfaces/DChartAxisGuideSimpleShape.md)\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 
@@ -316,11 +320,11 @@ ___
 
 ### show
 
-▸ **show**(): [`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)<`CHART`\>
+▸ **show**(): [`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)<`CHART`\>
+[`DChartAxisGuideSimple`](DChartAxisGuideSimple.md)\<`CHART`\>
 
 #### Implementation of
 

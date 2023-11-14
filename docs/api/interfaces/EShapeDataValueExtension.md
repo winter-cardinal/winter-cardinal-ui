@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataValueExtension
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDataValueExtension
 
 # Interface: EShapeDataValueExtension
 
@@ -47,7 +47,7 @@ ___
 
 ### start
 
-• `Optional` **start**: (`canvas`: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>) => `void`
+• `Optional` **start**: (`canvas`: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>) => `void`
 
 #### Type declaration
 
@@ -57,7 +57,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `canvas` | [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\> |
+| `canvas` | [`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\> |
 
 ##### Returns
 
@@ -71,7 +71,7 @@ ___
 
 ### stop
 
-• `Optional` **stop**: (`canvas`: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>) => `void`
+• `Optional` **stop**: (`canvas`: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>) => `void`
 
 #### Type declaration
 
@@ -81,7 +81,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `canvas` | [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\> |
+| `canvas` | [`DDiagramCanvas`](../classes/DDiagramCanvas.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)\<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\> |
 
 ##### Returns
 

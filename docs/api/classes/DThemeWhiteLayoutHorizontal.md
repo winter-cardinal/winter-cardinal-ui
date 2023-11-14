@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteLayoutHorizontal
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteLayoutHorizontal
 
 # Class: DThemeWhiteLayoutHorizontal
 
@@ -86,7 +86,11 @@
 
 ### constructor
 
-• **new DThemeWhiteLayoutHorizontal**()
+• **new DThemeWhiteLayoutHorizontal**(): [`DThemeWhiteLayoutHorizontal`](DThemeWhiteLayoutHorizontal.md)
+
+#### Returns
+
+[`DThemeWhiteLayoutHorizontal`](DThemeWhiteLayoutHorizontal.md)
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMapTile
+[Winter Cardinal UI - v0.374.0](../index.md) / DMapTile
 
 # Class: DMapTile
 
@@ -29,7 +29,7 @@
 
 ### constructor
 
-• **new DMapTile**(`parent`, `tx`, `ty`, `px`, `py`, `scale`)
+• **new DMapTile**(`parent`, `tx`, `ty`, `px`, `py`, `scale`): [`DMapTile`](DMapTile.md)
 
 #### Parameters
 
@@ -41,6 +41,10 @@
 | `px` | `number` |
 | `py` | `number` |
 | `scale` | `number` |
+
+#### Returns
+
+[`DMapTile`](DMapTile.md)
 
 #### Defined in
 

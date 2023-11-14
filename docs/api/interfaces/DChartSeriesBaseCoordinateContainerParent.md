@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesBaseCoordinateContainerParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesBaseCoordinateContainerParent
 
-# Interface: DChartSeriesBaseCoordinateContainerParent<CHART\>
+# Interface: DChartSeriesBaseCoordinateContainerParent\<CHART\>
 
 ## Type parameters
 
@@ -18,7 +18,7 @@
 
 ### container
 
-• **container**: ``null`` \| [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\>
+• **container**: ``null`` \| [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\>
 
 #### Defined in
 

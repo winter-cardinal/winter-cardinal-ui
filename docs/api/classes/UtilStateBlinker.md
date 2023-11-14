@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilStateBlinker
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilStateBlinker
 
 # Class: UtilStateBlinker
 
@@ -32,7 +32,7 @@
 
 ### constructor
 
-• **new UtilStateBlinker**(`state`, `delay`, `interval`)
+• **new UtilStateBlinker**(`state`, `delay`, `interval`): [`UtilStateBlinker`](UtilStateBlinker.md)
 
 #### Parameters
 
@@ -41,6 +41,10 @@
 | `state` | `string` |
 | `delay` | `number` |
 | `interval` | `number` |
+
+#### Returns
+
+[`UtilStateBlinker`](UtilStateBlinker.md)
 
 #### Defined in
 
@@ -80,7 +84,7 @@ ___
 
 ### \_targets
 
-• `Protected` **\_targets**: `Set`<[`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
+• `Protected` **\_targets**: `Set`\<[`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>\>
 
 #### Defined in
 
@@ -124,7 +128,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -158,7 +162,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 
@@ -198,7 +202,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Returns
 

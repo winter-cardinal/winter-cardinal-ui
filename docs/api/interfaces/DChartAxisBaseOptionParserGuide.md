@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptionParserGuide
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisBaseOptionParserGuide
 
 # Interface: DChartAxisBaseOptionParserGuide
 
@@ -12,7 +12,7 @@
 
 ### list
 
-• **list**: [`DChartAxisGuide`](DChartAxisGuide.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>[]
+• **list**: [`DChartAxisGuide`](DChartAxisGuide.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>[]
 
 #### Defined in
 

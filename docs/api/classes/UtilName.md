@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilName
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilName
 
 # Class: UtilName
 
@@ -20,13 +20,17 @@
 
 ### constructor
 
-• **new UtilName**()
+• **new UtilName**(): [`UtilName`](UtilName.md)
+
+#### Returns
+
+[`UtilName`](UtilName.md)
 
 ## Properties
 
 ### \_mapping
 
-▪ `Static` `Protected` **\_mapping**: `Record`<`string`, `number`\> = `{}`
+▪ `Static` `Protected` **\_mapping**: `Record`\<`string`, `number`\> = `{}`
 
 #### Defined in
 
@@ -36,7 +40,7 @@
 
 ### create
 
-▸ `Static` **create**(`type`): `string`
+▸ **create**(`type`): `string`
 
 #### Parameters
 

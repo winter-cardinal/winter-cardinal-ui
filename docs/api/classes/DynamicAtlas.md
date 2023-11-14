@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlas
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlas
 
 # Class: DynamicAtlas
 
@@ -40,13 +40,17 @@
 
 ### constructor
 
-• **new DynamicAtlas**(`resolution`)
+• **new DynamicAtlas**(`resolution`): [`DynamicAtlas`](DynamicAtlas.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `resolution` | `number` |
+
+#### Returns
+
+[`DynamicAtlas`](DynamicAtlas.md)
 
 #### Defined in
 
@@ -76,7 +80,7 @@ ___
 
 ### \_idToDatum
 
-• `Protected` **\_idToDatum**: `Record`<`string`, [`DynamicAtlasItem`](DynamicAtlasItem.md)\>
+• `Protected` **\_idToDatum**: `Record`\<`string`, [`DynamicAtlasItem`](DynamicAtlasItem.md)\>
 
 #### Defined in
 
@@ -96,7 +100,7 @@ ___
 
 ### \_predefined
 
-• `Protected` **\_predefined**: `Record`<`string`, [`DynamicAtlasItem`](DynamicAtlasItem.md)\>
+• `Protected` **\_predefined**: `Record`\<`string`, [`DynamicAtlasItem`](DynamicAtlasItem.md)\>
 
 #### Defined in
 
@@ -380,7 +384,7 @@ ___
 
 ### ITEM\_COMPARATOR
 
-▸ `Static` **ITEM_COMPARATOR**(`a`, `b`): `number`
+▸ **ITEM_COMPARATOR**(`a`, `b`): `number`
 
 #### Parameters
 

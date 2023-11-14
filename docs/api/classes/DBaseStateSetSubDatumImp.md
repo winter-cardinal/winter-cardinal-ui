@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseStateSetSubDatumImp
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetSubDatumImp
 
 # Class: DBaseStateSetSubDatumImp
 
@@ -38,13 +38,17 @@
 
 ### constructor
 
-• **new DBaseStateSetSubDatumImp**(`interval`)
+• **new DBaseStateSetSubDatumImp**(`interval`): [`DBaseStateSetSubDatumImp`](DBaseStateSetSubDatumImp.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `interval` | `number` |
+
+#### Returns
+
+[`DBaseStateSetSubDatumImp`](DBaseStateSetSubDatumImp.md)
 
 #### Defined in
 
@@ -97,7 +101,7 @@ ___
 
 ### newOn
 
-▸ `Protected` `Abstract` **newOn**(`now`, `interval`): `boolean`
+▸ **newOn**(`now`, `interval`): `boolean`
 
 #### Parameters
 
@@ -118,7 +122,7 @@ ___
 
 ### newValue
 
-▸ `Protected` `Abstract` **newValue**(`now`, `interval`): ``null`` \| `number`
+▸ **newValue**(`now`, `interval`): ``null`` \| `number`
 
 #### Parameters
 
@@ -139,7 +143,7 @@ ___
 
 ### onTime
 
-▸ `Protected` **onTime**(): `void`
+▸ **onTime**(): `void`
 
 #### Returns
 
@@ -178,7 +182,7 @@ ___
 
 ### start
 
-▸ `Protected` **start**(): [`DBaseStateSetSubDatumImp`](DBaseStateSetSubDatumImp.md)
+▸ **start**(): [`DBaseStateSetSubDatumImp`](DBaseStateSetSubDatumImp.md)
 
 #### Returns
 
@@ -192,7 +196,7 @@ ___
 
 ### stop
 
-▸ `Protected` **stop**(): [`DBaseStateSetSubDatumImp`](DBaseStateSetSubDatumImp.md)
+▸ **stop**(): [`DBaseStateSetSubDatumImp`](DBaseStateSetSubDatumImp.md)
 
 #### Returns
 

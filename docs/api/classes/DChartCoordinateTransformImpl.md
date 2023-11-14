@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateTransformImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateTransformImpl
 
-# Class: DChartCoordinateTransformImpl<CHART\>
+# Class: DChartCoordinateTransformImpl\<CHART\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-- [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)<`CHART`\>
+- [`DChartCoordinateTransform`](../interfaces/DChartCoordinateTransform.md)\<`CHART`\>
 
 ## Table of contents
 
@@ -53,19 +53,23 @@
 
 ### constructor
 
-• **new DChartCoordinateTransformImpl**<`CHART`\>(`options?`)
+• **new DChartCoordinateTransformImpl**\<`CHART`\>(`options?`): [`DChartCoordinateTransformImpl`](DChartCoordinateTransformImpl.md)\<`CHART`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `CHART` | extends [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>, `CHART`\> = [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `CHART` | extends [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> = [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DChartCoordinateTransformOptions`](../interfaces/DChartCoordinateTransformOptions.md) |
+
+#### Returns
+
+[`DChartCoordinateTransformImpl`](DChartCoordinateTransformImpl.md)\<`CHART`\>
 
 #### Defined in
 
@@ -265,7 +269,7 @@ Translation amount
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\> |
+| `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)\<`CHART`\> |
 | `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection-1) |
 
 #### Returns
@@ -309,7 +313,7 @@ ___
 
 ### getThemeDefault
 
-▸ `Protected` **getThemeDefault**(): [`DThemeChartCoordinateTransform`](../interfaces/DThemeChartCoordinateTransform.md)
+▸ **getThemeDefault**(): [`DThemeChartCoordinateTransform`](../interfaces/DThemeChartCoordinateTransform.md)
 
 #### Returns
 
@@ -323,7 +327,7 @@ ___
 
 ### getType
 
-▸ `Protected` **getType**(): `string`
+▸ **getType**(): `string`
 
 #### Returns
 
@@ -420,7 +424,7 @@ ___
 
 ### toTheme
 
-▸ `Protected` **toTheme**(`options?`): [`DThemeChartCoordinateTransform`](../interfaces/DThemeChartCoordinateTransform.md)
+▸ **toTheme**(`options?`): [`DThemeChartCoordinateTransform`](../interfaces/DThemeChartCoordinateTransform.md)
 
 #### Parameters
 

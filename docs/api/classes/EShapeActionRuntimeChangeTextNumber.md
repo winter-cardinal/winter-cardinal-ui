@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeChangeTextNumber
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeChangeTextNumber
 
 # Class: EShapeActionRuntimeChangeTextNumber
 
@@ -58,13 +58,17 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeActionRuntimeChangeTextNumber**(`value`)
+• **new EShapeActionRuntimeChangeTextNumber**(`value`): [`EShapeActionRuntimeChangeTextNumber`](EShapeActionRuntimeChangeTextNumber.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueChangeText`](EShapeActionValueChangeText.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeChangeTextNumber`](EShapeActionRuntimeChangeTextNumber.md)
 
 #### Overrides
 
@@ -78,7 +82,7 @@ A base class of action runtimes.
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -92,7 +96,7 @@ ___
 
 ### formatters
 
-• `Protected` **formatters**: `Map`<`string`, ``null`` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)\>
+• `Protected` **formatters**: `Map`\<`string`, ``null`` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)\>
 
 #### Defined in
 
@@ -102,7 +106,7 @@ ___
 
 ### number
 
-• `Protected` **number**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
+• `Protected` **number**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`number`\>
 
 #### Defined in
 
@@ -154,7 +158,7 @@ ___
 
 ### getFormatter
 
-▸ `Protected` **getFormatter**(`shape`, `runtime`): ``null`` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **getFormatter**(`shape`, `runtime`): ``null`` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 #### Parameters
 
@@ -202,7 +206,7 @@ ___
 
 ### newFormatter
 
-▸ `Protected` **newFormatter**(`format`): ``null`` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+▸ **newFormatter**(`format`): ``null`` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
 
 #### Parameters
 
@@ -259,7 +263,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -316,7 +320,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -344,7 +348,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -539,7 +543,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -819,7 +823,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -847,7 +851,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -875,7 +879,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 

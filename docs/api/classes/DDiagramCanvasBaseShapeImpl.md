@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasBaseShapeImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasBaseShapeImpl
 
 # Class: DDiagramCanvasBaseShapeImpl
 
@@ -33,13 +33,17 @@
 
 ### constructor
 
-• **new DDiagramCanvasBaseShapeImpl**(`canvas`)
+• **new DDiagramCanvasBaseShapeImpl**(`canvas`): [`DDiagramCanvasBaseShapeImpl`](DDiagramCanvasBaseShapeImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `canvas` | [`DDiagramCanvasBaseShapeCanvas`](../interfaces/DDiagramCanvasBaseShapeCanvas.md) |
+
+#### Returns
+
+[`DDiagramCanvasBaseShapeImpl`](DDiagramCanvasBaseShapeImpl.md)
 
 #### Defined in
 
@@ -84,7 +88,7 @@ ___
 
 ### each\_
 
-▸ `Protected` **each_**(`shapes`, `iteratee`, `ignoreCapability?`): `undefined` \| `boolean`
+▸ **each_**(`shapes`, `iteratee`, `ignoreCapability?`): `undefined` \| `boolean`
 
 #### Parameters
 

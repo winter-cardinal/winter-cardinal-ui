@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTableHeader
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTableHeader
 
 # Class: DThemeWhiteTableHeader
 
@@ -81,7 +81,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTableHeader**()
+• **new DThemeWhiteTableHeader**(): [`DThemeWhiteTableHeader`](DThemeWhiteTableHeader.md)
+
+#### Returns
+
+[`DThemeWhiteTableHeader`](DThemeWhiteTableHeader.md)
 
 #### Inherited from
 

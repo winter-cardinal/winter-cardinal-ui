@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionShape
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionShape
 
-# Interface: DChartSelectionShape<CHART\>
+# Interface: DChartSelectionShape\<CHART\>
 
 ## Type parameters
 
@@ -32,7 +32,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 
 #### Returns
 
@@ -52,10 +52,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
-| `series` | [`DChartSeries`](DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -103,7 +103,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)<`CHART`\> |
+| `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
 

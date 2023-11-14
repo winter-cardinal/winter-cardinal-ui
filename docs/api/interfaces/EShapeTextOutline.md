@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextOutline
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextOutline
 
 # Interface: EShapeTextOutline
 
@@ -110,7 +110,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeTextOutlineLike`](EShapeTextOutlineLike.md)\> |
+| `target?` | `Partial`\<[`EShapeTextOutlineLike`](EShapeTextOutlineLike.md)\> |
 
 #### Returns
 

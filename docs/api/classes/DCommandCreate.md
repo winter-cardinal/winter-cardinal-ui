@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DCommandCreate
+[Winter Cardinal UI - v0.374.0](../index.md) / DCommandCreate
 
 # Class: DCommandCreate
 
@@ -30,7 +30,11 @@
 
 ### constructor
 
-• **new DCommandCreate**()
+• **new DCommandCreate**(): [`DCommandCreate`](DCommandCreate.md)
+
+#### Returns
+
+[`DCommandCreate`](DCommandCreate.md)
 
 #### Inherited from
 
@@ -58,7 +62,7 @@ ___
 
 ### execute
 
-▸ `Abstract` **execute**(): `boolean`
+▸ **execute**(): `boolean`
 
 Called to executed this command.
 

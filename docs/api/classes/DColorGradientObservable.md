@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DColorGradientObservable
+[Winter Cardinal UI - v0.374.0](../index.md) / DColorGradientObservable
 
 # Class: DColorGradientObservable
 
@@ -58,7 +58,11 @@
 
 ### constructor
 
-• **new DColorGradientObservable**()
+• **new DColorGradientObservable**(): [`DColorGradientObservable`](DColorGradientObservable.md)
+
+#### Returns
+
+[`DColorGradientObservable`](DColorGradientObservable.md)
 
 #### Overrides
 
@@ -277,7 +281,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -477,7 +481,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(`target`): `void`
+▸ **onChange**(`target`): `void`
 
 #### Parameters
 

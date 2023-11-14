@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueChangeColor
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueChangeColor
 
 # Class: EShapeActionValueChangeColor
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueChangeColorType`](../index.md#eshapeactionvaluechangecolortype-1)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<[`EShapeActionValueChangeColorType`](../index.md#eshapeactionvaluechangecolortype-1)\>
 
   ↳ **`EShapeActionValueChangeColor`**
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeActionValueChangeColor**(`subtype`, `condition`, `target`, `color`, `alpha`, `blend`)
+• **new EShapeActionValueChangeColor**(`subtype`, `condition`, `target`, `color`, `alpha`, `blend`): [`EShapeActionValueChangeColor`](EShapeActionValueChangeColor.md)
 
 #### Parameters
 
@@ -50,6 +50,10 @@
 | `color` | `number` |
 | `alpha` | `number` |
 | `blend` | `string` |
+
+#### Returns
+
+[`EShapeActionValueChangeColor`](EShapeActionValueChangeColor.md)
 
 #### Overrides
 
@@ -159,7 +163,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -261,7 +265,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueChangeColor`](EShapeActionValueChangeColor.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueChangeColor`](EShapeActionValueChangeColor.md)
 
 #### Parameters
 

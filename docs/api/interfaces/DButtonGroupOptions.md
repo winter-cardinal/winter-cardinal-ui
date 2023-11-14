@@ -1,12 +1,12 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonGroupOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonGroupOptions
 
-# Interface: DButtonGroupOptions<BUTTON, EMITTER\>
+# Interface: DButtonGroupOptions\<BUTTON, EMITTER\>
 
 ## Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `BUTTON` | extends [`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\> = [`DButtonBase`](../classes/DButtonBase.md)<`any`, `any`, `any`\> |
+| `BUTTON` | extends [`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\> = [`DButtonBase`](../classes/DButtonBase.md)\<`any`, `any`, `any`\> |
 | `EMITTER` | `any` |
 
 ## Table of contents
@@ -19,7 +19,7 @@
 
 ### on
 
-• `Optional` **on**: [`DButtonGroupOnOptions`](DButtonGroupOnOptions.md)<`BUTTON`, `EMITTER`\>
+• `Optional` **on**: [`DButtonGroupOnOptions`](DButtonGroupOnOptions.md)\<`BUTTON`, `EMITTER`\>
 
 #### Defined in
 

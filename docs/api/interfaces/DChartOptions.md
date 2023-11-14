@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartOptions
 
-# Interface: DChartOptions<THEME\>
+# Interface: DChartOptions\<THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DBaseOptions`](DBaseOptions.md)<`THEME`\>
+- [`DBaseOptions`](DBaseOptions.md)\<`THEME`\>
 
   ↳ **`DChartOptions`**
 
@@ -132,7 +132,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -169,7 +169,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -211,7 +211,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -281,7 +281,7 @@ ___
 
 ### plotArea
 
-• **plotArea**: [`DChartPlotAreaOptions`](DChartPlotAreaOptions.md)<[`DChart`](../classes/DChart.md)<[`DThemeChart`](DThemeChart.md), [`DChartOptions`](DChartOptions.md)<[`DThemeChart`](DThemeChart.md)\>\>, [`DThemeChartPlotArea`](DThemeChartPlotArea.md)\>
+• **plotArea**: [`DChartPlotAreaOptions`](DChartPlotAreaOptions.md)\<[`DChart`](../classes/DChart.md)\<[`DThemeChart`](DThemeChart.md), [`DChartOptions`](DChartOptions.md)\<[`DThemeChart`](DThemeChart.md)\>\>, [`DThemeChartPlotArea`](DThemeChartPlotArea.md)\>
 
 #### Defined in
 
@@ -294,7 +294,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DChartOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.

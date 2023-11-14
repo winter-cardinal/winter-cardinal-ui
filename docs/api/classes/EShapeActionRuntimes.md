@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimes
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimes
 
 # Class: EShapeActionRuntimes
 
@@ -21,13 +21,17 @@
 
 ### constructor
 
-• **new EShapeActionRuntimes**()
+• **new EShapeActionRuntimes**(): [`EShapeActionRuntimes`](EShapeActionRuntimes.md)
+
+#### Returns
+
+[`EShapeActionRuntimes`](EShapeActionRuntimes.md)
 
 ## Properties
 
 ### \_typeToRuntimes
 
-▪ `Static` `Optional` **\_typeToRuntimes**: `Map`<`number`, [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)[]\>
+▪ `Static` `Optional` **\_typeToRuntimes**: `Map`\<`number`, [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)[]\>
 
 #### Defined in
 
@@ -37,7 +41,7 @@
 
 ### add
 
-▸ `Static` **add**(`type`, `runtime`): `void`
+▸ **add**(`type`, `runtime`): `void`
 
 #### Parameters
 
@@ -58,7 +62,7 @@ ___
 
 ### get
 
-▸ `Static` **get**(`type`): `undefined` \| ``null`` \| [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)[]
+▸ **get**(`type`): `undefined` \| ``null`` \| [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)[]
 
 #### Parameters
 

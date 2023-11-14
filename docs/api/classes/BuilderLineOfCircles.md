@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / BuilderLineOfCircles
+[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLineOfCircles
 
 # Class: BuilderLineOfCircles
 
@@ -58,7 +58,7 @@
 
 ### constructor
 
-• **new BuilderLineOfCircles**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`)
+• **new BuilderLineOfCircles**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCountReserved`): [`BuilderLineOfCircles`](BuilderLineOfCircles.md)
 
 #### Parameters
 
@@ -69,6 +69,10 @@
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
 | `pointCountReserved` | `number` |
+
+#### Returns
+
+[`BuilderLineOfCircles`](BuilderLineOfCircles.md)
 
 #### Inherited from
 
@@ -515,7 +519,7 @@ ___
 
 ### updateColorFill
 
-▸ `Protected` **updateColorFill**(`buffer`, `shape`): `void`
+▸ **updateColorFill**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -540,7 +544,7 @@ ___
 
 ### updateColorStroke
 
-▸ `Protected` **updateColorStroke**(`buffer`, `shape`): `void`
+▸ **updateColorStroke**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -565,7 +569,7 @@ ___
 
 ### updateLineOfAnyColorFill
 
-▸ `Protected` **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorFill**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -592,7 +596,7 @@ ___
 
 ### updateLineOfAnyColorStroke
 
-▸ `Protected` **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
+▸ **updateLineOfAnyColorStroke**(`buffer`, `shape`, `points`, `vcountPerPoint`): `void`
 
 #### Parameters
 
@@ -619,7 +623,7 @@ ___
 
 ### updateUv
 
-▸ `Protected` **updateUv**(`buffer`, `shape`): `void`
+▸ **updateUv**(`buffer`, `shape`): `void`
 
 #### Parameters
 
@@ -640,7 +644,7 @@ ___
 
 ### updateVertexAndStep
 
-▸ `Protected` **updateVertexAndStep**(`buffer`, `shape`, `points`): `void`
+▸ **updateVertexAndStep**(`buffer`, `shape`, `points`): `void`
 
 #### Parameters
 

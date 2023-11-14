@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeUuidMappingImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeUuidMappingImpl
 
 # Class: EShapeUuidMappingImpl
 
@@ -28,13 +28,17 @@
 
 ### constructor
 
-• **new EShapeUuidMappingImpl**(`shapes`)
+• **new EShapeUuidMappingImpl**(`shapes`): [`EShapeUuidMappingImpl`](EShapeUuidMappingImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `shapes` | [`EShape`](../interfaces/EShape.md)[] |
+
+#### Returns
+
+[`EShapeUuidMappingImpl`](EShapeUuidMappingImpl.md)
 
 #### Defined in
 
@@ -54,7 +58,7 @@ ___
 
 ### \_uuidToShape
 
-• `Protected` `Optional` **\_uuidToShape**: `Map`<`number`, [`EShape`](../interfaces/EShape.md)\>
+• `Protected` `Optional` **\_uuidToShape**: `Map`\<`number`, [`EShape`](../interfaces/EShape.md)\>
 
 #### Defined in
 
@@ -64,14 +68,14 @@ ___
 
 ### fillUuidToShape
 
-▸ `Protected` **fillUuidToShape**(`shapes`, `result`): `void`
+▸ **fillUuidToShape**(`shapes`, `result`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `shapes` | [`EShape`](../interfaces/EShape.md)[] |
-| `result` | `Map`<`number`, [`EShape`](../interfaces/EShape.md)\> |
+| `result` | `Map`\<`number`, [`EShape`](../interfaces/EShape.md)\> |
 
 #### Returns
 
@@ -109,11 +113,11 @@ ___
 
 ### getUuidToShape
 
-▸ `Protected` **getUuidToShape**(): `Map`<`number`, [`EShape`](../interfaces/EShape.md)\>
+▸ **getUuidToShape**(): `Map`\<`number`, [`EShape`](../interfaces/EShape.md)\>
 
 #### Returns
 
-`Map`<`number`, [`EShape`](../interfaces/EShape.md)\>
+`Map`\<`number`, [`EShape`](../interfaces/EShape.md)\>
 
 #### Defined in
 
@@ -123,11 +127,11 @@ ___
 
 ### newUuidToShape
 
-▸ `Protected` **newUuidToShape**(): `Map`<`number`, [`EShape`](../interfaces/EShape.md)\>
+▸ **newUuidToShape**(): `Map`\<`number`, [`EShape`](../interfaces/EShape.md)\>
 
 #### Returns
 
-`Map`<`number`, [`EShape`](../interfaces/EShape.md)\>
+`Map`\<`number`, [`EShape`](../interfaces/EShape.md)\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DViewOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DViewOptions
 
 # Interface: DViewOptions
 
@@ -10,6 +10,7 @@
 
 - [constraint](DViewOptions.md#constraint)
 - [gesture](DViewOptions.md#gesture)
+- [on](DViewOptions.md#on)
 - [theme](DViewOptions.md#theme)
 - [translation](DViewOptions.md#translation)
 - [zoom](DViewOptions.md#zoom)
@@ -24,7 +25,7 @@ Constraint options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L124)
+[src/main/typescript/wcardinal/ui/d-view.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L207)
 
 ___
 
@@ -36,7 +37,19 @@ Gesture options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L115)
+[src/main/typescript/wcardinal/ui/d-view.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L198)
+
+___
+
+### on
+
+• `Optional` **on**: [`DViewOnOptions`](DViewOnOptions.md)\<[`DView`](DView.md)\>
+
+On options
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view.ts:213](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L213)
 
 ___
 
@@ -48,7 +61,7 @@ Theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L127)
+[src/main/typescript/wcardinal/ui/d-view.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L210)
 
 ___
 
@@ -60,7 +73,7 @@ Translation options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L121)
+[src/main/typescript/wcardinal/ui/d-view.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L204)
 
 ___
 
@@ -72,4 +85,4 @@ Zoom options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L118)
+[src/main/typescript/wcardinal/ui/d-view.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L201)

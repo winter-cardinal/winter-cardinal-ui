@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerColorGradientRecent
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerColorGradientRecent
 
 # Class: DPickerColorGradientRecent
 
@@ -43,7 +43,7 @@
 
 ### constructor
 
-• **new DPickerColorGradientRecent**(`recents`, `capacity`)
+• **new DPickerColorGradientRecent**(`recents`, `capacity`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
 
 #### Parameters
 
@@ -51,6 +51,10 @@
 | :------ | :------ |
 | `recents` | [`DColorGradient`](../interfaces/DColorGradient.md)[] |
 | `capacity` | `number` |
+
+#### Returns
+
+[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
 
 #### Overrides
 
@@ -152,7 +156,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 

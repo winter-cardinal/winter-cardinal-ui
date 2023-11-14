@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuSideds
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSideds
 
 # Class: DMenuSideds
 
@@ -24,7 +24,11 @@
 
 ### constructor
 
-• **new DMenuSideds**()
+• **new DMenuSideds**(): [`DMenuSideds`](DMenuSideds.md)
+
+#### Returns
+
+[`DMenuSideds`](DMenuSideds.md)
 
 ## Properties
 
@@ -50,7 +54,7 @@ ___
 
 ### addItemCreator
 
-▸ `Static` **addItemCreator**(`creator`): `void`
+▸ **addItemCreator**(`creator`): `void`
 
 #### Parameters
 
@@ -70,7 +74,7 @@ ___
 
 ### newItem
 
-▸ `Static` **newItem**<`VALUE`\>(`options`, `sticky`): ``null`` \| `DisplayObject`
+▸ **newItem**\<`VALUE`\>(`options`, `sticky`): ``null`` \| `DisplayObject`
 
 #### Type parameters
 
@@ -82,7 +86,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -97,7 +101,7 @@ ___
 
 ### newItems
 
-▸ `Static` **newItems**<`VALUE`\>(`parent`, `items`, `sticky`): `void`
+▸ **newItems**\<`VALUE`\>(`parent`, `items`, `sticky`): `void`
 
 #### Type parameters
 
@@ -110,7 +114,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `parent` | `Container` |
-| `items` | (`DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>)[] |
+| `items` | (`DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\>)[] |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -125,7 +129,7 @@ ___
 
 ### setItemCreatorDefault
 
-▸ `Static` **setItemCreatorDefault**(`creator`): `void`
+▸ **setItemCreatorDefault**(`creator`): `void`
 
 #### Parameters
 

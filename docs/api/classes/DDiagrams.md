@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagrams
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagrams
 
 # Class: DDiagrams
 
@@ -19,13 +19,17 @@
 
 ### constructor
 
-• **new DDiagrams**()
+• **new DDiagrams**(): [`DDiagrams`](DDiagrams.md)
+
+#### Returns
+
+[`DDiagrams`](DDiagrams.md)
 
 ## Methods
 
 ### newLayer
 
-▸ `Static` **newLayer**(`serialized`, `container`, `manager`): `Promise`<[`EShape`](../interfaces/EShape.md)[]\>
+▸ **newLayer**(`serialized`, `container`, `manager`): `Promise`\<[`EShape`](../interfaces/EShape.md)[]\>
 
 #### Parameters
 
@@ -37,17 +41,17 @@
 
 #### Returns
 
-`Promise`<[`EShape`](../interfaces/EShape.md)[]\>
+`Promise`\<[`EShape`](../interfaces/EShape.md)[]\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L79)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L87)
 
 ___
 
 ### toPieceData
 
-▸ `Static` **toPieceData**(`controller`, `pieces`, `mode`): `Promise`<`Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>\>
+▸ **toPieceData**(`controller`, `pieces`, `mode`): `Promise`\<`Map`\<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>\>
 
 #### Parameters
 
@@ -59,23 +63,23 @@ ___
 
 #### Returns
 
-`Promise`<`Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>\>
+`Promise`\<`Map`\<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L119)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L127)
 
 ___
 
 ### toSerialized
 
-▸ `Static` **toSerialized**(`target`): [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md)
+▸ **toSerialized**(`target`): [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md) |
+| `target` | [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) |
 
 #### Returns
 
@@ -83,13 +87,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L43)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L47)
 
 ___
 
 ### toSimple
 
-▸ `Static` **toSimple**(`serialized`): [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md)
+▸ **toSimple**(`serialized`): [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md)
 
 #### Parameters
 

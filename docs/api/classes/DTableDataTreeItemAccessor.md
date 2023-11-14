@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeItemAccessor
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeItemAccessor
 
-# Class: DTableDataTreeItemAccessor<NODE\>
+# Class: DTableDataTreeItemAccessor\<NODE\>
 
 ## Type parameters
 
@@ -24,7 +24,7 @@
 
 ### constructor
 
-• **new DTableDataTreeItemAccessor**<`NODE`\>(`options?`)
+• **new DTableDataTreeItemAccessor**\<`NODE`\>(`options?`): [`DTableDataTreeItemAccessor`](DTableDataTreeItemAccessor.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -36,7 +36,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTableDataTreeItemAccessorOptions`](../interfaces/DTableDataTreeItemAccessorOptions.md)<`NODE`\> |
+| `options?` | [`DTableDataTreeItemAccessorOptions`](../interfaces/DTableDataTreeItemAccessorOptions.md)\<`NODE`\> |
+
+#### Returns
+
+[`DTableDataTreeItemAccessor`](DTableDataTreeItemAccessor.md)\<`NODE`\>
 
 #### Defined in
 
@@ -46,7 +50,7 @@
 
 ### hasChildren
 
-• **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)<`NODE`\>
+• **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)\<`NODE`\>
 
 #### Defined in
 
@@ -56,7 +60,7 @@ ___
 
 ### toChildren
 
-• **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)<`NODE`\>
+• **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)\<`NODE`\>
 
 #### Defined in
 
@@ -66,7 +70,7 @@ ___
 
 ### toParent
 
-• **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)<`NODE`\>
+• **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)\<`NODE`\>
 
 #### Defined in
 

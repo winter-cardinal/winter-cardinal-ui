@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilRgb
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilRgb
 
 # Class: UtilRgb
 
@@ -23,13 +23,17 @@
 
 ### constructor
 
-• **new UtilRgb**()
+• **new UtilRgb**(): [`UtilRgb`](UtilRgb.md)
+
+#### Returns
+
+[`UtilRgb`](UtilRgb.md)
 
 ## Methods
 
 ### blend
 
-▸ `Static` **blend**(`colorA`, `colorB`, `t`): `number`
+▸ **blend**(`colorA`, `colorB`, `t`): `number`
 
 #### Parameters
 
@@ -51,7 +55,7 @@ ___
 
 ### brighten
 
-▸ `Static` **brighten**(`color`, `amount`): `number`
+▸ **brighten**(`color`, `amount`): `number`
 
 #### Parameters
 
@@ -72,7 +76,7 @@ ___
 
 ### darken
 
-▸ `Static` **darken**(`color`, `amount`): `number`
+▸ **darken**(`color`, `amount`): `number`
 
 #### Parameters
 
@@ -93,7 +97,7 @@ ___
 
 ### fromCode
 
-▸ `Static` **fromCode**(`code`): ``null`` \| `number`
+▸ **fromCode**(`code`): ``null`` \| `number`
 
 #### Parameters
 
@@ -113,7 +117,7 @@ ___
 
 ### fromRgb
 
-▸ `Static` **fromRgb**(`r`, `g`, `b`): `number`
+▸ **fromRgb**(`r`, `g`, `b`): `number`
 
 #### Parameters
 
@@ -135,7 +139,7 @@ ___
 
 ### toCode
 
-▸ `Static` **toCode**(`color`): `string`
+▸ **toCode**(`color`): `string`
 
 #### Parameters
 
@@ -155,13 +159,9 @@ ___
 
 ### toGrayscale
 
-▸ `Static` **toGrayscale**(`color`): `number`
+▸ **toGrayscale**(`color`): `number`
 
 Convertes the given color to a grayscale color.
-
-**`See`**
-
-https://en.wikipedia.org/wiki/Grayscale
 
 #### Parameters
 
@@ -175,6 +175,10 @@ https://en.wikipedia.org/wiki/Grayscale
 
 a grayscale color
 
+**`See`**
+
+https://en.wikipedia.org/wiki/Grayscale
+
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/util/util-rgb.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L69)
@@ -183,13 +187,9 @@ ___
 
 ### toLuma
 
-▸ `Static` **toLuma**(`color`): `number`
+▸ **toLuma**(`color`): `number`
 
 Convertes the given color to a luma in the range [0, 255].
-
-**`See`**
-
-https://en.wikipedia.org/wiki/Grayscale
 
 #### Parameters
 
@@ -202,6 +202,10 @@ https://en.wikipedia.org/wiki/Grayscale
 `number`
 
 a luma in the range [0, 255]
+
+**`See`**
+
+https://en.wikipedia.org/wiki/Grayscale
 
 #### Defined in
 

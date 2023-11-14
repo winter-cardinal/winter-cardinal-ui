@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DViewTransform
+[Winter Cardinal UI - v0.374.0](../index.md) / DViewTransform
 
 # Interface: DViewTransform
 
@@ -25,7 +25,7 @@ Sets to the specified position and scale.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `target` | [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> | a target |
+| `target` | [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> | a target |
 | `x` | `number` | a local X coordinate positoon |
 | `y` | `number` | a local Y coordinate position |
 | `scaleX` | `number` | a X coordinate scale |

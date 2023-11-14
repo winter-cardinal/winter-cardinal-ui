@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDialogSelect
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDialogSelect
 
-# Interface: DThemeDialogSelect<VALUE\>
+# Interface: DThemeDialogSelect\<VALUE, CATEGORY_ID\>
 
 [DDialogSelect](../classes/DDialogSelect.md) theme.
 
@@ -9,6 +9,7 @@
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
+| `CATEGORY_ID` | `unknown` |
 
 ## Hierarchy
 
@@ -37,6 +38,7 @@
 - [getBorderMask](DThemeDialogSelect.md#getbordermask)
 - [getBorderTexture](DThemeDialogSelect.md#getbordertexture)
 - [getBorderWidth](DThemeDialogSelect.md#getborderwidth)
+- [getCategoryDismissLabel](DThemeDialogSelect.md#getcategorydismisslabel)
 - [getClearType](DThemeDialogSelect.md#getcleartype)
 - [getColor](DThemeDialogSelect.md#getcolor)
 - [getContent](DThemeDialogSelect.md#getcontent)
@@ -75,6 +77,7 @@
 - [getWidth](DThemeDialogSelect.md#getwidth)
 - [getX](DThemeDialogSelect.md#getx)
 - [getY](DThemeDialogSelect.md#gety)
+- [isCategoryDismissable](DThemeDialogSelect.md#iscategorydismissable)
 - [isGestureEnabled](DThemeDialogSelect.md#isgestureenabled)
 - [isSticky](DThemeDialogSelect.md#issticky)
 - [newAnimation](DThemeDialogSelect.md#newanimation)
@@ -380,6 +383,20 @@ Returns a border width.
 
 ___
 
+### getCategoryDismissLabel
+
+▸ **getCategoryDismissLabel**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L121)
+
+___
+
 ### getClearType
 
 ▸ **getClearType**(): `number`
@@ -427,11 +444,11 @@ ___
 
 ### getContent
 
-▸ **getContent**(): `undefined` \| [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
+▸ **getContent**(): `undefined` \| [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
 
 #### Returns
 
-`undefined` \| [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
+`undefined` \| [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)\<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
 
 #### Inherited from
 
@@ -601,11 +618,11 @@ ___
 
 ### getFooter
 
-▸ **getFooter**(): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
+▸ **getFooter**(): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
+`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)\<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
 
 #### Inherited from
 
@@ -643,11 +660,11 @@ ___
 
 ### getHeader
 
-▸ **getHeader**(): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
+▸ **getHeader**(): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
 
 #### Returns
 
-`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
+`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)\<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
 
 #### Inherited from
 
@@ -689,7 +706,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L94)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L119)
 
 ___
 
@@ -715,11 +732,11 @@ ___
 
 ### getLayout
 
-▸ **getLayout**(): `undefined` \| [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
+▸ **getLayout**(): `undefined` \| [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
 
 #### Returns
 
-`undefined` \| [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
+`undefined` \| [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)\<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
 
 #### Inherited from
 
@@ -1175,6 +1192,20 @@ Returns a Y coordinate.
 
 ___
 
+### isCategoryDismissable
+
+▸ **isCategoryDismissable**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L120)
+
+___
+
 ### isGestureEnabled
 
 ▸ **isGestureEnabled**(`mode`): `boolean`
@@ -1225,7 +1256,7 @@ ___
 
 ### newAnimation
 
-▸ **newAnimation**(`mode`): ``null`` \| [`DAnimation`](DAnimation.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
+▸ **newAnimation**(`mode`): ``null`` \| [`DAnimation`](DAnimation.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
 
 #### Parameters
 
@@ -1235,7 +1266,7 @@ ___
 
 #### Returns
 
-``null`` \| [`DAnimation`](DAnimation.md)<[`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
+``null`` \| [`DAnimation`](DAnimation.md)\<[`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>\>
 
 #### Inherited from
 

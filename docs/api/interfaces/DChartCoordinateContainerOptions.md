@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateContainerOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateContainerOptions
 
-# Interface: DChartCoordinateContainerOptions<CHART\>
+# Interface: DChartCoordinateContainerOptions\<CHART\>
 
 ## Type parameters
 
@@ -19,7 +19,7 @@
 
 ### x
 
-• `Optional` **x**: [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>[]
+• `Optional` **x**: [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>[]
 
 #### Defined in
 
@@ -29,7 +29,7 @@ ___
 
 ### y
 
-• `Optional` **y**: [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> \| [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\>[]
+• `Optional` **y**: [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\> \| [`DChartCoordinate`](DChartCoordinate.md)\<`CHART`\>[]
 
 #### Defined in
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataSorter
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataSorter
 
-# Interface: DTableDataSorter<ROW\>
+# Interface: DTableDataSorter\<ROW\>
 
 Table data sorter.
 
@@ -88,7 +88,7 @@ A sort order.
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 Alias method for `on`
 
@@ -102,7 +102,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 #### Inherited from
 
@@ -132,7 +132,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -181,13 +181,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\>
 
 Returns a current comparator.
 
 #### Returns
 
-``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
+``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\>
 
 #### Defined in
 
@@ -287,7 +287,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 Alias method for `removeListener`
 
@@ -302,7 +302,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 #### Inherited from
 
@@ -316,7 +316,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 Add a listener for a given event.
 
@@ -330,7 +330,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -346,7 +346,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 Add a one-time listener for a given event.
 
@@ -360,7 +360,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -376,7 +376,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -388,7 +388,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -404,7 +404,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 Remove the listeners of a given event.
 
@@ -419,7 +419,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataSorter`](DTableDataSorter.md)<`ROW`\>
+[`DTableDataSorter`](DTableDataSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -443,7 +443,7 @@ Sets to the given comparator.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\> | A comparator |
+| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\> | A comparator |
 
 #### Returns
 

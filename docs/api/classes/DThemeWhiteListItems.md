@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteListItems
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteListItems
 
 # Class: DThemeWhiteListItems
 
@@ -49,7 +49,7 @@
 
 ### constructor
 
-• **new DThemeWhiteListItems**(`baseColor`, `isStripeEnabled`, `isVivid`)
+• **new DThemeWhiteListItems**(`baseColor`, `isStripeEnabled`, `isVivid`): [`DThemeWhiteListItems`](DThemeWhiteListItems.md)
 
 #### Parameters
 
@@ -58,6 +58,10 @@
 | `baseColor` | ``null`` \| `number` |
 | `isStripeEnabled` | `boolean` |
 | `isVivid` | `boolean` |
+
+#### Returns
+
+[`DThemeWhiteListItems`](DThemeWhiteListItems.md)
 
 #### Defined in
 

@@ -1,6 +1,6 @@
-Winter Cardinal UI - v0.310.1
+Winter Cardinal UI
 
-# Winter Cardinal UI - v0.310.1
+# Winter Cardinal UI - v0.374.0
 
 ## Table of contents
 
@@ -168,6 +168,10 @@ Winter Cardinal UI - v0.310.1
 - [DChartSeriesStrokeImpl](classes/DChartSeriesStrokeImpl.md)
 - [DColorGradientObservable](classes/DColorGradientObservable.md)
 - [DColorGradientPointObservable](classes/DColorGradientPointObservable.md)
+- [DColorRecent](classes/DColorRecent.md)
+- [DColorRecents](classes/DColorRecents.md)
+- [DColorStandard](classes/DColorStandard.md)
+- [DColorStandards](classes/DColorStandards.md)
 - [DCommandBase](classes/DCommandBase.md)
 - [DCommandClear](classes/DCommandClear.md)
 - [DCommandCreate](classes/DCommandCreate.md)
@@ -370,7 +374,6 @@ Winter Cardinal UI - v0.310.1
 - [DPickerColorGradient](classes/DPickerColorGradient.md)
 - [DPickerColorGradientRecent](classes/DPickerColorGradientRecent.md)
 - [DPickerColorGradientView](classes/DPickerColorGradientView.md)
-- [DPickerColorRecent](classes/DPickerColorRecent.md)
 - [DPickerDate](classes/DPickerDate.md)
 - [DPickerDates](classes/DPickerDates.md)
 - [DPickerDatetime](classes/DPickerDatetime.md)
@@ -427,6 +430,7 @@ Winter Cardinal UI - v0.310.1
 - [DTableBodyCellInputInteger](classes/DTableBodyCellInputInteger.md)
 - [DTableBodyCellInputReal](classes/DTableBodyCellInputReal.md)
 - [DTableBodyCellInputText](classes/DTableBodyCellInputText.md)
+- [DTableBodyCellInputTextArea](classes/DTableBodyCellInputTextArea.md)
 - [DTableBodyCellInputTree](classes/DTableBodyCellInputTree.md)
 - [DTableBodyCellInputTreeInput](classes/DTableBodyCellInputTreeInput.md)
 - [DTableBodyCellInputTreeMarker](classes/DTableBodyCellInputTreeMarker.md)
@@ -436,6 +440,7 @@ Winter Cardinal UI - v0.310.1
 - [DTableBodyCellSelectMultiple](classes/DTableBodyCellSelectMultiple.md)
 - [DTableBodyCellSelectPromise](classes/DTableBodyCellSelectPromise.md)
 - [DTableBodyCellText](classes/DTableBodyCellText.md)
+- [DTableBodyCellTextArea](classes/DTableBodyCellTextArea.md)
 - [DTableBodyCellTime](classes/DTableBodyCellTime.md)
 - [DTableBodyCellTree](classes/DTableBodyCellTree.md)
 - [DTableBodyCells](classes/DTableBodyCells.md)
@@ -498,6 +503,8 @@ Winter Cardinal UI - v0.310.1
 - [DThemeDarkChartSelectionGridlineY](classes/DThemeDarkChartSelectionGridlineY.md)
 - [DThemeDarkChartSelectionMarker](classes/DThemeDarkChartSelectionMarker.md)
 - [DThemeDarkChartSelectionShape](classes/DThemeDarkChartSelectionShape.md)
+- [DThemeDarkColorRecent](classes/DThemeDarkColorRecent.md)
+- [DThemeDarkColorStandard](classes/DThemeDarkColorStandard.md)
 - [DThemeDarkContent](classes/DThemeDarkContent.md)
 - [DThemeDarkDiagram](classes/DThemeDarkDiagram.md)
 - [DThemeDarkDiagramBase](classes/DThemeDarkDiagramBase.md)
@@ -651,11 +658,13 @@ Winter Cardinal UI - v0.310.1
 - [DThemeDarkTableBodyCellInputInteger](classes/DThemeDarkTableBodyCellInputInteger.md)
 - [DThemeDarkTableBodyCellInputReal](classes/DThemeDarkTableBodyCellInputReal.md)
 - [DThemeDarkTableBodyCellInputText](classes/DThemeDarkTableBodyCellInputText.md)
+- [DThemeDarkTableBodyCellInputTextArea](classes/DThemeDarkTableBodyCellInputTextArea.md)
 - [DThemeDarkTableBodyCellLink](classes/DThemeDarkTableBodyCellLink.md)
 - [DThemeDarkTableBodyCellSelectDialog](classes/DThemeDarkTableBodyCellSelectDialog.md)
 - [DThemeDarkTableBodyCellSelectMenu](classes/DThemeDarkTableBodyCellSelectMenu.md)
 - [DThemeDarkTableBodyCellSelectPromise](classes/DThemeDarkTableBodyCellSelectPromise.md)
 - [DThemeDarkTableBodyCellText](classes/DThemeDarkTableBodyCellText.md)
+- [DThemeDarkTableBodyCellTextArea](classes/DThemeDarkTableBodyCellTextArea.md)
 - [DThemeDarkTableBodyCellTime](classes/DThemeDarkTableBodyCellTime.md)
 - [DThemeDarkTableBodyCells](classes/DThemeDarkTableBodyCells.md)
 - [DThemeDarkTableBodyRow](classes/DThemeDarkTableBodyRow.md)
@@ -711,6 +720,8 @@ Winter Cardinal UI - v0.310.1
 - [DThemeWhiteChartSelectionGridlineY](classes/DThemeWhiteChartSelectionGridlineY.md)
 - [DThemeWhiteChartSelectionMarker](classes/DThemeWhiteChartSelectionMarker.md)
 - [DThemeWhiteChartSelectionShape](classes/DThemeWhiteChartSelectionShape.md)
+- [DThemeWhiteColorRecent](classes/DThemeWhiteColorRecent.md)
+- [DThemeWhiteColorStandard](classes/DThemeWhiteColorStandard.md)
 - [DThemeWhiteContent](classes/DThemeWhiteContent.md)
 - [DThemeWhiteDiagram](classes/DThemeWhiteDiagram.md)
 - [DThemeWhiteDiagramBase](classes/DThemeWhiteDiagramBase.md)
@@ -864,11 +875,13 @@ Winter Cardinal UI - v0.310.1
 - [DThemeWhiteTableBodyCellInputInteger](classes/DThemeWhiteTableBodyCellInputInteger.md)
 - [DThemeWhiteTableBodyCellInputReal](classes/DThemeWhiteTableBodyCellInputReal.md)
 - [DThemeWhiteTableBodyCellInputText](classes/DThemeWhiteTableBodyCellInputText.md)
+- [DThemeWhiteTableBodyCellInputTextArea](classes/DThemeWhiteTableBodyCellInputTextArea.md)
 - [DThemeWhiteTableBodyCellLink](classes/DThemeWhiteTableBodyCellLink.md)
 - [DThemeWhiteTableBodyCellSelectDialog](classes/DThemeWhiteTableBodyCellSelectDialog.md)
 - [DThemeWhiteTableBodyCellSelectMenu](classes/DThemeWhiteTableBodyCellSelectMenu.md)
 - [DThemeWhiteTableBodyCellSelectPromise](classes/DThemeWhiteTableBodyCellSelectPromise.md)
 - [DThemeWhiteTableBodyCellText](classes/DThemeWhiteTableBodyCellText.md)
+- [DThemeWhiteTableBodyCellTextArea](classes/DThemeWhiteTableBodyCellTextArea.md)
 - [DThemeWhiteTableBodyCellTime](classes/DThemeWhiteTableBodyCellTime.md)
 - [DThemeWhiteTableBodyCells](classes/DThemeWhiteTableBodyCells.md)
 - [DThemeWhiteTableBodyRow](classes/DThemeWhiteTableBodyRow.md)
@@ -1052,6 +1065,8 @@ Winter Cardinal UI - v0.310.1
 - [EShapeDeleter](classes/EShapeDeleter.md)
 - [EShapeEditor](classes/EShapeEditor.md)
 - [EShapeEmbedded](classes/EShapeEmbedded.md)
+- [EShapeEmbeddedAcceptor](classes/EShapeEmbeddedAcceptor.md)
+- [EShapeEmbeddedAcceptorEdge](classes/EShapeEmbeddedAcceptorEdge.md)
 - [EShapeEmbeddedDatum](classes/EShapeEmbeddedDatum.md)
 - [EShapeEmbeddedLayer](classes/EShapeEmbeddedLayer.md)
 - [EShapeEmbeddedLayerContainer](classes/EShapeEmbeddedLayerContainer.md)
@@ -1084,7 +1099,9 @@ Winter Cardinal UI - v0.310.1
 - [EShapeLineOfTriangleRoundeds](classes/EShapeLineOfTriangleRoundeds.md)
 - [EShapeLineOfTriangles](classes/EShapeLineOfTriangles.md)
 - [EShapeLinePoints](classes/EShapeLinePoints.md)
+- [EShapeLock](classes/EShapeLock.md)
 - [EShapeNull](classes/EShapeNull.md)
+- [EShapePointsFormatters](classes/EShapePointsFormatters.md)
 - [EShapePointsMarkerBase](classes/EShapePointsMarkerBase.md)
 - [EShapePointsMarkerContainerImpl](classes/EShapePointsMarkerContainerImpl.md)
 - [EShapePointsMarkerContainerImplNoop](classes/EShapePointsMarkerContainerImplNoop.md)
@@ -1197,7 +1214,6 @@ Winter Cardinal UI - v0.310.1
 ### Interfaces
 
 - [Builder](interfaces/Builder.md)
-- [Closeable](interfaces/Closeable.md)
 - [DAnimation](interfaces/DAnimation.md)
 - [DAnimationEvents](interfaces/DAnimationEvents.md)
 - [DAnimationFadeInOptions](interfaces/DAnimationFadeInOptions.md)
@@ -1222,7 +1238,6 @@ Winter Cardinal UI - v0.310.1
 - [DBaseOnOptions](interfaces/DBaseOnOptions.md)
 - [DBaseOptions](interfaces/DBaseOptions.md)
 - [DBaseOutlineOptions](interfaces/DBaseOutlineOptions.md)
-- [DBasePaddingAdjuster](interfaces/DBasePaddingAdjuster.md)
 - [DBasePaddingOptions](interfaces/DBasePaddingOptions.md)
 - [DBaseReflowable](interfaces/DBaseReflowable.md)
 - [DBaseSnippet](interfaces/DBaseSnippet.md)
@@ -1431,6 +1446,7 @@ Winter Cardinal UI - v0.310.1
 - [DDiagramDataRemoteOptions](interfaces/DDiagramDataRemoteOptions.md)
 - [DDiagramDataScoped](interfaces/DDiagramDataScoped.md)
 - [DDiagramEditorController](interfaces/DDiagramEditorController.md)
+- [DDiagramEditorCreateOptions](interfaces/DDiagramEditorCreateOptions.md)
 - [DDiagramEditorEvents](interfaces/DDiagramEditorEvents.md)
 - [DDiagramEditorOnOptions](interfaces/DDiagramEditorOnOptions.md)
 - [DDiagramEditorOptions](interfaces/DDiagramEditorOptions.md)
@@ -1525,6 +1541,9 @@ Winter Cardinal UI - v0.310.1
 - [DDialogProcessingDelayOptions](interfaces/DDialogProcessingDelayOptions.md)
 - [DDialogProcessingOptions](interfaces/DDialogProcessingOptions.md)
 - [DDialogSaveAsOptions](interfaces/DDialogSaveAsOptions.md)
+- [DDialogSelectCategory](interfaces/DDialogSelectCategory.md)
+- [DDialogSelectCategoryDismissOptions](interfaces/DDialogSelectCategoryDismissOptions.md)
+- [DDialogSelectCategoryOptions](interfaces/DDialogSelectCategoryOptions.md)
 - [DDialogSelectController](interfaces/DDialogSelectController.md)
 - [DDialogSelectEvents](interfaces/DDialogSelectEvents.md)
 - [DDialogSelectInputOpitons](interfaces/DDialogSelectInputOpitons.md)
@@ -1631,6 +1650,9 @@ Winter Cardinal UI - v0.310.1
 - [DMenuBarItemOptions](interfaces/DMenuBarItemOptions.md)
 - [DMenuBarItemSpaceOptions](interfaces/DMenuBarItemSpaceOptions.md)
 - [DMenuBarOptions](interfaces/DMenuBarOptions.md)
+- [DMenuCloseable](interfaces/DMenuCloseable.md)
+- [DMenuContextOwner](interfaces/DMenuContextOwner.md)
+- [DMenuContextParent](interfaces/DMenuContextParent.md)
 - [DMenuItemBaseOptions](interfaces/DMenuItemBaseOptions.md)
 - [DMenuItemBaseSelection](interfaces/DMenuItemBaseSelection.md)
 - [DMenuItemCheckOptions](interfaces/DMenuItemCheckOptions.md)
@@ -1643,6 +1665,7 @@ Winter Cardinal UI - v0.310.1
 - [DMenuItemSeparatorOptions](interfaces/DMenuItemSeparatorOptions.md)
 - [DMenuItemSpaceOptions](interfaces/DMenuItemSpaceOptions.md)
 - [DMenuItemTextOptions](interfaces/DMenuItemTextOptions.md)
+- [DMenuOpener](interfaces/DMenuOpener.md)
 - [DMenuOptions](interfaces/DMenuOptions.md)
 - [DMenuSidedContentOptions](interfaces/DMenuSidedContentOptions.md)
 - [DMenuSidedOptions](interfaces/DMenuSidedOptions.md)
@@ -1748,6 +1771,7 @@ Winter Cardinal UI - v0.310.1
 - [DTableBodyCellIndexOptions](interfaces/DTableBodyCellIndexOptions.md)
 - [DTableBodyCellInputIntegerOptions](interfaces/DTableBodyCellInputIntegerOptions.md)
 - [DTableBodyCellInputRealOptions](interfaces/DTableBodyCellInputRealOptions.md)
+- [DTableBodyCellInputTextAreaOptions](interfaces/DTableBodyCellInputTextAreaOptions.md)
 - [DTableBodyCellInputTextOptions](interfaces/DTableBodyCellInputTextOptions.md)
 - [DTableBodyCellInputTreeInputOptions](interfaces/DTableBodyCellInputTreeInputOptions.md)
 - [DTableBodyCellInputTreeMarkerOptions](interfaces/DTableBodyCellInputTreeMarkerOptions.md)
@@ -1757,6 +1781,7 @@ Winter Cardinal UI - v0.310.1
 - [DTableBodyCellSelectMenuOptions](interfaces/DTableBodyCellSelectMenuOptions.md)
 - [DTableBodyCellSelectMultipleOptions](interfaces/DTableBodyCellSelectMultipleOptions.md)
 - [DTableBodyCellSelectPromiseOptions](interfaces/DTableBodyCellSelectPromiseOptions.md)
+- [DTableBodyCellTextAreaOptions](interfaces/DTableBodyCellTextAreaOptions.md)
 - [DTableBodyCellTextOptions](interfaces/DTableBodyCellTextOptions.md)
 - [DTableBodyCellTimeOptions](interfaces/DTableBodyCellTimeOptions.md)
 - [DTableBodyCellTreeOptions](interfaces/DTableBodyCellTreeOptions.md)
@@ -1860,6 +1885,8 @@ Winter Cardinal UI - v0.310.1
 - [DThemeChartPlotArea](interfaces/DThemeChartPlotArea.md)
 - [DThemeChartSelectionShape](interfaces/DThemeChartSelectionShape.md)
 - [DThemeChartSelectionSub](interfaces/DThemeChartSelectionSub.md)
+- [DThemeColorRecent](interfaces/DThemeColorRecent.md)
+- [DThemeColorStandard](interfaces/DThemeColorStandard.md)
 - [DThemeContent](interfaces/DThemeContent.md)
 - [DThemeDiagram](interfaces/DThemeDiagram.md)
 - [DThemeDiagramBase](interfaces/DThemeDiagramBase.md)
@@ -2005,6 +2032,7 @@ Winter Cardinal UI - v0.310.1
 - [DThemeTableBodyCellInputInteger](interfaces/DThemeTableBodyCellInputInteger.md)
 - [DThemeTableBodyCellInputReal](interfaces/DThemeTableBodyCellInputReal.md)
 - [DThemeTableBodyCellInputText](interfaces/DThemeTableBodyCellInputText.md)
+- [DThemeTableBodyCellInputTextArea](interfaces/DThemeTableBodyCellInputTextArea.md)
 - [DThemeTableBodyCellInputTree](interfaces/DThemeTableBodyCellInputTree.md)
 - [DThemeTableBodyCellInputTreeInput](interfaces/DThemeTableBodyCellInputTreeInput.md)
 - [DThemeTableBodyCellInputTreeMarker](interfaces/DThemeTableBodyCellInputTreeMarker.md)
@@ -2014,6 +2042,7 @@ Winter Cardinal UI - v0.310.1
 - [DThemeTableBodyCellSelectMultiple](interfaces/DThemeTableBodyCellSelectMultiple.md)
 - [DThemeTableBodyCellSelectPromise](interfaces/DThemeTableBodyCellSelectPromise.md)
 - [DThemeTableBodyCellText](interfaces/DThemeTableBodyCellText.md)
+- [DThemeTableBodyCellTextArea](interfaces/DThemeTableBodyCellTextArea.md)
 - [DThemeTableBodyCellTime](interfaces/DThemeTableBodyCellTime.md)
 - [DThemeTableBodyCellTree](interfaces/DThemeTableBodyCellTree.md)
 - [DThemeTableBodyRow](interfaces/DThemeTableBodyRow.md)
@@ -2054,10 +2083,12 @@ Winter Cardinal UI - v0.310.1
 - [DTreeNodeAccessorOptions](interfaces/DTreeNodeAccessorOptions.md)
 - [DTreeOptions](interfaces/DTreeOptions.md)
 - [DView](interfaces/DView.md)
+- [DViewEvents](interfaces/DViewEvents.md)
 - [DViewGesture](interfaces/DViewGesture.md)
 - [DViewGestureOptions](interfaces/DViewGestureOptions.md)
+- [DViewOnOptions](interfaces/DViewOnOptions.md)
 - [DViewOptions](interfaces/DViewOptions.md)
-- [DViewStopper](interfaces/DViewStopper.md)
+- [DViewParent](interfaces/DViewParent.md)
 - [DViewTarget](interfaces/DViewTarget.md)
 - [DViewTargetPoint](interfaces/DViewTargetPoint.md)
 - [DViewTransform](interfaces/DViewTransform.md)
@@ -2072,6 +2103,7 @@ Winter Cardinal UI - v0.310.1
 - [EShapeAcceptor](interfaces/EShapeAcceptor.md)
 - [EShapeAcceptorEdge](interfaces/EShapeAcceptorEdge.md)
 - [EShapeAcceptorEdgeNormal](interfaces/EShapeAcceptorEdgeNormal.md)
+- [EShapeAcceptorEdgeSize](interfaces/EShapeAcceptorEdgeSize.md)
 - [EShapeActionEnvironment](interfaces/EShapeActionEnvironment.md)
 - [EShapeActionOpenDialogExtension](interfaces/EShapeActionOpenDialogExtension.md)
 - [EShapeActionOpenExtension](interfaces/EShapeActionOpenExtension.md)
@@ -2126,6 +2158,7 @@ Winter Cardinal UI - v0.310.1
 - [EShapePoints](interfaces/EShapePoints.md)
 - [EShapePointsFormattedWithBoundary](interfaces/EShapePointsFormattedWithBoundary.md)
 - [EShapePointsFormattedWithoutBoundary](interfaces/EShapePointsFormattedWithoutBoundary.md)
+- [EShapePointsFormatterDatum](interfaces/EShapePointsFormatterDatum.md)
 - [EShapePointsMarker](interfaces/EShapePointsMarker.md)
 - [EShapePointsMarkerBaseParent](interfaces/EShapePointsMarkerBaseParent.md)
 - [EShapePointsMarkerBaseParentParent](interfaces/EShapePointsMarkerBaseParentParent.md)
@@ -2168,8 +2201,6 @@ Winter Cardinal UI - v0.310.1
 - [EThemeSnapperTarget](interfaces/EThemeSnapperTarget.md)
 - [FormatNode](interfaces/FormatNode.md)
 - [NumberFormatter](interfaces/NumberFormatter.md)
-- [Owner](interfaces/Owner.md)
-- [Parent](interfaces/Parent.md)
 - [PixiApplicationOptions](interfaces/PixiApplicationOptions.md)
 - [UtilAttachTarget](interfaces/UtilAttachTarget.md)
 - [UtilExtractBase64Options](interfaces/UtilExtractBase64Options.md)
@@ -2187,6 +2218,7 @@ Winter Cardinal UI - v0.310.1
 - [UtilFontMetrics](interfaces/UtilFontMetrics.md)
 - [UtilGestureCheckerOptions](interfaces/UtilGestureCheckerOptions.md)
 - [UtilGestureEasingOptions](interfaces/UtilGestureEasingOptions.md)
+- [UtilGestureOnEasingOptions](interfaces/UtilGestureOnEasingOptions.md)
 - [UtilGestureOnOptions](interfaces/UtilGestureOnOptions.md)
 - [UtilGestureOptions](interfaces/UtilGestureOptions.md)
 - [UtilGestureTarget](interfaces/UtilGestureTarget.md)
@@ -2244,6 +2276,7 @@ Winter Cardinal UI - v0.310.1
 - [DAlignWith](index.md#dalignwith)
 - [DAnimationOnEnd](index.md#danimationonend)
 - [DAnimationOnStart](index.md#danimationonstart)
+- [DAnimationOnStop](index.md#danimationonstop)
 - [DAnimationOnTime](index.md#danimationontime)
 - [DAnimationTiming](index.md#danimationtiming)
 - [DBaseInteractive](index.md#dbaseinteractive)
@@ -2269,6 +2302,7 @@ Winter Cardinal UI - v0.310.1
 - [DChartSelectionShapeNewShape](index.md#dchartselectionshapenewshape)
 - [DChartSelectionStyle](index.md#dchartselectionstyle)
 - [DChartSeriesScalar](index.md#dchartseriesscalar)
+- [DColorType](index.md#dcolortype)
 - [DCoordinatePosition](index.md#dcoordinateposition)
 - [DCoordinateSize](index.md#dcoordinatesize)
 - [DCoordinateSizeNoAuto](index.md#dcoordinatesizenoauto)
@@ -2355,6 +2389,7 @@ Winter Cardinal UI - v0.310.1
 - [DTableColumnSetter](index.md#dtablecolumnsetter)
 - [DTableColumnStateModifier](index.md#dtablecolumnstatemodifier)
 - [DTableColumnType](index.md#dtablecolumntype)
+- [DTableColumnUpdate](index.md#dtablecolumnupdate)
 - [DTableDataComparator](index.md#dtabledatacomparator)
 - [DTableDataComparatorFunction](index.md#dtabledatacomparatorfunction)
 - [DTableDataEachIteratee](index.md#dtabledataeachiteratee)
@@ -2365,6 +2400,7 @@ Winter Cardinal UI - v0.310.1
 - [DTableDataSelectionCreator](index.md#dtabledataselectioncreator)
 - [DTableDataSelectionEachIteratee](index.md#dtabledataselectioneachiteratee)
 - [DTableDataSelectionType](index.md#dtabledataselectiontype)
+- [DTableDataSupplimental](index.md#dtabledatasupplimental)
 - [DTableDataTreeItemAccessorHasChildren](index.md#dtabledatatreeitemaccessorhaschildren)
 - [DTableDataTreeItemAccessorToChildren](index.md#dtabledatatreeitemaccessortochildren)
 - [DTableDataTreeItemAccessorToParent](index.md#dtabledatatreeitemaccessortoparent)
@@ -2377,6 +2413,8 @@ Winter Cardinal UI - v0.310.1
 - [DeepPartial](index.md#deeppartial)
 - [DynamicFontAtlasCharacterType](index.md#dynamicfontatlascharactertype)
 - [DynamicFontAtlasCharacters](index.md#dynamicfontatlascharacters)
+- [EShapeAcceptorEdgeSide](index.md#eshapeacceptoredgeside)
+- [EShapeAcceptorEdgeType](index.md#eshapeacceptoredgetype)
 - [EShapeAcceptorType](index.md#eshapeacceptortype)
 - [EShapeActionExpression](index.md#eshapeactionexpression)
 - [EShapeActionExpressionWithParameter](index.md#eshapeactionexpressionwithparameter)
@@ -2458,6 +2496,7 @@ Winter Cardinal UI - v0.310.1
 - [EShapeLineOfAnyPointsHitTesterToThreshold](index.md#eshapelineofanypointshittestertothreshold)
 - [EShapeLineOfAnyValue](index.md#eshapelineofanyvalue)
 - [EShapeLinePointsSerialized](index.md#eshapelinepointsserialized)
+- [EShapeLockPart](index.md#eshapelockpart)
 - [EShapeOnDeserialized](index.md#eshapeondeserialized)
 - [EShapePointsFormatted](index.md#eshapepointsformatted)
 - [EShapePointsFormattedBoundary](index.md#eshapepointsformattedboundary)
@@ -2494,9 +2533,12 @@ Winter Cardinal UI - v0.310.1
 - [UtilGestureMode](index.md#utilgesturemode)
 - [UtilGestureModifier](index.md#utilgesturemodifier)
 - [UtilGestureModifierEvent](index.md#utilgesturemodifierevent)
+- [UtilGestureOnEasingEnd](index.md#utilgestureoneasingend)
+- [UtilGestureOnEasingStart](index.md#utilgestureoneasingstart)
 - [UtilGestureOnEnd](index.md#utilgestureonend)
 - [UtilGestureOnMove](index.md#utilgestureonmove)
 - [UtilGestureOnStart](index.md#utilgestureonstart)
+- [UtilGestureOnStop](index.md#utilgestureonstop)
 - [UtilHtmlElementCreator](index.md#utilhtmlelementcreator)
 - [UtilHtmlElementPadding](index.md#utilhtmlelementpadding)
 - [UtilHtmlElementStyler](index.md#utilhtmlelementstyler)
@@ -2528,6 +2570,7 @@ Winter Cardinal UI - v0.310.1
 - [DChartAxisTickPosition](index.md#dchartaxistickposition-1)
 - [DChartCoordinateDirection](index.md#dchartcoordinatedirection-1)
 - [DChartSelectionPoint](index.md#dchartselectionpoint-1)
+- [DColorType](index.md#dcolortype-1)
 - [DCornerMask](index.md#dcornermask-1)
 - [DDiagramBaseControllerOpenType](index.md#ddiagrambasecontrolleropentype-1)
 - [DDiagramSerializedVersion](index.md#ddiagramserializedversion)
@@ -2546,6 +2589,7 @@ Winter Cardinal UI - v0.310.1
 - [DPickerDatetimeMask](index.md#dpickerdatetimemask-1)
 - [DScalarExpressionNodeType](index.md#dscalarexpressionnodetype-1)
 - [DTableColumnType](index.md#dtablecolumntype-1)
+- [DTableColumnUpdate](index.md#dtablecolumnupdate-1)
 - [DTableDataOrder](index.md#dtabledataorder-1)
 - [DTableDataSelectionType](index.md#dtabledataselectiontype-1)
 - [DTableState](index.md#dtablestate)
@@ -2554,6 +2598,8 @@ Winter Cardinal UI - v0.310.1
 - [DTreeDataSelectionType](index.md#dtreedataselectiontype-1)
 - [DTreeItemState](index.md#dtreeitemstate)
 - [DynamicFontAtlasCharacterType](index.md#dynamicfontatlascharactertype-1)
+- [EShapeAcceptorEdgeSide](index.md#eshapeacceptoredgeside-1)
+- [EShapeAcceptorEdgeType](index.md#eshapeacceptoredgetype-1)
 - [EShapeAcceptorType](index.md#eshapeacceptortype-1)
 - [EShapeActionEnvironment](index.md#eshapeactionenvironment)
 - [EShapeActionOpenOpeners](index.md#eshapeactionopenopeners)
@@ -2587,6 +2633,7 @@ Winter Cardinal UI - v0.310.1
 - [EShapeDeserializers](index.md#eshapedeserializers)
 - [EShapeLayerState](index.md#eshapelayerstate)
 - [EShapeLineBaseHitPart](index.md#eshapelinebasehitpart-1)
+- [EShapeLockPart](index.md#eshapelockpart-1)
 - [EShapeOnDeserializeds](index.md#eshapeondeserializeds)
 - [EShapePointsMarkerType](index.md#eshapepointsmarkertype-1)
 - [EShapePointsStyle](index.md#eshapepointsstyle-1)
@@ -2738,6 +2785,7 @@ Winter Cardinal UI - v0.310.1
 - [deserializeConnectorElbow](index.md#deserializeconnectorelbow)
 - [deserializeConnectorLine](index.md#deserializeconnectorline)
 - [deserializeEmbedded](index.md#deserializeembedded)
+- [deserializeEmbeddedAcceptorEdge](index.md#deserializeembeddedacceptoredge)
 - [deserializeEmbeddedLayer](index.md#deserializeembeddedlayer)
 - [deserializeGradient](index.md#deserializegradient)
 - [deserializeGroup](index.md#deserializegroup)
@@ -2827,6 +2875,7 @@ Winter Cardinal UI - v0.310.1
 - [loadThemeDarkButtonTime](index.md#loadthemedarkbuttontime)
 - [loadThemeDarkCanvasContainer](index.md#loadthemedarkcanvascontainer)
 - [loadThemeDarkChart](index.md#loadthemedarkchart)
+- [loadThemeDarkColor](index.md#loadthemedarkcolor)
 - [loadThemeDarkDiagram](index.md#loadthemedarkdiagram)
 - [loadThemeDarkDiagramEditor](index.md#loadthemedarkdiagrameditor)
 - [loadThemeDarkDialog](index.md#loadthemedarkdialog)
@@ -2907,6 +2956,8 @@ Winter Cardinal UI - v0.310.1
 - [loadThemeWhiteButtonSecondary](index.md#loadthemewhitebuttonsecondary)
 - [loadThemeWhiteButtonTime](index.md#loadthemewhitebuttontime)
 - [loadThemeWhiteCanvasContainer](index.md#loadthemewhitecanvascontainer)
+- [loadThemeWhiteChart](index.md#loadthemewhitechart)
+- [loadThemeWhiteColor](index.md#loadthemewhitecolor)
 - [loadThemeWhiteDiagram](index.md#loadthemewhitediagram)
 - [loadThemeWhiteDiagramEditor](index.md#loadthemewhitediagrameditor)
 - [loadThemeWhiteDialog](index.md#loadthemewhitedialog)
@@ -2972,6 +3023,7 @@ Winter Cardinal UI - v0.310.1
 - [toEnum](index.md#toenum)
 - [toGradientImageUrl](index.md#togradientimageurl)
 - [toGradientSerialized](index.md#togradientserialized)
+- [toId](index.md#toid)
 - [toImageElement](index.md#toimageelement)
 - [toIndexOf](index.md#toindexof)
 - [toLabel](index.md#tolabel)
@@ -3026,7 +3078,7 @@ Renames and re-exports [UtilAttachAlign](index.md#utilattachalign-1)
 
 #### Type declaration
 
-• (`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCount`)
+• (`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`, `pointCount`): [`Builder`](interfaces/Builder.md)
 
 ##### Parameters
 
@@ -3037,6 +3089,10 @@ Renames and re-exports [UtilAttachAlign](index.md#utilattachalign-1)
 | `vertexCount` | `number` |
 | `indexCount` | `number` |
 | `pointCount` | `number` |
+
+##### Returns
+
+[`Builder`](interfaces/Builder.md)
 
 #### Defined in
 
@@ -3082,7 +3138,7 @@ ___
 
 ### DAnimationOnEnd
 
-Ƭ **DAnimationOnEnd**<`TARGET`\>: (`isReverse`: `boolean`, `animation`: [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\>) => `void`
+Ƭ **DAnimationOnEnd**\<`TARGET`\>: (`isReverse`: `boolean`, `animation`: [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\>) => `void`
 
 #### Type parameters
 
@@ -3094,14 +3150,14 @@ ___
 
 ▸ (`isReverse`, `animation`): `void`
 
-Triggered when an animation stops.
+Triggered when an animation ends.
 
 ##### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `isReverse` | `boolean` | true if an animation is playing in reverse |
-| `animation` | [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\> | an instance |
+| `animation` | [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\> | an instance |
 
 ##### Returns
 
@@ -3115,7 +3171,7 @@ ___
 
 ### DAnimationOnStart
 
-Ƭ **DAnimationOnStart**<`TARGET`\>: (`isReverse`: `boolean`, `animation`: [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\>) => `void`
+Ƭ **DAnimationOnStart**\<`TARGET`\>: (`isReverse`: `boolean`, `animation`: [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\>) => `void`
 
 #### Type parameters
 
@@ -3134,7 +3190,7 @@ A function called when an animation starts.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `isReverse` | `boolean` | true if an animation is playing in reverse |
-| `animation` | [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\> | an instance |
+| `animation` | [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\> | an instance |
 
 ##### Returns
 
@@ -3146,9 +3202,42 @@ A function called when an animation starts.
 
 ___
 
+### DAnimationOnStop
+
+Ƭ **DAnimationOnStop**\<`TARGET`\>: (`isReverse`: `boolean`, `animation`: [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\>) => `void`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `TARGET` |
+
+#### Type declaration
+
+▸ (`isReverse`, `animation`): `void`
+
+Triggered when an animation stops.
+
+##### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `isReverse` | `boolean` | true if an animation is playing in reverse |
+| `animation` | [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\> | an instance |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-animation.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L46)
+
+___
+
 ### DAnimationOnTime
 
-Ƭ **DAnimationOnTime**<`TARGET`\>: (`time`: `number`, `isReverse`: `boolean`, `elapsedTime`: `number`, `animation`: [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\>) => `void`
+Ƭ **DAnimationOnTime**\<`TARGET`\>: (`time`: `number`, `isReverse`: `boolean`, `elapsedTime`: `number`, `animation`: [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\>) => `void`
 
 #### Type parameters
 
@@ -3169,7 +3258,7 @@ A function called constantly when an animation is on a run.
 | `time` | `number` | a timing value in a range [0, 1] |
 | `isReverse` | `boolean` | true if an animation is playing in reverse |
 | `elapsedTime` | `number` | an elapsed time since an animation has started |
-| `animation` | [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\> | an instance |
+| `animation` | [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\> | an instance |
 
 ##### Returns
 
@@ -3183,7 +3272,7 @@ ___
 
 ### DAnimationTiming
 
-Ƭ **DAnimationTiming**<`TARGET`\>: (`time`: `number`, `animation`: [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\>) => `number`
+Ƭ **DAnimationTiming**\<`TARGET`\>: (`time`: `number`, `animation`: [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\>) => `number`
 
 #### Type parameters
 
@@ -3202,7 +3291,7 @@ An easing function.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `time` | `number` | a normalized elapsed time |
-| `animation` | [`DAnimation`](interfaces/DAnimation.md)<`TARGET`\> | an instance |
+| `animation` | [`DAnimation`](interfaces/DAnimation.md)\<`TARGET`\> | an instance |
 
 ##### Returns
 
@@ -3210,7 +3299,7 @@ An easing function.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L46)
+[src/main/typescript/wcardinal/ui/d-animation.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L54)
 
 ___
 
@@ -3338,15 +3427,15 @@ ___
 
 ### DButtonFileChecker
 
-Ƭ **DButtonFileChecker**: () => `Promise`<`unknown`\> \| `boolean`
+Ƭ **DButtonFileChecker**: () => `Promise`\<`unknown`\> \| `boolean`
 
 #### Type declaration
 
-▸ (): `Promise`<`unknown`\> \| `boolean`
+▸ (): `Promise`\<`unknown`\> \| `boolean`
 
 ##### Returns
 
-`Promise`<`unknown`\> \| `boolean`
+`Promise`\<`unknown`\> \| `boolean`
 
 #### Defined in
 
@@ -3356,7 +3445,7 @@ ___
 
 ### DButtonSelectGetter
 
-Ƭ **DButtonSelectGetter**<`VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`) => `VALUE` \| ``null``
+Ƭ **DButtonSelectGetter**\<`VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`) => `VALUE` \| ``null``
 
 #### Type parameters
 
@@ -3389,7 +3478,7 @@ ___
 
 ### DButtonSelectSetter
 
-Ƭ **DButtonSelectSetter**<`VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`, `value`: `VALUE` \| ``null``) => `void`
+Ƭ **DButtonSelectSetter**\<`VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`, `value`: `VALUE` \| ``null``) => `void`
 
 #### Type parameters
 
@@ -3587,7 +3676,7 @@ ___
 
 ### DChartSelectionStyle
 
-Ƭ **DChartSelectionStyle**<`CHART`\>: (`shape`: [`EShape`](interfaces/EShape.md), `series`: [`DChartSeries`](interfaces/DChartSeries.md)<`CHART`\>) => `void`
+Ƭ **DChartSelectionStyle**\<`CHART`\>: (`shape`: [`EShape`](interfaces/EShape.md), `series`: [`DChartSeries`](interfaces/DChartSeries.md)\<`CHART`\>) => `void`
 
 #### Type parameters
 
@@ -3604,7 +3693,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](interfaces/EShape.md) |
-| `series` | [`DChartSeries`](interfaces/DChartSeries.md)<`CHART`\> |
+| `series` | [`DChartSeries`](interfaces/DChartSeries.md)\<`CHART`\> |
 
 ##### Returns
 
@@ -3618,7 +3707,7 @@ ___
 
 ### DChartSeriesScalar
 
-Ƭ **DChartSeriesScalar**<`T`\>: (`index`: `number`) => `T`
+Ƭ **DChartSeriesScalar**\<`T`\>: (`index`: `number`) => `T`
 
 #### Type parameters
 
@@ -3643,6 +3732,18 @@ ___
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-chart-series-scalar.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-scalar.ts#L9)
+
+___
+
+### DColorType
+
+Ƭ **DColorType**: typeof [`DColorType`](index.md#dcolortype-1)[keyof typeof [`DColorType`](index.md#dcolortype-1)]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-color-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-type.ts#L6)
+
+[src/main/typescript/wcardinal/ui/d-color-type.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-type.ts#L11)
 
 ___
 
@@ -3738,13 +3839,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L31)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L32)
 
 ___
 
 ### DDiagramCanvasTilePyramidFactory
 
-Ƭ **DDiagramCanvasTilePyramidFactory**: (`canvas`: [`DDiagramCanvasBase`](classes/DDiagramCanvasBase.md)<`any`, `any`\>) => [`DMapTilePyramid`](interfaces/DMapTilePyramid.md)
+Ƭ **DDiagramCanvasTilePyramidFactory**: (`canvas`: [`DDiagramCanvasBase`](classes/DDiagramCanvasBase.md)\<`any`, `any`\>) => [`DMapTilePyramid`](interfaces/DMapTilePyramid.md)
 
 #### Type declaration
 
@@ -3756,7 +3857,7 @@ A tile pyramid factory.
 
 | Name | Type |
 | :------ | :------ |
-| `canvas` | [`DDiagramCanvasBase`](classes/DDiagramCanvasBase.md)<`any`, `any`\> |
+| `canvas` | [`DDiagramCanvasBase`](classes/DDiagramCanvasBase.md)\<`any`, `any`\> |
 
 ##### Returns
 
@@ -3858,11 +3959,11 @@ ___
 
 ### DDiagramSerializedSimpleData
 
-Ƭ **DDiagramSerializedSimpleData**: `Omit`<[`DDiagramSerialized`](interfaces/DDiagramSerialized.md), ``"version"`` \| ``"id"`` \| ``"name"`` \| ``"thumbnail"``\>
+Ƭ **DDiagramSerializedSimpleData**: `Omit`\<[`DDiagramSerialized`](interfaces/DDiagramSerialized.md), ``"version"`` \| ``"id"`` \| ``"name"`` \| ``"thumbnail"``\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:560](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L560)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L564)
 
 ___
 
@@ -3943,7 +4044,7 @@ ___
 
 ### DDialogSelectItemIsEqual
 
-Ƭ **DDialogSelectItemIsEqual**<`VALUE`\>: (`a`: `VALUE`, `b`: `VALUE`, `caller`: `any`) => `boolean`
+Ƭ **DDialogSelectItemIsEqual**\<`VALUE`\>: (`a`: `VALUE`, `b`: `VALUE`, `caller`: `any`) => `boolean`
 
 #### Type parameters
 
@@ -3975,7 +4076,7 @@ ___
 
 ### DDialogSelectItemToLabel
 
-Ƭ **DDialogSelectItemToLabel**<`VALUE`\>: (`result`: `VALUE`, `caller`: `any`) => `string`
+Ƭ **DDialogSelectItemToLabel**\<`VALUE`\>: (`result`: `VALUE`, `caller`: `any`) => `string`
 
 #### Type parameters
 
@@ -4006,17 +4107,18 @@ ___
 
 ### DDialogSelectSearchFunction
 
-Ƭ **DDialogSelectSearchFunction**<`VALUE`\>: (`word`: `string`) => `Promise`<`VALUE`[]\>
+Ƭ **DDialogSelectSearchFunction**\<`VALUE`, `CATEGORY_ID`\>: (`word`: `string`, `categoryId?`: `CATEGORY_ID` \| ``null``) => `Promise`\<`VALUE`[]\>
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `VALUE` |
+| `CATEGORY_ID` |
 
 #### Type declaration
 
-▸ (`word`): `Promise`<`VALUE`[]\>
+▸ (`word`, `categoryId?`): `Promise`\<`VALUE`[]\>
 
 [DDialogSelect](classes/DDialogSelect.md) search function.
 
@@ -4025,30 +4127,32 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `word` | `string` |
+| `categoryId?` | `CATEGORY_ID` \| ``null`` |
 
 ##### Returns
 
-`Promise`<`VALUE`[]\>
+`Promise`\<`VALUE`[]\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L38)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-function.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select-search-function.ts#L9)
 
 ___
 
 ### DDialogSelectSearhDismissableFilter
 
-Ƭ **DDialogSelectSearhDismissableFilter**<`VALUE`\>: (`value`: `VALUE`, `word?`: `string`) => `boolean`
+Ƭ **DDialogSelectSearhDismissableFilter**\<`VALUE`, `CATEGORY_ID`\>: (`value`: `VALUE`, `word?`: `string`, `categoryId?`: `CATEGORY_ID` \| ``null``) => `boolean`
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `VALUE` |
+| `CATEGORY_ID` |
 
 #### Type declaration
 
-▸ (`value`, `word?`): `boolean`
+▸ (`value`, `word?`, `categoryId?`): `boolean`
 
 ##### Parameters
 
@@ -4056,6 +4160,7 @@ ___
 | :------ | :------ |
 | `value` | `VALUE` |
 | `word?` | `string` |
+| `categoryId?` | `CATEGORY_ID` \| ``null`` |
 
 ##### Returns
 
@@ -4121,7 +4226,7 @@ ___
 
 ### DItemUpdaterInitItem
 
-Ƭ **DItemUpdaterInitItem**<`DATA`, `ITEM`\>: (`item`: `ITEM`, `index`: `number`, `data`: `DATA`) => `ITEM`
+Ƭ **DItemUpdaterInitItem**\<`DATA`, `ITEM`\>: (`item`: `ITEM`, `index`: `number`, `data`: `DATA`) => `ITEM`
 
 #### Type parameters
 
@@ -4154,7 +4259,7 @@ ___
 
 ### DItemUpdaterNewItem
 
-Ƭ **DItemUpdaterNewItem**<`DATA`, `ITEM`\>: (`data`: `DATA`) => `ITEM`
+Ƭ **DItemUpdaterNewItem**\<`DATA`, `ITEM`\>: (`data`: `DATA`) => `ITEM`
 
 #### Type parameters
 
@@ -4209,15 +4314,15 @@ ___
 
 ### DLinkChecker
 
-Ƭ **DLinkChecker**: () => `boolean` \| `Promise`<`boolean`\>
+Ƭ **DLinkChecker**: () => `boolean` \| `Promise`\<`boolean`\>
 
 #### Type declaration
 
-▸ (): `boolean` \| `Promise`<`boolean`\>
+▸ (): `boolean` \| `Promise`\<`boolean`\>
 
 ##### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
@@ -4239,7 +4344,7 @@ ___
 
 ### DLinkMenuOptions
 
-Ƭ **DLinkMenuOptions**: [`DMenuOptions`](interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](index.md#dlinkmenuitemid-1)\> \| [`DMenu`](classes/DMenu.md)<[`DLinkMenuItemId`](index.md#dlinkmenuitemid-1)\>
+Ƭ **DLinkMenuOptions**: [`DMenuOptions`](interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](index.md#dlinkmenuitemid-1)\> \| [`DMenu`](classes/DMenu.md)\<[`DLinkMenuItemId`](index.md#dlinkmenuitemid-1)\>
 
 #### Defined in
 
@@ -4271,15 +4376,15 @@ ___
 
 ### DLinkUrlMaker
 
-Ƭ **DLinkUrlMaker**: () => [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
+Ƭ **DLinkUrlMaker**: () => [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`\<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Type declaration
 
-▸ (): [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
+▸ (): [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`\<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 ##### Returns
 
-[`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
+[`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`\<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Defined in
 
@@ -4299,7 +4404,7 @@ ___
 
 ### DListDataIteratee
 
-Ƭ **DListDataIteratee**<`ITEM`\>: (`item`: `ITEM`, `index`: `number`) => `void` \| `boolean`
+Ƭ **DListDataIteratee**\<`ITEM`\>: (`item`: `ITEM`, `index`: `number`) => `void` \| `boolean`
 
 #### Type parameters
 
@@ -4342,7 +4447,7 @@ ___
 
 ### DListItemLinkChecker
 
-Ƭ **DListItemLinkChecker**<`VALUE`\>: (`value`: `VALUE`) => `boolean` \| `Promise`<`boolean`\>
+Ƭ **DListItemLinkChecker**\<`VALUE`\>: (`value`: `VALUE`) => `boolean` \| `Promise`\<`boolean`\>
 
 #### Type parameters
 
@@ -4352,7 +4457,7 @@ ___
 
 #### Type declaration
 
-▸ (`value`): `boolean` \| `Promise`<`boolean`\>
+▸ (`value`): `boolean` \| `Promise`\<`boolean`\>
 
 ##### Parameters
 
@@ -4362,7 +4467,7 @@ ___
 
 ##### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
@@ -4372,7 +4477,7 @@ ___
 
 ### DListItemToId
 
-Ƭ **DListItemToId**<`VALUE`\>: (`value`: `VALUE`) => `unknown`
+Ƭ **DListItemToId**\<`VALUE`\>: (`value`: `VALUE`) => `unknown`
 
 #### Type parameters
 
@@ -4402,7 +4507,7 @@ ___
 
 ### DListItemToImage
 
-Ƭ **DListItemToImage**<`VALUE`\>: (`value`: `VALUE`) => `DisplayObject` \| `Texture` \| ``null`` \| `undefined`
+Ƭ **DListItemToImage**\<`VALUE`\>: (`value`: `VALUE`) => `DisplayObject` \| `Texture` \| ``null`` \| `undefined`
 
 #### Type parameters
 
@@ -4432,7 +4537,7 @@ ___
 
 ### DListItemToLabel
 
-Ƭ **DListItemToLabel**<`VALUE`\>: (`value`: `VALUE`) => `string` \| `undefined`
+Ƭ **DListItemToLabel**\<`VALUE`\>: (`value`: `VALUE`) => `string` \| `undefined`
 
 #### Type parameters
 
@@ -4462,7 +4567,7 @@ ___
 
 ### DListItemToLinkUrl
 
-Ƭ **DListItemToLinkUrl**<`VALUE`\>: (`value`: `VALUE`) => [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
+Ƭ **DListItemToLinkUrl**\<`VALUE`\>: (`value`: `VALUE`) => [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`\<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Type parameters
 
@@ -4472,7 +4577,7 @@ ___
 
 #### Type declaration
 
-▸ (`value`): [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
+▸ (`value`): [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`\<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 ##### Parameters
 
@@ -4482,7 +4587,7 @@ ___
 
 ##### Returns
 
-[`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
+[`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`\<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Defined in
 
@@ -4492,7 +4597,7 @@ ___
 
 ### DListItemToTitle
 
-Ƭ **DListItemToTitle**<`VALUE`\>: (`value`: `VALUE`) => `string` \| `undefined`
+Ƭ **DListItemToTitle**\<`VALUE`\>: (`value`: `VALUE`) => `string` \| `undefined`
 
 #### Type parameters
 
@@ -4548,7 +4653,7 @@ ___
 
 ### DMenuItemCreator
 
-Ƭ **DMenuItemCreator**: (`options`: [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`any`\>, `sticky`: `boolean`) => `DisplayObject` \| ``null``
+Ƭ **DMenuItemCreator**: (`options`: [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`any`\>, `sticky`: `boolean`) => `DisplayObject` \| ``null``
 
 #### Type declaration
 
@@ -4558,7 +4663,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`any`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`any`\> |
 | `sticky` | `boolean` |
 
 ##### Returns
@@ -4573,11 +4678,11 @@ ___
 
 ### DMenuItemLinkChecker
 
-Ƭ **DMenuItemLinkChecker**: (`item`: [`DMenuItemLink`](classes/DMenuItemLink.md)) => `boolean` \| `Promise`<`boolean`\>
+Ƭ **DMenuItemLinkChecker**: (`item`: [`DMenuItemLink`](classes/DMenuItemLink.md)) => `boolean` \| `Promise`\<`boolean`\>
 
 #### Type declaration
 
-▸ (`item`): `boolean` \| `Promise`<`boolean`\>
+▸ (`item`): `boolean` \| `Promise`\<`boolean`\>
 
 ##### Parameters
 
@@ -4587,7 +4692,7 @@ ___
 
 ##### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
@@ -4597,11 +4702,11 @@ ___
 
 ### DMenuItemLinkUrlMaker
 
-Ƭ **DMenuItemLinkUrlMaker**: (`item`: [`DMenuItemLink`](classes/DMenuItemLink.md)) => `string` \| ``null`` \| `Promise`<`string` \| ``null``\>
+Ƭ **DMenuItemLinkUrlMaker**: (`item`: [`DMenuItemLink`](classes/DMenuItemLink.md)) => `string` \| ``null`` \| `Promise`\<`string` \| ``null``\>
 
 #### Type declaration
 
-▸ (`item`): `string` \| ``null`` \| `Promise`<`string` \| ``null``\>
+▸ (`item`): `string` \| ``null`` \| `Promise`\<`string` \| ``null``\>
 
 ##### Parameters
 
@@ -4611,7 +4716,7 @@ ___
 
 ##### Returns
 
-`string` \| ``null`` \| `Promise`<`string` \| ``null``\>
+`string` \| ``null`` \| `Promise`\<`string` \| ``null``\>
 
 #### Defined in
 
@@ -4621,7 +4726,7 @@ ___
 
 ### DMenuItemOptionsUnion
 
-Ƭ **DMenuItemOptionsUnion**<`VALUE`\>: [`DMenuItemTextOptions`](interfaces/DMenuItemTextOptions.md)<`VALUE`\> \| [`DMenuItemCheckOptions`](interfaces/DMenuItemCheckOptions.md)<`VALUE`\> \| [`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)<`VALUE`\> \| [`DMenuItemSeparatorOptions`](interfaces/DMenuItemSeparatorOptions.md)<`VALUE`\> \| [`DMenuItemExpandableOptions`](interfaces/DMenuItemExpandableOptions.md)<`VALUE`\> \| [`DMenuItemLinkOptions`](interfaces/DMenuItemLinkOptions.md)<`VALUE`\> \| [`DMenuItemSpaceOptions`](interfaces/DMenuItemSpaceOptions.md)
+Ƭ **DMenuItemOptionsUnion**\<`VALUE`\>: [`DMenuItemTextOptions`](interfaces/DMenuItemTextOptions.md)\<`VALUE`\> \| [`DMenuItemCheckOptions`](interfaces/DMenuItemCheckOptions.md)\<`VALUE`\> \| [`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)\<`VALUE`\> \| [`DMenuItemSeparatorOptions`](interfaces/DMenuItemSeparatorOptions.md)\<`VALUE`\> \| [`DMenuItemExpandableOptions`](interfaces/DMenuItemExpandableOptions.md)\<`VALUE`\> \| [`DMenuItemLinkOptions`](interfaces/DMenuItemLinkOptions.md)\<`VALUE`\> \| [`DMenuItemSpaceOptions`](interfaces/DMenuItemSpaceOptions.md)
 
 #### Type parameters
 
@@ -4637,11 +4742,11 @@ ___
 
 ### DMenuMenuCreator
 
-Ƭ **DMenuMenuCreator**: (`options?`: [`DMenuOptions`](interfaces/DMenuOptions.md)) => [`DMenu`](classes/DMenu.md)<`any`\>
+Ƭ **DMenuMenuCreator**: (`options?`: [`DMenuOptions`](interfaces/DMenuOptions.md)) => [`DMenu`](classes/DMenu.md)\<`any`\>
 
 #### Type declaration
 
-▸ (`options?`): [`DMenu`](classes/DMenu.md)<`any`\>
+▸ (`options?`): [`DMenu`](classes/DMenu.md)\<`any`\>
 
 ##### Parameters
 
@@ -4651,7 +4756,7 @@ ___
 
 ##### Returns
 
-[`DMenu`](classes/DMenu.md)<`any`\>
+[`DMenu`](classes/DMenu.md)\<`any`\>
 
 #### Defined in
 
@@ -4847,7 +4952,7 @@ ___
 
 ### DStateAware
 
-Ƭ **DStateAware**<`R`\>: (`state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md)) => `R`
+Ƭ **DStateAware**\<`R`\>: (`state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md)) => `R`
 
 #### Type parameters
 
@@ -4879,7 +4984,7 @@ ___
 
 ### DStateAwareOrValue
 
-Ƭ **DStateAwareOrValue**<`R`\>: [`DStateAware`](index.md#dstateaware)<`R`\> \| `R`
+Ƭ **DStateAwareOrValue**\<`R`\>: [`DStateAware`](index.md#dstateaware)\<`R`\> \| `R`
 
 R or a [DBaseState](index.md#dbasestate)-aware function returning R.
 
@@ -4897,7 +5002,7 @@ ___
 
 ### DStateAwareOrValueMightBe
 
-Ƭ **DStateAwareOrValueMightBe**<`R`\>: [`DStateAwareOrValue`](index.md#dstateawareorvalue)<`R` \| `undefined`\>
+Ƭ **DStateAwareOrValueMightBe**\<`R`\>: [`DStateAwareOrValue`](index.md#dstateawareorvalue)\<`R` \| `undefined`\>
 
 R or a [DBaseState](index.md#dbasestate)-aware function returning R.
 If a computed value is undefined, the computed value is supposed to be ignored.
@@ -4916,7 +5021,7 @@ ___
 
 ### DTableBodyCellLinkChecker
 
-Ƭ **DTableBodyCellLinkChecker**<`ROW`, `VALUE`\>: (`row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `link`: [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, `VALUE` \| ``null``\>) => `boolean` \| `Promise`<`boolean`\>
+Ƭ **DTableBodyCellLinkChecker**\<`ROW`, `VALUE`\>: (`row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `link`: [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, `VALUE` \| ``null``\>) => `boolean` \| `Promise`\<`boolean`\>
 
 #### Type parameters
 
@@ -4927,7 +5032,7 @@ ___
 
 #### Type declaration
 
-▸ (`row`, `rowIndex`, `columnIndex`, `link`): `boolean` \| `Promise`<`boolean`\>
+▸ (`row`, `rowIndex`, `columnIndex`, `link`): `boolean` \| `Promise`\<`boolean`\>
 
 ##### Parameters
 
@@ -4936,11 +5041,11 @@ ___
 | `row` | `ROW` |
 | `rowIndex` | `number` |
 | `columnIndex` | `number` |
-| `link` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, `VALUE` \| ``null``\> |
+| `link` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, `VALUE` \| ``null``\> |
 
 ##### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
@@ -4950,7 +5055,7 @@ ___
 
 ### DTableBodyCellLinkUrlMaker
 
-Ƭ **DTableBodyCellLinkUrlMaker**<`ROW`, `VALUE`\>: (`row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `link`: [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, `VALUE` \| ``null``\>) => `string` \| ``null`` \| `Promise`<`string` \| ``null``\>
+Ƭ **DTableBodyCellLinkUrlMaker**\<`ROW`, `VALUE`\>: (`row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `link`: [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, `VALUE` \| ``null``\>) => `string` \| ``null`` \| `Promise`\<`string` \| ``null``\>
 
 #### Type parameters
 
@@ -4961,7 +5066,7 @@ ___
 
 #### Type declaration
 
-▸ (`row`, `rowIndex`, `columnIndex`, `link`): `string` \| ``null`` \| `Promise`<`string` \| ``null``\>
+▸ (`row`, `rowIndex`, `columnIndex`, `link`): `string` \| ``null`` \| `Promise`\<`string` \| ``null``\>
 
 ##### Parameters
 
@@ -4970,11 +5075,11 @@ ___
 | `row` | `ROW` |
 | `rowIndex` | `number` |
 | `columnIndex` | `number` |
-| `link` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, `VALUE` \| ``null``\> |
+| `link` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, `VALUE` \| ``null``\> |
 
 ##### Returns
 
-`string` \| ``null`` \| `Promise`<`string` \| ``null``\>
+`string` \| ``null`` \| `Promise`\<`string` \| ``null``\>
 
 #### Defined in
 
@@ -4984,7 +5089,7 @@ ___
 
 ### DTableBodyCellOnChange
 
-Ƭ **DTableBodyCellOnChange**<`ROW`, `VALUE`, `EMITTER`\>: (`newValue`: `VALUE`, `oldValue`: `VALUE`, `row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `emitter`: `EMITTER`) => `void`
+Ƭ **DTableBodyCellOnChange**\<`ROW`, `VALUE`, `EMITTER`\>: (`newValue`: `VALUE`, `oldValue`: `VALUE`, `row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `column`: [`DTableColumn`](interfaces/DTableColumn.md)\<`ROW`, `VALUE`\>, `emitter`: `EMITTER`) => `void`
 
 #### Type parameters
 
@@ -4996,7 +5101,7 @@ ___
 
 #### Type declaration
 
-▸ (`newValue`, `oldValue`, `row`, `rowIndex`, `columnIndex`, `emitter`): `void`
+▸ (`newValue`, `oldValue`, `row`, `rowIndex`, `columnIndex`, `column`, `emitter`): `void`
 
 ##### Parameters
 
@@ -5007,6 +5112,7 @@ ___
 | `row` | `ROW` |
 | `rowIndex` | `number` |
 | `columnIndex` | `number` |
+| `column` | [`DTableColumn`](interfaces/DTableColumn.md)\<`ROW`, `VALUE`\> |
 | `emitter` | `EMITTER` |
 
 ##### Returns
@@ -5015,13 +5121,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-cell.ts#L10)
+[src/main/typescript/wcardinal/ui/d-table-body-cell.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-cell.ts#L11)
 
 ___
 
 ### DTableBodyCellOptions
 
-Ƭ **DTableBodyCellOptions**<`ROW_VALUE`\>: [`DTableBodyCellTextOptions`](interfaces/DTableBodyCellTextOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellInputTextOptions`](interfaces/DTableBodyCellInputTextOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellInputIntegerOptions`](interfaces/DTableBodyCellInputIntegerOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellInputRealOptions`](interfaces/DTableBodyCellInputRealOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellIndexOptions`](interfaces/DTableBodyCellIndexOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellColorOptions`](interfaces/DTableBodyCellColorOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellCheckOptions`](interfaces/DTableBodyCellCheckOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellSelectDialogOptions`](interfaces/DTableBodyCellSelectDialogOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellSelectPromiseOptions`](interfaces/DTableBodyCellSelectPromiseOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellSelectMenuOptions`](interfaces/DTableBodyCellSelectMenuOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellDateOptions`](interfaces/DTableBodyCellDateOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellDatetimeOptions`](interfaces/DTableBodyCellDatetimeOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellTimeOptions`](interfaces/DTableBodyCellTimeOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellButtonOptions`](interfaces/DTableBodyCellButtonOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellLinkOptions`](interfaces/DTableBodyCellLinkOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellSelectMultipleOptions`](interfaces/DTableBodyCellSelectMultipleOptions.md)<`ROW_VALUE`\> \| [`DTableBodyCellTreeOptions`](interfaces/DTableBodyCellTreeOptions.md)<`ROW_VALUE`\>
+Ƭ **DTableBodyCellOptions**\<`ROW_VALUE`\>: [`DTableBodyCellTextOptions`](interfaces/DTableBodyCellTextOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellInputTextOptions`](interfaces/DTableBodyCellInputTextOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellInputIntegerOptions`](interfaces/DTableBodyCellInputIntegerOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellInputRealOptions`](interfaces/DTableBodyCellInputRealOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellIndexOptions`](interfaces/DTableBodyCellIndexOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellColorOptions`](interfaces/DTableBodyCellColorOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellCheckOptions`](interfaces/DTableBodyCellCheckOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellSelectDialogOptions`](interfaces/DTableBodyCellSelectDialogOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellSelectPromiseOptions`](interfaces/DTableBodyCellSelectPromiseOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellSelectMenuOptions`](interfaces/DTableBodyCellSelectMenuOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellDateOptions`](interfaces/DTableBodyCellDateOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellDatetimeOptions`](interfaces/DTableBodyCellDatetimeOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellTimeOptions`](interfaces/DTableBodyCellTimeOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellButtonOptions`](interfaces/DTableBodyCellButtonOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellLinkOptions`](interfaces/DTableBodyCellLinkOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellSelectMultipleOptions`](interfaces/DTableBodyCellSelectMultipleOptions.md)\<`ROW_VALUE`\> \| [`DTableBodyCellTreeOptions`](interfaces/DTableBodyCellTreeOptions.md)\<`ROW_VALUE`\>
 
 #### Type parameters
 
@@ -5037,7 +5143,7 @@ ___
 
 ### DTableBodyRowOnChange
 
-Ƭ **DTableBodyRowOnChange**<`ROW`, `VALUE`, `EMITTER`\>: (`newValue`: `VALUE`, `oldValue`: `VALUE`, `row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `emitter`: `EMITTER`) => `void`
+Ƭ **DTableBodyRowOnChange**\<`ROW`, `VALUE`, `EMITTER`\>: (`newValue`: `VALUE`, `oldValue`: `VALUE`, `row`: `ROW`, `rowIndex`: `number`, `columnIndex`: `number`, `column`: [`DTableColumn`](interfaces/DTableColumn.md)\<`ROW`, `VALUE`\>, `emitter`: `EMITTER`) => `void`
 
 #### Type parameters
 
@@ -5049,7 +5155,7 @@ ___
 
 #### Type declaration
 
-▸ (`newValue`, `oldValue`, `row`, `rowIndex`, `columnIndex`, `emitter`): `void`
+▸ (`newValue`, `oldValue`, `row`, `rowIndex`, `columnIndex`, `column`, `emitter`): `void`
 
 ##### Parameters
 
@@ -5060,6 +5166,7 @@ ___
 | `row` | `ROW` |
 | `rowIndex` | `number` |
 | `columnIndex` | `number` |
+| `column` | [`DTableColumn`](interfaces/DTableColumn.md)\<`ROW`, `VALUE`\> |
 | `emitter` | `EMITTER` |
 
 ##### Returns
@@ -5068,13 +5175,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-row.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-row.ts#L51)
+[src/main/typescript/wcardinal/ui/d-table-body-row.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-body-row.ts#L55)
 
 ___
 
 ### DTableColumnEditable
 
-Ƭ **DTableColumnEditable**<`ROW_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`) => `boolean`
+Ƭ **DTableColumnEditable**\<`ROW_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`) => `boolean`
 
 #### Type parameters
 
@@ -5105,7 +5212,7 @@ ___
 
 ### DTableColumnEditingFormatter
 
-Ƭ **DTableColumnEditingFormatter**<`CELL_VALUE`\>: (`cell`: `CELL_VALUE`) => `string`
+Ƭ **DTableColumnEditingFormatter**\<`CELL_VALUE`\>: (`cell`: `CELL_VALUE`) => `string`
 
 #### Type parameters
 
@@ -5135,7 +5242,7 @@ ___
 
 ### DTableColumnEditingUnformatter
 
-Ƭ **DTableColumnEditingUnformatter**<`CELL_VALUE`\>: (`formatted`: `string`) => `CELL_VALUE`
+Ƭ **DTableColumnEditingUnformatter**\<`CELL_VALUE`\>: (`formatted`: `string`) => `CELL_VALUE`
 
 #### Type parameters
 
@@ -5165,7 +5272,7 @@ ___
 
 ### DTableColumnEditingValidator
 
-Ƭ **DTableColumnEditingValidator**<`CELL_VALUE`\>: (`cell`: `CELL_VALUE`) => `string` \| ``null``
+Ƭ **DTableColumnEditingValidator**\<`CELL_VALUE`\>: (`cell`: `CELL_VALUE`) => `string` \| ``null``
 
 #### Type parameters
 
@@ -5195,7 +5302,7 @@ ___
 
 ### DTableColumnFormatter
 
-Ƭ **DTableColumnFormatter**<`CELL_VALUE`, `EMITTER`\>: (`cell`: `CELL_VALUE`, `emitter`: `EMITTER`) => `string`
+Ƭ **DTableColumnFormatter**\<`CELL_VALUE`, `EMITTER`\>: (`cell`: `CELL_VALUE`, `emitter`: `EMITTER`) => `string`
 
 #### Type parameters
 
@@ -5227,7 +5334,7 @@ ___
 
 ### DTableColumnGetter
 
-Ƭ **DTableColumnGetter**<`ROW_VALUE`, `CELL_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`) => `CELL_VALUE`
+Ƭ **DTableColumnGetter**\<`ROW_VALUE`, `CELL_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`) => `CELL_VALUE`
 
 #### Type parameters
 
@@ -5259,7 +5366,7 @@ ___
 
 ### DTableColumnRenderable
 
-Ƭ **DTableColumnRenderable**<`ROW_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`) => `boolean`
+Ƭ **DTableColumnRenderable**\<`ROW_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`) => `boolean`
 
 #### Type parameters
 
@@ -5290,7 +5397,7 @@ ___
 
 ### DTableColumnSelectingGetter
 
-Ƭ **DTableColumnSelectingGetter**<`CELL_VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`) => `CELL_VALUE`
+Ƭ **DTableColumnSelectingGetter**\<`CELL_VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`) => `CELL_VALUE`
 
 #### Type parameters
 
@@ -5321,7 +5428,7 @@ ___
 
 ### DTableColumnSelectingSetter
 
-Ƭ **DTableColumnSelectingSetter**<`CELL_VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`, `cell`: `CELL_VALUE`) => `void`
+Ƭ **DTableColumnSelectingSetter**\<`CELL_VALUE`, `DIALOG`\>: (`dialog`: `DIALOG`, `cell`: `CELL_VALUE`) => `void`
 
 #### Type parameters
 
@@ -5353,7 +5460,7 @@ ___
 
 ### DTableColumnSetter
 
-Ƭ **DTableColumnSetter**<`ROW_VALUE`, `CELL_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`, `cell`: `CELL_VALUE`) => `void`
+Ƭ **DTableColumnSetter**\<`ROW_VALUE`, `CELL_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`, `cell`: `CELL_VALUE`) => `void`
 
 #### Type parameters
 
@@ -5386,7 +5493,7 @@ ___
 
 ### DTableColumnStateModifier
 
-Ƭ **DTableColumnStateModifier**<`ROW_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`, `state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md)) => `void`
+Ƭ **DTableColumnStateModifier**\<`ROW_VALUE`\>: (`row`: `ROW_VALUE`, `columnIndex`: `number`, `state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md)) => `void`
 
 #### Type parameters
 
@@ -5428,13 +5535,25 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-table-column-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-type.ts#L6)
 
-[src/main/typescript/wcardinal/ui/d-table-column-type.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-type.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-column-type.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-type.ts#L25)
+
+___
+
+### DTableColumnUpdate
+
+Ƭ **DTableColumnUpdate**: typeof [`DTableColumnUpdate`](index.md#dtablecolumnupdate-1)[keyof typeof [`DTableColumnUpdate`](index.md#dtablecolumnupdate-1)]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-column-update.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-update.ts#L8)
+
+[src/main/typescript/wcardinal/ui/d-table-column-update.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-update.ts#L14)
 
 ___
 
 ### DTableDataComparator
 
-Ƭ **DTableDataComparator**<`ROW`\>: [`DTableDataComparatorFunction`](index.md#dtabledatacomparatorfunction)<`ROW`\> \| [`DTableDataComparatorObject`](interfaces/DTableDataComparatorObject.md)<`ROW`\>
+Ƭ **DTableDataComparator**\<`ROW`\>: [`DTableDataComparatorFunction`](index.md#dtabledatacomparatorfunction)\<`ROW`\> \| [`DTableDataComparatorObject`](interfaces/DTableDataComparatorObject.md)\<`ROW`\>
 
 A row comparator.
 
@@ -5452,7 +5571,7 @@ ___
 
 ### DTableDataComparatorFunction
 
-Ƭ **DTableDataComparatorFunction**<`ROW`\>: (`rowA`: `ROW`, `rowB`: `ROW`, `indexA`: `number`, `indexB`: `number`) => `number`
+Ƭ **DTableDataComparatorFunction**\<`ROW`\>: (`rowA`: `ROW`, `rowB`: `ROW`, `indexA`: `number`, `indexB`: `number`) => `number`
 
 #### Type parameters
 
@@ -5487,7 +5606,7 @@ ___
 
 ### DTableDataEachIteratee
 
-Ƭ **DTableDataEachIteratee**<`ROW`\>: (`row`: `ROW`, `index`: `number`) => `void` \| `boolean`
+Ƭ **DTableDataEachIteratee**\<`ROW`\>: (`row`: `ROW`, `index`: `number`) => `void` \| `boolean`
 
 #### Type parameters
 
@@ -5512,13 +5631,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L64)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L66)
 
 ___
 
 ### DTableDataFilterFunction
 
-Ƭ **DTableDataFilterFunction**<`ROW`\>: (`row`: `ROW`, `index`: `number`) => `boolean`
+Ƭ **DTableDataFilterFunction**\<`ROW`\>: (`row`: `ROW`, `index`: `number`) => `boolean`
 
 #### Type parameters
 
@@ -5551,7 +5670,7 @@ ___
 
 ### DTableDataFilterer
 
-Ƭ **DTableDataFilterer**<`ROW`\>: [`DTableDataFilterFunction`](index.md#dtabledatafilterfunction)<`ROW`\> \| [`DTableDataFilterObject`](interfaces/DTableDataFilterObject.md)<`ROW`\>
+Ƭ **DTableDataFilterer**\<`ROW`\>: [`DTableDataFilterFunction`](index.md#dtabledatafilterfunction)\<`ROW`\> \| [`DTableDataFilterObject`](interfaces/DTableDataFilterObject.md)\<`ROW`\>
 
 A filterer.
 
@@ -5569,7 +5688,7 @@ ___
 
 ### DTableDataMappedEachIteratee
 
-Ƭ **DTableDataMappedEachIteratee**<`ROW`\>: (`row`: `ROW`, `supplimental`: `unknown`, `index`: `number`, `unmappedIndex`: `number`) => `void` \| `boolean`
+Ƭ **DTableDataMappedEachIteratee**\<`ROW`\>: (`row`: `ROW`, `supplimental`: [`DTableDataSupplimental`](index.md#dtabledatasupplimental) \| ``null``, `index`: `number`, `unmappedIndex`: `number`) => `void` \| `boolean`
 
 #### Type parameters
 
@@ -5586,7 +5705,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `row` | `ROW` |
-| `supplimental` | `unknown` |
+| `supplimental` | [`DTableDataSupplimental`](index.md#dtabledatasupplimental) \| ``null`` |
 | `index` | `number` |
 | `unmappedIndex` | `number` |
 
@@ -5596,7 +5715,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L11)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L13)
 
 ___
 
@@ -5614,7 +5733,7 @@ ___
 
 ### DTableDataSelectionCreator
 
-Ƭ **DTableDataSelectionCreator**<`NODE`\>: (`parent`: [`DTableDataSelectionParent`](interfaces/DTableDataSelectionParent.md)<`NODE`\>) => [`DTableDataSelection`](interfaces/DTableDataSelection.md)<`NODE`\>
+Ƭ **DTableDataSelectionCreator**\<`NODE`\>: (`parent`: [`DTableDataSelectionParent`](interfaces/DTableDataSelectionParent.md)\<`NODE`\>) => [`DTableDataSelection`](interfaces/DTableDataSelection.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -5624,17 +5743,17 @@ ___
 
 #### Type declaration
 
-▸ (`parent`): [`DTableDataSelection`](interfaces/DTableDataSelection.md)<`NODE`\>
+▸ (`parent`): [`DTableDataSelection`](interfaces/DTableDataSelection.md)\<`NODE`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataSelectionParent`](interfaces/DTableDataSelectionParent.md)<`NODE`\> |
+| `parent` | [`DTableDataSelectionParent`](interfaces/DTableDataSelectionParent.md)\<`NODE`\> |
 
 ##### Returns
 
-[`DTableDataSelection`](interfaces/DTableDataSelection.md)<`NODE`\>
+[`DTableDataSelection`](interfaces/DTableDataSelection.md)\<`NODE`\>
 
 #### Defined in
 
@@ -5678,9 +5797,19 @@ ___
 
 ___
 
+### DTableDataSupplimental
+
+Ƭ **DTableDataSupplimental**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L11)
+
+___
+
 ### DTableDataTreeItemAccessorHasChildren
 
-Ƭ **DTableDataTreeItemAccessorHasChildren**<`NODE`\>: (`node`: `NODE`, `children?`: `NODE`[] \| ``null``) => children is NODE[]
+Ƭ **DTableDataTreeItemAccessorHasChildren**\<`NODE`\>: (`node`: `NODE`, `children?`: `NODE`[] \| ``null``) => children is NODE[]
 
 #### Type parameters
 
@@ -5711,7 +5840,7 @@ ___
 
 ### DTableDataTreeItemAccessorToChildren
 
-Ƭ **DTableDataTreeItemAccessorToChildren**<`NODE`\>: (`node`: `NODE`) => `NODE`[] \| ``null`` \| `undefined`
+Ƭ **DTableDataTreeItemAccessorToChildren**\<`NODE`\>: (`node`: `NODE`) => `NODE`[] \| ``null`` \| `undefined`
 
 #### Type parameters
 
@@ -5741,7 +5870,7 @@ ___
 
 ### DTableDataTreeItemAccessorToParent
 
-Ƭ **DTableDataTreeItemAccessorToParent**<`NODE`\>: (`node`: `NODE`) => `NODE` \| ``null`` \| `undefined`
+Ƭ **DTableDataTreeItemAccessorToParent**\<`NODE`\>: (`node`: `NODE`) => `NODE` \| ``null`` \| `undefined`
 
 #### Type parameters
 
@@ -5771,7 +5900,7 @@ ___
 
 ### DTableDataTreeSelectionCreator
 
-Ƭ **DTableDataTreeSelectionCreator**<`NODE`\>: (`parent`: [`DTableDataTreeSelectionParent`](interfaces/DTableDataTreeSelectionParent.md)<`NODE`\>) => [`DTableDataTreeSelection`](interfaces/DTableDataTreeSelection.md)<`NODE`\>
+Ƭ **DTableDataTreeSelectionCreator**\<`NODE`\>: (`parent`: [`DTableDataTreeSelectionParent`](interfaces/DTableDataTreeSelectionParent.md)\<`NODE`\>) => [`DTableDataTreeSelection`](interfaces/DTableDataTreeSelection.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -5781,17 +5910,17 @@ ___
 
 #### Type declaration
 
-▸ (`parent`): [`DTableDataTreeSelection`](interfaces/DTableDataTreeSelection.md)<`NODE`\>
+▸ (`parent`): [`DTableDataTreeSelection`](interfaces/DTableDataTreeSelection.md)\<`NODE`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataTreeSelectionParent`](interfaces/DTableDataTreeSelectionParent.md)<`NODE`\> |
+| `parent` | [`DTableDataTreeSelectionParent`](interfaces/DTableDataTreeSelectionParent.md)\<`NODE`\> |
 
 ##### Returns
 
-[`DTableDataTreeSelection`](interfaces/DTableDataTreeSelection.md)<`NODE`\>
+[`DTableDataTreeSelection`](interfaces/DTableDataTreeSelection.md)\<`NODE`\>
 
 #### Defined in
 
@@ -5813,7 +5942,7 @@ ___
 
 ### DTreeNodeIteratee
 
-Ƭ **DTreeNodeIteratee**<`NODE`\>: (`node`: `NODE`, `index`: `number`, `nodes`: `NODE`[], `parent`: `NODE` \| ``null``) => `boolean` \| `void`
+Ƭ **DTreeNodeIteratee**\<`NODE`\>: (`node`: `NODE`, `index`: `number`, `nodes`: `NODE`[], `parent`: `NODE` \| ``null``) => `boolean` \| `void`
 
 #### Type parameters
 
@@ -5866,7 +5995,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L13)
+[src/main/typescript/wcardinal/ui/d-view.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L14)
 
 ___
 
@@ -5926,7 +6055,7 @@ ___
 
 ### DeepPartial
 
-Ƭ **DeepPartial**<`T`\>: { [P in keyof T]?: DeepPartial<T[P]\> }
+Ƭ **DeepPartial**\<`T`\>: \{ [P in keyof T]?: DeepPartial\<T[P]\> }
 
 #### Type parameters
 
@@ -5954,7 +6083,7 @@ ___
 
 ### DynamicFontAtlasCharacters
 
-Ƭ **DynamicFontAtlasCharacters**: `Record`<`string`, [`DynamicFontAtlasCharacter`](classes/DynamicFontAtlasCharacter.md)\>
+Ƭ **DynamicFontAtlasCharacters**: `Record`\<`string`, [`DynamicFontAtlasCharacter`](classes/DynamicFontAtlasCharacter.md)\>
 
 #### Defined in
 
@@ -5962,21 +6091,49 @@ ___
 
 ___
 
+### EShapeAcceptorEdgeSide
+
+Ƭ **EShapeAcceptorEdgeSide**: typeof [`EShapeAcceptorEdgeSide`](index.md#eshapeacceptoredgeside-1)[keyof typeof [`EShapeAcceptorEdgeSide`](index.md#eshapeacceptoredgeside-1)]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts#L6)
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts#L15)
+
+___
+
+### EShapeAcceptorEdgeType
+
+Ƭ **EShapeAcceptorEdgeType**: typeof [`EShapeAcceptorEdgeType`](index.md#eshapeacceptoredgetype-1)[keyof typeof [`EShapeAcceptorEdgeType`](index.md#eshapeacceptoredgetype-1)]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts#L6)
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts#L12)
+
+___
+
 ### EShapeAcceptorType
 
 Ƭ **EShapeAcceptorType**: typeof [`EShapeAcceptorType`](index.md#eshapeacceptortype-1)[keyof typeof [`EShapeAcceptorType`](index.md#eshapeacceptortype-1)]
 
+**`Deprecated`**
+
+in favor of [EShapeAcceptorEdgeType](index.md#eshapeacceptoredgetype-1).
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L6)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L11)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L16)
 
 ___
 
 ### EShapeActionExpression
 
-Ƭ **EShapeActionExpression**<`T`\>: (`shape`: [`EShape`](interfaces/EShape.md), `time`: `number`, `environment`: [`EShapeActionEnvironment`](index.md#eshapeactionenvironment)) => `T`
+Ƭ **EShapeActionExpression**\<`T`\>: (`shape`: [`EShape`](interfaces/EShape.md), `time`: `number`, `environment`: [`EShapeActionEnvironment`](index.md#eshapeactionenvironment)) => `T`
 
 #### Type parameters
 
@@ -5990,8 +6147,8 @@ ___
 
 [EShape](interfaces/EShape.md) action expression.
 
-In action expressions, all the properties in [EShape](interfaces/EShape.md), [EShapeState](index.md#eshapestate) and [EShapeActionEnvironment](interfaces/EShapeActionEnvironment.md) can be accessed directly.
-For instance, the string `isClicked` is a valid expression as [EShapeState](index.md#eshapestate) has [isClicked](interfaces/EShapeStateSet.md#isclicked) and is equivalent to `shape.state.isClicked`.
+In action expressions, all the properties in [EShape](interfaces/EShape.md), [EShapeState](index.md#eshapestate) and [EShapeActionEnvironment](index.md#eshapeactionenvironment) can be accessed directly.
+For instance, the string `isClicked` is a valid expression as [EShapeState](index.md#eshapestate) has [EShapeStateSet#isClicked](interfaces/EShapeStateSet.md#isclicked) and is equivalent to `shape.state.isClicked`.
 
 ##### Parameters
 
@@ -6013,7 +6170,7 @@ ___
 
 ### EShapeActionExpressionWithParameter
 
-Ƭ **EShapeActionExpressionWithParameter**<`T`, `P`\>: (`shape`: [`EShape`](interfaces/EShape.md), `time`: `number`, `environment`: [`EShapeActionEnvironment`](index.md#eshapeactionenvironment), `parameter`: `P`) => `T`
+Ƭ **EShapeActionExpressionWithParameter**\<`T`, `P`\>: (`shape`: [`EShape`](interfaces/EShape.md), `time`: `number`, `environment`: [`EShapeActionEnvironment`](index.md#eshapeactionenvironment), `parameter`: `P`) => `T`
 
 #### Type parameters
 
@@ -6028,8 +6185,8 @@ ___
 
 [EShape](interfaces/EShape.md) action expression with one parameter.
 
-In action expressions, all the properties in [EShape](interfaces/EShape.md), [EShapeState](index.md#eshapestate) and [EShapeActionEnvironment](interfaces/EShapeActionEnvironment.md) can be accessed directly.
-For instance, the string `isClicked` is a valid expression as [EShapeState](index.md#eshapestate) has [isClicked](interfaces/EShapeStateSet.md#isclicked) and is equivalent to `shape.state.isClicked`.
+In action expressions, all the properties in [EShape](interfaces/EShape.md), [EShapeState](index.md#eshapestate) and [EShapeActionEnvironment](index.md#eshapeactionenvironment) can be accessed directly.
+For instance, the string `isClicked` is a valid expression as [EShapeState](index.md#eshapestate) has [EShapeStateSet#isClicked](interfaces/EShapeStateSet.md#isclicked) and is equivalent to `shape.state.isClicked`.
 In addition to that, the parameter passed to this function can be used in action expressions.
 The name of the variable containing that parameter depends on actions.
 
@@ -6080,7 +6237,7 @@ ___
 
 ### EShapeActionOpenOpener
 
-Ƭ **EShapeActionOpenOpener**: (`target`: `string`, `inNewWindow`: `boolean`, `shape`: [`EShape`](interfaces/EShape.md)) => `void`
+Ƭ **EShapeActionOpenOpener**: (`target`: `unknown`, `inNewWindow`: `boolean`, `shape`: [`EShape`](interfaces/EShape.md)) => `void`
 
 #### Type declaration
 
@@ -6090,7 +6247,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | `string` |
+| `target` | `unknown` |
 | `inNewWindow` | `boolean` |
 | `shape` | [`EShape`](interfaces/EShape.md) |
 
@@ -6695,9 +6852,9 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L51)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L170)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L191)
 
 ___
 
@@ -6717,17 +6874,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container.ts#L12)
 
 ___
 
 ### EShapeConnectorEdgeSerialized
 
-Ƭ **EShapeConnectorEdgeSerialized**: [`number` \| ``null``, `number`, `number`, `number`, `number`, number?, number?]
+Ƭ **EShapeConnectorEdgeSerialized**: [`number` \| ``null``, `number`, `number`, `number`, `number`, number?, number?, (number \| null)?, (number \| null)?, number?]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L15)
 
 ___
 
@@ -6851,11 +7008,11 @@ ___
 
 ### EShapeDeserializer
 
-Ƭ **EShapeDeserializer**: (`item`: [`DDiagramSerializedItem`](interfaces/DDiagramSerializedItem.md), `manager`: [`EShapeResourceManagerDeserialization`](classes/EShapeResourceManagerDeserialization.md)) => `Promise`<[`EShape`](interfaces/EShape.md)\> \| [`EShape`](interfaces/EShape.md) \| ``null``
+Ƭ **EShapeDeserializer**: (`item`: [`DDiagramSerializedItem`](interfaces/DDiagramSerializedItem.md), `manager`: [`EShapeResourceManagerDeserialization`](classes/EShapeResourceManagerDeserialization.md)) => `Promise`\<[`EShape`](interfaces/EShape.md)\> \| [`EShape`](interfaces/EShape.md) \| ``null``
 
 #### Type declaration
 
-▸ (`item`, `manager`): `Promise`<[`EShape`](interfaces/EShape.md)\> \| [`EShape`](interfaces/EShape.md) \| ``null``
+▸ (`item`, `manager`): `Promise`\<[`EShape`](interfaces/EShape.md)\> \| [`EShape`](interfaces/EShape.md) \| ``null``
 
 A shape deserializer
 
@@ -6868,7 +7025,7 @@ A shape deserializer
 
 ##### Returns
 
-`Promise`<[`EShape`](interfaces/EShape.md)\> \| [`EShape`](interfaces/EShape.md) \| ``null``
+`Promise`\<[`EShape`](interfaces/EShape.md)\> \| [`EShape`](interfaces/EShape.md) \| ``null``
 
 #### Defined in
 
@@ -6890,7 +7047,7 @@ ___
 
 ### EShapeLineBasePointsHitTester
 
-Ƭ **EShapeLineBasePointsHitTester**<`RESULT`\>: (`x`: `number`, `y`: `number`, `p0x`: `number`, `p0y`: `number`, `p1x`: `number`, `p1y`: `number`, `index`: `number`, `threshold`: `number`, `result`: `RESULT`) => `boolean`
+Ƭ **EShapeLineBasePointsHitTester**\<`RESULT`\>: (`x`: `number`, `y`: `number`, `p0x`: `number`, `p0y`: `number`, `p1x`: `number`, `p1y`: `number`, `index`: `number`, `threshold`: `number`, `result`: `RESULT`) => `boolean`
 
 #### Type parameters
 
@@ -6982,7 +7139,7 @@ ___
 
 ### EShapeLineOfAnyPointsHitTester
 
-Ƭ **EShapeLineOfAnyPointsHitTester**<`RESULT`\>: (`x`: `number`, `y`: `number`, `ax`: `number`, `ay`: `number`, `ox`: `number`, `oy`: `number`, `px`: `number`, `py`: `number`, `sw`: `number`, `ss`: `number`, `sa`: `number`, `index`: `number`, `threshold`: `number`, `result`: `RESULT`) => `boolean`
+Ƭ **EShapeLineOfAnyPointsHitTester**\<`RESULT`\>: (`x`: `number`, `y`: `number`, `ax`: `number`, `ay`: `number`, `ox`: `number`, `oy`: `number`, `px`: `number`, `py`: `number`, `sw`: `number`, `ss`: `number`, `sa`: `number`, `index`: `number`, `threshold`: `number`, `result`: `RESULT`) => `boolean`
 
 #### Type parameters
 
@@ -7101,6 +7258,18 @@ ___
 
 ___
 
+### EShapeLockPart
+
+Ƭ **EShapeLockPart**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts:1](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts#L1)
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts#L9)
+
+___
+
 ### EShapeOnDeserialized
 
 Ƭ **EShapeOnDeserialized**: (`item`: [`DDiagramSerializedItem`](interfaces/DDiagramSerializedItem.md), `shape`: [`EShape`](interfaces/EShape.md), `mapping`: [`EShapeUuidMapping`](interfaces/EShapeUuidMapping.md), `manager`: [`EShapeResourceManagerDeserialization`](classes/EShapeResourceManagerDeserialization.md)) => `void`
@@ -7216,9 +7385,9 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L38)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L67)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L92)
 
 ___
 
@@ -7250,13 +7419,17 @@ ___
 
 #### Type declaration
 
-• (`shape`)
+• (`shape`): [`EShapeRuntime`](interfaces/EShapeRuntime.md)
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](interfaces/EShape.md) |
+
+##### Returns
+
+[`EShapeRuntime`](interfaces/EShapeRuntime.md)
 
 #### Defined in
 
@@ -7326,7 +7499,7 @@ ___
 
 ### EShapeTextAtlasCharacters
 
-Ƭ **EShapeTextAtlasCharacters**: `Record`<`string`, [`EShapeTextAtlasCharacter`](interfaces/EShapeTextAtlasCharacter.md)\>
+Ƭ **EShapeTextAtlasCharacters**: `Record`\<`string`, [`EShapeTextAtlasCharacter`](interfaces/EShapeTextAtlasCharacter.md)\>
 
 #### Defined in
 
@@ -7378,13 +7551,13 @@ ___
 
 [src/main/typescript/wcardinal/ui/shape/e-shape-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-type.ts#L6)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-type.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-type.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/e-shape-type.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-type.ts#L36)
 
 ___
 
 ### EShapeUploadedConstructor
 
-Ƭ **EShapeUploadedConstructor**<`T`\>: (`buffer`: [`EShapeBuffer`](classes/EShapeBuffer.md), `voffset`: `number`, `ioffset`: `number`, `tvcount`: `number`, `ticount`: `number`, `vcount`: `number`, `icount`: `number`) => `T`
+Ƭ **EShapeUploadedConstructor**\<`T`\>: (`buffer`: [`EShapeBuffer`](classes/EShapeBuffer.md), `voffset`: `number`, `ioffset`: `number`, `tvcount`: `number`, `ticount`: `number`, `vcount`: `number`, `icount`: `number`) => `T`
 
 #### Type parameters
 
@@ -7394,7 +7567,7 @@ ___
 
 #### Type declaration
 
-• (`buffer`, `voffset`, `ioffset`, `tvcount`, `ticount`, `vcount`, `icount`)
+• (`buffer`, `voffset`, `ioffset`, `tvcount`, `ticount`, `vcount`, `icount`): `T`
 
 ##### Parameters
 
@@ -7407,6 +7580,10 @@ ___
 | `ticount` | `number` |
 | `vcount` | `number` |
 | `icount` | `number` |
+
+##### Returns
+
+`T`
 
 #### Defined in
 
@@ -7499,7 +7676,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/util/util-attach.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L14)
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L40)
 
 ___
 
@@ -7541,7 +7718,7 @@ ___
 
 ### UtilFileOnOpen
 
-Ƭ **UtilFileOnOpen**<`RESULT`, `EMITTER`\>: (`result`: `RESULT`, `file`: `File`, `emitter`: `EMITTER`) => `void`
+Ƭ **UtilFileOnOpen**\<`RESULT`, `EMITTER`\>: (`result`: `RESULT`, `file`: `File`, `emitter`: `EMITTER`) => `void`
 
 #### Type parameters
 
@@ -7576,7 +7753,7 @@ ___
 
 ### UtilGestureChecker
 
-Ƭ **UtilGestureChecker**<`TARGET`\>: (`e`: `InteractionEvent`, `modifier`: [`UtilGestureModifier`](index.md#utilgesturemodifier-1), `target`: `TARGET`) => `boolean`
+Ƭ **UtilGestureChecker**\<`TARGET`\>: (`e`: `InteractionEvent`, `modifier`: [`UtilGestureModifier`](index.md#utilgesturemodifier-1), `target`: `TARGET`) => `boolean`
 
 #### Type parameters
 
@@ -7602,7 +7779,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L30)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L33)
 
 ___
 
@@ -7685,9 +7862,69 @@ ___
 
 ___
 
+### UtilGestureOnEasingEnd
+
+Ƭ **UtilGestureOnEasingEnd**\<`TARGET`\>: (`target`: `TARGET`) => `void`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `TARGET` |
+
+#### Type declaration
+
+▸ (`target`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `TARGET` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L32)
+
+___
+
+### UtilGestureOnEasingStart
+
+Ƭ **UtilGestureOnEasingStart**\<`TARGET`\>: (`target`: `TARGET`) => `void`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `TARGET` |
+
+#### Type declaration
+
+▸ (`target`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `TARGET` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L31)
+
+___
+
 ### UtilGestureOnEnd
 
-Ƭ **UtilGestureOnEnd**<`TARGET`\>: (`target`: `TARGET`) => `void`
+Ƭ **UtilGestureOnEnd**\<`TARGET`\>: (`target`: `TARGET`) => `void`
 
 #### Type parameters
 
@@ -7717,7 +7954,7 @@ ___
 
 ### UtilGestureOnMove
 
-Ƭ **UtilGestureOnMove**<`TARGET`\>: (`target`: `TARGET`, `dx`: `number`, `dy`: `number`, `x`: `number`, `y`: `number`, `ds`: `number`) => `void`
+Ƭ **UtilGestureOnMove**\<`TARGET`\>: (`target`: `TARGET`, `dx`: `number`, `dy`: `number`, `x`: `number`, `y`: `number`, `ds`: `number`) => `void`
 
 #### Type parameters
 
@@ -7752,7 +7989,7 @@ ___
 
 ### UtilGestureOnStart
 
-Ƭ **UtilGestureOnStart**<`TARGET`\>: (`target`: `TARGET`) => `void`
+Ƭ **UtilGestureOnStart**\<`TARGET`\>: (`target`: `TARGET`) => `void`
 
 #### Type parameters
 
@@ -7780,9 +8017,39 @@ ___
 
 ___
 
+### UtilGestureOnStop
+
+Ƭ **UtilGestureOnStop**\<`TARGET`\>: (`target`: `TARGET`) => `void`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `TARGET` |
+
+#### Type declaration
+
+▸ (`target`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `TARGET` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L30)
+
+___
+
 ### UtilHtmlElementCreator
 
-Ƭ **UtilHtmlElementCreator**<`T`\>: (`container`: `HTMLElement`) => `T` \| ``null``
+Ƭ **UtilHtmlElementCreator**\<`T`\>: (`container`: `HTMLElement`) => `T` \| ``null``
 
 #### Type parameters
 
@@ -7822,7 +8089,7 @@ ___
 
 ### UtilHtmlElementStyler
 
-Ƭ **UtilHtmlElementStyler**<`T`\>: (`target`: `T`, `state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md), `padding`: [`UtilHtmlElementPadding`](index.md#utilhtmlelementpadding) \| ``null``, `elementRect`: `Rectangle` \| ``null``, `elementMatrix`: `Matrix` \| ``null``, `clipperRect`: `Rectangle` \| ``null``, `clipperEx`: [`UtilHtmlElementClipperEx`](interfaces/UtilHtmlElementClipperEx.md) \| ``null`` \| `undefined`) => `void`
+Ƭ **UtilHtmlElementStyler**\<`T`\>: (`target`: `T`, `state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md), `padding`: [`UtilHtmlElementPadding`](index.md#utilhtmlelementpadding) \| ``null``, `elementRect`: `Rectangle` \| ``null``, `elementMatrix`: `Matrix` \| ``null``, `clipperRect`: `Rectangle` \| ``null``, `clipperEx`: [`UtilHtmlElementClipperEx`](interfaces/UtilHtmlElementClipperEx.md) \| ``null`` \| `undefined`) => `void`
 
 #### Type parameters
 
@@ -8347,6 +8614,25 @@ ___
 
 ___
 
+### DColorType
+
+• `Const` **DColorType**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `CUSTOM` | ``0`` |
+| `STANDARD` | ``1`` |
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-color-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-type.ts#L6)
+
+[src/main/typescript/wcardinal/ui/d-color-type.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-type.ts#L11)
+
+___
+
 ### DCornerMask
 
 • `Const` **DCornerMask**: `Object`
@@ -8727,6 +9013,7 @@ ___
 | `REAL` | ``3`` |
 | `SELECT` | ``8`` |
 | `TEXT` | ``1`` |
+| `TEXT_AREA` | ``15`` |
 | `TIME` | ``11`` |
 | `TREE` | ``14`` |
 
@@ -8734,7 +9021,33 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-table-column-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-type.ts#L6)
 
-[src/main/typescript/wcardinal/ui/d-table-column-type.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-type.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-column-type.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-type.ts#L25)
+
+___
+
+### DTableColumnUpdate
+
+• `Const` **DTableColumnUpdate**: `Object`
+
+An update region when table cells get edited.
+
+* CELL: Edited cells (Default).
+* ROW: Rows that edited cells belongs to.
+* ALL: All the rows.
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `ALL` | ``2`` |
+| `CELL` | ``0`` |
+| `ROW` | ``1`` |
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-column-update.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-update.ts#L8)
+
+[src/main/typescript/wcardinal/ui/d-table-column-update.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-update.ts#L14)
 
 ___
 
@@ -8897,9 +9210,32 @@ ___
 
 ___
 
-### EShapeAcceptorType
+### EShapeAcceptorEdgeSide
 
-• `Const` **EShapeAcceptorType**: `Object`
+• `Const` **EShapeAcceptorEdgeSide**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `ALL` | `number` |
+| `BOTTOM` | `number` |
+| `LEFT` | `number` |
+| `NONE` | `number` |
+| `RIGHT` | `number` |
+| `TOP` | `number` |
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts#L6)
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-side.ts#L15)
+
+___
+
+### EShapeAcceptorEdgeType
+
+• `Const` **EShapeAcceptorEdgeType**: `Object`
 
 #### Type declaration
 
@@ -8911,9 +9247,33 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L6)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts#L6)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-type.ts#L12)
+
+___
+
+### EShapeAcceptorType
+
+• `Const` **EShapeAcceptorType**: `Object` = `EShapeAcceptorEdgeType`
+
+**`Deprecated`**
+
+in favor of [EShapeAcceptorEdgeType](index.md#eshapeacceptoredgetype-1).
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `ALL` | ``3`` |
+| `HEAD` | ``2`` |
+| `TAIL` | ``1`` |
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L11)
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-type.ts#L16)
 
 ___
 
@@ -8931,7 +9291,7 @@ ___
 
 ### EShapeActionOpenOpeners
 
-• `Const` **EShapeActionOpenOpeners**: `Record`<`number`, [`EShapeActionOpenOpener`](index.md#eshapeactionopenopener)\> = `{}`
+• `Const` **EShapeActionOpenOpeners**: `Record`\<`number`, [`EShapeActionOpenOpener`](index.md#eshapeactionopenopener)\> = `{}`
 
 #### Defined in
 
@@ -9052,7 +9412,7 @@ ___
 
 ### EShapeActionValueDeserializers
 
-• `Const` **EShapeActionValueDeserializers**: `Record`<`number`, [`EShapeActionValueDeserializer`](index.md#eshapeactionvaluedeserializer) \| `undefined`\> = `{}`
+• `Const` **EShapeActionValueDeserializers**: `Record`\<`number`, [`EShapeActionValueDeserializer`](index.md#eshapeactionvaluedeserializer) \| `undefined`\> = `{}`
 
 #### Defined in
 
@@ -9110,14 +9470,14 @@ ___
 | :------ | :------ | :------ |
 | `EMIT_EVENT` | ``3`` | - |
 | `EXECUTE` | ``12`` | - |
-| `GESTURE` | ``11`` | **`Deprecated`**  in favor of [EShapeActionValueType](index.md#eshapeactionvaluetype)'s GESTURE |
-| `GESTURE_LAYER` | ``10`` | **`Deprecated`**  in favor of [EShapeActionValueType](index.md#eshapeactionvaluetype)'s GESTURE |
+| `GESTURE` | ``11`` | **`Deprecated`** in favor of [EShapeActionValueType](index.md#eshapeactionvaluetype)'s GESTURE |
+| `GESTURE_LAYER` | ``10`` | **`Deprecated`** in favor of [EShapeActionValueType](index.md#eshapeactionvaluetype)'s GESTURE |
 | `HTML_ELEMENT` | ``7`` | - |
 | `HTML_ELEMENT_WITHOUT_POINTER_EVENTS` | ``8`` | - |
 | `INPUT_INTEGER` | ``1`` | - |
 | `INPUT_REAL` | ``2`` | - |
 | `INPUT_TEXT` | ``0`` | - |
-| `SHOW_HIDE_LAYER` | ``9`` | **`Deprecated`**  in favor of [EShapeActionValueShowHideType](index.md#eshapeactionvalueshowhidetype)'s LAYER |
+| `SHOW_HIDE_LAYER` | ``9`` | **`Deprecated`** in favor of [EShapeActionValueShowHideType](index.md#eshapeactionvalueshowhidetype)'s LAYER |
 | `WRITE_BOTH` | ``4`` | - |
 | `WRITE_LOCAL` | ``5`` | - |
 | `WRITE_REMOTE` | ``6`` | - |
@@ -9185,19 +9545,19 @@ ___
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `DIAGRAM` | ``10`` | - |
-| `DIAGRAM_LEGACY` | ``0`` | **`Deprecated`**  in favor of [DIAGRAM](index.md#diagram) |
+| `DIAGRAM_LEGACY` | ``0`` | **`Deprecated`** in favor of [DIAGRAM](index.md#diagram) |
 | `DIALOG` | ``12`` | - |
-| `DIALOG_BOOLEAN` | ``6`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
-| `DIALOG_DATE` | ``7`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
-| `DIALOG_DATETIME` | ``9`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
-| `DIALOG_INTEGER` | ``4`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
-| `DIALOG_REAL` | ``5`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
-| `DIALOG_TEXT` | ``3`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
-| `DIALOG_TIME` | ``8`` | **`Deprecated`**  in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_BOOLEAN` | ``6`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_DATE` | ``7`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_DATETIME` | ``9`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_INTEGER` | ``4`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_REAL` | ``5`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_TEXT` | ``3`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
+| `DIALOG_TIME` | ``8`` | **`Deprecated`** in favor of [DIALOG](index.md#dialog) |
 | `EXTENSION` | ``1000`` | - |
 | `PAGE` | ``11`` | - |
-| `PAGE_INPLACE_LEGACY` | ``2`` | **`Deprecated`**  in favor of [PAGE](index.md#page) |
-| `PAGE_LEGACY` | ``1`` | **`Deprecated`**  in favor of [PAGE](index.md#page) |
+| `PAGE_INPLACE_LEGACY` | ``2`` | **`Deprecated`** in favor of [PAGE](index.md#page) |
+| `PAGE_LEGACY` | ``1`` | **`Deprecated`** in favor of [PAGE](index.md#page) |
 
 #### Defined in
 
@@ -9217,8 +9577,8 @@ ___
 | :------ | :------ | :------ |
 | `LAYER` | ``3`` | - |
 | `SHAPE` | ``2`` | - |
-| `SHAPE_HIDE` | ``1`` | **`Deprecated`**  in favor of [SHAPE](index.md#shape) |
-| `SHAPE_SHOW` | ``0`` | **`Deprecated`**  in favor of [SHAPE](index.md#shape) |
+| `SHAPE_HIDE` | ``1`` | **`Deprecated`** in favor of [SHAPE](index.md#shape) |
+| `SHAPE_SHOW` | ``0`` | **`Deprecated`** in favor of [SHAPE](index.md#shape) |
 
 #### Defined in
 
@@ -9323,10 +9683,10 @@ ___
 | :------ | :------ | :------ |
 | `BLINK` | ``1`` | - |
 | `CHANGE_COLOR` | ``9`` | - |
-| `CHANGE_COLOR_LEGACY` | ``5`` | **`Deprecated`**  in favor of [EShapeActionValueType](index.md#eshapeactionvaluetype)'s CHANGE_COLOR |
+| `CHANGE_COLOR_LEGACY` | ``5`` | **`Deprecated`** in favor of [EShapeActionValueType](index.md#eshapeactionvaluetype-1)'s CHANGE_COLOR |
 | `CHANGE_CURSOR` | ``7`` | - |
 | `CHANGE_TEXT` | ``6`` | - |
-| `EMIT_EVENT` | ``4`` | **`Deprecated`**  in favor of [EShapeActionValueMiscType](index.md#eshapeactionvaluemisctype)'s MISC |
+| `EMIT_EVENT` | ``4`` | **`Deprecated`** in favor of [EShapeActionValueMiscType](index.md#eshapeactionvaluemisctype)'s MISC |
 | `EXTENSION` | ``1000`` | - |
 | `GESTURE` | ``10`` | - |
 | `MISC` | ``8`` | - |
@@ -9382,12 +9742,16 @@ ___
 | `DATA` | ``32768`` | - |
 | `DATA_MAPPING` | ``1048576`` | - |
 | `EMBEDDED` | `number` | - |
+| `EMBEDDED_ACCEPTOR_EDGE` | `number` | - |
 | `FILL` | ``512`` | - |
 | `GROUP` | `number` | - |
 | `GROUPING` | ``128`` | - |
 | `HEIGHT` | ``8`` | - |
 | `ID` | ``1`` | - |
 | `LAYER` | ``262144`` | - |
+| `LINE` | ``2097152`` | - |
+| `LINE_HEAD` | ``8388608`` | - |
+| `LINE_TAIL` | ``4194304`` | - |
 | `NONE` | ``0`` | - |
 | `ORDER_IN_LAYER` | ``262144`` | - |
 | `POSITION` | ``2`` | - |
@@ -9398,7 +9762,7 @@ ___
 | `SKEW` | ``32`` | - |
 | `STROKE` | ``1024`` | - |
 | `STROKE_SIDE` | ``2048`` | - |
-| `TAG` | ``32768`` | **`Deprecated`**  in favor of [DATA](index.md#data) |
+| `TAG` | ``32768`` | **`Deprecated`** in favor of [DATA](index.md#data) |
 | `TEXT` | ``8192`` | - |
 | `TEXTURE` | ``16384`` | - |
 | `UNGROUPING` | ``256`` | - |
@@ -9406,9 +9770,9 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L51)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L170)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-capability.ts#L191)
 
 ___
 
@@ -9431,7 +9795,7 @@ ___
 | `SIZE` | ``2`` | - |
 | `STATE` | ``32`` | - |
 | `STYLE` | ``4`` | - |
-| `TAG` | ``128`` | **`Deprecated`**  in favor of [DATA](index.md#data) |
+| `TAG` | ``128`` | **`Deprecated`** in favor of [DATA](index.md#data) |
 | `TRANSFORM` | ``1`` | - |
 
 #### Defined in
@@ -9583,7 +9947,7 @@ ___
 
 ### EShapeDeserializers
 
-• `Const` **EShapeDeserializers**: `Record`<`number`, [`EShapeDeserializer`](index.md#eshapedeserializer) \| `undefined`\> = `{}`
+• `Const` **EShapeDeserializers**: `Record`\<`number`, [`EShapeDeserializer`](index.md#eshapedeserializer) \| `undefined`\> = `{}`
 
 Mappings of shape types and deserializers.
 
@@ -9635,9 +9999,31 @@ ___
 
 ___
 
+### EShapeLockPart
+
+• `Const` **EShapeLockPart**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `CONNECTOR` | ``8`` |
+| `TRANSFORM` | ``1`` |
+| `TRANSFORM_AND_UPLOADED` | ``7`` |
+| `TRANSFORM_PARENT` | ``2`` |
+| `UPLOADED` | ``4`` |
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts:1](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts#L1)
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-lock-part.ts#L9)
+
+___
+
 ### EShapeOnDeserializeds
 
-• `Const` **EShapeOnDeserializeds**: `Record`<`number`, [`EShapeOnDeserialized`](index.md#eshapeondeserialized) \| `undefined`\> = `{}`
+• `Const` **EShapeOnDeserializeds**: `Record`\<`number`, [`EShapeOnDeserialized`](index.md#eshapeondeserialized) \| `undefined`\> = `{}`
 
 Mappings of shape types and `onDeserialized` handlers.
 
@@ -9672,6 +10058,11 @@ ___
 
 • `Const` **EShapePointsStyle**: `Object`
 
+EShape point style.
+
+* Bits 0 to 9: Bit field of styles.
+* Bits 10 to 19: Formatter ID.
+
 #### Type declaration
 
 | Name | Type | Description |
@@ -9681,23 +10072,27 @@ ___
 | `DASHED` | ``128`` | - |
 | `DASHED_DENSELY` | ``256`` | - |
 | `DASHED_LOOSELY` | ``512`` | - |
-| `DASHED_MASK` | `number` | **`Deprecated`**  in favor of EShapeStrokeStyle. |
+| `DASHED_MASK` | `number` | **`Deprecated`** in favor of EShapeStrokeStyle. |
 | `DOTTED` | ``16`` | - |
 | `DOTTED_DENSELY` | ``32`` | - |
 | `DOTTED_LOOSELY` | ``64`` | - |
-| `DOTTED_MASK` | `number` | **`Deprecated`**  in favor of EShapeStrokeStyle. |
-| `FORMATTER_MASK` | ``1024`` | - |
+| `DOTTED_MASK` | `number` | **`Deprecated`** in favor of EShapeStrokeStyle. |
+| `FORMATTER_CURVE` | ``1`` | - |
+| `FORMATTER_EXTENSION_HIGHEST` | ``1023`` | - |
+| `FORMATTER_EXTENSION_LOWEST` | ``512`` | - |
+| `FORMATTER_MASK` | ``1047552`` | - |
+| `FORMATTER_SHIFT` | ``10`` | - |
 | `NONE` | ``0`` | - |
 | `NON_EXPANDING_WIDTH` | ``2`` | - |
 | `NON_SCALING_DOT_AND_DASH` | ``8`` | - |
-| `NON_SCALING_MASK` | `number` | **`Deprecated`**  in favor of EShapeStrokeStyle. |
+| `NON_SCALING_MASK` | `number` | **`Deprecated`** in favor of EShapeStrokeStyle. |
 | `NON_SHRINKING_WIDTH` | ``4`` | - |
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L38)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L67)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-points-style.ts#L92)
 
 ___
 
@@ -9757,7 +10152,7 @@ ___
 
 ### EShapeRuntimes
 
-• `Const` **EShapeRuntimes**: `Record`<`number`, [`EShapeRuntimeConstructor`](index.md#eshaperuntimeconstructor) \| `undefined`\> = `{}`
+• `Const` **EShapeRuntimes**: `Record`\<`number`, [`EShapeRuntimeConstructor`](index.md#eshaperuntimeconstructor) \| `undefined`\> = `{}`
 
 #### Defined in
 
@@ -9967,6 +10362,7 @@ ___
 | `CONNECTOR_ELBOW` | ``23`` |
 | `CONNECTOR_LINE` | ``22`` |
 | `EMBEDDED` | ``18`` |
+| `EMBEDDED_ACCEPTOR_EDGE` | ``25`` |
 | `EMBEDDED_LAYER` | ``19`` |
 | `EXTENSION` | ``1000`` |
 | `GROUP` | ``8`` |
@@ -9992,13 +10388,13 @@ ___
 
 [src/main/typescript/wcardinal/ui/shape/e-shape-type.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-type.ts#L6)
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-type.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-type.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/e-shape-type.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-type.ts#L36)
 
 ___
 
 ### EShapeUploadeds
 
-• `Const` **EShapeUploadeds**: `Record`<`number`, [`EShapeUploadedCreator`](index.md#eshapeuploadedcreator) \| `undefined`\> = `{}`
+• `Const` **EShapeUploadeds**: `Record`\<`number`, [`EShapeUploadedCreator`](index.md#eshapeuploadedcreator) \| `undefined`\> = `{}`
 
 #### Defined in
 
@@ -10278,6 +10674,7 @@ ___
 | `LEFT_BOTTOM` | ``7`` |
 | `LEFT_MIDDLE` | ``6`` |
 | `LEFT_TOP` | ``5`` |
+| `NONE` | ``17`` |
 | `OVER` | ``16`` |
 | `RIGHT` | ``8`` |
 | `RIGHT_BOTTOM` | ``11`` |
@@ -10292,7 +10689,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/util/util-attach.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L14)
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L40)
 
 ___
 
@@ -10495,7 +10892,7 @@ ___
 
 ### DMenuItemCheckIsCompatible
 
-▸ **DMenuItemCheckIsCompatible**<`VALUE`\>(`options`): options is DMenuItemCheckOptions<VALUE, DThemeMenuItemCheck\>
+▸ **DMenuItemCheckIsCompatible**\<`VALUE`\>(`options`): options is DMenuItemCheckOptions\<VALUE, DThemeMenuItemCheck\>
 
 #### Type parameters
 
@@ -10507,11 +10904,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 
 #### Returns
 
-options is DMenuItemCheckOptions<VALUE, DThemeMenuItemCheck\>
+options is DMenuItemCheckOptions\<VALUE, DThemeMenuItemCheck\>
 
 #### Defined in
 
@@ -10521,7 +10918,7 @@ ___
 
 ### DMenuItemExpandableIsCompatible
 
-▸ **DMenuItemExpandableIsCompatible**<`VALUE`\>(`options`): options is DMenuItemExpandableOptions<VALUE, DThemeMenuItemExpandable\>
+▸ **DMenuItemExpandableIsCompatible**\<`VALUE`\>(`options`): options is DMenuItemExpandableOptions\<VALUE, DThemeMenuItemExpandable\>
 
 #### Type parameters
 
@@ -10533,11 +10930,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 
 #### Returns
 
-options is DMenuItemExpandableOptions<VALUE, DThemeMenuItemExpandable\>
+options is DMenuItemExpandableOptions\<VALUE, DThemeMenuItemExpandable\>
 
 #### Defined in
 
@@ -10547,7 +10944,7 @@ ___
 
 ### DMenuItemLinkIsCompatible
 
-▸ **DMenuItemLinkIsCompatible**<`VALUE`\>(`options`): options is DMenuItemLinkOptions<VALUE, DThemeMenuItemLink\>
+▸ **DMenuItemLinkIsCompatible**\<`VALUE`\>(`options`): options is DMenuItemLinkOptions\<VALUE, DThemeMenuItemLink\>
 
 #### Type parameters
 
@@ -10559,11 +10956,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 
 #### Returns
 
-options is DMenuItemLinkOptions<VALUE, DThemeMenuItemLink\>
+options is DMenuItemLinkOptions\<VALUE, DThemeMenuItemLink\>
 
 #### Defined in
 
@@ -10573,7 +10970,7 @@ ___
 
 ### DMenuItemMenuIsCompatible
 
-▸ **DMenuItemMenuIsCompatible**<`VALUE`\>(`options`): options is DMenuItemMenuOptions<VALUE, DThemeMenuItemMenu\>
+▸ **DMenuItemMenuIsCompatible**\<`VALUE`\>(`options`): options is DMenuItemMenuOptions\<VALUE, DThemeMenuItemMenu\>
 
 #### Type parameters
 
@@ -10585,11 +10982,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 
 #### Returns
 
-options is DMenuItemMenuOptions<VALUE, DThemeMenuItemMenu\>
+options is DMenuItemMenuOptions\<VALUE, DThemeMenuItemMenu\>
 
 #### Defined in
 
@@ -10599,7 +10996,7 @@ ___
 
 ### DMenuItemMenuToSubMenuOptions
 
-▸ **DMenuItemMenuToSubMenuOptions**<`VALUE`\>(`options`, `sticky`): [`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)<`VALUE`, [`DThemeMenuItemMenu`](interfaces/DThemeMenuItemMenu.md)\>
+▸ **DMenuItemMenuToSubMenuOptions**\<`VALUE`\>(`options`, `sticky`): [`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)\<`VALUE`, [`DThemeMenuItemMenu`](interfaces/DThemeMenuItemMenu.md)\>
 
 #### Type parameters
 
@@ -10611,12 +11008,12 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)<`VALUE`, [`DThemeMenuItemMenu`](interfaces/DThemeMenuItemMenu.md)\> |
+| `options` | [`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)\<`VALUE`, [`DThemeMenuItemMenu`](interfaces/DThemeMenuItemMenu.md)\> |
 | `sticky` | `boolean` |
 
 #### Returns
 
-[`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)<`VALUE`, [`DThemeMenuItemMenu`](interfaces/DThemeMenuItemMenu.md)\>
+[`DMenuItemMenuOptions`](interfaces/DMenuItemMenuOptions.md)\<`VALUE`, [`DThemeMenuItemMenu`](interfaces/DThemeMenuItemMenu.md)\>
 
 #### Defined in
 
@@ -10626,17 +11023,17 @@ ___
 
 ### DMenuItemSeparatorIsCompatible
 
-▸ **DMenuItemSeparatorIsCompatible**(`options`): options is DMenuItemSeparatorOptions<unknown, DThemeMenuItemSeparator\>
+▸ **DMenuItemSeparatorIsCompatible**(`options`): options is DMenuItemSeparatorOptions\<unknown, DThemeMenuItemSeparator\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`unknown`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`unknown`\> |
 
 #### Returns
 
-options is DMenuItemSeparatorOptions<unknown, DThemeMenuItemSeparator\>
+options is DMenuItemSeparatorOptions\<unknown, DThemeMenuItemSeparator\>
 
 #### Defined in
 
@@ -10646,7 +11043,7 @@ ___
 
 ### DMenuItemSpaceIsCompatible
 
-▸ **DMenuItemSpaceIsCompatible**<`VALUE`\>(`options`): options is DMenuItemSpaceOptions<DThemeMenuItemSpace\>
+▸ **DMenuItemSpaceIsCompatible**\<`VALUE`\>(`options`): options is DMenuItemSpaceOptions\<DThemeMenuItemSpace\>
 
 #### Type parameters
 
@@ -10658,11 +11055,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)\<`VALUE`\> |
 
 #### Returns
 
-options is DMenuItemSpaceOptions<DThemeMenuItemSpace\>
+options is DMenuItemSpaceOptions\<DThemeMenuItemSpace\>
 
 #### Defined in
 
@@ -11081,7 +11478,7 @@ ___
 | :------ | :------ |
 | `voffset` | `number` |
 | `vcountPerPoint` | `number` |
-| `point` | [`EShapeLineOfAnyPointsStroke`](interfaces/EShapeLineOfAnyPointsStroke.md) \| [`EShapeLineOfAnyPointsFill`](interfaces/EShapeLineOfAnyPointsFill.md) |
+| `point` | [`EShapeLineOfAnyPointsFill`](interfaces/EShapeLineOfAnyPointsFill.md) \| [`EShapeLineOfAnyPointsStroke`](interfaces/EShapeLineOfAnyPointsStroke.md) |
 | `pointCount` | `number` |
 | `colors` | `Float32Array` |
 | `isEnabled` | `boolean` |
@@ -12209,7 +12606,7 @@ ___
 
 ### createImage
 
-▸ **createImage**(`dataUrl`): `Promise`<[`EShapeImage`](classes/EShapeImage.md)\>
+▸ **createImage**(`dataUrl`): `Promise`\<[`EShapeImage`](classes/EShapeImage.md)\>
 
 #### Parameters
 
@@ -12219,7 +12616,7 @@ ___
 
 #### Returns
 
-`Promise`<[`EShapeImage`](classes/EShapeImage.md)\>
+`Promise`\<[`EShapeImage`](classes/EShapeImage.md)\>
 
 #### Defined in
 
@@ -12229,7 +12626,7 @@ ___
 
 ### createImageSdf
 
-▸ **createImageSdf**(`dataUrl`, `convertToSdf`): `Promise`<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
+▸ **createImageSdf**(`dataUrl`, `convertToSdf`): `Promise`\<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
 
 #### Parameters
 
@@ -12240,7 +12637,7 @@ ___
 
 #### Returns
 
-`Promise`<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
+`Promise`\<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
 
 #### Defined in
 
@@ -12659,7 +13056,7 @@ ___
 
 ### deserialize
 
-▸ **deserialize**(`item`, `manager`): [`EShape`](interfaces/EShape.md) \| `Promise`<[`EShape`](interfaces/EShape.md)\>
+▸ **deserialize**(`item`, `manager`): [`EShape`](interfaces/EShape.md) \| `Promise`\<[`EShape`](interfaces/EShape.md)\>
 
 #### Parameters
 
@@ -12670,7 +13067,7 @@ ___
 
 #### Returns
 
-[`EShape`](interfaces/EShape.md) \| `Promise`<[`EShape`](interfaces/EShape.md)\>
+[`EShape`](interfaces/EShape.md) \| `Promise`\<[`EShape`](interfaces/EShape.md)\>
 
 #### Defined in
 
@@ -12701,7 +13098,7 @@ ___
 
 ### deserializeAll
 
-▸ **deserializeAll**(`serializeds`, `manager`): ``null`` \| `Promise`<[`EShape`](interfaces/EShape.md)[]\>
+▸ **deserializeAll**(`serializeds`, `manager`): ``null`` \| `Promise`\<[`EShape`](interfaces/EShape.md)[]\>
 
 #### Parameters
 
@@ -12712,7 +13109,7 @@ ___
 
 #### Returns
 
-``null`` \| `Promise`<[`EShape`](interfaces/EShape.md)[]\>
+``null`` \| `Promise`\<[`EShape`](interfaces/EShape.md)[]\>
 
 #### Defined in
 
@@ -12722,7 +13119,7 @@ ___
 
 ### deserializeBar
 
-▸ **deserializeBar**(`item`, `manager`, `shape?`): [`EShapeBar`](classes/EShapeBar.md) \| `Promise`<[`EShapeBar`](classes/EShapeBar.md)\>
+▸ **deserializeBar**(`item`, `manager`, `shape?`): [`EShapeBar`](classes/EShapeBar.md) \| `Promise`\<[`EShapeBar`](classes/EShapeBar.md)\>
 
 #### Parameters
 
@@ -12734,7 +13131,7 @@ ___
 
 #### Returns
 
-[`EShapeBar`](classes/EShapeBar.md) \| `Promise`<[`EShapeBar`](classes/EShapeBar.md)\>
+[`EShapeBar`](classes/EShapeBar.md) \| `Promise`\<[`EShapeBar`](classes/EShapeBar.md)\>
 
 #### Defined in
 
@@ -12744,13 +13141,13 @@ ___
 
 ### deserializeBase
 
-▸ **deserializeBase**<`SHAPE`\>(`item`, `manager`, `result`): `SHAPE` \| `Promise`<`SHAPE`\>
+▸ **deserializeBase**\<`SHAPE`\>(`item`, `manager`, `result`): `SHAPE` \| `Promise`\<`SHAPE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `SHAPE` | extends [`EShape`](interfaces/EShape.md)<`SHAPE`\> |
+| `SHAPE` | extends [`EShape`](interfaces/EShape.md) |
 
 #### Parameters
 
@@ -12762,7 +13159,7 @@ ___
 
 #### Returns
 
-`SHAPE` \| `Promise`<`SHAPE`\>
+`SHAPE` \| `Promise`\<`SHAPE`\>
 
 #### Defined in
 
@@ -12772,7 +13169,7 @@ ___
 
 ### deserializeButton
 
-▸ **deserializeButton**(`item`, `manager`, `shape?`): [`EShapeButton`](classes/EShapeButton.md) \| `Promise`<[`EShapeButton`](classes/EShapeButton.md)\>
+▸ **deserializeButton**(`item`, `manager`, `shape?`): [`EShapeButton`](classes/EShapeButton.md) \| `Promise`\<[`EShapeButton`](classes/EShapeButton.md)\>
 
 #### Parameters
 
@@ -12784,7 +13181,7 @@ ___
 
 #### Returns
 
-[`EShapeButton`](classes/EShapeButton.md) \| `Promise`<[`EShapeButton`](classes/EShapeButton.md)\>
+[`EShapeButton`](classes/EShapeButton.md) \| `Promise`\<[`EShapeButton`](classes/EShapeButton.md)\>
 
 #### Defined in
 
@@ -12794,7 +13191,7 @@ ___
 
 ### deserializeCircle
 
-▸ **deserializeCircle**(`item`, `manager`, `shape?`): [`EShapeCircle`](classes/EShapeCircle.md) \| `Promise`<[`EShapeCircle`](classes/EShapeCircle.md)\>
+▸ **deserializeCircle**(`item`, `manager`, `shape?`): [`EShapeCircle`](classes/EShapeCircle.md) \| `Promise`\<[`EShapeCircle`](classes/EShapeCircle.md)\>
 
 #### Parameters
 
@@ -12806,7 +13203,7 @@ ___
 
 #### Returns
 
-[`EShapeCircle`](classes/EShapeCircle.md) \| `Promise`<[`EShapeCircle`](classes/EShapeCircle.md)\>
+[`EShapeCircle`](classes/EShapeCircle.md) \| `Promise`\<[`EShapeCircle`](classes/EShapeCircle.md)\>
 
 #### Defined in
 
@@ -12816,7 +13213,7 @@ ___
 
 ### deserializeConnectorElbow
 
-▸ **deserializeConnectorElbow**(`item`, `manager`, `shape?`): [`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
+▸ **deserializeConnectorElbow**(`item`, `manager`, `shape?`): [`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`\<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
 
 #### Parameters
 
@@ -12828,7 +13225,7 @@ ___
 
 #### Returns
 
-[`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
+[`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`\<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
 
 #### Defined in
 
@@ -12838,7 +13235,7 @@ ___
 
 ### deserializeConnectorLine
 
-▸ **deserializeConnectorLine**(`item`, `manager`, `shape?`): [`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
+▸ **deserializeConnectorLine**(`item`, `manager`, `shape?`): [`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`\<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
 
 #### Parameters
 
@@ -12850,17 +13247,17 @@ ___
 
 #### Returns
 
-[`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
+[`EShapeConnectorLine`](classes/EShapeConnectorLine.md) \| `Promise`\<[`EShapeConnectorLine`](classes/EShapeConnectorLine.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts#L15)
 
 ___
 
 ### deserializeEmbedded
 
-▸ **deserializeEmbedded**(`item`, `manager`, `creator?`): ``null`` \| [`EShapeEmbedded`](classes/EShapeEmbedded.md) \| `Promise`<[`EShapeEmbedded`](classes/EShapeEmbedded.md)\>
+▸ **deserializeEmbedded**(`item`, `manager`, `creator?`): ``null`` \| [`EShapeEmbedded`](classes/EShapeEmbedded.md) \| `Promise`\<[`EShapeEmbedded`](classes/EShapeEmbedded.md)\>
 
 #### Parameters
 
@@ -12872,11 +13269,33 @@ ___
 
 #### Returns
 
-``null`` \| [`EShapeEmbedded`](classes/EShapeEmbedded.md) \| `Promise`<[`EShapeEmbedded`](classes/EShapeEmbedded.md)\>
+``null`` \| [`EShapeEmbedded`](classes/EShapeEmbedded.md) \| `Promise`\<[`EShapeEmbedded`](classes/EShapeEmbedded.md)\>
 
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/shape/variant/deserialize-embedded.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/deserialize-embedded.ts#L140)
+
+___
+
+### deserializeEmbeddedAcceptorEdge
+
+▸ **deserializeEmbeddedAcceptorEdge**(`item`, `manager`, `shape?`): [`EShapeEmbeddedAcceptorEdge`](classes/EShapeEmbeddedAcceptorEdge.md) \| `Promise`\<[`EShapeEmbeddedAcceptorEdge`](classes/EShapeEmbeddedAcceptorEdge.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `item` | [`DDiagramSerializedItem`](interfaces/DDiagramSerializedItem.md) |
+| `manager` | [`EShapeResourceManagerDeserialization`](classes/EShapeResourceManagerDeserialization.md) |
+| `shape?` | [`EShapeEmbeddedAcceptorEdge`](classes/EShapeEmbeddedAcceptorEdge.md) |
+
+#### Returns
+
+[`EShapeEmbeddedAcceptorEdge`](classes/EShapeEmbeddedAcceptorEdge.md) \| `Promise`\<[`EShapeEmbeddedAcceptorEdge`](classes/EShapeEmbeddedAcceptorEdge.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/deserialize-embedded-acceptor-edge.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/deserialize-embedded-acceptor-edge.ts#L30)
 
 ___
 
@@ -12928,7 +13347,7 @@ ___
 
 ### deserializeGroup
 
-▸ **deserializeGroup**(`item`, `manager`, `shape?`): [`EShapeGroup`](classes/EShapeGroup.md) \| `Promise`<[`EShapeGroup`](classes/EShapeGroup.md)\>
+▸ **deserializeGroup**(`item`, `manager`, `shape?`): [`EShapeGroup`](classes/EShapeGroup.md) \| `Promise`\<[`EShapeGroup`](classes/EShapeGroup.md)\>
 
 #### Parameters
 
@@ -12940,7 +13359,7 @@ ___
 
 #### Returns
 
-[`EShapeGroup`](classes/EShapeGroup.md) \| `Promise`<[`EShapeGroup`](classes/EShapeGroup.md)\>
+[`EShapeGroup`](classes/EShapeGroup.md) \| `Promise`\<[`EShapeGroup`](classes/EShapeGroup.md)\>
 
 #### Defined in
 
@@ -12950,7 +13369,7 @@ ___
 
 ### deserializeGroupShadowed
 
-▸ **deserializeGroupShadowed**(`item`, `manager`, `shape?`): [`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md) \| `Promise`<[`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md)\>
+▸ **deserializeGroupShadowed**(`item`, `manager`, `shape?`): [`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md) \| `Promise`\<[`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md)\>
 
 #### Parameters
 
@@ -12962,7 +13381,7 @@ ___
 
 #### Returns
 
-[`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md) \| `Promise`<[`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md)\>
+[`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md) \| `Promise`\<[`EShapeGroupShadowed`](classes/EShapeGroupShadowed.md)\>
 
 #### Defined in
 
@@ -12972,7 +13391,7 @@ ___
 
 ### deserializeImage
 
-▸ **deserializeImage**(`item`, `manager`, `shape?`): [`EShapeImage`](classes/EShapeImage.md) \| `Promise`<[`EShapeImage`](classes/EShapeImage.md)\>
+▸ **deserializeImage**(`item`, `manager`, `shape?`): [`EShapeImage`](classes/EShapeImage.md) \| `Promise`\<[`EShapeImage`](classes/EShapeImage.md)\>
 
 #### Parameters
 
@@ -12984,7 +13403,7 @@ ___
 
 #### Returns
 
-[`EShapeImage`](classes/EShapeImage.md) \| `Promise`<[`EShapeImage`](classes/EShapeImage.md)\>
+[`EShapeImage`](classes/EShapeImage.md) \| `Promise`\<[`EShapeImage`](classes/EShapeImage.md)\>
 
 #### Defined in
 
@@ -12994,7 +13413,7 @@ ___
 
 ### deserializeImageSdf
 
-▸ **deserializeImageSdf**(`item`, `manager`, `shape?`): [`EShapeImageSdf`](classes/EShapeImageSdf.md) \| `Promise`<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
+▸ **deserializeImageSdf**(`item`, `manager`, `shape?`): [`EShapeImageSdf`](classes/EShapeImageSdf.md) \| `Promise`\<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
 
 #### Parameters
 
@@ -13006,7 +13425,7 @@ ___
 
 #### Returns
 
-[`EShapeImageSdf`](classes/EShapeImageSdf.md) \| `Promise`<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
+[`EShapeImageSdf`](classes/EShapeImageSdf.md) \| `Promise`\<[`EShapeImageSdf`](classes/EShapeImageSdf.md)\>
 
 #### Defined in
 
@@ -13016,7 +13435,7 @@ ___
 
 ### deserializeLabel
 
-▸ **deserializeLabel**(`item`, `manager`, `shape?`): [`EShapeLabel`](classes/EShapeLabel.md) \| `Promise`<[`EShapeLabel`](classes/EShapeLabel.md)\>
+▸ **deserializeLabel**(`item`, `manager`, `shape?`): [`EShapeLabel`](classes/EShapeLabel.md) \| `Promise`\<[`EShapeLabel`](classes/EShapeLabel.md)\>
 
 #### Parameters
 
@@ -13028,7 +13447,7 @@ ___
 
 #### Returns
 
-[`EShapeLabel`](classes/EShapeLabel.md) \| `Promise`<[`EShapeLabel`](classes/EShapeLabel.md)\>
+[`EShapeLabel`](classes/EShapeLabel.md) \| `Promise`\<[`EShapeLabel`](classes/EShapeLabel.md)\>
 
 #### Defined in
 
@@ -13038,7 +13457,7 @@ ___
 
 ### deserializeLine
 
-▸ **deserializeLine**(`item`, `manager`, `shape?`): [`EShapeLine`](classes/EShapeLine.md) \| `Promise`<[`EShapeLine`](classes/EShapeLine.md)\>
+▸ **deserializeLine**(`item`, `manager`, `shape?`): [`EShapeLine`](classes/EShapeLine.md) \| `Promise`\<[`EShapeLine`](classes/EShapeLine.md)\>
 
 #### Parameters
 
@@ -13050,7 +13469,7 @@ ___
 
 #### Returns
 
-[`EShapeLine`](classes/EShapeLine.md) \| `Promise`<[`EShapeLine`](classes/EShapeLine.md)\>
+[`EShapeLine`](classes/EShapeLine.md) \| `Promise`\<[`EShapeLine`](classes/EShapeLine.md)\>
 
 #### Defined in
 
@@ -13060,7 +13479,7 @@ ___
 
 ### deserializeLineOfCircles
 
-▸ **deserializeLineOfCircles**(`item`, `manager`, `shape?`): [`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md) \| `Promise`<[`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md)\>
+▸ **deserializeLineOfCircles**(`item`, `manager`, `shape?`): [`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md) \| `Promise`\<[`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md)\>
 
 #### Parameters
 
@@ -13072,7 +13491,7 @@ ___
 
 #### Returns
 
-[`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md) \| `Promise`<[`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md)\>
+[`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md) \| `Promise`\<[`EShapeLineOfCircles`](classes/EShapeLineOfCircles.md)\>
 
 #### Defined in
 
@@ -13082,7 +13501,7 @@ ___
 
 ### deserializeLineOfRectangleRoundeds
 
-▸ **deserializeLineOfRectangleRoundeds**(`item`, `manager`, `shape?`): [`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md) \| `Promise`<[`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md)\>
+▸ **deserializeLineOfRectangleRoundeds**(`item`, `manager`, `shape?`): [`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md) \| `Promise`\<[`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md)\>
 
 #### Parameters
 
@@ -13094,7 +13513,7 @@ ___
 
 #### Returns
 
-[`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md) \| `Promise`<[`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md)\>
+[`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md) \| `Promise`\<[`EShapeLineOfRectangleRoundeds`](classes/EShapeLineOfRectangleRoundeds.md)\>
 
 #### Defined in
 
@@ -13104,7 +13523,7 @@ ___
 
 ### deserializeLineOfRectangles
 
-▸ **deserializeLineOfRectangles**(`item`, `manager`, `shape?`): [`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md) \| `Promise`<[`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md)\>
+▸ **deserializeLineOfRectangles**(`item`, `manager`, `shape?`): [`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md) \| `Promise`\<[`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md)\>
 
 #### Parameters
 
@@ -13116,7 +13535,7 @@ ___
 
 #### Returns
 
-[`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md) \| `Promise`<[`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md)\>
+[`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md) \| `Promise`\<[`EShapeLineOfRectangles`](classes/EShapeLineOfRectangles.md)\>
 
 #### Defined in
 
@@ -13126,7 +13545,7 @@ ___
 
 ### deserializeLineOfTriangleRoundeds
 
-▸ **deserializeLineOfTriangleRoundeds**(`item`, `manager`, `shape?`): [`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md) \| `Promise`<[`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md)\>
+▸ **deserializeLineOfTriangleRoundeds**(`item`, `manager`, `shape?`): [`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md) \| `Promise`\<[`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md)\>
 
 #### Parameters
 
@@ -13138,7 +13557,7 @@ ___
 
 #### Returns
 
-[`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md) \| `Promise`<[`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md)\>
+[`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md) \| `Promise`\<[`EShapeLineOfTriangleRoundeds`](classes/EShapeLineOfTriangleRoundeds.md)\>
 
 #### Defined in
 
@@ -13148,7 +13567,7 @@ ___
 
 ### deserializeLineOfTriangles
 
-▸ **deserializeLineOfTriangles**(`item`, `manager`, `shape?`): [`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md) \| `Promise`<[`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md)\>
+▸ **deserializeLineOfTriangles**(`item`, `manager`, `shape?`): [`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md) \| `Promise`\<[`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md)\>
 
 #### Parameters
 
@@ -13160,7 +13579,7 @@ ___
 
 #### Returns
 
-[`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md) \| `Promise`<[`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md)\>
+[`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md) \| `Promise`\<[`EShapeLineOfTriangles`](classes/EShapeLineOfTriangles.md)\>
 
 #### Defined in
 
@@ -13170,7 +13589,7 @@ ___
 
 ### deserializeNull
 
-▸ **deserializeNull**(`item`, `manager`, `shape?`): [`EShapeNull`](classes/EShapeNull.md) \| `Promise`<[`EShapeNull`](classes/EShapeNull.md)\>
+▸ **deserializeNull**(`item`, `manager`, `shape?`): [`EShapeNull`](classes/EShapeNull.md) \| `Promise`\<[`EShapeNull`](classes/EShapeNull.md)\>
 
 #### Parameters
 
@@ -13182,7 +13601,7 @@ ___
 
 #### Returns
 
-[`EShapeNull`](classes/EShapeNull.md) \| `Promise`<[`EShapeNull`](classes/EShapeNull.md)\>
+[`EShapeNull`](classes/EShapeNull.md) \| `Promise`\<[`EShapeNull`](classes/EShapeNull.md)\>
 
 #### Defined in
 
@@ -13192,7 +13611,7 @@ ___
 
 ### deserializeRectangle
 
-▸ **deserializeRectangle**(`item`, `manager`, `shape?`): [`EShapeRectangle`](classes/EShapeRectangle.md) \| `Promise`<[`EShapeRectangle`](classes/EShapeRectangle.md)\>
+▸ **deserializeRectangle**(`item`, `manager`, `shape?`): [`EShapeRectangle`](classes/EShapeRectangle.md) \| `Promise`\<[`EShapeRectangle`](classes/EShapeRectangle.md)\>
 
 #### Parameters
 
@@ -13204,7 +13623,7 @@ ___
 
 #### Returns
 
-[`EShapeRectangle`](classes/EShapeRectangle.md) \| `Promise`<[`EShapeRectangle`](classes/EShapeRectangle.md)\>
+[`EShapeRectangle`](classes/EShapeRectangle.md) \| `Promise`\<[`EShapeRectangle`](classes/EShapeRectangle.md)\>
 
 #### Defined in
 
@@ -13214,7 +13633,7 @@ ___
 
 ### deserializeRectanglePivoted
 
-▸ **deserializeRectanglePivoted**(`item`, `manager`, `shape?`): [`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md) \| `Promise`<[`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md)\>
+▸ **deserializeRectanglePivoted**(`item`, `manager`, `shape?`): [`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md) \| `Promise`\<[`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md)\>
 
 #### Parameters
 
@@ -13226,7 +13645,7 @@ ___
 
 #### Returns
 
-[`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md) \| `Promise`<[`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md)\>
+[`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md) \| `Promise`\<[`EShapeRectanglePivoted`](classes/EShapeRectanglePivoted.md)\>
 
 #### Defined in
 
@@ -13236,7 +13655,7 @@ ___
 
 ### deserializeRectangleRounded
 
-▸ **deserializeRectangleRounded**(`item`, `manager`, `shape?`): [`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md) \| `Promise`<[`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md)\>
+▸ **deserializeRectangleRounded**(`item`, `manager`, `shape?`): [`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md) \| `Promise`\<[`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md)\>
 
 #### Parameters
 
@@ -13248,7 +13667,7 @@ ___
 
 #### Returns
 
-[`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md) \| `Promise`<[`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md)\>
+[`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md) \| `Promise`\<[`EShapeRectangleRounded`](classes/EShapeRectangleRounded.md)\>
 
 #### Defined in
 
@@ -13258,7 +13677,7 @@ ___
 
 ### deserializeSemicircle
 
-▸ **deserializeSemicircle**(`item`, `manager`, `shape?`): [`EShapeSemicircle`](classes/EShapeSemicircle.md) \| `Promise`<[`EShapeSemicircle`](classes/EShapeSemicircle.md)\>
+▸ **deserializeSemicircle**(`item`, `manager`, `shape?`): [`EShapeSemicircle`](classes/EShapeSemicircle.md) \| `Promise`\<[`EShapeSemicircle`](classes/EShapeSemicircle.md)\>
 
 #### Parameters
 
@@ -13270,7 +13689,7 @@ ___
 
 #### Returns
 
-[`EShapeSemicircle`](classes/EShapeSemicircle.md) \| `Promise`<[`EShapeSemicircle`](classes/EShapeSemicircle.md)\>
+[`EShapeSemicircle`](classes/EShapeSemicircle.md) \| `Promise`\<[`EShapeSemicircle`](classes/EShapeSemicircle.md)\>
 
 #### Defined in
 
@@ -13280,7 +13699,7 @@ ___
 
 ### deserializeTriangle
 
-▸ **deserializeTriangle**(`item`, `manager`, `shape?`): [`EShapeTriangle`](classes/EShapeTriangle.md) \| `Promise`<[`EShapeTriangle`](classes/EShapeTriangle.md)\>
+▸ **deserializeTriangle**(`item`, `manager`, `shape?`): [`EShapeTriangle`](classes/EShapeTriangle.md) \| `Promise`\<[`EShapeTriangle`](classes/EShapeTriangle.md)\>
 
 #### Parameters
 
@@ -13292,7 +13711,7 @@ ___
 
 #### Returns
 
-[`EShapeTriangle`](classes/EShapeTriangle.md) \| `Promise`<[`EShapeTriangle`](classes/EShapeTriangle.md)\>
+[`EShapeTriangle`](classes/EShapeTriangle.md) \| `Promise`\<[`EShapeTriangle`](classes/EShapeTriangle.md)\>
 
 #### Defined in
 
@@ -13302,7 +13721,7 @@ ___
 
 ### deserializeTriangleRounded
 
-▸ **deserializeTriangleRounded**(`item`, `manager`, `shape?`): [`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md) \| `Promise`<[`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md)\>
+▸ **deserializeTriangleRounded**(`item`, `manager`, `shape?`): [`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md) \| `Promise`\<[`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md)\>
 
 #### Parameters
 
@@ -13314,7 +13733,7 @@ ___
 
 #### Returns
 
-[`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md) \| `Promise`<[`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md)\>
+[`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md) \| `Promise`\<[`EShapeTriangleRounded`](classes/EShapeTriangleRounded.md)\>
 
 #### Defined in
 
@@ -13565,7 +13984,7 @@ arg is any[]
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1460
+node_modules/typescript/lib/lib.es5.d.ts:1505
 
 ___
 
@@ -13631,7 +14050,7 @@ ___
 
 ### isObject
 
-▸ **isObject**(`target`): target is Record<string, unknown\>
+▸ **isObject**(`target`): target is Record\<string, unknown\>
 
 #### Parameters
 
@@ -13641,7 +14060,7 @@ ___
 
 #### Returns
 
-target is Record<string, unknown\>
+target is Record\<string, unknown\>
 
 #### Defined in
 
@@ -13895,7 +14314,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/load/load-shape-embedded.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/load/load-shape-embedded.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/load/load-shape-embedded.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/load/load-shape-embedded.ts#L17)
 
 ___
 
@@ -14147,7 +14566,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-all.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-all.ts#L40)
+[src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-all.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-all.ts#L41)
 
 ___
 
@@ -14428,6 +14847,20 @@ ___
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-chart.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-chart.ts#L22)
+
+___
+
+### loadThemeDarkColor
+
+▸ **loadThemeDarkColor**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-color.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-color.ts#L10)
 
 ___
 
@@ -15197,7 +15630,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-table.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-table.ts#L48)
+[src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-table.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/load/load-theme-dark-table.ts#L51)
 
 ___
 
@@ -15267,7 +15700,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-all.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-all.ts#L40)
+[src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-all.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-all.ts#L41)
 
 ___
 
@@ -15548,6 +15981,34 @@ ___
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-canvas-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-canvas-container.ts#L10)
+
+___
+
+### loadThemeWhiteChart
+
+▸ **loadThemeWhiteChart**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-chart.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-chart.ts#L22)
+
+___
+
+### loadThemeWhiteColor
+
+▸ **loadThemeWhiteColor**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-color.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-color.ts#L10)
 
 ___
 
@@ -16303,7 +16764,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-table.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-table.ts#L48)
+[src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-table.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/load/load-theme-white-table.ts#L51)
 
 ___
 
@@ -16354,13 +16815,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/deserialize-connector-line.ts#L23)
 
 ___
 
 ### toCeilingIndex
 
-▸ **toCeilingIndex**<`V`\>(`array`, `value`, `size`, `offset`): `number`
+▸ **toCeilingIndex**\<`V`\>(`array`, `value`, `size`, `offset`): `number`
 
 Returns a ceiling index of the given value.
 The array must be sorted in an ascending order.
@@ -16394,7 +16855,7 @@ ___
 
 ### toChecker
 
-▸ **toChecker**<`ROW`, `VALUE`\>(`cell`, `checker?`): `undefined` \| [`DLinkChecker`](index.md#dlinkchecker)
+▸ **toChecker**\<`ROW`, `VALUE`\>(`cell`, `checker?`): `undefined` \| [`DLinkChecker`](index.md#dlinkchecker)
 
 #### Type parameters
 
@@ -16407,8 +16868,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, ``null`` \| `VALUE`\> |
-| `checker?` | [`DTableBodyCellLinkChecker`](index.md#dtablebodycelllinkchecker)<`ROW`, `VALUE`\> |
+| `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, ``null`` \| `VALUE`\> |
+| `checker?` | [`DTableBodyCellLinkChecker`](index.md#dtablebodycelllinkchecker)\<`ROW`, `VALUE`\> |
 
 #### Returns
 
@@ -16422,7 +16883,7 @@ ___
 
 ### toCloned
 
-▸ **toCloned**<`T`\>(`target`): `T`
+▸ **toCloned**\<`T`\>(`target`): `T`
 
 #### Type parameters
 
@@ -16493,7 +16954,7 @@ ___
 
 ### toEnum
 
-▸ **toEnum**<`T`, `TE`\>(`target`, `te`): `Exclude`<`T`, keyof `TE`\>
+▸ **toEnum**\<`T`, `TE`\>(`target`, `te`): `Exclude`\<`T`, keyof `TE`\>
 
 #### Type parameters
 
@@ -16511,7 +16972,7 @@ ___
 
 #### Returns
 
-`Exclude`<`T`, keyof `TE`\>
+`Exclude`\<`T`, keyof `TE`\>
 
 #### Defined in
 
@@ -16559,9 +17020,29 @@ ___
 
 ___
 
+### toId
+
+▸ **toId**(`target`): `unknown`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `any` |
+
+#### Returns
+
+`unknown`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/to-id.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/to-id.ts#L9)
+
+___
+
 ### toImageElement
 
-▸ **toImageElement**(`dataUrl`): `Promise`<`HTMLImageElement`\>
+▸ **toImageElement**(`dataUrl`): `Promise`\<`HTMLImageElement`\>
 
 #### Parameters
 
@@ -16571,7 +17052,7 @@ ___
 
 #### Returns
 
-`Promise`<`HTMLImageElement`\>
+`Promise`\<`HTMLImageElement`\>
 
 #### Defined in
 
@@ -16581,7 +17062,7 @@ ___
 
 ### toIndexOf
 
-▸ **toIndexOf**<`V`\>(`array`, `value`): `number`
+▸ **toIndexOf**\<`V`\>(`array`, `value`): `number`
 
 #### Type parameters
 
@@ -16733,7 +17214,7 @@ ___
 
 ### toLinkOptions
 
-▸ **toLinkOptions**<`ROW`, `VALUE`\>(`cell`, `options?`): `undefined` \| [`DLinkOptions`](interfaces/DLinkOptions.md)
+▸ **toLinkOptions**\<`ROW`, `VALUE`\>(`cell`, `options?`): `undefined` \| [`DLinkOptions`](interfaces/DLinkOptions.md)
 
 #### Type parameters
 
@@ -16746,8 +17227,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, ``null`` \| `VALUE`\> |
-| `options?` | [`DTableBodyCellLinkLinkOptions`](interfaces/DTableBodyCellLinkLinkOptions.md)<`ROW`, `VALUE`\> |
+| `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, ``null`` \| `VALUE`\> |
+| `options?` | [`DTableBodyCellLinkLinkOptions`](interfaces/DTableBodyCellLinkLinkOptions.md)\<`ROW`, `VALUE`\> |
 
 #### Returns
 
@@ -16761,7 +17242,7 @@ ___
 
 ### toMerged
 
-▸ **toMerged**<`T`, `U`\>(`one`, `other`): `Exclude`<`T` & `U`, `undefined` \| ``null``\>
+▸ **toMerged**\<`T`, `U`\>(`one`, `other`): `Exclude`\<`T` & `U`, `undefined` \| ``null``\>
 
 #### Type parameters
 
@@ -16779,7 +17260,7 @@ ___
 
 #### Returns
 
-`Exclude`<`T` & `U`, `undefined` \| ``null``\>
+`Exclude`\<`T` & `U`, `undefined` \| ``null``\>
 
 #### Defined in
 
@@ -16870,7 +17351,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/to-resized.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/to-resized.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/to-resized.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/to-resized.ts#L14)
 
 ___
 
@@ -17119,7 +17600,7 @@ ___
 
 ### toUrl
 
-▸ **toUrl**<`ROW`, `VALUE`\>(`cell`, `url?`): `undefined` \| `string` \| [`DLinkUrlMaker`](index.md#dlinkurlmaker)
+▸ **toUrl**\<`ROW`, `VALUE`\>(`cell`, `url?`): `undefined` \| `string` \| [`DLinkUrlMaker`](index.md#dlinkurlmaker)
 
 #### Type parameters
 
@@ -17132,8 +17613,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, ``null`` \| `VALUE`\> |
-| `url?` | `string` \| [`DTableBodyCellLinkUrlMaker`](index.md#dtablebodycelllinkurlmaker)<`ROW`, `VALUE`\> |
+| `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)\<`ROW`, ``null`` \| `VALUE`\> |
+| `url?` | `string` \| [`DTableBodyCellLinkUrlMaker`](index.md#dtablebodycelllinkurlmaker)\<`ROW`, `VALUE`\> |
 
 #### Returns
 

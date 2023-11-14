@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteTableCategoryCell
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteTableCategoryCell
 
 # Class: DThemeWhiteTableCategoryCell
 
@@ -111,7 +111,11 @@
 
 ### constructor
 
-• **new DThemeWhiteTableCategoryCell**()
+• **new DThemeWhiteTableCategoryCell**(): [`DThemeWhiteTableCategoryCell`](DThemeWhiteTableCategoryCell.md)
+
+#### Returns
+
+[`DThemeWhiteTableCategoryCell`](DThemeWhiteTableCategoryCell.md)
 
 #### Inherited from
 
@@ -2087,14 +2091,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<``null`` \| `string`\>
 
 #### Implementation of
 

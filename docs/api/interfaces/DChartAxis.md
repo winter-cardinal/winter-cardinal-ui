@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxis
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxis
 
-# Interface: DChartAxis<CHART\>
+# Interface: DChartAxis\<CHART\>
 
 ## Type parameters
 
@@ -35,7 +35,7 @@
 
 ### bar
 
-• `Readonly` **bar**: [`DChartAxisBar`](DChartAxisBar.md)<`CHART`\>
+• `Readonly` **bar**: [`DChartAxisBar`](DChartAxisBar.md)\<`CHART`\>
 
 #### Defined in
 
@@ -55,7 +55,7 @@ ___
 
 ### guide
 
-• `Readonly` **guide**: [`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)<`CHART`\>
+• `Readonly` **guide**: [`DChartAxisGuideContainer`](DChartAxisGuideContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -85,7 +85,7 @@ ___
 
 ### tick
 
-• `Readonly` **tick**: [`DChartAxisTickContainer`](DChartAxisTickContainer.md)<`CHART`\>
+• `Readonly` **tick**: [`DChartAxisTickContainer`](DChartAxisTickContainer.md)\<`CHART`\>
 
 #### Defined in
 
@@ -101,7 +101,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)<`CHART`\> |
+| `container` | [`DChartAxisContainer`](DChartAxisContainer.md)\<`CHART`\> |
 | `index` | `number` |
 
 #### Returns

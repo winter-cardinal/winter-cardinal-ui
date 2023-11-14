@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DAnimationOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DAnimationOnOptions
 
-# Interface: DAnimationOnOptions<EMITTER\>
+# Interface: DAnimationOnOptions\<EMITTER\>
 
 [DAnimation](DAnimation.md) "on" options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DAnimationEvents`](DAnimationEvents.md)<`EMITTER`\>\>
+- `Partial`\<[`DAnimationEvents`](DAnimationEvents.md)\<`EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -24,15 +24,16 @@
 
 - [end](DAnimationOnOptions.md#end)
 - [start](DAnimationOnOptions.md#start)
+- [stop](DAnimationOnOptions.md#stop)
 - [time](DAnimationOnOptions.md#time)
 
 ## Methods
 
 ### end
 
-▸ `Optional` **end**(`isReverse`, `emitter`): `void`
+▸ **end**(`isReverse`, `emitter`): `void`
 
-Triggered when an animation stops.
+Triggered when an animation ends.
 
 #### Parameters
 
@@ -51,13 +52,13 @@ Partial.end
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L76)
+[src/main/typescript/wcardinal/ui/d-animation.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L84)
 
 ___
 
 ### start
 
-▸ `Optional` **start**(`isReverse`, `emitter`): `void`
+▸ **start**(`isReverse`, `emitter`): `void`
 
 Triggered when an animation starts.
 
@@ -78,13 +79,40 @@ Partial.start
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L58)
+[src/main/typescript/wcardinal/ui/d-animation.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L66)
+
+___
+
+### stop
+
+▸ **stop**(`isReverse`, `emitter`): `void`
+
+Triggered when an animation stops.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `isReverse` | `boolean` | true if an animation is playing in reverse |
+| `emitter` | `EMITTER` | an emitter |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Partial.stop
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-animation.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L92)
 
 ___
 
 ### time
 
-▸ `Optional` **time**(`time`, `isReverse`, `elapsedTime`, `emitter`): `void`
+▸ **time**(`time`, `isReverse`, `elapsedTime`, `emitter`): `void`
 
 Triggered constantly when an animation is on a run.
 
@@ -107,4 +135,4 @@ Partial.time
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L68)
+[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L76)

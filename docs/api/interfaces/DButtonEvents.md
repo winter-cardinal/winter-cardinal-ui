@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DButtonEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DButtonEvents
 
-# Interface: DButtonEvents<VALUE, EMITTER\>
+# Interface: DButtonEvents\<VALUE, EMITTER\>
 
 [DButton](../classes/DButton.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DButtonBaseEvents`](DButtonBaseEvents.md)<`VALUE`, `EMITTER`\>
+- [`DButtonBaseEvents`](DButtonBaseEvents.md)\<`VALUE`, `EMITTER`\>
 
   ↳ **`DButtonEvents`**
 

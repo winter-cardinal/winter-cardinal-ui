@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DScrollBarFadeOutOpiotns
+[Winter Cardinal UI - v0.374.0](../index.md) / DScrollBarFadeOutOpiotns
 
 # Interface: DScrollBarFadeOutOpiotns
 

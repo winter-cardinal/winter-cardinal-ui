@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDialogFittedContent
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDialogFittedContent
 
 # Class: DThemeWhiteDialogFittedContent
 
@@ -74,7 +74,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDialogFittedContent**()
+• **new DThemeWhiteDialogFittedContent**(): [`DThemeWhiteDialogFittedContent`](DThemeWhiteDialogFittedContent.md)
+
+#### Returns
+
+[`DThemeWhiteDialogFittedContent`](DThemeWhiteDialogFittedContent.md)
 
 #### Inherited from
 

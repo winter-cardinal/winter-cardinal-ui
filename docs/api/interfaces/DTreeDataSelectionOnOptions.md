@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataSelectionOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionOnOptions
 
-# Interface: DTreeDataSelectionOnOptions<EMITTER\>
+# Interface: DTreeDataSelectionOnOptions\<EMITTER\>
 
 [DTreeDataSelection](DTreeDataSelection.md) "on" options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DTreeDataSelectionEvents`](DTreeDataSelectionEvents.md)<`EMITTER`\>\>
+- `Partial`\<[`DTreeDataSelectionEvents`](DTreeDataSelectionEvents.md)\<`EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -28,7 +28,7 @@
 
 ### change
 
-▸ `Optional` **change**(`emitter`): `void`
+▸ **change**(`emitter`): `void`
 
 Triggered when a selection is changed.
 

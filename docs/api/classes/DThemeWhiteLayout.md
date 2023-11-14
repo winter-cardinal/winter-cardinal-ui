@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteLayout
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteLayout
 
 # Class: DThemeWhiteLayout
 
@@ -78,7 +78,11 @@
 
 ### constructor
 
-• **new DThemeWhiteLayout**()
+• **new DThemeWhiteLayout**(): [`DThemeWhiteLayout`](DThemeWhiteLayout.md)
+
+#### Returns
+
+[`DThemeWhiteLayout`](DThemeWhiteLayout.md)
 
 #### Inherited from
 

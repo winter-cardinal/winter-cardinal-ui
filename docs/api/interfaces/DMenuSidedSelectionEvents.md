@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuSidedSelectionEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSidedSelectionEvents
 
-# Interface: DMenuSidedSelectionEvents<EMITTER\>
+# Interface: DMenuSidedSelectionEvents\<EMITTER\>
 
 [DMenuSidedSelection](../classes/DMenuSidedSelection.md) events.
 

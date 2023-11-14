@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilInputTextAreaOperation
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilInputTextAreaOperation
 
 # Interface: UtilInputTextAreaOperation
 
 ## Hierarchy
 
-- [`UtilInputOperation`](UtilInputOperation.md)<`string`, `HTMLTextAreaElement`\>
+- [`UtilInputOperation`](UtilInputOperation.md)\<`string`, `HTMLTextAreaElement`\>
 
   ↳ **`UtilInputTextAreaOperation`**
 
@@ -73,7 +73,7 @@ ___
 
 ### getClipperExRects
 
-▸ `Optional` **getClipperExRects**(`result`): `void`
+▸ **getClipperExRects**(`result`): `void`
 
 #### Parameters
 

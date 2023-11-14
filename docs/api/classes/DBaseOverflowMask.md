@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseOverflowMask
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseOverflowMask
 
 # Class: DBaseOverflowMask
 
@@ -169,13 +169,17 @@
 
 ### constructor
 
-• **new DBaseOverflowMask**(`parent`)
+• **new DBaseOverflowMask**(`parent`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `parent` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+
+#### Returns
+
+[`DBaseOverflowMask`](DBaseOverflowMask.md)
 
 #### Overrides
 
@@ -307,7 +311,10 @@ PIXI.Graphics#_holeMode
 
 **`Default`**
 
+```ts
 false
+@protected
+```
 
 #### Inherited from
 
@@ -362,7 +369,7 @@ ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Graphics` \| `Sprite`
+• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
 
 The original, cached mask of the object.
 
@@ -475,7 +482,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 true
+```
 
 #### Inherited from
 
@@ -524,7 +533,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'auto'
+```
 
 #### Inherited from
 
@@ -574,7 +585,9 @@ PIXI.DisplayObject#
 
 **`Default`**
 
+```ts
 'button'
+```
 
 #### Inherited from
 
@@ -637,7 +650,9 @@ PIXI.Graphics#batchTint
 
 **`Default`**
 
+```ts
 -1
+```
 
 #### Inherited from
 
@@ -680,7 +695,9 @@ The blend mode to be applied to the graphic shape. Apply a value of
 
 **`Default`**
 
+```ts
 PIXI.BLEND_MODES.NORMAL;
+```
 
 **`See`**
 
@@ -749,7 +766,9 @@ PIXI.Graphics#
 
 **`Default`**
 
+```ts
 false
+```
 
 #### Inherited from
 
@@ -1216,7 +1235,9 @@ PIXI.Graphics#pluginName
 
 **`Default`**
 
+```ts
 'batch'
+```
 
 #### Inherited from
 
@@ -1437,7 +1458,9 @@ The tint applied to the graphic shape. This is a hex value. A value of
 
 **`Default`**
 
+```ts
 0xFFFFFF
+```
 
 #### Inherited from
 
@@ -1648,7 +1671,7 @@ node_modules/pixi.js/pixi.js.d.ts:10433
 
 ### \_calculateBounds
 
-▸ `Protected` **_calculateBounds**(): `void`
+▸ **_calculateBounds**(): `void`
 
 Retrieves the bounds of the graphic shape as a rectangle object
 
@@ -1668,7 +1691,7 @@ ___
 
 ### \_initCurve
 
-▸ `Protected` **_initCurve**(`x?`, `y?`): `void`
+▸ **_initCurve**(`x?`, `y?`): `void`
 
 Initialize the curve
 
@@ -1695,7 +1718,7 @@ ___
 
 ### \_populateBatches
 
-▸ `Protected` **_populateBatches**(): `void`
+▸ **_populateBatches**(): `void`
 
 Populating batches for rendering
 
@@ -1736,7 +1759,7 @@ ___
 
 ### \_render
 
-▸ `Protected` **_render**(`renderer`): `void`
+▸ **_render**(`renderer`): `void`
 
 Renders the object using the WebGL renderer
 
@@ -1762,7 +1785,7 @@ ___
 
 ### \_renderBatched
 
-▸ `Protected` **_renderBatched**(`renderer`): `void`
+▸ **_renderBatched**(`renderer`): `void`
 
 Renders the batches using the BathedRenderer plugin
 
@@ -1788,7 +1811,7 @@ ___
 
 ### \_renderDirect
 
-▸ `Protected` **_renderDirect**(`renderer`): `void`
+▸ **_renderDirect**(`renderer`): `void`
 
 Renders the graphics direct
 
@@ -1841,7 +1864,7 @@ ___
 
 ### \_resolveDirectShader
 
-▸ `Protected` **_resolveDirectShader**(`renderer`): `void`
+▸ **_resolveDirectShader**(`renderer`): `void`
 
 Resolves shader for direct rendering
 
@@ -1867,7 +1890,7 @@ ___
 
 ### addChild
 
-▸ **addChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -1903,7 +1926,7 @@ ___
 
 ### addChildAt
 
-▸ **addChildAt**<`T`\>(`child`, `index`): `T`
+▸ **addChildAt**\<`T`\>(`child`, `index`): `T`
 
 Adds a child to the container at a specified index. If the index is out of bounds an error will be thrown
 
@@ -1911,7 +1934,7 @@ Adds a child to the container at a specified index. If the index is out of bound
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `DisplayObject`<`T`\> |
+| `T` | extends `DisplayObject` |
 
 #### Parameters
 
@@ -1997,9 +2020,9 @@ The arc method creates an arc/curve (used to create circles, or parts of circles
 | `cx` | `number` | The x-coordinate of the center of the circle |
 | `cy` | `number` | The y-coordinate of the center of the circle |
 | `radius` | `number` | The radius of the circle |
-| `startAngle` | `number` | The starting angle, in radians (0 is at the 3 o'clock position  of the arc's circle) |
+| `startAngle` | `number` | The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle) |
 | `endAngle` | `number` | The ending angle, in radians |
-| `anticlockwise?` | `boolean` | Specifies whether the drawing should be  counter-clockwise or clockwise. False is default, and indicates clockwise, while true  indicates counter-clockwise. |
+| `anticlockwise?` | `boolean` | Specifies whether the drawing should be counter-clockwise or clockwise. False is default, and indicates clockwise, while true indicates counter-clockwise. |
 
 #### Returns
 
@@ -2194,7 +2217,7 @@ ___
 
 ### calculateTints
 
-▸ `Protected` **calculateTints**(): `void`
+▸ **calculateTints**(): `void`
 
 Recalcuate the tint by applying tin to batches using Graphics tint.
 
@@ -2214,7 +2237,7 @@ ___
 
 ### calculateVertices
 
-▸ `Protected` **calculateVertices**(): `void`
+▸ **calculateVertices**(): `void`
 
 If there's a transform update or a change to the shape of the
 geometry, recaculate the vertices.
@@ -2338,10 +2361,10 @@ Destroys the Graphics object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | `Object` | Options parameter. A boolean will act as if all  options have been set to that value |
-| `options.baseTexture?` | `boolean` | Only used for child Sprites if options.children is set to true  Should it destroy the base texture of the child sprite |
-| `options.children?` | `boolean` | if set to true, all the children will have  their destroy method called as well. 'options' will be passed on to those calls. |
-| `options.texture?` | `boolean` | Only used for child Sprites if options.children is set to true  Should it destroy the texture of the child sprite |
+| `options?` | `Object` | Options parameter. A boolean will act as if all options have been set to that value |
+| `options.baseTexture?` | `boolean` | Only used for child Sprites if options.children is set to true Should it destroy the base texture of the child sprite |
+| `options.children?` | `boolean` | if set to true, all the children will have their destroy method called as well. 'options' will be passed on to those calls. |
+| `options.texture?` | `boolean` | Only used for child Sprites if options.children is set to true Should it destroy the texture of the child sprite |
 
 #### Returns
 
@@ -2364,6 +2387,10 @@ ___
 DisplayObject default updateTransform, does not update children of container.
 Will crash if there's no parent element.
 
+#### Returns
+
+`void`
+
 **`Memberof`**
 
 PIXI.DisplayObject#
@@ -2371,10 +2398,6 @@ PIXI.DisplayObject#
 **`Function`**
 
 displayObjectUpdateTransform
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
@@ -2457,7 +2480,7 @@ Draws a polygon using the given path.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `path` | `number`[] \| `Point`[] \| `Polygon` | The path data used to construct the polygon. |
+| `path` | `number`[] \| `Polygon` \| `Point`[] | The path data used to construct the polygon. |
 
 #### Returns
 
@@ -2601,7 +2624,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -2694,7 +2717,7 @@ ___
 
 ### finishPoly
 
-▸ `Protected` **finishPoly**(): `void`
+▸ **finishPoly**(): `void`
 
 Finish the polygon object.
 
@@ -2722,7 +2745,7 @@ Retrieves the bounds of the displayObject as a rectangle object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
+| `skipUpdate?` | `boolean` | Setting to `true` will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
 
 #### Returns
@@ -2775,14 +2798,6 @@ ___
 
 Returns the display object in the container.
 
-**`Method`**
-
-getChildByName
-
-**`Memberof`**
-
-PIXI.Container#
-
 #### Parameters
 
 | Name | Type | Description |
@@ -2794,6 +2809,14 @@ PIXI.Container#
 `DisplayObject`
 
 The child with the specified name.
+
+**`Method`**
+
+getChildByName
+
+**`Memberof`**
+
+PIXI.Container#
 
 #### Inherited from
 
@@ -2839,6 +2862,19 @@ ___
 
 Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `point?` | `Point` | The point to write the global value to. |
+| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from being updated. This means the calculation returned MAY be out of date BUT will give you a nice performance boost. |
+
+#### Returns
+
+`Point`
+
+The updated point.
+
 **`Method`**
 
 getGlobalPosition
@@ -2846,19 +2882,6 @@ getGlobalPosition
 **`Memberof`**
 
 PIXI.DisplayObject#
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `point?` | `Point` | - |
-| `skipUpdate?` | `boolean` | Setting to true will stop the transforms of the scene graph from  being updated. This means the calculation returned MAY be out of date BUT will give you a  nice performance boost. |
-
-#### Returns
-
-`Point`
-
-The updated point.
 
 #### Inherited from
 
@@ -2928,10 +2951,6 @@ ___
 Specifies the line style used for subsequent calls to Graphics methods such as the lineTo()
 method or the drawCircle() method.
 
-**`Method`**
-
-PIXI.Graphics#lineStyle
-
 #### Parameters
 
 | Name | Type | Description |
@@ -2947,6 +2966,10 @@ PIXI.Graphics#lineStyle
 `Graphics`
 
 This Graphics object. Good for chaining method calls
+
+**`Method`**
+
+PIXI.Graphics#lineStyle
 
 #### Inherited from
 
@@ -2961,10 +2984,6 @@ node_modules/pixi.js/pixi.js.d.ts:9614
 Specifies the line style used for subsequent calls to Graphics methods such as the lineTo()
 method or the drawCircle() method.
 
-**`Method`**
-
-PIXI.Graphics#lineStyle
-
 #### Parameters
 
 | Name | Type | Description |
@@ -2980,6 +2999,10 @@ PIXI.Graphics#lineStyle
 `Graphics`
 
 This Graphics object. Good for chaining method calls
+
+**`Method`**
+
+PIXI.Graphics#lineStyle
 
 #### Inherited from
 
@@ -3004,7 +3027,7 @@ Like line style but support texture for line fill.
 | `options?` | `Object` | Collection of options for setting line style. |
 | `options.alignment?` | `number` | alignment of the line to draw, (0 = inner, 0.5 = middle, 1 = outter) |
 | `options.alpha?` | `number` | alpha of the line to draw, will update the objects stored style |
-| `options.color?` | `number` | color of the line to draw, will update the objects stored style.  Default 0xFFFFFF if texture present. |
+| `options.color?` | `number` | color of the line to draw, will update the objects stored style. Default 0xFFFFFF if texture present. |
 | `options.matrix?` | `Matrix` | Texture matrix to transform texture |
 | `options.native?` | `boolean` | If true the lines will be draw using LINES instead of TRIANGLE_STRIP |
 | `options.texture?` | `Texture` | Texture to use |
@@ -3171,7 +3194,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
@@ -3213,7 +3236,7 @@ ___
 
 ### onChildrenChange
 
-▸ `Protected` **onChildrenChange**(): `void`
+▸ **onChildrenChange**(): `void`
 
 Overridable method that can be used by Container subclasses whenever the children array is modified
 
@@ -3239,7 +3262,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `width` | `number` |
 | `height` | `number` |
 
@@ -3265,7 +3288,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `event` | ``"added"`` \| ``"removed"`` |
+| `event` | ``"removed"`` \| ``"added"`` |
 | `fn` | (`displayObject`: `DisplayObject`) => `void` |
 | `context?` | `any` |
 
@@ -3383,7 +3406,7 @@ ___
 
 ### removeChild
 
-▸ **removeChild**<`TChildren`\>(...`child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -3546,7 +3569,7 @@ ___
 
 ### renderAdvanced
 
-▸ `Protected` **renderAdvanced**(`renderer`): `void`
+▸ **renderAdvanced**(`renderer`): `void`
 
 Render the object using the WebGL renderer and advanced features.
 
@@ -3711,7 +3734,7 @@ ___
 
 ### startPoly
 
-▸ `Protected` **startPoly**(): `void`
+▸ **startPoly**(): `void`
 
 Start a polygon object internally
 
@@ -3767,7 +3790,7 @@ Calculates the global position of the display object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
@@ -3798,7 +3821,7 @@ Calculates the local position of the display object relative to another point.
 | :------ | :------ | :------ |
 | `position` | `IPoint` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional  (otherwise will create a new Point). |
+| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
@@ -3839,7 +3862,7 @@ ___
 
 ### mixin
 
-▸ `Static` **mixin**(`source`): `void`
+▸ **mixin**(`source`): `void`
 
 Mixes all enumerable properties and methods from a source object to DisplayObject.
 

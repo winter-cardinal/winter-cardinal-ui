@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupSizeShadowed
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupSizeShadowed
 
 # Class: EShapeGroupSizeShadowed
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeGroupSizeShadowed**(`parent`, `x`, `y`)
+• **new EShapeGroupSizeShadowed**(`parent`, `x`, `y`): [`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
 
 #### Parameters
 
@@ -47,6 +47,10 @@
 | `parent` | [`EShapeGroupSizeParent`](../interfaces/EShapeGroupSizeParent.md) |
 | `x` | `number` |
 | `y` | `number` |
+
+#### Returns
+
+[`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
 
 #### Defined in
 
@@ -292,7 +296,7 @@ ___
 
 ### onChange
 
-▸ `Protected` **onChange**(`ox`, `oy`): `void`
+▸ **onChange**(`ox`, `oy`): `void`
 
 #### Parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DCommandBase
+[Winter Cardinal UI - v0.374.0](../index.md) / DCommandBase
 
 # Class: DCommandBase
 
@@ -40,7 +40,11 @@
 
 ### constructor
 
-• **new DCommandBase**()
+• **new DCommandBase**(): [`DCommandBase`](DCommandBase.md)
+
+#### Returns
+
+[`DCommandBase`](DCommandBase.md)
 
 ## Methods
 

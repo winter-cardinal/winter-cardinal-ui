@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DScalarExpressionNodeOrTokenFunction
+[Winter Cardinal UI - v0.374.0](../index.md) / DScalarExpressionNodeOrTokenFunction
 
 # Interface: DScalarExpressionNodeOrTokenFunction
 
@@ -13,7 +13,7 @@
 
 ### 0
 
-• **0**: ``11`` \| ``12``
+• **0**: ``12`` \| ``11``
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilRgba
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilRgba
 
 # Class: UtilRgba
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new UtilRgba**()
+• **new UtilRgba**(): [`UtilRgba`](UtilRgba.md)
+
+#### Returns
+
+[`UtilRgba`](UtilRgba.md)
 
 ## Methods
 
 ### toCode
 
-▸ `Static` **toCode**(`color`, `alpha`): `string`
+▸ **toCode**(`color`, `alpha`): `string`
 
 #### Parameters
 

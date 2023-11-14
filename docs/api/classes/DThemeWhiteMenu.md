@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteMenu
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteMenu
 
 # Class: DThemeWhiteMenu
 
@@ -76,7 +76,11 @@
 
 ### constructor
 
-• **new DThemeWhiteMenu**()
+• **new DThemeWhiteMenu**(): [`DThemeWhiteMenu`](DThemeWhiteMenu.md)
+
+#### Returns
+
+[`DThemeWhiteMenu`](DThemeWhiteMenu.md)
 
 #### Inherited from
 

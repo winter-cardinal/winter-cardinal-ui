@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesPaddingImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesPaddingImpl
 
 # Class: DChartSeriesPaddingImpl
 
@@ -21,13 +21,17 @@
 
 ### constructor
 
-• **new DChartSeriesPaddingImpl**(`options`)
+• **new DChartSeriesPaddingImpl**(`options`): [`DChartSeriesPaddingImpl`](DChartSeriesPaddingImpl.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options` | `undefined` \| [`DChartSeriesPaddingOptions`](../interfaces/DChartSeriesPaddingOptions.md) |
+
+#### Returns
+
+[`DChartSeriesPaddingImpl`](DChartSeriesPaddingImpl.md)
 
 #### Defined in
 
@@ -37,7 +41,7 @@
 
 ### inner
 
-• **inner**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **inner**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 
@@ -51,7 +55,7 @@ ___
 
 ### outer
 
-• **outer**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
+• **outer**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)\<`number`\>
 
 #### Implementation of
 

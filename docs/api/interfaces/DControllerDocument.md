@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DControllerDocument
+[Winter Cardinal UI - v0.374.0](../index.md) / DControllerDocument
 
-# Interface: DControllerDocument<DOCUMENT\>
+# Interface: DControllerDocument\<DOCUMENT\>
 
 ## Type parameters
 
@@ -28,11 +28,11 @@
 
 ### delete
 
-▸ **delete**(): `Promise`<`unknown`\>
+▸ **delete**(): `Promise`\<`unknown`\>
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Defined in
 
@@ -98,11 +98,11 @@ ___
 
 ### save
 
-▸ **save**(): `Promise`<`unknown`\>
+▸ **save**(): `Promise`\<`unknown`\>
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Defined in
 
@@ -112,7 +112,7 @@ ___
 
 ### saveAs
 
-▸ **saveAs**(`name`): `Promise`<`unknown`\>
+▸ **saveAs**(`name`): `Promise`\<`unknown`\>
 
 #### Parameters
 
@@ -122,7 +122,7 @@ ___
 
 #### Returns
 
-`Promise`<`unknown`\>
+`Promise`\<`unknown`\>
 
 #### Defined in
 

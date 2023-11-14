@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBasePoint
+[Winter Cardinal UI - v0.374.0](../index.md) / DBasePoint
 
 # Class: DBasePoint
 
@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new DBasePoint**(`point`, `onChange`)
+• **new DBasePoint**(`point`, `onChange`): [`DBasePoint`](DBasePoint.md)
 
 #### Parameters
 
@@ -39,6 +39,10 @@
 | :------ | :------ |
 | `point` | `IPoint` |
 | `onChange` | [`DBasePointCallback`](../index.md#dbasepointcallback) |
+
+#### Returns
+
+[`DBasePoint`](DBasePoint.md)
 
 #### Defined in
 

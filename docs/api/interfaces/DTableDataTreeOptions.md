@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeOptions
 
-# Interface: DTableDataTreeOptions<NODE, EMITTER\>
+# Interface: DTableDataTreeOptions\<NODE, EMITTER\>
 
 [DTableDataTree](../classes/DTableDataTree.md) options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DTableDataTreeItemAccessorOptions`](DTableDataTreeItemAccessorOptions.md)<`NODE`\>
+- [`DTableDataTreeItemAccessorOptions`](DTableDataTreeItemAccessorOptions.md)\<`NODE`\>
 
   ↳ **`DTableDataTreeOptions`**
 
@@ -35,9 +35,21 @@
 
 ### comparator
 
-• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)<`NODE`\>
+• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`NODE`\>
 
 A comparator.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L87)
+
+___
+
+### filter
+
+• `Optional` **filter**: [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\>
+
+A filter.
 
 #### Defined in
 
@@ -45,21 +57,9 @@ A comparator.
 
 ___
 
-### filter
-
-• `Optional` **filter**: [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
-
-A filter.
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L77)
-
-___
-
 ### hasChildren
 
-• `Optional` **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)<`NODE`\>
+• `Optional` **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)\<`NODE`\>
 
 #### Inherited from
 
@@ -77,19 +77,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L64)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L69)
 
 ___
 
 ### on
 
-• `Optional` **on**: [`DTableDataTreeOnOptions`](DTableDataTreeOnOptions.md)<`NODE`, `EMITTER`\>
+• `Optional` **on**: [`DTableDataTreeOnOptions`](DTableDataTreeOnOptions.md)\<`NODE`, `EMITTER`\>
 
 Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L92)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L97)
 
 ___
 
@@ -101,25 +101,25 @@ True to list up nodes in the given node array in the reverse order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L87)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L92)
 
 ___
 
 ### selection
 
-• `Optional` **selection**: [`DTableDataTreeSelectionOptions`](DTableDataTreeSelectionOptions.md) \| [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\> \| [`DTableDataTreeSelectionCreator`](../index.md#dtabledatatreeselectioncreator)<`NODE`\>
+• `Optional` **selection**: [`DTableDataTreeSelectionOptions`](DTableDataTreeSelectionOptions.md) \| [`DTableDataTreeSelection`](DTableDataTreeSelection.md)\<`NODE`\> \| [`DTableDataTreeSelectionCreator`](../index.md#dtabledatatreeselectioncreator)\<`NODE`\>
 
 Selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L69)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L74)
 
 ___
 
 ### toChildren
 
-• `Optional` **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)<`NODE`\>
+• `Optional` **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)\<`NODE`\>
 
 #### Inherited from
 
@@ -133,7 +133,7 @@ ___
 
 ### toParent
 
-• `Optional` **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)<`NODE`\>
+• `Optional` **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)\<`NODE`\>
 
 #### Inherited from
 

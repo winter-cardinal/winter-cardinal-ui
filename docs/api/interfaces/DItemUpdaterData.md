@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DItemUpdaterData
+[Winter Cardinal UI - v0.374.0](../index.md) / DItemUpdaterData
 
-# Interface: DItemUpdaterData<VALUE\>
+# Interface: DItemUpdaterData\<VALUE\>
 
 ## Type parameters
 
@@ -18,7 +18,7 @@
 
 ### selection
 
-• `Readonly` **selection**: [`DItemUpdaterDataSelection`](DItemUpdaterDataSelection.md)<`VALUE`\>
+• `Readonly` **selection**: [`DItemUpdaterDataSelection`](DItemUpdaterDataSelection.md)\<`VALUE`\>
 
 #### Defined in
 

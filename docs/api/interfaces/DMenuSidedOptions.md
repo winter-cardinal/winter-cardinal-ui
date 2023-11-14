@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DMenuSidedOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSidedOptions
 
-# Interface: DMenuSidedOptions<VALUE, THEME, CONTENT_OPTIONS\>
+# Interface: DMenuSidedOptions\<VALUE, THEME, CONTENT_OPTIONS\>
 
 [DPane](../classes/DPane.md) options.
 
@@ -14,7 +14,7 @@
 
 ## Hierarchy
 
-- [`DPaneOptions`](DPaneOptions.md)<`THEME`, `CONTENT_OPTIONS`\>
+- [`DPaneOptions`](DPaneOptions.md)\<`THEME`, `CONTENT_OPTIONS`\>
 
   ↳ **`DMenuSidedOptions`**
 
@@ -123,7 +123,7 @@ ___
 
 ### content
 
-• `Optional` **content**: [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> \| `CONTENT_OPTIONS`
+• `Optional` **content**: [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> \| `CONTENT_OPTIONS`
 
 Content options or a content.
 
@@ -155,7 +155,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -208,7 +208,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -224,11 +224,11 @@ ___
 
 ### items
 
-• `Optional` **items**: (`DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>)[]
+• `Optional` **items**: (`DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)\<`VALUE`\>)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided.ts#L21)
+[src/main/typescript/wcardinal/ui/d-menu-sided.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided.ts#L22)
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -339,7 +339,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DMenuSidedOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -372,11 +372,11 @@ ___
 
 ### selection
 
-• `Optional` **selection**: [`DMenuSidedSelectionOptions`](DMenuSidedSelectionOptions.md)<`any`\> \| [`DMenuSidedSelection`](../classes/DMenuSidedSelection.md)<`VALUE`\>
+• `Optional` **selection**: [`DMenuSidedSelectionOptions`](DMenuSidedSelectionOptions.md)\<`any`\> \| [`DMenuSidedSelection`](../classes/DMenuSidedSelection.md)\<`VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided.ts#L23)
+[src/main/typescript/wcardinal/ui/d-menu-sided.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided.ts#L24)
 
 ___
 
@@ -450,7 +450,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided.ts#L22)
+[src/main/typescript/wcardinal/ui/d-menu-sided.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided.ts#L23)
 
 ___
 

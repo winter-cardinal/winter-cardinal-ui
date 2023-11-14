@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeItemUpdater
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeItemUpdater
 
-# Class: DTreeItemUpdater<NODE\>
+# Class: DTreeItemUpdater\<NODE\>
 
 The primary purpose of this class is to minimize the number of rendered items (e.g., [DListItem](DListItem.md))
 as low as possible and to update their positions and states. For this sake, the updater calculates the
@@ -14,7 +14,7 @@ required number of items whenever their container size changes and creates items
 
 ## Hierarchy
 
-- [`DItemUpdater`](DItemUpdater.md)<`NODE`, [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>, [`DTreeItemUpdaterOptions`](../interfaces/DTreeItemUpdaterOptions.md)<`NODE`\>\>
+- [`DItemUpdater`](DItemUpdater.md)\<`NODE`, [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>, [`DTreeItemUpdaterOptions`](../interfaces/DTreeItemUpdaterOptions.md)\<`NODE`\>\>
 
   ↳ **`DTreeItemUpdater`**
 
@@ -65,7 +65,7 @@ required number of items whenever their container size changes and creates items
 
 ### constructor
 
-• **new DTreeItemUpdater**<`NODE`\>(`data`, `content`, `container`, `options?`)
+• **new DTreeItemUpdater**\<`NODE`\>(`data`, `content`, `container`, `options?`): [`DTreeItemUpdater`](DTreeItemUpdater.md)\<`NODE`\>
 
 #### Type parameters
 
@@ -77,10 +77,14 @@ required number of items whenever their container size changes and creates items
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\> |
-| `content` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `container` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `options?` | [`DTreeItemUpdaterOptions`](../interfaces/DTreeItemUpdaterOptions.md)<`NODE`\> |
+| `data` | [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\> |
+| `content` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `container` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `options?` | [`DTreeItemUpdaterOptions`](../interfaces/DTreeItemUpdaterOptions.md)\<`NODE`\> |
+
+#### Returns
+
+[`DTreeItemUpdater`](DTreeItemUpdater.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -94,7 +98,7 @@ required number of items whenever their container size changes and creates items
 
 ### \_container
 
-• `Protected` **\_container**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_container**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Inherited from
 
@@ -108,7 +112,7 @@ ___
 
 ### \_content
 
-• `Protected` **\_content**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_content**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Inherited from
 
@@ -122,7 +126,7 @@ ___
 
 ### \_data
 
-• `Protected` **\_data**: [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>
+• `Protected` **\_data**: [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -136,7 +140,7 @@ ___
 
 ### \_initItem
 
-• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<[`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\>
 
 #### Inherited from
 
@@ -248,7 +252,7 @@ ___
 
 ### \_newItem
 
-• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<[`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\>
 
 #### Inherited from
 
@@ -276,7 +280,7 @@ ___
 
 ### \_workItems
 
-• `Protected` **\_workItems**: [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>[]
+• `Protected` **\_workItems**: [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>[]
 
 #### Inherited from
 
@@ -308,20 +312,20 @@ DItemUpdater.multiplicity
 
 ### initItem
 
-▸ `Protected` **initItem**(`this`, `item`, `index`, `data`): [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+▸ **initItem**(`this`, `item`, `index`, `data`): [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `this` | `undefined` |
-| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\> |
+| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\> |
 | `index` | `number` |
-| `data` | [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\> |
+| `data` | [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\> |
 
 #### Returns
 
-[`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+[`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -335,20 +339,20 @@ ___
 
 ### initItemNoStriping
 
-▸ `Protected` **initItemNoStriping**(`this`, `item`, `index`, `data`): [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+▸ **initItemNoStriping**(`this`, `item`, `index`, `data`): [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `this` | `undefined` |
-| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\> |
+| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\> |
 | `index` | `number` |
-| `data` | [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\> |
+| `data` | [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\> |
 
 #### Returns
 
-[`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+[`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -387,7 +391,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `e` | `KeyboardEvent` |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `moveVertically` | `boolean` |
 | `moveHorizontally` | `boolean` |
 
@@ -407,18 +411,18 @@ ___
 
 ### newItem
 
-▸ `Protected` **newItem**(`this`, `data`): [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+▸ **newItem**(`this`, `data`): [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `this` | `undefined` |
-| `data` | [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\> |
+| `data` | [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\> |
 
 #### Returns
 
-[`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+[`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Overrides
 
@@ -432,17 +436,17 @@ ___
 
 ### reset
 
-▸ `Protected` **reset**(`item`): [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+▸ **reset**(`item`): [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\> |
+| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\> |
 
 #### Returns
 
-[`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>
+[`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -456,13 +460,13 @@ ___
 
 ### set
 
-▸ `Protected` **set**(`item`, `value`, `index`, `forcibly?`): `void`
+▸ **set**(`item`, `value`, `index`, `forcibly?`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\> |
+| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\> |
 | `value` | `NODE` |
 | `index` | `number` |
 | `forcibly?` | `boolean` |
@@ -483,17 +487,17 @@ ___
 
 ### toInitItem
 
-▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+▸ **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<[`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`NODE`, [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\> |
+| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`NODE`, [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\> |
 
 #### Returns
 
-[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<[`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\>
 
 #### Inherited from
 
@@ -507,17 +511,17 @@ ___
 
 ### toMapped
 
-▸ `Protected` **toMapped**(`data`): [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)<`NODE`\>
+▸ **toMapped**(`data`): [`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)\<`NODE`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\> |
+| `data` | [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\> |
 
 #### Returns
 
-[`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)<`NODE`\>
+[`DTreeDataMapped`](../interfaces/DTreeDataMapped.md)\<`NODE`\>
 
 #### Overrides
 
@@ -531,17 +535,17 @@ ___
 
 ### toNewItem
 
-▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+▸ **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<[`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`NODE`, [`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\> |
+| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`NODE`, [`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\> |
 
 #### Returns
 
-[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<[`DTreeData`](../interfaces/DTreeData.md)\<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\>\>
 
 #### Inherited from
 
@@ -579,13 +583,13 @@ ___
 
 ### unset
 
-▸ `Protected` **unset**(`item`): `void`
+▸ **unset**(`item`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\> |
+| `item` | [`DTreeItem`](../interfaces/DTreeItem.md)\<`NODE`\> |
 
 #### Returns
 

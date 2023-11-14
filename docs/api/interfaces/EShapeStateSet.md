@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeStateSet
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeStateSet
 
 # Interface: EShapeStateSet
 
@@ -1797,7 +1797,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L155)
 
-▸ **addAll**(...`states`): [`EShapeStateSet`](EShapeStateSet.md)
+▸ **addAll**(`...states`): [`EShapeStateSet`](EShapeStateSet.md)
 
 #### Parameters
 
@@ -1817,7 +1817,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L157)
 
-▸ **addAll**(...`states`): [`EShapeStateSet`](EShapeStateSet.md)
+▸ **addAll**(`...states`): [`EShapeStateSet`](EShapeStateSet.md)
 
 #### Parameters
 
@@ -2138,7 +2138,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L164)
 
-▸ **removeAll**(...`states`): [`EShapeStateSet`](EShapeStateSet.md)
+▸ **removeAll**(`...states`): [`EShapeStateSet`](EShapeStateSet.md)
 
 #### Parameters
 
@@ -2158,7 +2158,7 @@ ___
 
 [src/main/typescript/wcardinal/ui/d-base-state-set.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set.ts#L166)
 
-▸ **removeAll**(...`states`): [`EShapeStateSet`](EShapeStateSet.md)
+▸ **removeAll**(`...states`): [`EShapeStateSet`](EShapeStateSet.md)
 
 #### Parameters
 

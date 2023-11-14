@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataImplSelection
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataImplSelection
 
-# Interface: DTreeDataImplSelection<NODE\>
+# Interface: DTreeDataImplSelection\<NODE\>
 
 ## Type parameters
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DTreeDataSelection`](DTreeDataSelection.md)<`NODE`\>
+- [`DTreeDataSelection`](DTreeDataSelection.md)\<`NODE`\>
 
   ↳ **`DTreeDataImplSelection`**
 
@@ -128,7 +128,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -142,7 +142,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -286,7 +286,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -437,7 +437,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -452,7 +452,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 #### Inherited from
 
@@ -466,7 +466,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -480,7 +480,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -516,7 +516,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -530,7 +530,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -574,7 +574,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -586,7 +586,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 `this`.
 
@@ -602,7 +602,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -617,7 +617,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTreeDataImplSelection`](DTreeDataImplSelection.md)<`NODE`\>
+[`DTreeDataImplSelection`](DTreeDataImplSelection.md)\<`NODE`\>
 
 `this`.
 

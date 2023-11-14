@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeFilter
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeFilter
 
-# Class: DTableDataTreeFilter<NODE\>
+# Class: DTableDataTreeFilter\<NODE\>
 
 Table data filter.
 
@@ -8,7 +8,7 @@ Table data filter.
 
 | Name | Type |
 | :------ | :------ |
-| `NODE` | extends [`DTableDataTreeNode`](../interfaces/DTableDataTreeNode.md)<`NODE`, `NODE`\> |
+| `NODE` | extends [`DTableDataTreeNode`](../interfaces/DTableDataTreeNode.md)\<`NODE`, `NODE`\> |
 
 ## Hierarchy
 
@@ -18,7 +18,7 @@ Table data filter.
 
 ## Implements
 
-- [`DTableDataFilter`](../interfaces/DTableDataFilter.md)<`NODE`\>
+- [`DTableDataFilter`](../interfaces/DTableDataFilter.md)\<`NODE`\>
 
 ## Table of contents
 
@@ -71,19 +71,23 @@ Table data filter.
 
 ### constructor
 
-• **new DTableDataTreeFilter**<`NODE`\>(`parent`)
+• **new DTableDataTreeFilter**\<`NODE`\>(`parent`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `NODE` | extends [`DTableDataTreeNode`](../interfaces/DTableDataTreeNode.md)<`NODE`, `NODE`, `NODE`\> |
+| `NODE` | extends [`DTableDataTreeNode`](../interfaces/DTableDataTreeNode.md)\<`NODE`, `NODE`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)<`NODE`\> |
+| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)\<`NODE`\> |
+
+#### Returns
+
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 #### Overrides
 
@@ -97,7 +101,7 @@ utils.EventEmitter.constructor
 
 ### \_filter
 
-• `Protected` **\_filter**: ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
+• `Protected` **\_filter**: ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\>
 
 #### Defined in
 
@@ -147,7 +151,7 @@ ___
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)<`NODE`\>
+• `Protected` **\_parent**: [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)\<`NODE`\>
 
 #### Defined in
 
@@ -196,13 +200,13 @@ Must not change this indices directly.
 
 ### addAllToFiltered
 
-▸ `Protected` **addAllToFiltered**(`parent`, `nodes`, `filtered`, `cursor`): `void`
+▸ **addAllToFiltered**(`parent`, `nodes`, `filtered`, `cursor`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)<`NODE`\> |
+| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)\<`NODE`\> |
 | `nodes` | `NODE`[] |
 | `filtered` | `number`[] |
 | `cursor` | [`number`] |
@@ -219,7 +223,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 Alias method for `on`
 
@@ -233,7 +237,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -271,7 +275,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -328,13 +332,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
+▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\>
 
 Returns a current filter.
 
 #### Returns
 
-``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
+``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\>
 
 #### Implementation of
 
@@ -348,15 +352,15 @@ ___
 
 ### hasFiltered
 
-▸ `Protected` **hasFiltered**(`parent`, `nodes`, `filter`): `boolean`
+▸ **hasFiltered**(`parent`, `nodes`, `filter`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)<`NODE`\> |
+| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)\<`NODE`\> |
 | `nodes` | `NODE`[] |
-| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\> |
 
 #### Returns
 
@@ -390,7 +394,7 @@ ___
 
 ### isFiltered
 
-▸ `Protected` **isFiltered**(`node`, `index`, `filter`): `boolean`
+▸ **isFiltered**(`node`, `index`, `filter`): `boolean`
 
 #### Parameters
 
@@ -398,7 +402,7 @@ ___
 | :------ | :------ |
 | `node` | `NODE` |
 | `index` | `number` |
-| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\> |
 
 #### Returns
 
@@ -498,7 +502,7 @@ ___
 
 ### newFiltered
 
-▸ `Protected` **newFiltered**(): ``null`` \| `number`[]
+▸ **newFiltered**(): ``null`` \| `number`[]
 
 #### Returns
 
@@ -512,15 +516,15 @@ ___
 
 ### newFilteredSub
 
-▸ `Protected` **newFilteredSub**(`parent`, `nodes`, `filter`, `filtered`, `cursor`): `boolean`
+▸ **newFilteredSub**(`parent`, `nodes`, `filter`, `filtered`, `cursor`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)<`NODE`\> |
+| `parent` | [`DTableDataTreeFilterParent`](../interfaces/DTableDataTreeFilterParent.md)\<`NODE`\> |
 | `nodes` | `NODE`[] |
-| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\> |
 | `filtered` | `number`[] |
 | `cursor` | [`number`] |
 
@@ -536,7 +540,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 Alias method for `removeListener`
 
@@ -551,7 +555,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 #### Implementation of
 
@@ -569,7 +573,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 Add a listener for a given event.
 
@@ -583,7 +587,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 `this`.
 
@@ -603,7 +607,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 Add a one-time listener for a given event.
 
@@ -617,7 +621,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 `this`.
 
@@ -637,7 +641,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -649,7 +653,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 `this`.
 
@@ -669,7 +673,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 Remove the listeners of a given event.
 
@@ -684,7 +688,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataTreeFilter`](DTableDataTreeFilter.md)<`NODE`\>
+[`DTableDataTreeFilter`](DTableDataTreeFilter.md)\<`NODE`\>
 
 `this`.
 
@@ -712,7 +716,7 @@ Sets to the given filter.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> | A filter |
+| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)\<`NODE`\> | A filter |
 
 #### Returns
 

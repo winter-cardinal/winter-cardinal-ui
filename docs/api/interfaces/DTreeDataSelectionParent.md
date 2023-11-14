@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataSelectionParent
+[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionParent
 
-# Interface: DTreeDataSelectionParent<NODE\>
+# Interface: DTreeDataSelectionParent\<NODE\>
 
 ## Type parameters
 
@@ -22,7 +22,7 @@
 
 ### accessor
 
-• `Readonly` **accessor**: [`DTreeNodeAccessor`](DTreeNodeAccessor.md)<`NODE`\>
+• `Readonly` **accessor**: [`DTreeNodeAccessor`](DTreeNodeAccessor.md)\<`NODE`\>
 
 #### Defined in
 

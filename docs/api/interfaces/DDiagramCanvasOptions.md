@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasOptions
 
-# Interface: DDiagramCanvasOptions<THEME\>
+# Interface: DDiagramCanvasOptions\<THEME\>
 
 [DBase](../classes/DBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DDiagramCanvasBaseOptions`](DDiagramCanvasBaseOptions.md)<`THEME`\>
+- [`DDiagramCanvasBaseOptions`](DDiagramCanvasBaseOptions.md)\<`THEME`\>
 
   ↳ **`DDiagramCanvasOptions`**
 
@@ -23,12 +23,15 @@
 - [ambient](DDiagramCanvasOptions.md#ambient)
 - [background](DDiagramCanvasOptions.md#background)
 - [border](DDiagramCanvasOptions.md#border)
+- [category](DDiagramCanvasOptions.md#category)
 - [children](DDiagramCanvasOptions.md#children)
 - [clear](DDiagramCanvasOptions.md#clear)
 - [corner](DDiagramCanvasOptions.md#corner)
 - [cursor](DDiagramCanvasOptions.md#cursor)
+- [description](DDiagramCanvasOptions.md#description)
 - [height](DDiagramCanvasOptions.md#height)
 - [interactive](DDiagramCanvasOptions.md#interactive)
+- [label](DDiagramCanvasOptions.md#label)
 - [name](DDiagramCanvasOptions.md#name)
 - [on](DDiagramCanvasOptions.md#on)
 - [outline](DDiagramCanvasOptions.md#outline)
@@ -39,6 +42,7 @@
 - [shortcut](DDiagramCanvasOptions.md#shortcut)
 - [shortcuts](DDiagramCanvasOptions.md#shortcuts)
 - [state](DDiagramCanvasOptions.md#state)
+- [summary](DDiagramCanvasOptions.md#summary)
 - [theme](DDiagramCanvasOptions.md#theme)
 - [tile](DDiagramCanvasOptions.md#tile)
 - [title](DDiagramCanvasOptions.md#title)
@@ -60,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L24)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L28)
 
 ___
 
@@ -76,7 +80,7 @@ A background options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L23)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L27)
 
 ___
 
@@ -93,6 +97,20 @@ A border options.
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-base.ts:500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L500)
+
+___
+
+### category
+
+• `Optional` **category**: ``null`` \| `string`
+
+#### Inherited from
+
+[DDiagramCanvasBaseOptions](DDiagramCanvasBaseOptions.md).[category](DDiagramCanvasBaseOptions.md#category)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L23)
 
 ___
 
@@ -146,7 +164,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -157,6 +175,20 @@ A cursor shape.
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-base.ts:512](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L512)
+
+___
+
+### description
+
+• `Optional` **description**: `string`
+
+#### Inherited from
+
+[DDiagramCanvasBaseOptions](DDiagramCanvasBaseOptions.md).[description](DDiagramCanvasBaseOptions.md#description)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L25)
 
 ___
 
@@ -183,7 +215,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -194,6 +226,20 @@ An interactivity option.
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/d-base.ts:466](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L466)
+
+___
+
+### label
+
+• `Optional` **label**: `string`
+
+#### Inherited from
+
+[DDiagramCanvasBaseOptions](DDiagramCanvasBaseOptions.md).[label](DDiagramCanvasBaseOptions.md#label)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L22)
 
 ___
 
@@ -215,7 +261,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)<`any`\>
+• `Optional` **on**: [`DBaseOnOptions`](DBaseOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -288,7 +334,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DDiagramCanvasOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -367,6 +413,20 @@ A default state.
 
 ___
 
+### summary
+
+• `Optional` **summary**: `string`
+
+#### Inherited from
+
+[DDiagramCanvasBaseOptions](DDiagramCanvasBaseOptions.md).[summary](DDiagramCanvasBaseOptions.md#summary)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L24)
+
+___
+
 ### theme
 
 • `Optional` **theme**: `string` \| `THEME`
@@ -393,7 +453,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L22)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L26)
 
 ___
 

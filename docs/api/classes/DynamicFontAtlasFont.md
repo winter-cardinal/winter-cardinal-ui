@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicFontAtlasFont
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicFontAtlasFont
 
 # Class: DynamicFontAtlasFont
 
@@ -21,7 +21,7 @@
 
 ### constructor
 
-• **new DynamicFontAtlasFont**(`fontId`, `size`, `color`, `padding`)
+• **new DynamicFontAtlasFont**(`fontId`, `size`, `color`, `padding`): [`DynamicFontAtlasFont`](DynamicFontAtlasFont.md)
 
 #### Parameters
 
@@ -31,6 +31,10 @@
 | `size` | `number` |
 | `color` | `number` |
 | `padding` | `number` |
+
+#### Returns
+
+[`DynamicFontAtlasFont`](DynamicFontAtlasFont.md)
 
 #### Defined in
 

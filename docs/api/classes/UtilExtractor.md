@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilExtractor
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilExtractor
 
 # Class: UtilExtractor
 
@@ -19,13 +19,17 @@
 
 ### constructor
 
-• **new UtilExtractor**()
+• **new UtilExtractor**(): [`UtilExtractor`](UtilExtractor.md)
+
+#### Returns
+
+[`UtilExtractor`](UtilExtractor.md)
 
 ## Methods
 
 ### toBase64
 
-▸ `Static` **toBase64**(`canvas`, `format?`, `quality?`): `string`
+▸ **toBase64**(`canvas`, `format?`, `quality?`): `string`
 
 #### Parameters
 
@@ -47,7 +51,7 @@ ___
 
 ### toCanvas
 
-▸ `Static` **toCanvas**(`pixels`, `scale?`, `ignorePremutipliedAlpha?`): `CanvasRenderTarget`
+▸ **toCanvas**(`pixels`, `scale?`, `ignorePremutipliedAlpha?`): `CanvasRenderTarget`
 
 #### Parameters
 
@@ -69,7 +73,7 @@ ___
 
 ### toPixels
 
-▸ `Static` **toPixels**(`renderTexture`, `renderer`): [`UtilExtractorPixels`](../interfaces/UtilExtractorPixels.md)
+▸ **toPixels**(`renderTexture`, `renderer`): [`UtilExtractorPixels`](../interfaces/UtilExtractorPixels.md)
 
 #### Parameters
 
@@ -90,13 +94,13 @@ ___
 
 ### toTexture
 
-▸ `Static` **toTexture**(`target`, `resolution?`, `clear?`, `skipUpdateTransform?`): `RenderTexture`
+▸ **toTexture**(`target`, `resolution?`, `clear?`, `skipUpdateTransform?`): `RenderTexture`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `resolution?` | `number` |
 | `clear?` | `boolean` |
 | `skipUpdateTransform?` | `boolean` |

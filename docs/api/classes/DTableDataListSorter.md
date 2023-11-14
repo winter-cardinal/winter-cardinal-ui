@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataListSorter
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataListSorter
 
-# Class: DTableDataListSorter<ROW\>
+# Class: DTableDataListSorter\<ROW\>
 
 Table data sorter.
 
@@ -18,7 +18,7 @@ Table data sorter.
 
 ## Implements
 
-- [`DTableDataSorter`](../interfaces/DTableDataSorter.md)<`ROW`\>
+- [`DTableDataSorter`](../interfaces/DTableDataSorter.md)\<`ROW`\>
 
 ## Table of contents
 
@@ -70,7 +70,7 @@ Table data sorter.
 
 ### constructor
 
-• **new DTableDataListSorter**<`ROW`\>(`parent`)
+• **new DTableDataListSorter**\<`ROW`\>(`parent`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 #### Type parameters
 
@@ -82,7 +82,11 @@ Table data sorter.
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`DTableDataListSorterParent`](../interfaces/DTableDataListSorterParent.md)<`ROW`\> |
+| `parent` | [`DTableDataListSorterParent`](../interfaces/DTableDataListSorterParent.md)\<`ROW`\> |
+
+#### Returns
+
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 #### Overrides
 
@@ -96,7 +100,7 @@ utils.EventEmitter.constructor
 
 ### \_comparator
 
-• `Protected` **\_comparator**: ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
+• `Protected` **\_comparator**: ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\>
 
 #### Defined in
 
@@ -146,7 +150,7 @@ ___
 
 ### \_parent
 
-• `Protected` **\_parent**: [`DTableDataListSorterParent`](../interfaces/DTableDataListSorterParent.md)<`ROW`\>
+• `Protected` **\_parent**: [`DTableDataListSorterParent`](../interfaces/DTableDataListSorterParent.md)\<`ROW`\>
 
 #### Defined in
 
@@ -247,7 +251,7 @@ A sort order.
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 Alias method for `on`
 
@@ -261,7 +265,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -299,7 +303,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, ...`args`): `boolean`
+▸ **emit**(`event`, `...args`): `boolean`
 
 Calls each of the listeners registered for a given event.
 
@@ -356,13 +360,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\>
 
 Returns a current comparator.
 
 #### Returns
 
-``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
+``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\>
 
 #### Implementation of
 
@@ -482,7 +486,7 @@ ___
 
 ### newSorted
 
-▸ `Protected` **newSorted**(): ``null`` \| `number`[]
+▸ **newSorted**(): ``null`` \| `number`[]
 
 #### Returns
 
@@ -496,7 +500,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 Alias method for `removeListener`
 
@@ -511,7 +515,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 #### Implementation of
 
@@ -529,7 +533,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 Add a listener for a given event.
 
@@ -543,7 +547,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -563,7 +567,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 Add a one-time listener for a given event.
 
@@ -577,7 +581,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -597,7 +601,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+▸ **removeAllListeners**(`event?`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 Remove all listeners, or those of the specified event.
 
@@ -609,7 +613,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -629,7 +633,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 Remove the listeners of a given event.
 
@@ -644,7 +648,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataListSorter`](DTableDataListSorter.md)<`ROW`\>
+[`DTableDataListSorter`](DTableDataListSorter.md)\<`ROW`\>
 
 `this`.
 
@@ -672,7 +676,7 @@ Sets to the given comparator.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\> | A comparator |
+| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\> | A comparator |
 
 #### Returns
 
@@ -690,14 +694,14 @@ ___
 
 ### toComparator
 
-▸ `Protected` **toComparator**(`rows`, `comparator`): (`indexA`: `number`, `indexB`: `number`) => `number`
+▸ **toComparator**(`rows`, `comparator`): (`indexA`: `number`, `indexB`: `number`) => `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `rows` | `ROW`[] |
-| `comparator` | [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\> |
+| `comparator` | [`DTableDataComparator`](../index.md#dtabledatacomparator)\<`ROW`\> |
 
 #### Returns
 

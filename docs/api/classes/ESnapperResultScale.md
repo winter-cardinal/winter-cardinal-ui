@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / ESnapperResultScale
+[Winter Cardinal UI - v0.374.0](../index.md) / ESnapperResultScale
 
 # Class: ESnapperResultScale
 
@@ -17,7 +17,11 @@
 
 ### constructor
 
-• **new ESnapperResultScale**()
+• **new ESnapperResultScale**(): [`ESnapperResultScale`](ESnapperResultScale.md)
+
+#### Returns
+
+[`ESnapperResultScale`](ESnapperResultScale.md)
 
 #### Defined in
 

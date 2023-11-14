@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueEmitEvent
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueEmitEvent
 
 # Class: EShapeActionValueEmitEvent
 
@@ -34,7 +34,7 @@
 
 ### constructor
 
-• **new EShapeActionValueEmitEvent**(`condition`, `name`)
+• **new EShapeActionValueEmitEvent**(`condition`, `name`): [`EShapeActionValueEmitEvent`](EShapeActionValueEmitEvent.md)
 
 #### Parameters
 
@@ -42,6 +42,10 @@
 | :------ | :------ |
 | `condition` | `string` |
 | `name` | `string` |
+
+#### Returns
+
+[`EShapeActionValueEmitEvent`](EShapeActionValueEmitEvent.md)
 
 #### Overrides
 
@@ -107,7 +111,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -209,7 +213,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueEmitEvent`](EShapeActionValueEmitEvent.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueEmitEvent`](EShapeActionValueEmitEvent.md)
 
 #### Parameters
 

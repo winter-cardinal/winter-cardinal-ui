@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DynamicAtlasItemText
+[Winter Cardinal UI - v0.374.0](../index.md) / DynamicAtlasItemText
 
 # Class: DynamicAtlasItemText
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new DynamicAtlasItemText**(`id`, `text`, `baseTexture`)
+• **new DynamicAtlasItemText**(`id`, `text`, `baseTexture`): [`DynamicAtlasItemText`](DynamicAtlasItemText.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@
 | `id` | `string` |
 | `text` | `Text` |
 | `baseTexture` | `BaseTexture` |
+
+#### Returns
+
+[`DynamicAtlasItemText`](DynamicAtlasItemText.md)
 
 #### Overrides
 

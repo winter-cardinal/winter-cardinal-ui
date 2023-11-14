@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeOpenDialogInteger
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeOpenDialogInteger
 
 # Class: EShapeActionRuntimeOpenDialogInteger
 
@@ -6,7 +6,7 @@ A base class of action runtimes.
 
 ## Hierarchy
 
-- [`EShapeActionRuntimeOpenDialog`](EShapeActionRuntimeOpenDialog.md)<`number`\>
+- [`EShapeActionRuntimeOpenDialog`](EShapeActionRuntimeOpenDialog.md)\<`number`\>
 
   ↳ **`EShapeActionRuntimeOpenDialogInteger`**
 
@@ -63,13 +63,17 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeActionRuntimeOpenDialogInteger**(`value`)
+• **new EShapeActionRuntimeOpenDialogInteger**(`value`): [`EShapeActionRuntimeOpenDialogInteger`](EShapeActionRuntimeOpenDialogInteger.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | [`EShapeActionValueOpenDialog`](EShapeActionValueOpenDialog.md) |
+
+#### Returns
+
+[`EShapeActionRuntimeOpenDialogInteger`](EShapeActionRuntimeOpenDialogInteger.md)
 
 #### Overrides
 
@@ -83,7 +87,7 @@ A base class of action runtimes.
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -97,7 +101,7 @@ ___
 
 ### initial
 
-• `Protected` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
+• `Protected` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`number`\>
 
 #### Overrides
 
@@ -125,7 +129,7 @@ ___
 
 ### max
 
-• `Protected` **max**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **max**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Inherited from
 
@@ -139,7 +143,7 @@ ___
 
 ### min
 
-• `Protected` **min**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **min**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Inherited from
 
@@ -181,7 +185,7 @@ ___
 
 ### step
 
-• `Protected` **step**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` **step**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `number`\>
 
 #### Inherited from
 
@@ -195,7 +199,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -209,7 +213,7 @@ ___
 
 ### DIALOG
 
-▪ `Static` `Protected` `Optional` **DIALOG**: [`DDialogInputInteger`](DDialogInputInteger.md)<[`DThemeDialogInputInteger`](../interfaces/DThemeDialogInputInteger.md), [`DDialogInputIntegerOptions`](../interfaces/DDialogInputIntegerOptions.md)<[`DThemeDialogInputInteger`](../interfaces/DThemeDialogInputInteger.md)\>\>
+▪ `Static` `Protected` `Optional` **DIALOG**: [`DDialogInputInteger`](DDialogInputInteger.md)\<[`DThemeDialogInputInteger`](../interfaces/DThemeDialogInputInteger.md), [`DDialogInputIntegerOptions`](../interfaces/DDialogInputIntegerOptions.md)\<[`DThemeDialogInputInteger`](../interfaces/DThemeDialogInputInteger.md)\>\>
 
 #### Defined in
 
@@ -311,7 +315,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -368,7 +372,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -396,7 +400,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -591,7 +595,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -871,7 +875,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -899,7 +903,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -927,7 +931,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -945,7 +949,7 @@ ___
 
 ### open
 
-▸ `Protected` **open**(`shape`, `target`, `initial`, `step`, `min`, `max`): `Promise`<`number`\>
+▸ **open**(`shape`, `target`, `initial`, `step`, `min`, `max`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -960,7 +964,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Overrides
 

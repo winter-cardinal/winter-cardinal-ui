@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DSliderVerticalOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DSliderVerticalOptions
 
-# Interface: DSliderVerticalOptions<THEME\>
+# Interface: DSliderVerticalOptions\<THEME\>
 
 [DSlider](../classes/DSlider.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DSliderOptions`](DSliderOptions.md)<`THEME`\>
+- [`DSliderOptions`](DSliderOptions.md)\<`THEME`\>
 
   ↳ **`DSliderVerticalOptions`**
 
@@ -135,7 +135,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -172,7 +172,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -188,7 +188,7 @@ ___
 
 ### max
 
-• `Optional` **max**: [`DSliderLabelOptions`](DSliderLabelOptions.md)<`unknown`, [`DThemeSliderLabel`](DThemeSliderLabel.md)<`unknown`\>\>
+• `Optional` **max**: [`DSliderLabelOptions`](DSliderLabelOptions.md)\<`unknown`, [`DThemeSliderLabel`](DThemeSliderLabel.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -202,7 +202,7 @@ ___
 
 ### min
 
-• `Optional` **min**: [`DSliderLabelOptions`](DSliderLabelOptions.md)<`unknown`, [`DThemeSliderLabel`](DThemeSliderLabel.md)<`unknown`\>\>
+• `Optional` **min**: [`DSliderLabelOptions`](DSliderLabelOptions.md)\<`unknown`, [`DThemeSliderLabel`](DThemeSliderLabel.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -232,7 +232,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DSliderOnOptions`](DSliderOnOptions.md)<`any`\>
+• `Optional` **on**: [`DSliderOnOptions`](DSliderOnOptions.md)\<`any`\>
 
 Mappings of event names and event handlers.
 
@@ -305,7 +305,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DSliderVerticalOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -402,7 +402,7 @@ ___
 
 ### thumb
 
-• `Optional` **thumb**: [`DSliderThumbOptions`](DSliderThumbOptions.md)<`unknown`, [`DThemeSliderThumb`](DThemeSliderThumb.md)<`unknown`\>\>
+• `Optional` **thumb**: [`DSliderThumbOptions`](DSliderThumbOptions.md)\<`unknown`, [`DThemeSliderThumb`](DThemeSliderThumb.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -432,7 +432,7 @@ ___
 
 ### track
 
-• `Optional` **track**: [`DSliderTrackOptions`](DSliderTrackOptions.md)<`unknown`, [`DThemeSliderTrack`](DThemeSliderTrack.md)<`unknown`\>\>
+• `Optional` **track**: [`DSliderTrackOptions`](DSliderTrackOptions.md)\<`unknown`, [`DThemeSliderTrack`](DThemeSliderTrack.md)\<`unknown`\>\>
 
 #### Inherited from
 
@@ -446,7 +446,7 @@ ___
 
 ### value
 
-• `Optional` **value**: [`DSliderValueOptions`](DSliderValueOptions.md)<`number`, [`DThemeSliderValue`](DThemeSliderValue.md)<`number`\>\>
+• `Optional` **value**: [`DSliderValueOptions`](DSliderValueOptions.md)\<`number`, [`DThemeSliderValue`](DThemeSliderValue.md)\<`number`\>\>
 
 #### Inherited from
 

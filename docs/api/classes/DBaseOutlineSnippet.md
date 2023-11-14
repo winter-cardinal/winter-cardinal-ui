@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseOutlineSnippet
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseOutlineSnippet
 
 # Class: DBaseOutlineSnippet
 
@@ -28,7 +28,11 @@
 
 ### constructor
 
-• **new DBaseOutlineSnippet**()
+• **new DBaseOutlineSnippet**(): [`DBaseOutlineSnippet`](DBaseOutlineSnippet.md)
+
+#### Returns
+
+[`DBaseOutlineSnippet`](DBaseOutlineSnippet.md)
 
 ## Properties
 
@@ -44,13 +48,13 @@
 
 ### get
 
-▸ `Protected` **get**(`base`, `theme`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **get**(`base`, `theme`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `theme` | [`DThemeBase`](../interfaces/DThemeBase.md) |
 
 #### Returns
@@ -65,7 +69,7 @@ ___
 
 ### hide
 
-▸ `Protected` **hide**(): `void`
+▸ **hide**(): `void`
 
 #### Returns
 
@@ -85,7 +89,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `base` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `width` | `number` |
 | `height` | `number` |
 | `theme` | [`DThemeBase`](../interfaces/DThemeBase.md) |

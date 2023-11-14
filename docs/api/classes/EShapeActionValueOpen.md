@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueOpen
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueOpen
 
 # Class: EShapeActionValueOpen
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`DIAGRAM`](../index.md#diagram) \| typeof [`PAGE`](../index.md#page)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<typeof [`DIAGRAM`](../index.md#diagram) \| typeof [`PAGE`](../index.md#page)\>
 
   ↳ **`EShapeActionValueOpen`**
 
@@ -38,7 +38,7 @@
 
 ### constructor
 
-• **new EShapeActionValueOpen**(`subtype`, `condition`, `target`, `inNewWindow`)
+• **new EShapeActionValueOpen**(`subtype`, `condition`, `target`, `inNewWindow`): [`EShapeActionValueOpen`](EShapeActionValueOpen.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@
 | `condition` | `string` |
 | `target` | `string` |
 | `inNewWindow` | `boolean` |
+
+#### Returns
+
+[`EShapeActionValueOpen`](EShapeActionValueOpen.md)
 
 #### Overrides
 
@@ -137,7 +141,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -239,7 +243,7 @@ ___
 
 ### deserialize
 
-▸ `Static` **deserialize**(`serialized`, `manager`): [`EShapeActionValueOpen`](EShapeActionValueOpen.md)
+▸ **deserialize**(`serialized`, `manager`): [`EShapeActionValueOpen`](EShapeActionValueOpen.md)
 
 #### Parameters
 
@@ -260,7 +264,7 @@ ___
 
 ### inNewWindow
 
-▸ `Static` `Protected` **inNewWindow**(`serialized`): `boolean`
+▸ **inNewWindow**(`serialized`): `boolean`
 
 #### Parameters
 
@@ -280,7 +284,7 @@ ___
 
 ### toSubType
 
-▸ `Static` `Protected` **toSubType**(`serialized`): ``10`` \| ``11``
+▸ **toSubType**(`serialized`): ``10`` \| ``11``
 
 #### Parameters
 

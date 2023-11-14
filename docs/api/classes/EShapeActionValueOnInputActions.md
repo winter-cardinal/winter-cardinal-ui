@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueOnInputActions
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueOnInputActions
 
 # Class: EShapeActionValueOnInputActions
 
@@ -16,13 +16,17 @@
 
 ### constructor
 
-• **new EShapeActionValueOnInputActions**()
+• **new EShapeActionValueOnInputActions**(): [`EShapeActionValueOnInputActions`](EShapeActionValueOnInputActions.md)
+
+#### Returns
+
+[`EShapeActionValueOnInputActions`](EShapeActionValueOnInputActions.md)
 
 ## Methods
 
 ### execute
 
-▸ `Static` **execute**<`VALUE`\>(`shape`, `action`, `target`, `value`, `time`): `void`
+▸ **execute**\<`VALUE`\>(`shape`, `action`, `target`, `value`, `time`): `void`
 
 #### Type parameters
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DBaseCorner
+[Winter Cardinal UI - v0.374.0](../index.md) / DBaseCorner
 
 # Class: DBaseCorner
 
@@ -36,15 +36,19 @@
 
 ### constructor
 
-• **new DBaseCorner**(`theme`, `options?`, `callback?`)
+• **new DBaseCorner**(`theme`, `options?`, `callback?`): [`DBaseCorner`](DBaseCorner.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | [`DThemeBase`](../interfaces/DThemeBase.md) |
-| `options?` | [`DBaseOptions`](../interfaces/DBaseOptions.md)<`any`, `any`\> |
+| `options?` | [`DBaseOptions`](../interfaces/DBaseOptions.md)\<`any`, `any`\> |
 | `callback?` | () => `void` |
+
+#### Returns
+
+[`DBaseCorner`](DBaseCorner.md)
 
 #### Defined in
 

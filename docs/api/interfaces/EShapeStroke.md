@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeStroke
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeStroke
 
 # Interface: EShapeStroke
 
@@ -157,7 +157,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeStrokeLike`](EShapeStrokeLike.md)\> |
+| `target?` | `Partial`\<[`EShapeStrokeLike`](EShapeStrokeLike.md)\> |
 
 #### Returns
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilGestureData
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilGestureData
 
-# Class: UtilGestureData<TARGET\>
+# Class: UtilGestureData\<TARGET\>
 
 ## Type parameters
 
@@ -40,13 +40,17 @@
 
 ### constructor
 
-• **new UtilGestureData**<`TARGET`\>()
+• **new UtilGestureData**\<`TARGET`\>(): [`UtilGestureData`](UtilGestureData.md)\<`TARGET`\>
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `TARGET` |
+
+#### Returns
+
+[`UtilGestureData`](UtilGestureData.md)\<`TARGET`\>
 
 #### Defined in
 
@@ -134,7 +138,7 @@ ___
 
 ### pointers
 
-• **pointers**: `Map`<`number`, `PointerEvent`\>
+• **pointers**: `Map`\<`number`, `PointerEvent`\>
 
 #### Defined in
 
@@ -194,7 +198,7 @@ ___
 
 ### doUpdate
 
-▸ `Protected` **doUpdate**(`e`): `void`
+▸ **doUpdate**(`e`): `void`
 
 #### Parameters
 

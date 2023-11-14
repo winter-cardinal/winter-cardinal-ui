@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableScrollBar
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableScrollBar
 
 # Class: DTableScrollBar
 
 ## Hierarchy
 
-- [`DPaneScrollBar`](DPaneScrollBar.md)<[`DTableScrollBarParent`](../interfaces/DTableScrollBarParent.md)\>
+- [`DPaneScrollBar`](DPaneScrollBar.md)\<[`DTableScrollBarParent`](../interfaces/DTableScrollBarParent.md)\>
 
   ↳ **`DTableScrollBar`**
 
@@ -39,7 +39,7 @@
 
 ### constructor
 
-• **new DTableScrollBar**(`parent`, `options`, `onUpdate`)
+• **new DTableScrollBar**(`parent`, `options`, `onUpdate`): [`DTableScrollBar`](DTableScrollBar.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@
 | `parent` | [`DTableScrollBarParent`](../interfaces/DTableScrollBarParent.md) |
 | `options` | `undefined` \| [`DPaneScrollBarOptions`](../interfaces/DPaneScrollBarOptions.md) |
 | `onUpdate` | (`isRegionVisible`: `boolean`) => `void` |
+
+#### Returns
+
+[`DTableScrollBar`](DTableScrollBar.md)
 
 #### Inherited from
 
@@ -145,7 +149,7 @@ ___
 
 ### horizontal
 
-• `Readonly` **horizontal**: [`DScrollBarHorizontal`](DScrollBarHorizontal.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
+• `Readonly` **horizontal**: [`DScrollBarHorizontal`](DScrollBarHorizontal.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
 
 #### Inherited from
 
@@ -159,7 +163,7 @@ ___
 
 ### vertical
 
-• `Readonly` **vertical**: [`DScrollBarVertical`](DScrollBarVertical.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
+• `Readonly` **vertical**: [`DScrollBarVertical`](DScrollBarVertical.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md), [`DScrollBarOptions`](../interfaces/DScrollBarOptions.md)\<[`DThemeScrollBar`](../interfaces/DThemeScrollBar.md)\>\>
 
 #### Inherited from
 
@@ -173,7 +177,7 @@ ___
 
 ### getOffsetHorizontalEnd
 
-▸ `Protected` **getOffsetHorizontalEnd**(`size`): `number`
+▸ **getOffsetHorizontalEnd**(`size`): `number`
 
 #### Parameters
 
@@ -197,7 +201,7 @@ ___
 
 ### getOffsetHorizontalStart
 
-▸ `Protected` **getOffsetHorizontalStart**(`size`): `number`
+▸ **getOffsetHorizontalStart**(`size`): `number`
 
 #### Parameters
 
@@ -221,7 +225,7 @@ ___
 
 ### getOffsetVerticalEnd
 
-▸ `Protected` **getOffsetVerticalEnd**(`size`): `number`
+▸ **getOffsetVerticalEnd**(`size`): `number`
 
 #### Parameters
 
@@ -245,7 +249,7 @@ ___
 
 ### getOffsetVerticalStart
 
-▸ `Protected` **getOffsetVerticalStart**(`size`): `number`
+▸ **getOffsetVerticalStart**(`size`): `number`
 
 #### Parameters
 

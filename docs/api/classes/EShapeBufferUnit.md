@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeBufferUnit
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeBufferUnit
 
 # Class: EShapeBufferUnit
 
@@ -17,7 +17,7 @@
 
 ### constructor
 
-• **new EShapeBufferUnit**(`texture`, `indexOffset`)
+• **new EShapeBufferUnit**(`texture`, `indexOffset`): [`EShapeBufferUnit`](EShapeBufferUnit.md)
 
 #### Parameters
 
@@ -25,6 +25,10 @@
 | :------ | :------ |
 | `texture` | `Texture` |
 | `indexOffset` | `number` |
+
+#### Returns
+
+[`EShapeBufferUnit`](EShapeBufferUnit.md)
 
 #### Defined in
 

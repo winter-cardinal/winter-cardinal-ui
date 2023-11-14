@@ -1,12 +1,12 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / Parent
+[Winter Cardinal UI - v0.374.0](../index.md) / DMenuContextParent
 
-# Interface: Parent
+# Interface: DMenuContextParent
 
 ## Table of contents
 
 ### Properties
 
-- [parent](Parent.md#parent)
+- [parent](DMenuContextParent.md#parent)
 
 ## Properties
 

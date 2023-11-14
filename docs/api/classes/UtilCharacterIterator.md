@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilCharacterIterator
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilCharacterIterator
 
 # Class: UtilCharacterIterator
 
@@ -31,7 +31,11 @@
 
 ### constructor
 
-• **new UtilCharacterIterator**()
+• **new UtilCharacterIterator**(): [`UtilCharacterIterator`](UtilCharacterIterator.md)
+
+#### Returns
+
+[`UtilCharacterIterator`](UtilCharacterIterator.md)
 
 #### Defined in
 
@@ -114,7 +118,7 @@ ___
 
 ### findNextBreak
 
-▸ `Protected` **findNextBreak**(`target`, `istart`): `number`
+▸ **findNextBreak**(`target`, `istart`): `number`
 
 #### Parameters
 
@@ -169,7 +173,7 @@ ___
 
 ### isHighSurrogate
 
-▸ `Protected` **isHighSurrogate**(`code`): `boolean`
+▸ **isHighSurrogate**(`code`): `boolean`
 
 #### Parameters
 
@@ -189,7 +193,7 @@ ___
 
 ### isLowSurrogate
 
-▸ `Protected` **isLowSurrogate**(`code`): `boolean`
+▸ **isLowSurrogate**(`code`): `boolean`
 
 #### Parameters
 
@@ -209,7 +213,7 @@ ___
 
 ### isVariationSelector
 
-▸ `Protected` **isVariationSelector**(`code`): `boolean`
+▸ **isVariationSelector**(`code`): `boolean`
 
 #### Parameters
 
@@ -243,7 +247,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`target`): [`UtilCharacterIterator`](UtilCharacterIterator.md)
+▸ **from**(`target`): [`UtilCharacterIterator`](UtilCharacterIterator.md)
 
 #### Parameters
 

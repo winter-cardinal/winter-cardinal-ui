@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPickerDatetimeLabelOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DPickerDatetimeLabelOptions
 
-# Interface: DPickerDatetimeLabelOptions<THEME\>
+# Interface: DPickerDatetimeLabelOptions\<THEME\>
 
 [DTextBase](../classes/DTextBase.md) options.
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DTextOptions`](DTextOptions.md)<`Date`, `THEME`\>
+- [`DTextOptions`](DTextOptions.md)\<`Date`, `THEME`\>
 
   ↳ **`DPickerDatetimeLabelOptions`**
 
@@ -132,7 +132,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 A cursor shape.
 
@@ -169,7 +169,7 @@ ___
 
 ### interactive
 
-• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"CHILDREN"`` \| ``"SELF"`` \| ``"BOTH"``
+• `Optional` **interactive**: `number` \| ``"NONE"`` \| ``"SELF"`` \| ``"CHILDREN"`` \| ``"BOTH"``
 
 An interactivity option.
 
@@ -215,7 +215,7 @@ ___
 
 ### on
 
-• `Optional` **on**: [`DTextBaseOnOptions`](DTextBaseOnOptions.md)<`Date`, `any`\>
+• `Optional` **on**: [`DTextBaseOnOptions`](DTextBaseOnOptions.md)\<`Date`, `any`\>
 
 Mappings of event names and event handlers.
 
@@ -288,7 +288,7 @@ ___
 • `Optional` **renderable**: `boolean`
 
 A renderability.
-Unlike [visible](DPickerDatetimeLabelOptions.md#visible), non-renderable element occupies a space.
+Unlike [visible](DBaseOptions.md#visible), non-renderable element occupies a space.
 Set to true to make [DBase](../classes/DBase.md) renderable.
 Set to false to make [DBase](../classes/DBase.md) not renderable.
 The default value is true.
@@ -369,7 +369,7 @@ ___
 
 ### text
 
-• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)<`Date`\>
+• `Optional` **text**: [`DTextBaseTextOptions`](DTextBaseTextOptions.md)\<`Date`\>
 
 #### Inherited from
 

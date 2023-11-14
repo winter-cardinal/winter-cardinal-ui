@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DApplication
+[Winter Cardinal UI - v0.374.0](../index.md) / DApplication
 
 # Class: DApplication
 
@@ -46,13 +46,17 @@
 
 ### constructor
 
-• **new DApplication**(`options?`)
+• **new DApplication**(`options?`): [`DApplication`](DApplication.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options?` | [`DApplicationOptions`](../interfaces/DApplicationOptions.md) |
+
+#### Returns
+
+[`DApplication`](DApplication.md)
 
 #### Defined in
 
@@ -254,7 +258,7 @@ ___
 
 ### initFocusHandling
 
-▸ `Protected` **initFocusHandling**(`root`): `void`
+▸ **initFocusHandling**(`root`): `void`
 
 #### Parameters
 
@@ -274,7 +278,7 @@ ___
 
 ### newLayerBase
 
-▸ `Protected` **newLayerBase**(`options?`): [`DApplicationLayer`](DApplicationLayer.md)
+▸ **newLayerBase**(`options?`): [`DApplicationLayer`](DApplicationLayer.md)
 
 #### Parameters
 
@@ -294,7 +298,7 @@ ___
 
 ### newLayerOverlay
 
-▸ `Protected` **newLayerOverlay**(`options?`): [`DApplicationLayer`](DApplicationLayer.md)
+▸ **newLayerOverlay**(`options?`): [`DApplicationLayer`](DApplicationLayer.md)
 
 #### Parameters
 
@@ -334,7 +338,7 @@ ___
 
 ### toLayerBaseOptions
 
-▸ `Protected` **toLayerBaseOptions**(`options?`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **toLayerBaseOptions**(`options?`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
 
 #### Parameters
 
@@ -354,7 +358,7 @@ ___
 
 ### toLayerOverlayOptions
 
-▸ `Protected` **toLayerOverlayOptions**(`options?`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **toLayerOverlayOptions**(`options?`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
 
 #### Parameters
 
@@ -374,7 +378,7 @@ ___
 
 ### toRootElement
 
-▸ `Protected` **toRootElement**(`options?`): `HTMLElement`
+▸ **toRootElement**(`options?`): `HTMLElement`
 
 #### Parameters
 

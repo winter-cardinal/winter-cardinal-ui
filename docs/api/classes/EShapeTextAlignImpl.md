@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeTextAlignImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTextAlignImpl
 
 # Class: EShapeTextAlignImpl
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new EShapeTextAlignImpl**(`parent`, `horizontal`, `vertical`)
+• **new EShapeTextAlignImpl**(`parent`, `horizontal`, `vertical`): [`EShapeTextAlignImpl`](EShapeTextAlignImpl.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@
 | `parent` | [`EShapeTextAlignImplParent`](../interfaces/EShapeTextAlignImplParent.md) |
 | `horizontal` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1) |
 | `vertical` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1) |
+
+#### Returns
+
+[`EShapeTextAlignImpl`](EShapeTextAlignImpl.md)
 
 #### Defined in
 
@@ -165,7 +169,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
+| `target?` | `Partial`\<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
 
 #### Returns
 

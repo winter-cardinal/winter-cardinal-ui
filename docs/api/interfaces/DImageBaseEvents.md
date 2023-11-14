@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DImageBaseEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DImageBaseEvents
 
-# Interface: DImageBaseEvents<VALUE, EMITTER\>
+# Interface: DImageBaseEvents\<VALUE, EMITTER\>
 
 [DImageBase](../classes/DImageBase.md) events.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DTextBaseEvents`](DTextBaseEvents.md)<`VALUE`, `EMITTER`\>
+- [`DTextBaseEvents`](DTextBaseEvents.md)\<`VALUE`, `EMITTER`\>
 
   ↳ **`DImageBaseEvents`**
 

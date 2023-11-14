@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DPadding
+[Winter Cardinal UI - v0.374.0](../index.md) / DPadding
 
 # Interface: DPadding
 
@@ -12,7 +12,6 @@
 
 - [`DApplicationPadding`](../classes/DApplicationPadding.md)
 - [`DBasePadding`](../classes/DBasePadding.md)
-- [`DBasePaddingAdjustable`](../classes/DBasePaddingAdjustable.md)
 
 ## Table of contents
 

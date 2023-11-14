@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeTransformResize
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionRuntimeTransformResize
 
 # Class: EShapeActionRuntimeTransformResize
 
@@ -68,7 +68,7 @@ A base class of action runtimes.
 
 ### constructor
 
-• **new EShapeActionRuntimeTransformResize**(`value`, `reset`)
+• **new EShapeActionRuntimeTransformResize**(`value`, `reset`): [`EShapeActionRuntimeTransformResize`](EShapeActionRuntimeTransformResize.md)
 
 #### Parameters
 
@@ -76,6 +76,10 @@ A base class of action runtimes.
 | :------ | :------ |
 | `value` | [`EShapeActionValueTransformResize`](EShapeActionValueTransformResize.md) |
 | `reset` | `number` |
+
+#### Returns
+
+[`EShapeActionRuntimeTransformResize`](EShapeActionRuntimeTransformResize.md)
 
 #### Overrides
 
@@ -89,7 +93,7 @@ A base class of action runtimes.
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`boolean`\>
 
 #### Inherited from
 
@@ -117,7 +121,7 @@ ___
 
 ### size
 
-• `Protected` `Readonly` **size**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
+• `Protected` `Readonly` **size**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)\<`number`\>
 
 #### Defined in
 
@@ -127,7 +131,7 @@ ___
 
 ### adjustPosition
 
-▸ `Protected` **adjustPosition**(`shape`, `runtime`, `dsx`, `dsy`, `originX`, `originY`): `void`
+▸ **adjustPosition**(`shape`, `runtime`, `dsx`, `dsy`, `originX`, `originY`): `void`
 
 #### Parameters
 
@@ -244,7 +248,7 @@ Called when a shape is clicked.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -301,7 +305,7 @@ Called when a pointer or a key get pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -329,7 +333,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -524,7 +528,7 @@ Called when a shape is pressed.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -804,7 +808,7 @@ Called when a shape is released.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -832,7 +836,7 @@ Called when a pointer or a key get released on a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -860,7 +864,7 @@ Called when a pointer or a key get released outside of a shape.
 | :------ | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
 | `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
-| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+| `e` | `KeyboardEvent` \| `InteractionEvent` | an event object |
 
 #### Returns
 

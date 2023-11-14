@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesExpressionParametersImpl
+[Winter Cardinal UI - v0.374.0](../index.md) / DChartSeriesExpressionParametersImpl
 
 # Class: DChartSeriesExpressionParametersImpl
 
@@ -39,7 +39,7 @@
 
 ### constructor
 
-• **new DChartSeriesExpressionParametersImpl**(`a`, `b`, `x0`, `y0`)
+• **new DChartSeriesExpressionParametersImpl**(`a`, `b`, `x0`, `y0`): [`DChartSeriesExpressionParametersImpl`](DChartSeriesExpressionParametersImpl.md)
 
 #### Parameters
 
@@ -49,6 +49,10 @@
 | `b` | `number` |
 | `x0` | `number` |
 | `y0` | `number` |
+
+#### Returns
+
+[`DChartSeriesExpressionParametersImpl`](DChartSeriesExpressionParametersImpl.md)
 
 #### Defined in
 
@@ -328,7 +332,7 @@ ___
 
 ### from
 
-▸ `Static` **from**(`options?`): [`DChartSeriesExpressionParametersImpl`](DChartSeriesExpressionParametersImpl.md)
+▸ **from**(`options?`): [`DChartSeriesExpressionParametersImpl`](DChartSeriesExpressionParametersImpl.md)
 
 #### Parameters
 

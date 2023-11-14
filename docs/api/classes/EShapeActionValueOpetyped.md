@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionValueOpetyped
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionValueOpetyped
 
-# Class: EShapeActionValueOpetyped<SUBTYPE, OPETYPE\>
+# Class: EShapeActionValueOpetyped\<SUBTYPE, OPETYPE\>
 
 ## Type parameters
 
@@ -11,7 +11,7 @@
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<`SUBTYPE`\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)\<`SUBTYPE`\>
 
   ↳ **`EShapeActionValueOpetyped`**
 
@@ -47,7 +47,7 @@
 
 ### constructor
 
-• **new EShapeActionValueOpetyped**<`SUBTYPE`, `OPETYPE`\>(`type`, `condition`, `subtype`, `opetype`)
+• **new EShapeActionValueOpetyped**\<`SUBTYPE`, `OPETYPE`\>(`type`, `condition`, `subtype`, `opetype`): [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)\<`SUBTYPE`, `OPETYPE`\>
 
 #### Type parameters
 
@@ -64,6 +64,10 @@
 | `condition` | `string` |
 | `subtype` | `SUBTYPE` |
 | `opetype` | `OPETYPE` |
+
+#### Returns
+
+[`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)\<`SUBTYPE`, `OPETYPE`\>
 
 #### Overrides
 
@@ -143,7 +147,7 @@ ___
 
 ### getTheme
 
-▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+▸ **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
 
 #### Returns
 
@@ -185,7 +189,7 @@ ___
 
 ### serialize
 
-▸ `Abstract` **serialize**(`manager`): `number`
+▸ **serialize**(`manager`): `number`
 
 #### Parameters
 
@@ -227,7 +231,7 @@ ___
 
 ### toRuntime
 
-▸ `Abstract` **toRuntime**(): [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)
+▸ **toRuntime**(): [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)
 
 #### Returns
 

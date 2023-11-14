@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkTableRow
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkTableRow
 
 # Class: DThemeDarkTableRow
 
@@ -78,7 +78,11 @@
 
 ### constructor
 
-• **new DThemeDarkTableRow**()
+• **new DThemeDarkTableRow**(): [`DThemeDarkTableRow`](DThemeDarkTableRow.md)
+
+#### Returns
+
+[`DThemeDarkTableRow`](DThemeDarkTableRow.md)
 
 #### Inherited from
 

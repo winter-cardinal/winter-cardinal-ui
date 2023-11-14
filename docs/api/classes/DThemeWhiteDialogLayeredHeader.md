@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteDialogLayeredHeader
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDialogLayeredHeader
 
 # Class: DThemeWhiteDialogLayeredHeader
 
@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`DThemeWhiteImageBase`](DThemeWhiteImageBase.md)<`string`\>
+- [`DThemeWhiteImageBase`](DThemeWhiteImageBase.md)\<`string`\>
 
   ↳ **`DThemeWhiteDialogLayeredHeader`**
 
@@ -100,7 +100,11 @@
 
 ### constructor
 
-• **new DThemeWhiteDialogLayeredHeader**()
+• **new DThemeWhiteDialogLayeredHeader**(): [`DThemeWhiteDialogLayeredHeader`](DThemeWhiteDialogLayeredHeader.md)
+
+#### Returns
+
+[`DThemeWhiteDialogLayeredHeader`](DThemeWhiteDialogLayeredHeader.md)
 
 #### Inherited from
 
@@ -1935,14 +1939,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)\<`string`\>
 
 #### Implementation of
 

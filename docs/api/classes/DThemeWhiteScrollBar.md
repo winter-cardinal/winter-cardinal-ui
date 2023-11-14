@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteScrollBar
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteScrollBar
 
 # Class: DThemeWhiteScrollBar
 
@@ -70,7 +70,11 @@
 
 ### constructor
 
-• **new DThemeWhiteScrollBar**()
+• **new DThemeWhiteScrollBar**(): [`DThemeWhiteScrollBar`](DThemeWhiteScrollBar.md)
+
+#### Returns
+
+[`DThemeWhiteScrollBar`](DThemeWhiteScrollBar.md)
 
 #### Inherited from
 

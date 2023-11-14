@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeDarkListItems
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkListItems
 
 # Class: DThemeDarkListItems
 
@@ -49,7 +49,7 @@
 
 ### constructor
 
-• **new DThemeDarkListItems**(`baseColor`, `isStripeEnabled`, `isVivid`)
+• **new DThemeDarkListItems**(`baseColor`, `isStripeEnabled`, `isVivid`): [`DThemeDarkListItems`](DThemeDarkListItems.md)
 
 #### Parameters
 
@@ -58,6 +58,10 @@
 | `baseColor` | ``null`` \| `number` |
 | `isStripeEnabled` | `boolean` |
 | `isVivid` | `boolean` |
+
+#### Returns
+
+[`DThemeDarkListItems`](DThemeDarkListItems.md)
 
 #### Defined in
 

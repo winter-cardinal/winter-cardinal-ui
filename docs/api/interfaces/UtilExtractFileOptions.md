@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / UtilExtractFileOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / UtilExtractFileOptions
 
 # Interface: UtilExtractFileOptions
 
@@ -165,7 +165,7 @@ ___
 
 ### target
 
-• **target**: [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>
+• **target**: [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\>
 
 #### Inherited from
 

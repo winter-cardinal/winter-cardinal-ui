@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteCanvasContainer
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteCanvasContainer
 
 # Class: DThemeWhiteCanvasContainer
 
@@ -72,7 +72,11 @@
 
 ### constructor
 
-• **new DThemeWhiteCanvasContainer**()
+• **new DThemeWhiteCanvasContainer**(): [`DThemeWhiteCanvasContainer`](DThemeWhiteCanvasContainer.md)
+
+#### Returns
+
+[`DThemeWhiteCanvasContainer`](DThemeWhiteCanvasContainer.md)
 
 #### Inherited from
 

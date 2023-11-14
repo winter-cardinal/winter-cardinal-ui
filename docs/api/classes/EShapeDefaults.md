@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDefaults
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeDefaults
 
 # Class: EShapeDefaults
 
@@ -38,7 +38,11 @@
 
 ### constructor
 
-• **new EShapeDefaults**()
+• **new EShapeDefaults**(): [`EShapeDefaults`](EShapeDefaults.md)
+
+#### Returns
+
+[`EShapeDefaults`](EShapeDefaults.md)
 
 ## Properties
 
@@ -54,7 +58,7 @@
 
 ### CURVE\_SEGMENT\_COUNT
 
-• `Static` `get` **CURVE_SEGMENT_COUNT**(): `number`
+• `get` **CURVE_SEGMENT_COUNT**(): `number`
 
 #### Returns
 
@@ -68,7 +72,7 @@ ___
 
 ### FILL\_ALPHA
 
-• `Static` `get` **FILL_ALPHA**(): `number`
+• `get` **FILL_ALPHA**(): `number`
 
 #### Returns
 
@@ -82,7 +86,7 @@ ___
 
 ### FILL\_COLOR
 
-• `Static` `get` **FILL_COLOR**(): `number`
+• `get` **FILL_COLOR**(): `number`
 
 #### Returns
 
@@ -96,7 +100,7 @@ ___
 
 ### HIGHLIGHT\_COLOR
 
-• `Static` `get` **HIGHLIGHT_COLOR**(): `number`
+• `get` **HIGHLIGHT_COLOR**(): `number`
 
 #### Returns
 
@@ -110,7 +114,7 @@ ___
 
 ### RADIUS
 
-• `Static` `get` **RADIUS**(): `number`
+• `get` **RADIUS**(): `number`
 
 #### Returns
 
@@ -124,7 +128,7 @@ ___
 
 ### SIZE\_X
 
-• `Static` `get` **SIZE_X**(): `number`
+• `get` **SIZE_X**(): `number`
 
 #### Returns
 
@@ -138,7 +142,7 @@ ___
 
 ### SIZE\_Y
 
-• `Static` `get` **SIZE_Y**(): `number`
+• `get` **SIZE_Y**(): `number`
 
 #### Returns
 
@@ -152,7 +156,7 @@ ___
 
 ### STROKE\_ALIGN
 
-• `Static` `get` **STROKE_ALIGN**(): `number`
+• `get` **STROKE_ALIGN**(): `number`
 
 #### Returns
 
@@ -166,7 +170,7 @@ ___
 
 ### STROKE\_ALPHA
 
-• `Static` `get` **STROKE_ALPHA**(): `number`
+• `get` **STROKE_ALPHA**(): `number`
 
 #### Returns
 
@@ -180,7 +184,7 @@ ___
 
 ### STROKE\_COLOR
 
-• `Static` `get` **STROKE_COLOR**(): `number`
+• `get` **STROKE_COLOR**(): `number`
 
 #### Returns
 
@@ -194,7 +198,7 @@ ___
 
 ### STROKE\_SIDE
 
-• `Static` `get` **STROKE_SIDE**(): `number`
+• `get` **STROKE_SIDE**(): `number`
 
 #### Returns
 
@@ -208,7 +212,7 @@ ___
 
 ### STROKE\_STYLE
 
-• `Static` `get` **STROKE_STYLE**(): `number`
+• `get` **STROKE_STYLE**(): `number`
 
 #### Returns
 
@@ -222,7 +226,7 @@ ___
 
 ### STROKE\_WIDTH
 
-• `Static` `get` **STROKE_WIDTH**(): `number`
+• `get` **STROKE_WIDTH**(): `number`
 
 #### Returns
 
@@ -236,7 +240,7 @@ ___
 
 ### TEXT\_ALPHA
 
-• `Static` `get` **TEXT_ALPHA**(): `number`
+• `get` **TEXT_ALPHA**(): `number`
 
 #### Returns
 
@@ -250,7 +254,7 @@ ___
 
 ### TEXT\_COLOR
 
-• `Static` `get` **TEXT_COLOR**(): `number`
+• `get` **TEXT_COLOR**(): `number`
 
 #### Returns
 
@@ -264,7 +268,7 @@ ___
 
 ### TEXT\_FAMILY
 
-• `Static` `get` **TEXT_FAMILY**(): `string`
+• `get` **TEXT_FAMILY**(): `string`
 
 #### Returns
 
@@ -278,7 +282,7 @@ ___
 
 ### TEXT\_SIZE
 
-• `Static` `get` **TEXT_SIZE**(): `number`
+• `get` **TEXT_SIZE**(): `number`
 
 #### Returns
 
@@ -292,7 +296,7 @@ ___
 
 ### TEXT\_VALUE
 
-• `Static` `get` **TEXT_VALUE**(): `string`
+• `get` **TEXT_VALUE**(): `string`
 
 #### Returns
 
@@ -306,7 +310,7 @@ ___
 
 ### THEME
 
-• `Static` `get` **THEME**(): [`EThemeShape`](../interfaces/EThemeShape.md)
+• `get` **THEME**(): [`EThemeShape`](../interfaces/EThemeShape.md)
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / EShapeGroupStrokeEditor
+[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupStrokeEditor
 
 # Class: EShapeGroupStrokeEditor
 
@@ -39,13 +39,17 @@
 
 ### constructor
 
-• **new EShapeGroupStrokeEditor**(`parent`)
+• **new EShapeGroupStrokeEditor**(`parent`): [`EShapeGroupStrokeEditor`](EShapeGroupStrokeEditor.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeGroupPropertyParent`](../interfaces/EShapeGroupPropertyParent.md) |
+
+#### Returns
+
+[`EShapeGroupStrokeEditor`](EShapeGroupStrokeEditor.md)
 
 #### Defined in
 
@@ -355,7 +359,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `target?` | `Partial`\<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
 
 #### Returns
 

@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DAnimationEvents
+[Winter Cardinal UI - v0.374.0](../index.md) / DAnimationEvents
 
-# Interface: DAnimationEvents<EMITTER\>
+# Interface: DAnimationEvents\<EMITTER\>
 
 [DAnimation](DAnimation.md) events.
 
@@ -16,6 +16,7 @@
 
 - [end](DAnimationEvents.md#end)
 - [start](DAnimationEvents.md#start)
+- [stop](DAnimationEvents.md#stop)
 - [time](DAnimationEvents.md#time)
 
 ## Methods
@@ -24,7 +25,7 @@
 
 ▸ **end**(`isReverse`, `emitter`): `void`
 
-Triggered when an animation stops.
+Triggered when an animation ends.
 
 #### Parameters
 
@@ -39,7 +40,7 @@ Triggered when an animation stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L76)
+[src/main/typescript/wcardinal/ui/d-animation.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L84)
 
 ___
 
@@ -62,7 +63,30 @@ Triggered when an animation starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L58)
+[src/main/typescript/wcardinal/ui/d-animation.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L66)
+
+___
+
+### stop
+
+▸ **stop**(`isReverse`, `emitter`): `void`
+
+Triggered when an animation stops.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `isReverse` | `boolean` | true if an animation is playing in reverse |
+| `emitter` | `EMITTER` | an emitter |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-animation.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L92)
 
 ___
 
@@ -87,4 +111,4 @@ Triggered constantly when an animation is on a run.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L68)
+[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L76)

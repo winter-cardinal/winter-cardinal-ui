@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DItemUpdater
+[Winter Cardinal UI - v0.374.0](../index.md) / DItemUpdater
 
-# Class: DItemUpdater<VALUE, DATA, DATA_MAPPED, ITEM, OPTIONS\>
+# Class: DItemUpdater\<VALUE, DATA, DATA_MAPPED, ITEM, OPTIONS\>
 
 The primary purpose of this class is to minimize the number of rendered items (e.g., [DListItem](DListItem.md))
 as low as possible and to update their positions and states. For this sake, the updater calculates the
@@ -11,10 +11,10 @@ required number of items whenever their container size changes and creates items
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
-| `DATA` | extends [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)<`VALUE`\> = [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)<`VALUE`\> |
-| `DATA_MAPPED` | extends [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)<`VALUE`\> = [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)<`VALUE`\> |
-| `ITEM` | extends [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)<`VALUE`\> = [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)<`VALUE`\> |
-| `OPTIONS` | extends [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`VALUE`, `DATA`, `ITEM`\> = [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`VALUE`, `DATA`, `ITEM`\> |
+| `DATA` | extends [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)\<`VALUE`\> = [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)\<`VALUE`\> |
+| `DATA_MAPPED` | extends [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)\<`VALUE`\> = [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)\<`VALUE`\> |
+| `ITEM` | extends [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)\<`VALUE`\> = [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)\<`VALUE`\> |
+| `OPTIONS` | extends [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`VALUE`, `DATA`, `ITEM`\> = [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`VALUE`, `DATA`, `ITEM`\> |
 
 ## Hierarchy
 
@@ -71,26 +71,30 @@ required number of items whenever their container size changes and creates items
 
 ### constructor
 
-• **new DItemUpdater**<`VALUE`, `DATA`, `DATA_MAPPED`, `ITEM`, `OPTIONS`\>(`data`, `content`, `container`, `options?`)
+• **new DItemUpdater**\<`VALUE`, `DATA`, `DATA_MAPPED`, `ITEM`, `OPTIONS`\>(`data`, `content`, `container`, `options?`): [`DItemUpdater`](DItemUpdater.md)\<`VALUE`, `DATA`, `DATA_MAPPED`, `ITEM`, `OPTIONS`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `VALUE` | `unknown` |
-| `DATA` | extends [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)<`VALUE`, `DATA`\> = [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)<`VALUE`\> |
-| `DATA_MAPPED` | extends [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)<`VALUE`, `DATA_MAPPED`\> = [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)<`VALUE`\> |
-| `ITEM` | extends [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)<`VALUE`, `ITEM`\> = [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)<`VALUE`\> |
-| `OPTIONS` | extends [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`VALUE`, `DATA`, `ITEM`, `OPTIONS`\> = [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`VALUE`, `DATA`, `ITEM`\> |
+| `DATA` | extends [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)\<`VALUE`\> = [`DItemUpdaterData`](../interfaces/DItemUpdaterData.md)\<`VALUE`\> |
+| `DATA_MAPPED` | extends [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)\<`VALUE`\> = [`DItemUpdaterDataMapped`](../interfaces/DItemUpdaterDataMapped.md)\<`VALUE`\> |
+| `ITEM` | extends [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)\<`VALUE`\> = [`DItemUpdaterItem`](../interfaces/DItemUpdaterItem.md)\<`VALUE`\> |
+| `OPTIONS` | extends [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`VALUE`, `DATA`, `ITEM`\> = [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`VALUE`, `DATA`, `ITEM`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `data` | `DATA` |
-| `content` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `container` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `content` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `container` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DItemUpdater`](DItemUpdater.md)\<`VALUE`, `DATA`, `DATA_MAPPED`, `ITEM`, `OPTIONS`\>
 
 #### Defined in
 
@@ -100,7 +104,7 @@ required number of items whenever their container size changes and creates items
 
 ### \_container
 
-• `Protected` **\_container**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_container**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -110,7 +114,7 @@ ___
 
 ### \_content
 
-• `Protected` **\_content**: [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
+• `Protected` **\_content**: [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\>
 
 #### Defined in
 
@@ -130,7 +134,7 @@ ___
 
 ### \_initItem
 
-• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -210,7 +214,7 @@ ___
 
 ### \_newItem
 
-• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -254,7 +258,7 @@ ___
 
 ### initItem
 
-▸ `Protected` **initItem**(`this`, `item`, `index`, `data`): `ITEM`
+▸ **initItem**(`this`, `item`, `index`, `data`): `ITEM`
 
 #### Parameters
 
@@ -277,7 +281,7 @@ ___
 
 ### initItemNoStriping
 
-▸ `Protected` **initItemNoStriping**(`this`, `item`, `index`, `data`): `ITEM`
+▸ **initItemNoStriping**(`this`, `item`, `index`, `data`): `ITEM`
 
 #### Parameters
 
@@ -321,7 +325,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `e` | `KeyboardEvent` |
-| `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
 | `moveVertically` | `boolean` |
 | `moveHorizontally` | `boolean` |
 
@@ -337,7 +341,7 @@ ___
 
 ### newItem
 
-▸ `Protected` `Abstract` **newItem**(`this`, `data`): `ITEM`
+▸ **newItem**(`this`, `data`): `ITEM`
 
 #### Parameters
 
@@ -358,7 +362,7 @@ ___
 
 ### reset
 
-▸ `Protected` **reset**(`item`): `ITEM`
+▸ **reset**(`item`): `ITEM`
 
 #### Parameters
 
@@ -378,7 +382,7 @@ ___
 
 ### set
 
-▸ `Protected` **set**(`item`, `value`, `index`, `forcibly?`): `void`
+▸ **set**(`item`, `value`, `index`, `forcibly?`): `void`
 
 #### Parameters
 
@@ -401,17 +405,17 @@ ___
 
 ### toInitItem
 
-▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+▸ **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<`DATA`, `ITEM`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`VALUE`, `DATA`, `ITEM`\> |
+| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`VALUE`, `DATA`, `ITEM`\> |
 
 #### Returns
 
-[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)\<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -421,7 +425,7 @@ ___
 
 ### toMapped
 
-▸ `Protected` `Abstract` **toMapped**(`data`): `DATA_MAPPED`
+▸ **toMapped**(`data`): `DATA_MAPPED`
 
 #### Parameters
 
@@ -441,17 +445,17 @@ ___
 
 ### toNewItem
 
-▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+▸ **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<`DATA`, `ITEM`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)<`VALUE`, `DATA`, `ITEM`\> |
+| `options?` | [`DItemUpdaterOptions`](../interfaces/DItemUpdaterOptions.md)\<`VALUE`, `DATA`, `ITEM`\> |
 
 #### Returns
 
-[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)\<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -481,7 +485,7 @@ ___
 
 ### unset
 
-▸ `Protected` **unset**(`item`): `void`
+▸ **unset**(`item`): `void`
 
 #### Parameters
 

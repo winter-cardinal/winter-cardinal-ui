@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhitePickerColorGradient
+[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhitePickerColorGradient
 
 # Class: DThemeWhitePickerColorGradient
 
@@ -82,7 +82,11 @@
 
 ### constructor
 
-• **new DThemeWhitePickerColorGradient**()
+• **new DThemeWhitePickerColorGradient**(): [`DThemeWhitePickerColorGradient`](DThemeWhitePickerColorGradient.md)
+
+#### Returns
+
+[`DThemeWhitePickerColorGradient`](DThemeWhitePickerColorGradient.md)
 
 #### Inherited from
 

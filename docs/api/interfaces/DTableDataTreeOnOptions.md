@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeOnOptions
+[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeOnOptions
 
-# Interface: DTableDataTreeOnOptions<NODE, EMITTER\>
+# Interface: DTableDataTreeOnOptions\<NODE, EMITTER\>
 
 [DTableDataTree](../classes/DTableDataTree.md) "on" options.
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- `Partial`<[`DTableDataTreeEvents`](DTableDataTreeEvents.md)<`NODE`, `EMITTER`\>\>
+- `Partial`\<[`DTableDataTreeEvents`](DTableDataTreeEvents.md)\<`NODE`, `EMITTER`\>\>
 
 - `DOnOptions`
 
@@ -48,7 +48,7 @@
 
 ### added
 
-▸ `Optional` **added**(`container`): `void`
+▸ **added**(`container`): `void`
 
 Triggered when added to a container.
 
@@ -74,7 +74,7 @@ ___
 
 ### click
 
-▸ `Optional` **click**(`e`, `emitter`): `void`
+▸ **click**(`e`, `emitter`): `void`
 
 Triggered when an emitter is clicked.
 
@@ -101,7 +101,7 @@ ___
 
 ### collapse
 
-▸ `Optional` **collapse**(`node`, `emitter`): `void`
+▸ **collapse**(`node`, `emitter`): `void`
 
 Triggered when a node is collapsed.
 
@@ -122,13 +122,13 @@ Partial.collapse
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L49)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L54)
 
 ___
 
 ### dblclick
 
-▸ `Optional` **dblclick**(`e`, `interactionManager`, `emitter`): `void`
+▸ **dblclick**(`e`, `interactionManager`, `emitter`): `void`
 
 Triggered when an emitter is double clicked.
 
@@ -156,7 +156,7 @@ ___
 
 ### down
 
-▸ `Optional` **down**(`e`, `emitter`): `void`
+▸ **down**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets down on an emitter.
 
@@ -183,7 +183,7 @@ ___
 
 ### expand
 
-▸ `Optional` **expand**(`node`, `emitter`): `void`
+▸ **expand**(`node`, `emitter`): `void`
 
 Triggered when a node is expanded.
 
@@ -204,13 +204,13 @@ Partial.expand
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L41)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L46)
 
 ___
 
 ### init
 
-▸ `Optional` **init**(`emitter`): `void`
+▸ **init**(`emitter`): `void`
 
 Triggered when an initialization is finished.
 
@@ -236,7 +236,7 @@ ___
 
 ### keydown
 
-▸ `Optional` **keydown**(`e`, `emitter`): `void`
+▸ **keydown**(`e`, `emitter`): `void`
 
 Triggered when a key gets down.
 
@@ -263,7 +263,7 @@ ___
 
 ### keyup
 
-▸ `Optional` **keyup**(`e`, `emitter`): `void`
+▸ **keyup**(`e`, `emitter`): `void`
 
 Triggered when a key gets up.
 
@@ -290,7 +290,7 @@ ___
 
 ### move
 
-▸ `Optional` **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **move**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when moved.
 
@@ -320,7 +320,7 @@ ___
 
 ### out
 
-▸ `Optional` **out**(`e`, `emitter`): `void`
+▸ **out**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets out of an emitter.
 
@@ -347,7 +347,7 @@ ___
 
 ### over
 
-▸ `Optional` **over**(`e`, `emitter`): `void`
+▸ **over**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets on an emitter.
 
@@ -374,7 +374,7 @@ ___
 
 ### removed
 
-▸ `Optional` **removed**(`container`): `void`
+▸ **removed**(`container`): `void`
 
 Triggered when removed from a container.
 
@@ -400,7 +400,7 @@ ___
 
 ### resize
 
-▸ `Optional` **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
+▸ **resize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`, `emitter`): `void`
 
 Triggered when resized.
 
@@ -430,7 +430,7 @@ ___
 
 ### scale
 
-▸ `Optional` **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **scale**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when scaled.
 
@@ -460,7 +460,7 @@ ___
 
 ### shortcut
 
-▸ `Optional` **shortcut**(`e`, `emitter`): `void`
+▸ **shortcut**(`e`, `emitter`): `void`
 
 Triggered when a shortcut is pressed.
 
@@ -487,7 +487,7 @@ ___
 
 ### skew
 
-▸ `Optional` **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
+▸ **skew**(`newX`, `newY`, `oldX`, `oldY`, `emitter`): `void`
 
 Triggered when skewed.
 
@@ -517,7 +517,7 @@ ___
 
 ### statechange
 
-▸ `Optional` **statechange**(`newState`, `oldState`, `emitter`): `void`
+▸ **statechange**(`newState`, `oldState`, `emitter`): `void`
 
 Triggered when a state is changed.
 
@@ -545,7 +545,7 @@ ___
 
 ### up
 
-▸ `Optional` **up**(`e`, `emitter`): `void`
+▸ **up**(`e`, `emitter`): `void`
 
 Triggered when a pointer gets up on an emitter.
 
@@ -572,7 +572,7 @@ ___
 
 ### wheel
 
-▸ `Optional` **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
+▸ **wheel**(`e`, `deltas`, `global`, `emitter`): `void`
 
 Triggered when a wheel moves.
 
