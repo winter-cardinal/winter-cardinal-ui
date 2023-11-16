@@ -79,7 +79,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	protected _visible: boolean;
 
-	protected _lockTransform: EShapeLock;
+	protected _lockTransformChild: EShapeLock;
+	protected _lockTransformThis: EShapeLock;
 	protected _lockTransformParent: EShapeLock;
 	protected _lockUploaded: EShapeLock;
 
@@ -121,7 +122,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this.action = new EShapeAction();
 		this._visible = true;
 
-		this._lockTransform = new EShapeLock();
+		this._lockTransformChild = new EShapeLock();
+		this._lockTransformThis = new EShapeLock();
 		this._lockTransformParent = new EShapeLock();
 		this._lockUploaded = new EShapeLock();
 
@@ -150,7 +152,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsInternalTransformId = NaN;
 		this._boundsLocalTransformId = NaN;
 
-		this.onTransformChange_();
+		if (!this._lockTransformChild.isLocked()) {
+			const parent = this.parent;
+			if (parent != null) {
+				parent.onChildTransformChange();
+			}
+		}
 		const points = this._points;
 		if (points != null) {
 			points.onSizeChange();
@@ -169,63 +176,82 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	onTransformChange(): void {
-		this.onTransformChange_();
-		this.onParentTransformChange();
+		if (!this._lockTransformChild.isLocked()) {
+			const parent = this.parent;
+			if (parent != null) {
+				parent.onChildTransformChange();
+			}
+		}
+		if (!this._lockTransformThis.isLocked()) {
+			this.onThisTransformChange();
+		}
+		if (!this._lockTransformParent.isLocked()) {
+			const children = this.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].onParentTransformChange();
+			}
+		}
 	}
 
-	onParentTransformChange(): void {
-		if (this._lockTransformParent.isLocked()) {
-			return;
-		}
+	protected onThisTransformChange(): void {
 		this.updateUploaded();
 		const connector = this._connector;
 		if (connector != null) {
 			connector.fit(true);
 		}
-		const children = this.children;
-		for (let i = 0, imax = children.length; i < imax; ++i) {
-			children[i].onParentTransformChange();
-		}
 	}
 
-	protected onTransformChange_(): void {
-		if (this._lockTransform.isLocked()) {
-			return;
-		}
-		const parent = this.parent;
-		if (parent != null) {
-			parent.onChildTransformChange();
+	onParentTransformChange(): void {
+		if (!this._lockTransformParent.isLocked()) {
+			const children = this.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].onParentTransformChange();
+			}
 		}
 	}
 
 	lock(part: EShapeLockPart): this {
-		if (part & EShapeLockPart.TRANSFORM) {
-			this._lockTransform.lock();
+		if (part & EShapeLockPart.UPLOADED) {
+			this._lockUploaded.lock();
 		}
 		if (part & EShapeLockPart.TRANSFORM_PARENT) {
 			this._lockTransformParent.lock();
 		}
-		if (part & EShapeLockPart.UPLOADED) {
-			this._lockUploaded.lock();
+		if (part & EShapeLockPart.TRANSFORM_THIS) {
+			this._lockTransformChild.lock();
+		}
+		if (part & EShapeLockPart.TRANSFORM_CHILD) {
+			this._lockTransformChild.lock();
 		}
 		return this;
 	}
 
 	unlock(part: EShapeLockPart, invoke: boolean): this {
-		if (part & EShapeLockPart.UPLOADED) {
-			const lockUploaded = this._lockUploaded;
-			if (lockUploaded.unlock() && invoke) {
-				this.updateUploaded(lockUploaded.isHigh());
+		if (part & EShapeLockPart.TRANSFORM_CHILD) {
+			if (this._lockTransformChild.unlock() && invoke) {
+				const parent = this.parent;
+				if (parent != null) {
+					parent.onChildTransformChange();
+				}
+			}
+		}
+		if (part & EShapeLockPart.TRANSFORM_THIS) {
+			if (this._lockTransformThis.unlock() && invoke) {
+				this.onThisTransformChange();
 			}
 		}
 		if (part & EShapeLockPart.TRANSFORM_PARENT) {
 			if (this._lockTransformParent.unlock() && invoke) {
-				this.onParentTransformChange();
+				const children = this.children;
+				for (let i = 0, imax = children.length; i < imax; ++i) {
+					children[i].onParentTransformChange();
+				}
 			}
 		}
-		if (part & EShapeLockPart.TRANSFORM) {
-			if (this._lockTransform.unlock() && invoke) {
-				this.onTransformChange();
+		if (part & EShapeLockPart.UPLOADED) {
+			const lockUploaded = this._lockUploaded;
+			if (lockUploaded.unlock() && invoke) {
+				this.updateUploaded(lockUploaded.isHigh());
 			}
 		}
 		return this;
@@ -853,16 +879,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		}
 	}
 
-	updateRecursively(time: number): void {
-		this.update(time);
-
-		const children = this.children;
-		for (let i = 0, imax = children.length; i < imax; ++i) {
-			children[i].update(time);
-		}
-	}
-
 	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
+		this.lock(EShapeLockPart.ALL);
 		this.id = source.id;
 		this.uuid = source.uuid;
 		this.visible = source.visible;
@@ -938,6 +956,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				}
 			}
 		}
+		this.unlock(EShapeLockPart.ALL, true);
 		return this;
 	}
 }

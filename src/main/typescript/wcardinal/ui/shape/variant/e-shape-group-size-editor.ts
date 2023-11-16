@@ -115,7 +115,7 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 
 	protected doFit(): void {
 		const parent = this._parent;
-		parent.lock(EShapeLockPart.TRANSFORM | EShapeLockPart.TRANSFORM_PARENT);
+		parent.lock(EShapeLockPart.TRANSFORM);
 
 		// Calculate the rect
 		const rect = this.calcRect(this._workRectForFit);
@@ -173,7 +173,8 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		this.reset(parent.children, this._layouts, size);
 
 		//
-		parent.unlock(EShapeLockPart.TRANSFORM | EShapeLockPart.TRANSFORM_PARENT, true);
+		parent.unlock(EShapeLockPart.TRANSFORM_CHILD | EShapeLockPart.TRANSFORM_THIS, true);
+		parent.unlock(EShapeLockPart.TRANSFORM_PARENT, false);
 	}
 
 	protected reset(children: EShape[], layouts: EShapeLayout[], size: IPoint): void {

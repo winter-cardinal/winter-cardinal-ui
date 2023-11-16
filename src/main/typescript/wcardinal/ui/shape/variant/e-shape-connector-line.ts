@@ -33,7 +33,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	protected _headNormalId: number;
 	protected _headMargin: number;
 	protected _bodyId: number;
-	protected _lockChange: EShapeLock;
+	protected _lockConnector: EShapeLock;
 
 	constructor(type: EShapeType = EShapeType.CONNECTOR_LINE) {
 		super(type);
@@ -44,7 +44,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		this._headNormalId = 0;
 		this._headMargin = 0;
 		this._bodyId = 0;
-		this._lockChange = new EShapeLock();
+		this._lockConnector = new EShapeLock();
 		const sx = EShapeDefaults.SIZE_X;
 		const sy = EShapeDefaults.SIZE_Y;
 		const hx = sx * 0.5;
@@ -58,20 +58,21 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	}
 
 	override lock(part: EShapeLockPart): this {
-		super.lock(part);
 		if (part & EShapeLockPart.CONNECTOR) {
-			this._lockChange.lock();
+			this._lockConnector.lock();
 		}
+		super.lock(part);
 		return this;
 	}
 
 	override unlock(part: EShapeLockPart, invoke: boolean): this {
+		super.unlock(part, invoke);
 		if (part & EShapeLockPart.CONNECTOR) {
-			if (this._lockChange.unlock() && invoke) {
+			if (this._lockConnector.unlock() && invoke) {
 				this.onChange();
 			}
 		}
-		return super.unlock(part, invoke);
+		return this;
 	}
 
 	get points(): EShapeLinePoints {
@@ -97,7 +98,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	}
 
 	protected onChange(): void {
-		if (this._lockChange.isLocked()) {
+		if (this._lockConnector.isLocked()) {
 			return;
 		}
 
@@ -249,11 +250,13 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	}
 
 	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
+		this.lock(EShapeLockPart.ALL);
 		super.copy(source, part);
 		if (source instanceof EShapeConnectorLine) {
 			this._edge.copy(source.edge);
 			this._body.copy(source.body);
 		}
+		this.unlock(EShapeLockPart.ALL, true);
 		return this;
 	}
 

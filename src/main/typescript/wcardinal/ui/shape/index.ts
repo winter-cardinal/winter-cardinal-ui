@@ -111,7 +111,6 @@ export * from "./e-shape-text-outline";
 export * from "./e-shape-text";
 export * from "./e-shape-transform-parent";
 export * from "./e-shape-transform";
-export * from "./e-shape-transforms";
 export * from "./e-shape-type";
 export * from "./e-shape-uploaded-constructor";
 export * from "./e-shape-uploaded";
