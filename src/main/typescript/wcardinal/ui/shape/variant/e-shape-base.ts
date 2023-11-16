@@ -218,7 +218,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this._lockTransformParent.lock();
 		}
 		if (part & EShapeLockPart.TRANSFORM_THIS) {
-			this._lockTransformChild.lock();
+			this._lockTransformThis.lock();
 		}
 		if (part & EShapeLockPart.TRANSFORM_CHILD) {
 			this._lockTransformChild.lock();
