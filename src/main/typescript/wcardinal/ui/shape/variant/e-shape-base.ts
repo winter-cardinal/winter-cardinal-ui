@@ -153,10 +153,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsLocalTransformId = NaN;
 
 		if (!this._lockTransformChild.isLocked()) {
-			const parent = this.parent;
-			if (parent != null) {
-				parent.onChildTransformChange();
-			}
+			this.callChildTransformChange();
 		}
 		const points = this._points;
 		if (points != null) {
@@ -177,19 +174,20 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onTransformChange(): void {
 		if (!this._lockTransformChild.isLocked()) {
-			const parent = this.parent;
-			if (parent != null) {
-				parent.onChildTransformChange();
-			}
+			this.callChildTransformChange();
 		}
 		if (!this._lockTransformThis.isLocked()) {
 			this.onThisTransformChange();
 		}
 		if (!this._lockTransformParent.isLocked()) {
-			const children = this.children;
-			for (let i = 0, imax = children.length; i < imax; ++i) {
-				children[i].onParentTransformChange();
-			}
+			this.callParentTransformChange();
+		}
+	}
+
+	protected callChildTransformChange(): void {
+		const parent = this.parent;
+		if (parent != null) {
+			parent.onChildTransformChange();
 		}
 	}
 
@@ -201,12 +199,19 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		}
 	}
 
+	protected callParentTransformChange(): void {
+		const children = this.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].onParentTransformChange();
+		}
+	}
+
 	onParentTransformChange(): void {
+		if (!this._lockTransformThis.isLocked()) {
+			this.onThisTransformChange();
+		}
 		if (!this._lockTransformParent.isLocked()) {
-			const children = this.children;
-			for (let i = 0, imax = children.length; i < imax; ++i) {
-				children[i].onParentTransformChange();
-			}
+			this.callParentTransformChange();
 		}
 	}
 
