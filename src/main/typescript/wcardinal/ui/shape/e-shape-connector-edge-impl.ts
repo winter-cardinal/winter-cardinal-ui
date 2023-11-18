@@ -14,6 +14,7 @@ import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 import { EShapeAcceptorEdgeSide } from "./e-shape-acceptor-edge-side";
+import { EShapeBase } from "./variant/e-shape-base";
 
 export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected static WORK_MATRIX?: Matrix;
@@ -408,14 +409,14 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		shape.updateTransform();
 		const parent = this._parent;
 		const parentParent = parent.parent;
-		if (parentParent) {
+		if (parentParent instanceof EShapeBase) {
 			parent.updateTransform();
 			return result
-				.copyFrom(parentParent.transform.worldTransform)
+				.copyFrom(parentParent.transform.internalTransform)
 				.invert()
-				.append(shape.transform.worldTransform);
+				.append(shape.transform.internalTransform);
 		} else {
-			return result.copyFrom(shape.transform.worldTransform);
+			return result.copyFrom(shape.transform.internalTransform);
 		}
 	}
 
