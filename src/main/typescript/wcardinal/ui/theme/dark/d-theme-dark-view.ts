@@ -49,11 +49,11 @@ export class DThemeDarkView implements DThemeView {
 	}
 
 	getZoomMin(): number {
-		return 0.05;
+		return 0.01;
 	}
 
 	getZoomMax(): number {
-		return 20;
+		return 100;
 	}
 
 	getZoomKeepRatio(): boolean {
