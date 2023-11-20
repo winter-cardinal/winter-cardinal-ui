@@ -151,50 +151,57 @@ export class DViewImpl extends utils.EventEmitter implements DView {
 		const parent = this._parent;
 		const target = this._toTarget(parent);
 		if (target) {
-			const targetRect = target.getLocalBounds(this._workRect);
-			const newTargetX = (parent.width - targetRect.width) * 0.5 - targetRect.x;
-			const newTargetY = (parent.height - targetRect.height) * 0.5 - targetRect.y;
-			this._transform.start(target, newTargetX, newTargetY, 1, 1, duration, stop);
+			const padding = parent.padding;
+			const pl = padding.getLeft();
+			const pt = padding.getTop();
+			const pr = padding.getRight();
+			const pb = padding.getBottom();
+			const w = parent.width;
+			const h = parent.height;
+			const sw = w - pl - pr;
+			const sh = h - pt - pb;
+			const trect = target.getLocalBounds(this._workRect);
+			const tx = trect.x;
+			const ty = trect.y;
+			const tw = trect.width;
+			const th = trect.height;
+			const ntx = pl + (sw - tw) * 0.5 - tx;
+			const nty = pt + (sh - th) * 0.5 - ty;
+			this._transform.start(target, ntx, nty, 1, 1, duration, stop);
 		}
 	}
 
 	fit(duration?: number, stop?: boolean): void {
 		const parent = this._parent;
-		const target = this._toTarget(parent) as any;
+		const target = this._toTarget(parent);
 		if (target) {
 			const padding = parent.padding;
-			const width = parent.width;
-			const height = parent.height;
-			const targetRect = target.getLocalBounds(this._workRect);
-			const targetX = targetRect.x;
-			const targetY = targetRect.y;
-			const targetWidth = targetRect.width;
-			const targetHeight = targetRect.height;
-			let newTargetScaleX = (width - padding.getLeft() - padding.getRight()) / targetWidth;
-			let newTargetScaleY = (height - padding.getTop() - padding.getBottom()) / targetHeight;
+			const pl = padding.getLeft();
+			const pt = padding.getTop();
+			const pr = padding.getRight();
+			const pb = padding.getBottom();
+			const w = parent.width;
+			const h = parent.height;
+			const sw = w - pl - pr;
+			const sh = h - pt - pb;
+			const trect = target.getLocalBounds(this._workRect);
+			const tx = trect.x;
+			const ty = trect.y;
+			const tw = trect.width;
+			const th = trect.height;
+			let ntsx = sw / tw;
+			let ntsy = sh / th;
 			if (this._zoomKeepRatio) {
-				const newTargetScale = this.toNormalizedScale(
-					Math.min(newTargetScaleX, newTargetScaleY)
-				);
-				newTargetScaleX = newTargetScale;
-				newTargetScaleY = newTargetScale;
+				const nts = this.toNormalizedScale(Math.min(ntsx, ntsy));
+				ntsx = nts;
+				ntsy = nts;
 			} else {
-				newTargetScaleX = this.toNormalizedScale(newTargetScaleX);
-				newTargetScaleY = this.toNormalizedScale(newTargetScaleY);
+				ntsx = this.toNormalizedScale(ntsx);
+				ntsy = this.toNormalizedScale(ntsy);
 			}
-			const newTargetWidth = targetWidth * newTargetScaleX;
-			const newTargetHeight = targetHeight * newTargetScaleY;
-			const newTargetX = (width - newTargetWidth) * 0.5 - targetX * newTargetScaleX;
-			const newTargetY = (height - newTargetHeight) * 0.5 - targetY * newTargetScaleY;
-			this._transform.start(
-				target,
-				newTargetX,
-				newTargetY,
-				newTargetScaleX,
-				newTargetScaleY,
-				duration,
-				stop
-			);
+			const ntx = pl + (sw - tw * ntsx) * 0.5 - tx * ntsx;
+			const nty = pt + (sh - th * ntsy) * 0.5 - ty * ntsy;
+			this._transform.start(target, ntx, nty, ntsx, ntsy, duration, stop);
 		}
 	}
 
