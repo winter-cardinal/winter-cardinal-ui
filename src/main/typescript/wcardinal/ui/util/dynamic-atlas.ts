@@ -86,7 +86,7 @@ export class DynamicAtlas {
 	}
 
 	calcCanvasWidth(data: DynamicAtlasItem[]): number {
-		let result = 128;
+		let result = 512;
 		for (let i = data.length - 1; 0 <= i; --i) {
 			const datum = data[i];
 			const size = Math.max(datum.frame.width, datum.frame.height);
