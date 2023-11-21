@@ -18,4 +18,8 @@ export class DThemeDarkDiagramCanvasBase
 	getBackgroundBase(): number | null {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
+
+	getLocalBoundsLimit(): number {
+		return 0;
+	}
 }

@@ -17,4 +17,8 @@ export class DThemeWhiteDiagramCanvasBase
 	getBackgroundBase(): number | null {
 		return 0xeeeeee;
 	}
+
+	getLocalBoundsLimit(): number {
+		return 0;
+	}
 }

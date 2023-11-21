@@ -28,11 +28,15 @@ export class DThemeWhiteDiagramCanvasEditor
 	extends DThemeWhiteDiagramCanvasBase
 	implements DThemeDiagramCanvasEditor
 {
-	isAmbient(): boolean {
+	override isAmbient(): boolean {
 		return false;
 	}
 
-	getOutlineColor(state: DBaseStateSet): number | null {
+	override getLocalBoundsLimit(): number {
+		return 1000;
+	}
+
+	override getOutlineColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

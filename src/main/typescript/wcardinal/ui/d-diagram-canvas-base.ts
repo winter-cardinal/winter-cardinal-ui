@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
+import { IPoint, Rectangle } from "pixi.js";
 import { DBaseBackgroundOptions } from "./d-base";
 import { DCanvas, DCanvasOptions, DThemeCanvas } from "./d-canvas";
 import { DDiagramCanvasEditorBackground } from "./d-diagram-canvas-editor-background";
@@ -31,18 +31,22 @@ export interface DDiagramCanvasBaseOptions<
 export interface DThemeDiagramCanvasBase extends DThemeCanvas {
 	isAmbient(): boolean;
 	getBackgroundBase(): number | null;
+	getLocalBoundsLimit(): number;
 }
 
 export class DDiagramCanvasBase<
 	THEME extends DThemeDiagramCanvasBase = DThemeDiagramCanvasBase,
 	OPTIONS extends DDiagramCanvasBaseOptions<THEME> = DDiagramCanvasBaseOptions<THEME>
 > extends DCanvas<THEME, OPTIONS> {
+	protected static WORK_LOCAL_BOUNDS?: Rectangle;
+
 	protected _layer: DDiagramLayerContainer;
 	protected _label: string;
 	protected _category: string | null;
 	protected _summary: string;
 	protected _description: string;
 	protected _tile: DDiagramCanvasTile;
+	protected _localBoundsLimit: number;
 
 	constructor(options?: OPTIONS) {
 		super(options);
@@ -78,6 +82,9 @@ export class DDiagramCanvasBase<
 		const tile = new DDiagramCanvasTile(this, options?.tile);
 		this._tile = tile;
 		tile.init();
+
+		// Local bounds limit
+		this._localBoundsLimit = theme.getLocalBoundsLimit();
 	}
 
 	protected isAmbient(theme: THEME, options?: OPTIONS): boolean {
@@ -156,6 +163,73 @@ export class DDiagramCanvasBase<
 			}
 		}
 		return null;
+	}
+
+	override getLocalBounds(result: Rectangle = new Rectangle()): Rectangle {
+		result.x = 0;
+		result.y = 0;
+		result.width = this.width;
+		result.height = this.height;
+
+		const limit = this._localBoundsLimit;
+		if (limit === 0) {
+			return result;
+		}
+
+		const layers = this.layer.children;
+		const layersLength = layers.length;
+		const work = (DDiagramCanvasBase.WORK_LOCAL_BOUNDS ??= new Rectangle());
+		if (0 < limit) {
+			let shapeCount = 0;
+			for (let i = 0; i < layersLength; ++i) {
+				const layer = layers[i];
+				const p = layer.transform.position;
+				work.x = p.x;
+				work.y = p.y;
+				work.width = layer.width;
+				work.height = layer.height;
+				result.enlarge(work);
+				shapeCount += layer.children.length;
+			}
+			if (limit < shapeCount) {
+				return result;
+			}
+			for (let i = 0; i < layersLength; ++i) {
+				const layer = layers[i];
+				const p = layer.transform.position;
+				const px = p.x;
+				const py = p.y;
+				const shapes = layer.children;
+				for (let j = 0, jmax = shapes.length; j < jmax; ++j) {
+					const shape = shapes[j];
+					shape.getBoundsInternal(true, work);
+					work.x += px;
+					work.y += py;
+					result.enlarge(work);
+				}
+			}
+		} else {
+			for (let i = 0; i < layersLength; ++i) {
+				const layer = layers[i];
+				const p = layer.transform.position;
+				const px = p.x;
+				const py = p.y;
+				work.x = px;
+				work.y = py;
+				work.width = layer.width;
+				work.height = layer.height;
+				result.enlarge(work);
+				const shapes = layer.children;
+				for (let j = 0, jmax = shapes.length; j < jmax; ++j) {
+					const shape = shapes[j];
+					shape.getBoundsInternal(true, work);
+					work.x += px;
+					work.y += py;
+					result.enlarge(work);
+				}
+			}
+		}
+		return result;
 	}
 
 	protected getType(): string {
