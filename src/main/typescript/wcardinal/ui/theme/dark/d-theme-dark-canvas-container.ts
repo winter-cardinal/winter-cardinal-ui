@@ -18,19 +18,19 @@ export class DThemeDarkCanvasContainer extends DThemeDarkBase implements DThemeC
 	}
 
 	getPaddingLeft(): number {
-		return 50;
+		return 32;
 	}
 
 	getPaddingTop(): number {
-		return 50;
+		return 32;
 	}
 
 	getPaddingRight(): number {
-		return 50;
+		return 32;
 	}
 
 	getPaddingBottom(): number {
-		return 50;
+		return 32;
 	}
 
 	isOverflowMaskEnabled(): boolean {
