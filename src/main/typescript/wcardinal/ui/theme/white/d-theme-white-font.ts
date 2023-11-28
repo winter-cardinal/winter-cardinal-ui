@@ -9,7 +9,7 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteFont implements DThemeFont {
 	getFontFamilly(): string {
-		return `ProximaNova,-apple-system,Meiryo,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif`;
+		return `"Helvetica Neue",Arial,"Hiragino Sans","Hiragino Kaku Gothic ProN","BIZ UDPGothic",Meiryo,sans-serif`;
 	}
 
 	getFontSize(): number {
