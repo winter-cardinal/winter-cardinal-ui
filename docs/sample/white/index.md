@@ -1,6 +1,8 @@
 # Samples
 
 * Application
+    * [English Theme](./application/english.html)
+    * [Japanese Theme](./application/japanese.html)
     * [Multiple Applications](./application/multiple.html)
     * [Overlay Layer](./application/overlay.html)
     * [Resolution](./application/resolution.html)
