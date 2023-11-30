@@ -8,7 +8,7 @@ import { DThemeInputBooleanButtonOn } from "../../d-input-boolean-button-on";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 
-export class DThemeDarkInputBooleanButtonOn
+export abstract class DThemeDarkInputBooleanButtonOn
 	extends DThemeDarkButton<string>
 	implements DThemeInputBooleanButtonOn
 {
@@ -20,7 +20,5 @@ export class DThemeDarkInputBooleanButtonOn
 		return true;
 	}
 
-	newTextValue(): DStateAwareOrValueMightBe<string> {
-		return "ON";
-	}
+	abstract newTextValue(): DStateAwareOrValueMightBe<string>;
 }

@@ -7,16 +7,9 @@ import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogSaveAs } from "../../d-dialog-save-as";
 import { DThemeWhiteDialogInputText } from "./d-theme-white-dialog-input-text";
 
-export class DThemeWhiteDialogSaveAs
+export abstract class DThemeWhiteDialogSaveAs
 	extends DThemeWhiteDialogInputText
 	implements DThemeDialogSaveAs
 {
-	getFooter(): DDialogLayeredFooterOptions | undefined | null {
-		return {
-			button: {
-				ok: "Save",
-				cancel: null
-			}
-		};
-	}
+	abstract getFooter(): DDialogLayeredFooterOptions | undefined | null;
 }

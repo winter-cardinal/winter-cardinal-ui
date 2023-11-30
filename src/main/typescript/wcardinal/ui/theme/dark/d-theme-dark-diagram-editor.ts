@@ -6,7 +6,10 @@
 import { DThemeDiagramEditor } from "../../d-diagram-editor";
 import { DThemeDarkDiagramBase } from "./d-theme-dark-diagram-base";
 
-export class DThemeDarkDiagramEditor extends DThemeDarkDiagramBase implements DThemeDiagramEditor {
+export abstract class DThemeDarkDiagramEditor
+	extends DThemeDarkDiagramBase
+	implements DThemeDiagramEditor
+{
 	isAmbient(): boolean {
 		return false;
 	}
@@ -43,7 +46,5 @@ export class DThemeDarkDiagramEditor extends DThemeDarkDiagramBase implements DT
 		return true;
 	}
 
-	getBaseLayerLabel(): string {
-		return "Base Layer";
-	}
+	abstract getBaseLayerLabel(): string;
 }

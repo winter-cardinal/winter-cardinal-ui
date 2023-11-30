@@ -7,17 +7,13 @@ import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogLayeredFooter } from "../../d-dialog-layered-footer";
 import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
-export class DThemeDarkDialogLayeredFooter
+export abstract class DThemeDarkDialogLayeredFooter
 	extends DThemeDarkLayoutHorizontal
 	implements DThemeDialogLayeredFooter
 {
-	getButtonOk(): string | null {
-		return "OK";
-	}
+	abstract getButtonOk(): string | null;
 
-	getButtonCancel(): string | null {
-		return "Cancel";
-	}
+	abstract getButtonCancel(): string | null;
 
 	getX(): DCoordinatePosition {
 		return "padding";

@@ -14,7 +14,7 @@ DThemeDarkAtlas.add("link_mark", 24, 24,
 );
 /* eslint-enable prettier/prettier */
 
-export class DThemeDarkLink implements DThemeLink {
+export abstract class DThemeDarkLink implements DThemeLink {
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.link_mark;
 	}
@@ -46,15 +46,9 @@ export class DThemeDarkLink implements DThemeLink {
 		};
 	}
 
-	protected getLabelOpenLink(): string {
-		return "Open";
-	}
+	protected abstract getLabelOpenLink(): string;
 
-	protected getLabelOpenLinkInNewWindow(): string {
-		return "Open in new window";
-	}
+	protected abstract getLabelOpenLinkInNewWindow(): string;
 
-	protected getLabelCopyLinkAddress(): string {
-		return "Copy link address";
-	}
+	protected abstract getLabelCopyLinkAddress(): string;
 }

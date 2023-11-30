@@ -14,7 +14,7 @@ DThemeWhiteAtlas.add("link_mark", 24, 24,
 );
 /* eslint-enable prettier/prettier */
 
-export class DThemeWhiteLink implements DThemeLink {
+export abstract class DThemeWhiteLink implements DThemeLink {
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.link_mark;
 	}
@@ -33,28 +33,22 @@ export class DThemeWhiteLink implements DThemeLink {
 				{
 					value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
 					text: {
-						value: this.getLabelOpenInNewWindow()
+						value: this.getLabelOpenLinkInNewWindow()
 					}
 				},
 				{
 					value: DLinkMenuItemId.COPY_LINK_ADDRESS,
 					text: {
-						value: this.getOpenCopyLinkAddress()
+						value: this.getLabelCopyLinkAddress()
 					}
 				}
 			]
 		};
 	}
 
-	protected getLabelOpenLink(): string {
-		return "Open";
-	}
+	protected abstract getLabelOpenLink(): string;
 
-	protected getLabelOpenInNewWindow(): string {
-		return "Open in new window";
-	}
+	protected abstract getLabelOpenLinkInNewWindow(): string;
 
-	protected getOpenCopyLinkAddress(): string {
-		return "Copy link address";
-	}
+	protected abstract getLabelCopyLinkAddress(): string;
 }

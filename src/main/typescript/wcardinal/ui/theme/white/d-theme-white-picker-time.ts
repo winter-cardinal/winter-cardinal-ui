@@ -11,7 +11,7 @@ import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
 import { DThemePickerTime } from "../../d-picker-time";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhitePickerTime extends DThemeWhiteBase implements DThemePickerTime {
+export abstract class DThemeWhitePickerTime extends DThemeWhiteBase implements DThemePickerTime {
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
@@ -29,26 +29,11 @@ export class DThemeWhitePickerTime extends DThemeWhiteBase implements DThemePick
 		return 8;
 	}
 
-	getHoursOptions(): DInputIntegerOptions {
-		return {
-			width: 100,
-			title: "Hours"
-		};
-	}
+	abstract getHoursOptions(): DInputIntegerOptions;
 
-	getMinutesOptions(): DInputIntegerOptions {
-		return {
-			width: 100,
-			title: "Minutes"
-		};
-	}
+	abstract getMinutesOptions(): DInputIntegerOptions;
 
-	getSecondsOptions(): DInputIntegerOptions {
-		return {
-			width: 100,
-			title: "Seconds"
-		};
-	}
+	abstract getSecondsOptions(): DInputIntegerOptions;
 
 	getMask(): DPickerDatetimeMask {
 		return DPickerDatetimeMask.HOURS | DPickerDatetimeMask.MINUTES;

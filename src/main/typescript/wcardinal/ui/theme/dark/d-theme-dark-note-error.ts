@@ -6,8 +6,6 @@
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkNote } from "./d-theme-dark-note";
 
-export class DThemeDarkNoteError extends DThemeDarkNote {
-	newTextValue(): DStateAwareOrValueMightBe<string> {
-		return "Error";
-	}
+export abstract class DThemeDarkNoteError extends DThemeDarkNote {
+	abstract newTextValue(): DStateAwareOrValueMightBe<string>;
 }

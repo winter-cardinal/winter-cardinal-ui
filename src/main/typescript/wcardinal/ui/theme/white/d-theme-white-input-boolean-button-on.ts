@@ -8,7 +8,7 @@ import { DThemeInputBooleanButtonOn } from "../../d-input-boolean-button-on";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
-export class DThemeWhiteInputBooleanButtonOn
+export abstract class DThemeWhiteInputBooleanButtonOn
 	extends DThemeWhiteButton<string>
 	implements DThemeInputBooleanButtonOn
 {
@@ -20,7 +20,5 @@ export class DThemeWhiteInputBooleanButtonOn
 		return true;
 	}
 
-	newTextValue(): DStateAwareOrValueMightBe<string> {
-		return "ON";
-	}
+	abstract newTextValue(): DStateAwareOrValueMightBe<string>;
 }

@@ -6,7 +6,7 @@
 import { DThemeDiagramEditor } from "../../d-diagram-editor";
 import { DThemeWhiteDiagramBase } from "./d-theme-white-diagram-base";
 
-export class DThemeWhiteDiagramEditor
+export abstract class DThemeWhiteDiagramEditor
 	extends DThemeWhiteDiagramBase
 	implements DThemeDiagramEditor
 {
@@ -46,7 +46,5 @@ export class DThemeWhiteDiagramEditor
 		return true;
 	}
 
-	getBaseLayerLabel(): string {
-		return "Base Layer";
-	}
+	abstract getBaseLayerLabel(): string;
 }

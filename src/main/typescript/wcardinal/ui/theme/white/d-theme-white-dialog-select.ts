@@ -8,7 +8,7 @@ import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogSelect } from "../../d-dialog-select";
 import { DThemeWhiteDialogLayered } from "./d-theme-white-dialog-layered";
 
-export class DThemeWhiteDialogSelect<VALUE>
+export abstract class DThemeWhiteDialogSelect<VALUE>
 	extends DThemeWhiteDialogLayered
 	implements DThemeDialogSelect<VALUE>
 {
@@ -28,7 +28,5 @@ export class DThemeWhiteDialogSelect<VALUE>
 		return true;
 	}
 
-	getCategoryDismissLabel(): string {
-		return "All";
-	}
+	abstract getCategoryDismissLabel(): string;
 }

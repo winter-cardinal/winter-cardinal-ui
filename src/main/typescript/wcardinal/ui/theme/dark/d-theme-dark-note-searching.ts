@@ -6,8 +6,6 @@
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkNote } from "./d-theme-dark-note";
 
-export class DThemeDarkNoteSearching extends DThemeDarkNote {
-	newTextValue(): DStateAwareOrValueMightBe<string> {
-		return "Searching";
-	}
+export abstract class DThemeDarkNoteSearching extends DThemeDarkNote {
+	abstract newTextValue(): DStateAwareOrValueMightBe<string>;
 }

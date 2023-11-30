@@ -7,16 +7,9 @@ import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogMessage } from "../../d-dialog-message";
 import { DThemeDarkDialogConfirm } from "./d-theme-dark-dialog-confirm";
 
-export class DThemeDarkDialogMessage
+export abstract class DThemeDarkDialogMessage
 	extends DThemeDarkDialogConfirm
 	implements DThemeDialogMessage
 {
-	getFooter(): DDialogLayeredFooterOptions | undefined | null {
-		return {
-			button: {
-				ok: "OK",
-				cancel: null
-			}
-		};
-	}
+	abstract getFooter(): DDialogLayeredFooterOptions | undefined | null;
 }

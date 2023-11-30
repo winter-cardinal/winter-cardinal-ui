@@ -6,8 +6,6 @@
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
-export class DThemeWhiteDialogConfirmDelete extends DThemeWhiteDialogConfirm {
-	getMessage(): DStateAwareOrValue<string> {
-		return "Are you sure you want to delete this data?";
-	}
+export abstract class DThemeWhiteDialogConfirmDelete extends DThemeWhiteDialogConfirm {
+	abstract getMessage(): DStateAwareOrValue<string>;
 }

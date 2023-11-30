@@ -8,18 +8,11 @@ import { DThemeDialogConfirm } from "../../d-dialog-confirm";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogLayered } from "./d-theme-white-dialog-layered";
 
-export class DThemeWhiteDialogConfirm
+export abstract class DThemeWhiteDialogConfirm
 	extends DThemeWhiteDialogLayered
 	implements DThemeDialogConfirm
 {
-	getFooter(): DDialogLayeredFooterOptions | undefined | null {
-		return {
-			button: {
-				ok: "Yes",
-				cancel: "No"
-			}
-		};
-	}
+	abstract getFooter(): DDialogLayeredFooterOptions | undefined | null;
 
 	getMessage(): DStateAwareOrValue<string> {
 		return "";
