@@ -18,7 +18,7 @@ export const DMenuSidedSelectionType = {
 } as const;
 
 export type DMenuSidedSelectionType =
-	typeof DMenuSidedSelectionType[keyof typeof DMenuSidedSelectionType];
+	(typeof DMenuSidedSelectionType)[keyof typeof DMenuSidedSelectionType];
 
 /**
  * {@link DMenuSidedSelection} events.

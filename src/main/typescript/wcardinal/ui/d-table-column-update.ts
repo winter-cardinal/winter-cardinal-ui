@@ -11,4 +11,4 @@ export const DTableColumnUpdate = {
 	ALL: 2
 } as const;
 
-export type DTableColumnUpdate = typeof DTableColumnUpdate[keyof typeof DTableColumnUpdate];
+export type DTableColumnUpdate = (typeof DTableColumnUpdate)[keyof typeof DTableColumnUpdate];

@@ -22,4 +22,4 @@ export const DTableColumnType = {
 	TEXT_AREA: 15
 } as const;
 
-export type DTableColumnType = typeof DTableColumnType[keyof typeof DTableColumnType];
+export type DTableColumnType = (typeof DTableColumnType)[keyof typeof DTableColumnType];

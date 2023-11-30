@@ -37,7 +37,7 @@ export const DTableDataOrder = {
 	DESCENDING: 1
 } as const;
 
-export type DTableDataOrder = typeof DTableDataOrder[keyof typeof DTableDataOrder];
+export type DTableDataOrder = (typeof DTableDataOrder)[keyof typeof DTableDataOrder];
 
 /**
  * Table data sorter.

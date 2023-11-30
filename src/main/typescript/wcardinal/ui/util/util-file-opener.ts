@@ -14,7 +14,7 @@ export const UtilFileAs = {
 	FILE: 4
 } as const;
 
-export type UtilFileAs = typeof UtilFileAs[keyof typeof UtilFileAs];
+export type UtilFileAs = (typeof UtilFileAs)[keyof typeof UtilFileAs];
 
 export interface UtilFileFacade {
 	emit(name: string, ...args: any[]): void;

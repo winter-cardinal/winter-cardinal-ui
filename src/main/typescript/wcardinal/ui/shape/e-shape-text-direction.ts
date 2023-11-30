@@ -10,4 +10,4 @@ export const EShapeTextDirection = {
 	RIGHT_TO_LEFT: 3
 } as const;
 
-export type EShapeTextDirection = typeof EShapeTextDirection[keyof typeof EShapeTextDirection];
+export type EShapeTextDirection = (typeof EShapeTextDirection)[keyof typeof EShapeTextDirection];

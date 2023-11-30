@@ -38,7 +38,7 @@ export const DScalarExpressionNodeType = {
 } as const;
 
 export type DScalarExpressionNodeType =
-	typeof DScalarExpressionNodeType[keyof typeof DScalarExpressionNodeType];
+	(typeof DScalarExpressionNodeType)[keyof typeof DScalarExpressionNodeType];
 
 export type DScalarExpressionNodeTypeOperator =
 	| typeof DScalarExpressionNodeType.SUB_OR_MINUS

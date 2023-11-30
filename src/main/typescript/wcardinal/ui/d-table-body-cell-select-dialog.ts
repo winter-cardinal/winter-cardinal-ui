@@ -29,7 +29,8 @@ export interface DThemeTableBodyCellSelectDialog<VALUE = unknown>
 export class DTableBodyCellSelectDialog<
 		ROW = unknown,
 		VALUE = unknown,
-		THEME extends DThemeTableBodyCellSelectDialog<VALUE> = DThemeTableBodyCellSelectDialog<VALUE>,
+		THEME extends
+			DThemeTableBodyCellSelectDialog<VALUE> = DThemeTableBodyCellSelectDialog<VALUE>,
 		OPTIONS extends DTableBodyCellSelectDialogOptions<
 			ROW,
 			VALUE,

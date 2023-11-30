@@ -12,4 +12,4 @@ export const EShapeTextAlignVertical = {
 } as const;
 
 export type EShapeTextAlignVertical =
-	typeof EShapeTextAlignVertical[keyof typeof EShapeTextAlignVertical];
+	(typeof EShapeTextAlignVertical)[keyof typeof EShapeTextAlignVertical];

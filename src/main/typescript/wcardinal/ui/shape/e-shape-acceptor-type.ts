@@ -13,4 +13,4 @@ export const EShapeAcceptorType = EShapeAcceptorEdgeType;
 /**
  * @deprecated in favor of {@link EShapeAcceptorEdgeType}.
  */
-export type EShapeAcceptorType = typeof EShapeAcceptorType[keyof typeof EShapeAcceptorType];
+export type EShapeAcceptorType = (typeof EShapeAcceptorType)[keyof typeof EShapeAcceptorType];

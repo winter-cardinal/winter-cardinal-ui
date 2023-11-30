@@ -10,4 +10,4 @@ export const EShapeAcceptorEdgeType = {
 } as const;
 
 export type EShapeAcceptorEdgeType =
-	typeof EShapeAcceptorEdgeType[keyof typeof EShapeAcceptorEdgeType];
+	(typeof EShapeAcceptorEdgeType)[keyof typeof EShapeAcceptorEdgeType];

@@ -8,4 +8,4 @@ export const DColorType = {
 	STANDARD: 1
 } as const;
 
-export type DColorType = typeof DColorType[keyof typeof DColorType];
+export type DColorType = (typeof DColorType)[keyof typeof DColorType];

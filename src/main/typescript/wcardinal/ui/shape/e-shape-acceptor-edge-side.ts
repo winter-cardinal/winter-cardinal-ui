@@ -13,4 +13,4 @@ export const EShapeAcceptorEdgeSide = {
 };
 
 export type EShapeAcceptorEdgeSide =
-	typeof EShapeAcceptorEdgeSide[keyof typeof EShapeAcceptorEdgeSide];
+	(typeof EShapeAcceptorEdgeSide)[keyof typeof EShapeAcceptorEdgeSide];

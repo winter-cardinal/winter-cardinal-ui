@@ -17,7 +17,7 @@ export const DTreeDataSelectionType = {
 } as const;
 
 export type DTreeDataSelectionType =
-	typeof DTreeDataSelectionType[keyof typeof DTreeDataSelectionType];
+	(typeof DTreeDataSelectionType)[keyof typeof DTreeDataSelectionType];
 
 /**
  * {@link DTreeDataSelection} events.

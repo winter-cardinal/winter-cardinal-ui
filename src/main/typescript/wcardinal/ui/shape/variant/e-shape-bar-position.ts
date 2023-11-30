@@ -10,4 +10,4 @@ export const EShapeBarPosition = {
 	BOTTOM: 3
 } as const;
 
-export type EShapeBarPosition = typeof EShapeBarPosition[keyof typeof EShapeBarPosition];
+export type EShapeBarPosition = (typeof EShapeBarPosition)[keyof typeof EShapeBarPosition];

@@ -13,4 +13,4 @@ export const EShapeLineBaseHitPart = {
 } as const;
 
 export type EShapeLineBaseHitPart =
-	typeof EShapeLineBaseHitPart[keyof typeof EShapeLineBaseHitPart];
+	(typeof EShapeLineBaseHitPart)[keyof typeof EShapeLineBaseHitPart];

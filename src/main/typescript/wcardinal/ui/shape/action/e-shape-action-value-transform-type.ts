@@ -10,4 +10,4 @@ export const EShapeActionValueTransformType = {
 } as const;
 
 export type EShapeActionValueTransformType =
-	typeof EShapeActionValueTransformType[keyof typeof EShapeActionValueTransformType];
+	(typeof EShapeActionValueTransformType)[keyof typeof EShapeActionValueTransformType];

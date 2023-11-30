@@ -105,7 +105,8 @@ export interface DTableColumn<
 	ROW_VALUE,
 	CELL_VALUE,
 	DIALOG_VALUE = CELL_VALUE,
-	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE> = DTableColumnSelectingDialog<DIALOG_VALUE>
+	DIALOG extends
+		DTableColumnSelectingDialog<DIALOG_VALUE> = DTableColumnSelectingDialog<DIALOG_VALUE>
 > {
 	weight: number | undefined;
 	width: number | undefined;

@@ -13,7 +13,8 @@ export interface DThemePaginationButtonPrevious extends DThemeButtonAmbient<stri
 
 export class DPaginationButtonPrevious<
 	THEME extends DThemePaginationButtonPrevious = DThemePaginationButtonPrevious,
-	OPTIONS extends DPaginationButtonPreviousOptions<THEME> = DPaginationButtonPreviousOptions<THEME>
+	OPTIONS extends
+		DPaginationButtonPreviousOptions<THEME> = DPaginationButtonPreviousOptions<THEME>
 > extends DButtonAmbient<string, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DPaginationButtonPrevious";

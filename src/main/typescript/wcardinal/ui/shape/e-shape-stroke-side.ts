@@ -21,4 +21,4 @@ export const EShapeStrokeSide = {
 	ALL: TOP | RIGHT | BOTTOM | LEFT
 } as const;
 
-export type EShapeStrokeSide = typeof EShapeStrokeSide[keyof typeof EShapeStrokeSide];
+export type EShapeStrokeSide = (typeof EShapeStrokeSide)[keyof typeof EShapeStrokeSide];

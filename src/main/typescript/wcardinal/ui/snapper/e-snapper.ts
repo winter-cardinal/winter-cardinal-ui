@@ -32,7 +32,7 @@ export const ESnapperModifierAnchor = {
 } as const;
 
 export type ESnapperModifierAnchor =
-	typeof ESnapperModifierAnchor[keyof typeof ESnapperModifierAnchor];
+	(typeof ESnapperModifierAnchor)[keyof typeof ESnapperModifierAnchor];
 
 export interface ESnapperParentCanvas {
 	scale: {

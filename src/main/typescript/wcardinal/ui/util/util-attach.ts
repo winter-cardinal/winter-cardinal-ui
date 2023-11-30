@@ -37,7 +37,7 @@ export const UtilAttachAlign = {
 	NONE: 17
 } as const;
 
-export type UtilAttachAlign = typeof UtilAttachAlign[keyof typeof UtilAttachAlign];
+export type UtilAttachAlign = (typeof UtilAttachAlign)[keyof typeof UtilAttachAlign];
 
 export class UtilAttach {
 	static attach(

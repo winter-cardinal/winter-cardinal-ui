@@ -11,4 +11,4 @@ export const EShapeActionValueOnInputAction = {
 } as const;
 
 export type EShapeActionValueOnInputAction =
-	typeof EShapeActionValueOnInputAction[keyof typeof EShapeActionValueOnInputAction];
+	(typeof EShapeActionValueOnInputAction)[keyof typeof EShapeActionValueOnInputAction];

@@ -7,7 +7,8 @@ import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-ba
 
 export interface DTableBodyCellInputTreeMarkerOptions<
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellInputTreeMarker<VALUE> = DThemeTableBodyCellInputTreeMarker<VALUE>
+	THEME extends
+		DThemeTableBodyCellInputTreeMarker<VALUE> = DThemeTableBodyCellInputTreeMarker<VALUE>
 > extends DButtonBaseOptions<VALUE, THEME> {}
 
 export interface DThemeTableBodyCellInputTreeMarker<VALUE = unknown>
@@ -15,7 +16,8 @@ export interface DThemeTableBodyCellInputTreeMarker<VALUE = unknown>
 
 export class DTableBodyCellInputTreeMarker<
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellInputTreeMarker<VALUE> = DThemeTableBodyCellInputTreeMarker<VALUE>,
+	THEME extends
+		DThemeTableBodyCellInputTreeMarker<VALUE> = DThemeTableBodyCellInputTreeMarker<VALUE>,
 	OPTIONS extends DTableBodyCellInputTreeMarkerOptions<
 		VALUE,
 		THEME

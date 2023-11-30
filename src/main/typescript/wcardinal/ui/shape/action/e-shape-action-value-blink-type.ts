@@ -13,4 +13,4 @@ export const EShapeActionValueBlinkType = {
 } as const;
 
 export type EShapeActionValueBlinkType =
-	typeof EShapeActionValueBlinkType[keyof typeof EShapeActionValueBlinkType];
+	(typeof EShapeActionValueBlinkType)[keyof typeof EShapeActionValueBlinkType];

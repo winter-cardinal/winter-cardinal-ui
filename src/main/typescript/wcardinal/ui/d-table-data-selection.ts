@@ -17,7 +17,7 @@ export const DTableDataSelectionType = {
 } as const;
 
 export type DTableDataSelectionType =
-	typeof DTableDataSelectionType[keyof typeof DTableDataSelectionType];
+	(typeof DTableDataSelectionType)[keyof typeof DTableDataSelectionType];
 
 /**
  * {@link DTableDataSelection} events.

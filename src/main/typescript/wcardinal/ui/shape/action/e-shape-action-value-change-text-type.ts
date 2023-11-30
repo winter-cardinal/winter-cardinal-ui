@@ -9,4 +9,4 @@ export const EShapeActionValueChangeTextType = {
 } as const;
 
 export type EShapeActionValueChangeTextType =
-	typeof EShapeActionValueChangeTextType[keyof typeof EShapeActionValueChangeTextType];
+	(typeof EShapeActionValueChangeTextType)[keyof typeof EShapeActionValueChangeTextType];

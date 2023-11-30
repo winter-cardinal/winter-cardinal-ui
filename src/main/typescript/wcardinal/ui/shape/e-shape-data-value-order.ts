@@ -8,4 +8,4 @@ export const EShapeDataValueOrder = {
 	DESCENDING: 1
 } as const;
 
-export type EShapeDataValueOrder = typeof EShapeDataValueOrder[keyof typeof EShapeDataValueOrder];
+export type EShapeDataValueOrder = (typeof EShapeDataValueOrder)[keyof typeof EShapeDataValueOrder];

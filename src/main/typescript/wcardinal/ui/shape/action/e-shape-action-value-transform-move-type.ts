@@ -13,4 +13,4 @@ export const EShapeActionValueTransformMoveType = {
 } as const;
 
 export type EShapeActionValueTransformMoveType =
-	typeof EShapeActionValueTransformMoveType[keyof typeof EShapeActionValueTransformMoveType];
+	(typeof EShapeActionValueTransformMoveType)[keyof typeof EShapeActionValueTransformMoveType];

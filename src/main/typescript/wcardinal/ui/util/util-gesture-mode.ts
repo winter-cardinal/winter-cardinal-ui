@@ -9,4 +9,4 @@ export const UtilGestureMode = {
 	TOUCH: 2
 } as const;
 
-export type UtilGestureMode = typeof UtilGestureMode[keyof typeof UtilGestureMode];
+export type UtilGestureMode = (typeof UtilGestureMode)[keyof typeof UtilGestureMode];

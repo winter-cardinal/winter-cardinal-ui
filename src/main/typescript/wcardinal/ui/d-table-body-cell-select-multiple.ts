@@ -13,7 +13,8 @@ import { DTableDataSupplimental } from "./d-table-data";
 export interface DTableBodyCellSelectMultipleOptions<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>
+	THEME extends
+		DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>
 > extends DSelectMultipleOptions<VALUE, THEME> {}
 
 export interface DThemeTableBodyCellSelectMultiple<VALUE = unknown>
@@ -22,7 +23,8 @@ export interface DThemeTableBodyCellSelectMultiple<VALUE = unknown>
 export class DTableBodyCellSelectMultiple<
 		ROW = unknown,
 		VALUE = unknown,
-		THEME extends DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>,
+		THEME extends
+			DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>,
 		OPTIONS extends DTableBodyCellSelectMultipleOptions<
 			ROW,
 			VALUE,

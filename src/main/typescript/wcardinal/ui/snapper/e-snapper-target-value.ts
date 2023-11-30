@@ -11,7 +11,7 @@ export const ESnapperTargetValueType = {
 } as const;
 
 export type ESnapperTargetValueType =
-	typeof ESnapperTargetValueType[keyof typeof ESnapperTargetValueType];
+	(typeof ESnapperTargetValueType)[keyof typeof ESnapperTargetValueType];
 
 export class ESnapperTargetValue {
 	type: ESnapperTargetValueType;

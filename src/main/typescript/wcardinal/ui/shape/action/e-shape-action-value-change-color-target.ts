@@ -12,4 +12,4 @@ export const EShapeActionValueChangeColorTarget = {
 } as const;
 
 export type EShapeActionValueChangeColorTarget =
-	typeof EShapeActionValueChangeColorTarget[keyof typeof EShapeActionValueChangeColorTarget];
+	(typeof EShapeActionValueChangeColorTarget)[keyof typeof EShapeActionValueChangeColorTarget];

@@ -9,4 +9,4 @@ export const DLinkTarget = {
 	NEW_WINDOW: 2
 } as const;
 
-export type DLinkTarget = typeof DLinkTarget[keyof typeof DLinkTarget];
+export type DLinkTarget = (typeof DLinkTarget)[keyof typeof DLinkTarget];

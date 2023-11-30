@@ -14,7 +14,8 @@ export interface DThemeTableBodyCellInputTreeInput extends DThemeInputText {}
 
 export class DTableBodyCellInputTreeInput<
 	THEME extends DThemeTableBodyCellInputTreeInput = DThemeTableBodyCellInputTreeInput,
-	OPTIONS extends DTableBodyCellInputTreeInputOptions<THEME> = DTableBodyCellInputTreeInputOptions<THEME>
+	OPTIONS extends
+		DTableBodyCellInputTreeInputOptions<THEME> = DTableBodyCellInputTreeInputOptions<THEME>
 > extends DInputText<THEME, OPTIONS> {
 	protected _padding!: DBasePaddingAdjustable;
 

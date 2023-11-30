@@ -17,14 +17,14 @@ export const EShapeTextWeight = {
 	BOLD: 1
 } as const;
 
-export type EShapeTextWeight = typeof EShapeTextWeight[keyof typeof EShapeTextWeight];
+export type EShapeTextWeight = (typeof EShapeTextWeight)[keyof typeof EShapeTextWeight];
 
 export const EShapeTextStyle = {
 	NORMAL: 0,
 	ITALIC: 1
 } as const;
 
-export type EShapeTextStyle = typeof EShapeTextStyle[keyof typeof EShapeTextStyle];
+export type EShapeTextStyle = (typeof EShapeTextStyle)[keyof typeof EShapeTextStyle];
 
 export interface EShapeTextLike {
 	value: string;

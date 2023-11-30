@@ -9,4 +9,4 @@ export const EShapeActionValueGestureType = {
 } as const;
 
 export type EShapeActionValueGestureType =
-	typeof EShapeActionValueGestureType[keyof typeof EShapeActionValueGestureType];
+	(typeof EShapeActionValueGestureType)[keyof typeof EShapeActionValueGestureType];

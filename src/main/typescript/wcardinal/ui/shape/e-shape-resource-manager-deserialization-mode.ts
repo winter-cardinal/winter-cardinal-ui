@@ -10,4 +10,4 @@ export const EShapeResourceManagerDeserializationMode = {
 } as const;
 
 export type EShapeResourceManagerDeserializationMode =
-	typeof EShapeResourceManagerDeserializationMode[keyof typeof EShapeResourceManagerDeserializationMode];
+	(typeof EShapeResourceManagerDeserializationMode)[keyof typeof EShapeResourceManagerDeserializationMode];

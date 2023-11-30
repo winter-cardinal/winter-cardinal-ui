@@ -23,4 +23,4 @@ export const EShapeDataValueScope = {
 	PROTECTED: 2
 } as const;
 
-export type EShapeDataValueScope = typeof EShapeDataValueScope[keyof typeof EShapeDataValueScope];
+export type EShapeDataValueScope = (typeof EShapeDataValueScope)[keyof typeof EShapeDataValueScope];

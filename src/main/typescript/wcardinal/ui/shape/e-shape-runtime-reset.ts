@@ -31,4 +31,4 @@ export const EShapeRuntimeReset = {
 	CURSOR
 } as const;
 
-export type EShapeRuntimeReset = typeof EShapeRuntimeReset[keyof typeof EShapeRuntimeReset];
+export type EShapeRuntimeReset = (typeof EShapeRuntimeReset)[keyof typeof EShapeRuntimeReset];

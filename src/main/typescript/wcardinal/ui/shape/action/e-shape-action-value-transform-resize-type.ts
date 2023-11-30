@@ -13,4 +13,4 @@ export const EShapeActionValueTransformResizeType = {
 } as const;
 
 export type EShapeActionValueTransformResizeType =
-	typeof EShapeActionValueTransformResizeType[keyof typeof EShapeActionValueTransformResizeType];
+	(typeof EShapeActionValueTransformResizeType)[keyof typeof EShapeActionValueTransformResizeType];

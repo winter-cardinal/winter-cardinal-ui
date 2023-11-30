@@ -12,4 +12,4 @@ export const EShapeTextAlignHorizontal = {
 } as const;
 
 export type EShapeTextAlignHorizontal =
-	typeof EShapeTextAlignHorizontal[keyof typeof EShapeTextAlignHorizontal];
+	(typeof EShapeTextAlignHorizontal)[keyof typeof EShapeTextAlignHorizontal];

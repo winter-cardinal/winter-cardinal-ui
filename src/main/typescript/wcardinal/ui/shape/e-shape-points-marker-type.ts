@@ -11,4 +11,4 @@ export const EShapePointsMarkerType = {
 } as const;
 
 export type EShapePointsMarkerType =
-	typeof EShapePointsMarkerType[keyof typeof EShapePointsMarkerType];
+	(typeof EShapePointsMarkerType)[keyof typeof EShapePointsMarkerType];

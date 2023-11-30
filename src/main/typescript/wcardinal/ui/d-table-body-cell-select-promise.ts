@@ -29,7 +29,8 @@ export interface DThemeTableBodyCellSelectPromise<VALUE = unknown>
 export class DTableBodyCellSelectPromise<
 		ROW = unknown,
 		VALUE = unknown,
-		THEME extends DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>,
+		THEME extends
+			DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>,
 		OPTIONS extends DTableBodyCellSelectPromiseOptions<
 			ROW,
 			VALUE,

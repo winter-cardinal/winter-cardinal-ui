@@ -29,4 +29,4 @@ export const UtilHtmlElementWhen = {
 	ALWAYS: 3
 } as const;
 
-export type UtilHtmlElementWhen = typeof UtilHtmlElementWhen[keyof typeof UtilHtmlElementWhen];
+export type UtilHtmlElementWhen = (typeof UtilHtmlElementWhen)[keyof typeof UtilHtmlElementWhen];
