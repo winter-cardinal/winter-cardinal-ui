@@ -20,6 +20,7 @@ export * from "./d-theme-dark-ja-jp-link";
 export * from "./d-theme-dark-ja-jp-note-error";
 export * from "./d-theme-dark-ja-jp-note-no-items-found";
 export * from "./d-theme-dark-ja-jp-note-searching";
+export * from "./d-theme-dark-ja-jp-picker-color";
 export * from "./d-theme-dark-ja-jp-picker-date";
 export * from "./d-theme-dark-ja-jp-picker-datetime";
 export * from "./d-theme-dark-ja-jp-picker-time";

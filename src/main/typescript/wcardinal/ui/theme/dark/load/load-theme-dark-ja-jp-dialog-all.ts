@@ -4,8 +4,8 @@
  */
 
 import { loadThemeDarkDialog } from "./load-theme-dark-dialog";
-import { loadThemeDarkDialogColor } from "./load-theme-dark-dialog-color";
-import { loadThemeDarkDialogColorGradient } from "./load-theme-dark-dialog-color-gradient";
+import { loadThemeDarkJaJpDialogColor } from "./load-theme-dark-ja-jp-dialog-color";
+import { loadThemeDarkJaJpDialogColorGradient } from "./load-theme-dark-ja-jp-dialog-color-gradient";
 import { loadThemeDarkJaJpDialogLayered } from "./load-theme-dark-ja-jp-dialog-layered";
 import { loadThemeDarkJaJpDialogConfirm } from "./load-theme-dark-ja-jp-dialog-confirm";
 import { loadThemeDarkJaJpDialogConfirmDelete } from "./load-theme-dark-ja-jp-dialog-confirm-delete";
@@ -24,8 +24,8 @@ import { loadThemeDarkJaJpDialogTime } from "./load-theme-dark-ja-jp-dialog-time
 import { loadThemeDarkDialogFitted } from "./load-theme-dark-dialog-fitted";
 
 export const loadThemeDarkJaJpDialogAll = (): void => {
-	loadThemeDarkDialogColorGradient();
-	loadThemeDarkDialogColor();
+	loadThemeDarkJaJpDialogColorGradient();
+	loadThemeDarkJaJpDialogColor();
 	loadThemeDarkJaJpDialogConfirmDelete();
 	loadThemeDarkJaJpDialogConfirmDiscard();
 	loadThemeDarkJaJpDialogConfirm();

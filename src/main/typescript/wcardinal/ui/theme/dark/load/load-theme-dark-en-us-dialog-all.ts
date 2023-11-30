@@ -4,8 +4,8 @@
  */
 
 import { loadThemeDarkDialog } from "./load-theme-dark-dialog";
-import { loadThemeDarkDialogColor } from "./load-theme-dark-dialog-color";
-import { loadThemeDarkDialogColorGradient } from "./load-theme-dark-dialog-color-gradient";
+import { loadThemeDarkEnUsDialogColor } from "./load-theme-dark-en-us-dialog-color";
+import { loadThemeDarkEnUsDialogColorGradient } from "./load-theme-dark-en-us-dialog-color-gradient";
 import { loadThemeDarkEnUsDialogLayered } from "./load-theme-dark-en-us-dialog-layered";
 import { loadThemeDarkEnUsDialogConfirm } from "./load-theme-dark-en-us-dialog-confirm";
 import { loadThemeDarkEnUsDialogConfirmDelete } from "./load-theme-dark-en-us-dialog-confirm-delete";
@@ -24,8 +24,8 @@ import { loadThemeDarkEnUsDialogTime } from "./load-theme-dark-en-us-dialog-time
 import { loadThemeDarkDialogFitted } from "./load-theme-dark-dialog-fitted";
 
 export const loadThemeDarkEnUsDialogAll = (): void => {
-	loadThemeDarkDialogColorGradient();
-	loadThemeDarkDialogColor();
+	loadThemeDarkEnUsDialogColorGradient();
+	loadThemeDarkEnUsDialogColor();
 	loadThemeDarkEnUsDialogConfirmDelete();
 	loadThemeDarkEnUsDialogConfirmDiscard();
 	loadThemeDarkEnUsDialogConfirm();

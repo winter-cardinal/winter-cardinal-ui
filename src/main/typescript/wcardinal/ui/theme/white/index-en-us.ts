@@ -20,6 +20,7 @@ export * from "./d-theme-white-en-us-link";
 export * from "./d-theme-white-en-us-note-error";
 export * from "./d-theme-white-en-us-note-no-items-found";
 export * from "./d-theme-white-en-us-note-searching";
+export * from "./d-theme-white-en-us-picker-color";
 export * from "./d-theme-white-en-us-picker-date";
 export * from "./d-theme-white-en-us-picker-datetime";
 export * from "./d-theme-white-en-us-picker-time";

@@ -38,7 +38,7 @@ import { DThemeWhiteTableHeader } from "../d-theme-white-table-header";
 import { DThemeWhiteTableHeaderCell } from "../d-theme-white-table-header-cell";
 import { DThemeWhiteTableRow } from "../d-theme-white-table-row";
 import { loadThemeWhiteButtonCheck } from "./load-theme-white-button-check";
-import { loadThemeWhiteButtonColor } from "./load-theme-white-button-color";
+import { loadThemeWhiteJaJpButtonColor } from "./load-theme-white-ja-jp-button-color";
 import { loadThemeWhiteJaJpButtonDate } from "./load-theme-white-ja-jp-button-date";
 import { loadThemeWhiteJaJpButtonDatetime } from "./load-theme-white-ja-jp-button-datetime";
 import { loadThemeWhiteJaJpDialogSelect } from "./load-theme-white-ja-jp-dialog-select";
@@ -83,7 +83,7 @@ export const loadThemeWhiteJaJpTable = (): void => {
 	DThemeWhite.set("DTableRow", DThemeWhiteTableRow);
 	DThemeWhite.set("DTable", DThemeWhiteTable);
 	loadThemeWhiteButtonCheck();
-	loadThemeWhiteButtonColor();
+	loadThemeWhiteJaJpButtonColor();
 	loadThemeWhiteJaJpButtonDate();
 	loadThemeWhiteJaJpButtonDatetime();
 	loadThemeWhiteInputInteger();

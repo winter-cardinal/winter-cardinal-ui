@@ -5,9 +5,9 @@
 
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkPickerColorGradient } from "../d-theme-dark-picker-color-gradient";
-import { loadThemeDarkPickerColor } from "./load-theme-dark-picker-color";
+import { loadThemeDarkJaJpPickerColor } from "./load-theme-dark-ja-jp-picker-color";
 
-export const loadThemeDarkPickerColorGradient = (): void => {
+export const loadThemeDarkJaJpPickerColorGradient = (): void => {
 	DThemeDark.set("DPickerColorGradient", DThemeDarkPickerColorGradient);
-	loadThemeDarkPickerColor();
+	loadThemeDarkJaJpPickerColor();
 };

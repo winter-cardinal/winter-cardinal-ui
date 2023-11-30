@@ -5,9 +5,9 @@
 
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonColor } from "../d-theme-white-button-color";
-import { loadThemeWhiteDialogColor } from "./load-theme-white-dialog-color";
+import { loadThemeWhiteJaJpDialogColor } from "./load-theme-white-ja-jp-dialog-color";
 
-export const loadThemeWhiteButtonColor = (): void => {
+export const loadThemeWhiteJaJpButtonColor = (): void => {
 	DThemeWhite.set("DButtonColor", DThemeWhiteButtonColor);
-	loadThemeWhiteDialogColor();
+	loadThemeWhiteJaJpDialogColor();
 };

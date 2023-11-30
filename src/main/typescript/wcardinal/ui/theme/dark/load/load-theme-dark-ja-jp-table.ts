@@ -38,7 +38,7 @@ import { DThemeDarkTableHeader } from "../d-theme-dark-table-header";
 import { DThemeDarkTableHeaderCell } from "../d-theme-dark-table-header-cell";
 import { DThemeDarkTableRow } from "../d-theme-dark-table-row";
 import { loadThemeDarkButtonCheck } from "./load-theme-dark-button-check";
-import { loadThemeDarkButtonColor } from "./load-theme-dark-button-color";
+import { loadThemeDarkJaJpButtonColor } from "./load-theme-dark-ja-jp-button-color";
 import { loadThemeDarkJaJpButtonDate } from "./load-theme-dark-ja-jp-button-date";
 import { loadThemeDarkJaJpButtonDatetime } from "./load-theme-dark-ja-jp-button-datetime";
 import { loadThemeDarkJaJpDialogSelect } from "./load-theme-dark-ja-jp-dialog-select";
@@ -83,7 +83,7 @@ export const loadThemeDarkJaJpTable = (): void => {
 	DThemeDark.set("DTableRow", DThemeDarkTableRow);
 	DThemeDark.set("DTable", DThemeDarkTable);
 	loadThemeDarkButtonCheck();
-	loadThemeDarkButtonColor();
+	loadThemeDarkJaJpButtonColor();
 	loadThemeDarkJaJpButtonDate();
 	loadThemeDarkJaJpButtonDatetime();
 	loadThemeDarkInputInteger();

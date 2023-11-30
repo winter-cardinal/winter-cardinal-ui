@@ -5,9 +5,9 @@
 
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhitePickerColorGradient } from "../d-theme-white-picker-color-gradient";
-import { loadThemeWhitePickerColor } from "./load-theme-white-picker-color";
+import { loadThemeWhiteEnUsPickerColor } from "./load-theme-white-en-us-picker-color";
 
-export const loadThemeWhitePickerColorGradient = (): void => {
+export const loadThemeWhiteEnUsPickerColorGradient = (): void => {
 	DThemeWhite.set("DPickerColorGradient", DThemeWhitePickerColorGradient);
-	loadThemeWhitePickerColor();
+	loadThemeWhiteEnUsPickerColor();
 };

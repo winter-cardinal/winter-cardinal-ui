@@ -71,6 +71,8 @@ export interface DThemePickerColor extends DThemeBase {
 	getStandardColorHeight(): number;
 	getStandardColorMargin(): number;
 	getStandardTexture(): Texture;
+
+	toColorTypeLabel(type: DColorType): string;
 }
 
 export class DPickerColor<
@@ -177,13 +179,13 @@ export class DPickerColor<
 					{
 						value: DColorType.STANDARD,
 						text: {
-							value: "Standard"
+							value: theme.toColorTypeLabel(DColorType.STANDARD)
 						}
 					},
 					{
 						value: DColorType.CUSTOM,
 						text: {
-							value: "Custom"
+							value: theme.toColorTypeLabel(DColorType.CUSTOM)
 						}
 					}
 				]

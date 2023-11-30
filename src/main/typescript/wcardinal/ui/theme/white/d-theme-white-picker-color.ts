@@ -9,6 +9,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemePickerColor } from "../../d-picker-color";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteBase } from "./d-theme-white-base";
+import { DColorType } from "../../d-color-type";
 
 const makeCheckerboard = (width: number, height: number): string => {
 	const LIGHT = "#bfbfbf";
@@ -122,7 +123,7 @@ DThemeWhiteAtlas.add("picker_color_standard", 18, 18,
 );
 /* eslint-enable prettier/prettier */
 
-export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePickerColor {
+export abstract class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePickerColor {
 	getMainWidth(): number {
 		return 234;
 	}
@@ -291,4 +292,6 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 		super.newState(state);
 		state.isFocusable = false;
 	}
+
+	abstract toColorTypeLabel(type: DColorType): string;
 }
