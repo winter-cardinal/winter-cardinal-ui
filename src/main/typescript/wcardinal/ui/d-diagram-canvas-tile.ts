@@ -29,9 +29,12 @@ export class DDiagramCanvasTile {
 	constructor(canvas: DDiagramCanvasBase, options?: DDiagramCanvasTileOptions) {
 		this._canvas = canvas;
 		this._factory = options?.factory;
-		this._mapping = new DDiagramCanvasTileMappingImpl((): void => {
-			this.onMappingChange();
-		}, options?.mapping);
+		this._mapping = new DDiagramCanvasTileMappingImpl(
+			(): void => {
+				this.onMappingChange();
+			},
+			options?.mapping
+		);
 	}
 
 	init(): void {

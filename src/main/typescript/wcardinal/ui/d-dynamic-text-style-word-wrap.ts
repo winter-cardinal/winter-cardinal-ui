@@ -10,4 +10,4 @@ export const DDynamicTextStyleWordWrap = {
 } as const;
 
 export type DDynamicTextStyleWordWrap =
-	typeof DDynamicTextStyleWordWrap[keyof typeof DDynamicTextStyleWordWrap];
+	(typeof DDynamicTextStyleWordWrap)[keyof typeof DDynamicTextStyleWordWrap];

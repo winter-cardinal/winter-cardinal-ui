@@ -16,7 +16,7 @@ export const DListDataSelectionType = {
 } as const;
 
 export type DListDataSelectionType =
-	typeof DListDataSelectionType[keyof typeof DListDataSelectionType];
+	(typeof DListDataSelectionType)[keyof typeof DListDataSelectionType];
 
 /**
  * {@link DListDataSelection} events.

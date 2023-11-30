@@ -16,7 +16,7 @@ export const DChartSelectionPoint = {
 	INTERSECTION: 3
 } as const;
 
-export type DChartSelectionPoint = typeof DChartSelectionPoint[keyof typeof DChartSelectionPoint];
+export type DChartSelectionPoint = (typeof DChartSelectionPoint)[keyof typeof DChartSelectionPoint];
 
 export type DChartSelectionStyle<CHART extends DBase = DBase> = (
 	shape: EShape,

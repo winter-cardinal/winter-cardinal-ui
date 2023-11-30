@@ -9,4 +9,4 @@ export const DLinkMenuItemId = {
 	COPY_LINK_ADDRESS: 2
 } as const;
 
-export type DLinkMenuItemId = typeof DLinkMenuItemId[keyof typeof DLinkMenuItemId];
+export type DLinkMenuItemId = (typeof DLinkMenuItemId)[keyof typeof DLinkMenuItemId];

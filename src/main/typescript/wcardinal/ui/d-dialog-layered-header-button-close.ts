@@ -13,7 +13,8 @@ export interface DThemeDialogLayeredHeaderButtonClose extends DThemeButtonAmbien
 
 export class DDialogLayeredHeaderButtonClose<
 	THEME extends DThemeDialogLayeredHeaderButtonClose = DThemeDialogLayeredHeaderButtonClose,
-	OPTIONS extends DDialogLayeredHeaderButtonCloseOptions<THEME> = DDialogLayeredHeaderButtonCloseOptions<THEME>
+	OPTIONS extends
+		DDialogLayeredHeaderButtonCloseOptions<THEME> = DDialogLayeredHeaderButtonCloseOptions<THEME>
 > extends DButtonAmbient<string, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DDialogLayeredHeaderButtonClose";

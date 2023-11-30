@@ -8,4 +8,4 @@ export const DDialogGestureMode = {
 	CLEAN: 1
 } as const;
 
-export type DDialogGestureMode = typeof DDialogGestureMode[keyof typeof DDialogGestureMode];
+export type DDialogGestureMode = (typeof DDialogGestureMode)[keyof typeof DDialogGestureMode];

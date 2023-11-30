@@ -9,4 +9,4 @@ export const DChartCoordinateDirection = {
 } as const;
 
 export type DChartCoordinateDirection =
-	typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
+	(typeof DChartCoordinateDirection)[keyof typeof DChartCoordinateDirection];

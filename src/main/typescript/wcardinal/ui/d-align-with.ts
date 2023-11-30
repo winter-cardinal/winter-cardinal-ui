@@ -9,4 +9,4 @@ export const DAlignWith = {
 	BORDER: 2
 } as const;
 
-export type DAlignWith = typeof DAlignWith[keyof typeof DAlignWith];
+export type DAlignWith = (typeof DAlignWith)[keyof typeof DAlignWith];

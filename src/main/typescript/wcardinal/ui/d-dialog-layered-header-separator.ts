@@ -13,7 +13,8 @@ export interface DThemeDialogLayeredHeaderSeparator extends DThemeImageBase<stri
 
 export class DDialogLayeredHeaderSeparator<
 	THEME extends DThemeDialogLayeredHeaderSeparator = DThemeDialogLayeredHeaderSeparator,
-	OPTIONS extends DDialogLayeredHeaderSeparatorOptions<THEME> = DDialogLayeredHeaderSeparatorOptions<THEME>
+	OPTIONS extends
+		DDialogLayeredHeaderSeparatorOptions<THEME> = DDialogLayeredHeaderSeparatorOptions<THEME>
 > extends DImageBase<string, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DDialogLayeredHeaderSeparator";

@@ -9,4 +9,4 @@ export const DChartAxisTickPosition = {
 } as const;
 
 export type DChartAxisTickPosition =
-	typeof DChartAxisTickPosition[keyof typeof DChartAxisTickPosition];
+	(typeof DChartAxisTickPosition)[keyof typeof DChartAxisTickPosition];

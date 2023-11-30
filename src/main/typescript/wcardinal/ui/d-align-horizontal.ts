@@ -9,4 +9,4 @@ export const DAlignHorizontal = {
 	RIGHT: 2
 } as const;
 
-export type DAlignHorizontal = typeof DAlignHorizontal[keyof typeof DAlignHorizontal];
+export type DAlignHorizontal = (typeof DAlignHorizontal)[keyof typeof DAlignHorizontal];

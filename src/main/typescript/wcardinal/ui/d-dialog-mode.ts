@@ -12,4 +12,4 @@ export const DDialogMode = {
 	MENU: 2
 } as const;
 
-export type DDialogMode = typeof DDialogMode[keyof typeof DDialogMode];
+export type DDialogMode = (typeof DDialogMode)[keyof typeof DDialogMode];

@@ -14,4 +14,4 @@ export const DButtonBaseWhen = {
 	DOUBLE_CLICKED: 1
 } as const;
 
-export type DButtonBaseWhen = typeof DButtonBaseWhen[keyof typeof DButtonBaseWhen];
+export type DButtonBaseWhen = (typeof DButtonBaseWhen)[keyof typeof DButtonBaseWhen];

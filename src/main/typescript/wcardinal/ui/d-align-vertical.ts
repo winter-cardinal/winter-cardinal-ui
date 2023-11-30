@@ -9,4 +9,4 @@ export const DAlignVertical = {
 	BOTTOM: 2
 } as const;
 
-export type DAlignVertical = typeof DAlignVertical[keyof typeof DAlignVertical];
+export type DAlignVertical = (typeof DAlignVertical)[keyof typeof DAlignVertical];

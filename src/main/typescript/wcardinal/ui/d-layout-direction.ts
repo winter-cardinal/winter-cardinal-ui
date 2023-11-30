@@ -8,4 +8,4 @@ export const DLayoutDirection = {
 	HORIZONTAL: 1
 } as const;
 
-export type DLayoutDirection = typeof DLayoutDirection[keyof typeof DLayoutDirection];
+export type DLayoutDirection = (typeof DLayoutDirection)[keyof typeof DLayoutDirection];
