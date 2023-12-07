@@ -364,8 +364,15 @@ export default ( !process.env.ROLLUP_WATCH ?
 					{ src: `dist/${name}-theme-white-en-us.min.js`, dest: `dist/`, rename: `${name}-theme-white.min.js` },
 					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `dist/`, rename: `${name}-theme-dark.js` },
 					{ src: `dist/${name}-theme-dark-en-us.min.js`, dest: `dist/`, rename: `${name}-theme-dark.min.js` },
+
+					{ src: `dist/${name}-theme-white-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white.js` },
+					{ src: `dist/${name}-theme-white-en-us.min.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white.min.js` },
+					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark.js` },
+					{ src: `dist/${name}-theme-dark-en-us.min.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark.min.js` },
+
 					{ src: `dist/${name}*.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
 					{ src: `dist/${name}*.map`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
+
 					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` },
 					{ src: 'node_modules/css-line-break/dist/*.js', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` },
 					{ src: 'node_modules/css-line-break/dist/*.js.map', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` }
