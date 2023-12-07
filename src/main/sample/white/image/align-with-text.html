@@ -60,8 +60,7 @@
 			column: 6
 		});
 
-		const DThemeImage = wcardinal.ui.DThemeWhiteImage || wcardinal.ui.DThemeDarkImage;
-		class DThemeImageBase extends DThemeImage {
+		class DThemeImageBase extends DThemes.getClass("DImage") {
 			getWidth() {
 				return 160;
 			}
