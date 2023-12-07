@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.384.0
+ Winter Cardinal UI v0.385.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -6301,46 +6301,46 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpPickerColor = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpPickerColor, _super);
-        function DThemeDarkJaJpPickerColor() {
+    var DThemeDarkEnUsPickerColor = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsPickerColor, _super);
+        function DThemeDarkEnUsPickerColor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpPickerColor.prototype.toColorTypeLabel = function (type) {
+        DThemeDarkEnUsPickerColor.prototype.toColorTypeLabel = function (type) {
             switch (type) {
                 case DColorType.STANDARD:
-                    return "標準";
+                    return "Standard";
                 case DColorType.CUSTOM:
-                    return "カスタム";
+                    return "Custom";
             }
         };
-        return DThemeDarkJaJpPickerColor;
+        return DThemeDarkEnUsPickerColor;
     }(DThemeDarkPickerColor));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpPickerColor = function () {
-        DThemeDark.set("DPickerColor", DThemeDarkJaJpPickerColor);
+    var loadThemeDarkEnUsPickerColor = function () {
+        DThemeDark.set("DPickerColor", DThemeDarkEnUsPickerColor);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogColor = function () {
+    var loadThemeDarkEnUsDialogColor = function () {
         DThemeDark.set("DDialogColor", DThemeDarkDialogColor);
-        loadThemeDarkJaJpPickerColor();
+        loadThemeDarkEnUsPickerColor();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonColor = function () {
+    var loadThemeDarkEnUsButtonColor = function () {
         DThemeDark.set("DButtonColor", DThemeDarkButtonColor);
-        loadThemeDarkJaJpDialogColor();
+        loadThemeDarkEnUsDialogColor();
     };
 
     const DColorGradientObservable = wcardinal.ui.DColorGradientObservable;
@@ -6459,27 +6459,27 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpPickerColorGradient = function () {
+    var loadThemeDarkEnUsPickerColorGradient = function () {
         DThemeDark.set("DPickerColorGradient", DThemeDarkPickerColorGradient);
-        loadThemeDarkJaJpPickerColor();
+        loadThemeDarkEnUsPickerColor();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogColorGradient = function () {
+    var loadThemeDarkEnUsDialogColorGradient = function () {
         DThemeDark.set("DDialogColorGradient", DThemeDarkDialogColorGradient);
-        loadThemeDarkJaJpPickerColorGradient();
+        loadThemeDarkEnUsPickerColorGradient();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonColorGradient = function () {
+    var loadThemeDarkEnUsButtonColorGradient = function () {
         DThemeDark.set("DButtonColorGradient", DThemeDarkButtonColorGradient);
-        loadThemeDarkJaJpDialogColorGradient();
+        loadThemeDarkEnUsDialogColorGradient();
     };
 
     const DPickerDates = wcardinal.ui.DPickerDates;
@@ -6569,30 +6569,30 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpPickerTime = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpPickerTime, _super);
-        function DThemeDarkJaJpPickerTime() {
+    var DThemeDarkEnUsPickerTime = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsPickerTime, _super);
+        function DThemeDarkEnUsPickerTime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpPickerTime.prototype.getHoursOptions = function () {
+        DThemeDarkEnUsPickerTime.prototype.getHoursOptions = function () {
             return {
                 width: 100,
-                title: "時"
+                title: "Hours"
             };
         };
-        DThemeDarkJaJpPickerTime.prototype.getMinutesOptions = function () {
+        DThemeDarkEnUsPickerTime.prototype.getMinutesOptions = function () {
             return {
                 width: 100,
-                title: "分"
+                title: "Minutes"
             };
         };
-        DThemeDarkJaJpPickerTime.prototype.getSecondsOptions = function () {
+        DThemeDarkEnUsPickerTime.prototype.getSecondsOptions = function () {
             return {
                 width: 100,
-                title: "秒"
+                title: "Seconds"
             };
         };
-        return DThemeDarkJaJpPickerTime;
+        return DThemeDarkEnUsPickerTime;
     }(DThemeDarkPickerTime));
 
     /*
@@ -6600,73 +6600,73 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var MONTH_LABELS = [
-        "1月",
-        "2月",
-        "3月",
-        "4月",
-        "5月",
-        "6月",
-        "7月",
-        "8月",
-        "9月",
-        "10月",
-        "11月",
-        "12月"
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
     ];
-    var DAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+    var DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     var defaultLabelFormatter = function (date) {
-        return "".concat(date.getFullYear(), "\u5E74").concat(MONTH_LABELS[date.getMonth()]);
+        return "".concat(MONTH_LABELS[date.getMonth()], " ").concat(date.getFullYear());
     };
     var defaultDateDecorator = function () {
         /* DO NOTHING*/
     };
-    var DThemeDarkJaJpPickerDatetime = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpPickerDatetime, _super);
-        function DThemeDarkJaJpPickerDatetime() {
+    var DThemeDarkEnUsPickerDatetime = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsPickerDatetime, _super);
+        function DThemeDarkEnUsPickerDatetime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpPickerDatetime.prototype.getDayLabels = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getDayLabels = function () {
             return DAY_LABELS;
         };
-        DThemeDarkJaJpPickerDatetime.prototype.getLabelFormatter = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getLabelFormatter = function () {
             return defaultLabelFormatter;
         };
-        DThemeDarkJaJpPickerDatetime.prototype.getDateDecorator = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getDateDecorator = function () {
             return defaultDateDecorator;
         };
-        DThemeDarkJaJpPickerDatetime.prototype.getBackButtonOptions = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getBackButtonOptions = function () {
             return {
-                title: "前月"
+                title: "Previous"
             };
         };
-        DThemeDarkJaJpPickerDatetime.prototype.getNextButtonOptions = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getNextButtonOptions = function () {
             return {
-                title: "翌月"
+                title: "Next"
             };
         };
-        DThemeDarkJaJpPickerDatetime.prototype.getDayStart = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getDayStart = function () {
             return 0;
         };
-        DThemeDarkJaJpPickerDatetime.prototype.getMask = function () {
+        DThemeDarkEnUsPickerDatetime.prototype.getMask = function () {
             return DPickerDatetimeMask.DATE | _super.prototype.getMask.call(this);
         };
-        return DThemeDarkJaJpPickerDatetime;
-    }(DThemeDarkJaJpPickerTime));
+        return DThemeDarkEnUsPickerDatetime;
+    }(DThemeDarkEnUsPickerTime));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpPickerDate = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpPickerDate, _super);
-        function DThemeDarkJaJpPickerDate() {
+    var DThemeDarkEnUsPickerDate = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsPickerDate, _super);
+        function DThemeDarkEnUsPickerDate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpPickerDate.prototype.getMask = function () {
+        DThemeDarkEnUsPickerDate.prototype.getMask = function () {
             return DPickerDatetimeMask.DATE;
         };
-        return DThemeDarkJaJpPickerDate;
-    }(DThemeDarkJaJpPickerDatetime));
+        return DThemeDarkEnUsPickerDate;
+    }(DThemeDarkEnUsPickerDatetime));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6869,50 +6869,50 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpPickerTime = function () {
-        DThemeDark.set("DPickerTime", DThemeDarkJaJpPickerTime);
+    var loadThemeDarkEnUsPickerTime = function () {
+        DThemeDark.set("DPickerTime", DThemeDarkEnUsPickerTime);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpPickerDatetime = function () {
+    var loadThemeDarkEnUsPickerDatetime = function () {
         DThemeDark.set("DPickerDatetimeButtonBack", DThemeDarkPickerDatetimeButtonBack);
         DThemeDark.set("DPickerDatetimeButtonDate", DThemeDarkPickerDatetimeButtonDate);
         DThemeDark.set("DPickerDatetimeButtonNext", DThemeDarkPickerDatetimeButtonNext);
         DThemeDark.set("DPickerDatetimeLabelDate", DThemeDarkPickerDatetimeLabelDate);
         DThemeDark.set("DPickerDatetimeLabel", DThemeDarkPickerDatetimeLabel);
         DThemeDark.set("DPickerDatetimeSpace", DThemeDarkPickerDatetimeSpace);
-        DThemeDark.set("DPickerDatetime", DThemeDarkJaJpPickerDatetime);
-        loadThemeDarkJaJpPickerTime();
+        DThemeDark.set("DPickerDatetime", DThemeDarkEnUsPickerDatetime);
+        loadThemeDarkEnUsPickerTime();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpPickerDate = function () {
-        DThemeDark.set("DPickerDate", DThemeDarkJaJpPickerDate);
-        loadThemeDarkJaJpPickerDatetime();
+    var loadThemeDarkEnUsPickerDate = function () {
+        DThemeDark.set("DPickerDate", DThemeDarkEnUsPickerDate);
+        loadThemeDarkEnUsPickerDatetime();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogDate = function () {
+    var loadThemeDarkEnUsDialogDate = function () {
         DThemeDark.set("DDialogDate", DThemeDarkDialogDate);
-        loadThemeDarkJaJpPickerDate();
+        loadThemeDarkEnUsPickerDate();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonDate = function () {
+    var loadThemeDarkEnUsButtonDate = function () {
         DThemeDark.set("DButtonDate", DThemeDarkButtonDate);
-        loadThemeDarkJaJpDialogDate();
+        loadThemeDarkEnUsDialogDate();
     };
 
     const DPickerDatetimes = wcardinal.ui.DPickerDatetimes;
@@ -6954,18 +6954,18 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogDatetime = function () {
+    var loadThemeDarkEnUsDialogDatetime = function () {
         DThemeDark.set("DDialogDatetime", DThemeDarkDialogDatetime);
-        loadThemeDarkJaJpPickerDatetime();
+        loadThemeDarkEnUsPickerDatetime();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonDatetime = function () {
+    var loadThemeDarkEnUsButtonDatetime = function () {
         DThemeDark.set("DButtonDatetime", DThemeDarkButtonDatetime);
-        loadThemeDarkJaJpDialogDatetime();
+        loadThemeDarkEnUsDialogDatetime();
     };
 
     const toLabel = wcardinal.ui.toLabel;
@@ -7062,23 +7062,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogSelect = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogSelect, _super);
-        function DThemeDarkJaJpDialogSelect() {
+    var DThemeDarkEnUsDialogSelect = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogSelect, _super);
+        function DThemeDarkEnUsDialogSelect() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogSelect.prototype.getCategoryDismissLabel = function () {
-            return "全て";
+        DThemeDarkEnUsDialogSelect.prototype.getCategoryDismissLabel = function () {
+            return "All";
         };
-        return DThemeDarkJaJpDialogSelect;
+        return DThemeDarkEnUsDialogSelect;
     }(DThemeDarkDialogSelect));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogSelect = function () {
-        DThemeDark.set("DDialogSelect", DThemeDarkJaJpDialogSelect);
+    var loadThemeDarkEnUsDialogSelect = function () {
+        DThemeDark.set("DDialogSelect", DThemeDarkEnUsDialogSelect);
         DThemeDark.set("DDialogSelectList", DThemeDarkDialogSelectList);
         DThemeDark.set("DDialogSelectListItem", DThemeDarkDialogSelectListItem);
     };
@@ -7087,9 +7087,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonSelect = function () {
+    var loadThemeDarkEnUsButtonSelect = function () {
         DThemeDark.set("DButtonSelect", DThemeDarkButtonSelect);
-        loadThemeDarkJaJpDialogSelect();
+        loadThemeDarkEnUsDialogSelect();
     };
 
     const DPickerTimes = wcardinal.ui.DPickerTimes;
@@ -7131,41 +7131,41 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogTime = function () {
+    var loadThemeDarkEnUsDialogTime = function () {
         DThemeDark.set("DDialogTime", DThemeDarkDialogTime);
-        loadThemeDarkJaJpPickerTime();
+        loadThemeDarkEnUsPickerTime();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonTime = function () {
+    var loadThemeDarkEnUsButtonTime = function () {
         DThemeDark.set("DButtonTime", DThemeDarkButtonTime);
-        loadThemeDarkJaJpDialogTime();
+        loadThemeDarkEnUsDialogTime();
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpButtonAll = function () {
+    var loadThemeDarkEnUsButtonAll = function () {
         loadThemeDarkButtonAmbient();
         loadThemeDarkButtonCheckRight();
         loadThemeDarkButtonCheck();
-        loadThemeDarkJaJpButtonColorGradient();
-        loadThemeDarkJaJpButtonColor();
-        loadThemeDarkJaJpButtonSelect();
+        loadThemeDarkEnUsButtonColorGradient();
+        loadThemeDarkEnUsButtonColor();
+        loadThemeDarkEnUsButtonSelect();
         loadThemeDarkButtonDanger();
-        loadThemeDarkJaJpButtonDate();
-        loadThemeDarkJaJpButtonDatetime();
+        loadThemeDarkEnUsButtonDate();
+        loadThemeDarkEnUsButtonDatetime();
         loadThemeDarkButtonFile();
         loadThemeDarkButtonLink();
         loadThemeDarkButtonPrimary();
         loadThemeDarkButtonRadioRight();
         loadThemeDarkButtonRadio();
         loadThemeDarkButtonSecondary();
-        loadThemeDarkJaJpButtonTime();
+        loadThemeDarkEnUsButtonTime();
         loadThemeDarkButton();
     };
 
@@ -7289,23 +7289,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDiagramEditor = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDiagramEditor, _super);
-        function DThemeDarkJaJpDiagramEditor() {
+    var DThemeDarkEnUsDiagramEditor = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDiagramEditor, _super);
+        function DThemeDarkEnUsDiagramEditor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDiagramEditor.prototype.getBaseLayerLabel = function () {
-            return "ベースレイヤー";
+        DThemeDarkEnUsDiagramEditor.prototype.getBaseLayerLabel = function () {
+            return "Base Layer";
         };
-        return DThemeDarkJaJpDiagramEditor;
+        return DThemeDarkEnUsDiagramEditor;
     }(DThemeDarkDiagramEditor));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDiagramEditor = function () {
-        DThemeDark.set("DDiagramEditor", DThemeDarkJaJpDiagramEditor);
+    var loadThemeDarkEnUsDiagramEditor = function () {
+        DThemeDark.set("DDiagramEditor", DThemeDarkEnUsDiagramEditor);
         DThemeDark.set("DDiagramCanvasEditor", DThemeDarkDiagramCanvasEditor);
         loadThemeDarkShapeActionValue();
         loadThemeDarkShape();
@@ -7474,27 +7474,27 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogLayeredFooter = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogLayeredFooter, _super);
-        function DThemeDarkJaJpDialogLayeredFooter() {
+    var DThemeDarkEnUsDialogLayeredFooter = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogLayeredFooter, _super);
+        function DThemeDarkEnUsDialogLayeredFooter() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogLayeredFooter.prototype.getButtonOk = function () {
+        DThemeDarkEnUsDialogLayeredFooter.prototype.getButtonOk = function () {
             return "OK";
         };
-        DThemeDarkJaJpDialogLayeredFooter.prototype.getButtonCancel = function () {
-            return "キャンセル";
+        DThemeDarkEnUsDialogLayeredFooter.prototype.getButtonCancel = function () {
+            return "Cancel";
         };
-        return DThemeDarkJaJpDialogLayeredFooter;
+        return DThemeDarkEnUsDialogLayeredFooter;
     }(DThemeDarkDialogLayeredFooter));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogLayered = function () {
+    var loadThemeDarkEnUsDialogLayered = function () {
         DThemeDark.set("DDialogLayeredContent", DThemeDarkDialogLayeredContent);
-        DThemeDark.set("DDialogLayeredFooter", DThemeDarkJaJpDialogLayeredFooter);
+        DThemeDark.set("DDialogLayeredFooter", DThemeDarkEnUsDialogLayeredFooter);
         DThemeDark.set("DDialogLayeredHeaderButtonClose", DThemeDarkDialogLayeredHeaderButtonClose);
         DThemeDark.set("DDialogLayeredHeaderSeparator", DThemeDarkDialogLayeredHeaderSeparator);
         DThemeDark.set("DDialogLayeredHeader", DThemeDarkDialogLayeredHeader);
@@ -7545,28 +7545,28 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogConfirm = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogConfirm, _super);
-        function DThemeDarkJaJpDialogConfirm() {
+    var DThemeDarkEnUsDialogConfirm = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogConfirm, _super);
+        function DThemeDarkEnUsDialogConfirm() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogConfirm.prototype.getFooter = function () {
+        DThemeDarkEnUsDialogConfirm.prototype.getFooter = function () {
             return {
                 button: {
-                    ok: "はい",
-                    cancel: "いいえ"
+                    ok: "Yes",
+                    cancel: "No"
                 }
             };
         };
-        return DThemeDarkJaJpDialogConfirm;
+        return DThemeDarkEnUsDialogConfirm;
     }(DThemeDarkDialogConfirm));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogConfirm = function () {
-        DThemeDark.set("DDialogConfirm", DThemeDarkJaJpDialogConfirm);
+    var loadThemeDarkEnUsDialogConfirm = function () {
+        DThemeDark.set("DDialogConfirm", DThemeDarkEnUsDialogConfirm);
         DThemeDark.set("DDialogConfirmMessage", DThemeDarkDialogConfirmMessage);
     };
 
@@ -7574,46 +7574,47 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogConfirmDelete = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogConfirmDelete, _super);
-        function DThemeDarkJaJpDialogConfirmDelete() {
+    var DThemeDarkEnUsDialogConfirmDelete = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogConfirmDelete, _super);
+        function DThemeDarkEnUsDialogConfirmDelete() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogConfirmDelete.prototype.getMessage = function () {
-            return "このデータを削除しますか？";
+        DThemeDarkEnUsDialogConfirmDelete.prototype.getMessage = function () {
+            return "Are you sure you want to delete this data?";
         };
-        return DThemeDarkJaJpDialogConfirmDelete;
-    }(DThemeDarkJaJpDialogConfirm));
+        return DThemeDarkEnUsDialogConfirmDelete;
+    }(DThemeDarkEnUsDialogConfirm));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogConfirmDelete = function () {
-        DThemeDark.set("DDialogConfirmDelete", DThemeDarkJaJpDialogConfirmDelete);
+    var loadThemeDarkEnUsDialogConfirmDelete = function () {
+        DThemeDark.set("DDialogConfirmDelete", DThemeDarkEnUsDialogConfirmDelete);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogConfirmDiscard = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogConfirmDiscard, _super);
-        function DThemeDarkJaJpDialogConfirmDiscard() {
+    var DThemeDarkEnUsDialogConfirmDiscard = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogConfirmDiscard, _super);
+        function DThemeDarkEnUsDialogConfirmDiscard() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogConfirmDiscard.prototype.getMessage = function () {
-            return "保存されていない変更があります。\nこれらの変更を破棄し続行しますか？";
+        DThemeDarkEnUsDialogConfirmDiscard.prototype.getMessage = function () {
+            return ("Your changes have not been saved.\n" +
+                "Do you want to discard the changes and continue?");
         };
-        return DThemeDarkJaJpDialogConfirmDiscard;
-    }(DThemeDarkJaJpDialogConfirm));
+        return DThemeDarkEnUsDialogConfirmDiscard;
+    }(DThemeDarkEnUsDialogConfirm));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogConfirmDiscard = function () {
-        DThemeDark.set("DDialogConfirmDiscard", DThemeDarkJaJpDialogConfirmDiscard);
+    var loadThemeDarkEnUsDialogConfirmDiscard = function () {
+        DThemeDark.set("DDialogConfirmDiscard", DThemeDarkEnUsDialogConfirmDiscard);
     };
 
     /*
@@ -7632,12 +7633,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogMessage = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogMessage, _super);
-        function DThemeDarkJaJpDialogMessage() {
+    var DThemeDarkEnUsDialogMessage = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogMessage, _super);
+        function DThemeDarkEnUsDialogMessage() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogMessage.prototype.getFooter = function () {
+        DThemeDarkEnUsDialogMessage.prototype.getFooter = function () {
             return {
                 button: {
                     ok: "OK",
@@ -7645,15 +7646,15 @@
                 }
             };
         };
-        return DThemeDarkJaJpDialogMessage;
+        return DThemeDarkEnUsDialogMessage;
     }(DThemeDarkDialogMessage));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogMessage = function () {
-        DThemeDark.set("DDialogMessage", DThemeDarkJaJpDialogMessage);
+    var loadThemeDarkEnUsDialogMessage = function () {
+        DThemeDark.set("DDialogMessage", DThemeDarkEnUsDialogMessage);
     };
 
     /*
@@ -7711,21 +7712,21 @@
      */
     var message = function (state) {
         if (state.isSucceeded) {
-            return "正常に処理されました";
+            return "Processed successfully";
         }
         else if (state.isFailed) {
-            return "処理中に問題が発生しました";
+            return "Failed to process the request";
         }
         else {
-            return "処理中です...";
+            return "Processing...";
         }
     };
-    var DThemeDarkJaJpDialogProcessing = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogProcessing, _super);
-        function DThemeDarkJaJpDialogProcessing() {
+    var DThemeDarkEnUsDialogProcessing = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogProcessing, _super);
+        function DThemeDarkEnUsDialogProcessing() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogProcessing.prototype.getFooter = function () {
+        DThemeDarkEnUsDialogProcessing.prototype.getFooter = function () {
             return {
                 button: {
                     ok: "OK",
@@ -7733,18 +7734,18 @@
                 }
             };
         };
-        DThemeDarkJaJpDialogProcessing.prototype.getMessage = function () {
+        DThemeDarkEnUsDialogProcessing.prototype.getMessage = function () {
             return message;
         };
-        return DThemeDarkJaJpDialogProcessing;
+        return DThemeDarkEnUsDialogProcessing;
     }(DThemeDarkDialogProcessing));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogProcessing = function () {
-        DThemeDark.set("DDialogProcessing", DThemeDarkJaJpDialogProcessing);
+    var loadThemeDarkEnUsDialogProcessing = function () {
+        DThemeDark.set("DDialogProcessing", DThemeDarkEnUsDialogProcessing);
         DThemeDark.set("DDialogProcessingMessage", DThemeDarkDialogProcessingMessage);
     };
 
@@ -7764,53 +7765,53 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpDialogSaveAs = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpDialogSaveAs, _super);
-        function DThemeDarkJaJpDialogSaveAs() {
+    var DThemeDarkEnUsDialogSaveAs = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsDialogSaveAs, _super);
+        function DThemeDarkEnUsDialogSaveAs() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpDialogSaveAs.prototype.getFooter = function () {
+        DThemeDarkEnUsDialogSaveAs.prototype.getFooter = function () {
             return {
                 button: {
-                    ok: "保存",
+                    ok: "Save",
                     cancel: null
                 }
             };
         };
-        return DThemeDarkJaJpDialogSaveAs;
+        return DThemeDarkEnUsDialogSaveAs;
     }(DThemeDarkDialogSaveAs));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogSaveAs = function () {
-        DThemeDark.set("DDialogSaveAs", DThemeDarkJaJpDialogSaveAs);
+    var loadThemeDarkEnUsDialogSaveAs = function () {
+        DThemeDark.set("DDialogSaveAs", DThemeDarkEnUsDialogSaveAs);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpDialogAll = function () {
-        loadThemeDarkJaJpDialogColorGradient();
-        loadThemeDarkJaJpDialogColor();
-        loadThemeDarkJaJpDialogConfirmDelete();
-        loadThemeDarkJaJpDialogConfirmDiscard();
-        loadThemeDarkJaJpDialogConfirm();
-        loadThemeDarkJaJpDialogDate();
-        loadThemeDarkJaJpDialogDatetime();
+    var loadThemeDarkEnUsDialogAll = function () {
+        loadThemeDarkEnUsDialogColorGradient();
+        loadThemeDarkEnUsDialogColor();
+        loadThemeDarkEnUsDialogConfirmDelete();
+        loadThemeDarkEnUsDialogConfirmDiscard();
+        loadThemeDarkEnUsDialogConfirm();
+        loadThemeDarkEnUsDialogDate();
+        loadThemeDarkEnUsDialogDatetime();
         loadThemeDarkDialogFitted();
         loadThemeDarkDialogInputBoolean();
         loadThemeDarkDialogInputInteger();
         loadThemeDarkDialogInputReal();
         loadThemeDarkDialogInputText();
-        loadThemeDarkJaJpDialogLayered();
-        loadThemeDarkJaJpDialogMessage();
-        loadThemeDarkJaJpDialogProcessing();
-        loadThemeDarkJaJpDialogSaveAs();
-        loadThemeDarkJaJpDialogSelect();
-        loadThemeDarkJaJpDialogTime();
+        loadThemeDarkEnUsDialogLayered();
+        loadThemeDarkEnUsDialogMessage();
+        loadThemeDarkEnUsDialogProcessing();
+        loadThemeDarkEnUsDialogSaveAs();
+        loadThemeDarkEnUsDialogSelect();
+        loadThemeDarkEnUsDialogTime();
         loadThemeDarkDialog();
     };
 
@@ -7854,15 +7855,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpInputBooleanButtonOff = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpInputBooleanButtonOff, _super);
-        function DThemeDarkJaJpInputBooleanButtonOff() {
+    var DThemeDarkEnUsInputBooleanButtonOff = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsInputBooleanButtonOff, _super);
+        function DThemeDarkEnUsInputBooleanButtonOff() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpInputBooleanButtonOff.prototype.newTextValue = function () {
+        DThemeDarkEnUsInputBooleanButtonOff.prototype.newTextValue = function () {
             return "OFF";
         };
-        return DThemeDarkJaJpInputBooleanButtonOff;
+        return DThemeDarkEnUsInputBooleanButtonOff;
     }(DThemeDarkInputBooleanButtonOff));
 
     /*
@@ -7887,34 +7888,34 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpInputBooleanButtonOn = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpInputBooleanButtonOn, _super);
-        function DThemeDarkJaJpInputBooleanButtonOn() {
+    var DThemeDarkEnUsInputBooleanButtonOn = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsInputBooleanButtonOn, _super);
+        function DThemeDarkEnUsInputBooleanButtonOn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpInputBooleanButtonOn.prototype.newTextValue = function () {
+        DThemeDarkEnUsInputBooleanButtonOn.prototype.newTextValue = function () {
             return "ON";
         };
-        return DThemeDarkJaJpInputBooleanButtonOn;
+        return DThemeDarkEnUsInputBooleanButtonOn;
     }(DThemeDarkInputBooleanButtonOn));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpInputBoolean = function () {
+    var loadThemeDarkEnUsInputBoolean = function () {
         DThemeDark.set("DInputBoolean", DThemeDarkInputBoolean);
-        DThemeDark.set("DInputBooleanButtonOn", DThemeDarkJaJpInputBooleanButtonOn);
-        DThemeDark.set("DInputBooleanButtonOff", DThemeDarkJaJpInputBooleanButtonOff);
+        DThemeDark.set("DInputBooleanButtonOn", DThemeDarkEnUsInputBooleanButtonOn);
+        DThemeDark.set("DInputBooleanButtonOff", DThemeDarkEnUsInputBooleanButtonOff);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpInputAll = function () {
+    var loadThemeDarkEnUsInputAll = function () {
         loadThemeDarkInputAndLabel();
-        loadThemeDarkJaJpInputBoolean();
+        loadThemeDarkEnUsInputBoolean();
         loadThemeDarkInputInteger();
         loadThemeDarkInputLabel();
         loadThemeDarkInputReal();
@@ -7966,29 +7967,29 @@
         return DThemeDarkLink;
     }());
 
-    var DThemeDarkJaJpLink = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpLink, _super);
-        function DThemeDarkJaJpLink() {
+    var DThemeDarkEnUsLink = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsLink, _super);
+        function DThemeDarkEnUsLink() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpLink.prototype.getLabelOpenLink = function () {
-            return "開く";
+        DThemeDarkEnUsLink.prototype.getLabelOpenLink = function () {
+            return "Open";
         };
-        DThemeDarkJaJpLink.prototype.getLabelOpenLinkInNewWindow = function () {
-            return "新しいウィンドウで開く";
+        DThemeDarkEnUsLink.prototype.getLabelOpenLinkInNewWindow = function () {
+            return "Open in New Window";
         };
-        DThemeDarkJaJpLink.prototype.getLabelCopyLinkAddress = function () {
-            return "アドレスをコピーする";
+        DThemeDarkEnUsLink.prototype.getLabelCopyLinkAddress = function () {
+            return "Copy Link Address";
         };
-        return DThemeDarkJaJpLink;
+        return DThemeDarkEnUsLink;
     }(DThemeDarkLink));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpLink = function () {
-        DThemeDark.set("DLink", DThemeDarkJaJpLink);
+    var loadThemeDarkEnUsLink = function () {
+        DThemeDark.set("DLink", DThemeDarkEnUsLink);
     };
 
     /*
@@ -8056,15 +8057,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpNoteError = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpNoteError, _super);
-        function DThemeDarkJaJpNoteError() {
+    var DThemeDarkEnUsNoteError = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsNoteError, _super);
+        function DThemeDarkEnUsNoteError() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpNoteError.prototype.newTextValue = function () {
-            return "異常が発生しました";
+        DThemeDarkEnUsNoteError.prototype.newTextValue = function () {
+            return "Something went wrong";
         };
-        return DThemeDarkJaJpNoteError;
+        return DThemeDarkEnUsNoteError;
     }(DThemeDarkNoteError));
 
     /*
@@ -8083,15 +8084,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpNoteNoItemsFound = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpNoteNoItemsFound, _super);
-        function DThemeDarkJaJpNoteNoItemsFound() {
+    var DThemeDarkEnUsNoteNoItemsFound = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsNoteNoItemsFound, _super);
+        function DThemeDarkEnUsNoteNoItemsFound() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpNoteNoItemsFound.prototype.newTextValue = function () {
-            return "アイテムはありません";
+        DThemeDarkEnUsNoteNoItemsFound.prototype.newTextValue = function () {
+            return "No items found";
         };
-        return DThemeDarkJaJpNoteNoItemsFound;
+        return DThemeDarkEnUsNoteNoItemsFound;
     }(DThemeDarkNoteNoItemsFound));
 
     /*
@@ -8110,15 +8111,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkJaJpNoteSearching = /** @class */ (function (_super) {
-        __extends(DThemeDarkJaJpNoteSearching, _super);
-        function DThemeDarkJaJpNoteSearching() {
+    var DThemeDarkEnUsNoteSearching = /** @class */ (function (_super) {
+        __extends(DThemeDarkEnUsNoteSearching, _super);
+        function DThemeDarkEnUsNoteSearching() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkJaJpNoteSearching.prototype.newTextValue = function () {
-            return "検索中です";
+        DThemeDarkEnUsNoteSearching.prototype.newTextValue = function () {
+            return "Searching";
         };
-        return DThemeDarkJaJpNoteSearching;
+        return DThemeDarkEnUsNoteSearching;
     }(DThemeDarkNoteSearching));
 
     /*
@@ -8191,11 +8192,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpNote = function () {
+    var loadThemeDarkEnUsNote = function () {
         DThemeDark.set("DNote", DThemeDarkNote);
-        DThemeDark.set("DNoteError", DThemeDarkJaJpNoteError);
-        DThemeDark.set("DNoteNoItemsFound", DThemeDarkJaJpNoteNoItemsFound);
-        DThemeDark.set("DNoteSearching", DThemeDarkJaJpNoteSearching);
+        DThemeDark.set("DNoteError", DThemeDarkEnUsNoteError);
+        DThemeDark.set("DNoteNoItemsFound", DThemeDarkEnUsNoteNoItemsFound);
+        DThemeDark.set("DNoteSearching", DThemeDarkEnUsNoteSearching);
         DThemeDark.set("DNoteSmallError", DThemeDarkNoteSmallError);
         DThemeDark.set("DNoteSmallNoItemsFound", DThemeDarkNoteSmallNoItemsFound);
         DThemeDark.set("DNoteSmallSearching", DThemeDarkNoteSmallSearching);
@@ -9574,7 +9575,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpTable = function () {
+    var loadThemeDarkEnUsTable = function () {
         DThemeDark.set("DTableBodyCellActionDialog", DThemeDarkTableBodyCellActionDialog);
         DThemeDark.set("DTableBodyCellActionMenu", DThemeDarkTableBodyCellActionMenu);
         DThemeDark.set("DTableBodyCellActionPromise", DThemeDarkTableBodyCellActionPromise);
@@ -9609,14 +9610,14 @@
         DThemeDark.set("DTableRow", DThemeDarkTableRow);
         DThemeDark.set("DTable", DThemeDarkTable);
         loadThemeDarkButtonCheck();
-        loadThemeDarkJaJpButtonColor();
-        loadThemeDarkJaJpButtonDate();
-        loadThemeDarkJaJpButtonDatetime();
+        loadThemeDarkEnUsButtonColor();
+        loadThemeDarkEnUsButtonDate();
+        loadThemeDarkEnUsButtonDatetime();
         loadThemeDarkInputInteger();
         loadThemeDarkInputReal();
         loadThemeDarkInputTextArea();
         loadThemeDarkInputText();
-        loadThemeDarkJaJpDialogSelect();
+        loadThemeDarkEnUsDialogSelect();
         loadThemeDarkMenu();
     };
 
@@ -9624,39 +9625,39 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkJaJpAll = function () {
+    var loadThemeDarkEnUsAll = function () {
         loadThemeDark();
         loadThemeDarkBase();
         loadThemeDarkBoard();
-        loadThemeDarkJaJpButtonAll();
+        loadThemeDarkEnUsButtonAll();
         loadThemeDarkView();
         loadThemeDarkCanvasContainer();
         loadThemeDarkChart();
         loadThemeDarkColor();
-        loadThemeDarkJaJpDiagramEditor();
+        loadThemeDarkEnUsDiagramEditor();
         loadThemeDarkDiagram();
-        loadThemeDarkJaJpDialogAll();
+        loadThemeDarkEnUsDialogAll();
         loadThemeDarkExpandable();
         loadThemeDarkHtmlElement();
         loadThemeDarkImage();
-        loadThemeDarkJaJpInputAll();
+        loadThemeDarkEnUsInputAll();
         loadThemeDarkLayout();
-        loadThemeDarkJaJpLink();
+        loadThemeDarkEnUsLink();
         loadThemeDarkList();
         loadThemeDarkTree();
         loadThemeDarkMenuBar();
         loadThemeDarkMenuSided();
         loadThemeDarkMenu();
-        loadThemeDarkJaJpNote();
+        loadThemeDarkEnUsNote();
         loadThemeDarkPane();
         loadThemeDarkPagination();
-        loadThemeDarkJaJpPickerColorGradient();
-        loadThemeDarkJaJpPickerColor();
-        loadThemeDarkJaJpPickerDate();
-        loadThemeDarkJaJpPickerDatetime();
-        loadThemeDarkJaJpPickerTime();
+        loadThemeDarkEnUsPickerColorGradient();
+        loadThemeDarkEnUsPickerColor();
+        loadThemeDarkEnUsPickerDate();
+        loadThemeDarkEnUsPickerDatetime();
+        loadThemeDarkEnUsPickerTime();
         loadThemeDarkSelect();
-        loadThemeDarkJaJpTable();
+        loadThemeDarkEnUsTable();
         loadThemeDarkText();
         loadThemeDarkSlider();
     };
@@ -9730,39 +9731,39 @@
         loadThemeDarkTree: loadThemeDarkTree,
         loadThemeDarkView: loadThemeDarkView,
         loadThemeDark: loadThemeDark,
-        loadThemeDarkJaJpAll: loadThemeDarkJaJpAll,
-        loadThemeDarkJaJpButtonAll: loadThemeDarkJaJpButtonAll,
-        loadThemeDarkJaJpButtonColorGradient: loadThemeDarkJaJpButtonColorGradient,
-        loadThemeDarkJaJpButtonColor: loadThemeDarkJaJpButtonColor,
-        loadThemeDarkJaJpButtonDate: loadThemeDarkJaJpButtonDate,
-        loadThemeDarkJaJpButtonDatetime: loadThemeDarkJaJpButtonDatetime,
-        loadThemeDarkJaJpButtonSelect: loadThemeDarkJaJpButtonSelect,
-        loadThemeDarkJaJpButtonTime: loadThemeDarkJaJpButtonTime,
-        loadThemeDarkJaJpDiagramEditor: loadThemeDarkJaJpDiagramEditor,
-        loadThemeDarkJaJpDialogAll: loadThemeDarkJaJpDialogAll,
-        loadThemeDarkJaJpDialogColorGradient: loadThemeDarkJaJpDialogColorGradient,
-        loadThemeDarkJaJpDialogColor: loadThemeDarkJaJpDialogColor,
-        loadThemeDarkJaJpDialogConfirmDelete: loadThemeDarkJaJpDialogConfirmDelete,
-        loadThemeDarkJaJpDialogConfirmDiscard: loadThemeDarkJaJpDialogConfirmDiscard,
-        loadThemeDarkJaJpDialogConfirm: loadThemeDarkJaJpDialogConfirm,
-        loadThemeDarkJaJpDialogDate: loadThemeDarkJaJpDialogDate,
-        loadThemeDarkJaJpDialogDatetime: loadThemeDarkJaJpDialogDatetime,
-        loadThemeDarkJaJpDialogLayered: loadThemeDarkJaJpDialogLayered,
-        loadThemeDarkJaJpDialogMessage: loadThemeDarkJaJpDialogMessage,
-        loadThemeDarkJaJpDialogProcessing: loadThemeDarkJaJpDialogProcessing,
-        loadThemeDarkJaJpDialogSaveAs: loadThemeDarkJaJpDialogSaveAs,
-        loadThemeDarkJaJpDialogSelect: loadThemeDarkJaJpDialogSelect,
-        loadThemeDarkJaJpDialogTime: loadThemeDarkJaJpDialogTime,
-        loadThemeDarkJaJpInputAll: loadThemeDarkJaJpInputAll,
-        loadThemeDarkJaJpInputBoolean: loadThemeDarkJaJpInputBoolean,
-        loadThemeDarkJaJpLink: loadThemeDarkJaJpLink,
-        loadThemeDarkJaJpNote: loadThemeDarkJaJpNote,
-        loadThemeDarkJaJpPickerColorGradient: loadThemeDarkJaJpPickerColorGradient,
-        loadThemeDarkJaJpPickerColor: loadThemeDarkJaJpPickerColor,
-        loadThemeDarkJaJpPickerDate: loadThemeDarkJaJpPickerDate,
-        loadThemeDarkJaJpPickerDatetime: loadThemeDarkJaJpPickerDatetime,
-        loadThemeDarkJaJpPickerTime: loadThemeDarkJaJpPickerTime,
-        loadThemeDarkJaJpTable: loadThemeDarkJaJpTable,
+        loadThemeDarkEnUsAll: loadThemeDarkEnUsAll,
+        loadThemeDarkEnUsButtonAll: loadThemeDarkEnUsButtonAll,
+        loadThemeDarkEnUsButtonColorGradient: loadThemeDarkEnUsButtonColorGradient,
+        loadThemeDarkEnUsButtonColor: loadThemeDarkEnUsButtonColor,
+        loadThemeDarkEnUsButtonDate: loadThemeDarkEnUsButtonDate,
+        loadThemeDarkEnUsButtonDatetime: loadThemeDarkEnUsButtonDatetime,
+        loadThemeDarkEnUsButtonSelect: loadThemeDarkEnUsButtonSelect,
+        loadThemeDarkEnUsButtonTime: loadThemeDarkEnUsButtonTime,
+        loadThemeDarkEnUsDiagramEditor: loadThemeDarkEnUsDiagramEditor,
+        loadThemeDarkEnUsDialogAll: loadThemeDarkEnUsDialogAll,
+        loadThemeDarkEnUsDialogColorGradient: loadThemeDarkEnUsDialogColorGradient,
+        loadThemeDarkEnUsDialogColor: loadThemeDarkEnUsDialogColor,
+        loadThemeDarkEnUsDialogConfirmDelete: loadThemeDarkEnUsDialogConfirmDelete,
+        loadThemeDarkEnUsDialogConfirmDiscard: loadThemeDarkEnUsDialogConfirmDiscard,
+        loadThemeDarkEnUsDialogConfirm: loadThemeDarkEnUsDialogConfirm,
+        loadThemeDarkEnUsDialogDate: loadThemeDarkEnUsDialogDate,
+        loadThemeDarkEnUsDialogDatetime: loadThemeDarkEnUsDialogDatetime,
+        loadThemeDarkEnUsDialogLayered: loadThemeDarkEnUsDialogLayered,
+        loadThemeDarkEnUsDialogMessage: loadThemeDarkEnUsDialogMessage,
+        loadThemeDarkEnUsDialogProcessing: loadThemeDarkEnUsDialogProcessing,
+        loadThemeDarkEnUsDialogSaveAs: loadThemeDarkEnUsDialogSaveAs,
+        loadThemeDarkEnUsDialogSelect: loadThemeDarkEnUsDialogSelect,
+        loadThemeDarkEnUsDialogTime: loadThemeDarkEnUsDialogTime,
+        loadThemeDarkEnUsInputAll: loadThemeDarkEnUsInputAll,
+        loadThemeDarkEnUsInputBoolean: loadThemeDarkEnUsInputBoolean,
+        loadThemeDarkEnUsLink: loadThemeDarkEnUsLink,
+        loadThemeDarkEnUsNote: loadThemeDarkEnUsNote,
+        loadThemeDarkEnUsPickerColorGradient: loadThemeDarkEnUsPickerColorGradient,
+        loadThemeDarkEnUsPickerColor: loadThemeDarkEnUsPickerColor,
+        loadThemeDarkEnUsPickerDate: loadThemeDarkEnUsPickerDate,
+        loadThemeDarkEnUsPickerDatetime: loadThemeDarkEnUsPickerDatetime,
+        loadThemeDarkEnUsPickerTime: loadThemeDarkEnUsPickerTime,
+        loadThemeDarkEnUsTable: loadThemeDarkEnUsTable,
         DThemeDarkAtlas: DThemeDarkAtlas,
         DThemeDarkBase: DThemeDarkBase,
         DThemeDarkBoard: DThemeDarkBoard,
@@ -9995,32 +9996,32 @@
         DThemeDark: DThemeDark,
         EThemeDarkShapeActionValue: EThemeDarkShapeActionValue,
         EThemeDarkShape: EThemeDarkShape,
-        DThemeDarkJaJpDiagramEditor: DThemeDarkJaJpDiagramEditor,
-        DThemeDarkJaJpDialogConfirmDelete: DThemeDarkJaJpDialogConfirmDelete,
-        DThemeDarkJaJpDialogConfirmDiscard: DThemeDarkJaJpDialogConfirmDiscard,
-        DThemeDarkJaJpDialogConfirm: DThemeDarkJaJpDialogConfirm,
-        DThemeDarkJaJpDialogLayeredFooter: DThemeDarkJaJpDialogLayeredFooter,
-        DThemeDarkJaJpDialogMessage: DThemeDarkJaJpDialogMessage,
-        DThemeDarkJaJpDialogProcessing: DThemeDarkJaJpDialogProcessing,
-        DThemeDarkJaJpDialogSaveAs: DThemeDarkJaJpDialogSaveAs,
-        DThemeDarkJaJpDialogSelect: DThemeDarkJaJpDialogSelect,
-        DThemeDarkJaJpInputBooleanButtonOff: DThemeDarkJaJpInputBooleanButtonOff,
-        DThemeDarkJaJpInputBooleanButtonOn: DThemeDarkJaJpInputBooleanButtonOn,
-        DThemeDarkJaJpLink: DThemeDarkJaJpLink,
-        DThemeDarkJaJpNoteError: DThemeDarkJaJpNoteError,
-        DThemeDarkJaJpNoteNoItemsFound: DThemeDarkJaJpNoteNoItemsFound,
-        DThemeDarkJaJpNoteSearching: DThemeDarkJaJpNoteSearching,
-        DThemeDarkJaJpPickerColor: DThemeDarkJaJpPickerColor,
-        DThemeDarkJaJpPickerDate: DThemeDarkJaJpPickerDate,
-        DThemeDarkJaJpPickerDatetime: DThemeDarkJaJpPickerDatetime,
-        DThemeDarkJaJpPickerTime: DThemeDarkJaJpPickerTime
+        DThemeDarkEnUsDiagramEditor: DThemeDarkEnUsDiagramEditor,
+        DThemeDarkEnUsDialogConfirmDelete: DThemeDarkEnUsDialogConfirmDelete,
+        DThemeDarkEnUsDialogConfirmDiscard: DThemeDarkEnUsDialogConfirmDiscard,
+        DThemeDarkEnUsDialogConfirm: DThemeDarkEnUsDialogConfirm,
+        DThemeDarkEnUsDialogLayeredFooter: DThemeDarkEnUsDialogLayeredFooter,
+        DThemeDarkEnUsDialogMessage: DThemeDarkEnUsDialogMessage,
+        DThemeDarkEnUsDialogProcessing: DThemeDarkEnUsDialogProcessing,
+        DThemeDarkEnUsDialogSaveAs: DThemeDarkEnUsDialogSaveAs,
+        DThemeDarkEnUsDialogSelect: DThemeDarkEnUsDialogSelect,
+        DThemeDarkEnUsInputBooleanButtonOff: DThemeDarkEnUsInputBooleanButtonOff,
+        DThemeDarkEnUsInputBooleanButtonOn: DThemeDarkEnUsInputBooleanButtonOn,
+        DThemeDarkEnUsLink: DThemeDarkEnUsLink,
+        DThemeDarkEnUsNoteError: DThemeDarkEnUsNoteError,
+        DThemeDarkEnUsNoteNoItemsFound: DThemeDarkEnUsNoteNoItemsFound,
+        DThemeDarkEnUsNoteSearching: DThemeDarkEnUsNoteSearching,
+        DThemeDarkEnUsPickerColor: DThemeDarkEnUsPickerColor,
+        DThemeDarkEnUsPickerDate: DThemeDarkEnUsPickerDate,
+        DThemeDarkEnUsPickerDatetime: DThemeDarkEnUsPickerDatetime,
+        DThemeDarkEnUsPickerTime: DThemeDarkEnUsPickerTime
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    loadThemeDarkJaJpAll();
+    loadThemeDarkEnUsAll();
     var global = window;
     global.wcardinal = global.wcardinal || {};
     var dest = (global.wcardinal.ui = global.wcardinal.ui || {});

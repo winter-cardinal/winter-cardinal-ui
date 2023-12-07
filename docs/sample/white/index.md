@@ -17,6 +17,8 @@
     * [Event](./button/event.html)
     * [File](./button/file.html)
     * [Grouping](./button/grouping.html)
+    * [Image](./button/image.html)
+    * [Image (Multiple)](./button/image-multiple.html)
     * [Link](./button/link.html)
     * [Radio](./button/radio.html)
     * [Selector](./button/select.html)

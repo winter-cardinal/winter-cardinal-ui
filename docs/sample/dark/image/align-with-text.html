@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.384.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.384.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.385.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.385.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(() => {
 		"use strict";
@@ -60,8 +60,7 @@
 			column: 6
 		});
 
-		const DThemeImage = wcardinal.ui.DThemeWhiteImage || wcardinal.ui.DThemeDarkImage;
-		class DThemeImageBase extends DThemeImage {
+		class DThemeImageBase extends DThemes.getClass("DImage") {
 			getWidth() {
 				return 160;
 			}
