@@ -17,8 +17,34 @@ import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resour
 import { deserializeAll } from "./shape/variant/deserialize-all";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
 import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
+import { isArray } from "./util/is-array";
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 
 export class DDiagrams {
+	static parse(target: unknown): DDiagramSerialized | null {
+		if (target != null && isString(target)) {
+			try {
+				const parsed = JSON.parse(target);
+				if (parsed != null && isNumber(parsed.version) && isString(parsed.name)) {
+					if (
+						isNumber(parsed.width) &&
+						isNumber(parsed.height) &&
+						isArray(parsed.items) &&
+						isArray(parsed.resources)
+					) {
+						return parsed;
+					} else if (isString(parsed.data)) {
+						return this.toSerialized(parsed);
+					}
+				}
+			} catch (e) {
+				// DO NOTHING
+			}
+		}
+		return null;
+	}
+
 	static toSimple(serialized: DDiagramSerialized): DDiagramSerializedSimple {
 		return {
 			version: serialized.version,
