@@ -1,8 +1,6 @@
 # Samples
 
 * Application
-    * [English Theme](./application/english.html)
-    * [Japanese Theme](./application/japanese.html)
     * [Multiple Applications](./application/multiple.html)
     * [Overlay Layer](./application/overlay.html)
     * [Resolution](./application/resolution.html)
@@ -377,6 +375,9 @@
     * [Word Wrap (Break All)](./text/word-wrap-break-all.html)
     * [Word Wrap (Normal)](./text/word-wrap-normal.html)
     * [Word Wrap (Normal, CSS Line Break)](./text/word-wrap-normal-css-line-break.html)
+* Theme
+    * [English Theme](./theme/english.html)
+    * [Japanese Theme](./theme/japanese.html)
 * Tree
     * [Adding Root Nodes](./tree/add.html)
     * [Adding Child Nodes](./tree/add-child.html)
