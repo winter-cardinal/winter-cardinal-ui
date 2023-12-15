@@ -13,7 +13,7 @@ import { DOnOptions } from "./d-on-options";
  * A dialog to select values.
  */
 export interface DButtonSelectDialog<VALUE> {
-	readonly value: VALUE | null;
+	value: VALUE | null;
 	open(opener?: DDialogOpener): Promise<unknown>;
 }
 

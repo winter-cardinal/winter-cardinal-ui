@@ -15,11 +15,14 @@ export class UtilOverlay {
 		return this._layer;
 	}
 
-	pick(target: DApplicationTarget): DApplicationLayerLike {
+	pick(owner: DApplicationTarget, opener?: DApplicationTarget): DApplicationLayerLike {
 		let layer = this._layer;
 		if (layer == null) {
-			layer = DApplications.getLayerOverlay(target);
-			if (!layer) {
+			layer = DApplications.getLayerOverlay(owner);
+			if (layer == null && opener != null) {
+				layer = DApplications.getLayerOverlay(opener);
+			}
+			if (layer == null) {
 				const application = this._application;
 				if (application) {
 					layer = application.getLayerOverlay();

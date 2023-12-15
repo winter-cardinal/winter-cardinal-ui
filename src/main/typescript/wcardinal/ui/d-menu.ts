@@ -115,7 +115,7 @@ export class DMenu<
 		context?: DMenuContext | null
 	): this {
 		if (this.isHidden()) {
-			const layer = this._overlay.pick(this);
+			const layer = this._overlay.pick(this, owner);
 			this._owner = owner;
 
 			// States

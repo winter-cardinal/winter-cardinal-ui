@@ -26,6 +26,7 @@ import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
+import { DApplicationTarget } from "./d-application-like";
 
 /**
  * {@link DDialog} events.
@@ -92,7 +93,7 @@ export interface DThemeDialog extends DThemeBase {
 	newAnimation(mode: DDialogMode): DAnimation<DBase> | null;
 }
 
-export interface DDialogOpener {
+export interface DDialogOpener extends DApplicationTarget {
 	getBounds(skipUpdate?: boolean, rect?: PIXI.Rectangle): Rectangle;
 }
 
@@ -101,8 +102,11 @@ export interface DDialogOpener {
  *
  * If multiple application instances are there, better to set the constructor
  * option `parent` to an `application.stage` so that the dialog picks a right
- * application. By default, the dialog assumes the last created application is
- * the one it belongs to at the time when it is created.
+ * application. `DDialog` searches applications in a following order:
+ *
+ * * To begin, `DDialog` tries to find applications which it belongs to.
+ * * If `DDialog` can't find applications, then `DDialog` tries to find applications which openers belong to.
+ * * If openers are not given, `DDialog` assumes the last created application at the very moment `DDialog` is instantiated is the one it belongs to.
  */
 export class DDialog<
 	VALUE = void,
@@ -337,7 +341,7 @@ export class DDialog<
 			switch (this._mode) {
 				case DDialogMode.MODAL:
 				case DDialogMode.MENU:
-					layer = this._overlay.pick(this);
+					layer = this._overlay.pick(this, opener);
 					layer.stage.addChild(this);
 					break;
 				case DDialogMode.MODELESS:
