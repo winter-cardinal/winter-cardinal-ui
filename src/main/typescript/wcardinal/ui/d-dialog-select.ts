@@ -25,11 +25,10 @@ import { DNoteSmallSearching } from "./d-note-small-searching";
 import { DOnOptions } from "./d-on-options";
 import { UtilTransition } from "./util/util-transition";
 import { DDialogSelectSearch } from "./d-dialog-select-search";
-import { DDialogSelectSearhDismissableOptions } from "./d-dialog-select-search-dismissable";
-import { DDialogSelectSearhDismissableImpl } from "./d-dialog-select-search-dismissable-impl";
 import { DSelect, DSelectOptions } from "./d-select";
 import { DMenu } from "./d-menu";
 import { DDialogSelectSearchFunction } from "./d-dialog-select-search-function";
+import { DButton, DButtonOptions } from "./d-button";
 
 export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 	margin?: number;
@@ -94,6 +93,13 @@ export interface DDialogSelectOnOptions<VALUE, EMITTER>
 		DOnOptions {}
 
 /**
+ * {@link DDialogSelect} "dismiss" options.
+ */
+export interface DDialogSelectDismissableOptions extends DButtonOptions<string> {
+	enabled?: boolean;
+}
+
+/**
  * {@link DDialogSelect} options.
  */
 export interface DDialogSelectOptions<
@@ -104,7 +110,7 @@ export interface DDialogSelectOptions<
 > extends DDialogLayeredOptions<VALUE, THEME> {
 	controller?: DDialogSelectController<VALUE, CATEGORY_ID>;
 	category?: DDialogSelectCategoryOptions<VALUE, CATEGORY_ID>;
-	dismiss?: DDialogSelectSearhDismissableOptions<VALUE, CATEGORY_ID>;
+	dismiss?: DDialogSelectDismissableOptions;
 	input?: DDialogSelectInputOpitons;
 	list?: DListOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
@@ -117,6 +123,8 @@ export interface DDialogSelectOptions<
 export interface DThemeDialogSelect<VALUE = unknown, CATEGORY_ID = unknown>
 	extends DThemeDialogLayered {
 	getInputMargin(): number;
+	isDismissable(): boolean;
+	getDismissLabel(): string;
 	isCategoryDismissable(): boolean;
 	getCategoryDismissLabel(): string;
 }
@@ -132,8 +140,6 @@ export class DDialogSelect<
 	>
 > extends DDialogLayered<VALUE | null, THEME, OPTIONS> {
 	protected _value: VALUE | null;
-	protected _spaceLeft?: DLayoutSpace;
-	protected _spaceRight?: DLayoutSpace;
 	protected _selectCategory?: DSelect<CATEGORY_ID | null>;
 	protected _isCategoryFetched?: boolean;
 	protected _categories: DDialogSelectCategory<CATEGORY_ID>[];
@@ -144,6 +150,7 @@ export class DDialogSelect<
 	protected _noteError?: DNote | null;
 	protected _noteNoItemsFound?: DNote | null;
 	protected _noteSearching?: DNote | null;
+	protected _buttonDismiss?: DButton<string> | null;
 
 	constructor(options?: OPTIONS) {
 		super(options);
@@ -185,43 +192,20 @@ export class DDialogSelect<
 
 	protected newContentChildren(theme: THEME, options?: OPTIONS): Array<DisplayObject | null> {
 		const result = super.newContentChildren(theme, options);
-		result.push(this.inputLayout, this.list);
+		result.push(this.inputLayout, this.list, this.buttonDismiss);
 		return result;
 	}
 
 	protected get inputLayout(): DLayoutHorizontal {
-		let result = this._inputLayout;
-		if (result == null) {
-			result = this.newInputLayout();
-			this._inputLayout = result;
-		}
-		return result;
+		return (this._inputLayout ??= this.newInputLayout());
 	}
 
 	protected newInputLayout(): DLayoutHorizontal {
 		return new DLayoutHorizontal({
 			width: "padding",
 			height: "auto",
-			children: [this.spaceLeft, this.selectCategory, this.input, this.spaceRight]
+			children: [this.selectCategory, this.input]
 		});
-	}
-
-	protected get spaceLeft(): DLayoutSpace {
-		let result = this._spaceLeft;
-		if (result == null) {
-			result = this.newSpace();
-			this._spaceLeft = result;
-		}
-		return result;
-	}
-
-	protected get spaceRight(): DLayoutSpace {
-		let result = this._spaceRight;
-		if (result == null) {
-			result = this.newSpace();
-			this._spaceRight = result;
-		}
-		return result;
 	}
 
 	protected newSpace(): DLayoutSpace {
@@ -231,12 +215,7 @@ export class DDialogSelect<
 	}
 
 	protected get selectCategory(): DSelect<CATEGORY_ID | null> {
-		let result = this._selectCategory;
-		if (result == null) {
-			result = this.newSelectCategory();
-			this._selectCategory = result;
-		}
-		return result;
+		return (this._selectCategory ??= this.newSelectCategory());
 	}
 
 	protected newSelectCategory(): DSelect<CATEGORY_ID | null> {
@@ -268,12 +247,7 @@ export class DDialogSelect<
 	}
 
 	get input(): DInputSearch {
-		let result = this._input;
-		if (result == null) {
-			result = this.newInput();
-			this._input = result;
-		}
-		return result;
+		return (this._input ??= this.newInput());
 	}
 
 	protected newInput(): DInputSearch {
@@ -305,12 +279,7 @@ export class DDialogSelect<
 	}
 
 	get list(): DDialogSelectList<VALUE> {
-		let result = this._list;
-		if (result == null) {
-			result = this.newList();
-			this._list = result;
-		}
-		return result;
+		return (this._list ??= this.newList());
 	}
 
 	protected newList(): DDialogSelectList<VALUE> {
@@ -322,18 +291,9 @@ export class DDialogSelect<
 	}
 
 	protected onListSelectionChange(selection: DListDataSelection<VALUE>): void {
-		let selected = selection.first;
+		const selected = selection.first;
 		if (selected == null) {
 			return;
-		}
-		const options = this._options;
-		if (options) {
-			const dismiss = options.dismiss;
-			if (dismiss) {
-				if (selected === dismiss.value) {
-					selected = null;
-				}
-			}
 		}
 		this._value = selected;
 		this.onOk(selected);
@@ -348,12 +308,7 @@ export class DDialogSelect<
 	}
 
 	protected get noteError(): DNote | null {
-		let result = this._noteError;
-		if (result == null) {
-			result = this.newNoteError();
-			this._noteError = result;
-		}
-		return result;
+		return (this._noteError ??= this.newNoteError());
 	}
 
 	protected newNoteError(): DNote | null {
@@ -365,12 +320,7 @@ export class DDialogSelect<
 	}
 
 	protected get noteNoItemsFound(): DNote | null {
-		let result = this._noteNoItemsFound;
-		if (result == null) {
-			result = this.newNoteNoItemsFound();
-			this._noteNoItemsFound = result;
-		}
-		return result;
+		return (this._noteNoItemsFound ??= this.newNoteNoItemsFound());
 	}
 
 	protected newNoteNoItemsFound(): DNote | null {
@@ -382,12 +332,7 @@ export class DDialogSelect<
 	}
 
 	protected get noteSearching(): DNote | null {
-		let result = this._noteSearching;
-		if (result == null) {
-			result = this.newNoteSearching();
-			this._noteSearching = result;
-		}
-		return result;
+		return (this._noteSearching ??= this.newNoteSearching());
 	}
 
 	protected newNoteSearching(): DNote | null {
@@ -418,12 +363,7 @@ export class DDialogSelect<
 	}
 
 	protected get search(): DDialogSelectSearch<VALUE, CATEGORY_ID> {
-		let result = this._search;
-		if (result == null) {
-			result = this.newSearch();
-			this._search = result;
-		}
-		return result;
+		return (this._search ??= this.newSearch());
 	}
 
 	protected newSearch(): DDialogSelectSearch<VALUE, CATEGORY_ID> {
@@ -431,27 +371,68 @@ export class DDialogSelect<
 		if (options) {
 			const controller = options.controller;
 			if (controller) {
-				const dismiss = options.dismiss;
 				const search = controller.search;
 				if ("create" in search) {
-					if (dismiss != null) {
-						return new DDialogSelectSearhDismissableImpl(search, dismiss);
-					} else {
-						return search;
-					}
+					return search;
 				} else {
-					if (dismiss != null) {
-						return new DDialogSelectSearhDismissableImpl(
-							new DDialogSelectSearhImpl(search),
-							dismiss
-						);
-					} else {
-						return new DDialogSelectSearhImpl(search);
-					}
+					return new DDialogSelectSearhImpl(search);
 				}
 			}
 		}
 		return new DDialogSelectSearhImpl();
+	}
+
+	protected get buttonDismiss(): DButton<string> | null {
+		let result = this._buttonDismiss;
+		if (result === undefined) {
+			result = this.newButtonDismiss();
+			this._buttonDismiss = result;
+		}
+		return result;
+	}
+
+	protected newButtonDismiss(): DButton<string> | null {
+		const options = this.toButtonDismissOptions(this._options);
+		if (options.enabled === true) {
+			const result = new DButton<string>(options);
+			result.on("active", () => {
+				this._value = null;
+				this.onOk(null);
+			});
+			return result;
+		}
+		return null;
+	}
+
+	protected toButtonDismissOptions(options?: OPTIONS): DDialogSelectDismissableOptions {
+		const theme = this.theme;
+		if (options != null) {
+			const dismiss = options.dismiss;
+			if (dismiss != null) {
+				if (dismiss.enabled === undefined) {
+					dismiss.enabled = theme.isDismissable();
+				}
+				if (dismiss.weight === undefined && dismiss.width === undefined) {
+					dismiss.width = "padding";
+				}
+				const text = dismiss.text;
+				if (text === undefined) {
+					dismiss.text = {
+						value: theme.getDismissLabel()
+					};
+				} else if (text.value === undefined) {
+					text.value = theme.getDismissLabel();
+				}
+				return dismiss;
+			}
+		}
+		return {
+			width: "padding",
+			enabled: theme.isDismissable(),
+			text: {
+				value: theme.getDismissLabel()
+			}
+		};
 	}
 
 	get value(): VALUE | null {

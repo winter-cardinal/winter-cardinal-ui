@@ -6,6 +6,10 @@
 import { DThemeDarkDialogSelect } from "./d-theme-dark-dialog-select";
 
 export class DThemeDarkEnUsDialogSelect<VALUE> extends DThemeDarkDialogSelect<VALUE> {
+	override getDismissLabel(): string {
+		return "None";
+	}
+
 	override getCategoryDismissLabel(): string {
 		return "All";
 	}

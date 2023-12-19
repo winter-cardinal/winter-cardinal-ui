@@ -6,6 +6,10 @@
 import { DThemeDarkDialogSelect } from "./d-theme-dark-dialog-select";
 
 export class DThemeDarkJaJpDialogSelect<VALUE> extends DThemeDarkDialogSelect<VALUE> {
+	override getDismissLabel(): string {
+		return "なし";
+	}
+
 	override getCategoryDismissLabel(): string {
 		return "全て";
 	}

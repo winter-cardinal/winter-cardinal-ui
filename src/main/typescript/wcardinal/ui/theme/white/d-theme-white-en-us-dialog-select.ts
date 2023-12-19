@@ -6,6 +6,10 @@
 import { DThemeWhiteDialogSelect } from "./d-theme-white-dialog-select";
 
 export class DThemeWhiteEnUsDialogSelect<VALUE> extends DThemeWhiteDialogSelect<VALUE> {
+	override getDismissLabel(): string {
+		return "None";
+	}
+
 	override getCategoryDismissLabel(): string {
 		return "All";
 	}

@@ -24,6 +24,12 @@ export abstract class DThemeWhiteDialogSelect<VALUE>
 		return 19;
 	}
 
+	isDismissable(): boolean {
+		return false;
+	}
+
+	abstract getDismissLabel(): string;
+
 	isCategoryDismissable(): boolean {
 		return true;
 	}
