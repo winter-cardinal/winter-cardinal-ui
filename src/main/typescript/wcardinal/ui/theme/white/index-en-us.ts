@@ -24,3 +24,4 @@ export * from "./d-theme-white-en-us-picker-color";
 export * from "./d-theme-white-en-us-picker-date";
 export * from "./d-theme-white-en-us-picker-datetime";
 export * from "./d-theme-white-en-us-picker-time";
+export * from "./e-theme-white-en-us-shape-points-formatter";

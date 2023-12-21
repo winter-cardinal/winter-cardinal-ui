@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapePointsFormatter } from "./e-shape-points-formatter";
+import { DThemes } from "../theme/d-themes";
 import { eShapePointsFormatterCurve } from "./e-shape-points-formatter-curve";
+import { EShapePointsFormatterDatum } from "./e-shape-points-formatter-datum";
 import { EShapePointsStyle } from "./e-shape-points-style";
 
-export interface EShapePointsFormatterDatum {
-	label: string;
-	formatter: EShapePointsFormatter;
+export interface EThemeShapePointsFormatter {
+	getCurveLabel(): string;
 }
 
 export class EShapePointsFormatters {
@@ -46,8 +46,9 @@ export class EShapePointsFormatters {
 
 	private static newData(): Map<number, EShapePointsFormatterDatum> {
 		const result = new Map<number, EShapePointsFormatterDatum>();
+		const theme = DThemes.get<EThemeShapePointsFormatter>("EShapePointsFormatter");
 		result.set(EShapePointsStyle.FORMATTER_CURVE, {
-			label: "Curve",
+			label: theme.getCurveLabel(),
 			formatter: eShapePointsFormatterCurve
 		});
 		return result;

@@ -19,7 +19,6 @@ export * from "./load-theme-white-button";
 export * from "./load-theme-white-canvas-container";
 export * from "./load-theme-white-chart";
 export * from "./load-theme-white-color";
-export * from "./load-theme-white-diagram";
 export * from "./load-theme-white-dialog-fitted";
 export * from "./load-theme-white-dialog-input-boolean";
 export * from "./load-theme-white-dialog-input-integer";

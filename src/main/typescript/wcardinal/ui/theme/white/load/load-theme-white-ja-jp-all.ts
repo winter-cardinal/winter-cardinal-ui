@@ -10,7 +10,7 @@ import { loadThemeWhiteJaJpButtonAll } from "./load-theme-white-ja-jp-button-all
 import { loadThemeWhiteCanvasContainer } from "./load-theme-white-canvas-container";
 import { loadThemeWhiteChart } from "./load-theme-white-chart";
 import { loadThemeWhiteColor } from "./load-theme-white-color";
-import { loadThemeWhiteDiagram } from "./load-theme-white-diagram";
+import { loadThemeWhiteJaJpDiagram } from "./load-theme-white-ja-jp-diagram";
 import { loadThemeWhiteJaJpDiagramEditor } from "./load-theme-white-ja-jp-diagram-editor";
 import { loadThemeWhiteJaJpDialogAll } from "./load-theme-white-ja-jp-dialog-all";
 import { loadThemeWhiteExpandable } from "./load-theme-white-expandable";
@@ -48,7 +48,7 @@ export const loadThemeWhiteJaJpAll = (): void => {
 	loadThemeWhiteChart();
 	loadThemeWhiteColor();
 	loadThemeWhiteJaJpDiagramEditor();
-	loadThemeWhiteDiagram();
+	loadThemeWhiteJaJpDiagram();
 	loadThemeWhiteJaJpDialogAll();
 	loadThemeWhiteExpandable();
 	loadThemeWhiteHtmlElement();

@@ -24,3 +24,4 @@ export * from "./d-theme-white-ja-jp-picker-color";
 export * from "./d-theme-white-ja-jp-picker-date";
 export * from "./d-theme-white-ja-jp-picker-datetime";
 export * from "./d-theme-white-ja-jp-picker-time";
+export * from "./e-theme-white-ja-jp-shape-points-formatter";

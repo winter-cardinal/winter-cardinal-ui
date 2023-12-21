@@ -10,7 +10,7 @@ import { loadThemeDarkEnUsButtonAll } from "./load-theme-dark-en-us-button-all";
 import { loadThemeDarkCanvasContainer } from "./load-theme-dark-canvas-container";
 import { loadThemeDarkChart } from "./load-theme-dark-chart";
 import { loadThemeDarkColor } from "./load-theme-dark-color";
-import { loadThemeDarkDiagram } from "./load-theme-dark-diagram";
+import { loadThemeDarkEnUsDiagram } from "./load-theme-dark-en-us-diagram";
 import { loadThemeDarkEnUsDiagramEditor } from "./load-theme-dark-en-us-diagram-editor";
 import { loadThemeDarkEnUsDialogAll } from "./load-theme-dark-en-us-dialog-all";
 import { loadThemeDarkExpandable } from "./load-theme-dark-expandable";
@@ -48,7 +48,7 @@ export const loadThemeDarkEnUsAll = (): void => {
 	loadThemeDarkChart();
 	loadThemeDarkColor();
 	loadThemeDarkEnUsDiagramEditor();
-	loadThemeDarkDiagram();
+	loadThemeDarkEnUsDiagram();
 	loadThemeDarkEnUsDialogAll();
 	loadThemeDarkExpandable();
 	loadThemeDarkHtmlElement();

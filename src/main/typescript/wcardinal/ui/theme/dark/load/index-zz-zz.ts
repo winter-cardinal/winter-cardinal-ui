@@ -19,7 +19,6 @@ export * from "./load-theme-dark-button";
 export * from "./load-theme-dark-canvas-container";
 export * from "./load-theme-dark-chart";
 export * from "./load-theme-dark-color";
-export * from "./load-theme-dark-diagram";
 export * from "./load-theme-dark-dialog-fitted";
 export * from "./load-theme-dark-dialog-input-boolean";
 export * from "./load-theme-dark-dialog-input-integer";
