@@ -12,6 +12,9 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DThemeScrollBarThumb {
 	BORDER_COLOR = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.25);
+	BORDER_COLOR_DISABLED = UtilRgb.brighten(this.BORDER_COLOR, 0.75);
+	BORDER_COLOR_HOVERED = UtilRgb.brighten(this.BORDER_COLOR, 0.25);
+	BORDER_COLOR_OTHER = UtilRgb.brighten(this.BORDER_COLOR, 0.5);
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
@@ -22,17 +25,17 @@ export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DTheme
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
-		return this.BORDER_COLOR;
+		if (state.inDisabled) {
+			return this.BORDER_COLOR_DISABLED;
+		} else if (state.isHovered || state.isGesturing) {
+			return this.BORDER_COLOR_HOVERED;
+		} else {
+			return this.BORDER_COLOR_OTHER;
+		}
 	}
 
 	getBorderAlpha(state: DBaseStateSet): number {
-		if (state.inDisabled) {
-			return 0.25;
-		} else if (state.isHovered || state.isGesturing) {
-			return 0.75;
-		} else {
-			return 0.5;
-		}
+		return 1;
 	}
 
 	getBorderWidth(state: DBaseStateSet): number {
@@ -40,7 +43,7 @@ export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DTheme
 	}
 
 	getBorderAlign(state: DBaseStateSet): number {
-		return 0.5;
+		return 1;
 	}
 
 	getWidth(): DCoordinateSize {
