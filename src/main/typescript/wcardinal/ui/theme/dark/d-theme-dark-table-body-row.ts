@@ -14,7 +14,7 @@ export class DThemeDarkTableBodyRow extends DThemeDarkTableRow implements DTheme
 	protected readonly BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten(
 		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
-		0.03
+		0.01
 	);
 
 	getBackgroundColor(state: DBaseStateSet): number | null {

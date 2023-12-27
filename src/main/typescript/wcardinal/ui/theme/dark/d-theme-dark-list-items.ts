@@ -39,7 +39,7 @@ export class DThemeDarkListItems {
 			this._backgroundColorEven = baseColor;
 			this._backgroundAlphaEven = 1;
 
-			this._backgroundColorOdd = UtilRgb.blend(baseColor, 0xffffff, 0.025);
+			this._backgroundColorOdd = UtilRgb.brighten(baseColor, 0.0075);
 			this._backgroundAlphaOdd = 1;
 
 			this._invalidColor = UtilRgb.blend(
@@ -71,7 +71,7 @@ export class DThemeDarkListItems {
 			this._backgroundAlphaEven = 0;
 
 			this._backgroundColorOdd = 0xffffff;
-			this._backgroundAlphaOdd = 0.025;
+			this._backgroundAlphaOdd = 0.0075;
 
 			this._invalidColor = DThemeDarkConstants.INVALID_COLOR;
 			this._invalidAlpha = DThemeDarkConstants.INVALID_ALPHA;

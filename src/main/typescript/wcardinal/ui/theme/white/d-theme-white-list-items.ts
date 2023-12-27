@@ -39,7 +39,7 @@ export class DThemeWhiteListItems {
 			this._backgroundColorEven = baseColor;
 			this._backgroundAlphaEven = 1;
 
-			this._backgroundColorOdd = UtilRgb.blend(baseColor, 0x000000, 0.0175);
+			this._backgroundColorOdd = UtilRgb.darken(baseColor, 0.0175);
 			this._backgroundAlphaOdd = 1;
 
 			this._invalidColor = UtilRgb.blend(
