@@ -98,7 +98,7 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	}
 
 	getBorderWidth(state: DBaseStateSet): number {
-		return 1;
+		return 1.5;
 	}
 
 	getBorderAlign(state: DBaseStateSet): number {

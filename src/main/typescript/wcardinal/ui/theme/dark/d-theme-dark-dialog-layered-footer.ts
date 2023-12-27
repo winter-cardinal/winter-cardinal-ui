@@ -15,6 +15,14 @@ export abstract class DThemeDarkDialogLayeredFooter
 
 	abstract getButtonCancel(): string | null;
 
+	isButtonSpaceLeftEnabled(): boolean {
+		return true;
+	}
+
+	isButtonSpaceRightEnabled(): boolean {
+		return true;
+	}
+
 	getX(): DCoordinatePosition {
 		return "padding";
 	}
