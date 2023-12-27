@@ -49,4 +49,8 @@ export class DThemeDarkDialogLayeredHeaderSeparator
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.NONE;
 	}
+
+	newState(state: DBaseStateSet): void {
+		state.isFocusable = false;
+	}
 }
