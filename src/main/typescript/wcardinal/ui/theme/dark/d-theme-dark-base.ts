@@ -149,7 +149,7 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	getOutlineWidth(state: DBaseStateSet): number {
-		return 1;
+		return 1.5;
 	}
 
 	getOutlineOffset(state: DBaseStateSet): number {
