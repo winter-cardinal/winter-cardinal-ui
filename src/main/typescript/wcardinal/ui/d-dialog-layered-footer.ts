@@ -91,7 +91,7 @@ export class DDialogLayeredFooter<
 	}
 
 	protected newChildren(): Array<DBase | null> {
-		return [this.buttonSpaceLeft, this.buttonOk, this.buttonCancel, this.buttonSpaceRight];
+		return [this.buttonSpaceLeft, this.buttonCancel, this.buttonOk, this.buttonSpaceRight];
 	}
 
 	get buttonSpaceLeft(): DLayoutSpace | null {
