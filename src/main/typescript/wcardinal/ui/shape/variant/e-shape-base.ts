@@ -267,7 +267,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	updateUploaded(recursively?: boolean): void {
-		if (this._lockUploaded.isLocked()) {
+		if (this._lockUploaded.isLocked(recursively)) {
 			return;
 		}
 		const uploaded = this.uploaded;
