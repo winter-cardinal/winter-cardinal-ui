@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
 import { DThemes } from "../theme/d-themes";
 import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
-import { DynamicSDFFontGenerator } from "./dynamic-sdf-font-generator";
+import { SdfGenerator } from "./sdf-generator";
 import { UtilCharacterIterator } from "./util-character-iterator";
 
 export interface DynamicSDFFontAtlasFont {
@@ -28,7 +29,7 @@ export class DynamicSDFFontAtlas {
 	protected static FONT_FAMILY_AUTO: string | null = null;
 
 	protected _id: string;
-	protected _generator: DynamicSDFFontGenerator | null;
+	protected _generator: SdfGenerator | null;
 	protected _canvas: HTMLCanvasElement | null;
 	protected _font: DynamicSDFFontAtlasFont;
 	protected _characters: DynamicFontAtlasCharacters;
@@ -39,8 +40,8 @@ export class DynamicSDFFontAtlas {
 
 	constructor(fontFamily: string) {
 		this._id = `font-atlas:${fontFamily}`;
-		this._generator = DynamicSDFFontGenerator.getInstance().init();
-		this._canvas = document.createElement("canvas");
+		this._generator = new SdfGenerator();
+		this._canvas = this._generator.canvas;
 		this._font = {
 			family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
 			size: 32,
@@ -79,7 +80,7 @@ export class DynamicSDFFontAtlas {
 		return this._canvas;
 	}
 
-	get generator(): DynamicSDFFontGenerator | null {
+	get generator(): SdfGenerator | null {
 		return this._generator;
 	}
 
@@ -167,7 +168,7 @@ export class DynamicSDFFontAtlas {
 		return this._characters[id];
 	}
 
-	update(): boolean {
+	update(renderer: Renderer): boolean {
 		if (this._isDirty) {
 			const canvas = this._canvas;
 			const generator = this._generator;
@@ -241,9 +242,8 @@ export class DynamicSDFFontAtlas {
 					}
 
 					// Convert to SDF font texture
-					generator.updateTexture(canvas);
-					generator.render();
-					generator.read(canvas);
+					generator.toDirty();
+					generator.generate(renderer);
 
 					return true;
 				}

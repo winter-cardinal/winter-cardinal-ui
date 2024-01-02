@@ -377,7 +377,7 @@ export class EShapeRenderer extends ObjectRenderer {
 				const baseTexture: BaseTexture = atlas.getBaseTexture();
 				this.updateAtlases(shapes, atlas, fontAtlases, defaultTexture, baseTexture);
 				fontAtlases.end();
-				fontAtlases.update(atlas);
+				fontAtlases.update(atlas, renderer);
 				this.updateFontAtlases(shapes, atlas, fontAtlases, defaultTexture);
 				atlas.end();
 				atlas.repack();

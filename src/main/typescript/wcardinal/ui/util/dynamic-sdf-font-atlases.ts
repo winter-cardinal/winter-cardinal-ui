@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
 import { DynamicAtlas } from "./dynamic-atlas";
 import { DynamicAtlasItemFontAtlas } from "./dynamic-atlas-item-font-atlas";
 import { DynamicSDFFontAtlas } from "./dynamic-sdf-font-atlas";
@@ -56,12 +57,12 @@ export class DynamicSDFFontAtlases {
 		return null;
 	}
 
-	update(baseAtlas: DynamicAtlas): void {
+	update(baseAtlas: DynamicAtlas, renderer: Renderer): void {
 		const atlases = this._atlases;
 		const baseTexture = baseAtlas.getBaseTexture();
 		for (const family in atlases) {
 			const atlas = atlases[family];
-			if (atlas.update()) {
+			if (atlas.update(renderer)) {
 				const atlasId = atlas.id;
 				const item = baseAtlas.get(atlasId);
 				if (item != null) {
