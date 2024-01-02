@@ -9,6 +9,7 @@ import {
 	ObjectRenderer,
 	Renderer,
 	Shader,
+	State,
 	Texture,
 	utils
 } from "pixi.js";
@@ -234,15 +235,29 @@ export class EShapeRenderer extends ObjectRenderer {
 	static SHADER: Shader | null = null;
 
 	protected _shader: Shader | null;
+	protected _state: State;
 	protected _iterator: EShapeRendererIterator;
 	protected _bufferSizeMax: number;
 
 	constructor(renderer: Renderer) {
 		super(renderer);
+
+		// Shader
 		EShapeRenderer.SHADER =
 			EShapeRenderer.SHADER || Shader.from(VERTEX_SHADER, FRAGMENT_SHADER);
 		this._shader = EShapeRenderer.SHADER;
+
+		// State
+		const state = new State();
+		state.depthTest = false;
+		state.blend = true;
+		state.blendMode = utils.correctBlendMode(BLEND_MODES.NORMAL, true);
+		this._state = state;
+
+		// Iterator
 		this._iterator = new EShapeRendererIterator();
+
+		// Maximum buffer size
 		this._bufferSizeMax = this.getBufferSizeMax(renderer);
 	}
 
@@ -391,8 +406,9 @@ export class EShapeRenderer extends ObjectRenderer {
 			shader.uniforms.pixelScale = container.toPixelScale(resolution);
 			shader.uniforms.antialiasWeight = antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
+			renderer.batch.flush();
 			renderer.shader.bind(shader, false);
-			renderer.state.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
+			renderer.state.set(this._state);
 			const buffersLength = buffers.length;
 			if (1 < buffersLength) {
 				for (let i = 0; i < buffersLength; ++i) {

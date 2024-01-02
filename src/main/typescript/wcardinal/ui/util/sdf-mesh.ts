@@ -4,13 +4,16 @@
  */
 
 import {
+	BLEND_MODES,
 	DisplayObject,
 	Geometry,
 	MIPMAP_MODES,
 	Renderer,
 	SCALE_MODES,
 	Shader,
-	Texture
+	State,
+	Texture,
+	utils
 } from "pixi.js";
 import { SdfRenderer } from "./sdf-renderer";
 
@@ -110,6 +113,7 @@ export class SdfMesh extends DisplayObject {
 	canvas: HTMLCanvasElement;
 	texture: Texture;
 	geometry: Geometry;
+	state: State;
 
 	protected _fontRenderer?: SdfRenderer;
 
@@ -135,6 +139,12 @@ export class SdfMesh extends DisplayObject {
 		geometry.addAttribute("aTextureCoord", [0, 1, 1, 1, 0, 0, 1, 0], 2);
 		geometry.addIndex([0, 1, 2, 1, 3, 2]);
 		this.geometry = geometry;
+
+		const state = new State();
+		state.depthTest = false;
+		state.blend = true;
+		state.blendMode = utils.correctBlendMode(BLEND_MODES.NORMAL, true);
+		this.state = state;
 	}
 
 	render(renderer: Renderer): void {

@@ -98,6 +98,7 @@ export class SdfGenerator {
 			}
 			this._renderer = renderer;
 		}
+		const oldRenderTarget = renderer.renderTexture.current;
 		renderer.render(mesh, renderTexture, true, undefined, true);
 
 		// Copy the rendered SDF image to the image data
@@ -113,6 +114,8 @@ export class SdfGenerator {
 			const gl = renderer.gl;
 			gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, imageData.data);
 		}
+
+		renderer.renderTexture.bind(oldRenderTarget);
 	}
 
 	toDataUrl(): string | undefined {

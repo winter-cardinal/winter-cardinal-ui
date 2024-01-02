@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BLEND_MODES, DRAW_MODES, ObjectRenderer, Renderer, utils } from "pixi.js";
+import { DRAW_MODES, ObjectRenderer, Renderer } from "pixi.js";
 import { SdfMesh } from "./sdf-mesh";
 
 export class SdfRenderer extends ObjectRenderer {
@@ -19,7 +19,7 @@ export class SdfRenderer extends ObjectRenderer {
 		const renderer = this.renderer;
 		renderer.batch.flush();
 		renderer.shader.bind(shader, false);
-		renderer.state.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
+		renderer.state.set(mesh.state);
 		renderer.geometry.bind(mesh.geometry, shader);
 		renderer.geometry.draw(DRAW_MODES.TRIANGLES, 0, 0, mesh.geometry.instanceCount);
 	}
