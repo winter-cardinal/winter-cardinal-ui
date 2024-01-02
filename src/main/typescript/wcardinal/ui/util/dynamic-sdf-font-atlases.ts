@@ -6,10 +6,10 @@
 import { Renderer } from "pixi.js";
 import { DynamicAtlas } from "./dynamic-atlas";
 import { DynamicAtlasItemFontAtlas } from "./dynamic-atlas-item-font-atlas";
-import { DynamicSDFFontAtlas } from "./dynamic-sdf-font-atlas";
+import { DynamicSdfFontAtlas } from "./dynamic-sdf-font-atlas";
 
-export class DynamicSDFFontAtlases {
-	protected _atlases: Record<string, DynamicSDFFontAtlas>;
+export class DynamicSdfFontAtlases {
+	protected _atlases: Record<string, DynamicSdfFontAtlas>;
 
 	constructor() {
 		this._atlases = {};
@@ -43,13 +43,13 @@ export class DynamicSDFFontAtlases {
 		if (atlas != null) {
 			atlas.add(targets);
 		} else {
-			const newAtlas = new DynamicSDFFontAtlas(family);
+			const newAtlas = new DynamicSdfFontAtlas(family);
 			newAtlas.add(targets);
 			this._atlases[family] = newAtlas;
 		}
 	}
 
-	get(family: string): DynamicSDFFontAtlas | null {
+	get(family: string): DynamicSdfFontAtlas | null {
 		const atlas = this._atlases[family];
 		if (atlas != null) {
 			return atlas;

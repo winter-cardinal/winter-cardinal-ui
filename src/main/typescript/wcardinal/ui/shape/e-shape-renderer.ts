@@ -14,7 +14,7 @@ import {
 } from "pixi.js";
 import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicAtlasItemImage } from "../util/dynamic-atlas-item-image";
-import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
+import { DynamicSdfFontAtlases } from "../util/dynamic-sdf-font-atlases";
 import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeContainer } from "./e-shape-container";
@@ -258,7 +258,7 @@ export class EShapeRenderer extends ObjectRenderer {
 	updateAtlas(
 		shape: EShape,
 		atlas: DynamicAtlas,
-		fontAtlases: DynamicSDFFontAtlases,
+		fontAtlases: DynamicSdfFontAtlases,
 		defaultTexture: Texture,
 		baseTexture: BaseTexture
 	): void {
@@ -295,7 +295,7 @@ export class EShapeRenderer extends ObjectRenderer {
 	updateAtlases(
 		shapes: EShape[],
 		atlas: DynamicAtlas,
-		fontAtlases: DynamicSDFFontAtlases,
+		fontAtlases: DynamicSdfFontAtlases,
 		defaultTexture: Texture,
 		baseTexture: BaseTexture
 	): void {
@@ -314,7 +314,7 @@ export class EShapeRenderer extends ObjectRenderer {
 	updateFontAtlas(
 		shape: EShape,
 		atlas: DynamicAtlas,
-		fontAtlases: DynamicSDFFontAtlases,
+		fontAtlases: DynamicSdfFontAtlases,
 		defaultTexture: Texture
 	): void {
 		const text = shape.text;
@@ -337,7 +337,7 @@ export class EShapeRenderer extends ObjectRenderer {
 	updateFontAtlases(
 		shapes: EShape[],
 		atlas: DynamicAtlas,
-		fontAtlases: DynamicSDFFontAtlases,
+		fontAtlases: DynamicSdfFontAtlases,
 		defaultTexture: Texture
 	): void {
 		for (let i = 0, imax = shapes.length; i < imax; ++i) {

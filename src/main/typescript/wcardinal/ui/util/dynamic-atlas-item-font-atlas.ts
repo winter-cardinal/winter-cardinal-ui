@@ -5,12 +5,12 @@
 
 import { BaseTexture } from "pixi.js";
 import { DynamicAtlasItem } from "./dynamic-atlas-item";
-import { DynamicSDFFontAtlas } from "./dynamic-sdf-font-atlas";
+import { DynamicSdfFontAtlas } from "./dynamic-sdf-font-atlas";
 
 export class DynamicAtlasItemFontAtlas extends DynamicAtlasItem {
-	atlas: DynamicSDFFontAtlas;
+	atlas: DynamicSdfFontAtlas;
 
-	constructor(atlas: DynamicSDFFontAtlas, baseTexture: BaseTexture) {
+	constructor(atlas: DynamicSdfFontAtlas, baseTexture: BaseTexture) {
 		super(
 			atlas.id,
 			atlas.width / baseTexture.resolution,

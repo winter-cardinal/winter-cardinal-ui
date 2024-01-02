@@ -5,7 +5,7 @@
 
 import { DisplayObject, IPoint, Point, Renderer } from "pixi.js";
 import { DynamicAtlas } from "../util/dynamic-atlas";
-import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
+import { DynamicSdfFontAtlases } from "../util/dynamic-sdf-font-atlases";
 import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeRenderer } from "./e-shape-renderer";
@@ -19,7 +19,7 @@ export class EShapeContainer extends DisplayObject {
 	protected _childrenIdRendered: number;
 
 	protected _atlas: DynamicAtlas | null;
-	protected _fontAtlases: DynamicSDFFontAtlases;
+	protected _fontAtlases: DynamicSdfFontAtlases;
 
 	protected _pixelScale: number;
 	protected _pixelScaleId: number;
@@ -39,7 +39,7 @@ export class EShapeContainer extends DisplayObject {
 		this._childrenIdRendered = -1;
 
 		this._atlas = null;
-		this._fontAtlases = new DynamicSDFFontAtlases();
+		this._fontAtlases = new DynamicSdfFontAtlases();
 
 		this._pixelScale = 1;
 		this._pixelScaleId = NaN;
@@ -99,7 +99,7 @@ export class EShapeContainer extends DisplayObject {
 		return false;
 	}
 
-	getFontAtlases(): DynamicSDFFontAtlases {
+	getFontAtlases(): DynamicSdfFontAtlases {
 		return this._fontAtlases;
 	}
 

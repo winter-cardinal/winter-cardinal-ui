@@ -12,26 +12,26 @@ import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { SdfGenerator } from "./sdf-generator";
 import { UtilCharacterIterator } from "./util-character-iterator";
 
-export interface DynamicSDFFontAtlasFont {
+export interface DynamicSdfFontAtlasFont {
 	family: string;
 	size: number;
 	italic: boolean;
 }
 
-export interface DynamicSDFFontAtlasJson {
+export interface DynamicSdfFontAtlasJson {
 	width: number;
 	height: number;
-	font: DynamicSDFFontAtlasFont;
+	font: DynamicSdfFontAtlasFont;
 	characters: DynamicFontAtlasCharacters;
 }
 
-export class DynamicSDFFontAtlas {
+export class DynamicSdfFontAtlas {
 	protected static FONT_FAMILY_AUTO: string | null = null;
 
 	protected _id: string;
 	protected _generator: SdfGenerator | null;
 	protected _canvas: HTMLCanvasElement | null;
-	protected _font: DynamicSDFFontAtlasFont;
+	protected _font: DynamicSdfFontAtlasFont;
 	protected _characters: DynamicFontAtlasCharacters;
 	protected _length: number;
 	protected _width: number;
@@ -43,7 +43,7 @@ export class DynamicSDFFontAtlas {
 		this._generator = new SdfGenerator();
 		this._canvas = this._generator.canvas;
 		this._font = {
-			family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
+			family: DynamicSdfFontAtlas.toFontFamily(fontFamily),
 			size: 32,
 			italic: false
 		};
@@ -58,11 +58,11 @@ export class DynamicSDFFontAtlas {
 		return this._id;
 	}
 
-	get font(): DynamicSDFFontAtlasFont {
+	get font(): DynamicSdfFontAtlasFont {
 		return this._font;
 	}
 
-	set font(font: DynamicSDFFontAtlasFont) {
+	set font(font: DynamicSdfFontAtlasFont) {
 		this._font.family = font.family;
 		this._font.size = font.size;
 		this._font.italic = font.italic;
@@ -179,7 +179,7 @@ export class DynamicSDFFontAtlas {
 					const font = this._font;
 					const characters = this._characters;
 					const characterSize = font.size + 14;
-					const width = DynamicSDFFontAtlas.toPowerOf2(
+					const width = DynamicSdfFontAtlas.toPowerOf2(
 						Math.ceil(Math.sqrt(this._length)) * characterSize
 					);
 					this._width = width;
@@ -255,7 +255,7 @@ export class DynamicSDFFontAtlas {
 		return this._length;
 	}
 
-	toJson(): DynamicSDFFontAtlasJson {
+	toJson(): DynamicSdfFontAtlasJson {
 		return {
 			width: this._width,
 			height: this._height,
@@ -286,7 +286,7 @@ export class DynamicSDFFontAtlas {
 	}
 
 	static toFontFamily(fontFamily: string): string {
-		return fontFamily === "auto" ? DynamicSDFFontAtlas.getAutoFontFamily() : fontFamily;
+		return fontFamily === "auto" ? DynamicSdfFontAtlas.getAutoFontFamily() : fontFamily;
 	}
 
 	static toPowerOf2(size: number): number {
@@ -298,11 +298,11 @@ export class DynamicSDFFontAtlas {
 	}
 
 	static getAutoFontFamily(): string {
-		if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
-			DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance()
+		if (DynamicSdfFontAtlas.FONT_FAMILY_AUTO == null) {
+			DynamicSdfFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance()
 				.get<any>("DBase")
 				.getFontFamilly() as string;
 		}
-		return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
+		return DynamicSdfFontAtlas.FONT_FAMILY_AUTO;
 	}
 }
