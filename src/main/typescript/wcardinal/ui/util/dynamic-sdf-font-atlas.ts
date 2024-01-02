@@ -30,7 +30,6 @@ export class DynamicSdfFontAtlas {
 
 	protected _id: string;
 	protected _generator: SdfGenerator | null;
-	protected _canvas: HTMLCanvasElement | null;
 	protected _font: DynamicSdfFontAtlasFont;
 	protected _characters: DynamicFontAtlasCharacters;
 	protected _length: number;
@@ -39,9 +38,8 @@ export class DynamicSdfFontAtlas {
 	protected _isDirty: boolean;
 
 	constructor(fontFamily: string) {
-		this._id = `font-atlas:${fontFamily}`;
+		this._id = `sdf-font-atlas:${fontFamily}`;
 		this._generator = new SdfGenerator();
-		this._canvas = this._generator.canvas;
 		this._font = {
 			family: DynamicSdfFontAtlas.toFontFamily(fontFamily),
 			size: 32,
@@ -169,10 +167,9 @@ export class DynamicSdfFontAtlas {
 
 	update(renderer: Renderer): boolean {
 		if (this._isDirty) {
-			const canvas = this._canvas;
 			const generator = this._generator;
-			if (canvas != null && generator != null) {
-				const context = canvas.getContext("2d");
+			if (generator != null) {
+				const context = generator.context;
 				if (context != null) {
 					this._isDirty = false;
 
@@ -224,6 +221,7 @@ export class DynamicSdfFontAtlas {
 					// Make a input canvas
 					// Here, we need to reset the context because
 					// context settings will be lost when we set the width/height.
+					const canvas = generator.canvas;
 					canvas.width = width;
 					canvas.height = height;
 					context.font = fontStyle;
@@ -272,11 +270,6 @@ export class DynamicSdfFontAtlas {
 		const generator = this._generator;
 		if (generator != null) {
 			this._generator = null;
-		}
-
-		const canvas = this._canvas;
-		if (canvas != null) {
-			this._canvas = null;
 		}
 
 		const characters = this._characters;
