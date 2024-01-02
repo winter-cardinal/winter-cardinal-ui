@@ -15,7 +15,11 @@ export const createImageSdf = (dataUrl: string, convertToSdf: boolean): Promise<
 				generator ??= new SdfGenerator();
 				generator.copy(imageElement);
 				generator.generate();
-				return createImageSdf(generator.canvas.toDataURL(), false);
+				const url = generator.toDataUrl();
+				if (url != null) {
+					return createImageSdf(url, false);
+				}
+				return Promise.reject();
 			}
 		);
 	} else {

@@ -8,7 +8,7 @@ import { DynamicAtlasItem } from "./dynamic-atlas-item";
 import { DynamicSDFFontAtlas } from "./dynamic-sdf-font-atlas";
 
 export class DynamicAtlasItemFontAtlas extends DynamicAtlasItem {
-	canvas: HTMLCanvasElement | null;
+	atlas: DynamicSDFFontAtlas;
 
 	constructor(atlas: DynamicSDFFontAtlas, baseTexture: BaseTexture) {
 		super(
@@ -18,14 +18,14 @@ export class DynamicAtlasItemFontAtlas extends DynamicAtlasItem {
 			0,
 			baseTexture
 		);
-		this.canvas = atlas.canvas;
+		this.atlas = atlas;
 	}
 
 	render(context: CanvasRenderingContext2D): void {
-		const canvas = this.canvas;
-		if (canvas != null) {
+		const imageData = this.atlas.imageData;
+		if (imageData != null) {
 			const frame = this.frame;
-			context.drawImage(canvas, frame.x, frame.y, frame.width, frame.height);
+			context.putImageData(imageData, frame.x, frame.y);
 		}
 	}
 }

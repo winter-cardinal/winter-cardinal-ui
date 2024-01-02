@@ -73,7 +73,11 @@ void main(void) {
 	float y = vTextureCoord.y * uSize.y;
 	float d = min( 6.0, calcDistances( x, y ) ) / 12.0;
 	d = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );
-	gl_FragColor = vec4(1.0, 1.0, 1.0, d);
+	d = d * 255.0;
+	float r = floor(d);
+	d = (d - r) * 255.0;
+	float g = floor(d);
+	gl_FragColor = vec4(r * 0.00392156862745098, g * 0.00392156862745098, d - g, 1.0);
 }
 `;
 

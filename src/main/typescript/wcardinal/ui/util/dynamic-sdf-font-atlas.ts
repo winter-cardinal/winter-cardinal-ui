@@ -76,12 +76,11 @@ export class DynamicSDFFontAtlas {
 		return this._height;
 	}
 
-	get canvas(): HTMLCanvasElement | null {
-		return this._canvas;
-	}
-
-	get generator(): SdfGenerator | null {
-		return this._generator;
+	get imageData(): ImageData | undefined {
+		const generator = this._generator;
+		if (generator != null) {
+			return generator.imageData;
+		}
 	}
 
 	get characters(): DynamicFontAtlasCharacters {

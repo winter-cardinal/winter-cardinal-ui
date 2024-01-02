@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Extract, RenderTexture, Renderer, SCALE_MODES } from "pixi.js";
+import { RenderTexture, Renderer, SCALE_MODES } from "pixi.js";
 import { SdfMesh } from "./sdf-mesh";
 import { DApplications } from "../d-applications";
 
 export class SdfGenerator {
 	protected _mesh: SdfMesh;
 	protected _renderTexture: RenderTexture;
+	protected _imageData?: ImageData;
+	protected _context?: CanvasRenderingContext2D | null;
 
 	constructor() {
 		this._mesh = new SdfMesh();
@@ -23,6 +25,10 @@ export class SdfGenerator {
 
 	get canvas(): HTMLCanvasElement {
 		return this._mesh.canvas;
+	}
+
+	get imageData(): ImageData | undefined {
+		return this._imageData;
 	}
 
 	toDirty(): void {
@@ -45,7 +51,11 @@ export class SdfGenerator {
 		if (canvas.width !== width || canvas.height !== height) {
 			canvas.width = width;
 			canvas.height = height;
-			const context = canvas.getContext("2d");
+			let context = this._context;
+			if (context === undefined) {
+				context = canvas.getContext("2d");
+				this._context = context;
+			}
 			if (context != null) {
 				if (source instanceof ImageData) {
 					context.putImageData(source, 0, 0);
@@ -75,17 +85,37 @@ export class SdfGenerator {
 		renderer.render(mesh, renderTexture, true, undefined, true);
 
 		// Copy the rendered SDF image to the canvas
-		const context = canvas.getContext("2d");
+		let context = this._context;
+		if (context === undefined) {
+			context = canvas.getContext("2d");
+			this._context = context;
+		}
 		if (context != null) {
-			const imageData = context.getImageData(0, 0, width, height);
+			let imageData = this._imageData;
+			if (imageData == null || imageData.width !== width || imageData.height !== height) {
+				imageData = context.createImageData(width, height);
+				this._imageData = imageData;
+			}
 
 			renderer.renderTexture.bind(renderTexture);
 			const gl = renderer.gl;
 			gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, imageData.data);
+		}
+	}
 
-			(Extract as any).arrayPostDivide(imageData.data, imageData.data);
-
-			context.putImageData(imageData, 0, 0);
+	toDataUrl(): string | undefined {
+		const imageData = this._imageData;
+		if (imageData != null) {
+			const canvas = this._mesh.canvas;
+			let context = this._context;
+			if (context === undefined) {
+				context = canvas.getContext("2d");
+				this._context = context;
+			}
+			if (context != null) {
+				context.putImageData(imageData, 0, 0);
+			}
+			return canvas.toDataURL();
 		}
 	}
 }
