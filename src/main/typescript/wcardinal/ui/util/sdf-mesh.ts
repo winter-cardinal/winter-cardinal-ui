@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, Geometry, MIPMAP_MODES, Renderer, Shader, Texture } from "pixi.js";
+import {
+	DisplayObject,
+	Geometry,
+	MIPMAP_MODES,
+	Renderer,
+	SCALE_MODES,
+	Shader,
+	Texture
+} from "pixi.js";
 import { SdfRenderer } from "./sdf-renderer";
 
 const VERTEX_SHADER = `
@@ -30,23 +38,37 @@ float calcDistance( float x, float y, float dx, float dy ) {
 	float v = yd / uSize.y;
 	float ul = (xd - 1.0) / uSize.x;
 	float vt = (yd - 1.0) / uSize.y;
-
+	float ur = (xd + 1.0) / uSize.x;
+	float vb = (yd + 1.0) / uSize.y;
 	float m = texture2D(uSampler, vec2(u , v )).a;
 	float l = texture2D(uSampler, vec2(ul, v )).a;
 	float t = texture2D(uSampler, vec2(u , vt)).a;
-	float ddx = -(0.5 - m) / (l - m);
-	float ddy = -(0.5 - m) / (t - m);
+	float r = texture2D(uSampler, vec2(ur, v )).a;
+	float b = texture2D(uSampler, vec2(u , vb)).a;
+	float ddl = (0.5 - m) / (l - m);
+	float ddt = (0.5 - m) / (t - m);
+	float ddr = (0.5 - m) / (r - m);
+	float ddb = (0.5 - m) / (b - m);
 	bool bl = min(l,m) < 0.5 && 0.5 <= max(l,m);
 	bool bt = min(t,m) < 0.5 && 0.5 <= max(t,m);
-	return (
-		bl ?
-		(bt ?
-			length(vec2(dx + ddx * 0.5, dy + ddy * 0.5)) :
-			length(vec2(dx + ddx, dy))
-		) :
-		(bt ?
-			length(vec2(dx, dy + ddy)) :
-			100.0
+	bool br = min(r,m) < 0.5 && 0.5 <= max(r,m);
+	bool bb = min(b,m) < 0.5 && 0.5 <= max(b,m);
+	float rl = bl ? length(vec2(dx - ddl, dy      )) : 100.0;
+	float rt = bt ? length(vec2(dx      , dy - ddt)) : 100.0;
+	float rr = br ? length(vec2(dx + ddr, dy      )) : 100.0;
+	float rb = bb ? length(vec2(dx      , dy + ddb)) : 100.0;
+	float rlt = bl && bt ? length(vec2(dx - ddl * 0.5, dy - ddt * 0.5)) : 100.0;
+	float rtr = bt && br ? length(vec2(dx + ddr * 0.5, dy - ddt * 0.5)) : 100.0;
+	float rrb = br && bb ? length(vec2(dx + ddr * 0.5, dy + ddb * 0.5)) : 100.0;
+	float rbl = bb && bl ? length(vec2(dx - ddl * 0.5, dy + ddb * 0.5)) : 100.0;
+	return min(
+		min(
+			min(rl, rt),
+			min(rr, rb)
+		),
+		min(
+			min(rlt, rtr),
+			min(rrb, rbl)
 		)
 	);
 }
@@ -103,6 +125,7 @@ export class SdfMesh extends DisplayObject {
 
 		const texture = Texture.from(canvas, {
 			mipmap: MIPMAP_MODES.OFF,
+			scaleMode: SCALE_MODES.LINEAR,
 			resolution: 1
 		});
 		this.texture = texture;

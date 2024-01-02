@@ -55,15 +55,15 @@ export class SdfGenerator {
 		if (canvas.width !== width || canvas.height !== height) {
 			canvas.width = width;
 			canvas.height = height;
-			const context = this.context;
-			if (context != null) {
-				if (source instanceof ImageData) {
-					context.putImageData(source, 0, 0);
-				} else {
-					context.drawImage(source, 0, 0);
-				}
-				mesh.texture.update();
+		}
+		const context = this.context;
+		if (context != null) {
+			if (source instanceof ImageData) {
+				context.putImageData(source, 0, 0);
+			} else {
+				context.drawImage(source, 0, 0);
 			}
+			mesh.texture.update();
 		}
 	}
 
