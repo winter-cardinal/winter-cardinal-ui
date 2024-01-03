@@ -44,6 +44,7 @@ export class UtilExtractor {
 		const height = Math.floor(frame.height * resolution);
 		const pixels = new Uint8Array(4 * width * height);
 
+		const oldRenderTexture = renderer.renderTexture.current;
 		renderer.renderTexture.bind(renderTexture);
 		const gl = renderer.gl;
 		gl.readPixels(
@@ -55,6 +56,7 @@ export class UtilExtractor {
 			gl.UNSIGNED_BYTE,
 			pixels
 		);
+		renderer.renderTexture.bind(oldRenderTexture);
 
 		return {
 			width,
