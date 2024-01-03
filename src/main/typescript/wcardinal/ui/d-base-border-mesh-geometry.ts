@@ -58,61 +58,81 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 		borderWidth: number,
 		table: DBaseMeshGeometryTable
 	): void {
-		const borderWidthHalf = 0.5 * borderWidth;
-		const r0 = r - borderWidthHalf;
-		const r2 = r + borderWidthHalf;
+		const hw = 0.5 * borderWidth;
+		const r1 = r - hw;
+		const r2 = r + hw;
+		const r0 = r1 - 0.25;
+		const r3 = r2 + 0.25;
 		const cos = table.cos;
 		const sin = table.sin;
-		const cos0 = cos[0];
-		const sin0 = sin[0];
-		const cos1 = cos[n - 1];
-		const sin1 = sin[n - 1];
-		const x1 = x + (cos0 + cos1) * r0;
-		const y1 = y + (sin0 + sin1) * r0;
-		for (let i = 0; i < n; ++i) {
-			const c = cos[i];
-			const s = sin[i];
-
-			let dr1 = dr;
-			let dr2 = dr;
-			const d0 = c * cos0 + s * sin0;
-			if (0.0001 < d0) {
-				const d0i = 1 / d0 - 1;
-				dr1 = Math.min(dr1, d0i * r0);
-				dr2 = Math.min(dr2, d0i * r2);
+		if (r0 < 0) {
+			const m = n >> 1;
+			const c0 = cos[m];
+			const s0 = sin[m];
+			if (r1 < 0) {
+				for (let i = 0; i < n; ++i) {
+					const c = cos[i];
+					const s = sin[i];
+					vertices[++iv] = x + c0 * r0;
+					vertices[++iv] = y + s0 * r0;
+					vertices[++iv] = x + c0 * r1;
+					vertices[++iv] = y + s0 * r1;
+					vertices[++iv] = x + c * r2;
+					vertices[++iv] = y + s * r2;
+					vertices[++iv] = x + c * r3;
+					vertices[++iv] = y + s * r3;
+					uvs[++iuv] = 0.5 * (1 + c);
+					uvs[++iuv] = 0.5 * (1 + s);
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5 * (1 + c);
+					uvs[++iuv] = 0.5 * (1 + s);
+				}
+			} else {
+				for (let i = 0; i < n; ++i) {
+					const c = cos[i];
+					const s = sin[i];
+					vertices[++iv] = x + c0 * r0;
+					vertices[++iv] = y + s0 * r0;
+					vertices[++iv] = x + c * r1;
+					vertices[++iv] = y + s * r1;
+					vertices[++iv] = x + c * r2;
+					vertices[++iv] = y + s * r2;
+					vertices[++iv] = x + c * r3;
+					vertices[++iv] = y + s * r3;
+					uvs[++iuv] = 0.5 * (1 + c);
+					uvs[++iuv] = 0.5 * (1 + s);
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5;
+					uvs[++iuv] = 0.5 * (1 + c);
+					uvs[++iuv] = 0.5 * (1 + s);
+				}
 			}
-			const d1 = c * cos1 + s * sin1;
-			if (0.0001 < d1) {
-				const d1i = 1 / d1 - 1;
-				dr1 = Math.min(dr1, d1i * r0);
-				dr2 = Math.min(dr2, d1i * r2);
-			}
-			const r1 = r0 + dr1;
-			const r3 = r2 + dr2;
-
-			if (0 < r0) {
+		} else {
+			for (let i = 0; i < n; ++i) {
+				const c = cos[i];
+				const s = sin[i];
 				vertices[++iv] = x + c * r0;
 				vertices[++iv] = y + s * r0;
 				vertices[++iv] = x + c * r1;
 				vertices[++iv] = y + s * r1;
-			} else {
-				vertices[++iv] = x1;
-				vertices[++iv] = y1;
-				vertices[++iv] = x1;
-				vertices[++iv] = y1;
+				vertices[++iv] = x + c * r2;
+				vertices[++iv] = y + s * r2;
+				vertices[++iv] = x + c * r3;
+				vertices[++iv] = y + s * r3;
+				uvs[++iuv] = 0.5 * (1 + c);
+				uvs[++iuv] = 0.5 * (1 + s);
+				uvs[++iuv] = 0.5;
+				uvs[++iuv] = 0.5;
+				uvs[++iuv] = 0.5;
+				uvs[++iuv] = 0.5;
+				uvs[++iuv] = 0.5 * (1 + c);
+				uvs[++iuv] = 0.5 * (1 + s);
 			}
-			vertices[++iv] = x + c * r2;
-			vertices[++iv] = y + s * r2;
-			vertices[++iv] = x + c * r3;
-			vertices[++iv] = y + s * r3;
-			uvs[++iuv] = 0.5 * (1 + c);
-			uvs[++iuv] = 0.5 * (1 + s);
-			uvs[++iuv] = 0.5;
-			uvs[++iuv] = 0.5;
-			uvs[++iuv] = 0.5;
-			uvs[++iuv] = 0.5;
-			uvs[++iuv] = 0.5 * (1 + c);
-			uvs[++iuv] = 0.5 * (1 + s);
 		}
 	}
 

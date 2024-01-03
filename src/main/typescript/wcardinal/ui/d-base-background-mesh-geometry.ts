@@ -30,29 +30,14 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 	): void {
 		const cos = table.cos;
 		const sin = table.sin;
-		const cos0 = cos[0];
-		const sin0 = sin[0];
-		const cos1 = cos[n - 1];
-		const sin1 = sin[n - 1];
+		const r1 = r + 0.25;
 		for (let i = 0; i < n; ++i) {
 			const c = cos[i];
 			const s = sin[i];
-
-			let dro = dr;
-			const d0 = c * cos0 + s * sin0;
-			if (0.0001 < d0) {
-				dro = Math.min(dro, (1 / d0 - 1) * r);
-			}
-			const d1 = c * cos1 + s * sin1;
-			if (0.0001 < d1) {
-				dro = Math.min(dro, (1 / d1 - 1) * r);
-			}
-			const ro = r + dro;
-
 			vertices[++iv] = x + c * r;
 			vertices[++iv] = y + s * r;
-			vertices[++iv] = x + c * ro;
-			vertices[++iv] = y + s * ro;
+			vertices[++iv] = x + c * r1;
+			vertices[++iv] = y + s * r1;
 			uvs[++iuv] = 0.5;
 			uvs[++iuv] = 0.5;
 			uvs[++iuv] = 0.5 * (1 + c);

@@ -12,7 +12,8 @@ export interface DBaseMeshGeometryTable {
 }
 
 export class DBaseMeshGeometry extends MeshGeometry {
-	protected static N = 4;
+	/** Note that this must be an odd number. */
+	protected static N = 5;
 	protected static TABLES?: DBaseMeshGeometryTable[];
 
 	protected _width: number;
