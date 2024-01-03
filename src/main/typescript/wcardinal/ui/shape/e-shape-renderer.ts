@@ -197,9 +197,7 @@ varying mediump vec2 vUv;
 uniform sampler2D sampler;
 uniform mediump float pixelScale;
 
-void main(void) {
-	vec4 texture = texture2D(sampler, vUv);
-	float type = vClipping.z;
+vec4 color1(float type, vec4 texture) {
 	vec2 v0 = vStep;
 	vec2 v1 = vClipping.xy;
 	vec2 v2 = v0 * vAntialias.xy;
@@ -208,10 +206,20 @@ void main(void) {
 	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
 	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
 	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
-	vec4 d = ( type == 1.0 ? d1 : d0 );
+	vec4 d = (type == 1.0 ? d1 : d0);
 	vec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );
-	vec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));
+	return texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));
+}
 
+vec4 color2(float type, vec4 texture) {
+	vec2 a0 = vAntialias.xy;
+	vec2 a1 = vAntialias.zw;
+	vec2 a2 = vec2( (texture.b * 0.00392156862745098 + texture.g) * 0.00392156862745098 + texture.r );
+	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
+	return a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
+}
+
+float color3456(float type, vec4 texture) {
 	float l = vColorStroke.x;
 	float lp0 = vColorStroke.y;
 	float lp1 = vColorStroke.z;
@@ -220,14 +228,16 @@ void main(void) {
 	float lm = mod( l, lp0 + lp1 );
 	float ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );
 	float ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );
-	vec4 color3456 = color01 * ls0 * ls1;
+	return ls0 * ls1;
+}
 
-	vec2 a0 = vAntialias.xy;
-	vec2 a1 = vAntialias.zw;
-	vec2 a2 = vec2( (texture.b * 0.00392156862745098 + texture.g) * 0.00392156862745098 + texture.r );
-	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
-	vec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
-	gl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );
+void main(void) {
+	float type = vClipping.z;
+	vec4 texture = texture2D(sampler, vUv);
+	gl_FragColor = (type == 2.0 ?
+		color2(type, texture) :
+		color1(type, texture) * (2.5 < type ? color3456(type, texture) : 1.0)
+	);
 }`;
 
 export class EShapeRenderer extends ObjectRenderer {
