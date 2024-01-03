@@ -224,7 +224,7 @@ void main(void) {
 
 	vec2 a0 = vAntialias.xy;
 	vec2 a1 = vAntialias.zw;
-	vec2 a2 = vec2( texture.a );
+	vec2 a2 = vec2( texture.r + (texture.g + texture.b * 0.00392156862745098) * 0.00392156862745098 );
 	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
 	vec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
 	gl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );
