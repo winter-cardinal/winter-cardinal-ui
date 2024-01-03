@@ -20,71 +20,148 @@ varying mediump vec2 vTextureCoord;
 uniform sampler2D uSampler;
 uniform vec2 uSize;
 
-float calcDistance( float x, float y, float dx, float dy ) {
-	float xd = x + dx;
-	float yd = y + dy;
-	float u = xd / uSize.x;
-	float v = yd / uSize.y;
-	float ul = (xd - 1.0) / uSize.x;
-	float vt = (yd - 1.0) / uSize.y;
-	float ur = (xd + 1.0) / uSize.x;
-	float vb = (yd + 1.0) / uSize.y;
-	float m = texture2D(uSampler, vec2(u , v )).a;
-	float l = texture2D(uSampler, vec2(ul, v )).a;
-	float t = texture2D(uSampler, vec2(u , vt)).a;
-	float r = texture2D(uSampler, vec2(ur, v )).a;
-	float b = texture2D(uSampler, vec2(u , vb)).a;
-	float ddl = (0.5 - m) / (l - m);
-	float ddt = (0.5 - m) / (t - m);
-	float ddr = (0.5 - m) / (r - m);
-	float ddb = (0.5 - m) / (b - m);
-	bool bl = min(l,m) < 0.5 && 0.5 <= max(l,m);
-	bool bt = min(t,m) < 0.5 && 0.5 <= max(t,m);
-	bool br = min(r,m) < 0.5 && 0.5 <= max(r,m);
-	bool bb = min(b,m) < 0.5 && 0.5 <= max(b,m);
-	float rl = bl ? length(vec2(dx - ddl, dy      )) : 100.0;
-	float rt = bt ? length(vec2(dx      , dy - ddt)) : 100.0;
-	float rr = br ? length(vec2(dx + ddr, dy      )) : 100.0;
-	float rb = bb ? length(vec2(dx      , dy + ddb)) : 100.0;
-	float rlt = bl && bt ? length(vec2(dx - ddl * 0.5, dy - ddt * 0.5)) : 100.0;
-	float rtr = bt && br ? length(vec2(dx + ddr * 0.5, dy - ddt * 0.5)) : 100.0;
-	float rrb = br && bb ? length(vec2(dx + ddr * 0.5, dy + ddb * 0.5)) : 100.0;
-	float rbl = bb && bl ? length(vec2(dx - ddl * 0.5, dy + ddb * 0.5)) : 100.0;
+float norm(vec2 v) {
+	return dot(v, v);
+}
+
+float norm(vec2 p, vec2 dp) {
+	vec2 xy = p + dp;
+	vec2 uvi = vec2(1.0) / uSize;
+	vec2 uv = xy * uvi;
+	vec4 t0 = vec4(texture2D(uSampler, uv).a);
+	vec4 t1 = vec4(
+		texture2D(uSampler, uv + vec2(-uvi.x, 0.0   )).a,
+		texture2D(uSampler, uv + vec2(0.0   , -uvi.y)).a,
+		texture2D(uSampler, uv + vec2(+uvi.x, 0.0   )).a,
+		texture2D(uSampler, uv + vec2(0.0   , +uvi.y)).a
+	);
+	vec4 t2 = vec4(0.5);
+	vec4 t3 = min(t1,t0);
+	vec4 t4 = max(t1,t0);
+
+	vec4 w0 = (t2 - t0) / (t1 - t0);
+	vec4 s0 = vec4(
+		t3.x < 0.5 && 0.5 <= t4.x,
+		t3.y < 0.5 && 0.5 <= t4.y,
+		t3.z < 0.5 && 0.5 <= t4.z,
+		t3.w < 0.5 && 0.5 <= t4.w
+	);
+	vec4 l0 = vec4(
+		norm(dp + vec2(-w0.x, 0.0  )),
+		norm(dp + vec2(0.0  , -w0.y)),
+		norm(dp + vec2(+w0.z, 0.0  )),
+		norm(dp + vec2(0.0  , +w0.w))
+	);
+	vec4 c0 = vec4(100.0);
+	vec4 r0 = mix(c0, l0, s0);
+
+	vec4 w1 = w0 * vec4(0.5);
+	vec4 s1 = vec4(
+		0.5 < s0.x && 0.5 < s0.y,
+		0.5 < s0.y && 0.5 < s0.z,
+		0.5 < s0.z && 0.5 < s0.w,
+		0.5 < s0.w && 0.5 < s0.x
+	);
+	vec4 l1 = vec4(
+		norm(dp + vec2(-w1.x, -w1.y)),
+		norm(dp + vec2(+w1.z, -w1.y)),
+		norm(dp + vec2(+w1.z, +w1.w)),
+		norm(dp + vec2(-w1.x, +w1.w))
+	);
+	vec4 r1 = mix(c0, l1, s1);
+	vec4 r2 = min(r0, r1);
+	vec2 r3 = min(r2.xy, r2.zw);
+	return min(r3.x, r3.y);
+}
+
+float distY(vec2 p, float dx) {
 	return min(
+		norm(p, vec2(dx, 0.0)),
 		min(
-			min(rl, rt),
-			min(rr, rb)
-		),
-		min(
-			min(rlt, rtr),
-			min(rrb, rbl)
+			min(
+				min(
+					min(
+						norm(p, vec2(dx, -6.0)),
+						norm(p, vec2(dx, -5.0))
+					),
+					min(
+						norm(p, vec2(dx, -4.0)),
+						norm(p, vec2(dx, -3.0))
+					)
+				),
+				min(
+					norm(p, vec2(dx, -2.0)),
+					norm(p, vec2(dx, -1.0))
+				)
+			),
+			min(
+				min(
+					min(
+						norm(p, vec2(dx, +1.0)),
+						norm(p, vec2(dx, +2.0))
+					),
+					min(
+						norm(p, vec2(dx, +3.0)),
+						norm(p, vec2(dx, +4.0))
+					)
+				),
+				min(
+					norm(p, vec2(dx, +5.0)),
+					norm(p, vec2(dx, +6.0))
+				)
+			)
 		)
 	);
 }
 
-float calcDistancesY( float x, float y, float dx ) {
-	float d = 100.0;
-	for( float dy=-6.0; dy<6.5; dy++ ) {
-		d = min( d, calcDistance( x, y, dx, dy ) );
-	}
-	return d;
+float distX(vec2 p) {
+	return min(
+		distY(p, 0.0),
+		min(
+			min(
+				min(
+					min(
+						distY(p, -6.0),
+						distY(p, -5.0)
+					),
+					min(
+						distY(p, -4.0),
+						distY(p, -3.0)
+					)
+				),
+				min(
+					distY(p, -2.0),
+					distY(p, -1.0)
+				)
+			),
+			min(
+				min(
+					min(
+						distY(p, +1.0),
+						distY(p, +2.0)
+					),
+					min(
+						distY(p, +3.0),
+						distY(p, +4.0)
+					)
+				),
+				min(
+					distY(p, +5.0),
+					distY(p, +6.0)
+				)
+			)
+		)
+	);
 }
 
-float calcDistances( float x, float y ) {
-	float d = 100.0;
-	for( float dx=-6.0; dx<6.5; dx++ ) {
-		d = min( d, calcDistancesY( x, y, dx ) );
-	}
-	return d;
+float dist(vec2 p) {
+	return sqrt(distX(p));
 }
 
 void main(void) {
 	float t = texture2D(uSampler, vTextureCoord).a;
-	float x = vTextureCoord.x * uSize.x;
-	float y = vTextureCoord.y * uSize.y;
-	float d = min( 6.0, calcDistances( x, y ) ) / 12.0;
-	d = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );
-	d = d * 255.0;
+	float d = min( 6.0, dist( vTextureCoord * uSize ) ) / 12.0;
+	d = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 ) * 255.0;
 	float r = floor(d);
 	d = (d - r) * 255.0;
 	float g = floor(d);
