@@ -74,93 +74,25 @@ float norm(vec2 p, vec2 dp) {
 	return min(r3.x, r3.y);
 }
 
-float distY(vec2 p, float dx) {
-	return min(
-		norm(p, vec2(dx, 0.0)),
-		min(
-			min(
-				min(
-					min(
-						norm(p, vec2(dx, -6.0)),
-						norm(p, vec2(dx, -5.0))
-					),
-					min(
-						norm(p, vec2(dx, -4.0)),
-						norm(p, vec2(dx, -3.0))
-					)
-				),
-				min(
-					norm(p, vec2(dx, -2.0)),
-					norm(p, vec2(dx, -1.0))
-				)
-			),
-			min(
-				min(
-					min(
-						norm(p, vec2(dx, +1.0)),
-						norm(p, vec2(dx, +2.0))
-					),
-					min(
-						norm(p, vec2(dx, +3.0)),
-						norm(p, vec2(dx, +4.0))
-					)
-				),
-				min(
-					norm(p, vec2(dx, +5.0)),
-					norm(p, vec2(dx, +6.0))
-				)
-			)
-		)
-	);
+float normY(vec2 p, float dx) {
+	float result = 100.0;
+	for (float dy=-6.0; dy < 6.5; dy += 1.0) {
+		result = min(result, norm(p, vec2(dx, dy)));
+	}
+	return result;
 }
 
-float distX(vec2 p) {
-	return min(
-		distY(p, 0.0),
-		min(
-			min(
-				min(
-					min(
-						distY(p, -6.0),
-						distY(p, -5.0)
-					),
-					min(
-						distY(p, -4.0),
-						distY(p, -3.0)
-					)
-				),
-				min(
-					distY(p, -2.0),
-					distY(p, -1.0)
-				)
-			),
-			min(
-				min(
-					min(
-						distY(p, +1.0),
-						distY(p, +2.0)
-					),
-					min(
-						distY(p, +3.0),
-						distY(p, +4.0)
-					)
-				),
-				min(
-					distY(p, +5.0),
-					distY(p, +6.0)
-				)
-			)
-		)
-	);
-}
-
-float dist(vec2 p) {
-	return sqrt(distX(p));
+float normX(vec2 p) {
+	float result = 100.0;
+	for (float dx=-6.0; dx < 6.5; dx += 1.0) {
+		result = min(result, normY(p, dx));
+	}
+	return result;
 }
 
 void main(void) {
 	float t = texture2D(uSampler, vTextureCoord).a;
-	float d = min( 6.0, dist( vTextureCoord * uSize ) ) / 12.0;
+	float d = min( 6.0, sqrt(normX( vTextureCoord * uSize )) ) / 12.0;
 	d = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 ) * 255.0;
 	float r = floor(d);
 	d = (d - r) * 255.0;
@@ -190,10 +122,10 @@ export class DynamicSDFFontGenerator {
 		this._gl = null;
 		this._texture = null;
 		this._shaderProgram = null;
-		this._vertexPositionAttribute = NaN;
-		this._textureCoordAttribute = NaN;
-		this._samplerUniform = NaN;
-		this._sizeUniform = NaN;
+		this._vertexPositionAttribute = 0;
+		this._textureCoordAttribute = 1;
+		this._samplerUniform = null;
+		this._sizeUniform = null;
 		this._vb = null;
 		this._uvb = null;
 
@@ -274,6 +206,8 @@ export class DynamicSDFFontGenerator {
 					if (shaderProgram != null) {
 						gl.attachShader(shaderProgram, vertexShader);
 						gl.attachShader(shaderProgram, fragmentShader);
+						gl.bindAttribLocation(shaderProgram, 0, "aVertexPosition");
+						gl.bindAttribLocation(shaderProgram, 1, "aTextureCoord");
 						gl.linkProgram(shaderProgram);
 						if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
 							console &&
@@ -286,14 +220,6 @@ export class DynamicSDFFontGenerator {
 							gl.deleteShader(fragmentShader);
 
 							gl.useProgram(shaderProgram);
-							this._vertexPositionAttribute = gl.getAttribLocation(
-								shaderProgram,
-								"aVertexPosition"
-							);
-							this._textureCoordAttribute = gl.getAttribLocation(
-								shaderProgram,
-								"aTextureCoord"
-							);
 							this._samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
 							this._sizeUniform = gl.getUniformLocation(shaderProgram, "uSize");
 							gl.useProgram(null);
