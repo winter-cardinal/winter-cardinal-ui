@@ -30,7 +30,7 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 	): void {
 		const cos = table.cos;
 		const sin = table.sin;
-		const r1 = r + 0.25;
+		const r1 = r + dr;
 		for (let i = 0; i < n; ++i) {
 			const c = cos[i];
 			const s = sin[i];

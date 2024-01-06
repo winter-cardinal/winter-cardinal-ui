@@ -61,8 +61,8 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 		const hw = 0.5 * borderWidth;
 		const r1 = r - hw;
 		const r2 = r + hw;
-		const r0 = r1 - 0.25;
-		const r3 = r2 + 0.25;
+		const r0 = r1 - dr;
+		const r3 = r2 + dr;
 		const cos = table.cos;
 		const sin = table.sin;
 		if (r0 < 0) {

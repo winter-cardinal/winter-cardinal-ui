@@ -53,7 +53,7 @@ export class DBaseBorderSnippet implements DBaseSnippet {
 				borderMesh.y = -borderOffset;
 				borderMesh.width = width + borderOffset * 2;
 				borderMesh.height = height + borderOffset * 2;
-				borderMesh.cornerRadius = cornerRadius;
+				borderMesh.cornerRadius = Math.max(0, cornerRadius + borderOffset);
 				borderMesh.cornerMask = cornerMask;
 				borderMesh.borderWidth = borderWidth;
 				borderMesh.borderMask = borderMask;
