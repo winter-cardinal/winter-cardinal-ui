@@ -20,7 +20,8 @@ export const TEXT_FMIN: number = 0.00001;
 const TEXT_WORK_POINT: Point = new Point();
 
 export const toTextBufferCount = (shape: EShape): number => {
-	return Math.ceil(shape.text.value.length / 12) * 12;
+	const l = shape.text.value.length;
+	return ((l >> 3) + (0 < (l & 0x7) ? 1 : 0)) << 3;
 };
 
 export const buildTextClipping = (
