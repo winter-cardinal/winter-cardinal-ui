@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeCorner } from "../e-shape-corner";
 import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
@@ -17,6 +16,7 @@ import {
 	TRIANGLE_ROUNDED_VERTEX_COUNT,
 	TRIANGLE_ROUNDED_WORLD_SIZE
 } from "./build-triangle-rounded";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { copyClipping } from "./copy-clipping";
@@ -39,11 +39,11 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 		pointCountReserved: number
 	) {
 		super(vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved);
-		this.radius = NaN;
-		this.corner = NaN;
+		this.radius = 0;
+		this.corner = 0;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
@@ -58,9 +58,10 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 				pointCountReserved
 			);
 		}
+		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			this.updateVertexClippingStepAndUv(buffer, shape, points);
@@ -70,7 +71,7 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 	}
 
 	protected updateVertexClippingStepAndUv(
-		buffer: EShapeBuffer,
+		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
 	): void {
@@ -118,7 +119,16 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 			isRadiusChanged ||
 			isStrokeChanged;
 
-		if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+
+		if (
+			isNotInited ||
+			isVertexChanged ||
+			isTransformChanged ||
+			isCornerChanged ||
+			isTextureChanged
+		) {
+			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
 			this.pointId = pointId;
 			const formatted = points.formatted;
 			this.pointCount = formatted.length;
@@ -137,13 +147,13 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 
 			// Buffer
 			buffer.updateVertices();
-			if (isVertexChanged || isCornerChanged) {
+			if (isNotInited || isVertexChanged || isCornerChanged) {
 				buffer.updateClippings();
 			}
-			if (isVertexChanged || isTransformChanged || isCornerChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 				buffer.updateSteps();
 			}
-			if (isVertexChanged || isTextureChanged) {
+			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 			}
 			const pointCount = this.pointCount;
@@ -184,13 +194,13 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 				);
 
 				// Clippings
-				if (isVertexChanged || isCornerChanged) {
+				if (isNotInited || isVertexChanged || isCornerChanged) {
 					buildTriangleRoundedClipping(clippings, voffset, corner, radius);
 					copyClipping(clippings, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
 				}
 
 				// Steps
-				if (isVertexChanged || isTransformChanged || isCornerChanged) {
+				if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 					buildTriangleRoundedStep(
 						steps,
 						clippings,
@@ -204,7 +214,7 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 				}
 
 				// UVs
-				if (isVertexChanged || isTextureChanged) {
+				if (isNotInited || isVertexChanged || isTextureChanged) {
 					buildTriangleRoundedUv(
 						uvs,
 						voffset,
@@ -240,12 +250,12 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 					);
 
 					// Clippings
-					if (isVertexChanged || isCornerChanged) {
+					if (isNotInited || isVertexChanged || isCornerChanged) {
 						buildTriangleRoundedClipping(clippings, iv, corner, radius);
 					}
 
 					// Steps
-					if (isVertexChanged || isTransformChanged || isCornerChanged) {
+					if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 						buildTriangleRoundedStep(
 							steps,
 							clippings,
@@ -258,7 +268,7 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 					}
 
 					// UVs
-					if (isVertexChanged || isTextureChanged) {
+					if (isNotInited || isVertexChanged || isTextureChanged) {
 						buildTriangleRoundedUv(
 							uvs,
 							iv,

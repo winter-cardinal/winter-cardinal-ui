@@ -607,7 +607,7 @@ export const buildTextVertex = (
 	//
 	let tx0 = 0;
 	let ty0 = 0;
-	let lineWidthMaximum = NaN;
+	let lineWidthMaximum = width;
 	switch (textDirection) {
 		case EShapeTextDirection.LEFT_TO_RIGHT:
 			getTextBBox(

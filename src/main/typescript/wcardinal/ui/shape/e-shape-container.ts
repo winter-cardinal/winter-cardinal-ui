@@ -42,9 +42,9 @@ export class EShapeContainer extends DisplayObject {
 		this._fontAtlases = new DynamicSDFFontAtlases();
 
 		this._pixelScale = 1;
-		this._pixelScaleId = NaN;
+		this._pixelScaleId = -2; // Since this._shapeScaleId starts from -1.
 		this._shapeScale = 1;
-		this._shapeScaleId = NaN;
+		this._shapeScaleId = -1; // Since PIXI.Transform._worldID starts from zero.
 
 		this._work = new Point();
 

@@ -854,7 +854,7 @@ export class DDiagramCanvas<
 				const runtime = actionable.runtime;
 				if (runtime) {
 					const runtimeEffect = runtime.effect;
-					if (time < runtimeEffect) {
+					if (0 <= runtimeEffect && time < runtimeEffect) {
 						effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
 					}
 				}
@@ -876,7 +876,7 @@ export class DDiagramCanvas<
 				const runtime = actionable.runtime;
 				if (runtime) {
 					const runtimeEffect = runtime.effect;
-					if (time < runtimeEffect) {
+					if (0 <= runtimeEffect && time < runtimeEffect) {
 						effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
 					}
 				}

@@ -70,7 +70,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 		this.cursor = shape.cursor;
 		this.reset = EShapeRuntimeReset.NONE;
 		this.written = EShapeRuntimeReset.NONE;
-		this.effect = NaN;
+		this.effect = -1;
 		this.isStateChanged = false;
 		this.interactive = false;
 	}
@@ -447,12 +447,13 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 
 	update(shape: EShape, time: number): void {
 		const data = shape.data;
-		const isEffectTimeUp = this.effect <= time;
+		const effect = this.effect;
+		const isEffectTimeUp = 0 <= effect && effect <= time;
 		if (data.isChanged || this.isStateChanged || isEffectTimeUp) {
 			this.isStateChanged = false;
 			data.isChanged = false;
 			if (isEffectTimeUp) {
-				this.effect = NaN;
+				this.effect = -1;
 			}
 			shape.lock(EShapeLockPart.UPLOADED);
 			this.onUpdate(shape, time);

@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import {
 	buildLineClipping,
@@ -14,6 +13,7 @@ import {
 	toLinePointCount,
 	toLineVertexCount
 } from "./build-line";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
@@ -36,9 +36,10 @@ export class BuilderLine extends BuilderBase {
 		this.length = 1;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateIndices();
 		buildLineIndex(buffer.indices, this.vertexOffset, this.indexOffset, this.indexCount);
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	isCompatible(shape: EShape): boolean {
@@ -46,23 +47,25 @@ export class BuilderLine extends BuilderBase {
 		return vcount === this.vertexCount;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateLineClipping(buffer, shape);
 		this.updateLineVertexStepAndColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateLineUv(buffer, shape);
 	}
 
-	protected updateLineClipping(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateLineClipping(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points) {
 			const formatted = points.formatted;
 			const pointCount = formatted.length;
-			if (this.pointCount !== pointCount) {
+			const isNotInited = !(this.inited & BuilderFlag.CLIPPING);
+			if (isNotInited || this.pointCount !== pointCount) {
+				this.inited |= BuilderFlag.CLIPPING;
 				this.pointCount = pointCount;
 
-				// Invalidate the pointId to update the vertices
-				this.pointId = -1;
+				// Invalidate the vertex buffer
+				this.inited &= ~BuilderFlag.VERTEX;
 
 				buffer.updateClippings();
 				buildLineClipping(
@@ -75,7 +78,7 @@ export class BuilderLine extends BuilderBase {
 		}
 	}
 
-	protected updateLineVertexStepAndColorFill(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateLineVertexStepAndColorFill(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points) {
 			const pointId = points.id;
@@ -92,7 +95,10 @@ export class BuilderLine extends BuilderBase {
 			const transformLocalId = toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
 
-			if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
+			const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_COLOR_FILL);
+
+			if (isNotInited || isPointChanged || isTransformChanged || isStrokeWidthChanged) {
+				this.inited |= BuilderFlag.VERTEX_STEP_AND_COLOR_FILL;
 				this.pointId = pointId;
 				this.pointsClosed = pointsClosed;
 				this.strokeWidth = strokeWidth;
@@ -100,8 +106,8 @@ export class BuilderLine extends BuilderBase {
 				this.transformLocalId = transformLocalId;
 
 				if (isPointChanged) {
-					// Invalidate the texture transform ID to update the UVs
-					this.textureTransformId = NaN;
+					// Invalidate the UV buffer
+					this.inited &= ~BuilderFlag.UV;
 				}
 
 				buffer.updateVertices();
@@ -125,10 +131,16 @@ export class BuilderLine extends BuilderBase {
 		}
 	}
 
-	protected updateLineUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateLineUv(buffer: BuilderBuffer, shape: EShape): void {
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
-		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+		const isNotInited = !(this.inited & BuilderFlag.UV);
+		if (
+			isNotInited ||
+			texture !== this.texture ||
+			textureTransformId !== this.textureTransformId
+		) {
+			this.inited |= BuilderFlag.UV;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 

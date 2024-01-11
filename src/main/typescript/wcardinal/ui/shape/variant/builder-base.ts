@@ -5,18 +5,19 @@
 
 import { Texture } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
+import { buildColor } from "./build-color";
+import { Builder, BuilderBuffer, BuilderFlag } from "./builder";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
-import { buildColor } from "./build-color";
-import { Builder } from "./builder";
 
 export abstract class BuilderBase implements Builder {
 	readonly vertexOffset: number;
 	readonly vertexCount: number;
 	readonly indexOffset: number;
 	readonly indexCount: number;
+
+	protected inited: BuilderFlag;
 
 	protected sizeX: number;
 	protected sizeY: number;
@@ -47,39 +48,42 @@ export abstract class BuilderBase implements Builder {
 		this.vertexCount = vertexCount;
 		this.indexCount = indexCount;
 
-		this.sizeX = NaN;
-		this.sizeY = NaN;
+		this.inited = BuilderFlag.NONE;
+
+		this.sizeX = 0;
+		this.sizeY = 0;
 
 		this.transformLocalId = -1;
 
-		this.strokeAlign = NaN;
-		this.strokeWidth = NaN;
-		this.strokeSide = NaN;
-		this.strokeStyle = NaN;
+		this.strokeAlign = 0;
+		this.strokeWidth = 0;
+		this.strokeSide = EShapeStrokeSide.NONE;
+		this.strokeStyle = EShapeStrokeStyle.NONE;
 
-		this.colorFill = NaN;
-		this.alphaFill = -1;
-		this.colorStroke = NaN;
-		this.alphaStroke = -1;
+		this.colorFill = 0;
+		this.alphaFill = 0;
+		this.colorStroke = 0;
+		this.alphaStroke = 0;
 
 		this.texture = null;
-		this.textureTransformId = NaN;
+		this.textureTransformId = -1;
 	}
 
-	abstract init(buffer: EShapeBuffer): void;
+	abstract init(buffer: BuilderBuffer): void;
 
 	isCompatible(shape: EShape): boolean {
 		return true;
 	}
 
-	abstract update(buffer: EShapeBuffer, shape: EShape): void;
+	abstract update(buffer: BuilderBuffer, shape: EShape): void;
 
-	protected updateColorFill(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateColorFill(buffer: BuilderBuffer, shape: EShape): void {
 		const fill = shape.fill;
-		const isEnabled = shape.visible && fill.enable;
 		const color = fill.color;
-		const alpha = isEnabled ? fill.alpha : 0;
-		if (color !== this.colorFill || alpha !== this.alphaFill) {
+		const alpha = shape.visible && fill.enable ? fill.alpha : 0;
+		const isNotInited = !(this.inited & BuilderFlag.COLOR_FILL);
+		if (isNotInited || color !== this.colorFill || alpha !== this.alphaFill) {
+			this.inited |= BuilderFlag.COLOR_FILL;
 			this.colorFill = color;
 			this.alphaFill = alpha;
 			buffer.updateColorFills();
@@ -88,12 +92,13 @@ export abstract class BuilderBase implements Builder {
 		}
 	}
 
-	protected updateColorStroke(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateColorStroke(buffer: BuilderBuffer, shape: EShape): void {
 		const stroke = shape.stroke;
-		const isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
 		const color = stroke.color;
-		const alpha = isEnabled ? stroke.alpha : 0;
-		if (color !== this.colorStroke || alpha !== this.alphaStroke) {
+		const alpha = shape.visible && stroke.enable && 0 < stroke.width ? stroke.alpha : 0;
+		const isNotInited = !(this.inited & BuilderFlag.COLOR_STROKE);
+		if (isNotInited || color !== this.colorStroke || alpha !== this.alphaStroke) {
+			this.inited |= BuilderFlag.COLOR_STROKE;
 			this.colorStroke = color;
 			this.alphaStroke = alpha;
 			buffer.updateColorStrokes();

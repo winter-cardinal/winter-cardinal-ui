@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildImageSdfClipping,
 	buildImageSdfIndex,
@@ -15,6 +14,7 @@ import {
 	IMAGE_SDF_VERTEX_COUNT,
 	IMAGE_SDF_WORLD_SIZE
 } from "./build-image-sdf";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
@@ -28,22 +28,23 @@ export class BuilderImageSdf extends BuilderBase {
 		this.textureHeight = -1;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		const voffset = this.vertexOffset;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildImageSdfClipping(buffer.clippings, voffset);
 		buildImageSdfIndex(buffer.indices, voffset, this.indexOffset);
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexAndStep(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexAndStep(buffer: BuilderBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -67,7 +68,16 @@ export class BuilderImageSdf extends BuilderBase {
 		const isTextureSizeChanged =
 			this.textureWidth !== textureWidth || this.textureHeight !== textureHeight;
 
-		if (isSizeChanged || isTransformChanged || isStrokeChanged || isTextureSizeChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+
+		if (
+			isNotInited ||
+			isSizeChanged ||
+			isTransformChanged ||
+			isStrokeChanged ||
+			isTextureSizeChanged
+		) {
+			this.inited |= BuilderFlag.VERTEX_AND_STEP;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -105,10 +115,16 @@ export class BuilderImageSdf extends BuilderBase {
 		}
 	}
 
-	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
-		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+		const isNotInited = !(this.inited & BuilderFlag.UV);
+		if (
+			isNotInited ||
+			texture !== this.texture ||
+			textureTransformId !== this.textureTransformId
+		) {
+			this.inited |= BuilderFlag.UV;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 

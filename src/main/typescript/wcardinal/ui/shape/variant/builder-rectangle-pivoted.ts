@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildRectangleClipping,
 	buildRectangleIndex,
@@ -13,22 +12,24 @@ import {
 	buildRectangleVertex,
 	RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderRectanglePivoted extends BuilderBase {
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateIndices();
 		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexClippingStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexClippingStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -55,7 +56,10 @@ export class BuilderRectanglePivoted extends BuilderBase {
 
 		const isVertexChanged = isSizeChanged || isStrokeChanged;
 
-		if (isVertexChanged || isTransformChanged || isTextureChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+
+		if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
+			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -83,7 +87,7 @@ export class BuilderRectanglePivoted extends BuilderBase {
 			);
 
 			// Steps
-			if (isVertexChanged || isTransformChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 				buildRectangleStep(
 					voffset,
@@ -96,13 +100,13 @@ export class BuilderRectanglePivoted extends BuilderBase {
 			}
 
 			// Clippings
-			if (isVertexChanged) {
+			if (isNotInited || isVertexChanged) {
 				buffer.updateClippings();
 				buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
 			}
 
 			// UVs
-			if (isVertexChanged || isTextureChanged) {
+			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
 			}

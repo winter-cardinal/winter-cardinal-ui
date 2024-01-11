@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import {
 	BAR_INDEX_COUNT,
@@ -14,6 +13,7 @@ import {
 	buildBarUv,
 	buildBarVertexStepAndColorFill
 } from "./build-bar";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { EShapeBar } from "./e-shape-bar";
@@ -24,26 +24,27 @@ export class BuilderBar extends BuilderBase {
 
 	constructor(vertexOffset: number, indexOffset: number) {
 		super(vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT);
-		this.pointsId = NaN;
+		this.pointsId = -1;
 		this.pointsStyle = EShapePointsStyle.NONE;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildBarClipping(buffer.clippings, voffset);
 		buildBarIndex(buffer.indices, voffset, ioffset);
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexStepAndColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexStepAndColorFill(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexStepAndColorFill(buffer: BuilderBuffer, shape: EShape): void {
 		if (shape instanceof EShapeBar) {
 			const size = shape.size;
 			const sizeX = size.x;
@@ -66,13 +67,17 @@ export class BuilderBar extends BuilderBase {
 			const pointsStyle = points.style;
 			const isPointsStyleChanged = pointsStyle !== this.pointsStyle;
 
+			const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_COLOR_FILL);
+
 			if (
+				isNotInited ||
 				isSizeChanged ||
 				isTransformChanged ||
 				isStrokeWidthChanged ||
 				isPointsIdChanged ||
 				isPointsStyleChanged
 			) {
+				this.inited |= BuilderFlag.VERTEX_STEP_AND_COLOR_FILL;
 				this.sizeX = sizeX;
 				this.sizeY = sizeY;
 				this.strokeWidth = strokeWidth;
@@ -82,8 +87,8 @@ export class BuilderBar extends BuilderBase {
 				this.pointsStyle = pointsStyle;
 
 				if (isPointsIdChanged) {
-					// Invalidate the texture transform ID to update the UVs
-					this.textureTransformId = NaN;
+					// Invalidate the UV buffer
+					this.inited &= ~BuilderFlag.UV;
 				}
 
 				buffer.updateVertices();
@@ -104,10 +109,16 @@ export class BuilderBar extends BuilderBase {
 		}
 	}
 
-	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
-		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+		const isNotInited = !(this.inited & BuilderFlag.UV);
+		if (
+			isNotInited ||
+			texture !== this.texture ||
+			textureTransformId !== this.textureTransformId
+		) {
+			this.inited |= BuilderFlag.UV;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 

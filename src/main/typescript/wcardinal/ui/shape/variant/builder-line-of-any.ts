@@ -4,9 +4,9 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { toPointsCount } from "./build-line";
 import { buildLineOfAnyColor, toLineOfAnyPointCount } from "./build-line-of-any";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 
@@ -42,7 +42,7 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 	}
 
 	protected updateLineOfAnyColorFill(
-		buffer: EShapeBuffer,
+		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints,
 		vcountPerPoint: number
@@ -76,7 +76,7 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 	}
 
 	protected updateLineOfAnyColorStroke(
-		buffer: EShapeBuffer,
+		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints,
 		vcountPerPoint: number
@@ -92,7 +92,10 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		const isStrokeChanged =
 			colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
 
-		if (isPointStrokeChanged || isStrokeChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.COLOR_STROKE);
+
+		if (isNotInited || isPointStrokeChanged || isStrokeChanged) {
+			this.inited |= BuilderFlag.COLOR_STROKE;
 			this.colorStroke = colorStroke;
 			this.alphaStroke = alphaStroke;
 			this.pointStrokeId = pointStrokeId;

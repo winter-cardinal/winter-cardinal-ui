@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildSemicircleClipping,
 	buildSemicircleIndex,
@@ -15,6 +14,7 @@ import {
 	SEMICIRCLE_VERTEX_COUNT,
 	SEMICIRCLE_WORLD_SIZE
 } from "./build-semicircle";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
@@ -23,22 +23,23 @@ export class BuilderSemicircle extends BuilderBase {
 		super(vertexOffset, indexOffset, SEMICIRCLE_VERTEX_COUNT, SEMICIRCLE_INDEX_COUNT);
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
 		buildSemicircleClipping(buffer.clippings, voffset);
 		buildSemicircleIndex(buffer.indices, voffset, this.indexOffset);
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexAndStep(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexAndStep(buffer: BuilderBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -56,7 +57,10 @@ export class BuilderSemicircle extends BuilderBase {
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
-		if (isSizeChanged || isTransformChanged || isStrokeChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+
+		if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
+			this.inited |= BuilderFlag.VERTEX_AND_STEP;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -90,10 +94,16 @@ export class BuilderSemicircle extends BuilderBase {
 		}
 	}
 
-	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
-		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+		const isNotInited = !(this.inited & BuilderFlag.UV);
+		if (
+			isNotInited ||
+			texture !== this.texture ||
+			textureTransformId !== this.textureTransformId
+		) {
+			this.inited |= BuilderFlag.UV;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 

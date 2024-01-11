@@ -5,7 +5,6 @@
 
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildTriangleClipping,
 	buildTriangleIndex,
@@ -18,6 +17,7 @@ import {
 } from "./build-triangle";
 import { BuilderMarkerBase } from "./builder-marker-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 
 export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 	protected static WORK?: Matrix;
@@ -28,20 +28,21 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 		this.pointId = -1;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildTriangleClipping(buffer.clippings, this.vertexOffset);
 		buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 	}
 
-	protected updateVertexStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points == null) {
 			return;
@@ -78,7 +79,16 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 		const pointId = points.id;
 		const isPointChanged = pointId !== this.pointId;
 
-		if (isVertexChanged || isTransformChanged || isTextureChanged || isPointChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+
+		if (
+			isNotInited ||
+			isVertexChanged ||
+			isTransformChanged ||
+			isTextureChanged ||
+			isPointChanged
+		) {
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -106,7 +116,7 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 				TRIANGLE_WORLD_SIZE
 			);
 
-			if (isVertexChanged || isTransformChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 				buildTriangleStep(
 					buffer.steps,
@@ -119,7 +129,7 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 				);
 			}
 
-			if (isVertexChanged || isTextureChanged) {
+			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 				buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
 			}

@@ -81,9 +81,9 @@ export class DTableDataListSelection<ROW>
 	get first(): number | null {
 		const indices = this._indices;
 		if (0 < indices.size) {
-			let result: number = NaN;
+			let result = -1;
 			indices.forEach((index: number): void => {
-				if (result !== result) {
+				if (result < 0) {
 					result = index;
 				}
 			});
@@ -95,7 +95,7 @@ export class DTableDataListSelection<ROW>
 	get last(): number | null {
 		const indices = this._indices;
 		if (0 < indices.size) {
-			let result: number = 0;
+			let result = 0;
 			indices.forEach((index: number): void => {
 				result = index;
 			});

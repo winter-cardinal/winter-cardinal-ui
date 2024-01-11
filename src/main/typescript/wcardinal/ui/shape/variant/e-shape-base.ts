@@ -127,9 +127,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._lockTransformParent = new EShapeLock();
 		this._lockUploaded = new EShapeLock();
 
-		this._boundsTransformId = NaN;
-		this._boundsInternalTransformId = NaN;
-		this._boundsLocalTransformId = NaN;
+		this._boundsTransformId = -1;
+		this._boundsInternalTransformId = -1;
+		this._boundsLocalTransformId = -1;
 
 		this.interactive = false;
 
@@ -148,9 +148,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	onSizeChange(): void {
-		this._boundsTransformId = NaN;
-		this._boundsInternalTransformId = NaN;
-		this._boundsLocalTransformId = NaN;
+		this._boundsTransformId = -1;
+		this._boundsInternalTransformId = -1;
+		this._boundsLocalTransformId = -1;
 
 		if (!this._lockTransformChild.isLocked()) {
 			this.callChildTransformChange();

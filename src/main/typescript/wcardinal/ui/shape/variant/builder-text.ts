@@ -5,7 +5,6 @@
 
 import { Texture } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
 import { EShapeTextAtlas } from "../e-shape-text";
 import { buildColor } from "./build-color";
@@ -18,7 +17,7 @@ import {
 	TEXT_VERTEX_COUNT,
 	toTextBufferCount
 } from "./build-text";
-import { Builder } from "./builder";
+import { Builder, BuilderBuffer, BuilderFlag } from "./builder";
 import { toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderText implements Builder {
@@ -26,6 +25,8 @@ export class BuilderText implements Builder {
 	readonly indexOffset: number;
 	readonly vertexCount: number;
 	readonly indexCount: number;
+
+	protected inited: BuilderFlag;
 
 	protected sizeX: number;
 	protected sizeY: number;
@@ -68,40 +69,42 @@ export class BuilderText implements Builder {
 		this.vertexCount = vertexCount;
 		this.indexCount = indexCount;
 
-		this.sizeX = NaN;
-		this.sizeY = NaN;
+		this.inited = BuilderFlag.NONE;
 
-		this.transformLocalId = NaN;
+		this.sizeX = 0;
+		this.sizeY = 0;
+
+		this.transformLocalId = 0;
 
 		this.scaleX = 1;
 		this.scaleY = 1;
 
-		this.size = NaN;
+		this.size = 0;
 		this.family = "auto";
 		this.value = "";
 		this.texture = null;
-		this.textureTransformId = NaN;
-		this.color = NaN;
-		this.alpha = NaN;
-		this.weight = NaN;
-		this.style = NaN;
-		this.alignHorizontal = NaN;
-		this.alignVertical = NaN;
-		this.offsetHorizontal = NaN;
-		this.offsetVertical = NaN;
-		this.outlineWidth = NaN;
-		this.outlineColor = NaN;
-		this.outlineAlpha = NaN;
-		this.spacingHorizontal = NaN;
-		this.spacingVertical = NaN;
-		this.direction = NaN;
-		this.paddingHorizontal = NaN;
-		this.paddingVertical = NaN;
+		this.textureTransformId = 0;
+		this.color = 0;
+		this.alpha = 0;
+		this.weight = 0;
+		this.style = 0;
+		this.alignHorizontal = 0;
+		this.alignVertical = 0;
+		this.offsetHorizontal = 0;
+		this.offsetVertical = 0;
+		this.outlineWidth = 0;
+		this.outlineColor = 0;
+		this.outlineAlpha = 0;
+		this.spacingHorizontal = 0;
+		this.spacingVertical = 0;
+		this.direction = 0;
+		this.paddingHorizontal = 0;
+		this.paddingVertical = 0;
 		this.clipping = false;
 		this.fitting = false;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		const vcount = this.vertexCount;
 		if (0 < vcount) {
 			// Clippings
@@ -113,13 +116,14 @@ export class BuilderText implements Builder {
 			buffer.updateIndices();
 			buildTextIndex(buffer.indices, voffset, this.indexOffset, this.indexCount);
 		}
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
 	isCompatible(shape: EShape): boolean {
 		return toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.vertexCount;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		const vcount = this.vertexCount;
 		if (0 < vcount) {
 			const textAtlas = shape.text.atlas;
@@ -132,7 +136,7 @@ export class BuilderText implements Builder {
 		}
 	}
 
-	protected updateVertex(buffer: EShapeBuffer, shape: EShape, textAtlas: EShapeTextAtlas): void {
+	protected updateVertex(buffer: BuilderBuffer, shape: EShape, textAtlas: EShapeTextAtlas): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -180,7 +184,10 @@ export class BuilderText implements Builder {
 		const isTextureChanged =
 			textTexture !== this.texture || textTextureTransformId !== this.textureTransformId;
 
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX);
+
 		if (
+			isNotInited ||
 			isSizeChanged ||
 			isTransformChanged ||
 			isCharChanged ||
@@ -194,6 +201,7 @@ export class BuilderText implements Builder {
 			isFittingChanged ||
 			isTextureChanged
 		) {
+			this.inited |= BuilderFlag.VERTEX;
 			this.size = textSize;
 			this.family = textFamily;
 			this.value = textValue;
@@ -213,8 +221,8 @@ export class BuilderText implements Builder {
 			this.textureTransformId = textTextureTransformId;
 
 			if (isCharSizeChanged || isFittingChanged || (textFitting && isSizeChanged)) {
-				// Invalidate the text weight to update the text steps.
-				this.weight = NaN;
+				// Invalidate the step buffer.
+				this.inited &= ~BuilderFlag.STEP;
 			}
 
 			// Vertices & UVs
@@ -257,11 +265,13 @@ export class BuilderText implements Builder {
 		}
 	}
 
-	protected updateColorFill(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateColorFill(buffer: BuilderBuffer, shape: EShape): void {
 		const text = shape.text;
 		const color = text.color;
 		const alpha = shape.visible && text.enable ? text.alpha : 0;
-		if (color !== this.color || alpha !== this.alpha) {
+		const isNotInited = !(this.inited & BuilderFlag.COLOR_FILL);
+		if (isNotInited || color !== this.color || alpha !== this.alpha) {
+			this.inited |= BuilderFlag.COLOR_FILL;
 			this.color = color;
 			this.alpha = alpha;
 			buffer.updateColorFills();
@@ -270,12 +280,14 @@ export class BuilderText implements Builder {
 		}
 	}
 
-	protected updateColorStroke(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateColorStroke(buffer: BuilderBuffer, shape: EShape): void {
 		const text = shape.text;
 		const outline = text.outline;
 		const color = outline.color;
 		const alpha = shape.visible && text.enable ? outline.alpha : 0;
-		if (color !== this.outlineColor || alpha !== this.outlineAlpha) {
+		const isNotInited = !(this.inited & BuilderFlag.COLOR_STROKE);
+		if (isNotInited || color !== this.outlineColor || alpha !== this.outlineAlpha) {
+			this.inited |= BuilderFlag.COLOR_STROKE;
 			this.outlineColor = color;
 			this.outlineAlpha = alpha;
 			buffer.updateColorStrokes();
@@ -284,7 +296,7 @@ export class BuilderText implements Builder {
 		}
 	}
 
-	protected updateStep(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateStep(buffer: BuilderBuffer, shape: EShape): void {
 		const text = shape.text;
 
 		const textOutline = text.outline;
@@ -305,7 +317,10 @@ export class BuilderText implements Builder {
 			TEXT_FMIN < Math.abs(this.scaleX - scaleX) ||
 			TEXT_FMIN < Math.abs(this.scaleY - scaleY);
 
-		if (isWeightChanged || isOutlineWidthChanged || isScaleChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.STEP);
+
+		if (isNotInited || isWeightChanged || isOutlineWidthChanged || isScaleChanged) {
+			this.inited |= BuilderFlag.STEP;
 			this.weight = textWeight;
 			this.outlineWidth = textOutlineWidth;
 			this.scaleX = scaleX;

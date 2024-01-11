@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildCircleClipping,
 	buildCircleIndex,
@@ -16,6 +15,7 @@ import {
 	CIRCLE_WORLD_SIZE
 } from "./build-circle";
 import { buildNullStep, buildNullVertex } from "./build-null";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { copyClipping } from "./copy-clipping";
@@ -27,7 +27,7 @@ import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 
 export class BuilderLineOfCircles extends BuilderLineOfAny {
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const clippings = buffer.clippings;
@@ -47,9 +47,10 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 				pointCountReserved
 			);
 		}
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	override update(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			this.updateVertexAndStep(buffer, shape, points);
@@ -60,7 +61,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 	}
 
 	protected updateVertexAndStep(
-		buffer: EShapeBuffer,
+		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
 	): void {
@@ -90,13 +91,17 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+
 		if (
+			isNotInited ||
 			isPointChanged ||
 			isPointSizeChanged ||
 			isSizeChanged ||
 			isTransformChanged ||
 			isStrokeChanged
 		) {
+			this.inited |= BuilderFlag.VERTEX_AND_STEP;
 			this.pointId = pointId;
 			const formatted = points.formatted;
 			this.pointCount = formatted.length;
@@ -193,10 +198,16 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		}
 	}
 
-	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
-		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+		const isNotInited = !(this.inited & BuilderFlag.UV);
+		if (
+			isNotInited ||
+			texture !== this.texture ||
+			textureTransformId !== this.textureTransformId
+		) {
+			this.inited |= BuilderFlag.UV;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 

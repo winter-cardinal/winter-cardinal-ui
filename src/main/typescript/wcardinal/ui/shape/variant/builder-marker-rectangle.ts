@@ -5,7 +5,6 @@
 
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildRectangleClipping,
 	buildRectangleIndex,
@@ -18,6 +17,7 @@ import {
 } from "./build-rectangle";
 import { BuilderMarkerBase } from "./builder-marker-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 
 export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 	protected static WORK?: Matrix;
@@ -28,18 +28,19 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 		this.pointId = -1;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateIndices();
 		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexClippingStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexClippingStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points == null) {
 			return;
@@ -78,7 +79,16 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 		const pointId = points.id;
 		const isPointChanged = pointId !== this.pointId;
 
-		if (isVertexChanged || isTransformChanged || isTextureChanged || isPointChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+
+		if (
+			isNotInited ||
+			isVertexChanged ||
+			isTransformChanged ||
+			isTextureChanged ||
+			isPointChanged
+		) {
+			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -108,7 +118,7 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 			);
 
 			// Steps
-			if (isVertexChanged || isTransformChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 				buildRectangleStep(
 					voffset,
@@ -121,13 +131,13 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 			}
 
 			// Clippings
-			if (isVertexChanged) {
+			if (isNotInited || isVertexChanged) {
 				buffer.updateClippings();
 				buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
 			}
 
 			// UVs
-			if (isVertexChanged || isTextureChanged) {
+			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
 			}

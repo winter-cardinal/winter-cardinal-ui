@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
 	buildTriangleClipping,
@@ -16,6 +15,7 @@ import {
 	TRIANGLE_VERTEX_COUNT,
 	TRIANGLE_WORLD_SIZE
 } from "./build-triangle";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { copyClipping } from "./copy-clipping";
@@ -27,7 +27,7 @@ import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 
 export class BuilderLineOfTriangles extends BuilderLineOfAny {
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const clippings = buffer.clippings;
@@ -47,9 +47,10 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 				pointCountReserved
 			);
 		}
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			this.updateVertexStepAndUvs(buffer, shape, points);
@@ -59,7 +60,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 	}
 
 	protected updateVertexStepAndUvs(
-		buffer: EShapeBuffer,
+		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
 	): void {
@@ -97,7 +98,10 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 		const isVertexChanged =
 			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
 
-		if (isVertexChanged || isTransformChanged || isTextureChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+
+		if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.pointId = pointId;
 			const formatted = points.formatted;
 			this.pointCount = formatted.length;
@@ -109,13 +113,15 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 			this.strokeAlign = strokeAlign;
 			this.strokeWidth = strokeWidth;
 			this.strokeStyle = strokeStyle;
+			this.texture = texture;
+			this.textureTransformId = textureTransformId;
 
 			// Buffer
 			buffer.updateVertices();
-			if (isVertexChanged || isTransformChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 			}
-			if (isVertexChanged || isTextureChanged) {
+			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 			}
 
@@ -153,7 +159,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 					pointsValues,
 					pointOffset
 				);
-				if (isVertexChanged || isTransformChanged) {
+				if (isNotInited || isVertexChanged || isTransformChanged) {
 					buildTriangleStep(
 						steps,
 						clippings,
@@ -165,7 +171,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 					);
 					copyStep(steps, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
 				}
-				if (isVertexChanged || isTextureChanged) {
+				if (isNotInited || isVertexChanged || isTextureChanged) {
 					buildTriangleUv(uvs, textureUvs, voffset, TRIANGLE_WORLD_SIZE);
 					copyUvs(uvs, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
 				}
@@ -190,7 +196,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 						internalTransform,
 						TRIANGLE_WORLD_SIZE
 					);
-					if (isVertexChanged || isTransformChanged) {
+					if (isNotInited || isVertexChanged || isTransformChanged) {
 						buildTriangleStep(
 							steps,
 							clippings,
@@ -201,7 +207,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 							TRIANGLE_WORLD_SIZE
 						);
 					}
-					if (isVertexChanged || isTextureChanged) {
+					if (isNotInited || isVertexChanged || isTextureChanged) {
 						buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);
 					}
 				}

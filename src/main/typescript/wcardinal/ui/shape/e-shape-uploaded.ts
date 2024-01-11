@@ -4,14 +4,13 @@
  */
 
 import { EShape } from "./e-shape";
-import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
-import { Builder } from "./variant/builder";
+import { Builder, BuilderBuffer } from "./variant/builder";
 
 export interface EShapeUploaded {
 	update(shape: EShape): void;
 	isCompatible(shape: EShape): boolean;
-	getBuffer(): EShapeBuffer;
+	getBuffer(): BuilderBuffer;
 	getVertexOffset(): number;
 	getVertexCount(): number;
 	getIndexOffset(): number;
@@ -20,7 +19,7 @@ export interface EShapeUploaded {
 }
 
 export class EShapeUploadedImpl implements EShapeUploaded {
-	protected buffer: EShapeBuffer;
+	protected buffer: BuilderBuffer;
 	protected _builders: Builder[];
 	protected _vertexOffset: number;
 	protected _indexOffset: number;
@@ -28,7 +27,7 @@ export class EShapeUploadedImpl implements EShapeUploaded {
 	protected _indexCount: number;
 
 	constructor(
-		buffer: EShapeBuffer,
+		buffer: BuilderBuffer,
 		vertexOffset: number,
 		indexOffset: number,
 		vertexCount: number,
@@ -72,7 +71,7 @@ export class EShapeUploadedImpl implements EShapeUploaded {
 		return true;
 	}
 
-	getBuffer(): EShapeBuffer {
+	getBuffer(): BuilderBuffer {
 		return this.buffer;
 	}
 

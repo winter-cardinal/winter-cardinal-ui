@@ -5,7 +5,6 @@
 
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import {
 	buildCircleClipping,
 	buildCircleIndex,
@@ -18,6 +17,7 @@ import {
 } from "./build-circle";
 import { BuilderMarkerBase } from "./builder-marker-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
+import { BuilderBuffer, BuilderFlag } from "./builder";
 
 export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 	protected static WORK?: Matrix;
@@ -28,22 +28,23 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 		this.pointId = -1;
 	}
 
-	init(buffer: EShapeBuffer): void {
+	init(buffer: BuilderBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const vertexOffset = this.vertexOffset;
 		buildCircleClipping(buffer.clippings, vertexOffset);
 		buildCircleIndex(buffer.indices, vertexOffset, this.indexOffset);
+		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(buffer: BuilderBuffer, shape: EShape): void {
 		this.updateVertexAndStep(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexAndStep(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points == null) {
 			return;
@@ -73,7 +74,16 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 		const pointId = points.id;
 		const isPointChanged = pointId !== this.pointId;
 
-		if (isSizeChanged || isTransformChanged || isStrokeChanged || isPointChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+
+		if (
+			isNotInited ||
+			isSizeChanged ||
+			isTransformChanged ||
+			isStrokeChanged ||
+			isPointChanged
+		) {
+			this.inited |= BuilderFlag.VERTEX_AND_STEP;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -110,10 +120,16 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 		}
 	}
 
-	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
-		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+		const isNotInited = !(this.inited & BuilderFlag.UV);
+		if (
+			isNotInited ||
+			texture !== this.texture ||
+			textureTransformId !== this.textureTransformId
+		) {
+			this.inited |= BuilderFlag.UV;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
