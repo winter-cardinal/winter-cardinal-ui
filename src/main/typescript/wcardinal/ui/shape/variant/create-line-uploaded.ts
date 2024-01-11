@@ -8,7 +8,7 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsMarkerType } from "../e-shape-points-marker-type";
 import { EShapeUploadedImpl } from "../e-shape-uploaded";
 import { toLineIndexCount, toLinePointCount, toLineVertexCount } from "./build-line";
-import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
+import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
 import { Builder } from "./builder";
 import { BuilderLine } from "./builder-line";
 import { BuilderMarkerTriangleHead } from "./builder-marker-triangle-head";
@@ -122,8 +122,8 @@ export const createLineUploaded = (
 
 	// Text
 	const tcount = toTextBufferCount(shape);
-	const tvcount = tcount * TEXT_VERTEX_COUNT;
-	const ticount = tcount * TEXT_INDEX_COUNT;
+	const tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+	const ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
 	const tvoffset = mhvoffset + mhvcount;
 	const tioffset = mhioffset + mhicount;
 

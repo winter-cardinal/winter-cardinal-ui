@@ -14,7 +14,7 @@ import {
 	buildTextStep,
 	buildTextVertex,
 	TEXT_FMIN,
-	TEXT_VERTEX_COUNT,
+	TEXT_VERTEX_COUNT_SHIFT,
 	toTextBufferCount
 } from "./build-text";
 import { Builder, BuilderBuffer, BuilderFlag } from "./builder";
@@ -120,7 +120,7 @@ export class BuilderText implements Builder {
 	}
 
 	isCompatible(shape: EShape): boolean {
-		return toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.vertexCount;
+		return toTextBufferCount(shape) << TEXT_VERTEX_COUNT_SHIFT === this.vertexCount;
 	}
 
 	update(buffer: BuilderBuffer, shape: EShape): void {

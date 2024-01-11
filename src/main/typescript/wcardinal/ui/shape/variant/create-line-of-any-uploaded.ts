@@ -8,7 +8,7 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeUploaded, EShapeUploadedImpl } from "../e-shape-uploaded";
 import { toPointsCount } from "./build-line";
 import { toLineOfAnyPointCount } from "./build-line-of-any";
-import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
+import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
 import { Builder } from "./builder";
 import { BuilderText } from "./builder-text";
 
@@ -31,8 +31,8 @@ export const createLineOfAnyUploaded = (
 	constructor: BuilderConstructor
 ): EShapeUploaded | null => {
 	const tcount = toTextBufferCount(shape);
-	const tvcount = tcount * TEXT_VERTEX_COUNT;
-	const ticount = tcount * TEXT_INDEX_COUNT;
+	const tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+	const ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
 	const points = shape.points;
 	const pointCount = toLineOfAnyPointCount(toPointsCount(points));
 	const pvcount = pointCount * vcountPerPoint;

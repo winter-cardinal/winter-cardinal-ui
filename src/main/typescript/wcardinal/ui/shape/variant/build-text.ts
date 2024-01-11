@@ -15,7 +15,9 @@ import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
 
 export const TEXT_VERTEX_COUNT = 4;
+export const TEXT_VERTEX_COUNT_SHIFT = 2;
 export const TEXT_INDEX_COUNT = 2;
+export const TEXT_INDEX_COUNT_SHIFT = 1;
 export const TEXT_FMIN: number = 0.00001;
 const TEXT_WORK_POINT: Point = new Point();
 
