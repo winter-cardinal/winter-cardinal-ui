@@ -65,30 +65,52 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 		const r3 = r2 + dr;
 		const cos = table.cos;
 		const sin = table.sin;
-		if (r0 < 0) {
-			const m = n >> 1;
-			const c0 = cos[m];
-			const s0 = sin[m];
-			if (r1 < 0) {
-				for (let i = 0; i < n; ++i) {
-					const c = cos[i];
-					const s = sin[i];
-					vertices[++iv] = x + c0 * r0;
-					vertices[++iv] = y + s0 * r0;
-					vertices[++iv] = x + c0 * r1;
-					vertices[++iv] = y + s0 * r1;
-					vertices[++iv] = x + c * r2;
-					vertices[++iv] = y + s * r2;
-					vertices[++iv] = x + c * r3;
-					vertices[++iv] = y + s * r3;
-					uvs[++iuv] = 0.5 * (1 + c);
-					uvs[++iuv] = 0.5 * (1 + s);
-					uvs[++iuv] = 0.5;
-					uvs[++iuv] = 0.5;
-					uvs[++iuv] = 0.5;
-					uvs[++iuv] = 0.5;
-					uvs[++iuv] = 0.5 * (1 + c);
-					uvs[++iuv] = 0.5 * (1 + s);
+		if (r0 <= 0) {
+			const c0 = cos[0] + cos[n - 1];
+			const s0 = sin[0] + sin[n - 1];
+			if (r1 <= 0) {
+				if (r <= 0) {
+					for (let i = 0; i < n; ++i) {
+						const c = cos[i];
+						const s = sin[i];
+						vertices[++iv] = x + c0 * r0;
+						vertices[++iv] = y + s0 * r0;
+						vertices[++iv] = x + c0 * r1;
+						vertices[++iv] = y + s0 * r1;
+						vertices[++iv] = x + c0 * r2;
+						vertices[++iv] = y + s0 * r2;
+						vertices[++iv] = x + c0 * r3;
+						vertices[++iv] = y + s0 * r3;
+						uvs[++iuv] = 0.5 * (1 + c);
+						uvs[++iuv] = 0.5 * (1 + s);
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5 * (1 + c);
+						uvs[++iuv] = 0.5 * (1 + s);
+					}
+				} else {
+					for (let i = 0; i < n; ++i) {
+						const c = cos[i];
+						const s = sin[i];
+						vertices[++iv] = x + c0 * r0;
+						vertices[++iv] = y + s0 * r0;
+						vertices[++iv] = x + c0 * r1;
+						vertices[++iv] = y + s0 * r1;
+						vertices[++iv] = x + c * r2;
+						vertices[++iv] = y + s * r2;
+						vertices[++iv] = x + c * r3;
+						vertices[++iv] = y + s * r3;
+						uvs[++iuv] = 0.5 * (1 + c);
+						uvs[++iuv] = 0.5 * (1 + s);
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5;
+						uvs[++iuv] = 0.5 * (1 + c);
+						uvs[++iuv] = 0.5 * (1 + s);
+					}
 				}
 			} else {
 				for (let i = 0; i < n; ++i) {
@@ -272,7 +294,7 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 			const h = this._height;
 			const bw = this._borderWidth;
 			const r = Math.min(0.5 * w, 0.5 * h, this._cornerRadius);
-			const a = 1 / resolution;
+			const a = 0.5 / resolution;
 
 			const x0 = 0;
 			const x1 = r;
@@ -318,13 +340,13 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 				if (bl || bt) {
 					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, a, bw, tlt);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, 0, 0, tlt);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, a, 0, tlt);
 				}
 			} else {
 				if (bl || bt) {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, 0, bw, tlt);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, a, bw, tlt);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, 0, 0, tlt);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, a, 0, tlt);
 				}
 			}
 			this.fillIndices(indices, ia, ii, n, bt, false);
@@ -338,13 +360,13 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 				if (bt || br) {
 					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, a, bw, ttr);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, 0, 0, ttr);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, a, 0, ttr);
 				}
 			} else {
 				if (bt || br) {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, 0, bw, ttr);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, a, bw, ttr);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, 0, 0, ttr);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, a, 0, ttr);
 				}
 			}
 			this.fillIndices(indices, ia, ii, n, br, false);
@@ -358,13 +380,13 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 				if (br || bb) {
 					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, a, bw, trb);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, 0, 0, trb);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, a, 0, trb);
 				}
 			} else {
 				if (br || bb) {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, 0, bw, trb);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, a, bw, trb);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, 0, 0, trb);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, a, 0, trb);
 				}
 			}
 			this.fillIndices(indices, ia, ii, n, bb, false);
@@ -378,13 +400,13 @@ export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
 				if (bb || bl) {
 					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, a, bw, tbl);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, 0, 0, tbl);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, a, 0, tbl);
 				}
 			} else {
 				if (bb || bl) {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, 0, bw, tbl);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, a, bw, tbl);
 				} else {
-					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, 0, 0, tbl);
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, a, 0, tbl);
 				}
 			}
 			this.fillIndices(indices, ia, ii, n, bl, true);

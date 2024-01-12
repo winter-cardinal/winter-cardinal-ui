@@ -54,7 +54,7 @@ export class DBaseOutlineSnippet implements DBaseSnippet {
 				outlineMesh.y = -outlineOffset;
 				outlineMesh.width = width + outlineOffset * 2;
 				outlineMesh.height = height + outlineOffset * 2;
-				outlineMesh.cornerRadius = cornerRadius;
+				outlineMesh.cornerRadius = Math.max(0, cornerRadius + outlineOffset);
 				outlineMesh.cornerMask = cornerMask;
 				outlineMesh.borderWidth = outlineWidth;
 				outlineMesh.borderMask = outlineMask;

@@ -93,7 +93,7 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 			const w = this._width;
 			const h = this._height;
 			const r = Math.min(0.5 * w, 0.5 * h, this._cornerRadius);
-			const a = 1 / resolution;
+			const a = 0.5 / resolution;
 
 			const x0 = 0;
 			const x1 = r;
@@ -132,7 +132,7 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 			if (ctl) {
 				this.fillVertices(vertices, uvs, iv, iuv, n, x1, y1, r, a, tlt);
 			} else {
-				this.fillVertices(vertices, uvs, iv, iuv, n, x0, y0, 0, 0, tlt);
+				this.fillVertices(vertices, uvs, iv, iuv, n, x0, y0, 0, a, tlt);
 			}
 			this.fillIndices(indices, ia, ii, n);
 			iv += n4;
@@ -144,7 +144,7 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 			if (ctr) {
 				this.fillVertices(vertices, uvs, iv, iuv, n, x2, y1, r, a, ttr);
 			} else {
-				this.fillVertices(vertices, uvs, iv, iuv, n, x3, y0, 0, 0, ttr);
+				this.fillVertices(vertices, uvs, iv, iuv, n, x3, y0, 0, a, ttr);
 			}
 			this.fillIndices(indices, ia, ii, n);
 			iv += n4;
@@ -156,7 +156,7 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 			if (cbr) {
 				this.fillVertices(vertices, uvs, iv, iuv, n, x2, y2, r, a, trb);
 			} else {
-				this.fillVertices(vertices, uvs, iv, iuv, n, x3, y3, 0, 0, trb);
+				this.fillVertices(vertices, uvs, iv, iuv, n, x3, y3, 0, a, trb);
 			}
 			this.fillIndices(indices, ia, ii, n);
 			iv += n4;
@@ -168,7 +168,7 @@ export class DBaseBackgroundMeshGeometry extends DBaseMeshGeometry {
 			if (cbl) {
 				this.fillVertices(vertices, uvs, iv, iuv, n, x1, y2, r, a, tbl);
 			} else {
-				this.fillVertices(vertices, uvs, iv, iuv, n, x0, y3, 0, 0, tbl);
+				this.fillVertices(vertices, uvs, iv, iuv, n, x0, y3, 0, a, tbl);
 			}
 			this.fillIndicesEnd(indices, ia, ii, n);
 			iv += n4;

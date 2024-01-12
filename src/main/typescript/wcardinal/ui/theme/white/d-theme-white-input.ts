@@ -100,6 +100,6 @@ export abstract class DThemeWhiteInput<
 	}
 
 	protected getElementStyleBorder(state: DBaseStateSet): string {
-		return `border: 1px solid transparent; box-sizing: border-box;`;
+		return `border: 1.5px solid transparent; box-sizing: border-box;`;
 	}
 }

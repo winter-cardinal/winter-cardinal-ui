@@ -88,7 +88,7 @@ export class DThemeWhiteButtonBase<VALUE = unknown>
 	}
 
 	protected getOutlineOffsetActive(state: DBaseStateSet): number {
-		return -1.5;
+		return -1;
 	}
 
 	protected getOutlineOffsetNonActive(state: DBaseStateSet): number {
