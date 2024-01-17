@@ -189,7 +189,13 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 	protected onResize(): void {
 		const options = this._options;
-		const bbox = this._rootElement.getBoundingClientRect();
+		const bboxes = this._rootElement.getClientRects();
+		if (bboxes.length <= 0) {
+			// The root element size is (0, 0) and not visible.
+			// In this case, skip the resizing.
+			return;
+		}
+		const bbox = bboxes[0];
 		const newWidth = options.isWidthFixed() ? options.getWidth() : bbox.width;
 		const newHeight = options.isHeightFixed() ? options.getHeight() : bbox.height;
 		this.renderer.resize(newWidth, newHeight);

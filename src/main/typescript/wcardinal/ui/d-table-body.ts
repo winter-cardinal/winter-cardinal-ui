@@ -252,7 +252,7 @@ export class DTableBody<
 		let newRowIndexMappedEnd = Math.floor(newRowIndexMappedUpperBound);
 		newRowIndexMappedEnd += (newRowIndexMappedEnd - newRowIndexMappedStart) % 2 === 1 ? 3 : 2;
 		let newRowCount = newRowIndexMappedEnd - newRowIndexMappedStart;
-		if (newRowCount < oldRowCount && oldRowCount - 2 <= newRowCount) {
+		if (newRowCount < oldRowCount) {
 			newRowCount = oldRowCount;
 			newRowIndexMappedEnd = newRowIndexMappedStart + newRowCount;
 		}

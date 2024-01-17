@@ -235,7 +235,7 @@ export abstract class DItemUpdater<
 			newItemIndexEnd += 1;
 		}
 		let newItemCount = newItemIndexEnd - newItemIndexStart;
-		if (newItemCount < oldItemCount && oldItemCount - 2 <= newItemCount) {
+		if (newItemCount < oldItemCount) {
 			newItemCount = oldItemCount;
 			newItemIndexEnd = newItemIndexStart + newItemCount;
 		}
