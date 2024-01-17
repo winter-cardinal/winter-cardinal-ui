@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point, Rectangle, Renderer } from "pixi.js";
+import { InteractionEvent, InteractionManager, Point, Rectangle, Renderer } from "pixi.js";
 import { DAnimationTimings } from "./d-animation-timings";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
@@ -176,14 +176,14 @@ export class DChartPlotAreaImpl<
 
 	protected onDblClick(
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: InteractionManager
 	): boolean {
 		const vresult = this._view.onDblClick(e, interactionManager);
 		const sresult = super.onDblClick(e, interactionManager);
 		return vresult || sresult;
 	}
 
-	protected onDown(e: interaction.InteractionEvent): void {
+	protected onDown(e: InteractionEvent): void {
 		this._view.onDown(e);
 		super.onDown(e);
 	}

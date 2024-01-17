@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { InteractionEvent, InteractionManager, Point } from "pixi.js";
 import { UtilGestureEasing } from "./util-gesture-easing";
 import { UtilPointerEvent } from "./util-pointer-event";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
 
 export class UtilGestureData<TARGET> {
 	target?: TARGET;

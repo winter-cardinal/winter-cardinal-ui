@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Renderer } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
+import { InteractionEvent, InteractionManager, Renderer } from "pixi.js";
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";

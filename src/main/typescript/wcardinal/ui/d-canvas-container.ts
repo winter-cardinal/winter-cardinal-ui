@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { InteractionEvent, InteractionManager, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DOnOptions } from "./d-on-options";
@@ -167,7 +167,7 @@ export class DCanvasContainer<
 
 	protected onDblClick(
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager,
+		interactionManager: InteractionManager,
 		skipView?: boolean
 	): boolean {
 		if (skipView !== true) {
@@ -179,7 +179,7 @@ export class DCanvasContainer<
 		}
 	}
 
-	protected onDown(e: interaction.InteractionEvent, skipView?: boolean): void {
+	protected onDown(e: InteractionEvent, skipView?: boolean): void {
 		if (skipView !== true) {
 			this._view.onDown(e);
 		}

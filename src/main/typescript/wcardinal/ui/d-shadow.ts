@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject } from "pixi.js";
+import { DisplayObject, Renderer } from "pixi.js";
 import { DBaseReflowable } from "./d-base-reflowable";
 
-export interface DShadow extends DisplayObject, DBaseReflowable {}
+export interface DShadow extends DisplayObject, DBaseReflowable {
+	render(renderer: Renderer): void;
+}

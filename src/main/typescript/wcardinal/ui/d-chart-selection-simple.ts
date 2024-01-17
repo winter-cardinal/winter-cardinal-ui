@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, utils } from "pixi.js";
+import { InteractionEvent, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOnOptions } from "./d-base";
 import { DBaseState } from "./d-base-state";
@@ -32,8 +32,8 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 	protected _selected: DChartSelectionSub<CHART>;
 	protected _hovered: DChartSelectionSub<CHART>;
 
-	protected _onClickBound!: (e: interaction.InteractionEvent) => void;
-	protected _onMoveBound!: (e: interaction.InteractionEvent) => void;
+	protected _onClickBound!: (e: InteractionEvent) => void;
+	protected _onMoveBound!: (e: InteractionEvent) => void;
 
 	constructor(options?: DChartSelectionSimpleOptions<CHART>) {
 		super();
@@ -55,11 +55,11 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		}
 
 		//
-		this._onMoveBound = (e: interaction.InteractionEvent): void => {
+		this._onMoveBound = (e: InteractionEvent): void => {
 			this.onMove(e);
 		};
 
-		this._onClickBound = (e: interaction.InteractionEvent): void => {
+		this._onClickBound = (e: InteractionEvent): void => {
 			this.onClick(e);
 		};
 	}
@@ -137,7 +137,7 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		return options;
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		const container = this._container;
 		if (container && e.target === container.plotArea) {
 			const result = DChartSelectionSimple.WORK_SELECT;
@@ -152,7 +152,7 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		}
 	}
 
-	protected onMove(e: interaction.InteractionEvent): void {
+	protected onMove(e: InteractionEvent): void {
 		const container = this._container;
 		if (container) {
 			const hovered = this._hovered;

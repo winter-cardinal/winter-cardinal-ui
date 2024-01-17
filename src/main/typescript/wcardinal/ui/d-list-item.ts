@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DLinkUrlValue } from "./d-link";
@@ -81,7 +81,7 @@ export class DListItem<
 	constructor(data: DListData<VALUE>, options?: OPTIONS) {
 		super(options);
 		this._data = data;
-		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+		this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 			this.onClick(e);
 		});
 	}
@@ -103,7 +103,7 @@ export class DListItem<
 		return null;
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (this.link?.onClick(this, e) !== true) {
 			if (this.state.isActionable) {
 				this.activate(e);
@@ -111,7 +111,7 @@ export class DListItem<
 		}
 	}
 
-	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+	activate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		const value = this._value;
 		if (value !== undefined) {
 			this.onSelect(e, value);
@@ -157,7 +157,7 @@ export class DListItem<
 	}
 
 	protected onSelect(
-		e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
+		e: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
 		value: VALUE
 	): void {
 		this.emit("select", value, this);

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point, Rectangle } from "pixi.js";
+import { InteractionEvent, Point, Rectangle } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
@@ -180,7 +180,7 @@ export class DPane<
 		content.y = -content.height * start;
 	}
 
-	protected override onOver(e: interaction.InteractionEvent): void {
+	protected override onOver(e: InteractionEvent): void {
 		super.onOver(e);
 		this.scrollbar.touch();
 	}

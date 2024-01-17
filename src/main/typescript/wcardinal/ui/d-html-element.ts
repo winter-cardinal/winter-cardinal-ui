@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Matrix, Point, Rectangle, Renderer } from "pixi.js";
+import { InteractionEvent, InteractionManager, Matrix, Point, Rectangle, Renderer } from "pixi.js";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import {
@@ -104,17 +104,14 @@ export class DHtmlElement<
 		return this.getUtil().element;
 	}
 
-	protected onDownThis(e: interaction.InteractionEvent): void {
+	protected onDownThis(e: InteractionEvent): void {
 		const util = this.getUtil();
 		util.onDowning(e);
 		super.onDownThis(e);
 		util.onDown(e);
 	}
 
-	onDblClick(
-		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
-	): boolean {
+	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
 		this.getUtil().onDblClick(e, interactionManager);
 		return super.onDblClick(e, interactionManager);
 	}

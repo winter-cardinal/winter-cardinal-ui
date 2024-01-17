@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent, InteractionManager } from "pixi.js";
 import { DButtonBaseWhen } from "./d-button-base-when";
 import { DTreeData } from "./d-tree-data";
 import { DThemeTreeItemText, DTreeItemText, DTreeItemTextOptions } from "./d-tree-item-text";
@@ -33,12 +33,12 @@ export class DTreeItemButton<
 		super(data, options);
 
 		this._when = toEnum(options?.when ?? DButtonBaseWhen.CLICKED, DButtonBaseWhen);
-		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+		this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 			this.onClick(e);
 		});
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (this._when === DButtonBaseWhen.CLICKED && this.state.isActionable) {
 			this.activate(e);
 		}
@@ -46,7 +46,7 @@ export class DTreeItemButton<
 
 	protected onDblClick(
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: InteractionManager
 	): boolean {
 		if (this._when === DButtonBaseWhen.DOUBLE_CLICKED) {
 			this.activate(e);
@@ -54,13 +54,11 @@ export class DTreeItemButton<
 		return super.onDblClick(e, interactionManager);
 	}
 
-	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+	activate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.onActivate(e);
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.emit("active", this);
 	}
 

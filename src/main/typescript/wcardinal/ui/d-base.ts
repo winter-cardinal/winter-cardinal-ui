@@ -6,15 +6,14 @@
 import {
 	Container,
 	DisplayObject,
-	interaction,
+	InteractionEvent,
+	InteractionManager,
 	Point,
 	Rectangle,
 	Renderer,
 	Texture,
 	Transform
 } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
 import { DApplications } from "./d-applications";
 import { DBackgroundStateAware } from "./d-background";
 import { DBaseBackground } from "./d-base-background";

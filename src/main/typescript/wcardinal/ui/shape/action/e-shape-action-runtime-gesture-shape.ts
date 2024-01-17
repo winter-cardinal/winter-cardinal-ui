@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
+import { InteractionEvent, Point } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";

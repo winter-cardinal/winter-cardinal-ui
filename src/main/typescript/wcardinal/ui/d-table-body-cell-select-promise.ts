@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -62,9 +62,7 @@ export class DTableBodyCellSelectPromise<
 		this._isSyncEnabled = options?.sync ?? this.theme.isSyncEnabled();
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		const selecting = this._column.selecting;
 		const promise = selecting.promise;

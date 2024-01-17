@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DLink, DLinkOptions } from "./d-link";
 
@@ -22,7 +22,7 @@ export class DButtonLink<
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected _link?: DLink;
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (!this.link.onClick(this, e)) {
 			super.onClick(e);
 		}
@@ -37,9 +37,7 @@ export class DButtonLink<
 		return result;
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		this.link.open(e);
 	}

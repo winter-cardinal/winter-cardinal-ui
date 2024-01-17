@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, utils } from "pixi.js";
+import { InteractionEvent, utils } from "pixi.js";
 import { DApplicationTarget } from "../d-application-like";
 import { DApplications } from "../d-applications";
 import { DBaseStateSet } from "../d-base-state-set";
@@ -12,7 +12,6 @@ import { UtilGestureModifiers } from "./util-gesture-modifiers";
 import { UtilGestureData } from "./util-gesture-data";
 import { UtilGestureEasing, UtilGestureEasingOptions } from "./util-gesture-easing";
 import { UtilPointerEvent } from "./util-pointer-event";
-import InteractionEvent = interaction.InteractionEvent;
 
 export interface UtilGestureTarget extends DApplicationTarget {
 	state: DBaseStateSet;

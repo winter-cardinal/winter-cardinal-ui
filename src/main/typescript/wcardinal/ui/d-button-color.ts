@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color-and-alpha";
@@ -61,9 +61,7 @@ export class DButtonColor<
 	protected _dialog?: DDialogColor;
 	protected _value?: DPickerColorAndAlpha;
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		const dialog = this.dialog;
 		const value = this._textValueComputed;

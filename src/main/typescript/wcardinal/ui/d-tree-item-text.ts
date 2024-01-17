@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
 import { DBaseState } from "./d-base-state";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
@@ -158,7 +158,7 @@ export class DTreeItemText<
 	}
 
 	protected onSelect(
-		e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
+		e: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
 		value: NODE
 	): void {
 		const data = this._data;
