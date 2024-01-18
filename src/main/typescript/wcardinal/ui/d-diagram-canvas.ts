@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, IPoint, Point, Renderer } from "pixi.js";
+import { IPoint, InteractionEvent, InteractionManager, Point, Renderer } from "pixi.js";
 import { DApplications } from "./d-applications";
 import {
 	DDiagramCanvasBase,
@@ -537,7 +537,7 @@ export class DDiagramCanvas<
 		return null;
 	}
 
-	onShapeMove(e: interaction.InteractionEvent): boolean {
+	onShapeMove(e: InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
 
 		// Cursor
@@ -608,7 +608,7 @@ export class DDiagramCanvas<
 	}
 
 	protected onShapeOut(
-		e: interaction.InteractionEvent,
+		e: InteractionEvent,
 		target?: EShape | EShapeContainer | null,
 		except?: EShape | null
 	): void {
@@ -622,7 +622,7 @@ export class DDiagramCanvas<
 	}
 
 	protected onShapeOver(
-		e: interaction.InteractionEvent,
+		e: InteractionEvent,
 		target?: EShape | EShapeContainer | null,
 		except?: EShape | null
 	): void {
@@ -635,7 +635,7 @@ export class DDiagramCanvas<
 		}
 	}
 
-	onShapeDown(e: interaction.InteractionEvent): boolean {
+	onShapeDown(e: InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
 		this._downed = found;
 		if (found) {
@@ -658,7 +658,7 @@ export class DDiagramCanvas<
 		return false;
 	}
 
-	onShapeUp(e: interaction.InteractionEvent): boolean {
+	onShapeUp(e: InteractionEvent): boolean {
 		const downeds = this._downeds;
 		const found = this.hitTestInteractives(e.data.global);
 		if (found) {
@@ -681,7 +681,7 @@ export class DDiagramCanvas<
 		return found != null;
 	}
 
-	onShapeCancel(e: interaction.InteractionEvent): boolean {
+	onShapeCancel(e: InteractionEvent): boolean {
 		const downeds = this._downeds;
 		if (0 < downeds.size) {
 			downeds.forEach((downed: EShape): void => {
@@ -705,7 +705,7 @@ export class DDiagramCanvas<
 		return false;
 	}
 
-	onShapeClick(e: interaction.InteractionEvent): boolean {
+	onShapeClick(e: InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
 		if (found && this._downed === found) {
 			let target = found;
@@ -726,10 +726,7 @@ export class DDiagramCanvas<
 		return false;
 	}
 
-	onShapeDblClick(
-		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
-	): boolean {
+	onShapeDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
 		const global = (DDiagramCanvas.WORK_DBLCLICK ??= new Point());
 		UtilPointerEvent.toGlobal(e, interactionManager, global);
 		const found = this.hitTestInteractives(global);
@@ -752,7 +749,7 @@ export class DDiagramCanvas<
 		return false;
 	}
 
-	onShapeRightClick(e: interaction.InteractionEvent): boolean {
+	onShapeRightClick(e: InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
 		if (found && this._downed === found) {
 			let target = found;
@@ -773,7 +770,7 @@ export class DDiagramCanvas<
 		return false;
 	}
 
-	onShapeRightDown(e: interaction.InteractionEvent): boolean {
+	onShapeRightDown(e: InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
 		this._downed = found;
 		if (found) {
@@ -796,7 +793,7 @@ export class DDiagramCanvas<
 		return false;
 	}
 
-	onShapeRightUp(e: interaction.InteractionEvent): boolean {
+	onShapeRightUp(e: InteractionEvent): boolean {
 		const downeds = this._downeds;
 		const found = this.hitTestInteractives(e.data.global);
 		if (found) {
@@ -819,7 +816,7 @@ export class DDiagramCanvas<
 		return found != null;
 	}
 
-	onShapeRightCancel(e: interaction.InteractionEvent): boolean {
+	onShapeRightCancel(e: InteractionEvent): boolean {
 		const downeds = this._downeds;
 		if (0 < downeds.size) {
 			downeds.forEach((downed: EShape): void => {

@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, interaction, Texture } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
+import { DisplayObject, InteractionEvent, Texture } from "pixi.js";
 import { DBase } from "./d-base";
 import { DLinkMenu } from "./d-link-menu";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";

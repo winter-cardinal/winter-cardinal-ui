@@ -47,7 +47,6 @@ export class DDiagramCanvasBase<
 	protected _description: string;
 	protected _tile: DDiagramCanvasTile;
 	protected _localBoundsLimit: number;
-	protected _localBoundsRect?: Rectangle;
 
 	constructor(options?: OPTIONS) {
 		super(options);
@@ -168,7 +167,7 @@ export class DDiagramCanvasBase<
 
 	override getLocalBounds(result?: Rectangle): Rectangle {
 		if (result == null) {
-			result = this._localBoundsRect ??= new Rectangle();
+			result = ((this as any)._localBoundsRect ??= new Rectangle()) as Rectangle;
 		}
 		result.x = 0;
 		result.y = 0;

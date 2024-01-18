@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DOnOptions } from "./d-on-options";
@@ -53,9 +53,7 @@ export class DButtonDatetime<
 	protected _dialog?: DDialogDatetime;
 	protected _datetimeMask?: DPickerDatetimeMask;
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		const value = this._textValueComputed?.getTime() ?? Date.now();
 		const dialog = this.dialog;

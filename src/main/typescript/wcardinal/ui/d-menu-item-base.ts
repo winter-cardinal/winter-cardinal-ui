@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DMenuItemBaseSelection } from "./d-menu-item-base-selection";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
@@ -32,18 +32,18 @@ export class DMenuItemBase<
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
-		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+		this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 			this.onClick(e);
 		});
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (this.state.isActionable) {
 			this.activate(e);
 		}
 	}
 
-	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+	activate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.onSelect(e);
 	}
 
@@ -70,9 +70,7 @@ export class DMenuItemBase<
 		return null;
 	}
 
-	protected onSelect(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onSelect(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.emit("select", this._value, this);
 		const selection = this.getSelection();
 		if (selection) {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Application, interaction, Point } from "pixi.js";
+import { Application, InteractionEvent, InteractionManager, Point } from "pixi.js";
 import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
@@ -16,10 +16,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEvent, UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 interface DblClickable {
-	onDblClick(
-		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
-	): boolean;
+	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean;
 }
 
 const isDblClickable = (target: any): target is DblClickable => {
@@ -163,7 +160,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		DControllers.getKeyboardController().init(view, stage, focusController);
 
 		const interactionManager = this.renderer.plugins.interaction;
-		interactionManager.on(UtilPointerEvent.down, (e: interaction.InteractionEvent): void => {
+		interactionManager.on(UtilPointerEvent.down, (e: InteractionEvent): void => {
 			if (e.target == null || e.target === stage) {
 				focusController.clear();
 			}

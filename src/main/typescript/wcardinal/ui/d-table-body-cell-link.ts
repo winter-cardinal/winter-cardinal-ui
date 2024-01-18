@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
@@ -119,7 +119,7 @@ export class DTableBodyCellLink<
 		super(columnIndex, column, onChange, DLinks.toStateOptions(options?.link?.target, options));
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (!this.link.onClick(this, e)) {
 			super.onClick(e);
 		}
@@ -138,9 +138,7 @@ export class DTableBodyCellLink<
 		return "DTableBodyCellLink";
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		this.link.open(e);
 	}

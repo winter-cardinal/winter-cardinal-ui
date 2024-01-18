@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DControllers } from "./d-controllers";
 
@@ -23,9 +23,7 @@ export class DButtonUndo<
 		});
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		DControllers.getCommandController().undo();
 	}

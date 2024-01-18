@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { EShape } from "../e-shape";
 import { EShapeRuntimeImpl } from "../e-shape-runtime-impl";
@@ -37,7 +37,7 @@ export class EShapeButtonRuntime extends EShapeRuntimeImpl {
 		super.initialize(shape);
 	}
 
-	onClick(shape: EShape, e: interaction.InteractionEvent | KeyboardEvent): void {
+	onClick(shape: EShape, e: InteractionEvent | KeyboardEvent): void {
 		const state = shape.state;
 		const wasClicked = state.isClicked;
 		state.lock();

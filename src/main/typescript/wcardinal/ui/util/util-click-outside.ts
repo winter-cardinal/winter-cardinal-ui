@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
+import { InteractionEvent, Point } from "pixi.js";
 import { DBase } from "../d-base";
 import { UtilPointerEvent } from "./util-pointer-event";
 

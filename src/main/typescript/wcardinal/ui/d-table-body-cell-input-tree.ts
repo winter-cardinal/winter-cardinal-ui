@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { InteractionEvent, Point } from "pixi.js";
 import { DBase, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import {
@@ -165,7 +165,7 @@ export class DTableBodyCellInputTree<
 		}
 	}
 
-	onRowSelect(e: interaction.InteractionEvent, local: Point): boolean {
+	onRowSelect(e: InteractionEvent, local: Point): boolean {
 		if (local.x <= this.position.x + this._input.padding.getLeft()) {
 			return true;
 		}

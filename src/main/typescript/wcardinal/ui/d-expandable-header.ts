@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -23,14 +23,14 @@ export class DExpandableHeader<
 	constructor(options?: OPTIONS) {
 		super(options);
 
-		this.on(UtilPointerEvent.down, (e: interaction.InteractionEvent): void => {
+		this.on(UtilPointerEvent.down, (e: InteractionEvent): void => {
 			if (this.state.isActionable) {
 				this.onSelect(e);
 			}
 		});
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+	protected onSelect(e: KeyboardEvent | InteractionEvent): void {
 		this.emit("select", this);
 	}
 

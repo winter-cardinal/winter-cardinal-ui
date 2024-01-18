@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { InteractionEvent, Point } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
 import { DLink } from "./d-link";
 import { DLinks } from "./d-links";
@@ -61,7 +61,7 @@ export class DTableBodyCellTree<
 		return new DBasePaddingAdjustable(theme, options, callback);
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (this.link?.onClick(this, e) !== true) {
 			super.onClick(e);
 		}
@@ -84,9 +84,7 @@ export class DTableBodyCellTree<
 		return null;
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		if (this.state.is(DTableState.HAS_CHILDREN)) {
 			this.toggle();
@@ -124,7 +122,7 @@ export class DTableBodyCellTree<
 		}
 	}
 
-	onRowSelect(e: interaction.InteractionEvent, local: Point): boolean {
+	onRowSelect(e: InteractionEvent, local: Point): boolean {
 		if (local.x <= this.position.x + this.padding.getLeft()) {
 			this.toggle();
 			return true;

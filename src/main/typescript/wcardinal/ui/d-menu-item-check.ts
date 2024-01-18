@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 
 export interface DMenuItemCheckOptions<
@@ -31,9 +31,7 @@ export class DMenuItemCheck<
 		return "DMenuItemCheck";
 	}
 
-	protected onSelect(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onSelect(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.state.isActive = !this.state.isActive;
 		super.onSelect(e);
 	}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
@@ -110,9 +110,7 @@ export class DMenuItemText<
 		return "DMenuItemText";
 	}
 
-	protected onSelect(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onSelect(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onSelect(e);
 		const closeable = this.getCloseable();
 		if (closeable != null) {

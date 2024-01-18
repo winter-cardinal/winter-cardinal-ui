@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point, Rectangle } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
+import { InteractionEvent, InteractionManager, Point, Rectangle } from "pixi.js";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DTableBodyRow, DTableBodyRowOnChange, DTableBodyRowOptions } from "./d-table-body-row";
@@ -604,10 +603,7 @@ export class DTableBody<
 		}
 	}
 
-	onDblClick(
-		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
-	): boolean {
+	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
 		return super.onDblClick(e, interactionManager);
 	}
 

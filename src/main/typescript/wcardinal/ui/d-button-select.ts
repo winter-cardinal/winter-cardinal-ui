@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogOpener } from "./d-dialog";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
@@ -117,9 +117,7 @@ export class DButtonSelect<
 		this._dialogSetter = options?.setter ?? defaultSetter;
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		const dialog = this.dialog;
 		const oldValue = this._textValueComputed ?? null;

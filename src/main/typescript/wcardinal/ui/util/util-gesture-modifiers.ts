@@ -3,14 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { UtilGestureModifier } from "./util-gesture-modifier";
 
-export type UtilGestureModifierEvent =
-	| WheelEvent
-	| MouseEvent
-	| TouchEvent
-	| interaction.InteractionEvent;
+export type UtilGestureModifierEvent = WheelEvent | MouseEvent | TouchEvent | InteractionEvent;
 
 export class UtilGestureModifiers {
 	static from(e: UtilGestureModifierEvent): UtilGestureModifier {

@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Renderer } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
+import { InteractionEvent, InteractionManager, Renderer } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { UtilKeyboardEvent } from "../util/util-keyboard-event";
 import { EShapeActionRuntime } from "./action/e-shape-action-runtime";

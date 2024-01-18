@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Rectangle } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
+import { InteractionEvent, InteractionManager, Rectangle } from "pixi.js";
 import { DDialogSelectOptions } from "../ui/d-dialog-select";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DApplications } from "./d-applications";

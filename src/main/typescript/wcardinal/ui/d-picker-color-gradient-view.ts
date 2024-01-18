@@ -7,9 +7,10 @@ import {
 	Buffer,
 	Geometry,
 	Mesh,
+	MeshMaterial,
 	Point,
+	Program,
 	Rectangle,
-	Shader,
 	Texture,
 	TextureUvs,
 	utils
@@ -77,7 +78,7 @@ export class DPickerColorGradientView extends Mesh {
 		indices: Uint16Array,
 		parts: DPickerColorGradientViewPart[],
 		geometry: Geometry,
-		shader: Shader
+		shader: MeshMaterial
 	) {
 		super(geometry, shader);
 
@@ -337,9 +338,12 @@ export class DPickerColorGradientView extends Mesh {
 			.addAttribute("aPosition", new Buffer(vertices, false, false), 2)
 			.addAttribute("aUv", new Buffer(uvs, false, false), 2)
 			.addAttribute("aColor", new Buffer(colors, false, false), 4);
-		const shader = Shader.from(VERTEX_SHADER, FRAGMENT_SHADER, {
-			uSampler: texture,
-			uCheckerColors: checkerColors
+		const program = Program.from(VERTEX_SHADER, FRAGMENT_SHADER);
+		const shader = new MeshMaterial(texture, {
+			program,
+			uniforms: {
+				uCheckerColors: checkerColors
+			}
 		});
 
 		return new DPickerColorGradientView(

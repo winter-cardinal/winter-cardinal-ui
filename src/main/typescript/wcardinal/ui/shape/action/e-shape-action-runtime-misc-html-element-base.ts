@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Matrix, Point, Rectangle, Renderer } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
+import { InteractionEvent, InteractionManager, Matrix, Point, Rectangle, Renderer } from "pixi.js";
 import { DThemes } from "../../theme/d-themes";
 import {
 	UtilHtmlElement,

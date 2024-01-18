@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point, Sprite, Texture } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
+import { InteractionEvent, Point, Sprite, Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DColorAndAlpha } from "./d-color-and-alpha";

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
@@ -53,9 +53,7 @@ export class DMenuBarItem<
 		};
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		this.open();
 	}

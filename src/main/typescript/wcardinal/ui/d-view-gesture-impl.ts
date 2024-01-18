@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DBase } from "./d-base";
 import { UtilGestureMode } from "./util/util-gesture-mode";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
@@ -128,7 +128,7 @@ export class DViewGestureImpl implements DViewGesture {
 		this._gestureUtil?.stop(this._owner);
 	}
 
-	onDown(e: interaction.InteractionEvent): void {
+	onDown(e: InteractionEvent): void {
 		this._gestureUtil?.onDown(this._owner, e);
 	}
 }

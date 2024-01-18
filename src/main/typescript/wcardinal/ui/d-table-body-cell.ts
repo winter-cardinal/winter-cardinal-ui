@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { InteractionEvent, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { DTableColumn } from "./d-table-column";
 import { DTableDataSupplimental } from "./d-table-data";
@@ -64,5 +64,5 @@ export interface DTableBodyCell<ROW, VALUE> extends DBase {
 	 * @param local
 	 * @return true to prevent the row selection
 	 */
-	onRowSelect?(e: interaction.InteractionEvent, local: Point): boolean;
+	onRowSelect?(e: InteractionEvent, local: Point): boolean;
 }

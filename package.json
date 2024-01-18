@@ -58,7 +58,7 @@
 		"prepublishOnly": "npm run build"
 	},
 	"peerDependencies": {
-		"pixi.js": "~5.2.1",
+		"pixi.js": "~5.3.12",
 		"css-line-break": "2.0.1"
 	},
 	"peerDependenciesMeta": {
@@ -67,7 +67,7 @@
 		}
 	},
 	"devDependencies": {
-		"pixi.js": "~5.2.1",
+		"pixi.js": "~5.3.12",
 		"css-line-break": "2.1.0",
 		"@typescript-eslint/eslint-plugin": "^6.11.0",
 		"@typescript-eslint/parser": "^6.11.0",

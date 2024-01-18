@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent } from "pixi.js";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
@@ -78,7 +78,7 @@ export class DMenuItemLink<
 		return result;
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (!this.link.onClick(this, e)) {
 			super.onClick(e);
 		}
@@ -88,9 +88,7 @@ export class DMenuItemLink<
 		return "DMenuItemLink";
 	}
 
-	protected onSelect(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onSelect(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onSelect(e);
 		this.link.open(e);
 	}

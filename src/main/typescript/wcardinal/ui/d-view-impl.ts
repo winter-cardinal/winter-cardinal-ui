@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, IPoint, Point, Rectangle, utils } from "pixi.js";
+import { IPoint, InteractionEvent, InteractionManager, Point, Rectangle, utils } from "pixi.js";
 import { DBase } from "./d-base";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { UtilGestureModifiers } from "./util/util-gesture-modifiers";
@@ -325,11 +325,11 @@ export class DViewImpl extends utils.EventEmitter implements DView {
 		}
 	}
 
-	toLocal(global: IPoint, local: IPoint, skipUpdate?: boolean): IPoint {
+	toLocal(global: IPoint, local: Point, skipUpdate?: boolean): IPoint {
 		return this._parent.toLocal(global, undefined, local, skipUpdate);
 	}
 
-	toGlobal(local: IPoint, global: IPoint, skipUpdate?: boolean): IPoint {
+	toGlobal(local: IPoint, global: Point, skipUpdate?: boolean): IPoint {
 		return this._parent.toGlobal(local, global, skipUpdate);
 	}
 
@@ -382,14 +382,11 @@ export class DViewImpl extends utils.EventEmitter implements DView {
 		return false;
 	}
 
-	onDown(e: interaction.InteractionEvent): void {
+	onDown(e: InteractionEvent): void {
 		this._gesture.onDown(e);
 	}
 
-	onDblClick(
-		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
-	): boolean {
+	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
 		if (
 			this._isDblClickZoomEnabled &&
 			this._dblClickZoomChecker(e, this._dblClickZoomModifier, this._parent)

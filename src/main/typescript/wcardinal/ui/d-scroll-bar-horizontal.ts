@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
+import { InteractionEvent } from "pixi.js";
 import { DScrollBar, DScrollBarOptions, DThemeScrollBar } from "./d-scroll-bar";
 import { DScrollBarThumb, DScrollBarThumbOptions } from "./d-scroll-bar-thumb";
 import { DScrollBarThumbHorizontal } from "./d-scroll-bar-thumb-horizontal";

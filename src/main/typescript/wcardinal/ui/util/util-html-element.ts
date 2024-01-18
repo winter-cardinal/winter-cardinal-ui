@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Matrix, Point, Rectangle, Renderer } from "pixi.js";
+import { InteractionEvent, InteractionManager, Matrix, Point, Rectangle, Renderer } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { DBaseStateSet } from "../d-base-state-set";
@@ -337,7 +337,7 @@ export class UtilHtmlElement<
 		return this._data.when;
 	}
 
-	onDowning(e: interaction.InteractionEvent | KeyboardEvent): void {
+	onDowning(e: InteractionEvent | KeyboardEvent): void {
 		this._wasStarted = this._isStarted;
 		switch (this.when) {
 			case UtilHtmlElementWhen.CLICKED:
@@ -351,7 +351,7 @@ export class UtilHtmlElement<
 		}
 	}
 
-	onDown(e: interaction.InteractionEvent | KeyboardEvent): void {
+	onDown(e: InteractionEvent | KeyboardEvent): void {
 		if (!this._wasStarted && this._isStarted) {
 			if ("data" in e) {
 				e.data.originalEvent.preventDefault();
@@ -363,7 +363,7 @@ export class UtilHtmlElement<
 
 	onDblClick(
 		e: MouseEvent | TouchEvent | KeyboardEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: InteractionManager
 	): void {
 		switch (this.when) {
 			case UtilHtmlElementWhen.DOUBLE_CLICKED:

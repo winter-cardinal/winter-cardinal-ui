@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { InteractionEvent, InteractionManager } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DButtonBaseWhen } from "./d-button-base-when";
 import { DButtonGroup } from "./d-button-group";
@@ -119,7 +119,7 @@ export class DButtonBase<
 		this._when = toEnum(options?.when ?? theme.getWhen(), DButtonBaseWhen);
 
 		// Event handlers
-		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+		this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 			this.onClick(e);
 		});
 		this.initOnPress();
@@ -151,7 +151,7 @@ export class DButtonBase<
 	}
 
 	protected initOnPress(): void {
-		let interactionManager: interaction.InteractionManager | null = null;
+		let interactionManager: InteractionManager | null = null;
 
 		const onUp = (): void => {
 			this.state.isPressed = false;
@@ -169,9 +169,11 @@ export class DButtonBase<
 				const layer = DApplications.getLayer(this);
 				if (layer) {
 					interactionManager = layer.renderer.plugins.interaction;
-					interactionManager.on(UtilPointerEvent.up, onUp);
-					interactionManager.on(UtilPointerEvent.upoutside, onUp);
-					interactionManager.on(UtilPointerEvent.cancel, onUp);
+					if (interactionManager != null) {
+						interactionManager.on(UtilPointerEvent.up, onUp);
+						interactionManager.on(UtilPointerEvent.upoutside, onUp);
+						interactionManager.on(UtilPointerEvent.cancel, onUp);
+					}
 				}
 			}
 		});
@@ -181,7 +183,7 @@ export class DButtonBase<
 		return "DButton";
 	}
 
-	protected onClick(e: interaction.InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (this._when === DButtonBaseWhen.CLICKED && this.state.isActionable) {
 			this.activate(e);
 		}
@@ -189,7 +191,7 @@ export class DButtonBase<
 
 	protected onDblClick(
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: InteractionManager
 	): boolean {
 		if (this._when === DButtonBaseWhen.DOUBLE_CLICKED && this.state.isActionable) {
 			this.activate(e);
@@ -197,7 +199,7 @@ export class DButtonBase<
 		return super.onDblClick(e, interactionManager);
 	}
 
-	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+	activate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		if (this._isToggle) {
 			if (this._isGrouped) {
 				if (!this.state.isActive) {
@@ -213,15 +215,11 @@ export class DButtonBase<
 		}
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.emit("active", this);
 	}
 
-	protected onInactivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onInactivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.emit("inactive", this);
 	}
 
@@ -234,15 +232,11 @@ export class DButtonBase<
 		}
 	}
 
-	protected onToggleStart(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onToggleStart(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		this.state.isActive = !this.state.isActive;
 	}
 
-	protected onToggleEnd(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
+	protected onToggleEnd(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		if (this.state.isActive) {
 			this.onActivate(e);
 		} else {
