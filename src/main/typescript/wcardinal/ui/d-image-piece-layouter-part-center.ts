@@ -4,8 +4,8 @@ import { DImagePieceLayouterPart } from "./d-image-piece-layouter-part";
 
 export class DImagePieceLayouterPartCenter extends DImagePieceLayouterPart {
 	override add(image: DImagePiece, bound: Rectangle, margin: number): void {
-		const pieces = this._pieces;
-		pieces.push(image);
+		this._pieces.push(image);
+		this._bounds.push(bound);
 		this._size = Math.max(this.size, bound.width);
 	}
 

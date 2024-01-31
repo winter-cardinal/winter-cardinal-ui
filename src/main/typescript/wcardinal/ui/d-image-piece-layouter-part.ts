@@ -19,6 +19,7 @@ export abstract class DImagePieceLayouterPart {
 
 	clear(): void {
 		this._pieces.length = 0;
+		this._bounds.length = 0;
 		this._size = 0;
 		this._margin = 0;
 		this._text = undefined;
