@@ -1,7 +1,7 @@
 (() => {
 	"use strict";
 
-	const resolution = window.devicePixelRatio || 1;
+	const resolution = (window.devicePixelRatio || 1) * 2;
 	const size = 24 * resolution;
 	const toSvgTexture = wcardinal.ui.toSvgTexture;
 
