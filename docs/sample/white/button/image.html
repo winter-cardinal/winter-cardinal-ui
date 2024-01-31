@@ -22,31 +22,21 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.3.12/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.398.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.398.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.399.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.399.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../resource/load-texture-all.js"></script>
 	<script>
 	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
-		const resolution = window.devicePixelRatio || 1;
-		const size = 24 * resolution;
-		const file = wcardinal.ui.toSvgTexture(
-			`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 -960 960 960" fill="#fff">` +
-				`<path d="M360-300q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.` +
-				`5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-2` +
-				`3.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/>` +
-			`</svg>`,
-			resolution
-		);
-
 		new wcardinal.ui.DButtonDate({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 200,
 			image: {
-				source: file
+				source: texture.calendar
 			}
 		});
 	})();
