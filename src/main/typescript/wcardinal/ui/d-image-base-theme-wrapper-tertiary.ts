@@ -13,7 +13,8 @@ export interface DThemeImageBaseTertiary {
 	getTertiaryImageMarginVertial(): number;
 	getTertiaryImageTintColor(state: DBaseStateSet): number | null;
 	getTertiaryImageTintAlpha(state: DBaseStateSet): number;
-	getTertiaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null;
+	getTertiaryImageRotation(state: DBaseStateSet): number;
+	getTertiaryImageSource?(state: DBaseStateSet): Texture | DisplayObject | null;
 }
 
 export class DImageBaseThemeWrapperTertiary implements DThemeImagePiece {
@@ -51,7 +52,11 @@ export class DImageBaseThemeWrapperTertiary implements DThemeImagePiece {
 		return this._theme.getTertiaryImageTintAlpha(state);
 	}
 
+	getImageRotation(state: DBaseStateSet): number {
+		return this._theme.getTertiaryImageRotation(state);
+	}
+
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
-		return this._theme.getTertiaryImageSource(state);
+		return this._theme.getTertiaryImageSource?.(state) ?? null;
 	}
 }

@@ -23,8 +23,8 @@ export class DImagePieceLayouter {
 	}
 
 	add(image: DImagePiece): void {
-		const imageImage = image.image;
-		if (imageImage) {
+		const object = image.object;
+		if (object) {
 			switch (image.align.with) {
 				case DAlignWith.TEXT:
 					this.text.add(image);

@@ -241,8 +241,15 @@ export class DTextBase<
 					this.toDirty();
 					DApplications.update(this);
 				}
-			} else {
+			} else if (text.text !== formatted) {
 				text.text = formatted;
+				this.toDirty();
+				DApplications.update(this);
+			}
+		} else {
+			const text = this._text;
+			if (text != null && text.text !== "") {
+				text.text = "";
 				this.toDirty();
 				DApplications.update(this);
 			}

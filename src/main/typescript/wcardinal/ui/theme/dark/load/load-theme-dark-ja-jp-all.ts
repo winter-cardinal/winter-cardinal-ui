@@ -37,6 +37,7 @@ import { loadThemeDarkJaJpTable } from "./load-theme-dark-ja-jp-table";
 import { loadThemeDarkText } from "./load-theme-dark-text";
 import { loadThemeDarkTree } from "./load-theme-dark-tree";
 import { loadThemeDarkView } from "./load-theme-dark-view";
+import { loadThemeDarkJaJpIndicatorProcessing } from "./load-theme-dark-ja-jp-indicator-processing";
 
 export const loadThemeDarkJaJpAll = (): void => {
 	loadThemeDark();
@@ -53,6 +54,7 @@ export const loadThemeDarkJaJpAll = (): void => {
 	loadThemeDarkExpandable();
 	loadThemeDarkHtmlElement();
 	loadThemeDarkImage();
+	loadThemeDarkJaJpIndicatorProcessing();
 	loadThemeDarkJaJpInputAll();
 	loadThemeDarkLayout();
 	loadThemeDarkJaJpLink();

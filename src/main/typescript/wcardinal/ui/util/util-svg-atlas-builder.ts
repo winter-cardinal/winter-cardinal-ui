@@ -126,7 +126,7 @@ export class UtilSvgAtlasBuilder {
 			const url = toSvgUrl(
 				`<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>`
 			);
-			const scaleMode = options?.scaling ?? SCALE_MODES.NEAREST;
+			const scaleMode = options?.scaling ?? SCALE_MODES.LINEAR;
 			const baseTexture = BaseTexture.from(url, {
 				resolution,
 				scaleMode

@@ -8,7 +8,7 @@ import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeDarkDialogProcessing } from "./d-theme-dark-dialog-processing";
 
-const message = (state: DBaseStateSet): string => {
+export const dThemeDarkJaJpDialogProcessingMessage = (state: DBaseStateSet): string => {
 	if (state.isSucceeded) {
 		return "正常に処理されました";
 	} else if (state.isFailed) {
@@ -29,6 +29,6 @@ export class DThemeDarkJaJpDialogProcessing extends DThemeDarkDialogProcessing {
 	}
 
 	override getMessage(): DStateAwareOrValue<string> {
-		return message;
+		return dThemeDarkJaJpDialogProcessingMessage;
 	}
 }

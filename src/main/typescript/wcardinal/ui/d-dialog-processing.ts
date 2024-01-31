@@ -40,10 +40,11 @@ export class DDialogProcessing<
 		super(options);
 		this._isDone = true;
 		this._startTime = 0;
+		const theme = this.theme;
 		const delay = options?.delay;
-		this._delayDone = delay?.done ?? this.theme.getDoneDelay();
+		this._delayDone = delay?.done ?? theme.getDoneDelay();
 		const delayClose = delay?.close;
-		this._delayClose = delayClose !== undefined ? delayClose : this.theme.getCloseDelay();
+		this._delayClose = delayClose !== undefined ? delayClose : theme.getCloseDelay();
 		this._messageText = this.message.text;
 	}
 

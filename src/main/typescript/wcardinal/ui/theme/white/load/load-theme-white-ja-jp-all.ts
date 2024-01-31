@@ -37,6 +37,7 @@ import { loadThemeWhiteJaJpTable } from "./load-theme-white-ja-jp-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
 import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteView } from "./load-theme-white-view";
+import { loadThemeWhiteJaJpIndicatorProcessing } from "./load-theme-white-ja-jp-indicator-processing";
 
 export const loadThemeWhiteJaJpAll = (): void => {
 	loadThemeWhite();
@@ -53,6 +54,7 @@ export const loadThemeWhiteJaJpAll = (): void => {
 	loadThemeWhiteExpandable();
 	loadThemeWhiteHtmlElement();
 	loadThemeWhiteImage();
+	loadThemeWhiteJaJpIndicatorProcessing();
 	loadThemeWhiteJaJpInputAll();
 	loadThemeWhiteLayout();
 	loadThemeWhiteJaJpLink();

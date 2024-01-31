@@ -43,6 +43,10 @@ export class DThemeWhiteImageBase<VALUE = unknown>
 		return this.getAlpha(state);
 	}
 
+	getImageRotation(state: DBaseStateSet): number {
+		return 0;
+	}
+
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return null;
 	}
@@ -75,6 +79,10 @@ export class DThemeWhiteImageBase<VALUE = unknown>
 		return this.getImageTintAlpha(state);
 	}
 
+	getSecondaryImageRotation(state: DBaseStateSet): number {
+		return this.getImageRotation(state);
+	}
+
 	getTertiaryImageAlignHorizontal(): DAlignHorizontal {
 		return this.getImageAlignHorizontal();
 	}
@@ -101,5 +109,9 @@ export class DThemeWhiteImageBase<VALUE = unknown>
 
 	getTertiaryImageTintAlpha(state: DBaseStateSet): number {
 		return this.getImageTintAlpha(state);
+	}
+
+	getTertiaryImageRotation(state: DBaseStateSet): number {
+		return this.getImageRotation(state);
 	}
 }

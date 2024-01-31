@@ -40,37 +40,31 @@ export class DImagePieceLayouterPartContainer {
 	}
 
 	add(image: DImagePiece): void {
-		const imageImage = image.image;
-		if (imageImage != null) {
-			const imageBound = image.bound;
-			const imageBoundWidth = imageBound.width;
-			const imageBoundHeight = imageBound.height;
-
-			const imageMargin = image.margin;
-			const imageMarginHorizontal = imageMargin.horizontal;
-			const imageMarginVertical = imageMargin.vertical;
-
-			const imageAlign = image.align;
-			switch (imageAlign.horizontal) {
+		const object = image.object;
+		if (object != null) {
+			const bound = object.getLocalBounds();
+			const margin = image.margin;
+			const align = image.align;
+			switch (align.horizontal) {
 				case DAlignHorizontal.LEFT:
-					this.left.add(image, imageBoundWidth, imageMarginHorizontal);
+					this.left.add(image, bound, margin.horizontal);
 					break;
 				case DAlignHorizontal.CENTER:
-					this.center.add(image, imageBoundWidth, imageMarginHorizontal);
+					this.center.add(image, bound, margin.horizontal);
 					break;
 				case DAlignHorizontal.RIGHT:
-					this.right.add(image, imageBoundWidth, imageMarginHorizontal);
+					this.right.add(image, bound, margin.horizontal);
 					break;
 			}
-			switch (imageAlign.vertical) {
+			switch (align.vertical) {
 				case DAlignVertical.TOP:
-					this.top.add(image, imageBoundHeight, imageMarginVertical);
+					this.top.add(image, bound, margin.vertical);
 					break;
 				case DAlignVertical.MIDDLE:
-					this.middle.add(image, imageBoundHeight, imageMarginVertical);
+					this.middle.add(image, bound, margin.vertical);
 					break;
 				case DAlignVertical.BOTTOM:
-					this.bottom.add(image, imageBoundHeight, imageMarginVertical);
+					this.bottom.add(image, bound, margin.vertical);
 					break;
 			}
 		}

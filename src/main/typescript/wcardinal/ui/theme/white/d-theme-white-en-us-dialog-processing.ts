@@ -8,7 +8,7 @@ import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogProcessing } from "./d-theme-white-dialog-processing";
 
-const message = (state: DBaseStateSet): string => {
+export const dThemeWhiteEnUsDialogProcessingMessage = (state: DBaseStateSet): string => {
 	if (state.isSucceeded) {
 		return "Processed successfully";
 	} else if (state.isFailed) {
@@ -29,6 +29,6 @@ export class DThemeWhiteEnUsDialogProcessing extends DThemeWhiteDialogProcessing
 	}
 
 	override getMessage(): DStateAwareOrValue<string> {
-		return message;
+		return dThemeWhiteEnUsDialogProcessingMessage;
 	}
 }

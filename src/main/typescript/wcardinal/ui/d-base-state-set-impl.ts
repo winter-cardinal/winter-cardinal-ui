@@ -737,6 +737,26 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this.on(DBaseState.INVALID);
 	}
 
+	get isProcessing(): boolean {
+		return this.is(DBaseState.PROCESSING);
+	}
+
+	set isProcessing(processing: boolean) {
+		this.set(DBaseState.PROCESSING, processing);
+	}
+
+	get inProcessing(): boolean {
+		return this.in(DBaseState.PROCESSING);
+	}
+
+	get onProcessing(): boolean {
+		return this.on(DBaseState.PROCESSING);
+	}
+
+	get underProcessing(): boolean {
+		return this.under(DBaseState.PROCESSING);
+	}
+
 	get isSucceeded(): boolean {
 		return this.is(DBaseState.SUCCEEDED);
 	}

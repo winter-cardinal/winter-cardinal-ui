@@ -1739,11 +1739,33 @@ export class DBase<
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				if (child.visible) {
-					if (this.hasRefitableWidth(child)) {
-						width = Math.max(width, child.x + child.width);
-					}
-					if (this.hasRefitableHeight(child)) {
-						height = Math.max(height, child.y + child.height);
+					const rw = this.hasRefitableWidth(child);
+					const rh = this.hasRefitableHeight(child);
+					if (rw || rh) {
+						if (child instanceof DBase) {
+							if (rw) {
+								width = Math.max(width, child.x + child.width);
+							}
+							if (rh) {
+								height = Math.max(height, child.y + child.height);
+							}
+						} else if (child instanceof Container) {
+							const bound = child.getLocalBounds(undefined, true);
+							if (rw) {
+								width = Math.max(width, child.x + bound.x + bound.width);
+							}
+							if (rh) {
+								height = Math.max(height, child.y + bound.y + bound.height);
+							}
+						} else {
+							const bound = child.getLocalBounds();
+							if (rw) {
+								width = Math.max(width, child.x + bound.x + bound.width);
+							}
+							if (rh) {
+								height = Math.max(height, child.y + bound.y + bound.height);
+							}
+						}
 					}
 				}
 			}
@@ -1755,7 +1777,15 @@ export class DBase<
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				if (child.visible && this.hasRefitableWidth(child)) {
-					width = Math.max(width, child.x + child.width);
+					if (child instanceof DBase) {
+						width = Math.max(width, child.x + child.width);
+					} else if (child instanceof Container) {
+						const bound = child.getLocalBounds(undefined, true);
+						width = Math.max(width, child.x + bound.x + bound.width);
+					} else {
+						const bound = child.getLocalBounds();
+						width = Math.max(width, child.x + bound.x + bound.width);
+					}
 				}
 			}
 			this.resize(width + this.padding.getRight(), undefined);
@@ -1765,7 +1795,15 @@ export class DBase<
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				if (child.visible && this.hasRefitableHeight(child)) {
-					height = Math.max(height, child.y + child.height);
+					if (child instanceof DBase) {
+						height = Math.max(height, child.y + child.height);
+					} else if (child instanceof Container) {
+						const bound = child.getLocalBounds(undefined, true);
+						height = Math.max(height, child.y + bound.y + bound.height);
+					} else {
+						const bound = child.getLocalBounds();
+						height = Math.max(height, child.y + bound.y + bound.height);
+					}
 				}
 			}
 			this.resize(undefined, height + this.padding.getBottom());
@@ -1776,13 +1814,25 @@ export class DBase<
 		return target instanceof DBase;
 	}
 
+	/**
+	 * Returns true if the given target has a height that doesn't depend on its parent height.
+	 *
+	 * @param target a target
+	 * @returns true if the given target has a height that doesn't depend on its parent height.
+	 */
 	protected hasRefitableHeight(target: any): target is DRefitable {
 		return (
 			this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getHeight()))
 		);
 	}
 
-	protected hasRefitableWidth(target: any): target is DBase<any, any> {
+	/**
+	 * Returns true if the given target has a width that doesn't depend on its parent width.
+	 *
+	 * @param target a target
+	 * @returns true if the given target has a width that doesn't depend on its parent width.
+	 */
+	protected hasRefitableWidth(target: any): target is DRefitable {
 		return (
 			this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getWidth()))
 		);

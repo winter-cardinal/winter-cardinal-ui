@@ -1,19 +1,23 @@
+import { Rectangle } from "pixi.js";
 import { DImagePiece } from "./d-image-piece";
 import { DImagePieceLayouterPart } from "./d-image-piece-layouter-part";
 
 export class DImagePieceLayouterPartCenter extends DImagePieceLayouterPart {
-	add(image: DImagePiece, size: number, margin: number): void {
+	override add(image: DImagePiece, bound: Rectangle, margin: number): void {
 		const pieces = this._pieces;
 		pieces.push(image);
-		this._size = Math.max(this.size, size);
+		this._size = Math.max(this.size, bound.width);
 	}
 
 	execute(pleft: number, pright: number, width: number): void {
 		const c = pleft + (width - pleft - pright) * 0.5;
 		const pieces = this._pieces;
+		const bounds = this._bounds;
 		for (let i = 0, imax = pieces.length; i < imax; ++i) {
 			const piece = pieces[i];
-			piece.image!.x = c - piece.bound.width * 0.5;
+			const bound = bounds[i];
+			const object = piece.object!;
+			object.x = c - bound.x - bound.width * 0.5;
 		}
 	}
 }

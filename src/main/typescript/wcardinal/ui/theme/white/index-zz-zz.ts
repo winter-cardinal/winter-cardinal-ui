@@ -91,6 +91,7 @@ export * from "./d-theme-white-font";
 export * from "./d-theme-white-html-element";
 export * from "./d-theme-white-image-base";
 export * from "./d-theme-white-image";
+export * from "./d-theme-white-indicator-processing";
 export * from "./d-theme-white-input-and-label";
 export * from "./d-theme-white-input-boolean-button-off";
 export * from "./d-theme-white-input-boolean-button-on";

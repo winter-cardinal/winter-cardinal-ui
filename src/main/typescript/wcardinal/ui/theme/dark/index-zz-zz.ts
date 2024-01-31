@@ -91,6 +91,7 @@ export * from "./d-theme-dark-font";
 export * from "./d-theme-dark-html-element";
 export * from "./d-theme-dark-image-base";
 export * from "./d-theme-dark-image";
+export * from "./d-theme-dark-indicator-processing";
 export * from "./d-theme-dark-input-and-label";
 export * from "./d-theme-dark-input-boolean-button-off";
 export * from "./d-theme-dark-input-boolean-button-on";

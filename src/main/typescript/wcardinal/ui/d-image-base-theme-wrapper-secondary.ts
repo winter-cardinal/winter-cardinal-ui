@@ -13,7 +13,8 @@ export interface DThemeImageBaseSecondary {
 	getSecondaryImageMarginVertial(): number;
 	getSecondaryImageTintColor(state: DBaseStateSet): number | null;
 	getSecondaryImageTintAlpha(state: DBaseStateSet): number;
-	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null;
+	getSecondaryImageRotation(state: DBaseStateSet): number;
+	getSecondaryImageSource?(state: DBaseStateSet): Texture | DisplayObject | null;
 }
 
 export class DImageBaseThemeWrapperSecondary implements DThemeImagePiece {
@@ -51,7 +52,11 @@ export class DImageBaseThemeWrapperSecondary implements DThemeImagePiece {
 		return this._theme.getSecondaryImageTintAlpha(state);
 	}
 
+	getImageRotation(state: DBaseStateSet): number {
+		return this._theme.getSecondaryImageRotation(state);
+	}
+
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
-		return this._theme.getSecondaryImageSource(state);
+		return this._theme.getSecondaryImageSource?.(state) ?? null;
 	}
 }

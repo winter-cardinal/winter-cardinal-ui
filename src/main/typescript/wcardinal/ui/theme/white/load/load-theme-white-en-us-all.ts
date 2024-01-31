@@ -37,6 +37,7 @@ import { loadThemeWhiteEnUsTable } from "./load-theme-white-en-us-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
 import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteView } from "./load-theme-white-view";
+import { loadThemeWhiteEnUsIndicatorProcessing } from "./load-theme-white-en-us-indicator-processing";
 
 export const loadThemeWhiteEnUsAll = (): void => {
 	loadThemeWhite();
@@ -53,6 +54,7 @@ export const loadThemeWhiteEnUsAll = (): void => {
 	loadThemeWhiteExpandable();
 	loadThemeWhiteHtmlElement();
 	loadThemeWhiteImage();
+	loadThemeWhiteEnUsIndicatorProcessing();
 	loadThemeWhiteEnUsInputAll();
 	loadThemeWhiteLayout();
 	loadThemeWhiteEnUsLink();

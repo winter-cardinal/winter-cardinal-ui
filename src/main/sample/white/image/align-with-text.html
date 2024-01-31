@@ -24,6 +24,7 @@
 	<script src="../../js/pixi/latest/pixi.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../resource/load-texture-all.js"></script>
 	<script>
 	(() => {
 		"use strict";
@@ -60,7 +61,7 @@
 			column: 6
 		});
 
-		class DThemeImageBase extends DThemes.getClass("DImage") {
+		class DThemeImageBase extends wcardinal.ui.DThemes.getClass("DImage") {
 			getWidth() {
 				return 160;
 			}
@@ -114,7 +115,7 @@
 			}
 
 			getImageSource() {
-				return PIXI.Texture.WHITE;
+				return texture.nutrition;
 			}
 
 			getSecondaryImageSource() {

@@ -28,6 +28,7 @@ export * from "./load-theme-white-en-us-dialog-processing";
 export * from "./load-theme-white-en-us-dialog-save-as";
 export * from "./load-theme-white-en-us-dialog-select";
 export * from "./load-theme-white-en-us-dialog-time";
+export * from "./load-theme-white-en-us-indicator-processing";
 export * from "./load-theme-white-en-us-input-all";
 export * from "./load-theme-white-en-us-input-boolean";
 export * from "./load-theme-white-en-us-link";

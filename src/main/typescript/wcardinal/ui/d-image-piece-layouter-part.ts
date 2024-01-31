@@ -1,8 +1,10 @@
+import { Rectangle } from "pixi.js";
 import { DDynamicText } from "./d-dynamic-text";
 import { DImagePiece } from "./d-image-piece";
 
-export class DImagePieceLayouterPart {
+export abstract class DImagePieceLayouterPart {
 	protected _pieces: DImagePiece[];
+	protected _bounds: Rectangle[];
 	protected _size: number;
 	protected _margin: number;
 
@@ -10,6 +12,7 @@ export class DImagePieceLayouterPart {
 
 	constructor() {
 		this._pieces = [];
+		this._bounds = [];
 		this._size = 0;
 		this._margin = 0;
 	}
@@ -21,12 +24,7 @@ export class DImagePieceLayouterPart {
 		this._text = undefined;
 	}
 
-	add(image: DImagePiece, size: number, margin: number): void {
-		const pieces = this._pieces;
-		pieces.push(image);
-		this._size += margin + size;
-		this._margin = margin;
-	}
+	abstract add(image: DImagePiece, bound: Rectangle, margin: number): void;
 
 	set(text: DDynamicText | null): void {
 		this._text = text;

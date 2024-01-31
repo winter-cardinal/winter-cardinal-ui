@@ -14,6 +14,7 @@ export * from "./d-theme-white-ja-jp-dialog-message";
 export * from "./d-theme-white-ja-jp-dialog-processing";
 export * from "./d-theme-white-ja-jp-dialog-save-as";
 export * from "./d-theme-white-ja-jp-dialog-select";
+export * from "./d-theme-white-ja-jp-indicator-processing";
 export * from "./d-theme-white-ja-jp-input-boolean-button-off";
 export * from "./d-theme-white-ja-jp-input-boolean-button-on";
 export * from "./d-theme-white-ja-jp-link";

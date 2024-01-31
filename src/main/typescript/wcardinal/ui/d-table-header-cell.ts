@@ -153,12 +153,19 @@ export class DTableHeaderCell<
 	): boolean {
 		if (e instanceof InteractionEvent && this._check.isEnabled) {
 			if (this.isSortable) {
-				const image = this._images[1];
-				if (image && image.image != null) {
+				const image = this.image.get(1);
+				if (image) {
 					const position = this.toClickPosition(e);
-					const bound = image.bound;
-					const margin = image.margin.horizontal;
-					return bound.left - margin <= position && position <= bound.right + margin;
+					const object = image.object;
+					if (object != null) {
+						const bound = object.getLocalBounds();
+						const margin = image.margin.horizontal;
+						const x = object.x;
+						return (
+							x + bound.left - margin <= position &&
+							position <= x + bound.right + margin
+						);
+					}
 				}
 			} else {
 				return true;

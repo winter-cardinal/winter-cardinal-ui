@@ -66,6 +66,10 @@ export interface DBaseStateSet {
 	readonly inInvalid: boolean;
 	readonly onInvalid: boolean;
 	readonly underInvalid: boolean;
+	isProcessing: boolean;
+	readonly inProcessing: boolean;
+	readonly onProcessing: boolean;
+	readonly underProcessing: boolean;
 	isSucceeded: boolean;
 	readonly inSucceeded: boolean;
 	readonly onSucceeded: boolean;

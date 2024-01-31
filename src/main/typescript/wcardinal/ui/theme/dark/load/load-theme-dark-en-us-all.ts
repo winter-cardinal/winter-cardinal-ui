@@ -37,6 +37,7 @@ import { loadThemeDarkEnUsTable } from "./load-theme-dark-en-us-table";
 import { loadThemeDarkText } from "./load-theme-dark-text";
 import { loadThemeDarkTree } from "./load-theme-dark-tree";
 import { loadThemeDarkView } from "./load-theme-dark-view";
+import { loadThemeDarkEnUsIndicatorProcessing } from "./load-theme-dark-en-us-indicator-processing";
 
 export const loadThemeDarkEnUsAll = (): void => {
 	loadThemeDark();
@@ -53,6 +54,7 @@ export const loadThemeDarkEnUsAll = (): void => {
 	loadThemeDarkExpandable();
 	loadThemeDarkHtmlElement();
 	loadThemeDarkImage();
+	loadThemeDarkEnUsIndicatorProcessing();
 	loadThemeDarkEnUsInputAll();
 	loadThemeDarkLayout();
 	loadThemeDarkEnUsLink();
