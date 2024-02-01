@@ -41,7 +41,13 @@ export class UtilSvgAtlasBuilder {
 		this._width = options.width ?? 256;
 		this._ratio = options.ratio ?? 1;
 		this._margin = options.margin ?? 3;
-		this._resolution = options.resolution ?? window.devicePixelRatio ?? 1;
+		const resolution = options.resolution;
+		if (resolution != null) {
+			this._resolution = resolution;
+		} else {
+			const dpr = window.devicePixelRatio ?? 1;
+			this._resolution = 2 < dpr ? dpr : dpr * 2;
+		}
 		this._scaling = options.scaling ?? settings.SCALE_MODE;
 		this._mipmap = options.mipmap ?? settings.MIPMAP_TEXTURES;
 
