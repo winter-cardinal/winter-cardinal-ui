@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BaseTexture, Rectangle, SCALE_MODES, Texture } from "pixi.js";
+import { BaseTexture, MIPMAP_MODES, Rectangle, SCALE_MODES, Texture, settings } from "pixi.js";
 import { toSvgUrl } from "./to-svg-url";
 
 export interface UtilSvgAtlasBuilderBuildOptions {
@@ -12,10 +12,22 @@ export interface UtilSvgAtlasBuilderBuildOptions {
 	resolution?: number;
 }
 
+export interface UtilSvgAtlasBuilderOptions {
+	width?: number;
+	ratio?: number;
+	margin?: number;
+	resolution?: number;
+	scaling?: SCALE_MODES;
+	mipmap?: MIPMAP_MODES;
+}
+
 export class UtilSvgAtlasBuilder {
 	protected _width: number;
 	protected _ratio: number;
 	protected _margin: number;
+	protected _resolution: number;
+	protected _scaling: SCALE_MODES;
+	protected _mipmap: MIPMAP_MODES;
 
 	protected _frames: Record<string, Rectangle>;
 	protected _svg: string;
@@ -25,10 +37,13 @@ export class UtilSvgAtlasBuilder {
 
 	protected _built?: Record<string, Texture>;
 
-	constructor(width: number, ratio: number, margin: number) {
-		this._width = width;
-		this._ratio = ratio;
-		this._margin = margin;
+	constructor(options: UtilSvgAtlasBuilderOptions) {
+		this._width = options.width ?? 256;
+		this._ratio = options.ratio ?? 1;
+		this._margin = options.margin ?? 3;
+		this._resolution = options.resolution ?? window.devicePixelRatio ?? 1;
+		this._scaling = options.scaling ?? settings.SCALE_MODE;
+		this._mipmap = options.mipmap ?? settings.MIPMAP_TEXTURES;
 
 		this._frames = {};
 		this._svg = "";
@@ -113,7 +128,7 @@ export class UtilSvgAtlasBuilder {
 	build(options?: UtilSvgAtlasBuilderBuildOptions): Record<string, Texture> {
 		let built = this._built;
 		if (built == null || options?.force) {
-			const resolution = options?.resolution ?? window.devicePixelRatio ?? 1;
+			const resolution = options?.resolution ?? this._resolution;
 			const width = this._width;
 			const height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
 			const realWidth = width * resolution;
@@ -126,10 +141,11 @@ export class UtilSvgAtlasBuilder {
 			const url = toSvgUrl(
 				`<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>`
 			);
-			const scaleMode = options?.scaling ?? SCALE_MODES.NEAREST;
+			const scaleMode = options?.scaling ?? this._scaling;
 			const baseTexture = BaseTexture.from(url, {
 				resolution,
-				scaleMode
+				scaleMode,
+				mipmap: this._mipmap
 			});
 			const frames = this._frames;
 			built = this._built = {};
