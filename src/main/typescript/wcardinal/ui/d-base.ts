@@ -2070,18 +2070,7 @@ export class DBase<
 
 	//
 	protected _calculateBounds(): void {
-		const worldTransform = this.transform.worldTransform;
-		const bounds = this._bounds;
-
-		const work = DBase.WORK_CONTAINS_POINT;
-		work.set(0, 0);
-		worldTransform.apply(work, work);
-		bounds.addPoint(work);
-
-		work.set(this._width, this._height);
-		worldTransform.apply(work, work);
-		bounds.addPoint(work);
-
+		this._bounds.addFrame(this.transform, 0, 0, this._width, this._height);
 		super._calculateBounds();
 	}
 

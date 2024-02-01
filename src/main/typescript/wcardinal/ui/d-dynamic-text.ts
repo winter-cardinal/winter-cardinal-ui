@@ -264,7 +264,8 @@ export class DDynamicText extends Mesh {
 
 	protected _calculateBounds(): void {
 		this.update();
-		super._calculateBounds();
+		const geometry = this.geometry;
+		this._bounds.addFrame(this.transform, 0, 0, geometry.width, geometry.height);
 	}
 
 	protected _render(renderer?: Renderer): void {
