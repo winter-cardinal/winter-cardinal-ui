@@ -9,9 +9,21 @@ import { DBaseReflowable } from "./d-base-reflowable";
 import { DCornerMask } from "./d-corner-mask";
 
 export class DBaseOverflowMask extends Graphics implements DBaseReflowable {
+	protected _isInitialized: boolean;
+	protected _width: number;
+	protected _height: number;
+	protected _cornderRadius: number;
+	protected _cornerMask: DCornerMask;
+
 	constructor(parent: DBase) {
 		super();
-		(this as any).parent = parent;
+		this.parent = parent;
+
+		this._isInitialized = false;
+		this._width = 0;
+		this._height = 0;
+		this._cornderRadius = 0;
+		this._cornerMask = DCornerMask.NONE;
 	}
 
 	render(renderer: Renderer): void {
@@ -20,11 +32,26 @@ export class DBaseOverflowMask extends Graphics implements DBaseReflowable {
 	}
 
 	onReflow(base: DBase, width: number, height: number): void {
-		const x = 0;
-		const y = 0;
 		const corner = base.corner;
 		const cornerRadius = Math.max(0, corner.getRadius() - 0.5);
 		const cornerMask = corner.getMask();
+		if (
+			this._isInitialized &&
+			this._width === width &&
+			this._height === height &&
+			this._cornderRadius === cornerRadius &&
+			this._cornerMask === cornerMask
+		) {
+			return;
+		}
+		this._isInitialized = true;
+		this._width = width;
+		this._height = height;
+		this._cornderRadius = cornerRadius;
+		this._cornerMask = cornerMask;
+
+		const x = 0;
+		const y = 0;
 		const tl = cornerMask & DCornerMask.TOP_LEFT ? 0 : cornerRadius;
 		const tr = cornerMask & DCornerMask.TOP_RIGHT ? 0 : cornerRadius;
 		const bl = cornerMask & DCornerMask.BOTTOM_LEFT ? 0 : cornerRadius;
