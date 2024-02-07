@@ -11,6 +11,8 @@ import {
 	buildRectangleRoundedStep,
 	buildRectangleRoundedUv,
 	buildRectangleRoundedVertex,
+	RECTANGLE_ROUNDED_INDEX_COUNT,
+	RECTANGLE_ROUNDED_VERTEX_COUNT,
 	RECTANGLE_ROUNDED_WORLD_SIZE
 } from "./build-rectangle-rounded";
 import { BuilderBuffer, BuilderFlag } from "./builder";
@@ -21,24 +23,27 @@ export class BuilderRectangleRounded extends BuilderBase {
 	protected radius: number;
 	protected corner: EShapeCorner;
 
-	constructor(
-		vertexOffset: number,
-		indexOffset: number,
-		vertexCount: number,
-		indexCount: number
-	) {
-		super(vertexOffset, indexOffset, vertexCount, indexCount);
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(
+			buffer,
+			vertexOffset,
+			indexOffset,
+			RECTANGLE_ROUNDED_VERTEX_COUNT,
+			RECTANGLE_ROUNDED_INDEX_COUNT
+		);
 		this.radius = 0;
 		this.corner = 0;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateIndices();
 		buildRectangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexClippingStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

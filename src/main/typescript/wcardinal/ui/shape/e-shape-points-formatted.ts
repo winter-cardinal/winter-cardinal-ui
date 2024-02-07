@@ -13,6 +13,8 @@ export type EShapePointsFormattedBoundary = [number, number, number, number];
 
 export interface EShapePointsFormattedWithoutBoundary {
 	length: number;
+	/** Peak length */
+	plength: number;
 	values: number[];
 	segments: number[];
 	style: EShapePointsStyle;

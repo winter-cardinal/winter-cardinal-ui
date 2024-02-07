@@ -23,12 +23,13 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 	protected static WORK?: Matrix;
 	protected pointId: number;
 
-	constructor(vertexOffset: number, indexOffset: number) {
-		super(vertexOffset, indexOffset, TRIANGLE_VERTEX_COUNT, TRIANGLE_INDEX_COUNT);
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(buffer, vertexOffset, indexOffset, TRIANGLE_VERTEX_COUNT, TRIANGLE_INDEX_COUNT);
 		this.pointId = -1;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildTriangleClipping(buffer.clippings, this.vertexOffset);
@@ -36,7 +37,8 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

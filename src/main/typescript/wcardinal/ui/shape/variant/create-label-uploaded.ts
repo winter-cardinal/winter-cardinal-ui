@@ -24,8 +24,8 @@ export const createLabelUploaded = (
 	const icount = ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderLabel(voffset, ioffset, vcount - tvcount, icount - ticount),
-			new BuilderText(voffset, ioffset, tvcount, ticount)
+			new BuilderLabel(buffer, voffset, ioffset),
+			new BuilderText(buffer, voffset, ioffset, tvcount, ticount)
 		]).init(shape);
 	}
 	return null;

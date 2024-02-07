@@ -4,7 +4,7 @@
  */
 
 import { EShape } from "../e-shape";
-import { toPointsCount } from "./build-line";
+import { toPointCount } from "./build-line";
 import { buildLineOfAnyColor, toLineOfAnyPointCount } from "./build-line-of-any";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
@@ -18,15 +18,20 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 	protected pointOffsetId: number;
 	protected pointFillId: number;
 	protected pointStrokeId: number;
+	protected vcountPerPoint: number;
+	protected icountPerPoint: number;
 
 	constructor(
+		buffer: BuilderBuffer,
 		vertexOffset: number,
 		indexOffset: number,
 		vertexCount: number,
 		indexCount: number,
-		pointCountReserved: number
+		pointCountReserved: number,
+		vcountPerPoint: number,
+		icountPerPoint: number
 	) {
-		super(vertexOffset, indexOffset, vertexCount, indexCount);
+		super(buffer, vertexOffset, indexOffset, vertexCount, indexCount);
 		this.pointId = -1;
 		this.pointCount = 0;
 		this.pointCountReserved = pointCountReserved;
@@ -34,10 +39,45 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		this.pointOffsetId = -1;
 		this.pointFillId = -1;
 		this.pointStrokeId = -1;
+		this.vcountPerPoint = vcountPerPoint;
+		this.icountPerPoint = icountPerPoint;
 	}
 
-	isCompatible(shape: EShape): boolean {
-		const pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
+	override reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean {
+		const pointCount = toLineOfAnyPointCount(toPointCount(shape.points));
+		if (
+			this.buffer !== buffer ||
+			this.vertexOffset !== vertexOffset ||
+			this.indexOffset !== indexOffset ||
+			this.pointCountReserved !== pointCount
+		) {
+			const vertexCount = pointCount * this.vcountPerPoint;
+			const indexCount = pointCount * this.icountPerPoint;
+			if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
+				this.inited = BuilderFlag.NONE;
+				this.buffer = buffer;
+				this.vertexOffset = vertexOffset;
+				this.indexOffset = indexOffset;
+				this.vertexCount = vertexCount;
+				this.indexCount = indexCount;
+				this.pointCountReserved = pointCount;
+				this.init();
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	override isCompatible(shape: EShape): boolean {
+		const pointCount = toLineOfAnyPointCount(toPointCount(shape.points));
 		return pointCount === this.pointCountReserved;
 	}
 
@@ -57,7 +97,10 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		const alphaFill = isFillEnabled ? fill.alpha : 0;
 		const isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
 
-		if (isPointFillChanged || isFillChanged) {
+		const isNotInited = !(this.inited & BuilderFlag.COLOR_FILL);
+
+		if (isNotInited || isPointFillChanged || isFillChanged) {
+			this.inited |= BuilderFlag.COLOR_FILL;
 			this.colorFill = colorFill;
 			this.alphaFill = alphaFill;
 			this.pointFillId = pointFillId;

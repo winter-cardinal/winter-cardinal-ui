@@ -11,6 +11,8 @@ import {
 	buildTriangleRoundedStep,
 	buildTriangleRoundedUv,
 	buildTriangleRoundedVertex,
+	TRIANGLE_ROUNDED_INDEX_COUNT,
+	TRIANGLE_ROUNDED_VERTEX_COUNT,
 	TRIANGLE_ROUNDED_WORLD_SIZE
 } from "./build-triangle-rounded";
 import { BuilderBuffer, BuilderFlag } from "./builder";
@@ -21,24 +23,27 @@ export class BuilderTriangleRounded extends BuilderBase {
 	protected radius: number;
 	protected corner: EShapeCorner;
 
-	constructor(
-		vertexOffset: number,
-		indexOffset: number,
-		vertexCount: number,
-		indexCount: number
-	) {
-		super(vertexOffset, indexOffset, vertexCount, indexCount);
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(
+			buffer,
+			vertexOffset,
+			indexOffset,
+			TRIANGLE_ROUNDED_VERTEX_COUNT,
+			TRIANGLE_ROUNDED_INDEX_COUNT
+		);
 		this.radius = 0;
 		this.corner = 0;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateIndices();
 		buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexClippingStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

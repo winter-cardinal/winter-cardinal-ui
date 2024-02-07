@@ -10,6 +10,7 @@ import {
 	buildTriangleStep,
 	buildTriangleUv,
 	buildTriangleVertex,
+	TRIANGLE_INDEX_COUNT,
 	TRIANGLE_VERTEX_COUNT,
 	TRIANGLE_WORLD_SIZE
 } from "./build-triangle";
@@ -18,7 +19,12 @@ import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderTriangle extends BuilderBase {
-	init(buffer: BuilderBuffer): void {
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(buffer, vertexOffset, indexOffset, TRIANGLE_VERTEX_COUNT, TRIANGLE_INDEX_COUNT);
+	}
+
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildTriangleClipping(buffer.clippings, this.vertexOffset);
@@ -26,7 +32,8 @@ export class BuilderTriangle extends BuilderBase {
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

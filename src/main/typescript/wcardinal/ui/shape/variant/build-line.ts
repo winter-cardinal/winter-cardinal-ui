@@ -8,22 +8,23 @@ import { toScaleInvariant } from "./to-scale-invariant";
 const LINE_FMIN: number = 0.00001;
 const LINE_WORK_POINT: Point = new Point();
 
-export const toPointsCount = (points?: EShapePoints): number => {
+export const toPointCount = (points?: EShapePoints): number => {
 	if (points) {
-		return points.formatted.length;
+		return points.formatted.plength;
 	}
 	return 0;
 };
 
 export const toLinePointCount = (points?: EShapePoints): number => {
-	return Math.ceil(toPointsCount(points) / 12) * 12;
+	const pointCount = toPointCount(points);
+	return ((pointCount >> 4) + (0 < (pointCount & 0xf) ? 1 : 0)) << 4;
 };
 
 export const toLineVertexCount = (pointCount: number, isClosed: boolean): number => {
 	if (isClosed) {
-		return pointCount * 4 + 2;
+		return (pointCount << 2) + 2;
 	} else {
-		return pointCount * 4;
+		return pointCount << 2;
 	}
 };
 

@@ -22,7 +22,7 @@ export const TEXT_FMIN: number = 0.00001;
 const TEXT_WORK_POINT: Point = new Point();
 
 export const toTextBufferCount = (shape: EShape): number => {
-	const l = shape.text.value.length;
+	const l = shape.text.plength;
 	return ((l >> 3) + (0 < (l & 0x7) ? 1 : 0)) << 3;
 };
 

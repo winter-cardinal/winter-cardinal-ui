@@ -3,7 +3,7 @@ import { EShapeLineOfAnyPointsFill } from "./e-shape-line-of-any-points-fill";
 import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
 
 export const toLineOfAnyPointCount = (pointCount: number): number => {
-	return Math.ceil(pointCount / 12) * 12;
+	return ((pointCount >> 4) + (0 < (pointCount & 0xf) ? 1 : 0)) << 4;
 };
 
 export const buildLineOfAnyColor = (

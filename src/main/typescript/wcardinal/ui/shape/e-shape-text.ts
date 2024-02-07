@@ -80,6 +80,10 @@ export interface EShapeText extends EShapeTextLike {
 	atlas?: EShapeTextAtlas; // Used for rendering and updated when rendered
 	world?: number[]; // Updated when rendered
 
+	readonly length: number;
+	/** Peak length */
+	readonly plength: number;
+
 	copy(target?: DeepPartial<EShapeTextLike>): this;
 	set(
 		value?: string,

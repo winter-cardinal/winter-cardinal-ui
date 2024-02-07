@@ -25,8 +25,9 @@ export const createCircleUploaded = (
 	const icount = CIRCLE_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderCircle(voffset, ioffset),
+			new BuilderCircle(buffer, voffset, ioffset),
 			new BuilderText(
+				buffer,
 				voffset + CIRCLE_VERTEX_COUNT,
 				ioffset + CIRCLE_INDEX_COUNT,
 				tvcount,

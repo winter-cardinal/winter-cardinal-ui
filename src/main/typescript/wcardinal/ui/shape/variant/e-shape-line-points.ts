@@ -33,6 +33,8 @@ export class EShapeLinePoints implements EShapePoints {
 	protected _valuesBaseLength: number;
 	protected _values: number[];
 	protected _segments: number[];
+	protected _length: number;
+	protected _plength: number;
 	protected _parentSizeBase: Point;
 	protected _parentSizeFitted: Point;
 	protected _id: number;
@@ -48,6 +50,8 @@ export class EShapeLinePoints implements EShapePoints {
 		this._valuesBaseLength = 0;
 		this._values = [];
 		this._segments = [];
+		this._length = 0;
+		this._plength = 0;
 		const parentSize = parent.size;
 		const parentSizeX = parentSize.x;
 		const parentSizeY = parentSize.y;
@@ -59,7 +63,11 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	get length(): number {
-		return this._values.length >> 1;
+		return this._length;
+	}
+
+	get plength(): number {
+		return this._plength;
 	}
 
 	toFitted(x: number, y: number): void {
@@ -120,7 +128,6 @@ export class EShapeLinePoints implements EShapePoints {
 		if (this._formatter || this._style & EShapePointsStyle.FORMATTER_MASK) {
 			const uploaded = parent.uploaded;
 			if (uploaded && !uploaded.isCompatible(parent)) {
-				parent.uploaded = undefined;
 				parent.toDirty();
 			}
 		}
@@ -215,6 +222,7 @@ export class EShapeLinePoints implements EShapePoints {
 				if (result == null) {
 					result = {
 						length: 0,
+						plength: 0,
 						values: [],
 						segments: [],
 						boundary: [0, 0, 0, 0],
@@ -225,6 +233,9 @@ export class EShapeLinePoints implements EShapePoints {
 				const segments = this._segments;
 				const length = values.length >> 1;
 				formatter(length, values, segments, style, result);
+				if (result.plength < result.length) {
+					result.plength = result.length;
+				}
 				toPointsBoundary(result.values, result.boundary);
 			} else {
 				result = undefined;
@@ -319,6 +330,11 @@ export class EShapeLinePoints implements EShapePoints {
 					}
 				}
 			}
+			const newLength = newValuesLength >> 1;
+			this._length = newLength;
+			if (this._plength < newLength) {
+				this._plength = newLength;
+			}
 		}
 
 		// Segments
@@ -385,7 +401,6 @@ export class EShapeLinePoints implements EShapePoints {
 				if (uploaded.isCompatible(parent)) {
 					parent.updateUploaded();
 				} else {
-					parent.uploaded = undefined;
 					parent.toDirty();
 				}
 			} else {

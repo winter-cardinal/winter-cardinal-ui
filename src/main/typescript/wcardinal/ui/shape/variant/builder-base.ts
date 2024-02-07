@@ -12,10 +12,11 @@ import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 
 export abstract class BuilderBase implements Builder {
-	readonly vertexOffset: number;
-	readonly vertexCount: number;
-	readonly indexOffset: number;
-	readonly indexCount: number;
+	buffer: BuilderBuffer;
+	vertexOffset: number;
+	vertexCount: number;
+	indexOffset: number;
+	indexCount: number;
 
 	protected inited: BuilderFlag;
 
@@ -38,11 +39,13 @@ export abstract class BuilderBase implements Builder {
 	protected textureTransformId: number;
 
 	constructor(
+		buffer: BuilderBuffer,
 		vertexOffset: number,
 		indexOffset: number,
 		vertexCount: number,
 		indexCount: number
 	) {
+		this.buffer = buffer;
 		this.vertexOffset = vertexOffset;
 		this.indexOffset = indexOffset;
 		this.vertexCount = vertexCount;
@@ -69,13 +72,39 @@ export abstract class BuilderBase implements Builder {
 		this.textureTransformId = -1;
 	}
 
-	abstract init(buffer: BuilderBuffer): void;
+	abstract init(): void;
+
+	reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean {
+		if (
+			this.buffer !== buffer ||
+			this.vertexOffset !== vertexOffset ||
+			this.indexOffset !== indexOffset
+		) {
+			if (buffer.check(vertexOffset, indexOffset, this.vertexCount, this.indexCount)) {
+				this.inited = BuilderFlag.NONE;
+				this.buffer = buffer;
+				this.vertexOffset = vertexOffset;
+				this.indexOffset = indexOffset;
+				this.init();
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
 
 	isCompatible(shape: EShape): boolean {
 		return true;
 	}
 
-	abstract update(buffer: BuilderBuffer, shape: EShape): void;
+	abstract update(shape: EShape): void;
 
 	protected updateColorFill(buffer: BuilderBuffer, shape: EShape): void {
 		const fill = shape.fill;

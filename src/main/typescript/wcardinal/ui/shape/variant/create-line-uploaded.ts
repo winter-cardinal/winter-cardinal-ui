@@ -9,7 +9,7 @@ import { EShapePointsMarkerType } from "../e-shape-points-marker-type";
 import { EShapeUploadedImpl } from "../e-shape-uploaded";
 import { toLineIndexCount, toLinePointCount, toLineVertexCount } from "./build-line";
 import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
-import { Builder } from "./builder";
+import { Builder, BuilderBuffer } from "./builder";
 import { BuilderLine } from "./builder-line";
 import { BuilderMarkerTriangleHead } from "./builder-marker-triangle-head";
 import { BuilderMarkerTriangleTail } from "./builder-marker-triangle-tail";
@@ -54,38 +54,40 @@ const toMarkerIndexCount = (type: EShapePointsMarkerType): number => {
 
 const toBuilderMarkerHead = (
 	type: EShapePointsMarkerType,
+	buffer: BuilderBuffer,
 	vertexOffset: number,
 	indexOffset: number
 ): Builder => {
 	switch (type) {
 		case EShapePointsMarkerType.NONE:
-			return new BuilderNull(vertexOffset, indexOffset);
+			return new BuilderNull(buffer, vertexOffset, indexOffset);
 		case EShapePointsMarkerType.CIRCLE:
-			return new BuilderMarkerCircleHead(vertexOffset, indexOffset);
+			return new BuilderMarkerCircleHead(buffer, vertexOffset, indexOffset);
 		case EShapePointsMarkerType.TRIANGLE:
-			return new BuilderMarkerTriangleHead(vertexOffset, indexOffset);
+			return new BuilderMarkerTriangleHead(buffer, vertexOffset, indexOffset);
 		case EShapePointsMarkerType.RECTANGLE:
-			return new BuilderMarkerRectangleHead(vertexOffset, indexOffset);
+			return new BuilderMarkerRectangleHead(buffer, vertexOffset, indexOffset);
 	}
-	return new BuilderNull(vertexOffset, indexOffset);
+	return new BuilderNull(buffer, vertexOffset, indexOffset);
 };
 
 const toBuilderMarkerTail = (
 	type: EShapePointsMarkerType,
+	buffer: BuilderBuffer,
 	vertexOffset: number,
 	indexOffset: number
 ): Builder => {
 	switch (type) {
 		case EShapePointsMarkerType.NONE:
-			return new BuilderNull(vertexOffset, indexOffset);
+			return new BuilderNull(buffer, vertexOffset, indexOffset);
 		case EShapePointsMarkerType.CIRCLE:
-			return new BuilderMarkerCircleTail(vertexOffset, indexOffset);
+			return new BuilderMarkerCircleTail(buffer, vertexOffset, indexOffset);
 		case EShapePointsMarkerType.TRIANGLE:
-			return new BuilderMarkerTriangleTail(vertexOffset, indexOffset);
+			return new BuilderMarkerTriangleTail(buffer, vertexOffset, indexOffset);
 		case EShapePointsMarkerType.RECTANGLE:
-			return new BuilderMarkerRectangleTail(vertexOffset, indexOffset);
+			return new BuilderMarkerRectangleTail(buffer, vertexOffset, indexOffset);
 	}
-	return new BuilderNull(vertexOffset, indexOffset);
+	return new BuilderNull(buffer, vertexOffset, indexOffset);
 };
 
 export const createLineUploaded = (
@@ -132,10 +134,10 @@ export const createLineUploaded = (
 	const icount = licount + mhicount + mticount + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderLine(voffset, ioffset, lvcount, licount),
-			toBuilderMarkerTail(mttype, mtvoffset, mtioffset),
-			toBuilderMarkerHead(mhtype, mhvoffset, mhioffset),
-			new BuilderText(tvoffset, tioffset, tvcount, ticount)
+			new BuilderLine(buffer, voffset, ioffset, lvcount, licount),
+			toBuilderMarkerTail(mttype, buffer, mtvoffset, mtioffset),
+			toBuilderMarkerHead(mhtype, buffer, mhvoffset, mhioffset),
+			new BuilderText(buffer, tvoffset, tioffset, tvcount, ticount)
 		]).init(shape);
 	}
 	return null;

@@ -29,6 +29,8 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	protected _values: number[];
 	protected _valuesLength: number;
 	protected _segments: number[];
+	protected _length: number;
+	protected _plength: number;
 	protected _size: EShapeLineOfAnyPointsPoint;
 	protected _offset: EShapeLineOfAnyPointsPoint;
 	protected _fill: EShapeLineOfAnyPointsFill;
@@ -41,6 +43,8 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		this._values = [];
 		this._valuesLength = 0;
 		this._segments = [];
+		this._length = 0;
+		this._plength = 0;
 		this._size = new EShapeLineOfAnyPointsPointImpl(
 			this,
 			EShapeDefaults.SIZE_X,
@@ -53,7 +57,11 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	}
 
 	get length(): number {
-		return this._values.length >> 1;
+		return this._length;
+	}
+
+	get plength(): number {
+		return this._plength;
 	}
 
 	get id(): number {
@@ -172,6 +180,11 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 					isUpdated = true;
 				}
 			}
+			const newLength = newValuesLength >> 1;
+			this._length = newLength;
+			if (this._plength < newLength) {
+				this._plength = newLength;
+			}
 		}
 
 		//
@@ -183,7 +196,6 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 				if (uploaded.isCompatible(parent)) {
 					parent.updateUploaded();
 				} else {
-					parent.uploaded = undefined;
 					parent.toDirty();
 				}
 			} else {

@@ -4,11 +4,9 @@
  */
 
 import { Buffer, DRAW_MODES, Geometry, Renderer, Shader, Texture } from "pixi.js";
-import { EShape } from "./e-shape";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 import { EShapeType } from "./e-shape-type";
-import { EShapeUploaded } from "./e-shape-uploaded";
 import { EShapeUploadeds } from "./e-shape-uploadeds";
 
 export class EShapeBuffer {
@@ -195,15 +193,6 @@ export class EShapeBuffer {
 		}
 	}
 
-	isCompatible(shape: EShape, uploaded: EShapeUploaded, vindex: number, iindex: number): boolean {
-		return (
-			uploaded.getBuffer() === this &&
-			uploaded.getVertexOffset() === vindex &&
-			uploaded.getIndexOffset() === iindex &&
-			uploaded.isCompatible(shape)
-		);
-	}
-
 	update(
 		iterator: EShapeRendererIterator,
 		antialiasWeight: number,
@@ -216,34 +205,18 @@ export class EShapeBuffer {
 		let iindex = 0;
 		let shape = iterator.get();
 		for (; shape != null; shape = iterator.next()) {
-			const uploaded = shape.uploaded;
-			if (uploaded == null || !this.isCompatible(shape, uploaded, vindex, iindex)) {
-				break;
-			}
-
-			uploaded.update(shape);
-			uploaded.buildUnit(builder);
-
-			vindex += uploaded.getVertexCount();
-			iindex += uploaded.getIndexCount();
-
-			if (noMoreThanOne) {
-				iterator.next();
-				builder.end();
-				this._vertexCount = vindex;
-				this._indexCount = iindex;
-				return 0 < builder.units.length;
-			}
-		}
-
-		for (; shape != null; shape = iterator.next()) {
-			const creater = EShapeUploadeds[shape.type] || EShapeUploadeds[EShapeType.GROUP];
-			if (creater == null) {
-				break;
-			}
-
-			const uploaded = creater(this, shape, vindex, iindex, antialiasWeight);
+			let uploaded = shape.uploaded;
 			if (uploaded == null) {
+				const creator = EShapeUploadeds[shape.type] || EShapeUploadeds[EShapeType.GROUP];
+				if (creator == null) {
+					break;
+				}
+				const newUploaded = creator(this, shape, vindex, iindex, antialiasWeight);
+				if (newUploaded == null) {
+					break;
+				}
+				uploaded = newUploaded;
+			} else if (!uploaded.reinit(this, shape, vindex, iindex)) {
 				break;
 			}
 

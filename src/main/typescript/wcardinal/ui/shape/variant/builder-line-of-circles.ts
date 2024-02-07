@@ -27,7 +27,8 @@ import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 
 export class BuilderLineOfCircles extends BuilderLineOfAny {
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const clippings = buffer.clippings;
@@ -50,9 +51,10 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	override update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
+			const buffer = this.buffer;
 			this.updateVertexAndStep(buffer, shape, points);
 			this.updateLineOfAnyColorFill(buffer, shape, points, CIRCLE_VERTEX_COUNT);
 			this.updateLineOfAnyColorStroke(buffer, shape, points, CIRCLE_VERTEX_COUNT);

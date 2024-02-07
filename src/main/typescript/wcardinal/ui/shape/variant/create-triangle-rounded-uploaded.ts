@@ -28,8 +28,9 @@ export const createTriangleRoundedUploaded = (
 	const icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderTriangleRounded(voffset, ioffset, vcount - tvcount, icount - ticount),
+			new BuilderTriangleRounded(buffer, voffset, ioffset),
 			new BuilderText(
+				buffer,
 				voffset + TRIANGLE_ROUNDED_VERTEX_COUNT,
 				ioffset + TRIANGLE_ROUNDED_INDEX_COUNT,
 				tvcount,

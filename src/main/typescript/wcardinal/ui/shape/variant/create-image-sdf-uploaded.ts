@@ -25,8 +25,9 @@ export const createImageSdfUploaded = (
 	const icount = IMAGE_SDF_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderImageSdf(voffset, ioffset),
+			new BuilderImageSdf(buffer, voffset, ioffset),
 			new BuilderText(
+				buffer,
 				voffset + IMAGE_SDF_VERTEX_COUNT,
 				ioffset + IMAGE_SDF_INDEX_COUNT,
 				tvcount,

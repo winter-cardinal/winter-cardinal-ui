@@ -10,6 +10,8 @@ import {
 	buildRectangleStep,
 	buildRectangleUv,
 	buildRectangleVertex,
+	RECTANGLE_INDEX_COUNT,
+	RECTANGLE_VERTEX_COUNT,
 	RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
 import { BuilderBuffer, BuilderFlag } from "./builder";
@@ -17,13 +19,19 @@ import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderRectangle extends BuilderBase {
-	init(buffer: BuilderBuffer): void {
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(buffer, vertexOffset, indexOffset, RECTANGLE_VERTEX_COUNT, RECTANGLE_INDEX_COUNT);
+	}
+
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateIndices();
 		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexClippingStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

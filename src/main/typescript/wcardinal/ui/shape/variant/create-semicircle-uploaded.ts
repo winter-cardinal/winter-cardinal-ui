@@ -25,8 +25,9 @@ export const createSemicircleUploaded = (
 	const icount = SEMICIRCLE_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderSemicircle(voffset, ioffset),
+			new BuilderSemicircle(buffer, voffset, ioffset),
 			new BuilderText(
+				buffer,
 				voffset + SEMICIRCLE_VERTEX_COUNT,
 				ioffset + SEMICIRCLE_INDEX_COUNT,
 				tvcount,

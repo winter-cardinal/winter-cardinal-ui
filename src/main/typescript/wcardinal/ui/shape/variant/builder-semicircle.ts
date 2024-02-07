@@ -19,11 +19,12 @@ import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderSemicircle extends BuilderBase {
-	constructor(vertexOffset: number, indexOffset: number) {
-		super(vertexOffset, indexOffset, SEMICIRCLE_VERTEX_COUNT, SEMICIRCLE_INDEX_COUNT);
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(buffer, vertexOffset, indexOffset, SEMICIRCLE_VERTEX_COUNT, SEMICIRCLE_INDEX_COUNT);
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
@@ -32,7 +33,8 @@ export class BuilderSemicircle extends BuilderBase {
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexAndStep(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

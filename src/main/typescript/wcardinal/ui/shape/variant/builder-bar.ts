@@ -22,15 +22,16 @@ export class BuilderBar extends BuilderBase {
 	protected pointsId: number;
 	protected pointsStyle: EShapePointsStyle;
 
-	constructor(vertexOffset: number, indexOffset: number) {
-		super(vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT);
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(buffer, vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT);
 		this.pointsId = -1;
 		this.pointsStyle = EShapePointsStyle.NONE;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
+		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildBarClipping(buffer.clippings, voffset);
@@ -38,7 +39,8 @@ export class BuilderBar extends BuilderBase {
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexStepAndColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);

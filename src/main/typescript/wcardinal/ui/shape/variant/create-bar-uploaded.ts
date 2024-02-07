@@ -25,8 +25,14 @@ export const createBarUploaded = (
 	const icount = BAR_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderBar(voffset, ioffset),
-			new BuilderText(voffset + BAR_VERTEX_COUNT, ioffset + BAR_INDEX_COUNT, tvcount, ticount)
+			new BuilderBar(buffer, voffset, ioffset),
+			new BuilderText(
+				buffer,
+				voffset + BAR_VERTEX_COUNT,
+				ioffset + BAR_INDEX_COUNT,
+				tvcount,
+				ticount
+			)
 		]).init(shape);
 	}
 	return null;

@@ -25,8 +25,9 @@ export const createRectangleUploaded = (
 	const icount = RECTANGLE_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderRectangle(voffset, ioffset, vcount - tvcount, icount - ticount),
+			new BuilderRectangle(buffer, voffset, ioffset),
 			new BuilderText(
+				buffer,
 				voffset + RECTANGLE_VERTEX_COUNT,
 				ioffset + RECTANGLE_INDEX_COUNT,
 				tvcount,

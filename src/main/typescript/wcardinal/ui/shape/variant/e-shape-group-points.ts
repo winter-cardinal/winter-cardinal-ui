@@ -32,6 +32,17 @@ export class EShapeGroupPoints implements EShapePoints {
 		return 0;
 	}
 
+	get plength(): number {
+		const children = this._parent.children;
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
+				return points.plength;
+			}
+		}
+		return 0;
+	}
+
 	get id(): number {
 		const children = this._parent.children;
 		if (0 < children.length) {

@@ -22,14 +22,15 @@ export class BuilderImageSdf extends BuilderBase {
 	protected textureWidth: number;
 	protected textureHeight: number;
 
-	constructor(vertexOffset: number, indexOffset: number) {
-		super(vertexOffset, indexOffset, IMAGE_SDF_VERTEX_COUNT, IMAGE_SDF_INDEX_COUNT);
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		super(buffer, vertexOffset, indexOffset, IMAGE_SDF_VERTEX_COUNT, IMAGE_SDF_INDEX_COUNT);
 		this.textureWidth = -1;
 		this.textureHeight = -1;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
 		const voffset = this.vertexOffset;
+		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildImageSdfClipping(buffer.clippings, voffset);
@@ -37,7 +38,8 @@ export class BuilderImageSdf extends BuilderBase {
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateVertexAndStep(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

@@ -32,18 +32,31 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 	protected corner: EShapeCorner;
 
 	constructor(
+		buffer: BuilderBuffer,
 		vertexOffset: number,
 		indexOffset: number,
 		vertexCount: number,
 		indexCount: number,
-		pointCountReserved: number
+		pointCountReserved: number,
+		vcountPerPoint: number,
+		icountPerPoint: number
 	) {
-		super(vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved);
+		super(
+			buffer,
+			vertexOffset,
+			indexOffset,
+			vertexCount,
+			indexCount,
+			pointCountReserved,
+			vcountPerPoint,
+			icountPerPoint
+		);
 		this.radius = 0;
 		this.corner = 0;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateIndices();
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
@@ -62,9 +75,10 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 		this.inited |= BuilderFlag.INDEX;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
+			const buffer = this.buffer;
 			this.updateVertexClippingStepAndUv(buffer, shape, points);
 			this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
 			this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);

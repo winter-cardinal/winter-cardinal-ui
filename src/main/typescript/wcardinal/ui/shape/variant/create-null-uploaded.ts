@@ -15,6 +15,6 @@ export const createNullUploaded = (
 	ioffset: number
 ): EShapeUploadedImpl | null => {
 	return new EShapeUploadedImpl(buffer, voffset, ioffset, 0, 0, [
-		new BuilderNull(voffset, ioffset)
+		new BuilderNull(buffer, voffset, ioffset)
 	]).init(shape);
 };

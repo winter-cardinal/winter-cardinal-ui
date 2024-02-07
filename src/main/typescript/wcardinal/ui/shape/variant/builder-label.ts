@@ -5,42 +5,50 @@
 
 import { Texture } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
-import { Builder } from "./builder";
+import { Builder, BuilderBuffer } from "./builder";
 import { toTexture } from "./builders";
 
 export class BuilderLabel implements Builder {
-	readonly vertexOffset: number;
-	readonly vertexCount: number;
-	readonly indexOffset: number;
-	readonly indexCount: number;
+	buffer: BuilderBuffer;
+	vertexOffset: number;
+	vertexCount: number;
+	indexOffset: number;
+	indexCount: number;
 
 	protected texture: Texture | null;
 
-	constructor(
-		vertexOffset: number,
-		indexOffset: number,
-		vertexCount: number,
-		indexCount: number
-	) {
+	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
+		this.buffer = buffer;
 		this.vertexOffset = vertexOffset;
 		this.indexOffset = indexOffset;
-		this.vertexCount = vertexCount;
-		this.indexCount = indexCount;
+		this.vertexCount = 0;
+		this.indexCount = 0;
 
 		this.texture = null;
 	}
 
-	init(buffer: EShapeBuffer): void {
-		// DO NOTHING
+	init(): this {
+		return this;
+	}
+
+	reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean {
+		this.buffer = buffer;
+		this.vertexOffset = vertexOffset;
+		this.indexOffset = indexOffset;
+		return true;
 	}
 
 	isCompatible(shape: EShape): boolean {
 		return true;
 	}
 
-	update(buffer: EShapeBuffer, shape: EShape): void {
+	update(shape: EShape): void {
 		this.texture = toTexture(shape);
 	}
 

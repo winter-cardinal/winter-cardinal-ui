@@ -126,6 +126,10 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 		return 2;
 	}
 
+	get plength(): number {
+		return 2;
+	}
+
 	get id(): number {
 		this.update();
 		return this._id;

@@ -30,6 +30,8 @@ export class EShapeTextImpl implements EShapeText {
 	protected _parent: EShapeTextImplParent;
 	protected _enable: boolean;
 	protected _value: string;
+	protected _length: number;
+	protected _plength: number;
 	protected _family: string;
 	protected _color: number;
 	protected _alpha: number;
@@ -60,6 +62,7 @@ export class EShapeTextImpl implements EShapeText {
 		this._parent = parent;
 		this._enable = true;
 		this._value = value;
+		this._plength = this._length = value.length;
 		this._color = color;
 		this._alpha = alpha;
 		this._family = family;
@@ -98,37 +101,51 @@ export class EShapeTextImpl implements EShapeText {
 	set value(value: string) {
 		if (this._value !== value) {
 			this._value = value;
-
-			// Compatibility check
-			const parent = this._parent;
-			const uploaded = parent.uploaded;
-			if (uploaded == null || !uploaded.isCompatible(parent)) {
-				this.atlas = undefined;
-				parent.toDirty();
-				return;
+			const length = value.length;
+			this._length = length;
+			if (this._plength < length) {
+				this._plength = length;
 			}
-
-			// Character code check
-			const atlas = this.atlas;
-			const characters = atlas && atlas.characters;
-			if (characters != null) {
-				for (let i = 0, imax = value.length; i < imax; ++i) {
-					const char = value[i];
-					if (!(char in characters)) {
-						this.atlas = undefined;
-						parent.toDirty();
-						return;
-					}
-				}
+			if (this.isCompatible(value)) {
+				this._parent.updateUploaded();
 			} else {
 				this.atlas = undefined;
-				parent.toDirty();
-				return;
+				this._parent.toDirty();
 			}
-
-			// Update uploaded
-			parent.updateUploaded();
 		}
+	}
+
+	protected isCompatible(value: string): boolean {
+		// Compatibility check
+		const parent = this._parent;
+		const uploaded = parent.uploaded;
+		if (uploaded == null || !uploaded.isCompatible(parent)) {
+			return false;
+		}
+
+		// Character code check
+		const atlas = this.atlas;
+		const characters = atlas && atlas.characters;
+		if (characters != null) {
+			for (let i = 0, imax = value.length; i < imax; ++i) {
+				const char = value[i];
+				if (!(char in characters)) {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+
+		return true;
+	}
+
+	get length(): number {
+		return this._length;
+	}
+
+	get plength(): number {
+		return this._plength;
 	}
 
 	get family(): string {
@@ -270,7 +287,17 @@ export class EShapeTextImpl implements EShapeText {
 
 		if (value != null && this._value !== value) {
 			this._value = value;
-			isChangedDirty = true;
+			const length = value.length;
+			this._length = length;
+			if (this._plength < length) {
+				this._plength = length;
+			}
+			if (this.isCompatible(value)) {
+				isChangedUploaded = true;
+			} else {
+				this.atlas = undefined;
+				isChangedDirty = true;
+			}
 		}
 
 		if (color != null && this._color !== color) {

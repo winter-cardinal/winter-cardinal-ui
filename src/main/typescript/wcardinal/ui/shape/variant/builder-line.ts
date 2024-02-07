@@ -10,6 +10,7 @@ import {
 	buildLineIndex,
 	buildLineUv,
 	buildLineVertexStepAndColorFill,
+	toLineIndexCount,
 	toLinePointCount,
 	toLineVertexCount
 } from "./build-line";
@@ -24,30 +25,66 @@ export class BuilderLine extends BuilderBase {
 	protected length: number;
 
 	constructor(
+		buffer: BuilderBuffer,
 		vertexOffset: number,
 		indexOffset: number,
 		vertexCount: number,
 		indexCount: number
 	) {
-		super(vertexOffset, indexOffset, vertexCount, indexCount);
+		super(buffer, vertexOffset, indexOffset, vertexCount, indexCount);
 		this.pointId = -1;
 		this.pointCount = 0;
 		this.pointsClosed = false;
 		this.length = 1;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	override init(): void {
+		const buffer = this.buffer;
 		buffer.updateIndices();
 		buildLineIndex(buffer.indices, this.vertexOffset, this.indexOffset, this.indexCount);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
-	isCompatible(shape: EShape): boolean {
+	override reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean {
+		const pointCount = toLinePointCount(shape.points);
+		const vertexCount = toLineVertexCount(pointCount, true);
+		const indexCount = toLineIndexCount(pointCount, true);
+		if (
+			this.buffer !== buffer ||
+			this.vertexOffset !== vertexOffset ||
+			this.indexOffset !== indexOffset ||
+			this.vertexCount !== vertexCount ||
+			this.indexCount !== indexCount
+		) {
+			if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
+				this.inited = BuilderFlag.NONE;
+				this.buffer = buffer;
+				this.vertexOffset = vertexOffset;
+				this.indexOffset = indexOffset;
+				this.vertexCount = vertexCount;
+				this.indexCount = indexCount;
+				this.init();
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	override isCompatible(shape: EShape): boolean {
 		const vcount = toLineVertexCount(toLinePointCount(shape.points), true);
 		return vcount === this.vertexCount;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	override update(shape: EShape): void {
+		const buffer = this.buffer;
 		this.updateLineClipping(buffer, shape);
 		this.updateLineVertexStepAndColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);

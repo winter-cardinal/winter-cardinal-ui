@@ -13,6 +13,8 @@ import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-s
 
 export interface EShapePoints {
 	readonly length: number;
+	/** Peak length */
+	readonly plength: number;
 	readonly id: number;
 	values: number[];
 	segments: number[];

@@ -14,6 +14,7 @@ import {
 	buildTextStep,
 	buildTextVertex,
 	TEXT_FMIN,
+	TEXT_INDEX_COUNT_SHIFT,
 	TEXT_VERTEX_COUNT_SHIFT,
 	toTextBufferCount
 } from "./build-text";
@@ -21,10 +22,11 @@ import { Builder, BuilderBuffer, BuilderFlag } from "./builder";
 import { toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderText implements Builder {
-	readonly vertexOffset: number;
-	readonly indexOffset: number;
-	readonly vertexCount: number;
-	readonly indexCount: number;
+	buffer: BuilderBuffer;
+	vertexOffset: number;
+	indexOffset: number;
+	vertexCount: number;
+	indexCount: number;
 
 	protected inited: BuilderFlag;
 
@@ -59,11 +61,13 @@ export class BuilderText implements Builder {
 	protected fitting: boolean;
 
 	constructor(
+		buffer: BuilderBuffer,
 		vertexOffset: number,
 		indexOffset: number,
 		vertexCount: number,
 		indexCount: number
 	) {
+		this.buffer = buffer;
 		this.vertexOffset = vertexOffset;
 		this.indexOffset = indexOffset;
 		this.vertexCount = vertexCount;
@@ -104,10 +108,11 @@ export class BuilderText implements Builder {
 		this.fitting = false;
 	}
 
-	init(buffer: BuilderBuffer): void {
+	init(): this {
 		const vcount = this.vertexCount;
 		if (0 < vcount) {
 			// Clippings
+			const buffer = this.buffer;
 			const voffset = this.vertexOffset;
 			buffer.updateClippings();
 			buildTextClipping(buffer.clippings, voffset, vcount);
@@ -117,23 +122,59 @@ export class BuilderText implements Builder {
 			buildTextIndex(buffer.indices, voffset, this.indexOffset, this.indexCount);
 		}
 		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		return this;
+	}
+
+	reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean {
+		const tcount = toTextBufferCount(shape);
+		const vertexCount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+		const indexCount = tcount << TEXT_INDEX_COUNT_SHIFT;
+		if (
+			this.buffer !== buffer ||
+			this.vertexOffset !== vertexOffset ||
+			this.indexOffset !== indexOffset ||
+			this.vertexCount !== vertexCount ||
+			this.indexCount !== indexCount
+		) {
+			if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
+				this.inited = BuilderFlag.NONE;
+				this.buffer = buffer;
+				this.vertexOffset = vertexOffset;
+				this.indexOffset = indexOffset;
+				this.vertexCount = vertexCount;
+				this.indexCount = indexCount;
+				this.init();
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
 	}
 
 	isCompatible(shape: EShape): boolean {
 		return toTextBufferCount(shape) << TEXT_VERTEX_COUNT_SHIFT === this.vertexCount;
 	}
 
-	update(buffer: BuilderBuffer, shape: EShape): void {
+	update(shape: EShape): this {
 		const vcount = this.vertexCount;
 		if (0 < vcount) {
 			const textAtlas = shape.text.atlas;
 			if (textAtlas != null) {
+				const buffer = this.buffer;
 				this.updateVertex(buffer, shape, textAtlas);
 				this.updateColorFill(buffer, shape);
 				this.updateColorStroke(buffer, shape);
 				this.updateStep(buffer, shape);
 			}
 		}
+		return this;
 	}
 
 	protected updateVertex(buffer: BuilderBuffer, shape: EShape, textAtlas: EShapeTextAtlas): void {

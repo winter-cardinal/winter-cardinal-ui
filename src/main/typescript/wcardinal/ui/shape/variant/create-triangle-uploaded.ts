@@ -25,8 +25,9 @@ export const createTriangleUploaded = (
 	const icount = TRIANGLE_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderTriangle(voffset, ioffset, vcount - tvcount, icount - ticount),
+			new BuilderTriangle(buffer, voffset, ioffset),
 			new BuilderText(
+				buffer,
 				voffset + TRIANGLE_VERTEX_COUNT,
 				ioffset + TRIANGLE_INDEX_COUNT,
 				tvcount,

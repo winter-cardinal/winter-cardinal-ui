@@ -8,9 +8,15 @@ import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { Builder, BuilderBuffer } from "./variant/builder";
 
 export interface EShapeUploaded {
-	update(shape: EShape): void;
+	init(shape: EShape): this;
+	reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean;
+	update(shape: EShape): this;
 	isCompatible(shape: EShape): boolean;
-	getBuffer(): BuilderBuffer;
 	getVertexOffset(): number;
 	getVertexCount(): number;
 	getIndexOffset(): number;
@@ -19,7 +25,6 @@ export interface EShapeUploaded {
 }
 
 export class EShapeUploadedImpl implements EShapeUploaded {
-	protected buffer: BuilderBuffer;
 	protected _builders: Builder[];
 	protected _vertexOffset: number;
 	protected _indexOffset: number;
@@ -34,7 +39,6 @@ export class EShapeUploadedImpl implements EShapeUploaded {
 		indexCount: number,
 		builders: Builder[]
 	) {
-		this.buffer = buffer;
 		this._builders = builders;
 		this._vertexOffset = vertexOffset;
 		this._indexOffset = indexOffset;
@@ -44,21 +48,45 @@ export class EShapeUploadedImpl implements EShapeUploaded {
 
 	init(shape: EShape): this {
 		shape.uploaded = this;
-		const buffer = this.buffer;
 		const builders = this._builders;
 		for (let i = 0, imax = builders.length; i < imax; ++i) {
-			builders[i].init(buffer);
+			builders[i].init();
 		}
 		this.update(shape);
 		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean {
+		const builders = this._builders;
+		let voffset = vertexOffset;
+		let ioffset = indexOffset;
+		for (let i = 0, imax = builders.length; i < imax; ++i) {
+			const builder = builders[i];
+			if (!builder.reinit(buffer, shape, voffset, ioffset)) {
+				return false;
+			}
+			const vertexCount = builder.vertexCount;
+			const indexCount = builder.indexCount;
+			voffset += vertexCount;
+			ioffset += indexCount;
+		}
+		this._vertexCount = voffset - vertexOffset;
+		this._indexCount = ioffset - indexOffset;
+		this.update(shape);
+		return true;
+	}
+
+	update(shape: EShape): this {
 		const builders = this._builders;
 		for (let i = 0, imax = builders.length; i < imax; ++i) {
-			builders[i].update(buffer, shape);
+			builders[i].update(shape);
 		}
+		return this;
 	}
 
 	isCompatible(shape: EShape): boolean {
@@ -69,10 +97,6 @@ export class EShapeUploadedImpl implements EShapeUploaded {
 			}
 		}
 		return true;
-	}
-
-	getBuffer(): BuilderBuffer {
-		return this.buffer;
 	}
 
 	getVertexOffset(): number {

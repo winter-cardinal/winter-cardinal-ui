@@ -37,6 +37,8 @@ export interface BuilderBuffer {
 	readonly uvs: Float32Array;
 	readonly indices: Uint16Array | Uint32Array;
 
+	check(vindex: number, ioffset: number, vcount: number, icount: number): boolean;
+
 	updateVertices(): void;
 	updateClippings(): void;
 	updateSteps(): void;
@@ -47,13 +49,20 @@ export interface BuilderBuffer {
 }
 
 export interface Builder {
+	readonly buffer: BuilderBuffer;
 	readonly vertexOffset: number;
 	readonly indexOffset: number;
 	readonly vertexCount: number;
 	readonly indexCount: number;
 
-	init(buffer: BuilderBuffer): void;
+	init(): void;
+	reinit(
+		buffer: BuilderBuffer,
+		shape: EShape,
+		vertexOffset: number,
+		indexOffset: number
+	): boolean;
 	isCompatible(shape: EShape): boolean;
-	update(buffer: BuilderBuffer, shape: EShape): void;
+	update(shape: EShape): void;
 	buildUnit(builder: EShapeBufferUnitBuilder): void;
 }
