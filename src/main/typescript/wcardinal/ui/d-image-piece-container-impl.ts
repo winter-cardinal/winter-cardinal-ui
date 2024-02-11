@@ -1,3 +1,4 @@
+import { DisplayObject, Texture } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DImageBaseThemeWrapperOther } from "./d-image-base-theme-wrapper-other";
 import { DImageBaseThemeWrapperSecondary } from "./d-image-base-theme-wrapper-secondary";
@@ -6,6 +7,10 @@ import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-pie
 import { DImagePieceContainer, DThemeImagePieceContainer } from "./d-image-piece-container";
 import { DImagePieceImpl, DImagePieceImplParent } from "./d-image-piece-impl";
 import { DImagePieceLayouter } from "./d-image-piece-layouter";
+import { DImagePieceAlign } from "./d-image-piece-align";
+import { DImagePieceMargin } from "./d-image-piece-margin";
+import { DImagePieceTint } from "./d-image-piece-tint";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DImagePieceContainerImplOptions {
 	image?: DImagePieceOptions;
@@ -97,6 +102,38 @@ export class DImagePieceContainerImpl implements DImagePieceContainer {
 			piece.updateRotation();
 			layouter.add(piece);
 		}
+	}
+
+	get object(): DisplayObject | null {
+		return this._pieces[0].object;
+	}
+
+	get align(): DImagePieceAlign {
+		return this._pieces[0].align;
+	}
+
+	get margin(): DImagePieceMargin {
+		return this._pieces[0].margin;
+	}
+
+	get tint(): DImagePieceTint {
+		return this._pieces[0].tint;
+	}
+
+	get source(): DStateAwareOrValueMightBe<Texture | DisplayObject | null> {
+		return this._pieces[0].source;
+	}
+
+	set source(source: DStateAwareOrValueMightBe<Texture | DisplayObject | null>) {
+		this._pieces[0].source = source;
+	}
+
+	get rotation(): DStateAwareOrValueMightBe<number> {
+		return this._pieces[0].rotation;
+	}
+
+	set rotation(rotation: DStateAwareOrValueMightBe<number>) {
+		this._pieces[0].rotation = rotation;
 	}
 
 	add(options?: DImagePieceOptions): DImagePiece {
