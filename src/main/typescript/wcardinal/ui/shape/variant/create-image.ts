@@ -7,7 +7,7 @@ import { EShapeImage } from "./e-shape-image";
 import { toImageElement } from "./to-image-element";
 
 export const createImage = (dataUrl: string): Promise<EShapeImage> => {
-	return toImageElement(dataUrl).then((imageElement: HTMLImageElement): EShapeImage => {
-		return new EShapeImage(imageElement);
+	return toImageElement(dataUrl).then((image): EShapeImage => {
+		return new EShapeImage(image);
 	});
 };

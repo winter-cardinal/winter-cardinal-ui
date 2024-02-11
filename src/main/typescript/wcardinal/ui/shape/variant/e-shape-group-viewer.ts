@@ -22,6 +22,8 @@ import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeTextImpl } from "./e-shape-text-impl";
 import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
+import { EShapeImageLike } from "../e-shape-image-like";
+import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 
 export abstract class EShapeGroupViewer extends EShapeBase {
 	size: EShapeGroupSize;
@@ -126,6 +128,10 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		// DO NOTHING
 	}
 
+	override serializeGradient(manager: EShapeResourceManagerSerialization): number {
+		return -1;
+	}
+
 	get radius(): number {
 		return 0;
 	}
@@ -134,12 +140,16 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		// DO NOTHING
 	}
 
-	get image(): HTMLImageElement | undefined {
+	get image(): EShapeImageLike | undefined {
 		return undefined;
 	}
 
-	set image(image: HTMLImageElement | undefined) {
+	set image(image: EShapeImageLike | undefined) {
 		// DO NOTHING
+	}
+
+	override serializeImage(manager: EShapeResourceManagerSerialization): number {
+		return -1;
 	}
 
 	get points(): EShapePoints | undefined {

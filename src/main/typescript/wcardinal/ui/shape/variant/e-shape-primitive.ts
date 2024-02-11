@@ -5,6 +5,7 @@
 
 import { IPoint, ObservablePoint } from "pixi.js";
 import { EShape } from "../e-shape";
+import { EShapeImageLike } from "../e-shape-image-like";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeFill } from "../e-shape-fill";
@@ -18,6 +19,8 @@ import { EShapeFillImpl } from "./e-shape-fill-impl";
 import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
 import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeTextImpl } from "./e-shape-text-impl";
+import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { toGradientSerialized } from "./to-gradient-serialized";
 
 export abstract class EShapePrimitive extends EShapeBase {
 	readonly size: IPoint;
@@ -25,7 +28,7 @@ export abstract class EShapePrimitive extends EShapeBase {
 	readonly stroke: EShapeStroke;
 	protected _radius: number;
 	protected _corner: EShapeCorner;
-	protected _image?: HTMLImageElement;
+	protected _image?: EShapeImageLike;
 	gradient?: EShapeGradientLike;
 	readonly text: EShapeText;
 	/** @deprecated in favor of {@link data} */
@@ -108,23 +111,37 @@ export abstract class EShapePrimitive extends EShapeBase {
 		}
 	}
 
-	get image(): HTMLImageElement | undefined {
+	override get image(): EShapeImageLike | undefined {
 		return this._image;
 	}
 
-	set image(image: HTMLImageElement | undefined) {
+	override set image(image: EShapeImageLike | undefined) {
 		if (this._image !== image) {
 			if (image != null) {
 				this._image = image;
-				this.imageSrc = image.src;
 			} else {
 				this._image = undefined;
-				this.imageSrc = undefined;
 			}
 			const parent = this.parent;
 			if (parent != null) {
 				parent.toDirty();
 			}
 		}
+	}
+
+	override serializeImage(manager: EShapeResourceManagerSerialization): number {
+		const image = this._image;
+		return image != null ? manager.addResource(image.url) : -1;
+	}
+
+	override serializeGradient(manager: EShapeResourceManagerSerialization): number {
+		const gradient = this.gradient;
+		if (gradient != null) {
+			if (gradient.serialized == null) {
+				gradient.serialized = toGradientSerialized(gradient);
+			}
+			return manager.addResource(gradient.serialized);
+		}
+		return -1;
 	}
 }

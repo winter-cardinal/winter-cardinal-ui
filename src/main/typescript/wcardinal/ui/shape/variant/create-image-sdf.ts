@@ -9,21 +9,19 @@ import { toImageElement } from "./to-image-element";
 
 export const createImageSdf = (dataUrl: string, convertToSdf: boolean): Promise<EShapeImageSdf> => {
 	if (convertToSdf) {
-		return toImageElement(dataUrl).then(
-			(imageElement: HTMLImageElement): Promise<EShapeImageSdf> => {
-				const generator = DynamicSDFFontGenerator.getInstance().init();
-				generator.updateTexture(imageElement);
-				generator.render();
+		return toImageElement(dataUrl).then((image): Promise<EShapeImageSdf> => {
+			const generator = DynamicSDFFontGenerator.getInstance().init();
+			generator.updateTexture(image.width, image.height, image.source);
+			generator.render();
 
-				const canvas = document.createElement("canvas");
-				generator.read(canvas);
+			const canvas = document.createElement("canvas");
+			generator.read(canvas);
 
-				return createImageSdf(canvas.toDataURL(), false);
-			}
-		);
+			return createImageSdf(canvas.toDataURL(), false);
+		});
 	} else {
-		return toImageElement(dataUrl).then((imageElement: HTMLImageElement): EShapeImageSdf => {
-			return new EShapeImageSdf(imageElement);
+		return toImageElement(dataUrl).then((image): EShapeImageSdf => {
+			return new EShapeImageSdf(image);
 		});
 	}
 };

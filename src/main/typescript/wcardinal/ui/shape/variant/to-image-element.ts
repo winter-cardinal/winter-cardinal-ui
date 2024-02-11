@@ -3,24 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-type ImageElement = Promise<HTMLImageElement> | HTMLImageElement;
+import { EShapeImageLike } from "../e-shape-image-like";
+
+type ImageElement = Promise<EShapeImageLike> | EShapeImageLike;
 
 const imageElementCache: Record<string, ImageElement | undefined> = {};
 
-export const toImageElement = (dataUrl: string): Promise<HTMLImageElement> => {
+export const toImageElement = (dataUrl: string): Promise<EShapeImageLike> => {
 	const cachedImageElement = imageElementCache[dataUrl];
 	if (cachedImageElement != null) {
-		if (cachedImageElement instanceof HTMLImageElement) {
+		if ("url" in cachedImageElement) {
 			return Promise.resolve(cachedImageElement);
 		} else {
 			return cachedImageElement;
 		}
 	} else {
-		const result = new Promise<HTMLImageElement>((resolve, reject): void => {
+		const result = new Promise<EShapeImageLike>((resolve, reject): void => {
 			const imageElement = document.createElement("img");
 			imageElement.onload = () => {
-				imageElementCache[dataUrl] = imageElement;
-				resolve(imageElement);
+				const resolved = {
+					url: dataUrl,
+					width: imageElement.width,
+					height: imageElement.height,
+					source: imageElement
+				};
+				imageElementCache[dataUrl] = resolved;
+				resolve(resolved);
 			};
 			imageElement.onabort = imageElement.onerror = () => {
 				reject();

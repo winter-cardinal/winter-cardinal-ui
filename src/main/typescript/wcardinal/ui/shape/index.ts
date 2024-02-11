@@ -64,6 +64,7 @@ export * from "./e-shape-deserializers";
 export * from "./e-shape-editor";
 export * from "./e-shape-fill";
 export * from "./e-shape-gradient";
+export * from "./e-shape-image-like";
 export * from "./e-shape-layer-container";
 export * from "./e-shape-layer-state";
 export * from "./e-shape-layer";

@@ -25,6 +25,8 @@ import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeTextImpl } from "./e-shape-text-impl";
 import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeConnectors } from "../e-shape-connectors";
+import { EShapeImageLike } from "../e-shape-image-like";
+import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 
 export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent {
 	size: EShapeGroupSize;
@@ -142,6 +144,10 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		}
 	}
 
+	override serializeGradient(manager: EShapeResourceManagerSerialization): number {
+		return -1;
+	}
+
 	get radius(): number {
 		const children = this.children;
 		if (0 < children.length) {
@@ -157,7 +163,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		}
 	}
 
-	get image(): HTMLImageElement | undefined {
+	get image(): EShapeImageLike | undefined {
 		const children = this.children;
 		for (let i = children.length - 1; 0 <= i; --i) {
 			const image = children[i].image;
@@ -168,11 +174,15 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		return undefined;
 	}
 
-	set image(image: HTMLImageElement | undefined) {
+	set image(image: EShapeImageLike | undefined) {
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
 			children[i].image = image;
 		}
+	}
+
+	override serializeImage(manager: EShapeResourceManagerSerialization): number {
+		return -1;
 	}
 
 	get points(): EShapePoints | undefined {

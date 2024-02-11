@@ -249,20 +249,10 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	updateTexture(
-		source:
-			| ImageBitmap
-			| ImageData
-			| HTMLImageElement
-			| HTMLCanvasElement
-			| HTMLVideoElement
-			| OffscreenCanvas
-	): WebGLTexture | null {
+	updateTexture(width: number, height: number, source: TexImageSource): WebGLTexture | null {
 		const gl = this._gl;
 		const canvas = this._canvas;
 		if (gl != null && gl.isContextLost() !== true && canvas != null) {
-			const width = source.width;
-			const height = source.height;
 			if (canvas.width !== width || canvas.height !== height) {
 				canvas.width = width;
 				canvas.height = height;

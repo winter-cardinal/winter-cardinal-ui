@@ -273,22 +273,23 @@ export class EShapeRenderer extends ObjectRenderer {
 		baseTexture: BaseTexture
 	): void {
 		// Texture
-		// Do not access the shape.image.src here.
+		// Do not access the shape.image.source here.
 		// It slows down the rendering speed significantly.
-		const imageSrc = shape.imageSrc;
-		if (imageSrc != null) {
-			const textureItem = atlas.get(imageSrc);
+		const image = shape.image;
+		if (image != null) {
+			const textureItem = atlas.get(image.url);
 			if (textureItem != null) {
 				shape.texture = textureItem.texture;
 			} else {
-				const image = shape.image;
-				if (image != null) {
-					const newTextureItem = new DynamicAtlasItemImage(image, baseTexture);
-					shape.texture = newTextureItem.texture;
-					atlas.set(newTextureItem.id, newTextureItem);
-				} else {
-					shape.texture = defaultTexture;
-				}
+				const newTextureItem = new DynamicAtlasItemImage(
+					image.url,
+					image.width,
+					image.height,
+					image.source,
+					baseTexture
+				);
+				shape.texture = newTextureItem.texture;
+				atlas.set(newTextureItem.id, newTextureItem);
 			}
 		} else {
 			shape.texture = defaultTexture;

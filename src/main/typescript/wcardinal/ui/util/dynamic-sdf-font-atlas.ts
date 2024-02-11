@@ -241,7 +241,7 @@ export class DynamicSDFFontAtlas {
 					}
 
 					// Convert to SDF font texture
-					generator.updateTexture(canvas);
+					generator.updateTexture(width, height, canvas);
 					generator.render();
 					generator.read(canvas);
 

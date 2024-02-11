@@ -7,17 +7,17 @@ import { BaseTexture } from "pixi.js";
 import { DynamicAtlasItem } from "./dynamic-atlas-item";
 
 export class DynamicAtlasItemImage extends DynamicAtlasItem {
-	image: HTMLImageElement;
+	source: TexImageSource;
 
-	constructor(image: HTMLImageElement, baseTexture: BaseTexture) {
-		super(
-			image.src,
-			image.width / baseTexture.resolution,
-			image.height / baseTexture.resolution,
-			0,
-			baseTexture
-		);
-		this.image = image;
+	constructor(
+		src: string,
+		width: number,
+		height: number,
+		source: TexImageSource,
+		baseTexture: BaseTexture
+	) {
+		super(src, width / baseTexture.resolution, height / baseTexture.resolution, 0, baseTexture);
+		this.source = source;
 	}
 
 	render(context: CanvasRenderingContext2D): void {
@@ -26,13 +26,22 @@ export class DynamicAtlasItemImage extends DynamicAtlasItem {
 		const y = frame.y;
 		const w = frame.width;
 		const h = frame.height;
-		const image = this.image;
+		const source = this.source;
 
-		context.drawImage(image, x, y, w, h);
+		if (source instanceof ImageData) {
+			context.putImageData(source, x, y);
 
-		context.drawImage(image, 0, 0, 1, h, x - 1, y - 1, 1, h + 2);
-		context.drawImage(image, 0, 0, w, 1, x, y - 1, w, 1);
-		context.drawImage(image, w - 1, 0, 1, h, x + w, y - 1, 1, h + 2);
-		context.drawImage(image, 0, h - 1, w, 1, x, y + h, w, 1);
+			context.putImageData(source, x - 1, y, 0, 0, 1, h);
+			context.putImageData(source, x, y - 1, 0, 0, w, 1);
+			context.putImageData(source, x + w, y, w - 1, 0, 1, h);
+			context.putImageData(source, x, y + h, 0, h - 1, w, 1);
+		} else {
+			context.drawImage(source, x, y, w, h);
+
+			context.drawImage(source, 0, 0, 1, h, x - 1, y - 1, 1, h + 2);
+			context.drawImage(source, 0, 0, w, 1, x, y - 1, w, 1);
+			context.drawImage(source, w - 1, 0, 1, h, x + w, y - 1, 1, h + 2);
+			context.drawImage(source, 0, h - 1, w, 1, x, y + h, w, 1);
+		}
 	}
 }

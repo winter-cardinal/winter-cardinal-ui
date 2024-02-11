@@ -19,6 +19,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeAction } from "../action/e-shape-action";
 import { EShape } from "../e-shape";
+import { EShapeImageLike } from "../e-shape-image-like";
 import { EShapeConnectorContainer } from "../e-shape-connector-container";
 import { EShapeConnectorContainerImpl } from "../e-shape-connector-container-impl";
 import { EShapeContainer } from "../e-shape-container";
@@ -42,7 +43,6 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeUploaded } from "../e-shape-uploaded";
 import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { hitTestBBox } from "./hit-test-bbox";
-import { toGradientSerialized } from "./to-gradient-serialized";
 import { EShapeCapabilityContainer } from "../e-shape-capability-container";
 import { EShapeCapabilityContainerImpl } from "../e-shape-capability-container-impl";
 import { EShapeCapability } from "../e-shape-capability";
@@ -61,8 +61,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	abstract radius: number;
 	abstract corner: EShapeCorner;
 	protected _points?: EShapePoints;
-	protected _image?: HTMLImageElement;
-	imageSrc?: string;
+	abstract image?: EShapeImageLike;
 	texture?: Texture;
 	abstract gradient?: EShapeGradientLike;
 	abstract readonly text: EShapeText;
@@ -282,14 +281,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		}
 	}
 
-	get image(): HTMLImageElement | undefined {
-		return this._image;
-	}
-
-	set image(image: HTMLImageElement | undefined) {
-		this._image = image;
-	}
-
 	get points(): EShapePoints | undefined {
 		return this._points;
 	}
@@ -432,21 +423,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return childrenSerialized;
 	}
 
-	serializeImage(manager: EShapeResourceManagerSerialization): number {
-		const image = this._image;
-		return image != null ? manager.addResource(image.src) : -1;
-	}
+	abstract serializeImage(manager: EShapeResourceManagerSerialization): number;
 
-	serializeGradient(manager: EShapeResourceManagerSerialization): number {
-		const gradient = this.gradient;
-		if (gradient != null) {
-			if (gradient.serialized == null) {
-				gradient.serialized = toGradientSerialized(gradient);
-			}
-			return manager.addResource(gradient.serialized);
-		}
-		return -1;
-	}
+	abstract serializeGradient(manager: EShapeResourceManagerSerialization): number;
 
 	serializeState(manager: EShapeResourceManagerSerialization): number {
 		const state = this.state;

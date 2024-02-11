@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeImageLike } from "../e-shape-image-like";
 import { EShapeType } from "../e-shape-type";
 import { EShapeRectangle } from "./e-shape-rectangle";
 
 export class EShapeImage extends EShapeRectangle {
-	constructor(image?: HTMLImageElement, type: EShapeType = EShapeType.IMAGE) {
+	constructor(image?: EShapeImageLike, type: EShapeType = EShapeType.IMAGE) {
 		super(type);
 		if (image != null) {
 			this.image = image;

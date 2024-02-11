@@ -26,6 +26,7 @@ import { EShapeUploaded } from "./e-shape-uploaded";
 import { EShapeConnectorContainer } from "./e-shape-connector-container";
 import { EShapeCapabilityContainer } from "./e-shape-capability-container";
 import { EShapeLockPart } from "./variant/e-shape-lock-part";
+import { EShapeImageLike } from "./e-shape-image-like";
 
 export interface EShape extends utils.EventEmitter {
 	id: string; // Used to identity a shape by users
@@ -38,8 +39,7 @@ export interface EShape extends utils.EventEmitter {
 	radius: number;
 	corner: EShapeCorner;
 	readonly points?: EShapePoints;
-	image?: HTMLImageElement;
-	imageSrc?: string;
+	image?: EShapeImageLike;
 	texture?: Texture;
 	gradient?: EShapeGradientLike;
 	readonly text: EShapeText;
