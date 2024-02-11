@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
@@ -105,7 +106,7 @@ export abstract class DScrollBar<
 		return 0 < this._start || this._end < 1;
 	}
 
-	render(renderer: PIXI.Renderer): void {
+	render(renderer: Renderer): void {
 		if (this._isTouched) {
 			this._isTouched = false;
 			if (!this._isSilent && this.isRegionVisible()) {

@@ -94,7 +94,7 @@ export interface DThemeDialog extends DThemeBase {
 }
 
 export interface DDialogOpener extends DApplicationTarget {
-	getBounds(skipUpdate?: boolean, rect?: PIXI.Rectangle): Rectangle;
+	getBounds(skipUpdate?: boolean, rect?: Rectangle): Rectangle;
 }
 
 /**

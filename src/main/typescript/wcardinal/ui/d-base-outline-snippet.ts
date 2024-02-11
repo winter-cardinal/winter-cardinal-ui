@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
 import { DBase, DThemeBase } from "./d-base";
 import { DBaseBorderMesh } from "./d-base-border-mesh";
 import { DBaseSnippet } from "./d-base-snippet";
@@ -67,7 +68,7 @@ export class DBaseOutlineSnippet implements DBaseSnippet {
 		}
 	}
 
-	render(renderer: PIXI.Renderer): void {
+	render(renderer: Renderer): void {
 		this._mesh?.render(renderer);
 	}
 

@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "../../d-base-state-set";
-import { DCoordinateSize } from "../../d-coordinate";
-import { DThemePaginationButtonTop } from "../../d-pagination-button-top";
+import type { DisplayObject, Texture } from "pixi.js";
+import type { DBaseStateSet } from "../../d-base-state-set";
+import type { DCoordinateSize } from "../../d-coordinate";
+import type { DThemePaginationButtonTop } from "../../d-pagination-button-top";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
@@ -26,7 +27,7 @@ export class DThemeWhitePaginationButtonTop
 		return 30;
 	}
 
-	getImageSource(state: DBaseStateSet): PIXI.Texture | PIXI.DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.pagination_button_top;
 	}
 }

@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseStateSet } from "../../d-base-state-set";
-import { DCoordinateSize } from "../../d-coordinate";
-import { DThemePaginationDots } from "../../d-pagination-dots";
+import type { DBaseStateSet } from "../../d-base-state-set";
+import type { DCoordinateSize } from "../../d-coordinate";
+import type { DThemePaginationDots } from "../../d-pagination-dots";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
@@ -43,7 +44,7 @@ export class DThemeWhitePaginationDots
 		state.isFocusable = false;
 	}
 
-	getImageSource(state: DBaseStateSet): PIXI.Texture | PIXI.DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.pagination_dots;
 	}
 

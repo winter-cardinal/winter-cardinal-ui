@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "../../d-base-state-set";
-import { DCoordinateSize } from "../../d-coordinate";
-import { DThemePaginationButtonTop } from "../../d-pagination-button-top";
+import type { DisplayObject, Texture } from "pixi.js";
+import type { DBaseStateSet } from "../../d-base-state-set";
+import type { DCoordinateSize } from "../../d-coordinate";
+import type { DThemePaginationButtonTop } from "../../d-pagination-button-top";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 
@@ -25,7 +26,7 @@ export class DThemeDarkPaginationButtonPrevious
 		return 30;
 	}
 
-	getImageSource(state: DBaseStateSet): PIXI.Texture | PIXI.DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.pagination_button_previous;
 	}
 }
