@@ -9,8 +9,12 @@ export interface DImagePieceAlignOptions {
 }
 
 export interface DImagePieceAlign {
-	with: DAlignWith;
-	vertical: DAlignVertical;
-	horizontal: DAlignHorizontal;
-	set(w?: DAlignWith, vertical?: DAlignVertical, horizontal?: DAlignHorizontal): this;
+	with: keyof typeof DAlignWith | DAlignWith;
+	vertical: keyof typeof DAlignVertical | DAlignVertical;
+	horizontal: keyof typeof DAlignHorizontal | DAlignHorizontal;
+	set(
+		w?: keyof typeof DAlignWith | DAlignWith,
+		vertical?: keyof typeof DAlignVertical | DAlignVertical,
+		horizontal?: keyof typeof DAlignHorizontal | DAlignHorizontal
+	): this;
 }

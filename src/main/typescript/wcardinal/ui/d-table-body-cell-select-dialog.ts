@@ -67,7 +67,7 @@ export class DTableBodyCellSelectDialog<
 		const selecting = this._column.selecting;
 		const dialog = selecting.dialog;
 		if (dialog) {
-			const oldValue = this._textValueComputed ?? null;
+			const oldValue = this.text.computed ?? null;
 			selecting.setter(dialog, oldValue);
 			dialog.open(this).then((): void => {
 				const newValue = selecting.getter(dialog);
@@ -112,11 +112,7 @@ export class DTableBodyCellSelectDialog<
 	}
 
 	get value(): VALUE | null {
-		const textValueComputed = this._textValueComputed;
-		if (textValueComputed !== undefined) {
-			return textValueComputed;
-		}
-		return null;
+		return this.text.computed ?? null;
 	}
 
 	set value(value: VALUE | null) {
@@ -134,10 +130,7 @@ export class DTableBodyCellSelectDialog<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		if (forcibly) {
-			this._textValue = value as VALUE | null;
-			this._textValueComputed = value as VALUE | null;
-			this.onTextChange();
-			this.createOrUpdateText();
+			this.text.setValue(value as VALUE | null, true);
 		} else {
 			this.text = value as VALUE | null;
 		}

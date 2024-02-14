@@ -3,38 +3,45 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSetImpl } from "./d-base-state-set-impl";
+import { utils } from "pixi.js";
 import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "./d-font";
-import { DThemes } from "./theme/d-themes";
 import { toEnum } from "./util/to-enum";
-
-export type DDynamicTextAlign = "left" | "center" | "right";
+import { DAlignVertical } from "./d-align-vertical";
+import { DAlignHorizontal } from "./d-align-horizontal";
+import { DBaseStateSet } from "./d-base-state-set";
 
 export interface DDynamicTextStyleOptions {
-	align?: DDynamicTextAlign;
 	fontFamily?: string;
 	fontSize?: number;
 	fontStyle?: DFontStyle;
 	fontVariant?: DFontVariant;
 	fontWeight?: DFontWeight;
-	fill?: number;
 	clipping?: boolean;
 	fitting?: boolean;
 	wordWrap?: DDynamicTextStyleWordWrap | keyof typeof DDynamicTextStyleWordWrap;
 	lineHeight?: number;
 }
 
-export class DDynamicTextStyle {
-	protected static DEFAULT_OPTIONS?: Required<DDynamicTextStyleOptions>;
+export interface DThemeDynamicTextStyle extends DThemeFont {
+	getTextAlignVertical(): DAlignVertical;
+	getTextAlignHorizontal(): DAlignHorizontal;
+	getTextStyleClipping(): boolean;
+	getTextStyleFitting(): boolean;
+	getTextStyleWordWrap(): DDynamicTextStyleWordWrap;
+}
 
+export interface DDynamicTextStyleParent {
+	readonly state: DBaseStateSet;
+}
+
+export class DDynamicTextStyle extends utils.EventEmitter {
 	protected _id: number;
 	protected _idApproved: number;
 	protected _fontIdId: number;
 	protected _fontId: string;
 	protected _fontIdApproved: string;
 	protected _fontIdFontSize: number;
-	protected _align: DDynamicTextAlign;
 	protected _fontFamily: string;
 	protected _fontSize: number;
 	protected _fontSizeFitted: number;
@@ -49,42 +56,42 @@ export class DDynamicTextStyle {
 	protected _wordWrap: DDynamicTextStyleWordWrap;
 	protected _lineHeight: number;
 	protected _lineHeightFitted: number;
-	protected _onChange: () => void;
 
-	constructor(options: DDynamicTextStyleOptions | undefined, onChange: () => void) {
+	constructor(
+		parent: DDynamicTextStyleParent,
+		theme: DThemeDynamicTextStyle,
+		options?: DDynamicTextStyleOptions
+	) {
+		super();
 		this._id = 0;
 		this._idApproved = -1;
 
-		const defaultOptions = this.getDefaultOptions();
 		if (options) {
-			this._align = options.align ?? defaultOptions.align;
-			this._fontFamily = options.fontFamily ?? defaultOptions.fontFamily;
-			this._fontSize = options.fontSize ?? defaultOptions.fontSize;
-			this._fontStyle = options.fontStyle ?? defaultOptions.fontStyle;
-			this._fontVariant = options.fontVariant ?? defaultOptions.fontVariant;
-			this._fontWeight = options.fontWeight ?? defaultOptions.fontWeight;
-			this._fill = options.fill ?? defaultOptions.fill;
-			this._clipping = options.clipping ?? defaultOptions.clipping;
-			this._fitting = options.fitting ?? defaultOptions.fitting;
+			this._fontFamily = options.fontFamily ?? theme.getFontFamilly();
+			this._fontSize = options.fontSize ?? theme.getFontSize();
+			this._fontStyle = options.fontStyle ?? theme.getFontStyle();
+			this._fontVariant = options.fontVariant ?? theme.getFontVariant();
+			this._fontWeight = options.fontWeight ?? theme.getFontWeight();
+			this._clipping = options.clipping ?? theme.getTextStyleClipping();
+			this._fitting = options.fitting ?? theme.getTextStyleFitting();
 			this._wordWrap = toEnum(
-				options.wordWrap ?? defaultOptions.wordWrap,
+				options.wordWrap ?? theme.getTextStyleWordWrap(),
 				DDynamicTextStyleWordWrap
 			);
-			this._lineHeight = options.lineHeight ?? defaultOptions.lineHeight;
+			this._lineHeight = options.lineHeight ?? theme.getLineHeight();
 		} else {
-			this._align = defaultOptions.align;
-			this._fontFamily = defaultOptions.fontFamily;
-			this._fontSize = defaultOptions.fontSize;
-			this._fontStyle = defaultOptions.fontStyle;
-			this._fontVariant = defaultOptions.fontVariant;
-			this._fontWeight = defaultOptions.fontWeight;
-			this._fill = defaultOptions.fill;
-			this._clipping = defaultOptions.clipping;
-			this._fitting = defaultOptions.fitting;
-			this._wordWrap = toEnum(defaultOptions.wordWrap, DDynamicTextStyleWordWrap);
-			this._lineHeight = defaultOptions.lineHeight;
+			this._fontFamily = theme.getFontFamilly();
+			this._fontSize = theme.getFontSize();
+			this._fontStyle = theme.getFontStyle();
+			this._fontVariant = theme.getFontVariant();
+			this._fontWeight = theme.getFontWeight();
+			this._clipping = theme.getTextStyleClipping();
+			this._fitting = theme.getTextStyleFitting();
+			this._wordWrap = theme.getTextStyleWordWrap();
+			this._lineHeight = theme.getLineHeight();
 		}
 
+		this._fill = theme.getColor(parent.state);
 		this._fontSizeFitted = this._fontSize;
 		this._lineHeightFitted = this._lineHeight;
 		this._isFontFitted = false;
@@ -93,34 +100,6 @@ export class DDynamicTextStyle {
 		this._fontId = "";
 		this._fontIdApproved = "";
 		this._fillApproved = 0x000000;
-
-		this._onChange = onChange;
-	}
-
-	protected getDefaultOptions(): Required<DDynamicTextStyleOptions> {
-		let result = DDynamicTextStyle.DEFAULT_OPTIONS;
-		if (result == null) {
-			result = this.newDefaultOptions();
-			DDynamicTextStyle.DEFAULT_OPTIONS = result;
-		}
-		return result;
-	}
-
-	protected newDefaultOptions(): Required<DDynamicTextStyleOptions> {
-		const theme = DThemes.getInstance().get("DBase") as DThemeFont;
-		return {
-			align: "left",
-			fontFamily: theme.getFontFamilly(),
-			fontSize: theme.getFontSize(),
-			fontStyle: "normal",
-			fontVariant: "normal",
-			fontWeight: "normal",
-			fill: theme.getColor(new DBaseStateSetImpl()),
-			clipping: true,
-			fitting: false,
-			wordWrap: DDynamicTextStyleWordWrap.NONE,
-			lineHeight: theme.getLineHeight()
-		};
 	}
 
 	get id(): number {
@@ -158,7 +137,7 @@ export class DDynamicTextStyle {
 
 	protected onChange(): void {
 		this._id += 1;
-		this._onChange();
+		this.emit("change", this);
 	}
 
 	get fillApproved(): number {

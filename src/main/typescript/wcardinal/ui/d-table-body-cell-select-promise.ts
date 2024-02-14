@@ -69,7 +69,7 @@ export class DTableBodyCellSelectPromise<
 		if (promise) {
 			promise().then((newValue: VALUE | null): void => {
 				if (this._isSyncEnabled) {
-					const oldValue = this._textValueComputed ?? null;
+					const oldValue = this.text.computed ?? null;
 					if (newValue !== oldValue) {
 						this.text = newValue;
 						this.onValueChange(newValue, oldValue);
@@ -110,11 +110,7 @@ export class DTableBodyCellSelectPromise<
 	}
 
 	get value(): VALUE | null {
-		const textValueComputed = this._textValueComputed;
-		if (textValueComputed !== undefined) {
-			return textValueComputed;
-		}
-		return null;
+		return this.text.computed ?? null;
 	}
 
 	set value(value: VALUE | null) {
@@ -132,10 +128,7 @@ export class DTableBodyCellSelectPromise<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		if (forcibly) {
-			this._textValue = value as VALUE | null;
-			this._textValueComputed = value as VALUE | null;
-			this.onTextChange();
-			this.createOrUpdateText();
+			this.text.setValue(value as VALUE | null, true);
 		} else {
 			this.text = value as VALUE | null;
 		}

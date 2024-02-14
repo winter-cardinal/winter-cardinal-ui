@@ -8,7 +8,7 @@ import { DImagePieceLayouterPartLeft } from "./d-image-piece-layouter-part-left"
 import { DImagePieceLayouterPartMiddle } from "./d-image-piece-layouter-part-middle";
 import { DImagePieceLayouterPartRight } from "./d-image-piece-layouter-part-right";
 import { DImagePieceLayouterPartTop } from "./d-image-piece-layouter-part-top";
-import { DTextBaseAlign } from "./d-text-base";
+import { DTextPieceAlign } from "./d-text-piece-align";
 
 export class DImagePieceLayouterPartContainer {
 	left: DImagePieceLayouterPartLeft;
@@ -123,7 +123,7 @@ export class DImagePieceLayouterPartContainer {
 		ptop: number,
 		pright: number,
 		pbottom: number,
-		textAlign: DTextBaseAlign,
+		textAlign: DTextPieceAlign,
 		width: number,
 		height: number
 	): void {

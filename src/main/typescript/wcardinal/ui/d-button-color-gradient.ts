@@ -4,7 +4,6 @@
  */
 
 import { InteractionEvent, Texture } from "pixi.js";
-import { DApplications } from "./d-applications";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorGradient } from "./d-color-gradient";
 import { DColorGradientObservable } from "./d-color-gradient-observable";
@@ -77,7 +76,7 @@ export class DButtonColorGradient<
 				const view = DPickerColorGradientView.from(1, 10, checkers, texture);
 				this._view = view;
 				view.setRectangle(0, 0, 0, texture.width, texture.height);
-				view.setData(0, this._textValueComputed!);
+				view.setData(0, this.text.computed!);
 				view.update();
 				this.image = view;
 			}
@@ -86,13 +85,13 @@ export class DButtonColorGradient<
 
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
-		const value = this._textValueComputed;
+		const computed = this.text.computed;
 		const dialog = this.dialog;
-		if (value != null) {
-			dialog.value.fromObject(value);
+		if (computed != null) {
+			dialog.value.fromObject(computed);
 		}
 		dialog.open(this).then((newValue): void => {
-			this.onValueChange(newValue, this.toClone(value));
+			this.onValueChange(newValue, this.toClone(computed));
 		});
 	}
 
@@ -105,17 +104,15 @@ export class DButtonColorGradient<
 	}
 
 	protected onValueChange(newValue: DColorGradient, oldValue: DColorGradient): void {
-		const value = this._textValueComputed;
-		if (value != null) {
-			value.fromObject(newValue);
+		const computed = this.text.computed;
+		if (computed != null) {
+			computed.fromObject(newValue);
 		}
 		const view = this._view;
 		if (view != null) {
 			view.update();
 		}
-		this.onTextChange();
-		this.createOrUpdateText();
-		DApplications.update(this);
+		this.text.compute(true);
 		this.emit("change", newValue, oldValue, this);
 	}
 
@@ -144,7 +141,7 @@ export class DButtonColorGradient<
 	}
 
 	get value(): DColorGradientObservable {
-		return this._textValueComputed!;
+		return this.text.computed!;
 	}
 
 	protected getType(): string {

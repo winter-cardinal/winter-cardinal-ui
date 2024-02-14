@@ -9,7 +9,6 @@ import { DBaseStateSet } from "./d-base-state-set";
 import { DThemeImageBaseSecondary } from "./d-image-base-theme-wrapper-secondary";
 import { DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
 import { DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
-import { DImagePieceLayouter } from "./d-image-piece-layouter";
 import { DOnOptions } from "./d-on-options";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseEvents, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
@@ -59,7 +58,6 @@ export class DImageBase<
 	THEME extends DThemeImageBase<VALUE> = DThemeImageBase<VALUE>,
 	OPTIONS extends DImageBaseOptions<VALUE, THEME> = DImageBaseOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
-	protected static LAYOUTER?: DImagePieceLayouter;
 	protected _image?: DImagePieceContainerImpl;
 
 	protected init(options?: OPTIONS): void {
@@ -91,25 +89,15 @@ export class DImageBase<
 		this.getImage().onStateChange(newState, oldState);
 	}
 
-	protected updateText(): void {
-		this.updateTextValue();
-		this.updateTextAndImage();
-	}
-
-	protected updateTextAndImage(): void {
-		const layouter = (DImageBase.LAYOUTER ??= new DImagePieceLayouter());
-		this.getImage().updateTextAndImage(layouter);
-		const text = this._text;
-		if (text != null) {
-			this.updateTextColor(text);
-			layouter.set(text);
-		} else {
-			layouter.set(null);
-		}
+	protected override onReflowTextAndImage(): void {
+		const layouter = this.getLayouter();
+		this.getImage().update(layouter);
+		const text = this.getText();
+		text.update(layouter);
 		const auto = this._auto;
 		layouter.execute(
 			this._padding,
-			this._textAlign,
+			text.align,
 			auto.width.isOn ? null : this.width,
 			auto.height.isOn ? null : this.height
 		);

@@ -62,14 +62,14 @@ export class DButtonColor<
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		const dialog = this.dialog;
-		const value = this._textValueComputed;
-		if (value != null) {
+		const computed = this.text.computed;
+		if (computed != null) {
 			const dialogCurrent = dialog.current;
-			dialogCurrent.color = value.color;
-			dialogCurrent.alpha = value.alpha;
+			dialogCurrent.color = computed.color;
+			dialogCurrent.alpha = computed.alpha;
 			const dialogNew = dialog.new;
-			dialogNew.color = value.color;
-			dialogNew.alpha = value.alpha;
+			dialogNew.color = computed.color;
+			dialogNew.alpha = computed.alpha;
 		}
 		dialog.open(this).then((): void => {
 			this.onValueChange(this.toClone(dialog.new), this.toClone(dialog.current));
@@ -84,10 +84,10 @@ export class DButtonColor<
 	}
 
 	protected onValueChange(newValue: DColorAndAlpha, oldValue: DColorAndAlpha): void {
-		const value = this._textValueComputed;
-		if (value != null) {
-			value.color = newValue.color;
-			value.alpha = newValue.alpha;
+		const computed = this.text.computed;
+		if (computed != null) {
+			computed.color = newValue.color;
+			computed.alpha = newValue.alpha;
 		}
 		this.onColorChange();
 		this.emit("change", newValue, oldValue, this);
@@ -96,17 +96,12 @@ export class DButtonColor<
 	protected onColorChange(): void {
 		const image = this.image.get(0);
 		if (image != null) {
-			const value = this._textValueComputed;
-			if (value != null) {
-				image.tint.color = value.color;
+			const computed = this.text.computed;
+			if (computed != null) {
+				image.tint.color = computed.color;
 			}
 		}
-		this.updateTextForcibly();
-	}
-
-	protected updateTextForcibly(): void {
-		this.onTextChange();
-		this.createOrUpdateText();
+		this.text.compute(true);
 	}
 
 	get dialog(): DDialogColor {
@@ -143,16 +138,17 @@ export class DButtonColor<
 	}
 
 	protected newValue(): DPickerColorAndAlpha {
-		const value = this._textValueComputed!;
+		const text = this.text;
+		const computed = text.computed!;
 		return new DPickerColorAndAlpha(
-			value,
+			computed,
 			(color: number): void => {
-				value.color = color;
+				computed.color = color;
 				this.onColorChange();
 			},
 			(alpha: number): void => {
-				value.alpha = alpha;
-				this.updateTextForcibly();
+				computed.alpha = alpha;
+				text.compute(true);
 			}
 		);
 	}

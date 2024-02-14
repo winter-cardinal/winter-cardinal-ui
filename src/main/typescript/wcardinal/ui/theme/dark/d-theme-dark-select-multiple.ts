@@ -9,18 +9,18 @@ import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { isString } from "../../util/is-string";
 import { DThemeDarkDropdownBase } from "./d-theme-dark-dropdown-base";
 
-const formatter = <VALUE>(values: Array<DMenuItem<VALUE>>): string => {
-	if (values) {
+const formatter = <VALUE>(items: Array<DMenuItem<VALUE>> | null): string => {
+	if (items) {
 		let result = "";
 		let delimiter = "";
-		for (let i = 0, imax = values.length; i < imax; ++i) {
-			const value = values[i];
-			const text = value.text;
-			if (isString(text)) {
-				result += delimiter + text;
+		for (let i = 0, imax = items.length; i < imax; ++i) {
+			const item = items[i];
+			const value = item.text.value;
+			if (isString(value)) {
+				result += delimiter + value;
 				delimiter = ", ";
-			} else if (text != null) {
-				const computed = text(value.state);
+			} else if (value != null) {
+				const computed = value(item.state);
 				if (computed != null) {
 					result += delimiter + computed;
 					delimiter = ", ";

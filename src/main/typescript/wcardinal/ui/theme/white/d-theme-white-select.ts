@@ -9,13 +9,13 @@ import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { isString } from "../../util/is-string";
 import { DThemeWhiteDropdownBase } from "./d-theme-white-dropdown-base";
 
-const formatter = <VALUE>(value: DMenuItem<VALUE> | null): string => {
-	if (value) {
-		const text = value.text;
-		if (isString(text)) {
-			return text;
-		} else if (text != null) {
-			const computed = text(value.state);
+const formatter = <VALUE>(item: DMenuItem<VALUE> | null): string => {
+	if (item) {
+		const value = item.text.value;
+		if (isString(value)) {
+			return value;
+		} else if (value != null) {
+			const computed = value(item.state);
 			if (computed != null) {
 				return computed;
 			}

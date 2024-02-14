@@ -90,21 +90,18 @@ export class DTableBodyCellDate<
 		this._rowIndex = rowIndex;
 		if (value instanceof Date) {
 			if (forcibly) {
-				this._textValue = value;
-				this._textValueComputed = value;
-				this.onTextChange();
-				this.createOrUpdateText();
+				this.text.setValue(value, true);
 			} else {
 				this.text = value;
 			}
 		} else if (isNumber(value)) {
-			const textValueComputed = this._textValueComputed;
-			if (textValueComputed === undefined) {
+			const text = this.text;
+			const computed = text.computed;
+			if (computed === undefined) {
 				this.text = new Date(value);
-			} else if (textValueComputed.getTime() !== value) {
-				textValueComputed.setTime(value);
-				this.onTextChange();
-				this.createOrUpdateText();
+			} else if (computed.getTime() !== value) {
+				computed.setTime(value);
+				text.compute(true);
 			}
 		}
 

@@ -133,7 +133,7 @@ export class DIndicatorProcessing<VALUE> {
 		state.unlock();
 
 		if (this._isTextEnabled) {
-			this._textValueBackup = parent.text;
+			this._textValueBackup = parent.text.value;
 			const textValue = this._textValue;
 			if (textValue !== undefined) {
 				parent.text = textValue;

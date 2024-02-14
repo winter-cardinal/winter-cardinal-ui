@@ -93,7 +93,7 @@ export class DImagePieceContainerImpl implements DImagePieceContainer {
 		return false;
 	}
 
-	updateTextAndImage(layouter: DImagePieceLayouter): void {
+	update(layouter: DImagePieceLayouter): void {
 		const pieces = this._pieces;
 		for (let i = 0, imax = pieces.length; i < imax; ++i) {
 			const piece = pieces[i];

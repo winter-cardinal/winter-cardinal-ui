@@ -48,6 +48,13 @@ export abstract class DThemeWhiteInput<
 		return DThemeWhiteConstants.BORDER_COLOR;
 	}
 
+	getOutlineColor(state: DBaseStateSet): number | null {
+		if (state.isInvalid) {
+			return DThemeWhiteConstants.INVALID_COLOR;
+		}
+		return super.getOutlineColor(state);
+	}
+
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

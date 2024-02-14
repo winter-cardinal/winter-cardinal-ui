@@ -3,7 +3,7 @@ import { DDynamicText } from "./d-dynamic-text";
 import { DImagePiece } from "./d-image-piece";
 import { DImagePieceLayouterPartContainer } from "./d-image-piece-layouter-part-container";
 import { DPadding } from "./d-padding";
-import { DTextBaseAlign } from "./d-text-base";
+import { DTextPieceAlign } from "./d-text-piece-align";
 
 export class DImagePieceLayouter {
 	text: DImagePieceLayouterPartContainer;
@@ -45,7 +45,7 @@ export class DImagePieceLayouter {
 
 	execute(
 		padding: DPadding,
-		textAlign: DTextBaseAlign,
+		textAlign: DTextPieceAlign,
 		width: number | null,
 		height: number | null
 	): void {

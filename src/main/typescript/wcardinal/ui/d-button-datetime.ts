@@ -55,7 +55,7 @@ export class DButtonDatetime<
 
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
-		const value = this._textValueComputed?.getTime() ?? Date.now();
+		const value = this.text.computed?.getTime() ?? Date.now();
 		const dialog = this.dialog;
 		dialog.current = new Date(value);
 		dialog.new = new Date(value);
@@ -104,12 +104,12 @@ export class DButtonDatetime<
 	}
 
 	get value(): Date {
-		return this._textValueComputed ?? new Date();
+		return this.text.computed ?? new Date();
 	}
 
 	set value(value: Date) {
-		const textValueComputed = this._textValueComputed;
-		if (textValueComputed === undefined || textValueComputed.getTime() !== value.getTime()) {
+		const computed = this.text.computed;
+		if (computed === undefined || computed.getTime() !== value.getTime()) {
 			this.text = value;
 		}
 	}

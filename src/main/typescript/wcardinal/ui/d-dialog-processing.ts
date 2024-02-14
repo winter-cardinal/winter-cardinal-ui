@@ -45,7 +45,7 @@ export class DDialogProcessing<
 		this._delayDone = delay?.done ?? theme.getDoneDelay();
 		const delayClose = delay?.close;
 		this._delayClose = delayClose !== undefined ? delayClose : theme.getCloseDelay();
-		this._messageText = this.message.text;
+		this._messageText = this.message.text.value;
 	}
 
 	protected newMessage(options: DDialogConfirmMessageOptions): DDialogConfirmMessage {

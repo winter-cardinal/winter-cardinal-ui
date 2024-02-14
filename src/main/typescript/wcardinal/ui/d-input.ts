@@ -7,6 +7,7 @@ import { Matrix, Point, Rectangle } from "pixi.js";
 import { DHtmlElement, DHtmlElementOptions, DThemeHtmlElement } from "./d-html-element";
 import { UtilHtmlElementPadding } from "./util/util-html-element";
 import { UtilInput, UtilInputOperation, UtilInputOptions, UtilThemeInput } from "./util/util-input";
+import { DTextPieceImpl } from "./d-text-piece-impl";
 
 export interface DInputOptions<
 	VALUE = unknown,
@@ -59,11 +60,11 @@ export abstract class DInput<
 			},
 
 			onStart: (): void => {
-				this.hideText();
+				this.text.hide();
 			},
 
 			onCancel: (): void => {
-				this.showText();
+				this.text.show();
 			},
 
 			onEnd: (): void => {
@@ -71,7 +72,7 @@ export abstract class DInput<
 			},
 
 			getValue: (): VALUE | undefined => {
-				return this._textValueComputed;
+				return this.text.computed;
 			},
 
 			onValueInput: (newValue: VALUE): void => {
@@ -94,16 +95,19 @@ export abstract class DInput<
 	}
 
 	get value(): VALUE {
-		return this._textValueComputed!;
+		return this.text.computed!;
 	}
 
 	set value(value: VALUE) {
 		this.text = value;
 	}
 
-	protected onTextChange(): void {
-		super.onTextChange();
-		this.validate();
+	protected newText(): DTextPieceImpl<VALUE> {
+		const result = super.newText();
+		result.on("change", () => {
+			this.validate();
+		});
+		return result;
 	}
 
 	protected onValueChange(newValue: VALUE, oldValue: VALUE): void {

@@ -7,7 +7,7 @@ import { Mesh, MeshMaterial, Renderer, Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DDynamicTextGeometry } from "./d-dynamic-text-geometry";
-import { DDynamicTextStyle, DDynamicTextStyleOptions } from "./d-dynamic-text-style";
+import { DDynamicTextStyle } from "./d-dynamic-text-style";
 import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
 import { UtilFont } from "./util/util-font";
@@ -41,14 +41,12 @@ export class DDynamicText extends Mesh {
 
 	readonly geometry!: DDynamicTextGeometry;
 
-	constructor(options?: DDynamicTextStyleOptions) {
+	constructor(style: DDynamicTextStyle) {
 		super(new DDynamicTextGeometry(), new MeshMaterial(Texture.EMPTY));
 
-		this._style = new DDynamicTextStyle(options, (): void => {
-			this._isDirty = true;
-			this._isGeometryDirty = true;
-			this._atlas = null;
-			this.update_();
+		this._style = style;
+		style.on("change", () => {
+			this.onStyleChange();
 		});
 		this._text = "";
 		this._textApproved = "";
@@ -72,16 +70,23 @@ export class DDynamicText extends Mesh {
 		};
 	}
 
+	protected onStyleChange(): void {
+		this._isDirty = true;
+		this._isGeometryDirty = true;
+		this._atlas = null;
+		this.update_();
+	}
+
 	protected update_(): void {
 		const layer = DApplications.getLayer(this);
 		if (layer) {
-			const style = this._style;
 			if (this._isDirty) {
 				this._isDirty = false;
 
 				const text = this._text;
 				const textApproved = this._textApproved;
 				this._textApproved = text;
+				const style = this._style;
 				const fontId = style.fontId;
 				const fontIdApproved = style.fontIdApproved;
 				const fontIdFontSize = style.fontIdFontSize;

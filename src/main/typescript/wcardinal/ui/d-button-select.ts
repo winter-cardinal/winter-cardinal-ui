@@ -120,7 +120,7 @@ export class DButtonSelect<
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		super.onActivate(e);
 		const dialog = this.dialog;
-		const oldValue = this._textValueComputed ?? null;
+		const oldValue = this.text.computed ?? null;
 		this._dialogSetter(dialog, oldValue);
 		dialog.open(this).then((): void => {
 			const newValue = this._dialogGetter(dialog);
@@ -149,7 +149,7 @@ export class DButtonSelect<
 	}
 
 	get value(): VALUE | null {
-		return this._textValueComputed ?? null;
+		return this.text.computed ?? null;
 	}
 
 	set value(value: VALUE | null) {

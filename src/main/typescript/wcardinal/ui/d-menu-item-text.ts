@@ -10,6 +10,7 @@ import { DDynamicText } from "./d-dynamic-text";
 import { DMenuItem, DMenuItemOptions, DThemeMenuItem } from "./d-menu-item";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DDynamicTextStyle } from "./d-dynamic-text-style";
 
 export interface DMenuItemTextOptions<
 	VALUE = unknown,
@@ -52,15 +53,21 @@ export class DMenuItemText<
 		const shortcuts = this._shortcuts;
 		if (shortcuts != null && 0 < shortcuts.length) {
 			const shortcut = shortcuts[0];
-			const shortcutText = this.newText();
+			const shortcutText = this.newShortcutText();
 			this._shortcutText = shortcutText;
-			this.snippet.add(this._shortcutText, true);
+			this.snippet.add(shortcutText, true);
 			shortcutText.text = UtilKeyboardEvent.toString(shortcut);
 		} else {
 			this._shortcutText = null;
 		}
 
 		this._shortcutMargin = this.theme.getShortcutTextMargin();
+	}
+
+	protected newShortcutText(): DDynamicText {
+		return new DDynamicText(
+			new DDynamicTextStyle(this, this.theme, this._options?.text?.style)
+		);
 	}
 
 	protected updateShortcutText(): void {
@@ -89,9 +96,7 @@ export class DMenuItemText<
 		}
 	}
 
-	protected updateTextColor(text: DDynamicText): void {
-		super.updateTextColor(text);
-
+	protected updateShortcutColor(): void {
 		const shortcutText = this._shortcutText;
 		if (shortcutText != null) {
 			const theme = this.theme;
@@ -101,8 +106,9 @@ export class DMenuItemText<
 		}
 	}
 
-	protected updateText(): void {
-		super.updateText();
+	protected override onReflow(): void {
+		super.onReflow();
+		this.updateShortcutColor();
 		this.updateShortcutText();
 	}
 
