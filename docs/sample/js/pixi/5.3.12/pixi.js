@@ -138,7 +138,7 @@ var PIXI = (function (exports) {
 	function invokeCallback(subscriber){
 	  var owner = subscriber.owner;
 	  var settled = owner.state_;
-	  var value = owner.data_;
+	  var value = owner.data_;  
 	  var callback = subscriber[settled];
 	  var promise = subscriber.then;
 
@@ -14553,7 +14553,7 @@ var PIXI = (function (exports) {
 	        else {
 	            glTexture.width = baseTexture.width;
 	            glTexture.height = baseTexture.height;
-	            gl.texImage2D(baseTexture.target, 0,
+	            gl.texImage2D(baseTexture.target, 0, 
 	            //  gl.DEPTH_COMPONENT16 Needed for depth to render properly in webgl2.0
 	            renderer.context.webGLVersion === 1 ? gl.DEPTH_COMPONENT : gl.DEPTH_COMPONENT16, baseTexture.width, baseTexture.height, 0, baseTexture.format, baseTexture.type, this.data);
 	        }
@@ -37708,9 +37708,9 @@ var PIXI = (function (exports) {
 	        var _this = this;
 	        var vertSrc = generateBlurVertSource(kernelSize, horizontal);
 	        var fragSrc = generateBlurFragSource(kernelSize);
-	        _this = _super.call(this,
+	        _this = _super.call(this, 
 	        // vertex shader
-	        vertSrc,
+	        vertSrc, 
 	        // fragment shader
 	        fragSrc) || this;
 	        _this.horizontal = horizontal;
