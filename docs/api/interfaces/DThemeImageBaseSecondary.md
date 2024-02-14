@@ -1,6 +1,14 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeImageBaseSecondary
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeImageBaseSecondary
 
 # Interface: DThemeImageBaseSecondary
+
+## Hierarchy
+
+- **`DThemeImageBaseSecondary`**
+
+  ↳ [`DThemeImageBase`](DThemeImageBase.md)
+
+  ↳ [`DThemeImagePieceContainer`](DThemeImagePieceContainer.md)
 
 ## Table of contents
 
@@ -11,6 +19,7 @@
 - [getSecondaryImageAlignWith](DThemeImageBaseSecondary.md#getsecondaryimagealignwith)
 - [getSecondaryImageMarginHorizontal](DThemeImageBaseSecondary.md#getsecondaryimagemarginhorizontal)
 - [getSecondaryImageMarginVertial](DThemeImageBaseSecondary.md#getsecondaryimagemarginvertial)
+- [getSecondaryImageRotation](DThemeImageBaseSecondary.md#getsecondaryimagerotation)
 - [getSecondaryImageSource](DThemeImageBaseSecondary.md#getsecondaryimagesource)
 - [getSecondaryImageTintAlpha](DThemeImageBaseSecondary.md#getsecondaryimagetintalpha)
 - [getSecondaryImageTintColor](DThemeImageBaseSecondary.md#getsecondaryimagetintcolor)
@@ -27,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L9)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L9)
 
 ___
 
@@ -41,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L10)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L10)
 
 ___
 
@@ -55,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L11)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L11)
 
 ___
 
@@ -69,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L12)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L12)
 
 ___
 
@@ -83,7 +92,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L13)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L13)
+
+___
+
+### getSecondaryImageRotation
+
+▸ **getSecondaryImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L16)
 
 ___
 
@@ -103,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L16)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L17)
 
 ___
 
@@ -123,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L15)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L15)
 
 ___
 
@@ -143,4 +172,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L14)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L14)

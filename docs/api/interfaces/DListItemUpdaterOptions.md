@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DListItemUpdaterOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DListItemUpdaterOptions
 
 # Interface: DListItemUpdaterOptions\<VALUE\>
 
@@ -38,7 +38,7 @@ Called to initialize items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-item-updater.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-item-updater.ts#L34)
+[src/main/typescript/wcardinal/ui/d-item-updater.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L34)
 
 ___
 
@@ -54,7 +54,7 @@ Called to create items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-item-updater.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-item-updater.ts#L29)
+[src/main/typescript/wcardinal/ui/d-item-updater.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L29)
 
 ___
 
@@ -70,4 +70,4 @@ True to make stripe-colored items. Defaults to true.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-item-updater.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-item-updater.ts#L39)
+[src/main/typescript/wcardinal/ui/d-item-updater.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L39)

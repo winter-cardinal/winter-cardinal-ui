@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateTickerOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateTickerOptions
 
 # Interface: DBaseStateTickerOptions
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:372](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L372)
+[src/main/typescript/wcardinal/ui/d-base.ts:371](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L371)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:371](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L371)
+[src/main/typescript/wcardinal/ui/d-base.ts:370](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L370)

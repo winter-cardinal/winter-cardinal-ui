@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DChartSelectionSub
+[Winter Cardinal UI - v0.407.0](../index.md) / DChartSelectionSub
 
 # Interface: DChartSelectionSub\<CHART\>
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L30)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L29)
 
 ## Methods
 
@@ -89,7 +89,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L32)
 
 ___
 
@@ -138,7 +138,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -158,7 +158,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -184,7 +184,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -210,7 +210,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -239,7 +239,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -269,7 +269,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -299,7 +299,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -327,7 +327,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -358,7 +358,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -379,7 +379,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L34)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L33)
 
 ___
 
@@ -407,7 +407,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L38)
 
 ___
 
@@ -421,4 +421,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L39)

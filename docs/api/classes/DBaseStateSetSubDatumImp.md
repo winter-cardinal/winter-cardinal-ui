@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetSubDatumImp
+[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateSetSubDatumImp
 
 # Class: DBaseStateSetSubDatumImp
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L10)
 
 ## Accessors
 
@@ -70,7 +70,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L16)
 
 ## Methods
 
@@ -95,7 +95,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L20)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L85)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L85)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L84)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L84)
 
 ___
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L68)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L68)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L36)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L52)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L52)
 
 ___
 
@@ -204,4 +204,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L59)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L59)

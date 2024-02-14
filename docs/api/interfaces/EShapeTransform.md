@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / EShapeTransform
+[Winter Cardinal UI - v0.407.0](../index.md) / EShapeTransform
 
 # Interface: EShapeTransform
 
@@ -65,7 +65,7 @@ Transform.\_currentLocalID
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12273
+node_modules/pixi.js/pixi.js.d.ts:12669
 
 ___
 
@@ -86,7 +86,7 @@ Transform.\_cx
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12234
+node_modules/pixi.js/pixi.js.d.ts:12630
 
 ___
 
@@ -107,7 +107,7 @@ Transform.\_cy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12250
+node_modules/pixi.js/pixi.js.d.ts:12646
 
 ___
 
@@ -127,7 +127,7 @@ Transform.\_localID
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12265
+node_modules/pixi.js/pixi.js.d.ts:12661
 
 ___
 
@@ -148,7 +148,7 @@ Transform.\_parentID
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12288
+node_modules/pixi.js/pixi.js.d.ts:12684
 
 ___
 
@@ -168,7 +168,7 @@ Transform.\_rotation
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12226
+node_modules/pixi.js/pixi.js.d.ts:12622
 
 ___
 
@@ -189,7 +189,7 @@ Transform.\_sx
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12242
+node_modules/pixi.js/pixi.js.d.ts:12638
 
 ___
 
@@ -210,7 +210,7 @@ Transform.\_sy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12258
+node_modules/pixi.js/pixi.js.d.ts:12654
 
 ___
 
@@ -230,7 +230,7 @@ Transform.\_worldID
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12280
+node_modules/pixi.js/pixi.js.d.ts:12676
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L10)
 
 ___
 
@@ -260,7 +260,7 @@ Transform.localTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12195
+node_modules/pixi.js/pixi.js.d.ts:12591
 
 ___
 
@@ -274,7 +274,7 @@ Transform.pivot
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L13)
 
 ___
 
@@ -288,7 +288,7 @@ Transform.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L12)
 
 ___
 
@@ -302,7 +302,7 @@ Transform.rotation
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L14)
 
 ___
 
@@ -316,7 +316,7 @@ Transform.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L16)
 
 ___
 
@@ -330,7 +330,7 @@ Transform.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L15)
 
 ___
 
@@ -350,7 +350,7 @@ Transform.worldTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12189
+node_modules/pixi.js/pixi.js.d.ts:12585
 
 ## Methods
 
@@ -364,7 +364,7 @@ node_modules/pixi.js/pixi.js.d.ts:12189
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L19)
 
 ___
 
@@ -378,7 +378,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L18)
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L20)
 
 ___
 
@@ -406,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L21)
 
 ___
 
@@ -426,7 +426,7 @@ Transform.onChange
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12294
+node_modules/pixi.js/pixi.js.d.ts:12690
 
 ___
 
@@ -452,7 +452,7 @@ Transform.setFromMatrix
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12316
+node_modules/pixi.js/pixi.js.d.ts:12712
 
 ___
 
@@ -472,7 +472,7 @@ Transform.updateLocalTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12304
+node_modules/pixi.js/pixi.js.d.ts:12700
 
 ___
 
@@ -492,7 +492,7 @@ Transform.updateSkew
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12300
+node_modules/pixi.js/pixi.js.d.ts:12696
 
 ___
 
@@ -518,4 +518,4 @@ Transform.updateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12310
+node_modules/pixi.js/pixi.js.d.ts:12706

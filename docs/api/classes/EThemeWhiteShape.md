@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / EThemeWhiteShape
+[Winter Cardinal UI - v0.407.0](../index.md) / EThemeWhiteShape
 
 # Class: EThemeWhiteShape
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L74)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L10)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L10)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L6)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L6)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L70)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L70)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L58)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L58)
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L62)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L62)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L66)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L66)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L26)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L18)
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L14)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L14)
 
 ___
 
@@ -239,7 +239,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L30)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L30)
 
 ___
 
@@ -257,7 +257,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L34)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L34)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L22)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L46)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L46)
 
 ___
 
@@ -311,7 +311,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L42)
 
 ___
 
@@ -329,7 +329,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L50)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L50)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L54)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L54)
 
 ___
 
@@ -365,4 +365,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape.ts#L38)

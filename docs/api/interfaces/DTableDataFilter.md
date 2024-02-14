@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataFilter
+[Winter Cardinal UI - v0.407.0](../index.md) / DTableDataFilter
 
 # Interface: DTableDataFilter\<ROW\>
 
@@ -56,7 +56,7 @@ Table data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L29)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L29)
 
 ___
 
@@ -69,7 +69,7 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L35)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L35)
 
 ## Methods
 
@@ -97,7 +97,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -113,7 +113,7 @@ Applys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L40)
 
 ___
 
@@ -142,7 +142,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -162,7 +162,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -178,7 +178,7 @@ Returns a current filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L55)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L55)
 
 ___
 
@@ -194,7 +194,7 @@ Returns true if a filter is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L50)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L50)
 
 ___
 
@@ -220,7 +220,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -246,7 +246,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -268,7 +268,7 @@ Returns a mapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L69)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L69)
 
 ___
 
@@ -297,7 +297,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -327,7 +327,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -357,7 +357,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -385,7 +385,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -416,7 +416,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -438,7 +438,7 @@ Sets to the given filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L62)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L62)
 
 ___
 
@@ -454,7 +454,7 @@ Unapplys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L45)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L45)
 
 ___
 
@@ -477,4 +477,4 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L77)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L77)

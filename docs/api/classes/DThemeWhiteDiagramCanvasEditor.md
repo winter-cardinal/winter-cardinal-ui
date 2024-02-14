@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeWhiteDiagramCanvasEditor
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeWhiteDiagramCanvasEditor
 
 # Class: DThemeWhiteDiagramCanvasEditor
 
@@ -46,6 +46,7 @@
 - [getHeight](DThemeWhiteDiagramCanvasEditor.md#getheight)
 - [getInteractive](DThemeWhiteDiagramCanvasEditor.md#getinteractive)
 - [getLineHeight](DThemeWhiteDiagramCanvasEditor.md#getlineheight)
+- [getLocalBoundsLimit](DThemeWhiteDiagramCanvasEditor.md#getlocalboundslimit)
 - [getOutlineAlign](DThemeWhiteDiagramCanvasEditor.md#getoutlinealign)
 - [getOutlineAlpha](DThemeWhiteDiagramCanvasEditor.md#getoutlinealpha)
 - [getOutlineColor](DThemeWhiteDiagramCanvasEditor.md#getoutlinecolor)
@@ -121,7 +122,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L35)
 
 ___
 
@@ -151,7 +152,7 @@ Returns a background alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L84)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L84)
 
 ___
 
@@ -173,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-base.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-base.ts#L17)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-base.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-base.ts#L17)
 
 ___
 
@@ -198,7 +199,7 @@ If the color is null, backgrounds are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L13)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L13)
 
 ___
 
@@ -222,7 +223,7 @@ Returns a background texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L88)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L88)
 
 ___
 
@@ -252,7 +253,7 @@ Returns a border align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L104)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L104)
 
 ___
 
@@ -282,7 +283,7 @@ Returns a border alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L96)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L96)
 
 ___
 
@@ -313,7 +314,7 @@ If the color is null, borders are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L17)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L17)
 
 ___
 
@@ -343,7 +344,7 @@ Returns a border mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L108)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L108)
 
 ___
 
@@ -367,7 +368,7 @@ Returns a border texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L112)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L112)
 
 ___
 
@@ -397,7 +398,7 @@ Returns a border width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L100)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L100)
 
 ___
 
@@ -422,7 +423,7 @@ A clear type is for layout classes including [DLayoutVertical](DLayoutVertical.m
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L167)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L167)
 
 ___
 
@@ -450,7 +451,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L19)
 
 ___
 
@@ -474,7 +475,7 @@ Returns a corner mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L21)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L21)
 
 ___
 
@@ -498,7 +499,7 @@ Returns a corner radius.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L132)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L132)
 
 ___
 
@@ -528,7 +529,7 @@ Returns a cursor.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L199)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L199)
 
 ___
 
@@ -550,7 +551,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L11)
 
 ___
 
@@ -572,7 +573,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L15)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L15)
 
 ___
 
@@ -594,7 +595,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L27)
 
 ___
 
@@ -616,7 +617,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L31)
 
 ___
 
@@ -638,7 +639,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L23)
 
 ___
 
@@ -662,7 +663,7 @@ Returns a height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L72)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L72)
 
 ___
 
@@ -686,7 +687,7 @@ Returns an interactivity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L25)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-canvas.ts#L25)
 
 ___
 
@@ -708,7 +709,29 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L42)
+
+___
+
+### getLocalBoundsLimit
+
+▸ **getLocalBoundsLimit**(): `number`
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemeDiagramCanvasEditor](../interfaces/DThemeDiagramCanvasEditor.md).[getLocalBoundsLimit](../interfaces/DThemeDiagramCanvasEditor.md#getlocalboundslimit)
+
+#### Overrides
+
+[DThemeWhiteDiagramCanvasBase](DThemeWhiteDiagramCanvasBase.md).[getLocalBoundsLimit](DThemeWhiteDiagramCanvasBase.md#getlocalboundslimit)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L35)
 
 ___
 
@@ -738,7 +761,7 @@ Returns an outline align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L159)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L159)
 
 ___
 
@@ -768,7 +791,7 @@ Returns an outline alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L144)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L144)
 
 ___
 
@@ -799,7 +822,7 @@ If the color is null, outlines are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L39)
 
 ___
 
@@ -829,7 +852,7 @@ Returns an outline mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L163)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L163)
 
 ___
 
@@ -859,7 +882,7 @@ Returns an outline offset.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L155)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L155)
 
 ___
 
@@ -889,7 +912,7 @@ Returns an outline width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L151)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L151)
 
 ___
 
@@ -913,7 +936,7 @@ Returns a bottom padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L128)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L128)
 
 ___
 
@@ -937,7 +960,7 @@ Returns a left padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L116)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L116)
 
 ___
 
@@ -961,7 +984,7 @@ Returns a right padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L120)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L120)
 
 ___
 
@@ -985,7 +1008,7 @@ Returns a top padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L124)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L124)
 
 ___
 
@@ -1010,7 +1033,7 @@ If a shadow is null, no shadow is rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L171)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L171)
 
 ___
 
@@ -1028,7 +1051,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L47)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L51)
 
 ___
 
@@ -1046,7 +1069,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L47)
 
 ___
 
@@ -1064,7 +1087,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L43)
 
 ___
 
@@ -1082,7 +1105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L55)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L59)
 
 ___
 
@@ -1100,7 +1123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L51)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L55)
 
 ___
 
@@ -1118,7 +1141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L63)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L67)
 
 ___
 
@@ -1136,7 +1159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L59)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L63)
 
 ___
 
@@ -1154,7 +1177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L71)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L75)
 
 ___
 
@@ -1172,7 +1195,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L67)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L71)
 
 ___
 
@@ -1190,7 +1213,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L75)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L79)
 
 ___
 
@@ -1208,7 +1231,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L83)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L87)
 
 ___
 
@@ -1226,7 +1249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L79)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L83)
 
 ___
 
@@ -1244,7 +1267,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L91)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L95)
 
 ___
 
@@ -1262,7 +1285,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L87)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L91)
 
 ___
 
@@ -1286,7 +1309,7 @@ Returns a tooltip text.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L183)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L183)
 
 ___
 
@@ -1312,7 +1335,7 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L187)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L187)
 
 ___
 
@@ -1336,7 +1359,7 @@ Returns a width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L76)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L76)
 
 ___
 
@@ -1360,7 +1383,7 @@ Returns a X coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L64)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L64)
 
 ___
 
@@ -1384,7 +1407,7 @@ Returns a Y coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L68)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L68)
 
 ___
 
@@ -1406,7 +1429,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-diagram-canvas-editor.ts#L31)
 
 ___
 
@@ -1430,7 +1453,7 @@ Creates a new shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L191)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L191)
 
 ___
 
@@ -1454,7 +1477,7 @@ Creates a new weak shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L195)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L195)
 
 ___
 
@@ -1484,4 +1507,4 @@ Returns true if focusable.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L179)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L179)

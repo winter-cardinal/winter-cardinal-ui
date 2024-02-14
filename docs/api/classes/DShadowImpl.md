@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DShadowImpl
+[Winter Cardinal UI - v0.407.0](../index.md) / DShadowImpl
 
 # Class: DShadowImpl
 
@@ -23,9 +23,14 @@
 - [\_accessibleActive](DShadowImpl.md#_accessibleactive)
 - [\_accessibleDiv](DShadowImpl.md#_accessiblediv)
 - [\_bounds](DShadowImpl.md#_bounds)
+- [\_boundsID](DShadowImpl.md#_boundsid)
+- [\_boundsRect](DShadowImpl.md#_boundsrect)
 - [\_destroyed](DShadowImpl.md#_destroyed)
+- [\_enabledFilters](DShadowImpl.md#_enabledfilters)
 - [\_height](DShadowImpl.md#_height)
 - [\_lastSortedIndex](DShadowImpl.md#_lastsortedindex)
+- [\_localBounds](DShadowImpl.md#_localbounds)
+- [\_localBoundsRect](DShadowImpl.md#_localboundsrect)
 - [\_mask](DShadowImpl.md#_mask)
 - [\_offsetX](DShadowImpl.md#_offsetx)
 - [\_offsetY](DShadowImpl.md#_offsety)
@@ -108,10 +113,13 @@
 - [calculateBounds](DShadowImpl.md#calculatebounds)
 - [calculateUvs](DShadowImpl.md#calculateuvs)
 - [calculateVertices](DShadowImpl.md#calculatevertices)
+- [containerUpdateTransform](DShadowImpl.md#containerupdatetransform)
 - [containsPoint](DShadowImpl.md#containspoint)
 - [destroy](DShadowImpl.md#destroy)
+- [disableTempParent](DShadowImpl.md#disabletempparent)
 - [displayObjectUpdateTransform](DShadowImpl.md#displayobjectupdatetransform)
 - [emit](DShadowImpl.md#emit)
+- [enableTempParent](DShadowImpl.md#enabletempparent)
 - [eventNames](DShadowImpl.md#eventnames)
 - [getBounds](DShadowImpl.md#getbounds)
 - [getChildAt](DShadowImpl.md#getchildat)
@@ -173,7 +181,7 @@ NineSlicePlane.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L16)
 
 ## Properties
 
@@ -201,7 +209,7 @@ NineSlicePlane.\_accessibleActive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14364
+node_modules/pixi.js/pixi.js.d.ts:14843
 
 ___
 
@@ -229,13 +237,13 @@ NineSlicePlane.\_accessibleDiv
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14370
+node_modules/pixi.js/pixi.js.d.ts:14849
 
 ___
 
 ### \_bounds
 
-• `Protected` **\_bounds**: `Bounds`
+• **\_bounds**: `Bounds`
 
 The bounds object, this is used to calculate and store the bounds of the displayObject.
 
@@ -253,7 +261,55 @@ NineSlicePlane.\_bounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14482
+node_modules/pixi.js/pixi.js.d.ts:14965
+
+___
+
+### \_boundsID
+
+• `Protected` **\_boundsID**: `number`
+
+Flags the cached bounds as dirty.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsID
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[_boundsID](../interfaces/DShadow.md#_boundsid)
+
+#### Inherited from
+
+NineSlicePlane.\_boundsID
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14978
+
+___
+
+### \_boundsRect
+
+• `Protected` **\_boundsRect**: `Bounds`
+
+Cache of this display-object's bounds-rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsRect
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[_boundsRect](../interfaces/DShadow.md#_boundsrect)
+
+#### Inherited from
+
+NineSlicePlane.\_boundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14985
 
 ___
 
@@ -277,7 +333,31 @@ NineSlicePlane.\_destroyed
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14496
+node_modules/pixi.js/pixi.js.d.ts:15006
+
+___
+
+### \_enabledFilters
+
+• `Protected` **\_enabledFilters**: `Filter`[]
+
+Currently enabled filters
+
+**`Member`**
+
+PIXI.DisplayObject#_enabledFilters
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[_enabledFilters](../interfaces/DShadow.md#_enabledfilters)
+
+#### Inherited from
+
+NineSlicePlane.\_enabledFilters
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14959
 
 ___
 
@@ -297,7 +377,7 @@ NineSlicePlane.\_height
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13993
+node_modules/pixi.js/pixi.js.d.ts:14452
 
 ___
 
@@ -322,13 +402,61 @@ NineSlicePlane.\_lastSortedIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14450
+node_modules/pixi.js/pixi.js.d.ts:14928
+
+___
+
+### \_localBounds
+
+• **\_localBounds**: `Bounds`
+
+Local bounds object, swapped with `_bounds` when using `getLocalBounds()`.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBounds
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[_localBounds](../interfaces/DShadow.md#_localbounds)
+
+#### Inherited from
+
+NineSlicePlane.\_localBounds
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14971
+
+___
+
+### \_localBoundsRect
+
+• `Protected` **\_localBoundsRect**: `Bounds`
+
+Cache of this display-object's local-bounds rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBoundsRect
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[_localBoundsRect](../interfaces/DShadow.md#_localboundsrect)
+
+#### Inherited from
+
+NineSlicePlane.\_localBoundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14992
 
 ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
+• `Protected` **\_mask**: ``null`` \| `Container` \| `MaskData`
 
 The original, cached mask of the object.
 
@@ -346,7 +474,7 @@ NineSlicePlane.\_mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14489
+node_modules/pixi.js/pixi.js.d.ts:14999
 
 ___
 
@@ -356,7 +484,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L11)
 
 ___
 
@@ -366,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L12)
 
 ___
 
@@ -376,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L13)
 
 ___
 
@@ -386,13 +514,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L14)
 
 ___
 
 ### \_tempDisplayObjectParent
 
-• `Protected` **\_tempDisplayObjectParent**: `DisplayObject`
+• `Protected` **\_tempDisplayObjectParent**: `Container`
 
 **`Member`**
 
@@ -406,7 +534,7 @@ NineSlicePlane.\_tempDisplayObjectParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14511
+node_modules/pixi.js/pixi.js.d.ts:15079
 
 ___
 
@@ -426,7 +554,7 @@ NineSlicePlane.\_width
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13986
+node_modules/pixi.js/pixi.js.d.ts:14445
 
 ___
 
@@ -451,7 +579,7 @@ NineSlicePlane.\_zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14458
+node_modules/pixi.js/pixi.js.d.ts:14936
 
 ___
 
@@ -478,7 +606,7 @@ NineSlicePlane.accessible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14343
+node_modules/pixi.js/pixi.js.d.ts:14822
 
 ___
 
@@ -511,7 +639,7 @@ NineSlicePlane.accessibleChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14397
+node_modules/pixi.js/pixi.js.d.ts:14876
 
 ___
 
@@ -537,7 +665,7 @@ NineSlicePlane.accessibleHint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14358
+node_modules/pixi.js/pixi.js.d.ts:14837
 
 ___
 
@@ -570,7 +698,7 @@ NineSlicePlane.accessiblePointerEvents
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14388
+node_modules/pixi.js/pixi.js.d.ts:14867
 
 ___
 
@@ -597,7 +725,7 @@ NineSlicePlane.accessibleTitle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14351
+node_modules/pixi.js/pixi.js.d.ts:14830
 
 ___
 
@@ -630,7 +758,7 @@ NineSlicePlane.accessibleType
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14379
+node_modules/pixi.js/pixi.js.d.ts:14858
 
 ___
 
@@ -654,7 +782,7 @@ NineSlicePlane.alpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14410
+node_modules/pixi.js/pixi.js.d.ts:14889
 
 ___
 
@@ -677,7 +805,7 @@ NineSlicePlane.angle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14646
+node_modules/pixi.js/pixi.js.d.ts:15166
 
 ___
 
@@ -706,7 +834,7 @@ NineSlicePlane.blendMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14114
+node_modules/pixi.js/pixi.js.d.ts:14573
 
 ___
 
@@ -724,7 +852,7 @@ NineSlicePlane.bottomHeight
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14039
+node_modules/pixi.js/pixi.js.d.ts:14498
 
 ___
 
@@ -759,7 +887,7 @@ NineSlicePlane.buttonMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14728
+node_modules/pixi.js/pixi.js.d.ts:15248
 
 ___
 
@@ -791,7 +919,7 @@ NineSlicePlane.cacheAsBitmap
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14755
+node_modules/pixi.js/pixi.js.d.ts:15275
 
 ___
 
@@ -811,7 +939,7 @@ NineSlicePlane.children
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14196
+node_modules/pixi.js/pixi.js.d.ts:14655
 
 ___
 
@@ -850,7 +978,7 @@ NineSlicePlane.cursor
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14742
+node_modules/pixi.js/pixi.js.d.ts:15262
 
 ___
 
@@ -874,7 +1002,7 @@ NineSlicePlane.drawMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14075
+node_modules/pixi.js/pixi.js.d.ts:14534
 
 ___
 
@@ -901,7 +1029,7 @@ NineSlicePlane.filterArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14467
+node_modules/pixi.js/pixi.js.d.ts:14945
 
 ___
 
@@ -927,7 +1055,7 @@ NineSlicePlane.filters
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14475
+node_modules/pixi.js/pixi.js.d.ts:14953
 
 ___
 
@@ -949,7 +1077,7 @@ NineSlicePlane.geometry
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14056
+node_modules/pixi.js/pixi.js.d.ts:14515
 
 ___
 
@@ -967,7 +1095,7 @@ NineSlicePlane.height
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14015
+node_modules/pixi.js/pixi.js.d.ts:14474
 
 ___
 
@@ -1002,7 +1130,7 @@ NineSlicePlane.hitArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14716
+node_modules/pixi.js/pixi.js.d.ts:15236
 
 ___
 
@@ -1039,7 +1167,7 @@ NineSlicePlane.interactive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14704
+node_modules/pixi.js/pixi.js.d.ts:15224
 
 ___
 
@@ -1062,7 +1190,7 @@ NineSlicePlane.interactiveChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14326
+node_modules/pixi.js/pixi.js.d.ts:14802
 
 ___
 
@@ -1086,7 +1214,7 @@ NineSlicePlane.isMask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14506
+node_modules/pixi.js/pixi.js.d.ts:15016
 
 ___
 
@@ -1110,7 +1238,7 @@ NineSlicePlane.isSprite
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14501
+node_modules/pixi.js/pixi.js.d.ts:15011
 
 ___
 
@@ -1128,7 +1256,7 @@ NineSlicePlane.leftWidth
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14021
+node_modules/pixi.js/pixi.js.d.ts:14480
 
 ___
 
@@ -1150,13 +1278,13 @@ NineSlicePlane.localTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14604
+node_modules/pixi.js/pixi.js.d.ts:15124
 
 ___
 
 ### mask
 
-• **mask**: `Container` \| `MaskData`
+• **mask**: ``null`` \| `Container` \| `MaskData`
 
 Sets a mask for the displayObject. A mask is an object that limits the visibility of an
 object to the shape of the mask applied to it. In PixiJS a regular mask must be a
@@ -1193,13 +1321,13 @@ NineSlicePlane.mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14682
+node_modules/pixi.js/pixi.js.d.ts:15202
 
 ___
 
 ### material
 
-• **material**: `Shader` \| `MeshMaterial`
+• **material**: `MeshMaterial`
 
 Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
 
@@ -1211,7 +1339,7 @@ NineSlicePlane.material
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14105
+node_modules/pixi.js/pixi.js.d.ts:14564
 
 ___
 
@@ -1239,13 +1367,13 @@ NineSlicePlane.name
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14762
+node_modules/pixi.js/pixi.js.d.ts:15282
 
 ___
 
 ### parent
 
-• `Readonly` **parent**: `Container`
+• **parent**: `Container`
 
 The display object container that contains this display object.
 
@@ -1263,13 +1391,13 @@ NineSlicePlane.parent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14435
+node_modules/pixi.js/pixi.js.d.ts:14913
 
 ___
 
 ### pivot
 
-• **pivot**: `IPoint`
+• **pivot**: `ObservablePoint`
 
 The pivot point of the displayObject that it rotates around.
 Assignment by value since pixi-v4.
@@ -1286,13 +1414,13 @@ NineSlicePlane.pivot
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14625
+node_modules/pixi.js/pixi.js.d.ts:15145
 
 ___
 
 ### position
 
-• **position**: `IPoint`
+• **position**: `ObservablePoint`
 
 The coordinate of the object relative to the local coordinates of the parent.
 Assignment by value since pixi-v4.
@@ -1309,7 +1437,7 @@ NineSlicePlane.position
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14611
+node_modules/pixi.js/pixi.js.d.ts:15131
 
 ___
 
@@ -1336,7 +1464,7 @@ NineSlicePlane.renderable
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14428
+node_modules/pixi.js/pixi.js.d.ts:14907
 
 ___
 
@@ -1354,7 +1482,7 @@ NineSlicePlane.rightWidth
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14027
+node_modules/pixi.js/pixi.js.d.ts:14486
 
 ___
 
@@ -1377,7 +1505,7 @@ NineSlicePlane.rotation
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14639
+node_modules/pixi.js/pixi.js.d.ts:15159
 
 ___
 
@@ -1404,13 +1532,13 @@ NineSlicePlane.roundPixels
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14124
+node_modules/pixi.js/pixi.js.d.ts:14583
 
 ___
 
 ### scale
 
-• **scale**: `IPoint`
+• **scale**: `ObservablePoint`
 
 The scale factor of the object.
 Assignment by value since pixi-v4.
@@ -1427,7 +1555,7 @@ NineSlicePlane.scale
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14618
+node_modules/pixi.js/pixi.js.d.ts:15138
 
 ___
 
@@ -1448,7 +1576,7 @@ NineSlicePlane.shader
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14062
+node_modules/pixi.js/pixi.js.d.ts:14521
 
 ___
 
@@ -1474,7 +1602,7 @@ NineSlicePlane.size
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14087
+node_modules/pixi.js/pixi.js.d.ts:14546
 
 ___
 
@@ -1497,7 +1625,7 @@ NineSlicePlane.skew
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14632
+node_modules/pixi.js/pixi.js.d.ts:15152
 
 ___
 
@@ -1518,7 +1646,7 @@ NineSlicePlane.sortDirty
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14219
+node_modules/pixi.js/pixi.js.d.ts:14678
 
 ___
 
@@ -1554,7 +1682,7 @@ NineSlicePlane.sortableChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14212
+node_modules/pixi.js/pixi.js.d.ts:14671
 
 ___
 
@@ -1580,7 +1708,7 @@ NineSlicePlane.start
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14081
+node_modules/pixi.js/pixi.js.d.ts:14540
 
 ___
 
@@ -1601,7 +1729,7 @@ NineSlicePlane.state
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14068
+node_modules/pixi.js/pixi.js.d.ts:14527
 
 ___
 
@@ -1619,7 +1747,7 @@ NineSlicePlane.texture
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14138
+node_modules/pixi.js/pixi.js.d.ts:14597
 
 ___
 
@@ -1644,7 +1772,7 @@ NineSlicePlane.tint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14132
+node_modules/pixi.js/pixi.js.d.ts:14591
 
 ___
 
@@ -1662,7 +1790,7 @@ NineSlicePlane.topHeight
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14033
+node_modules/pixi.js/pixi.js.d.ts:14492
 
 ___
 
@@ -1687,7 +1815,7 @@ NineSlicePlane.transform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14404
+node_modules/pixi.js/pixi.js.d.ts:14883
 
 ___
 
@@ -1705,7 +1833,7 @@ NineSlicePlane.uvBuffer
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14093
+node_modules/pixi.js/pixi.js.d.ts:14552
 
 ___
 
@@ -1724,7 +1852,7 @@ NineSlicePlane.verticesBuffer
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14100
+node_modules/pixi.js/pixi.js.d.ts:14559
 
 ___
 
@@ -1751,7 +1879,7 @@ NineSlicePlane.visible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14419
+node_modules/pixi.js/pixi.js.d.ts:14898
 
 ___
 
@@ -1769,7 +1897,7 @@ NineSlicePlane.width
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14009
+node_modules/pixi.js/pixi.js.d.ts:14468
 
 ___
 
@@ -1793,7 +1921,7 @@ NineSlicePlane.worldAlpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14442
+node_modules/pixi.js/pixi.js.d.ts:14920
 
 ___
 
@@ -1815,7 +1943,7 @@ NineSlicePlane.worldTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14597
+node_modules/pixi.js/pixi.js.d.ts:15117
 
 ___
 
@@ -1837,7 +1965,7 @@ NineSlicePlane.worldVisible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14662
+node_modules/pixi.js/pixi.js.d.ts:15182
 
 ___
 
@@ -1860,7 +1988,7 @@ NineSlicePlane.x
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14583
+node_modules/pixi.js/pixi.js.d.ts:15103
 
 ___
 
@@ -1883,7 +2011,7 @@ NineSlicePlane.y
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14590
+node_modules/pixi.js/pixi.js.d.ts:15110
 
 ___
 
@@ -1908,7 +2036,7 @@ NineSlicePlane.zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14655
+node_modules/pixi.js/pixi.js.d.ts:15175
 
 ___
 
@@ -1935,7 +2063,7 @@ NineSlicePlane.BATCHABLE\_SIZE
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13144
+node_modules/pixi.js/pixi.js.d.ts:13540
 
 ## Methods
 
@@ -1956,7 +2084,7 @@ NineSlicePlane.\_calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14171
+node_modules/pixi.js/pixi.js.d.ts:14630
 
 ___
 
@@ -1981,7 +2109,7 @@ NineSlicePlane.\_recursivePostUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14516
+node_modules/pixi.js/pixi.js.d.ts:15021
 
 ___
 
@@ -2001,7 +2129,7 @@ NineSlicePlane.\_refresh
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14043
+node_modules/pixi.js/pixi.js.d.ts:14502
 
 ___
 
@@ -2027,7 +2155,7 @@ NineSlicePlane.\_render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14144
+node_modules/pixi.js/pixi.js.d.ts:14603
 
 ___
 
@@ -2053,7 +2181,7 @@ NineSlicePlane.\_renderDefault
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14150
+node_modules/pixi.js/pixi.js.d.ts:14609
 
 ___
 
@@ -2079,13 +2207,13 @@ NineSlicePlane.\_renderToBatch
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14156
+node_modules/pixi.js/pixi.js.d.ts:14615
 
 ___
 
 ### addChild
 
-▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -2101,7 +2229,7 @@ Multiple items can be added like so: `myContainer.addChild(thingOne, thingTwo, t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to add to the container |
+| `...children` | `TChildren` | The DisplayObject(s) to add to the container |
 
 #### Returns
 
@@ -2115,7 +2243,7 @@ NineSlicePlane.addChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14234
+node_modules/pixi.js/pixi.js.d.ts:14693
 
 ___
 
@@ -2150,7 +2278,7 @@ NineSlicePlane.addChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14242
+node_modules/pixi.js/pixi.js.d.ts:14701
 
 ___
 
@@ -2180,7 +2308,7 @@ NineSlicePlane.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24103
+node_modules/pixi.js/pixi.js.d.ts:25521
 
 ▸ **addListener**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
 
@@ -2206,7 +2334,7 @@ NineSlicePlane.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24105
+node_modules/pixi.js/pixi.js.d.ts:25523
 
 ___
 
@@ -2220,17 +2348,13 @@ Recalculates the bounds of the container.
 
 `void`
 
-#### Implementation of
-
-[DShadow](../interfaces/DShadow.md).[calculateBounds](../interfaces/DShadow.md#calculatebounds)
-
 #### Inherited from
 
 NineSlicePlane.calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14305
+node_modules/pixi.js/pixi.js.d.ts:14764
 
 ___
 
@@ -2250,7 +2374,7 @@ NineSlicePlane.calculateUvs
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14164
+node_modules/pixi.js/pixi.js.d.ts:14623
 
 ___
 
@@ -2270,7 +2394,36 @@ NineSlicePlane.calculateVertices
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14160
+node_modules/pixi.js/pixi.js.d.ts:14619
+
+___
+
+### containerUpdateTransform
+
+▸ **containerUpdateTransform**(): `void`
+
+Container default updateTransform, does update children of container.
+Will crash if there's no parent element.
+
+#### Returns
+
+`void`
+
+**`Memberof`**
+
+PIXI.Container#
+
+**`Function`**
+
+containerUpdateTransform
+
+#### Inherited from
+
+NineSlicePlane.containerUpdateTransform
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14794
 
 ___
 
@@ -2284,7 +2437,7 @@ Tests if a point is inside this mesh. Works only for PIXI.DRAW_MODES.TRIANGLES.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `point` | `Point` | the point to test |
+| `point` | `IPointData` | the point to test |
 
 #### Returns
 
@@ -2298,7 +2451,7 @@ NineSlicePlane.containsPoint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14178
+node_modules/pixi.js/pixi.js.d.ts:14637
 
 ___
 
@@ -2329,7 +2482,37 @@ NineSlicePlane.destroy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14187
+node_modules/pixi.js/pixi.js.d.ts:14646
+
+___
+
+### disableTempParent
+
+▸ **disableTempParent**(`cacheParent`): `void`
+
+Pair method for `enableTempParent`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cacheParent` | `DisplayObject` | actual parent of element |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[disableTempParent](../interfaces/DShadow.md#disabletempparent)
+
+#### Inherited from
+
+NineSlicePlane.disableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:15096
 
 ___
 
@@ -2362,7 +2545,7 @@ NineSlicePlane.displayObjectUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14690
+node_modules/pixi.js/pixi.js.d.ts:15210
 
 ___
 
@@ -2395,7 +2578,39 @@ NineSlicePlane.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### enableTempParent
+
+▸ **enableTempParent**(): `DisplayObject`
+
+Used in Renderer, cacheAsBitmap and other places where you call an `updateTransform` on root
+
+```
+const cacheParent = elem.enableTempParent();
+elem.updateTransform();
+elem.disableTempParent(cacheParent);
+```
+
+#### Returns
+
+`DisplayObject`
+
+current parent
+
+#### Implementation of
+
+[DShadow](../interfaces/DShadow.md).[enableTempParent](../interfaces/DShadow.md#enabletempparent)
+
+#### Inherited from
+
+NineSlicePlane.enableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:15091
 
 ___
 
@@ -2419,7 +2634,7 @@ NineSlicePlane.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -2452,7 +2667,7 @@ NineSlicePlane.getBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14526
+node_modules/pixi.js/pixi.js.d.ts:15031
 
 ___
 
@@ -2480,21 +2695,24 @@ NineSlicePlane.getChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14270
+node_modules/pixi.js/pixi.js.d.ts:14729
 
 ___
 
 ### getChildByName
 
-▸ **getChildByName**(`name`): `DisplayObject`
+▸ **getChildByName**(`name`, `deep?`): `DisplayObject`
 
 Returns the display object in the container.
+
+Recursive searches are done in a preorder traversal.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `name` | `string` | Instance name. |
+| `deep?` | `boolean` | Whether to search recursively |
 
 #### Returns
 
@@ -2516,7 +2734,7 @@ NineSlicePlane.getChildByName
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14335
+node_modules/pixi.js/pixi.js.d.ts:14814
 
 ___
 
@@ -2544,7 +2762,7 @@ NineSlicePlane.getChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14256
+node_modules/pixi.js/pixi.js.d.ts:14715
 
 ___
 
@@ -2585,13 +2803,13 @@ NineSlicePlane.getGlobalPosition
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14774
+node_modules/pixi.js/pixi.js.d.ts:15294
 
 ___
 
 ### getLocalBounds
 
-▸ **getLocalBounds**(`rect?`): `Rectangle`
+▸ **getLocalBounds**(`rect?`, `skipChildrenUpdate?`): `Rectangle`
 
 Retrieves the local bounds of the displayObject as a rectangle object.
 
@@ -2600,6 +2818,7 @@ Retrieves the local bounds of the displayObject as a rectangle object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
+| `skipChildrenUpdate?` | `boolean` | Setting to `true` will stop re-calculation of children transforms, it was default behaviour of pixi 4.0-5.2 and caused many problems to users. |
 
 #### Returns
 
@@ -2617,7 +2836,7 @@ NineSlicePlane.getLocalBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14533
+node_modules/pixi.js/pixi.js.d.ts:14773
 
 ___
 
@@ -2647,7 +2866,7 @@ NineSlicePlane.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -2677,7 +2896,7 @@ NineSlicePlane.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -2707,7 +2926,7 @@ NineSlicePlane.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24116
+node_modules/pixi.js/pixi.js.d.ts:25534
 
 ___
 
@@ -2737,7 +2956,7 @@ NineSlicePlane.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24112
+node_modules/pixi.js/pixi.js.d.ts:25530
 
 ▸ **on**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
 
@@ -2763,7 +2982,7 @@ NineSlicePlane.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24114
+node_modules/pixi.js/pixi.js.d.ts:25532
 
 ___
 
@@ -2783,7 +3002,7 @@ NineSlicePlane.onChildrenChange
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14225
+node_modules/pixi.js/pixi.js.d.ts:14684
 
 ___
 
@@ -2809,7 +3028,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L36)
 
 ___
 
@@ -2823,7 +3042,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L32)
 
 ___
 
@@ -2853,7 +3072,7 @@ NineSlicePlane.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24109
+node_modules/pixi.js/pixi.js.d.ts:25527
 
 ▸ **once**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
 
@@ -2879,7 +3098,7 @@ NineSlicePlane.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24111
+node_modules/pixi.js/pixi.js.d.ts:25529
 
 ___
 
@@ -2907,7 +3126,7 @@ NineSlicePlane.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24098
+node_modules/pixi.js/pixi.js.d.ts:25516
 
 ▸ **removeAllListeners**(`event?`): [`DShadowImpl`](DShadowImpl.md)
 
@@ -2931,13 +3150,13 @@ NineSlicePlane.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24099
+node_modules/pixi.js/pixi.js.d.ts:25517
 
 ___
 
 ### removeChild
 
-▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -2951,7 +3170,7 @@ Removes one or more children from the container.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to remove |
+| `...children` | `TChildren` | The DisplayObject(s) to remove |
 
 #### Returns
 
@@ -2965,7 +3184,7 @@ NineSlicePlane.removeChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14277
+node_modules/pixi.js/pixi.js.d.ts:14736
 
 ___
 
@@ -2993,7 +3212,7 @@ NineSlicePlane.removeChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14284
+node_modules/pixi.js/pixi.js.d.ts:14743
 
 ___
 
@@ -3022,7 +3241,7 @@ NineSlicePlane.removeChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14292
+node_modules/pixi.js/pixi.js.d.ts:14751
 
 ___
 
@@ -3052,7 +3271,7 @@ NineSlicePlane.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24095
+node_modules/pixi.js/pixi.js.d.ts:25513
 
 ▸ **removeListener**(`event`, `fn?`, `context?`): [`DShadowImpl`](DShadowImpl.md)
 
@@ -3078,7 +3297,7 @@ NineSlicePlane.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24097
+node_modules/pixi.js/pixi.js.d.ts:25515
 
 ___
 
@@ -3086,13 +3305,11 @@ ___
 
 ▸ **render**(`renderer`): `void`
 
-Renders the object using the WebGL renderer.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `renderer` | `Renderer` | The renderer. |
+| Name | Type |
+| :------ | :------ |
+| `renderer` | `Renderer` |
 
 #### Returns
 
@@ -3108,7 +3325,7 @@ NineSlicePlane.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L45)
 
 ___
 
@@ -3134,7 +3351,7 @@ NineSlicePlane.renderAdvanced
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14318
+node_modules/pixi.js/pixi.js.d.ts:14786
 
 ___
 
@@ -3161,7 +3378,7 @@ NineSlicePlane.setChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14263
+node_modules/pixi.js/pixi.js.d.ts:14722
 
 ___
 
@@ -3193,7 +3410,7 @@ NineSlicePlane.setParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14561
+node_modules/pixi.js/pixi.js.d.ts:15059
 
 ___
 
@@ -3233,7 +3450,7 @@ NineSlicePlane.setTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14576
+node_modules/pixi.js/pixi.js.d.ts:15074
 
 ___
 
@@ -3253,7 +3470,7 @@ NineSlicePlane.sortChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14296
+node_modules/pixi.js/pixi.js.d.ts:14755
 
 ___
 
@@ -3280,7 +3497,7 @@ NineSlicePlane.swapChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14249
+node_modules/pixi.js/pixi.js.d.ts:14708
 
 ___
 
@@ -3301,13 +3518,13 @@ NineSlicePlane.textureUpdated
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14048
+node_modules/pixi.js/pixi.js.d.ts:14507
 
 ___
 
 ### toGlobal
 
-▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the global position of the display object.
 
@@ -3315,13 +3532,13 @@ Calculates the global position of the display object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `position` | `IPointData` | The world origin to calculate from. |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object.
 
@@ -3335,13 +3552,13 @@ NineSlicePlane.toGlobal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14543
+node_modules/pixi.js/pixi.js.d.ts:15041
 
 ___
 
 ### toLocal
 
-▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the local position of the display object relative to another point.
 
@@ -3349,14 +3566,14 @@ Calculates the local position of the display object relative to another point.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
+| `position` | `IPointData` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object
 
@@ -3370,7 +3587,7 @@ NineSlicePlane.toLocal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14554
+node_modules/pixi.js/pixi.js.d.ts:15052
 
 ___
 
@@ -3390,7 +3607,7 @@ NineSlicePlane.updateHorizontalVertices
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13998
+node_modules/pixi.js/pixi.js.d.ts:14457
 
 ___
 
@@ -3414,7 +3631,7 @@ NineSlicePlane.updateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14300
+node_modules/pixi.js/pixi.js.d.ts:14759
 
 ___
 
@@ -3434,7 +3651,7 @@ NineSlicePlane.updateVerticalVertices
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:14003
+node_modules/pixi.js/pixi.js.d.ts:14462
 
 ___
 
@@ -3460,4 +3677,4 @@ NineSlicePlane.mixin
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8979
+node_modules/pixi.js/pixi.js.d.ts:9230

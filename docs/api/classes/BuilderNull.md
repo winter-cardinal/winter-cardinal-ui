@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / BuilderNull
+[Winter Cardinal UI - v0.407.0](../index.md) / BuilderNull
 
 # Class: BuilderNull
 
@@ -14,6 +14,7 @@
 
 ### Properties
 
+- [buffer](BuilderNull.md#buffer)
 - [indexCount](BuilderNull.md#indexcount)
 - [indexOffset](BuilderNull.md#indexoffset)
 - [texture](BuilderNull.md#texture)
@@ -25,18 +26,20 @@
 - [buildUnit](BuilderNull.md#buildunit)
 - [init](BuilderNull.md#init)
 - [isCompatible](BuilderNull.md#iscompatible)
+- [reinit](BuilderNull.md#reinit)
 - [update](BuilderNull.md#update)
 
 ## Constructors
 
 ### constructor
 
-• **new BuilderNull**(`vertexOffset`, `indexOffset`): [`BuilderNull`](BuilderNull.md)
+• **new BuilderNull**(`buffer`, `vertexOffset`, `indexOffset`): [`BuilderNull`](BuilderNull.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `buffer` | [`BuilderBuffer`](../interfaces/BuilderBuffer.md) |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
 
@@ -46,13 +49,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L21)
 
 ## Properties
 
+### buffer
+
+• **buffer**: [`BuilderBuffer`](../interfaces/BuilderBuffer.md)
+
+#### Implementation of
+
+[Builder](../interfaces/Builder.md).[buffer](../interfaces/Builder.md#buffer)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L13)
+
+___
+
 ### indexCount
 
-• `Readonly` **indexCount**: `number`
+• **indexCount**: `number`
 
 #### Implementation of
 
@@ -60,13 +77,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L17)
 
 ___
 
 ### indexOffset
 
-• `Readonly` **indexOffset**: `number`
+• **indexOffset**: `number`
 
 #### Implementation of
 
@@ -74,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L16)
 
 ___
 
@@ -84,13 +101,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L19)
 
 ___
 
 ### vertexCount
 
-• `Readonly` **vertexCount**: `number`
+• **vertexCount**: `number`
 
 #### Implementation of
 
@@ -98,13 +115,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L15)
 
 ___
 
 ### vertexOffset
 
-• `Readonly` **vertexOffset**: `number`
+• **vertexOffset**: `number`
 
 #### Implementation of
 
@@ -112,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L14)
 
 ## Methods
 
@@ -136,23 +153,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L55)
 
 ___
 
 ### init
 
-▸ **init**(`buffer`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `buffer` | [`EShapeBuffer`](EShapeBuffer.md) |
+▸ **init**(): [`BuilderNull`](BuilderNull.md)
 
 #### Returns
 
-`void`
+[`BuilderNull`](BuilderNull.md)
 
 #### Implementation of
 
@@ -160,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L31)
 
 ___
 
@@ -184,19 +195,45 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L47)
 
 ___
 
-### update
+### reinit
 
-▸ **update**(`buffer`, `shape`): `void`
+▸ **reinit**(`buffer`, `shape`, `vertexOffset`, `indexOffset`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `buffer` | [`EShapeBuffer`](EShapeBuffer.md) |
+| `buffer` | [`BuilderBuffer`](../interfaces/BuilderBuffer.md) |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `vertexOffset` | `number` |
+| `indexOffset` | `number` |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[Builder](../interfaces/Builder.md).[reinit](../interfaces/Builder.md#reinit)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L35)
+
+___
+
+### update
+
+▸ **update**(`shape`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 
 #### Returns
@@ -209,4 +246,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L51)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetSubImpl
+[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateSetSubImpl
 
 # Class: DBaseStateSetSubImpl
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L10)
 
 ## Properties
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L8)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L8)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L6)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L6)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L7)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L7)
 
 ## Methods
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L16)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L74)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L74)
 
 ___
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L70)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L70)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L46)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L46)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L48)
 
 ___
 
@@ -217,4 +217,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L62)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-impl.ts#L62)

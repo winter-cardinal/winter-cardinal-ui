@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDialogSelectCategory
+[Winter Cardinal UI - v0.407.0](../index.md) / DDialogSelectCategory
 
 # Interface: DDialogSelectCategory\<CATEGORY_ID\>
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L76)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L75)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L77)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L76)

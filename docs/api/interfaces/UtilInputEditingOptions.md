@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / UtilInputEditingOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / UtilInputEditingOptions
 
 # Interface: UtilInputEditingOptions\<VALUE\>
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-input.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-input.ts#L30)
+[src/main/typescript/wcardinal/ui/util/util-input.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-input.ts#L30)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-input.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-input.ts#L31)
+[src/main/typescript/wcardinal/ui/util/util-input.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-input.ts#L31)
 
 ___
 
@@ -86,4 +86,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-input.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-input.ts#L32)
+[src/main/typescript/wcardinal/ui/util/util-input.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-input.ts#L32)

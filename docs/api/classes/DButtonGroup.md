@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DButtonGroup
+[Winter Cardinal UI - v0.407.0](../index.md) / DButtonGroup
 
 # Class: DButtonGroup\<BUTTON, OPTIONS\>
 
@@ -83,7 +83,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L45)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L45)
 
 ## Properties
 
@@ -93,7 +93,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L41)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L41)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L40)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L40)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L43)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L43)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L42)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L42)
 
 ## Accessors
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L86)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L86)
 
 • `set` **active**(`newActive`): `void`
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L90)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L90)
 
 ## Methods
 
@@ -187,7 +187,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L69)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L69)
 
 ___
 
@@ -215,7 +215,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -229,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L124)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L124)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L118)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L118)
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L163)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L163)
 
 ___
 
@@ -277,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L147)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L147)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L137)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L137)
 
 ___
 
@@ -326,7 +326,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -340,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L155)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L155)
 
 ___
 
@@ -360,7 +360,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -386,7 +386,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -412,7 +412,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -441,7 +441,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -471,7 +471,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -501,7 +501,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -521,7 +521,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L105)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L105)
 
 ___
 
@@ -549,7 +549,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -580,7 +580,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -594,4 +594,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-group.ts#L133)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L133)

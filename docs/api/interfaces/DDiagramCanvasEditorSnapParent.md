@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasEditorSnapParent
+[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramCanvasEditorSnapParent
 
 # Interface: DDiagramCanvasEditorSnapParent
 
@@ -15,8 +15,13 @@
 - [\_accessibleActive](DDiagramCanvasEditorSnapParent.md#_accessibleactive)
 - [\_accessibleDiv](DDiagramCanvasEditorSnapParent.md#_accessiblediv)
 - [\_bounds](DDiagramCanvasEditorSnapParent.md#_bounds)
+- [\_boundsID](DDiagramCanvasEditorSnapParent.md#_boundsid)
+- [\_boundsRect](DDiagramCanvasEditorSnapParent.md#_boundsrect)
 - [\_destroyed](DDiagramCanvasEditorSnapParent.md#_destroyed)
+- [\_enabledFilters](DDiagramCanvasEditorSnapParent.md#_enabledfilters)
 - [\_lastSortedIndex](DDiagramCanvasEditorSnapParent.md#_lastsortedindex)
+- [\_localBounds](DDiagramCanvasEditorSnapParent.md#_localbounds)
+- [\_localBoundsRect](DDiagramCanvasEditorSnapParent.md#_localboundsrect)
 - [\_mask](DDiagramCanvasEditorSnapParent.md#_mask)
 - [\_tempDisplayObjectParent](DDiagramCanvasEditorSnapParent.md#_tempdisplayobjectparent)
 - [\_zIndex](DDiagramCanvasEditorSnapParent.md#_zindex)
@@ -71,9 +76,12 @@
 - [addChildAt](DDiagramCanvasEditorSnapParent.md#addchildat)
 - [addListener](DDiagramCanvasEditorSnapParent.md#addlistener)
 - [calculateBounds](DDiagramCanvasEditorSnapParent.md#calculatebounds)
+- [containerUpdateTransform](DDiagramCanvasEditorSnapParent.md#containerupdatetransform)
 - [destroy](DDiagramCanvasEditorSnapParent.md#destroy)
+- [disableTempParent](DDiagramCanvasEditorSnapParent.md#disabletempparent)
 - [displayObjectUpdateTransform](DDiagramCanvasEditorSnapParent.md#displayobjectupdatetransform)
 - [emit](DDiagramCanvasEditorSnapParent.md#emit)
+- [enableTempParent](DDiagramCanvasEditorSnapParent.md#enabletempparent)
 - [eventNames](DDiagramCanvasEditorSnapParent.md#eventnames)
 - [getBounds](DDiagramCanvasEditorSnapParent.md#getbounds)
 - [getChildAt](DDiagramCanvasEditorSnapParent.md#getchildat)
@@ -126,7 +134,7 @@ Container.\_accessibleActive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8489
+node_modules/pixi.js/pixi.js.d.ts:8559
 
 ___
 
@@ -150,13 +158,13 @@ Container.\_accessibleDiv
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8495
+node_modules/pixi.js/pixi.js.d.ts:8565
 
 ___
 
 ### \_bounds
 
-• `Protected` **\_bounds**: `Bounds`
+• **\_bounds**: `Bounds`
 
 The bounds object, this is used to calculate and store the bounds of the displayObject.
 
@@ -170,7 +178,47 @@ Container.\_bounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8607
+node_modules/pixi.js/pixi.js.d.ts:8681
+
+___
+
+### \_boundsID
+
+• `Protected` **\_boundsID**: `number`
+
+Flags the cached bounds as dirty.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsID
+
+#### Inherited from
+
+Container.\_boundsID
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8694
+
+___
+
+### \_boundsRect
+
+• `Protected` **\_boundsRect**: `Bounds`
+
+Cache of this display-object's bounds-rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsRect
+
+#### Inherited from
+
+Container.\_boundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8701
 
 ___
 
@@ -190,7 +238,27 @@ Container.\_destroyed
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8621
+node_modules/pixi.js/pixi.js.d.ts:8722
+
+___
+
+### \_enabledFilters
+
+• `Protected` **\_enabledFilters**: `Filter`[]
+
+Currently enabled filters
+
+**`Member`**
+
+PIXI.DisplayObject#_enabledFilters
+
+#### Inherited from
+
+Container.\_enabledFilters
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8675
 
 ___
 
@@ -211,13 +279,53 @@ Container.\_lastSortedIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8575
+node_modules/pixi.js/pixi.js.d.ts:8644
+
+___
+
+### \_localBounds
+
+• **\_localBounds**: `Bounds`
+
+Local bounds object, swapped with `_bounds` when using `getLocalBounds()`.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBounds
+
+#### Inherited from
+
+Container.\_localBounds
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8687
+
+___
+
+### \_localBoundsRect
+
+• `Protected` **\_localBoundsRect**: `Bounds`
+
+Cache of this display-object's local-bounds rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBoundsRect
+
+#### Inherited from
+
+Container.\_localBoundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8708
 
 ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
+• `Protected` **\_mask**: ``null`` \| `Container` \| `MaskData`
 
 The original, cached mask of the object.
 
@@ -231,13 +339,13 @@ Container.\_mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8614
+node_modules/pixi.js/pixi.js.d.ts:8715
 
 ___
 
 ### \_tempDisplayObjectParent
 
-• `Protected` **\_tempDisplayObjectParent**: `DisplayObject`
+• `Protected` **\_tempDisplayObjectParent**: `Container`
 
 **`Member`**
 
@@ -247,7 +355,7 @@ Container.\_tempDisplayObjectParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8636
+node_modules/pixi.js/pixi.js.d.ts:8795
 
 ___
 
@@ -268,7 +376,7 @@ Container.\_zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8583
+node_modules/pixi.js/pixi.js.d.ts:8652
 
 ___
 
@@ -291,7 +399,7 @@ Container.accessible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8468
+node_modules/pixi.js/pixi.js.d.ts:8538
 
 ___
 
@@ -320,7 +428,7 @@ Container.accessibleChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8522
+node_modules/pixi.js/pixi.js.d.ts:8592
 
 ___
 
@@ -342,7 +450,7 @@ Container.accessibleHint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8483
+node_modules/pixi.js/pixi.js.d.ts:8553
 
 ___
 
@@ -371,7 +479,7 @@ Container.accessiblePointerEvents
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8513
+node_modules/pixi.js/pixi.js.d.ts:8583
 
 ___
 
@@ -394,7 +502,7 @@ Container.accessibleTitle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8476
+node_modules/pixi.js/pixi.js.d.ts:8546
 
 ___
 
@@ -423,7 +531,7 @@ Container.accessibleType
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8504
+node_modules/pixi.js/pixi.js.d.ts:8574
 
 ___
 
@@ -443,7 +551,7 @@ Container.alpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8535
+node_modules/pixi.js/pixi.js.d.ts:8605
 
 ___
 
@@ -462,7 +570,7 @@ Container.angle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8771
+node_modules/pixi.js/pixi.js.d.ts:8882
 
 ___
 
@@ -493,7 +601,7 @@ Container.buttonMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8853
+node_modules/pixi.js/pixi.js.d.ts:8964
 
 ___
 
@@ -521,7 +629,7 @@ Container.cacheAsBitmap
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8880
+node_modules/pixi.js/pixi.js.d.ts:8991
 
 ___
 
@@ -541,7 +649,7 @@ Container.children
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8277
+node_modules/pixi.js/pixi.js.d.ts:8327
 
 ___
 
@@ -576,7 +684,7 @@ Container.cursor
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8867
+node_modules/pixi.js/pixi.js.d.ts:8978
 
 ___
 
@@ -599,7 +707,7 @@ Container.filterArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8592
+node_modules/pixi.js/pixi.js.d.ts:8661
 
 ___
 
@@ -621,7 +729,7 @@ Container.filters
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8600
+node_modules/pixi.js/pixi.js.d.ts:8669
 
 ___
 
@@ -635,7 +743,7 @@ Container.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L79)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L79)
 
 ___
 
@@ -666,7 +774,7 @@ Container.hitArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8841
+node_modules/pixi.js/pixi.js.d.ts:8952
 
 ___
 
@@ -699,7 +807,7 @@ Container.interactive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8829
+node_modules/pixi.js/pixi.js.d.ts:8940
 
 ___
 
@@ -722,7 +830,7 @@ Container.interactiveChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8451
+node_modules/pixi.js/pixi.js.d.ts:8518
 
 ___
 
@@ -742,7 +850,7 @@ Container.isMask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8631
+node_modules/pixi.js/pixi.js.d.ts:8732
 
 ___
 
@@ -762,7 +870,7 @@ Container.isSprite
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8626
+node_modules/pixi.js/pixi.js.d.ts:8727
 
 ___
 
@@ -780,13 +888,13 @@ Container.localTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8729
+node_modules/pixi.js/pixi.js.d.ts:8840
 
 ___
 
 ### mask
 
-• **mask**: `Container` \| `MaskData`
+• **mask**: ``null`` \| `Container` \| `MaskData`
 
 Sets a mask for the displayObject. A mask is an object that limits the visibility of an
 object to the shape of the mask applied to it. In PixiJS a regular mask must be a
@@ -819,7 +927,7 @@ Container.mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8807
+node_modules/pixi.js/pixi.js.d.ts:8918
 
 ___
 
@@ -843,13 +951,13 @@ Container.name
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8887
+node_modules/pixi.js/pixi.js.d.ts:8998
 
 ___
 
 ### parent
 
-• `Readonly` **parent**: `Container`
+• **parent**: `Container`
 
 The display object container that contains this display object.
 
@@ -863,13 +971,13 @@ Container.parent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8560
+node_modules/pixi.js/pixi.js.d.ts:8629
 
 ___
 
 ### pivot
 
-• **pivot**: `IPoint`
+• **pivot**: `ObservablePoint`
 
 The pivot point of the displayObject that it rotates around.
 Assignment by value since pixi-v4.
@@ -882,13 +990,13 @@ Container.pivot
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8750
+node_modules/pixi.js/pixi.js.d.ts:8861
 
 ___
 
 ### position
 
-• **position**: `IPoint`
+• **position**: `ObservablePoint`
 
 The coordinate of the object relative to the local coordinates of the parent.
 Assignment by value since pixi-v4.
@@ -901,7 +1009,7 @@ Container.position
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8736
+node_modules/pixi.js/pixi.js.d.ts:8847
 
 ___
 
@@ -924,7 +1032,7 @@ Container.renderable
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8553
+node_modules/pixi.js/pixi.js.d.ts:8623
 
 ___
 
@@ -943,13 +1051,13 @@ Container.rotation
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8764
+node_modules/pixi.js/pixi.js.d.ts:8875
 
 ___
 
 ### scale
 
-• **scale**: `IPoint`
+• **scale**: `ObservablePoint`
 
 The scale factor of the object.
 Assignment by value since pixi-v4.
@@ -962,7 +1070,7 @@ Container.scale
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8743
+node_modules/pixi.js/pixi.js.d.ts:8854
 
 ___
 
@@ -981,7 +1089,7 @@ Container.skew
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8757
+node_modules/pixi.js/pixi.js.d.ts:8868
 
 ___
 
@@ -1002,7 +1110,7 @@ Container.sortDirty
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8300
+node_modules/pixi.js/pixi.js.d.ts:8350
 
 ___
 
@@ -1038,7 +1146,7 @@ Container.sortableChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8293
+node_modules/pixi.js/pixi.js.d.ts:8343
 
 ___
 
@@ -1059,7 +1167,7 @@ Container.transform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8529
+node_modules/pixi.js/pixi.js.d.ts:8599
 
 ___
 
@@ -1082,7 +1190,7 @@ Container.visible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8544
+node_modules/pixi.js/pixi.js.d.ts:8614
 
 ___
 
@@ -1096,7 +1204,7 @@ Container.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L78)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L78)
 
 ___
 
@@ -1116,7 +1224,7 @@ Container.worldAlpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8567
+node_modules/pixi.js/pixi.js.d.ts:8636
 
 ___
 
@@ -1134,7 +1242,7 @@ Container.worldTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8722
+node_modules/pixi.js/pixi.js.d.ts:8833
 
 ___
 
@@ -1152,7 +1260,7 @@ Container.worldVisible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8787
+node_modules/pixi.js/pixi.js.d.ts:8898
 
 ___
 
@@ -1171,7 +1279,7 @@ Container.x
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8708
+node_modules/pixi.js/pixi.js.d.ts:8819
 
 ___
 
@@ -1190,7 +1298,7 @@ Container.y
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8715
+node_modules/pixi.js/pixi.js.d.ts:8826
 
 ___
 
@@ -1211,7 +1319,7 @@ Container.zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8780
+node_modules/pixi.js/pixi.js.d.ts:8891
 
 ## Methods
 
@@ -1232,7 +1340,7 @@ Container.\_calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8393
+node_modules/pixi.js/pixi.js.d.ts:8452
 
 ___
 
@@ -1253,7 +1361,7 @@ Container.\_recursivePostUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8641
+node_modules/pixi.js/pixi.js.d.ts:8737
 
 ___
 
@@ -1279,13 +1387,13 @@ Container.\_render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8413
+node_modules/pixi.js/pixi.js.d.ts:8472
 
 ___
 
 ### addChild
 
-▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -1301,7 +1409,7 @@ Multiple items can be added like so: `myContainer.addChild(thingOne, thingTwo, t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to add to the container |
+| `...children` | `TChildren` | The DisplayObject(s) to add to the container |
 
 #### Returns
 
@@ -1315,7 +1423,7 @@ Container.addChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8315
+node_modules/pixi.js/pixi.js.d.ts:8365
 
 ___
 
@@ -1350,7 +1458,7 @@ Container.addChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8323
+node_modules/pixi.js/pixi.js.d.ts:8373
 
 ___
 
@@ -1376,7 +1484,7 @@ Container.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24103
+node_modules/pixi.js/pixi.js.d.ts:25521
 
 ▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
 
@@ -1398,7 +1506,7 @@ Container.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24105
+node_modules/pixi.js/pixi.js.d.ts:25523
 
 ___
 
@@ -1418,7 +1526,36 @@ Container.calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8386
+node_modules/pixi.js/pixi.js.d.ts:8436
+
+___
+
+### containerUpdateTransform
+
+▸ **containerUpdateTransform**(): `void`
+
+Container default updateTransform, does update children of container.
+Will crash if there's no parent element.
+
+#### Returns
+
+`void`
+
+**`Memberof`**
+
+PIXI.Container#
+
+**`Function`**
+
+containerUpdateTransform
+
+#### Inherited from
+
+Container.containerUpdateTransform
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8510
 
 ___
 
@@ -1448,7 +1585,33 @@ Container.destroy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8427
+node_modules/pixi.js/pixi.js.d.ts:8486
+
+___
+
+### disableTempParent
+
+▸ **disableTempParent**(`cacheParent`): `void`
+
+Pair method for `enableTempParent`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cacheParent` | `DisplayObject` | actual parent of element |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Container.disableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8812
 
 ___
 
@@ -1477,7 +1640,7 @@ Container.displayObjectUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8815
+node_modules/pixi.js/pixi.js.d.ts:8926
 
 ___
 
@@ -1506,7 +1669,35 @@ Container.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### enableTempParent
+
+▸ **enableTempParent**(): `DisplayObject`
+
+Used in Renderer, cacheAsBitmap and other places where you call an `updateTransform` on root
+
+```
+const cacheParent = elem.enableTempParent();
+elem.updateTransform();
+elem.disableTempParent(cacheParent);
+```
+
+#### Returns
+
+`DisplayObject`
+
+current parent
+
+#### Inherited from
+
+Container.enableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:8807
 
 ___
 
@@ -1526,7 +1717,7 @@ Container.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -1555,7 +1746,7 @@ Container.getBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8651
+node_modules/pixi.js/pixi.js.d.ts:8747
 
 ___
 
@@ -1583,21 +1774,24 @@ Container.getChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8351
+node_modules/pixi.js/pixi.js.d.ts:8401
 
 ___
 
 ### getChildByName
 
-▸ **getChildByName**(`name`): `DisplayObject`
+▸ **getChildByName**(`name`, `deep?`): `DisplayObject`
 
 Returns the display object in the container.
+
+Recursive searches are done in a preorder traversal.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `name` | `string` | Instance name. |
+| `deep?` | `boolean` | Whether to search recursively |
 
 #### Returns
 
@@ -1619,7 +1813,7 @@ Container.getChildByName
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8460
+node_modules/pixi.js/pixi.js.d.ts:8530
 
 ___
 
@@ -1647,7 +1841,7 @@ Container.getChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8337
+node_modules/pixi.js/pixi.js.d.ts:8387
 
 ___
 
@@ -1684,13 +1878,13 @@ Container.getGlobalPosition
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8899
+node_modules/pixi.js/pixi.js.d.ts:9010
 
 ___
 
 ### getLocalBounds
 
-▸ **getLocalBounds**(`rect?`): `Rectangle`
+▸ **getLocalBounds**(`rect?`, `skipChildrenUpdate?`): `Rectangle`
 
 Retrieves the local bounds of the displayObject as a rectangle object.
 
@@ -1699,6 +1893,7 @@ Retrieves the local bounds of the displayObject as a rectangle object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
+| `skipChildrenUpdate?` | `boolean` | Setting to `true` will stop re-calculation of children transforms, it was default behaviour of pixi 4.0-5.2 and caused many problems to users. |
 
 #### Returns
 
@@ -1712,7 +1907,7 @@ Container.getLocalBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8658
+node_modules/pixi.js/pixi.js.d.ts:8445
 
 ___
 
@@ -1738,7 +1933,7 @@ Container.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -1764,7 +1959,7 @@ Container.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -1790,7 +1985,7 @@ Container.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24116
+node_modules/pixi.js/pixi.js.d.ts:25534
 
 ___
 
@@ -1816,7 +2011,7 @@ Container.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24112
+node_modules/pixi.js/pixi.js.d.ts:25530
 
 ▸ **on**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
 
@@ -1838,7 +2033,7 @@ Container.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24114
+node_modules/pixi.js/pixi.js.d.ts:25532
 
 ___
 
@@ -1858,7 +2053,7 @@ Container.onChildrenChange
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8306
+node_modules/pixi.js/pixi.js.d.ts:8356
 
 ___
 
@@ -1884,7 +2079,7 @@ Container.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24109
+node_modules/pixi.js/pixi.js.d.ts:25527
 
 ▸ **once**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
 
@@ -1906,7 +2101,7 @@ Container.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24111
+node_modules/pixi.js/pixi.js.d.ts:25529
 
 ___
 
@@ -1930,7 +2125,7 @@ Container.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24098
+node_modules/pixi.js/pixi.js.d.ts:25516
 
 ▸ **removeAllListeners**(`event?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
 
@@ -1950,13 +2145,13 @@ Container.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24099
+node_modules/pixi.js/pixi.js.d.ts:25517
 
 ___
 
 ### removeChild
 
-▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -1970,7 +2165,7 @@ Removes one or more children from the container.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to remove |
+| `...children` | `TChildren` | The DisplayObject(s) to remove |
 
 #### Returns
 
@@ -1984,7 +2179,7 @@ Container.removeChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8358
+node_modules/pixi.js/pixi.js.d.ts:8408
 
 ___
 
@@ -2012,7 +2207,7 @@ Container.removeChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8365
+node_modules/pixi.js/pixi.js.d.ts:8415
 
 ___
 
@@ -2041,7 +2236,7 @@ Container.removeChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8373
+node_modules/pixi.js/pixi.js.d.ts:8423
 
 ___
 
@@ -2067,7 +2262,7 @@ Container.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24095
+node_modules/pixi.js/pixi.js.d.ts:25513
 
 ▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
 
@@ -2089,7 +2284,7 @@ Container.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24097
+node_modules/pixi.js/pixi.js.d.ts:25515
 
 ___
 
@@ -2115,7 +2310,7 @@ Container.render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8399
+node_modules/pixi.js/pixi.js.d.ts:8458
 
 ___
 
@@ -2141,7 +2336,7 @@ Container.renderAdvanced
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8406
+node_modules/pixi.js/pixi.js.d.ts:8465
 
 ___
 
@@ -2168,7 +2363,7 @@ Container.setChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8344
+node_modules/pixi.js/pixi.js.d.ts:8394
 
 ___
 
@@ -2196,7 +2391,7 @@ Container.setParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8686
+node_modules/pixi.js/pixi.js.d.ts:8775
 
 ___
 
@@ -2232,7 +2427,7 @@ Container.setTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8701
+node_modules/pixi.js/pixi.js.d.ts:8790
 
 ___
 
@@ -2252,7 +2447,7 @@ Container.sortChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8377
+node_modules/pixi.js/pixi.js.d.ts:8427
 
 ___
 
@@ -2279,7 +2474,7 @@ Container.swapChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8330
+node_modules/pixi.js/pixi.js.d.ts:8380
 
 ___
 
@@ -2293,13 +2488,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L80)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L80)
 
 ___
 
 ### toGlobal
 
-▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the global position of the display object.
 
@@ -2307,13 +2502,13 @@ Calculates the global position of the display object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `position` | `IPointData` | The world origin to calculate from. |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object.
 
@@ -2323,13 +2518,13 @@ Container.toGlobal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8668
+node_modules/pixi.js/pixi.js.d.ts:8757
 
 ___
 
 ### toLocal
 
-▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the local position of the display object relative to another point.
 
@@ -2337,14 +2532,14 @@ Calculates the local position of the display object relative to another point.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
+| `position` | `IPointData` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object
 
@@ -2354,7 +2549,7 @@ Container.toLocal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8679
+node_modules/pixi.js/pixi.js.d.ts:8768
 
 ___
 
@@ -2374,4 +2569,4 @@ Container.updateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8381
+node_modules/pixi.js/pixi.js.d.ts:8431

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DPickerTimeBoundMinutes
+[Winter Cardinal UI - v0.407.0](../index.md) / DPickerTimeBoundMinutes
 
 # Class: DPickerTimeBoundMinutes
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L20)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L20)
 
 ## Properties
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L18)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L18)
 
 ## Methods
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L62)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L62)
 
 ___
 
@@ -85,4 +85,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L24)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-minutes.ts#L24)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DColorStandard
+[Winter Cardinal UI - v0.407.0](../index.md) / DColorStandard
 
 # Class: DColorStandard
 
@@ -58,7 +58,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L15)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L15)
 
 ## Properties
 
@@ -68,7 +68,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L13)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L13)
 
 ## Methods
 
@@ -96,7 +96,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L54)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L54)
 
 ___
 
@@ -145,7 +145,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -165,7 +165,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L20)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L20)
 
 ___
 
@@ -211,7 +211,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -237,7 +237,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -266,7 +266,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -296,7 +296,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -326,7 +326,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -354,7 +354,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -385,7 +385,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -406,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L28)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L28)
 
 ___
 
@@ -426,7 +426,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L39)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L39)
 
 ___
 
@@ -440,4 +440,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-standard.ts#L64)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L64)

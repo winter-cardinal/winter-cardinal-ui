@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DAnimationEvents
+[Winter Cardinal UI - v0.407.0](../index.md) / DAnimationEvents
 
 # Interface: DAnimationEvents\<EMITTER\>
 
@@ -40,7 +40,7 @@ Triggered when an animation ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L84)
+[src/main/typescript/wcardinal/ui/d-animation.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L84)
 
 ___
 
@@ -63,7 +63,7 @@ Triggered when an animation starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L66)
+[src/main/typescript/wcardinal/ui/d-animation.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L66)
 
 ___
 
@@ -86,7 +86,7 @@ Triggered when an animation stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L92)
+[src/main/typescript/wcardinal/ui/d-animation.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L92)
 
 ___
 
@@ -111,4 +111,4 @@ Triggered constantly when an animation is on a run.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L76)
+[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L76)

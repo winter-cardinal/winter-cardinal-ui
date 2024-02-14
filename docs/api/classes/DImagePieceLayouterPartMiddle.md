@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DImagePieceLayouterPartMiddle
+[Winter Cardinal UI - v0.407.0](../index.md) / DImagePieceLayouterPartMiddle
 
 # Class: DImagePieceLayouterPartMiddle
 
@@ -16,6 +16,7 @@
 
 ### Properties
 
+- [\_bounds](DImagePieceLayouterPartMiddle.md#_bounds)
 - [\_margin](DImagePieceLayouterPartMiddle.md#_margin)
 - [\_pieces](DImagePieceLayouterPartMiddle.md#_pieces)
 - [\_size](DImagePieceLayouterPartMiddle.md#_size)
@@ -48,9 +49,23 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L11)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L13)
 
 ## Properties
+
+### \_bounds
+
+• `Protected` **\_bounds**: `Rectangle`[]
+
+#### Inherited from
+
+[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[_bounds](DImagePieceLayouterPart.md#_bounds)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L7)
+
+___
 
 ### \_margin
 
@@ -62,13 +77,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L7)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L9)
 
 ___
 
 ### \_pieces
 
-• `Protected` **\_pieces**: [`DImagePiece`](DImagePiece.md)[]
+• `Protected` **\_pieces**: [`DImagePiece`](../interfaces/DImagePiece.md)[]
 
 #### Inherited from
 
@@ -76,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L5)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L6)
 
 ___
 
@@ -90,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L6)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L8)
 
 ___
 
@@ -104,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L9)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L11)
 
 ## Accessors
 
@@ -122,20 +137,20 @@ DImagePieceLayouterPart.size
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L35)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L34)
 
 ## Methods
 
 ### add
 
-▸ **add**(`image`, `size`, `margin`): `void`
+▸ **add**(`image`, `bound`, `margin`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `image` | [`DImagePiece`](DImagePiece.md) |
-| `size` | `number` |
+| `image` | [`DImagePiece`](../interfaces/DImagePiece.md) |
+| `bound` | `Rectangle` |
 | `margin` | `number` |
 
 #### Returns
@@ -148,7 +163,7 @@ DImagePieceLayouterPart.size
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts#L5)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts#L6)
 
 ___
 
@@ -166,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L17)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L20)
 
 ___
 
@@ -188,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts#L11)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-middle.ts#L12)
 
 ___
 
@@ -212,4 +227,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L31)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L30)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / EShapeAcceptorEdgeSize
+[Winter Cardinal UI - v0.407.0](../index.md) / EShapeAcceptorEdgeSize
 
 # Interface: EShapeAcceptorEdgeSize
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts#L7)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor-edge-size.ts#L8)

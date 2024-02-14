@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DApplicationLayerLike
+[Winter Cardinal UI - v0.407.0](../index.md) / DApplicationLayerLike
 
 # Interface: DApplicationLayerLike
 
@@ -36,6 +36,7 @@
 - [getFocusController](DApplicationLayerLike.md#getfocuscontroller)
 - [getRootElement](DApplicationLayerLike.md#getrootelement)
 - [lock](DApplicationLayerLike.md#lock)
+- [queueResize](DApplicationLayerLike.md#queueresize)
 - [reflow](DApplicationLayerLike.md#reflow)
 - [render](DApplicationLayerLike.md#render)
 - [resize](DApplicationLayerLike.md#resize)
@@ -52,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L8)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L8)
 
 ___
 
@@ -62,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L10)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L10)
 
 ___
 
@@ -82,7 +83,7 @@ Application.loader
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1067
+node_modules/pixi.js/pixi.js.d.ts:1064
 
 ___
 
@@ -92,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L11)
 
 ___
 
@@ -112,7 +113,7 @@ Application.renderer
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1003
+node_modules/pixi.js/pixi.js.d.ts:991
 
 ___
 
@@ -120,7 +121,8 @@ ___
 
 • **resizeTo**: `HTMLElement` \| `Window`
 
-The element or window to resize the application to.
+The HTML element or window to automatically resize the
+renderer's view element to match width and height.
 
 **`Name`**
 
@@ -136,7 +138,7 @@ Application.resizeTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1054
+node_modules/pixi.js/pixi.js.d.ts:1043
 
 ___
 
@@ -154,7 +156,7 @@ Application.screen
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1030
+node_modules/pixi.js/pixi.js.d.ts:1018
 
 ___
 
@@ -174,7 +176,7 @@ Application.stage
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1008
+node_modules/pixi.js/pixi.js.d.ts:996
 
 ___
 
@@ -204,7 +206,7 @@ Application.ticker
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1088
+node_modules/pixi.js/pixi.js.d.ts:1085
 
 ___
 
@@ -222,7 +224,7 @@ Application.view
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1024
+node_modules/pixi.js/pixi.js.d.ts:1012
 
 ___
 
@@ -232,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L9)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L9)
 
 ## Methods
 
@@ -262,7 +264,7 @@ Application.destroy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1043
+node_modules/pixi.js/pixi.js.d.ts:1031
 
 ___
 
@@ -276,7 +278,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L21)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L21)
 
 ___
 
@@ -290,7 +292,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L23)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L23)
 
 ___
 
@@ -304,7 +306,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L20)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L20)
 
 ___
 
@@ -318,7 +320,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L22)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L22)
 
 ___
 
@@ -332,7 +334,33 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L14)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L14)
+
+___
+
+### queueResize
+
+▸ **queueResize**(): `void`
+
+Resize is throttled, so it's
+safe to call this multiple times per frame and it'll
+only be called once.
+
+#### Returns
+
+`void`
+
+**`Method`**
+
+PIXI.Application#queueResize
+
+#### Inherited from
+
+Application.queueResize
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:1050
 
 ___
 
@@ -346,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L18)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L18)
 
 ___
 
@@ -364,7 +392,7 @@ Application.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L17)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L17)
 
 ___
 
@@ -372,8 +400,9 @@ ___
 
 ▸ **resize**(): `void`
 
-If `resizeTo` is set, calling this function
-will resize to the width and height of that element.
+Execute an immediate resize on the renderer, this is not
+throttled and can be expensive to call many times in a row.
+Will resize only if `resizeTo` property is set.
 
 #### Returns
 
@@ -389,7 +418,7 @@ Application.resize
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1060
+node_modules/pixi.js/pixi.js.d.ts:1057
 
 ___
 
@@ -413,7 +442,7 @@ Application.start
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1079
+node_modules/pixi.js/pixi.js.d.ts:1076
 
 ___
 
@@ -437,7 +466,7 @@ Application.stop
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:1073
+node_modules/pixi.js/pixi.js.d.ts:1070
 
 ___
 
@@ -451,7 +480,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L13)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L13)
 
 ___
 
@@ -465,4 +494,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L16)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L16)

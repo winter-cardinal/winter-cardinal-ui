@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDropdownBaseEvents
+[Winter Cardinal UI - v0.407.0](../index.md) / DDropdownBaseEvents
 
 # Interface: DDropdownBaseEvents\<VALUE, TEXT_VALUE, EMITTER\>
 
@@ -75,7 +75,7 @@ Triggered when the button is activated.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-base.ts#L26)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L26)
 
 ___
 
@@ -101,7 +101,7 @@ Triggered when added to a container.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L101)
+[src/main/typescript/wcardinal/ui/d-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L100)
 
 ___
 
@@ -128,7 +128,7 @@ Triggered when an emitter is clicked.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L233)
+[src/main/typescript/wcardinal/ui/d-base.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L232)
 
 ___
 
@@ -156,7 +156,7 @@ Triggered when an emitter is double clicked.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L242)
+[src/main/typescript/wcardinal/ui/d-base.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L241)
 
 ___
 
@@ -183,7 +183,7 @@ Triggered when a pointer gets down on an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L217)
+[src/main/typescript/wcardinal/ui/d-base.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L216)
 
 ___
 
@@ -209,7 +209,7 @@ Triggered when the button is inactivated.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-base.ts#L33)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L33)
 
 ___
 
@@ -235,7 +235,7 @@ Triggered when an initialization is finished.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L94)
+[src/main/typescript/wcardinal/ui/d-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L93)
 
 ___
 
@@ -262,7 +262,7 @@ Triggered when a key gets down.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L185)
+[src/main/typescript/wcardinal/ui/d-base.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L184)
 
 ___
 
@@ -289,7 +289,7 @@ Triggered when a key gets up.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L193)
+[src/main/typescript/wcardinal/ui/d-base.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L192)
 
 ___
 
@@ -319,7 +319,7 @@ Triggered when moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L119)
+[src/main/typescript/wcardinal/ui/d-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L118)
 
 ___
 
@@ -342,7 +342,7 @@ Triggered when a menu is opened.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dropdown-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dropdown-base.ts#L35)
+[src/main/typescript/wcardinal/ui/d-dropdown-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dropdown-base.ts#L35)
 
 ___
 
@@ -369,7 +369,7 @@ Triggered when a pointer gets out of an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L209)
+[src/main/typescript/wcardinal/ui/d-base.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L208)
 
 ___
 
@@ -396,7 +396,7 @@ Triggered when a pointer gets on an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L201)
+[src/main/typescript/wcardinal/ui/d-base.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L200)
 
 ___
 
@@ -422,7 +422,7 @@ Triggered when the button is pressed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-base.ts#L40)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L40)
 
 ___
 
@@ -448,7 +448,7 @@ Triggered when removed from a container.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L108)
+[src/main/typescript/wcardinal/ui/d-base.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L107)
 
 ___
 
@@ -478,7 +478,7 @@ Triggered when resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L130)
+[src/main/typescript/wcardinal/ui/d-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L129)
 
 ___
 
@@ -508,7 +508,7 @@ Triggered when scaled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L147)
+[src/main/typescript/wcardinal/ui/d-base.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L146)
 
 ___
 
@@ -532,7 +532,7 @@ Triggered when a menu item is selected.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dropdown-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dropdown-base.ts#L30)
+[src/main/typescript/wcardinal/ui/d-dropdown-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dropdown-base.ts#L30)
 
 ___
 
@@ -559,7 +559,7 @@ Triggered when a shortcut is pressed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L254)
+[src/main/typescript/wcardinal/ui/d-base.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L253)
 
 ___
 
@@ -589,7 +589,7 @@ Triggered when skewed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L158)
+[src/main/typescript/wcardinal/ui/d-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L157)
 
 ___
 
@@ -617,7 +617,7 @@ Triggered when a state is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L167)
+[src/main/typescript/wcardinal/ui/d-base.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L166)
 
 ___
 
@@ -643,7 +643,7 @@ Triggered when the button is released.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-button-base.ts#L47)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L47)
 
 ___
 
@@ -670,7 +670,7 @@ Triggered when a pointer gets up on an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L225)
+[src/main/typescript/wcardinal/ui/d-base.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L224)
 
 ___
 
@@ -699,4 +699,4 @@ Triggered when a wheel moves.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L177)
+[src/main/typescript/wcardinal/ui/d-base.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L176)

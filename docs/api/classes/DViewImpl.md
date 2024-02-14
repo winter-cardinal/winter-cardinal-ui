@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DViewImpl
+[Winter Cardinal UI - v0.407.0](../index.md) / DViewImpl
 
 # Class: DViewImpl
 
@@ -107,7 +107,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L58)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L58)
 
 ## Properties
 
@@ -117,7 +117,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L30)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L45)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L44)
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L43)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L43)
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L46)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L46)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L54)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L54)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L42)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L42)
 
 ___
 
@@ -187,7 +187,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L48)
 
 ___
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L37)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L37)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L28)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L29)
 
 ___
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L53)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L53)
 
 ___
 
@@ -237,7 +237,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L51)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L51)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L50)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L50)
 
 ___
 
@@ -257,7 +257,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L49)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L49)
 
 ___
 
@@ -267,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L40)
 
 ___
 
@@ -277,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L39)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L39)
 
 ___
 
@@ -287,7 +287,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L38)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L38)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L56)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L56)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L35)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L35)
 
 ___
 
@@ -317,7 +317,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L34)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L34)
 
 ___
 
@@ -327,7 +327,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L33)
 
 ___
 
@@ -337,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L32)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L23)
 
 ## Accessors
 
@@ -365,7 +365,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L141)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L141)
 
 ___
 
@@ -383,7 +383,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L291)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:298](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L298)
 
 • `set` **position**(`position`): `void`
 
@@ -403,7 +403,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L299)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L306)
 
 ___
 
@@ -421,7 +421,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L265)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:272](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L272)
 
 • `set` **scale**(`scale`): `void`
 
@@ -441,7 +441,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L273)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:280](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L280)
 
 ## Methods
 
@@ -469,7 +469,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -498,7 +498,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -518,7 +518,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -545,7 +545,7 @@ Fits into a screen.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L161)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L174)
 
 ___
 
@@ -559,7 +559,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:422](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L422)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:426](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L426)
 
 ___
 
@@ -573,7 +573,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:426](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L426)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:430](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L430)
 
 ___
 
@@ -599,7 +599,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -625,7 +625,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -654,7 +654,7 @@ Moves to the given position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L283)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L290)
 
 ___
 
@@ -683,7 +683,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -713,7 +713,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -734,7 +734,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L382)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:389](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L389)
 
 ___
 
@@ -754,7 +754,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L378)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:385](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L385)
 
 ___
 
@@ -776,7 +776,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:333](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L333)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:340](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L340)
 
 ___
 
@@ -806,7 +806,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -834,7 +834,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -865,7 +865,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -892,7 +892,7 @@ Resets a position and a scale.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L150)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L150)
 
 ___
 
@@ -912,7 +912,7 @@ Stops an animation if exits.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L145)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L145)
 
 ___
 
@@ -925,7 +925,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `local` | `IPoint` |
-| `global` | `IPoint` |
+| `global` | `Point` |
 | `skipUpdate?` | `boolean` |
 
 #### Returns
@@ -938,7 +938,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:325](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L325)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L332)
 
 ___
 
@@ -951,7 +951,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `global` | `IPoint` |
-| `local` | `IPoint` |
+| `local` | `Point` |
 | `skipUpdate?` | `boolean` |
 
 #### Returns
@@ -964,7 +964,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:321](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L321)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L328)
 
 ___
 
@@ -984,7 +984,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:329](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L329)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L336)
 
 ___
 
@@ -1004,7 +1004,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:410](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L410)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:414](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L414)
 
 ___
 
@@ -1035,7 +1035,7 @@ Sets to the specified position and scale.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L307)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:314](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L314)
 
 ___
 
@@ -1064,7 +1064,7 @@ Zooms in / out at the current position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L260)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L267)
 
 ___
 
@@ -1095,7 +1095,7 @@ Zooms into the given position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L219)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L226)
 
 ___
 
@@ -1126,7 +1126,7 @@ Zooms into the specified global position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L246)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L253)
 
 ___
 
@@ -1153,7 +1153,7 @@ Zooms in at the current position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L201)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L208)
 
 ___
 
@@ -1180,4 +1180,4 @@ Zooms out at the current position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view-impl.ts#L210)
+[src/main/typescript/wcardinal/ui/d-view-impl.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-impl.ts#L217)

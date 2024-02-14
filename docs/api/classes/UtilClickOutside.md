@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / UtilClickOutside
+[Winter Cardinal UI - v0.407.0](../index.md) / UtilClickOutside
 
 # Class: UtilClickOutside
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-click-outside.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-click-outside.ts#L14)
+[src/main/typescript/wcardinal/ui/util/util-click-outside.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-click-outside.ts#L13)
 
 ## Methods
 
@@ -55,4 +55,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-click-outside.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-click-outside.ts#L16)
+[src/main/typescript/wcardinal/ui/util/util-click-outside.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-click-outside.ts#L15)

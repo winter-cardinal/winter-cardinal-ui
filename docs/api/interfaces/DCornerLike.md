@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DCornerLike
+[Winter Cardinal UI - v0.407.0](../index.md) / DCornerLike
 
 # Interface: DCornerLike
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-corner.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-corner.ts#L11)
+[src/main/typescript/wcardinal/ui/d-corner.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-corner.ts#L11)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-corner.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-corner.ts#L10)
+[src/main/typescript/wcardinal/ui/d-corner.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-corner.ts#L10)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkButtonChecks
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeDarkButtonChecks
 
 # Class: DThemeDarkButtonChecks
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts#L33)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts#L33)
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts#L25)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-checks.ts#L25)

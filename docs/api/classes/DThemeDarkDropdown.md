@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkDropdown
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeDarkDropdown
 
 # Class: DThemeDarkDropdown
 
@@ -6,9 +6,11 @@ A dropdown theme.
 
 ## Hierarchy
 
-- `DThemeDarkDropdownBase`\<`string`\>
+- [`DThemeDarkDropdownBase`](DThemeDarkDropdownBase.md)\<`string`\>
 
   ↳ **`DThemeDarkDropdown`**
+
+  ↳↳ [`DThemeDarkTableBodyCellActionMenu`](DThemeDarkTableBodyCellActionMenu.md)
 
 ## Implements
 
@@ -55,6 +57,7 @@ A dropdown theme.
 - [getImageAlignWith](DThemeDarkDropdown.md#getimagealignwith)
 - [getImageMarginHorizontal](DThemeDarkDropdown.md#getimagemarginhorizontal)
 - [getImageMarginVertial](DThemeDarkDropdown.md#getimagemarginvertial)
+- [getImageRotation](DThemeDarkDropdown.md#getimagerotation)
 - [getImageSource](DThemeDarkDropdown.md#getimagesource)
 - [getImageTintAlpha](DThemeDarkDropdown.md#getimagetintalpha)
 - [getImageTintColor](DThemeDarkDropdown.md#getimagetintcolor)
@@ -79,6 +82,7 @@ A dropdown theme.
 - [getSecondaryImageAlignWith](DThemeDarkDropdown.md#getsecondaryimagealignwith)
 - [getSecondaryImageMarginHorizontal](DThemeDarkDropdown.md#getsecondaryimagemarginhorizontal)
 - [getSecondaryImageMarginVertial](DThemeDarkDropdown.md#getsecondaryimagemarginvertial)
+- [getSecondaryImageRotation](DThemeDarkDropdown.md#getsecondaryimagerotation)
 - [getSecondaryImageSource](DThemeDarkDropdown.md#getsecondaryimagesource)
 - [getSecondaryImageTintAlpha](DThemeDarkDropdown.md#getsecondaryimagetintalpha)
 - [getSecondaryImageTintColor](DThemeDarkDropdown.md#getsecondaryimagetintcolor)
@@ -88,6 +92,7 @@ A dropdown theme.
 - [getTertiaryImageAlignWith](DThemeDarkDropdown.md#gettertiaryimagealignwith)
 - [getTertiaryImageMarginHorizontal](DThemeDarkDropdown.md#gettertiaryimagemarginhorizontal)
 - [getTertiaryImageMarginVertial](DThemeDarkDropdown.md#gettertiaryimagemarginvertial)
+- [getTertiaryImageRotation](DThemeDarkDropdown.md#gettertiaryimagerotation)
 - [getTertiaryImageTintAlpha](DThemeDarkDropdown.md#gettertiaryimagetintalpha)
 - [getTertiaryImageTintColor](DThemeDarkDropdown.md#gettertiaryimagetintcolor)
 - [getTextAlignHorizontal](DThemeDarkDropdown.md#gettextalignhorizontal)
@@ -122,11 +127,11 @@ A dropdown theme.
 
 #### Inherited from
 
-DThemeDarkDropdownBase\<string\>.constructor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[constructor](DThemeDarkDropdownBase.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L27)
 
 ## Properties
 
@@ -136,11 +141,11 @@ DThemeDarkDropdownBase\<string\>.constructor
 
 #### Inherited from
 
-DThemeDarkDropdownBase.BACKGROUND\_COLOR
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[BACKGROUND_COLOR](DThemeDarkDropdownBase.md#background_color)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L19)
 
 ___
 
@@ -150,11 +155,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.BACKGROUND\_COLOR\_HOVERED
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[BACKGROUND_COLOR_HOVERED](DThemeDarkDropdownBase.md#background_color_hovered)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L20)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L20)
 
 ___
 
@@ -164,11 +169,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.BACKGROUND\_COLOR\_PRESSED
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[BACKGROUND_COLOR_PRESSED](DThemeDarkDropdownBase.md#background_color_pressed)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L21)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L21)
 
 ___
 
@@ -178,11 +183,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.OUTLINE\_COLOR
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[OUTLINE_COLOR](DThemeDarkDropdownBase.md#outline_color)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L23)
 
 ## Methods
 
@@ -206,11 +211,11 @@ DThemeDarkDropdownBase.OUTLINE\_COLOR
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getAlpha](DThemeDarkDropdownBase.md#getalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L35)
 
 ___
 
@@ -236,11 +241,11 @@ Returns a background alpha.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBackgroundAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBackgroundAlpha](DThemeDarkDropdownBase.md#getbackgroundalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L84)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L84)
 
 ___
 
@@ -267,11 +272,11 @@ If the color is null, backgrounds are not be rendered.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBackgroundColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBackgroundColor](DThemeDarkDropdownBase.md#getbackgroundcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L38)
 
 ___
 
@@ -291,11 +296,11 @@ Returns a background texture.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBackgroundTexture
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBackgroundTexture](DThemeDarkDropdownBase.md#getbackgroundtexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L88)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L88)
 
 ___
 
@@ -321,11 +326,11 @@ Returns a border align.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBorderAlign
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBorderAlign](DThemeDarkDropdownBase.md#getborderalign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L104)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L104)
 
 ___
 
@@ -351,11 +356,11 @@ Returns a border alpha.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBorderAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBorderAlpha](DThemeDarkDropdownBase.md#getborderalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L96)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L96)
 
 ___
 
@@ -382,11 +387,11 @@ If the color is null, borders are not be rendered.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBorderColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBorderColor](DThemeDarkDropdownBase.md#getbordercolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L60)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L60)
 
 ___
 
@@ -412,11 +417,11 @@ Returns a border mask.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBorderMask
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBorderMask](DThemeDarkDropdownBase.md#getbordermask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L108)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L108)
 
 ___
 
@@ -436,11 +441,11 @@ Returns a border texture.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBorderTexture
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBorderTexture](DThemeDarkDropdownBase.md#getbordertexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L112)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L112)
 
 ___
 
@@ -466,11 +471,11 @@ Returns a border width.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getBorderWidth
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getBorderWidth](DThemeDarkDropdownBase.md#getborderwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L100)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L100)
 
 ___
 
@@ -491,11 +496,11 @@ A clear type is for layout classes including [DLayoutVertical](DLayoutVertical.m
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getClearType
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getClearType](DThemeDarkDropdownBase.md#getcleartype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L167)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L167)
 
 ___
 
@@ -519,11 +524,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getColor](DThemeDarkDropdownBase.md#getcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L52)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L52)
 
 ___
 
@@ -543,11 +548,11 @@ Returns a corner mask.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getCornerMask
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getCornerMask](DThemeDarkDropdownBase.md#getcornermask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L136)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L136)
 
 ___
 
@@ -567,11 +572,11 @@ Returns a corner radius.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getCornerRadius
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getCornerRadius](DThemeDarkDropdownBase.md#getcornerradius)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L132)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L132)
 
 ___
 
@@ -597,11 +602,11 @@ Returns a cursor.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getCursor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getCursor](DThemeDarkDropdownBase.md#getcursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L126)
 
 ___
 
@@ -619,11 +624,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getFontFamilly
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getFontFamilly](DThemeDarkDropdownBase.md#getfontfamilly)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L11)
 
 ___
 
@@ -641,11 +646,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getFontSize
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getFontSize](DThemeDarkDropdownBase.md#getfontsize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L15)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L15)
 
 ___
 
@@ -663,11 +668,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getFontStyle
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getFontStyle](DThemeDarkDropdownBase.md#getfontstyle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L27)
 
 ___
 
@@ -685,11 +690,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getFontVariant
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getFontVariant](DThemeDarkDropdownBase.md#getfontvariant)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L31)
 
 ___
 
@@ -707,11 +712,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getFontWeight
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getFontWeight](DThemeDarkDropdownBase.md#getfontweight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L23)
 
 ___
 
@@ -731,11 +736,11 @@ Returns a height.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getHeight
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getHeight](DThemeDarkDropdownBase.md#getheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L98)
 
 ___
 
@@ -753,11 +758,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageAlignHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageAlignHorizontal](DThemeDarkDropdownBase.md#getimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L18)
 
 ___
 
@@ -775,11 +780,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageAlignVertical
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageAlignVertical](DThemeDarkDropdownBase.md#getimagealignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L22)
 
 ___
 
@@ -797,11 +802,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageAlignWith
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageAlignWith](DThemeDarkDropdownBase.md#getimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L26)
 
 ___
 
@@ -819,11 +824,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageMarginHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageMarginHorizontal](DThemeDarkDropdownBase.md#getimagemarginhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L30)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L30)
 
 ___
 
@@ -841,11 +846,39 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageMarginVertial
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageMarginVertial](DThemeDarkDropdownBase.md#getimagemarginvertial)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L34)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L34)
+
+___
+
+### getImageRotation
+
+▸ **getImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemeDropdown](../interfaces/DThemeDropdown.md).[getImageRotation](../interfaces/DThemeDropdown.md#getimagerotation)
+
+#### Inherited from
+
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageRotation](DThemeDarkDropdownBase.md#getimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L46)
 
 ___
 
@@ -869,11 +902,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageSource
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageSource](DThemeDarkDropdownBase.md#getimagesource)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L46)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L50)
 
 ___
 
@@ -897,11 +930,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageTintAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageTintAlpha](DThemeDarkDropdownBase.md#getimagetintalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L42)
 
 ___
 
@@ -925,11 +958,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getImageTintColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getImageTintColor](DThemeDarkDropdownBase.md#getimagetintcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L38)
 
 ___
 
@@ -949,11 +982,11 @@ Returns an interactivity.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getInteractive
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getInteractive](DThemeDarkDropdownBase.md#getinteractive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L175)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L175)
 
 ___
 
@@ -971,11 +1004,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getLineHeight
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getLineHeight](DThemeDarkDropdownBase.md#getlineheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L42)
 
 ___
 
@@ -1001,11 +1034,11 @@ Returns an outline align.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineAlign
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineAlign](DThemeDarkDropdownBase.md#getoutlinealign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L159)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L159)
 
 ___
 
@@ -1031,11 +1064,11 @@ Returns an outline alpha.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineAlpha](DThemeDarkDropdownBase.md#getoutlinealpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L144)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L144)
 
 ___
 
@@ -1062,11 +1095,11 @@ If the color is null, outlines are not be rendered.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineColor](DThemeDarkDropdownBase.md#getoutlinecolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L68)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L68)
 
 ___
 
@@ -1086,11 +1119,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineColorActive
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineColorActive](DThemeDarkDropdownBase.md#getoutlinecoloractive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L75)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L75)
 
 ___
 
@@ -1110,11 +1143,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineColorNonActive
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineColorNonActive](DThemeDarkDropdownBase.md#getoutlinecolornonactive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L79)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L79)
 
 ___
 
@@ -1140,11 +1173,11 @@ Returns an outline mask.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineMask
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineMask](DThemeDarkDropdownBase.md#getoutlinemask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L163)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L163)
 
 ___
 
@@ -1170,11 +1203,11 @@ Returns an outline offset.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineOffset
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineOffset](DThemeDarkDropdownBase.md#getoutlineoffset)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L83)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L83)
 
 ___
 
@@ -1194,11 +1227,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineOffsetActive
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineOffsetActive](DThemeDarkDropdownBase.md#getoutlineoffsetactive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L90)
 
 ___
 
@@ -1218,11 +1251,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineOffsetNonActive
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineOffsetNonActive](DThemeDarkDropdownBase.md#getoutlineoffsetnonactive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L94)
 
 ___
 
@@ -1248,11 +1281,11 @@ Returns an outline width.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getOutlineWidth
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getOutlineWidth](DThemeDarkDropdownBase.md#getoutlinewidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L151)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L151)
 
 ___
 
@@ -1272,11 +1305,11 @@ Returns a bottom padding.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getPaddingBottom
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getPaddingBottom](DThemeDarkDropdownBase.md#getpaddingbottom)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L128)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L128)
 
 ___
 
@@ -1296,11 +1329,11 @@ Returns a left padding.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getPaddingLeft
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getPaddingLeft](DThemeDarkDropdownBase.md#getpaddingleft)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L43)
 
 ___
 
@@ -1320,11 +1353,11 @@ Returns a right padding.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getPaddingRight
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getPaddingRight](DThemeDarkDropdownBase.md#getpaddingright)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L47)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L47)
 
 ___
 
@@ -1344,11 +1377,11 @@ Returns a top padding.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getPaddingTop
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getPaddingTop](DThemeDarkDropdownBase.md#getpaddingtop)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L124)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L124)
 
 ___
 
@@ -1366,11 +1399,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageAlignHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageAlignHorizontal](DThemeDarkDropdownBase.md#getsecondaryimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L31)
 
 ___
 
@@ -1388,11 +1421,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageAlignVertical
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageAlignVertical](DThemeDarkDropdownBase.md#getsecondaryimagealignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L54)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L58)
 
 ___
 
@@ -1410,11 +1443,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageAlignWith
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageAlignWith](DThemeDarkDropdownBase.md#getsecondaryimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L35)
 
 ___
 
@@ -1432,11 +1465,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageMarginHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageMarginHorizontal](DThemeDarkDropdownBase.md#getsecondaryimagemarginhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L39)
 
 ___
 
@@ -1454,11 +1487,39 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageMarginVertial
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageMarginVertial](DThemeDarkDropdownBase.md#getsecondaryimagemarginvertial)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L66)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L70)
+
+___
+
+### getSecondaryImageRotation
+
+▸ **getSecondaryImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemeDropdown](../interfaces/DThemeDropdown.md).[getSecondaryImageRotation](../interfaces/DThemeDropdown.md#getsecondaryimagerotation)
+
+#### Inherited from
+
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageRotation](DThemeDarkDropdownBase.md#getsecondaryimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L82)
 
 ___
 
@@ -1482,11 +1543,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageSource
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageSource](DThemeDarkDropdownBase.md#getsecondaryimagesource)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L51)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown-base.ts#L51)
 
 ___
 
@@ -1510,11 +1571,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageTintAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageTintAlpha](DThemeDarkDropdownBase.md#getsecondaryimagetintalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L78)
 
 ___
 
@@ -1538,11 +1599,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getSecondaryImageTintColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getSecondaryImageTintColor](DThemeDarkDropdownBase.md#getsecondaryimagetintcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L70)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L74)
 
 ___
 
@@ -1563,11 +1624,11 @@ If a shadow is null, no shadow is rendered.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getShadow
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getShadow](DThemeDarkDropdownBase.md#getshadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L171)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L171)
 
 ___
 
@@ -1585,11 +1646,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageAlignHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageAlignHorizontal](DThemeDarkDropdownBase.md#gettertiaryimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L86)
 
 ___
 
@@ -1607,11 +1668,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageAlignVertical
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageAlignVertical](DThemeDarkDropdownBase.md#gettertiaryimagealignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L82)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L90)
 
 ___
 
@@ -1629,11 +1690,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageAlignWith
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageAlignWith](DThemeDarkDropdownBase.md#gettertiaryimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L94)
 
 ___
 
@@ -1651,11 +1712,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageMarginHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageMarginHorizontal](DThemeDarkDropdownBase.md#gettertiaryimagemarginhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L98)
 
 ___
 
@@ -1673,11 +1734,39 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageMarginVertial
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageMarginVertial](DThemeDarkDropdownBase.md#gettertiaryimagemarginvertial)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L102)
+
+___
+
+### getTertiaryImageRotation
+
+▸ **getTertiaryImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemeDropdown](../interfaces/DThemeDropdown.md).[getTertiaryImageRotation](../interfaces/DThemeDropdown.md#gettertiaryimagerotation)
+
+#### Inherited from
+
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageRotation](DThemeDarkDropdownBase.md#gettertiaryimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L114)
 
 ___
 
@@ -1701,11 +1790,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageTintAlpha
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageTintAlpha](DThemeDarkDropdownBase.md#gettertiaryimagetintalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L110)
 
 ___
 
@@ -1729,11 +1818,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTertiaryImageTintColor
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTertiaryImageTintColor](DThemeDarkDropdownBase.md#gettertiaryimagetintcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L106)
 
 ___
 
@@ -1751,11 +1840,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextAlignHorizontal
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextAlignHorizontal](DThemeDarkDropdownBase.md#gettextalignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L106)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L106)
 
 ___
 
@@ -1773,11 +1862,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextAlignVertical
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextAlignVertical](DThemeDarkDropdownBase.md#gettextalignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L19)
 
 ___
 
@@ -1808,11 +1897,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextFormatter
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextFormatter](DThemeDarkDropdownBase.md#gettextformatter)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L43)
 
 ___
 
@@ -1830,11 +1919,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextStyleClipping
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextStyleClipping](DThemeDarkDropdownBase.md#gettextstyleclipping)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L31)
 
 ___
 
@@ -1852,11 +1941,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextStyleFitting
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextStyleFitting](DThemeDarkDropdownBase.md#gettextstylefitting)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L35)
 
 ___
 
@@ -1874,11 +1963,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextStyleWordWrap
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextStyleWordWrap](DThemeDarkDropdownBase.md#gettextstylewordwrap)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L39)
 
 ___
 
@@ -1905,11 +1994,11 @@ Called to get a text vale if there is no text value.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTextValue
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTextValue](DThemeDarkDropdownBase.md#gettextvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L47)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L47)
 
 ___
 
@@ -1929,11 +2018,11 @@ Returns a tooltip text.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getTitle
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getTitle](DThemeDarkDropdownBase.md#gettitle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L183)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L183)
 
 ___
 
@@ -1955,11 +2044,11 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getWeight
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getWeight](DThemeDarkDropdownBase.md#getweight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L187)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L187)
 
 ___
 
@@ -1979,11 +2068,11 @@ Returns when to activate a button.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getWhen
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getWhen](DThemeDarkDropdownBase.md#getwhen)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L122)
 
 ___
 
@@ -2003,11 +2092,11 @@ Returns a width.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getWidth
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getWidth](DThemeDarkDropdownBase.md#getwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L102)
 
 ___
 
@@ -2027,11 +2116,11 @@ Returns a X coordinate.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getX
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getX](DThemeDarkDropdownBase.md#getx)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L64)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L64)
 
 ___
 
@@ -2051,11 +2140,11 @@ Returns a Y coordinate.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.getY
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[getY](DThemeDarkDropdownBase.md#gety)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L68)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L68)
 
 ___
 
@@ -2073,11 +2162,11 @@ ___
 
 #### Inherited from
 
-DThemeDarkDropdownBase.isOverflowMaskEnabled
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[isOverflowMaskEnabled](DThemeDarkDropdownBase.md#isoverflowmaskenabled)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L27)
 
 ___
 
@@ -2097,11 +2186,11 @@ Returns true to turn a toggle mode on.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.isToggle
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[isToggle](DThemeDarkDropdownBase.md#istoggle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L118)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-button-base.ts#L118)
 
 ___
 
@@ -2121,11 +2210,11 @@ Creates a new shadow.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.newShadow
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[newShadow](DThemeDarkDropdownBase.md#newshadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L191)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L191)
 
 ___
 
@@ -2145,11 +2234,11 @@ Creates a new weak shadow.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.newShadowWeak
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[newShadowWeak](DThemeDarkDropdownBase.md#newshadowweak)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L195)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L195)
 
 ___
 
@@ -2175,11 +2264,11 @@ Returns true if focusable.
 
 #### Inherited from
 
-DThemeDarkDropdownBase.newState
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[newState](DThemeDarkDropdownBase.md#newstate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L179)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L179)
 
 ___
 
@@ -2200,8 +2289,8 @@ Called to initialize a text value if a text value is not given.
 
 #### Overrides
 
-DThemeDarkDropdownBase.newTextValue
+[DThemeDarkDropdownBase](DThemeDarkDropdownBase.md).[newTextValue](DThemeDarkDropdownBase.md#newtextvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dropdown.ts#L11)

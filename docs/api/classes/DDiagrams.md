@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDiagrams
+[Winter Cardinal UI - v0.407.0](../index.md) / DDiagrams
 
 # Class: DDiagrams
 
@@ -11,6 +11,7 @@
 ### Methods
 
 - [newLayer](DDiagrams.md#newlayer)
+- [parse](DDiagrams.md#parse)
 - [toPieceData](DDiagrams.md#topiecedata)
 - [toSerialized](DDiagrams.md#toserialized)
 - [toSimple](DDiagrams.md#tosimple)
@@ -45,7 +46,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L87)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L113)
+
+___
+
+### parse
+
+▸ **parse**(`target`): ``null`` \| [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `unknown` |
+
+#### Returns
+
+``null`` \| [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L25)
 
 ___
 
@@ -67,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L127)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L153)
 
 ___
 
@@ -87,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L47)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L73)
 
 ___
 
@@ -107,4 +128,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L22)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L48)

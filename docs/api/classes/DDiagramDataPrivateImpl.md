@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramDataPrivateImpl
+[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramDataPrivateImpl
 
 # Class: DDiagramDataPrivateImpl
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L13)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L11)
 
 ## Accessors
 
@@ -72,7 +72,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L17)
 
 ## Methods
 
@@ -96,7 +96,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L48)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L25)
 
 ___
 
@@ -149,4 +149,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L40)

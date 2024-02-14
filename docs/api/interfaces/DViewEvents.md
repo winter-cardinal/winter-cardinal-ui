@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DViewEvents
+[Winter Cardinal UI - v0.407.0](../index.md) / DViewEvents
 
 # Interface: DViewEvents\<EMITTER\>
 
@@ -45,7 +45,7 @@ Triggered when a gesture ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L129)
+[src/main/typescript/wcardinal/ui/d-view.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L129)
 
 ___
 
@@ -68,7 +68,7 @@ Triggered when a gesture starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L121)
+[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L121)
 
 ___
 
@@ -91,7 +91,7 @@ Triggered when a gesture stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L137)
+[src/main/typescript/wcardinal/ui/d-view.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L137)
 
 ___
 
@@ -114,7 +114,7 @@ Triggered when a transform ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L153)
+[src/main/typescript/wcardinal/ui/d-view.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L153)
 
 ___
 
@@ -137,7 +137,7 @@ Triggered when a transform starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L145)
+[src/main/typescript/wcardinal/ui/d-view.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L145)
 
 ___
 
@@ -160,7 +160,7 @@ Triggered when a transform stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L161)
+[src/main/typescript/wcardinal/ui/d-view.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L161)
 
 ___
 
@@ -183,7 +183,7 @@ Triggered when a wheel translation ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L177)
+[src/main/typescript/wcardinal/ui/d-view.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L177)
 
 ___
 
@@ -206,7 +206,7 @@ Triggered when a wheel translation starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L169)
+[src/main/typescript/wcardinal/ui/d-view.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L169)
 
 ___
 
@@ -229,4 +229,4 @@ Triggered when a wheel translation stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L185)
+[src/main/typescript/wcardinal/ui/d-view.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L185)

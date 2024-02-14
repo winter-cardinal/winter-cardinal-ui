@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / UtilOverlay
+[Winter Cardinal UI - v0.407.0](../index.md) / UtilOverlay
 
 # Class: UtilOverlay
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-overlay.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-overlay.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L9)
 
 ## Properties
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-overlay.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-overlay.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L7)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-overlay.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L6)
+[src/main/typescript/wcardinal/ui/util/util-overlay.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L6)
 
 ## Accessors
 
@@ -74,19 +74,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-overlay.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L14)
+[src/main/typescript/wcardinal/ui/util/util-overlay.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L14)
 
 ## Methods
 
 ### pick
 
-▸ **pick**(`target`): [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
+▸ **pick**(`owner`, `opener?`): [`DApplicationLayerLike`](../interfaces/DApplicationLayerLike.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DApplicationTarget`](../interfaces/DApplicationTarget.md) |
+| `owner` | [`DApplicationTarget`](../interfaces/DApplicationTarget.md) |
+| `opener?` | [`DApplicationTarget`](../interfaces/DApplicationTarget.md) |
 
 #### Returns
 
@@ -94,4 +95,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-overlay.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L18)
+[src/main/typescript/wcardinal/ui/util/util-overlay.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-overlay.ts#L18)

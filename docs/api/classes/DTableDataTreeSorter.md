@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DTableDataTreeSorter
+[Winter Cardinal UI - v0.407.0](../index.md) / DTableDataTreeSorter
 
 # Class: DTableDataTreeSorter\<NODE\>
 
@@ -76,7 +76,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L13)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L13)
 
 ## Accessors
 
@@ -94,7 +94,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L17)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L17)
 
 ___
 
@@ -115,7 +115,7 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L57)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L57)
 
 ___
 
@@ -135,7 +135,7 @@ A sort order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L21)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L21)
 
 • `set` **order**(`order`): `void`
 
@@ -157,7 +157,7 @@ A sort order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L25)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L25)
 
 ## Methods
 
@@ -189,7 +189,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -209,7 +209,7 @@ Applys a sorting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L29)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L29)
 
 ___
 
@@ -242,7 +242,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -266,7 +266,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -286,7 +286,7 @@ Returns a current comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L41)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L41)
 
 ___
 
@@ -306,7 +306,7 @@ Returns true if a sorting is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L37)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L37)
 
 ___
 
@@ -336,7 +336,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -366,7 +366,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -392,7 +392,7 @@ Returns a sorted index of the specified unmapped index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L61)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L61)
 
 ___
 
@@ -425,7 +425,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -459,7 +459,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -493,7 +493,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -525,7 +525,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -560,7 +560,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -586,7 +586,7 @@ Sets to the given comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L45)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L45)
 
 ___
 
@@ -600,7 +600,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L49)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L49)
 
 ___
 
@@ -620,7 +620,7 @@ Unapplys a sorting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L33)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L33)
 
 ___
 
@@ -646,7 +646,7 @@ Returns an unmapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L65)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L65)
 
 ___
 
@@ -660,4 +660,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L53)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-tree-sorter.ts#L53)

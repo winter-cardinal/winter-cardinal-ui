@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DImageBaseThemeWrapperSecondary
+[Winter Cardinal UI - v0.407.0](../index.md) / DImageBaseThemeWrapperSecondary
 
 # Class: DImageBaseThemeWrapperSecondary
 
@@ -23,6 +23,7 @@
 - [getImageAlignWith](DImageBaseThemeWrapperSecondary.md#getimagealignwith)
 - [getImageMarginHorizontal](DImageBaseThemeWrapperSecondary.md#getimagemarginhorizontal)
 - [getImageMarginVertial](DImageBaseThemeWrapperSecondary.md#getimagemarginvertial)
+- [getImageRotation](DImageBaseThemeWrapperSecondary.md#getimagerotation)
 - [getImageSource](DImageBaseThemeWrapperSecondary.md#getimagesource)
 - [getImageTintAlpha](DImageBaseThemeWrapperSecondary.md#getimagetintalpha)
 - [getImageTintColor](DImageBaseThemeWrapperSecondary.md#getimagetintcolor)
@@ -45,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L22)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L23)
 
 ## Properties
 
@@ -55,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L20)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L21)
 
 ## Methods
 
@@ -73,7 +74,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L26)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L27)
 
 ___
 
@@ -91,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L30)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L31)
 
 ___
 
@@ -109,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L34)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L35)
 
 ___
 
@@ -127,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L38)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L39)
 
 ___
 
@@ -145,7 +146,31 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L42)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L43)
+
+___
+
+### getImageRotation
+
+▸ **getImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DThemeImagePiece](../interfaces/DThemeImagePiece.md).[getImageRotation](../interfaces/DThemeImagePiece.md#getimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L55)
 
 ___
 
@@ -169,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L54)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L59)
 
 ___
 
@@ -193,7 +218,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L50)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L51)
 
 ___
 
@@ -217,4 +242,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L46)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L47)

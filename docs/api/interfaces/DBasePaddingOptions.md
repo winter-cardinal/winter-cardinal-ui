@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DBasePaddingOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DBasePaddingOptions
 
 # Interface: DBasePaddingOptions
 
@@ -23,7 +23,7 @@ A bottom padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L68)
+[src/main/typescript/wcardinal/ui/d-base.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L67)
 
 ___
 
@@ -35,7 +35,7 @@ A left padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L71)
+[src/main/typescript/wcardinal/ui/d-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L70)
 
 ___
 
@@ -47,7 +47,7 @@ A right padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L65)
+[src/main/typescript/wcardinal/ui/d-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L64)
 
 ___
 
@@ -59,4 +59,4 @@ A top padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L62)
+[src/main/typescript/wcardinal/ui/d-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L61)

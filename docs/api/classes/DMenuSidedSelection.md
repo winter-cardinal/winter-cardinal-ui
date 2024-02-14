@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DMenuSidedSelection
+[Winter Cardinal UI - v0.407.0](../index.md) / DMenuSidedSelection
 
 # Class: DMenuSidedSelection\<VALUE\>
 
@@ -86,7 +86,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L70)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L70)
 
 ## Properties
 
@@ -96,7 +96,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L64)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L64)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L68)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L68)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L66)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L66)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L65)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L65)
 
 ___
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L67)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L67)
 
 ## Methods
 
@@ -170,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L133)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L133)
 
 ___
 
@@ -198,7 +198,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L167)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L167)
 
 ___
 
@@ -241,7 +241,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -261,7 +261,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L94)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L94)
 
 ___
 
@@ -295,7 +295,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L143)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L143)
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L172)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L172)
 
 ___
 
@@ -341,7 +341,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L148)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L148)
 
 ___
 
@@ -361,7 +361,7 @@ child is Object
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L109)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L109)
 
 ___
 
@@ -375,7 +375,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L156)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L156)
 
 ___
 
@@ -401,7 +401,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -427,7 +427,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -456,7 +456,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -486,7 +486,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -516,7 +516,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -536,7 +536,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L160)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L160)
 
 ___
 
@@ -564,7 +564,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -595,7 +595,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -615,7 +615,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L138)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L138)
 
 ___
 
@@ -637,7 +637,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L189)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L189)
 
 ___
 
@@ -658,7 +658,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L176)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L176)
 
 ___
 
@@ -672,7 +672,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L152)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L152)
 
 ___
 
@@ -686,7 +686,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L98)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L98)
 
 ___
 
@@ -700,7 +700,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L102)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L102)
 
 ___
 
@@ -720,4 +720,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L113)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L113)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DTreeNodeAccessorOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DTreeNodeAccessorOptions
 
 # Interface: DTreeNodeAccessorOptions\<NODE\>
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L14)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L14)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L13)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L13)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L12)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L12)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L10)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L10)
 
 ___
 
@@ -142,4 +142,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L11)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L11)

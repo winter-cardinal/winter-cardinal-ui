@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / UtilRgba
+[Winter Cardinal UI - v0.407.0](../index.md) / UtilRgba
 
 # Class: UtilRgba
 
@@ -41,4 +41,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgba.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-rgba.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-rgba.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-rgba.ts#L7)

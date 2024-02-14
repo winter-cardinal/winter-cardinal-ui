@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DChartCoordinateTransformImpl
+[Winter Cardinal UI - v0.407.0](../index.md) / DChartCoordinateTransformImpl
 
 # Class: DChartCoordinateTransformImpl\<CHART\>
 
@@ -73,7 +73,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L29)
 
 ## Properties
 
@@ -83,7 +83,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L21)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L24)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L22)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L27)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L26)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L25)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L20)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L23)
 
 ## Accessors
 
@@ -173,7 +173,7 @@ Monotonic increasing ID for change detection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L40)
 
 ___
 
@@ -193,7 +193,7 @@ Scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L52)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L52)
 
 • `set` **scale**(`scale`): `void`
 
@@ -215,7 +215,7 @@ Scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L56)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L56)
 
 ___
 
@@ -235,7 +235,7 @@ Translation amount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L44)
 
 • `set` **translate**(`translate`): `void`
 
@@ -257,7 +257,7 @@ Translation amount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L48)
 
 ## Methods
 
@@ -282,7 +282,7 @@ Translation amount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L60)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L60)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L95)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L95)
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L130)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L130)
 
 ___
 
@@ -335,7 +335,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L134)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L134)
 
 ___
 
@@ -361,7 +361,7 @@ Transforms the given untransformed value to a transformed value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L102)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L102)
 
 ___
 
@@ -393,7 +393,7 @@ Here, i is a non-negative integer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L106)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L106)
 
 ___
 
@@ -418,7 +418,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L71)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L71)
 
 ___
 
@@ -438,7 +438,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L126)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L126)
 
 ___
 
@@ -456,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L67)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L67)
 
 ___
 
@@ -482,7 +482,7 @@ Transforms the given transformed value to an untransformed value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L114)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L114)
 
 ___
 
@@ -514,4 +514,4 @@ Here, i is a non-negative integer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L118)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-impl.ts#L118)

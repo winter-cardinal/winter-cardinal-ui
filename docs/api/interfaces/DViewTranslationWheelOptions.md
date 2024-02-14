@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DViewTranslationWheelOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DViewTranslationWheelOptions
 
 # Interface: DViewTranslationWheelOptions
 
@@ -24,7 +24,7 @@ If a checker returns false, wheel translations will be canceled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L100)
+[src/main/typescript/wcardinal/ui/d-view.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L100)
 
 ___
 
@@ -36,7 +36,7 @@ True to enable wheel translation
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L88)
+[src/main/typescript/wcardinal/ui/d-view.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L88)
 
 ___
 
@@ -48,7 +48,7 @@ Mouse modifiers
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L94)
+[src/main/typescript/wcardinal/ui/d-view.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L94)
 
 ___
 
@@ -60,4 +60,4 @@ Translation speed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-view.ts#L91)
+[src/main/typescript/wcardinal/ui/d-view.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view.ts#L91)

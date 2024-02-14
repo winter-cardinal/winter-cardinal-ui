@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DPickerColorGradientView
+[Winter Cardinal UI - v0.407.0](../index.md) / DPickerColorGradientView
 
 # Class: DPickerColorGradientView
 
@@ -19,11 +19,16 @@
 - [\_accessibleActive](DPickerColorGradientView.md#_accessibleactive)
 - [\_accessibleDiv](DPickerColorGradientView.md#_accessiblediv)
 - [\_bounds](DPickerColorGradientView.md#_bounds)
+- [\_boundsID](DPickerColorGradientView.md#_boundsid)
+- [\_boundsRect](DPickerColorGradientView.md#_boundsrect)
 - [\_colors](DPickerColorGradientView.md#_colors)
 - [\_destroyed](DPickerColorGradientView.md#_destroyed)
+- [\_enabledFilters](DPickerColorGradientView.md#_enabledfilters)
 - [\_indices](DPickerColorGradientView.md#_indices)
 - [\_lastHitIndex](DPickerColorGradientView.md#_lasthitindex)
 - [\_lastSortedIndex](DPickerColorGradientView.md#_lastsortedindex)
+- [\_localBounds](DPickerColorGradientView.md#_localbounds)
+- [\_localBoundsRect](DPickerColorGradientView.md#_localboundsrect)
 - [\_mask](DPickerColorGradientView.md#_mask)
 - [\_nPointsPerData](DPickerColorGradientView.md#_npointsperdata)
 - [\_parts](DPickerColorGradientView.md#_parts)
@@ -102,10 +107,13 @@
 - [calculateBounds](DPickerColorGradientView.md#calculatebounds)
 - [calculateUvs](DPickerColorGradientView.md#calculateuvs)
 - [calculateVertices](DPickerColorGradientView.md#calculatevertices)
+- [containerUpdateTransform](DPickerColorGradientView.md#containerupdatetransform)
 - [containsPoint](DPickerColorGradientView.md#containspoint)
 - [destroy](DPickerColorGradientView.md#destroy)
+- [disableTempParent](DPickerColorGradientView.md#disabletempparent)
 - [displayObjectUpdateTransform](DPickerColorGradientView.md#displayobjectupdatetransform)
 - [emit](DPickerColorGradientView.md#emit)
+- [enableTempParent](DPickerColorGradientView.md#enabletempparent)
 - [eventNames](DPickerColorGradientView.md#eventnames)
 - [getBounds](DPickerColorGradientView.md#getbounds)
 - [getChildAt](DPickerColorGradientView.md#getchildat)
@@ -162,7 +170,7 @@
 | `indices` | `Uint16Array` |
 | `parts` | [`DPickerColorGradientViewPart`](../interfaces/DPickerColorGradientViewPart.md)[] |
 | `geometry` | `Geometry` |
-| `shader` | `Shader` |
+| `shader` | `MeshMaterial` |
 
 #### Returns
 
@@ -174,7 +182,7 @@ Mesh.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L72)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L73)
 
 ## Properties
 
@@ -198,7 +206,7 @@ Mesh.\_accessibleActive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13331
+node_modules/pixi.js/pixi.js.d.ts:13747
 
 ___
 
@@ -222,13 +230,13 @@ Mesh.\_accessibleDiv
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13337
+node_modules/pixi.js/pixi.js.d.ts:13753
 
 ___
 
 ### \_bounds
 
-• `Protected` **\_bounds**: `Bounds`
+• **\_bounds**: `Bounds`
 
 The bounds object, this is used to calculate and store the bounds of the displayObject.
 
@@ -242,7 +250,47 @@ Mesh.\_bounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13449
+node_modules/pixi.js/pixi.js.d.ts:13869
+
+___
+
+### \_boundsID
+
+• `Protected` **\_boundsID**: `number`
+
+Flags the cached bounds as dirty.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsID
+
+#### Inherited from
+
+Mesh.\_boundsID
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13882
+
+___
+
+### \_boundsRect
+
+• `Protected` **\_boundsRect**: `Bounds`
+
+Cache of this display-object's bounds-rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsRect
+
+#### Inherited from
+
+Mesh.\_boundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13889
 
 ___
 
@@ -252,7 +300,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L63)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L64)
 
 ___
 
@@ -272,7 +320,27 @@ Mesh.\_destroyed
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13463
+node_modules/pixi.js/pixi.js.d.ts:13910
+
+___
+
+### \_enabledFilters
+
+• `Protected` **\_enabledFilters**: `Filter`[]
+
+Currently enabled filters
+
+**`Member`**
+
+PIXI.DisplayObject#_enabledFilters
+
+#### Inherited from
+
+Mesh.\_enabledFilters
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13863
 
 ___
 
@@ -282,7 +350,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L64)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L65)
 
 ___
 
@@ -292,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L65)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L66)
 
 ___
 
@@ -313,13 +381,53 @@ Mesh.\_lastSortedIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13417
+node_modules/pixi.js/pixi.js.d.ts:13832
+
+___
+
+### \_localBounds
+
+• **\_localBounds**: `Bounds`
+
+Local bounds object, swapped with `_bounds` when using `getLocalBounds()`.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBounds
+
+#### Inherited from
+
+Mesh.\_localBounds
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13875
+
+___
+
+### \_localBoundsRect
+
+• `Protected` **\_localBoundsRect**: `Bounds`
+
+Cache of this display-object's local-bounds rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBoundsRect
+
+#### Inherited from
+
+Mesh.\_localBoundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13896
 
 ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
+• `Protected` **\_mask**: ``null`` \| `Container` \| `MaskData`
 
 The original, cached mask of the object.
 
@@ -333,7 +441,7 @@ Mesh.\_mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13456
+node_modules/pixi.js/pixi.js.d.ts:13903
 
 ___
 
@@ -343,7 +451,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L60)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L61)
 
 ___
 
@@ -353,13 +461,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L70)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L71)
 
 ___
 
 ### \_tempDisplayObjectParent
 
-• `Protected` **\_tempDisplayObjectParent**: `DisplayObject`
+• `Protected` **\_tempDisplayObjectParent**: `Container`
 
 **`Member`**
 
@@ -369,7 +477,7 @@ Mesh.\_tempDisplayObjectParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13478
+node_modules/pixi.js/pixi.js.d.ts:13983
 
 ___
 
@@ -379,7 +487,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L62)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L63)
 
 ___
 
@@ -389,7 +497,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L61)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L62)
 
 ___
 
@@ -399,7 +507,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L67)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L68)
 
 ___
 
@@ -409,7 +517,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L68)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L69)
 
 ___
 
@@ -430,7 +538,7 @@ Mesh.\_zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13425
+node_modules/pixi.js/pixi.js.d.ts:13840
 
 ___
 
@@ -453,7 +561,7 @@ Mesh.accessible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13310
+node_modules/pixi.js/pixi.js.d.ts:13726
 
 ___
 
@@ -482,7 +590,7 @@ Mesh.accessibleChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13364
+node_modules/pixi.js/pixi.js.d.ts:13780
 
 ___
 
@@ -504,7 +612,7 @@ Mesh.accessibleHint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13325
+node_modules/pixi.js/pixi.js.d.ts:13741
 
 ___
 
@@ -533,7 +641,7 @@ Mesh.accessiblePointerEvents
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13355
+node_modules/pixi.js/pixi.js.d.ts:13771
 
 ___
 
@@ -556,7 +664,7 @@ Mesh.accessibleTitle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13318
+node_modules/pixi.js/pixi.js.d.ts:13734
 
 ___
 
@@ -585,7 +693,7 @@ Mesh.accessibleType
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13346
+node_modules/pixi.js/pixi.js.d.ts:13762
 
 ___
 
@@ -605,7 +713,7 @@ Mesh.alpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13377
+node_modules/pixi.js/pixi.js.d.ts:13793
 
 ___
 
@@ -624,7 +732,7 @@ Mesh.angle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13613
+node_modules/pixi.js/pixi.js.d.ts:14070
 
 ___
 
@@ -653,7 +761,7 @@ Mesh.blendMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13061
+node_modules/pixi.js/pixi.js.d.ts:13457
 
 ___
 
@@ -684,7 +792,7 @@ Mesh.buttonMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13695
+node_modules/pixi.js/pixi.js.d.ts:14152
 
 ___
 
@@ -712,7 +820,7 @@ Mesh.cacheAsBitmap
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13722
+node_modules/pixi.js/pixi.js.d.ts:14179
 
 ___
 
@@ -732,7 +840,7 @@ Mesh.children
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13151
+node_modules/pixi.js/pixi.js.d.ts:13547
 
 ___
 
@@ -767,7 +875,7 @@ Mesh.cursor
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13709
+node_modules/pixi.js/pixi.js.d.ts:14166
 
 ___
 
@@ -791,7 +899,7 @@ Mesh.drawMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13022
+node_modules/pixi.js/pixi.js.d.ts:13418
 
 ___
 
@@ -814,7 +922,7 @@ Mesh.filterArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13434
+node_modules/pixi.js/pixi.js.d.ts:13849
 
 ___
 
@@ -836,7 +944,7 @@ Mesh.filters
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13442
+node_modules/pixi.js/pixi.js.d.ts:13857
 
 ___
 
@@ -858,7 +966,7 @@ Mesh.geometry
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13003
+node_modules/pixi.js/pixi.js.d.ts:13399
 
 ___
 
@@ -876,7 +984,7 @@ Mesh.height
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13285
+node_modules/pixi.js/pixi.js.d.ts:13690
 
 ___
 
@@ -907,7 +1015,7 @@ Mesh.hitArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13683
+node_modules/pixi.js/pixi.js.d.ts:14140
 
 ___
 
@@ -940,7 +1048,7 @@ Mesh.interactive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13671
+node_modules/pixi.js/pixi.js.d.ts:14128
 
 ___
 
@@ -963,7 +1071,7 @@ Mesh.interactiveChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13293
+node_modules/pixi.js/pixi.js.d.ts:13706
 
 ___
 
@@ -983,7 +1091,7 @@ Mesh.isMask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13473
+node_modules/pixi.js/pixi.js.d.ts:13920
 
 ___
 
@@ -1003,7 +1111,7 @@ Mesh.isSprite
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13468
+node_modules/pixi.js/pixi.js.d.ts:13915
 
 ___
 
@@ -1021,13 +1129,13 @@ Mesh.localTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13571
+node_modules/pixi.js/pixi.js.d.ts:14028
 
 ___
 
 ### mask
 
-• **mask**: `Container` \| `MaskData`
+• **mask**: ``null`` \| `Container` \| `MaskData`
 
 Sets a mask for the displayObject. A mask is an object that limits the visibility of an
 object to the shape of the mask applied to it. In PixiJS a regular mask must be a
@@ -1060,13 +1168,13 @@ Mesh.mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13649
+node_modules/pixi.js/pixi.js.d.ts:14106
 
 ___
 
 ### material
 
-• **material**: `Shader` \| `MeshMaterial`
+• **material**: `MeshMaterial`
 
 Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
 
@@ -1078,7 +1186,7 @@ Mesh.material
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13052
+node_modules/pixi.js/pixi.js.d.ts:13448
 
 ___
 
@@ -1102,13 +1210,13 @@ Mesh.name
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13729
+node_modules/pixi.js/pixi.js.d.ts:14186
 
 ___
 
 ### parent
 
-• `Readonly` **parent**: `Container`
+• **parent**: `Container`
 
 The display object container that contains this display object.
 
@@ -1122,13 +1230,13 @@ Mesh.parent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13402
+node_modules/pixi.js/pixi.js.d.ts:13817
 
 ___
 
 ### pivot
 
-• **pivot**: `IPoint`
+• **pivot**: `ObservablePoint`
 
 The pivot point of the displayObject that it rotates around.
 Assignment by value since pixi-v4.
@@ -1141,13 +1249,13 @@ Mesh.pivot
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13592
+node_modules/pixi.js/pixi.js.d.ts:14049
 
 ___
 
 ### position
 
-• **position**: `IPoint`
+• **position**: `ObservablePoint`
 
 The coordinate of the object relative to the local coordinates of the parent.
 Assignment by value since pixi-v4.
@@ -1160,7 +1268,7 @@ Mesh.position
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13578
+node_modules/pixi.js/pixi.js.d.ts:14035
 
 ___
 
@@ -1183,7 +1291,7 @@ Mesh.renderable
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13395
+node_modules/pixi.js/pixi.js.d.ts:13811
 
 ___
 
@@ -1202,7 +1310,7 @@ Mesh.rotation
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13606
+node_modules/pixi.js/pixi.js.d.ts:14063
 
 ___
 
@@ -1229,13 +1337,13 @@ Mesh.roundPixels
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13071
+node_modules/pixi.js/pixi.js.d.ts:13467
 
 ___
 
 ### scale
 
-• **scale**: `IPoint`
+• **scale**: `ObservablePoint`
 
 The scale factor of the object.
 Assignment by value since pixi-v4.
@@ -1248,7 +1356,7 @@ Mesh.scale
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13585
+node_modules/pixi.js/pixi.js.d.ts:14042
 
 ___
 
@@ -1269,7 +1377,7 @@ Mesh.shader
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13009
+node_modules/pixi.js/pixi.js.d.ts:13405
 
 ___
 
@@ -1295,7 +1403,7 @@ Mesh.size
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13034
+node_modules/pixi.js/pixi.js.d.ts:13430
 
 ___
 
@@ -1314,7 +1422,7 @@ Mesh.skew
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13599
+node_modules/pixi.js/pixi.js.d.ts:14056
 
 ___
 
@@ -1335,7 +1443,7 @@ Mesh.sortDirty
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13174
+node_modules/pixi.js/pixi.js.d.ts:13570
 
 ___
 
@@ -1371,7 +1479,7 @@ Mesh.sortableChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13167
+node_modules/pixi.js/pixi.js.d.ts:13563
 
 ___
 
@@ -1397,7 +1505,7 @@ Mesh.start
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13028
+node_modules/pixi.js/pixi.js.d.ts:13424
 
 ___
 
@@ -1418,7 +1526,7 @@ Mesh.state
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13015
+node_modules/pixi.js/pixi.js.d.ts:13411
 
 ___
 
@@ -1436,7 +1544,7 @@ Mesh.texture
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13085
+node_modules/pixi.js/pixi.js.d.ts:13481
 
 ___
 
@@ -1461,7 +1569,7 @@ Mesh.tint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13079
+node_modules/pixi.js/pixi.js.d.ts:13475
 
 ___
 
@@ -1482,7 +1590,7 @@ Mesh.transform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13371
+node_modules/pixi.js/pixi.js.d.ts:13787
 
 ___
 
@@ -1500,7 +1608,7 @@ Mesh.uvBuffer
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13040
+node_modules/pixi.js/pixi.js.d.ts:13436
 
 ___
 
@@ -1519,7 +1627,7 @@ Mesh.verticesBuffer
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13047
+node_modules/pixi.js/pixi.js.d.ts:13443
 
 ___
 
@@ -1542,7 +1650,7 @@ Mesh.visible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13386
+node_modules/pixi.js/pixi.js.d.ts:13802
 
 ___
 
@@ -1560,7 +1668,7 @@ Mesh.width
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13279
+node_modules/pixi.js/pixi.js.d.ts:13684
 
 ___
 
@@ -1580,7 +1688,7 @@ Mesh.worldAlpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13409
+node_modules/pixi.js/pixi.js.d.ts:13824
 
 ___
 
@@ -1598,7 +1706,7 @@ Mesh.worldTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13564
+node_modules/pixi.js/pixi.js.d.ts:14021
 
 ___
 
@@ -1616,7 +1724,7 @@ Mesh.worldVisible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13629
+node_modules/pixi.js/pixi.js.d.ts:14086
 
 ___
 
@@ -1635,7 +1743,7 @@ Mesh.x
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13550
+node_modules/pixi.js/pixi.js.d.ts:14007
 
 ___
 
@@ -1654,7 +1762,7 @@ Mesh.y
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13557
+node_modules/pixi.js/pixi.js.d.ts:14014
 
 ___
 
@@ -1675,7 +1783,7 @@ Mesh.zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13622
+node_modules/pixi.js/pixi.js.d.ts:14079
 
 ___
 
@@ -1702,7 +1810,7 @@ Mesh.BATCHABLE\_SIZE
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13144
+node_modules/pixi.js/pixi.js.d.ts:13540
 
 ## Methods
 
@@ -1720,7 +1828,7 @@ Mesh.\_calculateBounds
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L221)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L222)
 
 ___
 
@@ -1741,7 +1849,7 @@ Mesh.\_recursivePostUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13483
+node_modules/pixi.js/pixi.js.d.ts:13925
 
 ___
 
@@ -1767,7 +1875,7 @@ Mesh.\_render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13091
+node_modules/pixi.js/pixi.js.d.ts:13487
 
 ___
 
@@ -1793,7 +1901,7 @@ Mesh.\_renderDefault
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13097
+node_modules/pixi.js/pixi.js.d.ts:13493
 
 ___
 
@@ -1819,13 +1927,13 @@ Mesh.\_renderToBatch
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13103
+node_modules/pixi.js/pixi.js.d.ts:13499
 
 ___
 
 ### addChild
 
-▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -1841,7 +1949,7 @@ Multiple items can be added like so: `myContainer.addChild(thingOne, thingTwo, t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to add to the container |
+| `...children` | `TChildren` | The DisplayObject(s) to add to the container |
 
 #### Returns
 
@@ -1855,7 +1963,7 @@ Mesh.addChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13189
+node_modules/pixi.js/pixi.js.d.ts:13585
 
 ___
 
@@ -1890,7 +1998,7 @@ Mesh.addChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13197
+node_modules/pixi.js/pixi.js.d.ts:13593
 
 ___
 
@@ -1916,7 +2024,7 @@ Mesh.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24103
+node_modules/pixi.js/pixi.js.d.ts:25521
 
 ▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
 
@@ -1938,7 +2046,7 @@ Mesh.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24105
+node_modules/pixi.js/pixi.js.d.ts:25523
 
 ___
 
@@ -1958,7 +2066,7 @@ Mesh.calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13260
+node_modules/pixi.js/pixi.js.d.ts:13656
 
 ___
 
@@ -1978,7 +2086,7 @@ Mesh.calculateUvs
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13111
+node_modules/pixi.js/pixi.js.d.ts:13507
 
 ___
 
@@ -1998,7 +2106,36 @@ Mesh.calculateVertices
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13107
+node_modules/pixi.js/pixi.js.d.ts:13503
+
+___
+
+### containerUpdateTransform
+
+▸ **containerUpdateTransform**(): `void`
+
+Container default updateTransform, does update children of container.
+Will crash if there's no parent element.
+
+#### Returns
+
+`void`
+
+**`Memberof`**
+
+PIXI.Container#
+
+**`Function`**
+
+containerUpdateTransform
+
+#### Inherited from
+
+Mesh.containerUpdateTransform
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13698
 
 ___
 
@@ -2022,7 +2159,7 @@ Mesh.containsPoint
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:303](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L303)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L304)
 
 ___
 
@@ -2049,7 +2186,33 @@ Mesh.destroy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13134
+node_modules/pixi.js/pixi.js.d.ts:13530
+
+___
+
+### disableTempParent
+
+▸ **disableTempParent**(`cacheParent`): `void`
+
+Pair method for `enableTempParent`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cacheParent` | `DisplayObject` | actual parent of element |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Mesh.disableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:14000
 
 ___
 
@@ -2078,7 +2241,7 @@ Mesh.displayObjectUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13657
+node_modules/pixi.js/pixi.js.d.ts:14114
 
 ___
 
@@ -2107,7 +2270,35 @@ Mesh.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### enableTempParent
+
+▸ **enableTempParent**(): `DisplayObject`
+
+Used in Renderer, cacheAsBitmap and other places where you call an `updateTransform` on root
+
+```
+const cacheParent = elem.enableTempParent();
+elem.updateTransform();
+elem.disableTempParent(cacheParent);
+```
+
+#### Returns
+
+`DisplayObject`
+
+current parent
+
+#### Inherited from
+
+Mesh.enableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:13995
 
 ___
 
@@ -2127,7 +2318,7 @@ Mesh.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -2156,7 +2347,7 @@ Mesh.getBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13493
+node_modules/pixi.js/pixi.js.d.ts:13935
 
 ___
 
@@ -2184,21 +2375,24 @@ Mesh.getChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13225
+node_modules/pixi.js/pixi.js.d.ts:13621
 
 ___
 
 ### getChildByName
 
-▸ **getChildByName**(`name`): `DisplayObject`
+▸ **getChildByName**(`name`, `deep?`): `DisplayObject`
 
 Returns the display object in the container.
+
+Recursive searches are done in a preorder traversal.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `name` | `string` | Instance name. |
+| `deep?` | `boolean` | Whether to search recursively |
 
 #### Returns
 
@@ -2220,7 +2414,7 @@ Mesh.getChildByName
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13302
+node_modules/pixi.js/pixi.js.d.ts:13718
 
 ___
 
@@ -2248,7 +2442,7 @@ Mesh.getChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13211
+node_modules/pixi.js/pixi.js.d.ts:13607
 
 ___
 
@@ -2268,7 +2462,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L124)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L125)
 
 ___
 
@@ -2305,7 +2499,7 @@ Mesh.getGlobalPosition
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13741
+node_modules/pixi.js/pixi.js.d.ts:14198
 
 ___
 
@@ -2319,13 +2513,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L139)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L140)
 
 ___
 
 ### getLocalBounds
 
-▸ **getLocalBounds**(`rect?`): `Rectangle`
+▸ **getLocalBounds**(`rect?`, `skipChildrenUpdate?`): `Rectangle`
 
 Retrieves the local bounds of the displayObject as a rectangle object.
 
@@ -2334,6 +2528,7 @@ Retrieves the local bounds of the displayObject as a rectangle object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
+| `skipChildrenUpdate?` | `boolean` | Setting to `true` will stop re-calculation of children transforms, it was default behaviour of pixi 4.0-5.2 and caused many problems to users. |
 
 #### Returns
 
@@ -2347,7 +2542,7 @@ Mesh.getLocalBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13500
+node_modules/pixi.js/pixi.js.d.ts:13665
 
 ___
 
@@ -2367,7 +2562,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L105)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L106)
 
 ___
 
@@ -2393,7 +2588,7 @@ Mesh.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -2419,7 +2614,7 @@ Mesh.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -2445,7 +2640,7 @@ Mesh.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24116
+node_modules/pixi.js/pixi.js.d.ts:25534
 
 ___
 
@@ -2471,7 +2666,7 @@ Mesh.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24112
+node_modules/pixi.js/pixi.js.d.ts:25530
 
 ▸ **on**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
 
@@ -2493,7 +2688,7 @@ Mesh.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24114
+node_modules/pixi.js/pixi.js.d.ts:25532
 
 ___
 
@@ -2513,7 +2708,7 @@ Mesh.onChildrenChange
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13180
+node_modules/pixi.js/pixi.js.d.ts:13576
 
 ___
 
@@ -2539,7 +2734,7 @@ Mesh.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24109
+node_modules/pixi.js/pixi.js.d.ts:25527
 
 ▸ **once**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
 
@@ -2561,7 +2756,7 @@ Mesh.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24111
+node_modules/pixi.js/pixi.js.d.ts:25529
 
 ___
 
@@ -2585,7 +2780,7 @@ Mesh.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24098
+node_modules/pixi.js/pixi.js.d.ts:25516
 
 ▸ **removeAllListeners**(`event?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
 
@@ -2605,13 +2800,13 @@ Mesh.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24099
+node_modules/pixi.js/pixi.js.d.ts:25517
 
 ___
 
 ### removeChild
 
-▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -2625,7 +2820,7 @@ Removes one or more children from the container.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to remove |
+| `...children` | `TChildren` | The DisplayObject(s) to remove |
 
 #### Returns
 
@@ -2639,7 +2834,7 @@ Mesh.removeChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13232
+node_modules/pixi.js/pixi.js.d.ts:13628
 
 ___
 
@@ -2667,7 +2862,7 @@ Mesh.removeChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13239
+node_modules/pixi.js/pixi.js.d.ts:13635
 
 ___
 
@@ -2696,7 +2891,7 @@ Mesh.removeChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13247
+node_modules/pixi.js/pixi.js.d.ts:13643
 
 ___
 
@@ -2722,7 +2917,7 @@ Mesh.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24095
+node_modules/pixi.js/pixi.js.d.ts:25513
 
 ▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
 
@@ -2744,7 +2939,7 @@ Mesh.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24097
+node_modules/pixi.js/pixi.js.d.ts:25515
 
 ___
 
@@ -2770,7 +2965,7 @@ Mesh.render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13266
+node_modules/pixi.js/pixi.js.d.ts:13671
 
 ___
 
@@ -2796,7 +2991,7 @@ Mesh.renderAdvanced
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13273
+node_modules/pixi.js/pixi.js.d.ts:13678
 
 ___
 
@@ -2823,7 +3018,7 @@ Mesh.setChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13218
+node_modules/pixi.js/pixi.js.d.ts:13614
 
 ___
 
@@ -2844,7 +3039,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L132)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L133)
 
 ___
 
@@ -2872,7 +3067,7 @@ Mesh.setParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13528
+node_modules/pixi.js/pixi.js.d.ts:13963
 
 ___
 
@@ -2896,7 +3091,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L113)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L114)
 
 ___
 
@@ -2932,7 +3127,7 @@ Mesh.setTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13543
+node_modules/pixi.js/pixi.js.d.ts:13978
 
 ___
 
@@ -2955,7 +3150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L189)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L190)
 
 ___
 
@@ -2978,7 +3173,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L176)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L177)
 
 ___
 
@@ -2998,7 +3193,7 @@ Mesh.sortChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13251
+node_modules/pixi.js/pixi.js.d.ts:13647
 
 ___
 
@@ -3025,13 +3220,13 @@ Mesh.swapChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13204
+node_modules/pixi.js/pixi.js.d.ts:13600
 
 ___
 
 ### toGlobal
 
-▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the global position of the display object.
 
@@ -3039,13 +3234,13 @@ Calculates the global position of the display object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `position` | `IPointData` | The world origin to calculate from. |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object.
 
@@ -3055,13 +3250,13 @@ Mesh.toGlobal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13510
+node_modules/pixi.js/pixi.js.d.ts:13945
 
 ___
 
 ### toLocal
 
-▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the local position of the display object relative to another point.
 
@@ -3069,14 +3264,14 @@ Calculates the local position of the display object relative to another point.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
+| `position` | `IPointData` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object
 
@@ -3086,7 +3281,7 @@ Mesh.toLocal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13521
+node_modules/pixi.js/pixi.js.d.ts:13956
 
 ___
 
@@ -3100,7 +3295,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L234)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L235)
 
 ___
 
@@ -3120,7 +3315,7 @@ Mesh.updateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13255
+node_modules/pixi.js/pixi.js.d.ts:13651
 
 ___
 
@@ -3143,7 +3338,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:316](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L316)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L317)
 
 ___
 
@@ -3169,4 +3364,4 @@ Mesh.mixin
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8979
+node_modules/pixi.js/pixi.js.d.ts:9230

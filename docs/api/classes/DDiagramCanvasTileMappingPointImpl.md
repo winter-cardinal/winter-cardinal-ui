@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramCanvasTileMappingPointImpl
+[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramCanvasTileMappingPointImpl
 
 # Class: DDiagramCanvasTileMappingPointImpl
 
@@ -62,7 +62,7 @@ ObservablePoint.constructor
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12062
+node_modules/pixi.js/pixi.js.d.ts:12458
 
 ## Properties
 
@@ -80,7 +80,7 @@ ObservablePoint.x
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12109
+node_modules/pixi.js/pixi.js.d.ts:12505
 
 ___
 
@@ -98,7 +98,7 @@ ObservablePoint.y
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12115
+node_modules/pixi.js/pixi.js.d.ts:12511
 
 ## Accessors
 
@@ -116,7 +116,7 @@ node_modules/pixi.js/pixi.js.d.ts:12115
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L21)
 
 • `set` **lat**(`lat`): `void`
 
@@ -136,7 +136,7 @@ node_modules/pixi.js/pixi.js.d.ts:12115
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L25)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L13)
 
 • `set` **lon**(`lon`): `void`
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L17)
 
 ## Methods
 
@@ -205,7 +205,7 @@ ObservablePoint.clone
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12073
+node_modules/pixi.js/pixi.js.d.ts:12469
 
 ___
 
@@ -219,7 +219,7 @@ Copies x and y from the given point
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `p` | `IPoint` | The point to copy from. |
+| `p` | `IPointData` | The point to copy from. |
 
 #### Returns
 
@@ -233,7 +233,7 @@ ObservablePoint.copyFrom
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12089
+node_modules/pixi.js/pixi.js.d.ts:12485
 
 ___
 
@@ -261,7 +261,7 @@ ObservablePoint.copyTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12096
+node_modules/pixi.js/pixi.js.d.ts:12492
 
 ___
 
@@ -275,7 +275,7 @@ Returns true if the given point is equal to this point
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `p` | `IPoint` | The point to check |
+| `p` | `IPointData` | The point to check |
 
 #### Returns
 
@@ -289,7 +289,7 @@ ObservablePoint.equals
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12103
+node_modules/pixi.js/pixi.js.d.ts:12499
 
 ___
 
@@ -319,7 +319,7 @@ ObservablePoint.set
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:12082
+node_modules/pixi.js/pixi.js.d.ts:12478
 
 ___
 
@@ -338,4 +338,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L29)

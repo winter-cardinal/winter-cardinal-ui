@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DListDataSelectionMultiple
+[Winter Cardinal UI - v0.407.0](../index.md) / DListDataSelectionMultiple
 
 # Class: DListDataSelectionMultiple\<ITEM\>
 
@@ -96,7 +96,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L23)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L23)
 
 ## Properties
 
@@ -106,7 +106,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L20)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L20)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L21)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L21)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L19)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L19)
 
 ## Accessors
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L50)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L50)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L54)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L54)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L46)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L46)
 
 ## Methods
 
@@ -208,7 +208,7 @@ true if succeeded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L74)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L74)
 
 ___
 
@@ -240,7 +240,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -260,7 +260,7 @@ Clears all the items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L105)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L105)
 
 ___
 
@@ -288,7 +288,7 @@ true if the selection is changed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L113)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L113)
 
 ___
 
@@ -316,7 +316,7 @@ true if the selection is changed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L133)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L133)
 
 ___
 
@@ -344,7 +344,7 @@ true if the given item is selected
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L158)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L158)
 
 ___
 
@@ -370,7 +370,7 @@ Iterates over selected items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L170)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L170)
 
 ___
 
@@ -403,7 +403,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -427,7 +427,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -455,7 +455,7 @@ an item at the given index or null
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L58)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L58)
 
 ___
 
@@ -477,7 +477,7 @@ true if the selection is empty
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L166)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L166)
 
 ___
 
@@ -507,7 +507,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -537,7 +537,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -559,7 +559,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L246)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L246)
 
 ___
 
@@ -592,7 +592,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -626,7 +626,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -640,7 +640,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L189)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L189)
 
 ___
 
@@ -662,7 +662,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L211)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L211)
 
 ___
 
@@ -696,7 +696,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -724,7 +724,7 @@ true if succeeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L84)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L84)
 
 ___
 
@@ -756,7 +756,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -791,7 +791,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -813,7 +813,7 @@ the number of selected items
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L162)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L162)
 
 ___
 
@@ -833,7 +833,7 @@ Returns an array of selected items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L181)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L181)
 
 ___
 
@@ -855,7 +855,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L194)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L194)
 
 ___
 
@@ -876,7 +876,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L205)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L205)
 
 ___
 
@@ -904,4 +904,4 @@ true if succeeded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L94)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-list-data-selection-multiple.ts#L94)

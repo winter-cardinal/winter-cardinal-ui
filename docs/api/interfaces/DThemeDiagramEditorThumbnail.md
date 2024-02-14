@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDiagramEditorThumbnail
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeDiagramEditorThumbnail
 
 # Interface: DThemeDiagramEditorThumbnail
 
@@ -32,7 +32,7 @@ If the size is null, a thumbnail size will be of a canvas size.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L27)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L27)
 
 ___
 
@@ -46,4 +46,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L21)

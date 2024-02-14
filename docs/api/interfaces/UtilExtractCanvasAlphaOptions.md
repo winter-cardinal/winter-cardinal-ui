@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / UtilExtractCanvasAlphaOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / UtilExtractCanvasAlphaOptions
 
 # Interface: UtilExtractCanvasAlphaOptions
 
@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-extract.ts#L42)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L42)

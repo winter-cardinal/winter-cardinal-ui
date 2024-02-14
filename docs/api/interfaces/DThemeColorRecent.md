@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeColorRecent
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeColorRecent
 
 # Interface: DThemeColorRecent
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-recent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-recent.ts#L10)
+[src/main/typescript/wcardinal/ui/d-color-recent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-recent.ts#L10)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-recent.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-color-recent.ts#L11)
+[src/main/typescript/wcardinal/ui/d-color-recent.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-recent.ts#L11)

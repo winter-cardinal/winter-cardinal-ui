@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DLayoutMarginOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DLayoutMarginOptions
 
 # Interface: DLayoutMarginOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-layout.ts#L21)
+[src/main/typescript/wcardinal/ui/d-layout.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-layout.ts#L21)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-layout.ts#L22)
+[src/main/typescript/wcardinal/ui/d-layout.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-layout.ts#L22)

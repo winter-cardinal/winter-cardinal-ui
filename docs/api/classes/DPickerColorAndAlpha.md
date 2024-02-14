@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DPickerColorAndAlpha
+[Winter Cardinal UI - v0.407.0](../index.md) / DPickerColorAndAlpha
 
 # Class: DPickerColorAndAlpha
 
@@ -45,7 +45,7 @@ A color and an alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L13)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L13)
 
 ## Properties
 
@@ -55,7 +55,7 @@ A color and an alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L9)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L9)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L11)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L11)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L10)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L10)
 
 ## Accessors
 
@@ -123,7 +123,7 @@ An alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L36)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L36)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -145,7 +145,7 @@ An alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L40)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L40)
 
 ___
 
@@ -165,7 +165,7 @@ A color.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L23)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L23)
 
 • `set` **color**(`color`): `void`
 
@@ -187,4 +187,4 @@ A color.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L27)
+[src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-and-alpha.ts#L27)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeImagePiece
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeImagePiece
 
 # Interface: DThemeImagePiece
 
@@ -8,8 +8,11 @@
 
   ↳ [`DThemeImageBase`](DThemeImageBase.md)
 
+  ↳ [`DThemeImagePieceContainer`](DThemeImagePieceContainer.md)
+
 ## Implemented by
 
+- [`DImageBaseThemeWrapperOther`](../classes/DImageBaseThemeWrapperOther.md)
 - [`DImageBaseThemeWrapperSecondary`](../classes/DImageBaseThemeWrapperSecondary.md)
 - [`DImageBaseThemeWrapperTertiary`](../classes/DImageBaseThemeWrapperTertiary.md)
 
@@ -22,6 +25,7 @@
 - [getImageAlignWith](DThemeImagePiece.md#getimagealignwith)
 - [getImageMarginHorizontal](DThemeImagePiece.md#getimagemarginhorizontal)
 - [getImageMarginVertial](DThemeImagePiece.md#getimagemarginvertial)
+- [getImageRotation](DThemeImagePiece.md#getimagerotation)
 - [getImageSource](DThemeImagePiece.md#getimagesource)
 - [getImageTintAlpha](DThemeImagePiece.md#getimagetintalpha)
 - [getImageTintColor](DThemeImagePiece.md#getimagetintcolor)
@@ -38,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L60)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L20)
 
 ___
 
@@ -52,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L61)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L21)
 
 ___
 
@@ -66,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L62)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L22)
 
 ___
 
@@ -80,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L63)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L23)
 
 ___
 
@@ -94,7 +98,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L64)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L24)
+
+___
+
+### getImageRotation
+
+▸ **getImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L28)
 
 ___
 
@@ -114,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L67)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L27)
 
 ___
 
@@ -134,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L66)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L26)
 
 ___
 
@@ -154,4 +178,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L65)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L25)

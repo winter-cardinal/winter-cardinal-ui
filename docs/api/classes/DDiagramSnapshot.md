@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDiagramSnapshot
+[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramSnapshot
 
 # Class: DDiagramSnapshot\<CANVAS\>
 
@@ -73,7 +73,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L88)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L88)
 
 ## Properties
 
@@ -83,7 +83,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L86)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L86)
 
 ## Methods
 
@@ -111,7 +111,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L234)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L234)
 
 ___
 
@@ -159,7 +159,7 @@ Creates and downloads a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L144)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L144)
 
 ▸ **createAsFile**(`size`, `filename`): `void`
 
@@ -178,7 +178,7 @@ Creates and downloads a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L152)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L152)
 
 ▸ **createAsFile**(`options`): `void`
 
@@ -196,7 +196,7 @@ Creates and downloads a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L159)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L159)
 
 ___
 
@@ -220,7 +220,7 @@ an URL of a created image or undefined
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L108)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L108)
 
 ▸ **createAsUrl**(`options`): `undefined` \| `string`
 
@@ -240,7 +240,7 @@ an URL of a created image or undefined
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L116)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L116)
 
 ___
 
@@ -269,7 +269,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
 
 ___
 
@@ -289,7 +289,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -315,7 +315,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -341,7 +341,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -370,7 +370,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -400,7 +400,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24033
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -430,7 +430,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24044
+node_modules/pixi.js/pixi.js.d.ts:25463
 
 ___
 
@@ -458,7 +458,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -489,7 +489,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -509,7 +509,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L210)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L210)
 
 ___
 
@@ -529,7 +529,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L223)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L223)
 
 ___
 
@@ -549,7 +549,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L199)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L199)
 
 ___
 
@@ -570,4 +570,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L192)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L192)

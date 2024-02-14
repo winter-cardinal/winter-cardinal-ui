@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / BuilderLabel
+[Winter Cardinal UI - v0.407.0](../index.md) / BuilderLabel
 
 # Class: BuilderLabel
 
@@ -14,6 +14,7 @@
 
 ### Properties
 
+- [buffer](BuilderLabel.md#buffer)
 - [indexCount](BuilderLabel.md#indexcount)
 - [indexOffset](BuilderLabel.md#indexoffset)
 - [texture](BuilderLabel.md#texture)
@@ -25,22 +26,22 @@
 - [buildUnit](BuilderLabel.md#buildunit)
 - [init](BuilderLabel.md#init)
 - [isCompatible](BuilderLabel.md#iscompatible)
+- [reinit](BuilderLabel.md#reinit)
 - [update](BuilderLabel.md#update)
 
 ## Constructors
 
 ### constructor
 
-• **new BuilderLabel**(`vertexOffset`, `indexOffset`, `vertexCount`, `indexCount`): [`BuilderLabel`](BuilderLabel.md)
+• **new BuilderLabel**(`buffer`, `vertexOffset`, `indexOffset`): [`BuilderLabel`](BuilderLabel.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `buffer` | [`BuilderBuffer`](../interfaces/BuilderBuffer.md) |
 | `vertexOffset` | `number` |
 | `indexOffset` | `number` |
-| `vertexCount` | `number` |
-| `indexCount` | `number` |
 
 #### Returns
 
@@ -48,13 +49,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L21)
 
 ## Properties
 
+### buffer
+
+• **buffer**: [`BuilderBuffer`](../interfaces/BuilderBuffer.md)
+
+#### Implementation of
+
+[Builder](../interfaces/Builder.md).[buffer](../interfaces/Builder.md#buffer)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L13)
+
+___
+
 ### indexCount
 
-• `Readonly` **indexCount**: `number`
+• **indexCount**: `number`
 
 #### Implementation of
 
@@ -62,13 +77,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L17)
 
 ___
 
 ### indexOffset
 
-• `Readonly` **indexOffset**: `number`
+• **indexOffset**: `number`
 
 #### Implementation of
 
@@ -76,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L16)
 
 ___
 
@@ -86,13 +101,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L19)
 
 ___
 
 ### vertexCount
 
-• `Readonly` **vertexCount**: `number`
+• **vertexCount**: `number`
 
 #### Implementation of
 
@@ -100,13 +115,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L15)
 
 ___
 
 ### vertexOffset
 
-• `Readonly` **vertexOffset**: `number`
+• **vertexOffset**: `number`
 
 #### Implementation of
 
@@ -114,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L14)
 
 ## Methods
 
@@ -138,23 +153,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L55)
 
 ___
 
 ### init
 
-▸ **init**(`buffer`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `buffer` | [`EShapeBuffer`](EShapeBuffer.md) |
+▸ **init**(): [`BuilderLabel`](BuilderLabel.md)
 
 #### Returns
 
-`void`
+[`BuilderLabel`](BuilderLabel.md)
 
 #### Implementation of
 
@@ -162,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L31)
 
 ___
 
@@ -186,19 +195,45 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L47)
 
 ___
 
-### update
+### reinit
 
-▸ **update**(`buffer`, `shape`): `void`
+▸ **reinit**(`buffer`, `shape`, `vertexOffset`, `indexOffset`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `buffer` | [`EShapeBuffer`](EShapeBuffer.md) |
+| `buffer` | [`BuilderBuffer`](../interfaces/BuilderBuffer.md) |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `vertexOffset` | `number` |
+| `indexOffset` | `number` |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[Builder](../interfaces/Builder.md).[reinit](../interfaces/Builder.md#reinit)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L35)
+
+___
+
+### update
+
+▸ **update**(`shape`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
 
 #### Returns
@@ -211,4 +246,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/builder-label.ts#L51)

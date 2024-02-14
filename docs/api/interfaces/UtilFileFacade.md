@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / UtilFileFacade
+[Winter Cardinal UI - v0.407.0](../index.md) / UtilFileFacade
 
 # Interface: UtilFileFacade
 
@@ -27,4 +27,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L20)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L20)

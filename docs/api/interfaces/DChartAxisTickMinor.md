@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DChartAxisTickMinor
+[Winter Cardinal UI - v0.407.0](../index.md) / DChartAxisTickMinor
 
 # Interface: DChartAxisTickMinor\<CHART\>
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L11)
 
 ## Methods
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L13)
+[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L13)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L15)
 
 ___
 
@@ -81,4 +81,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-tick-minor.ts#L14)

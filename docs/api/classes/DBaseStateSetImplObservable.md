@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DBaseStateSetImplObservable
+[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateSetImplObservable
 
 # Class: DBaseStateSetImplObservable
 
@@ -45,6 +45,7 @@
 - [inHovered](DBaseStateSetImplObservable.md#inhovered)
 - [inInvalid](DBaseStateSetImplObservable.md#ininvalid)
 - [inPressed](DBaseStateSetImplObservable.md#inpressed)
+- [inProcessing](DBaseStateSetImplObservable.md#inprocessing)
 - [inReadOnly](DBaseStateSetImplObservable.md#inreadonly)
 - [inSucceeded](DBaseStateSetImplObservable.md#insucceeded)
 - [inUnfocusable](DBaseStateSetImplObservable.md#inunfocusable)
@@ -64,6 +65,7 @@
 - [isHovered](DBaseStateSetImplObservable.md#ishovered)
 - [isInvalid](DBaseStateSetImplObservable.md#isinvalid)
 - [isPressed](DBaseStateSetImplObservable.md#ispressed)
+- [isProcessing](DBaseStateSetImplObservable.md#isprocessing)
 - [isReadOnly](DBaseStateSetImplObservable.md#isreadonly)
 - [isSucceeded](DBaseStateSetImplObservable.md#issucceeded)
 - [isUnfocusable](DBaseStateSetImplObservable.md#isunfocusable)
@@ -83,6 +85,7 @@
 - [onHovered](DBaseStateSetImplObservable.md#onhovered)
 - [onInvalid](DBaseStateSetImplObservable.md#oninvalid)
 - [onPressed](DBaseStateSetImplObservable.md#onpressed)
+- [onProcessing](DBaseStateSetImplObservable.md#onprocessing)
 - [onReadOnly](DBaseStateSetImplObservable.md#onreadonly)
 - [onSucceeded](DBaseStateSetImplObservable.md#onsucceeded)
 - [onUnfocusable](DBaseStateSetImplObservable.md#onunfocusable)
@@ -104,6 +107,7 @@
 - [underHovered](DBaseStateSetImplObservable.md#underhovered)
 - [underInvalid](DBaseStateSetImplObservable.md#underinvalid)
 - [underPressed](DBaseStateSetImplObservable.md#underpressed)
+- [underProcessing](DBaseStateSetImplObservable.md#underprocessing)
 - [underReadOnly](DBaseStateSetImplObservable.md#underreadonly)
 - [underSucceeded](DBaseStateSetImplObservable.md#undersucceeded)
 - [underUnfocusable](DBaseStateSetImplObservable.md#underunfocusable)
@@ -173,7 +177,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L21)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L21)
 
 ## Properties
 
@@ -187,7 +191,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L23)
 
 ___
 
@@ -197,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L18)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L18)
 
 ___
 
@@ -207,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L16)
 
 ___
 
@@ -217,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L17)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L17)
 
 ___
 
@@ -231,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L21)
 
 ___
 
@@ -241,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L15)
 
 ___
 
@@ -255,7 +259,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L22)
 
 ___
 
@@ -265,7 +269,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L19)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L19)
 
 ___
 
@@ -279,7 +283,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L24)
 
 ## Accessors
 
@@ -297,7 +301,7 @@ DBaseStateSetImpl.blinker
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L54)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L54)
 
 ___
 
@@ -315,7 +319,7 @@ DBaseStateSetImpl.inActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L504)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:504](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L504)
 
 ___
 
@@ -333,7 +337,7 @@ DBaseStateSetImpl.inAlternated
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:828](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L828)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:848](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L848)
 
 ___
 
@@ -351,7 +355,7 @@ DBaseStateSetImpl.inChanged
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:808](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L808)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:828](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L828)
 
 ___
 
@@ -369,7 +373,7 @@ DBaseStateSetImpl.inDisabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:584](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L584)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:584](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L584)
 
 ___
 
@@ -387,7 +391,7 @@ DBaseStateSetImpl.inEnabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L564)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L564)
 
 ___
 
@@ -405,7 +409,7 @@ DBaseStateSetImpl.inFailed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:768](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L768)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:788](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L788)
 
 ___
 
@@ -423,7 +427,7 @@ DBaseStateSetImpl.inFocusReverse
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:668](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L668)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:668](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L668)
 
 ___
 
@@ -441,7 +445,7 @@ DBaseStateSetImpl.inFocusRoot
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:648](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L648)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:648](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L648)
 
 ___
 
@@ -459,7 +463,7 @@ DBaseStateSetImpl.inFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:688](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L688)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:688](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L688)
 
 ___
 
@@ -477,7 +481,7 @@ DBaseStateSetImpl.inFocused
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:628](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L628)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:628](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L628)
 
 ___
 
@@ -495,7 +499,7 @@ DBaseStateSetImpl.inGesturing
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:608](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L608)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:608](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L608)
 
 ___
 
@@ -513,7 +517,7 @@ DBaseStateSetImpl.inHovered
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L484)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L484)
 
 ___
 
@@ -531,7 +535,7 @@ DBaseStateSetImpl.inInvalid
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:728](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L728)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:728](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L728)
 
 ___
 
@@ -549,7 +553,25 @@ DBaseStateSetImpl.inPressed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:524](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L524)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:524](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L524)
+
+___
+
+### inProcessing
+
+• `get` **inProcessing**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+DBaseStateSetImpl.inProcessing
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L748)
 
 ___
 
@@ -567,7 +589,7 @@ DBaseStateSetImpl.inReadOnly
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L544)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L544)
 
 ___
 
@@ -585,7 +607,7 @@ DBaseStateSetImpl.inSucceeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L748)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:768](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L768)
 
 ___
 
@@ -603,7 +625,7 @@ DBaseStateSetImpl.inUnfocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:708](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L708)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:708](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L708)
 
 ___
 
@@ -621,7 +643,7 @@ DBaseStateSetImpl.inWarned
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:788](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L788)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:808](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L808)
 
 ___
 
@@ -639,7 +661,7 @@ DBaseStateSetImpl.isActionable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:596](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L596)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:596](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L596)
 
 ___
 
@@ -657,7 +679,7 @@ DBaseStateSetImpl.isActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:496](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L496)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:496](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L496)
 
 • `set` **isActive**(`isActive`): `void`
 
@@ -677,7 +699,7 @@ DBaseStateSetImpl.isActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L500)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:500](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L500)
 
 ___
 
@@ -695,7 +717,7 @@ DBaseStateSetImpl.isAlternated
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:820](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L820)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:840](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L840)
 
 • `set` **isAlternated**(`isAlternated`): `void`
 
@@ -715,7 +737,7 @@ DBaseStateSetImpl.isAlternated
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:824](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L824)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:844](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L844)
 
 ___
 
@@ -733,7 +755,7 @@ DBaseStateSetImpl.isChanged
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:800](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L800)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:820](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L820)
 
 • `set` **isChanged**(`isChanged`): `void`
 
@@ -753,7 +775,7 @@ DBaseStateSetImpl.isChanged
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L804)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:824](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L824)
 
 ___
 
@@ -771,7 +793,7 @@ DBaseStateSetImpl.isDisabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L576)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L576)
 
 • `set` **isDisabled**(`isDisabled`): `void`
 
@@ -791,7 +813,7 @@ DBaseStateSetImpl.isDisabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L580)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L580)
 
 ___
 
@@ -809,7 +831,7 @@ DBaseStateSetImpl.isEnabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:556](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L556)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:556](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L556)
 
 • `set` **isEnabled**(`isEnabled`): `void`
 
@@ -829,7 +851,7 @@ DBaseStateSetImpl.isEnabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:560](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L560)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:560](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L560)
 
 ___
 
@@ -847,7 +869,7 @@ DBaseStateSetImpl.isFailed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:760](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L760)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:780](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L780)
 
 • `set` **isFailed**(`failed`): `void`
 
@@ -867,7 +889,7 @@ DBaseStateSetImpl.isFailed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:764](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L764)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:784](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L784)
 
 ___
 
@@ -885,7 +907,7 @@ DBaseStateSetImpl.isFocusReverse
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:660](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L660)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:660](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L660)
 
 • `set` **isFocusReverse**(`isFocusReverse`): `void`
 
@@ -905,7 +927,7 @@ DBaseStateSetImpl.isFocusReverse
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:664](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L664)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:664](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L664)
 
 ___
 
@@ -923,7 +945,7 @@ DBaseStateSetImpl.isFocusRoot
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:640](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L640)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:640](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L640)
 
 • `set` **isFocusRoot**(`isFocusRoot`): `void`
 
@@ -943,7 +965,7 @@ DBaseStateSetImpl.isFocusRoot
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:644](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L644)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:644](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L644)
 
 ___
 
@@ -961,7 +983,7 @@ DBaseStateSetImpl.isFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:680](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L680)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:680](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L680)
 
 • `set` **isFocusable**(`isFocusable`): `void`
 
@@ -981,7 +1003,7 @@ DBaseStateSetImpl.isFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:684](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L684)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:684](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L684)
 
 ___
 
@@ -999,7 +1021,7 @@ DBaseStateSetImpl.isFocused
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:620](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L620)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:620](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L620)
 
 • `set` **isFocused**(`isFocused`): `void`
 
@@ -1019,7 +1041,7 @@ DBaseStateSetImpl.isFocused
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:624](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L624)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:624](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L624)
 
 ___
 
@@ -1037,7 +1059,7 @@ DBaseStateSetImpl.isGesturing
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:600](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L600)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:600](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L600)
 
 • `set` **isGesturing**(`isGesturing`): `void`
 
@@ -1057,7 +1079,7 @@ DBaseStateSetImpl.isGesturing
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:604](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L604)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:604](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L604)
 
 ___
 
@@ -1075,7 +1097,7 @@ DBaseStateSetImpl.isHovered
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L476)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L476)
 
 • `set` **isHovered**(`isHovered`): `void`
 
@@ -1095,7 +1117,7 @@ DBaseStateSetImpl.isHovered
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L480)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:480](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L480)
 
 ___
 
@@ -1113,7 +1135,7 @@ DBaseStateSetImpl.isInvalid
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:720](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L720)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:720](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L720)
 
 • `set` **isInvalid**(`invalid`): `void`
 
@@ -1133,7 +1155,7 @@ DBaseStateSetImpl.isInvalid
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:724](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L724)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:724](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L724)
 
 ___
 
@@ -1151,7 +1173,7 @@ DBaseStateSetImpl.isPressed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:516](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L516)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:516](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L516)
 
 • `set` **isPressed**(`isPressed`): `void`
 
@@ -1171,7 +1193,45 @@ DBaseStateSetImpl.isPressed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:520](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L520)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:520](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L520)
+
+___
+
+### isProcessing
+
+• `get` **isProcessing**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+DBaseStateSetImpl.isProcessing
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:740](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L740)
+
+• `set` **isProcessing**(`processing`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `processing` | `boolean` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+DBaseStateSetImpl.isProcessing
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:744](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L744)
 
 ___
 
@@ -1189,7 +1249,7 @@ DBaseStateSetImpl.isReadOnly
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L536)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L536)
 
 • `set` **isReadOnly**(`isReadOnly`): `void`
 
@@ -1209,7 +1269,7 @@ DBaseStateSetImpl.isReadOnly
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:540](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L540)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:540](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L540)
 
 ___
 
@@ -1227,7 +1287,7 @@ DBaseStateSetImpl.isSucceeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:740](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L740)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:760](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L760)
 
 • `set` **isSucceeded**(`succeeded`): `void`
 
@@ -1247,7 +1307,7 @@ DBaseStateSetImpl.isSucceeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:744](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L744)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:764](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L764)
 
 ___
 
@@ -1265,7 +1325,7 @@ DBaseStateSetImpl.isUnfocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L700)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L700)
 
 • `set` **isUnfocusable**(`unfocusable`): `void`
 
@@ -1285,7 +1345,7 @@ DBaseStateSetImpl.isUnfocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:704](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L704)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:704](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L704)
 
 ___
 
@@ -1303,7 +1363,7 @@ DBaseStateSetImpl.isWarned
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:780](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L780)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:800](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L800)
 
 • `set` **isWarned**(`isWarned`): `void`
 
@@ -1323,7 +1383,7 @@ DBaseStateSetImpl.isWarned
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:784](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L784)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L804)
 
 ___
 
@@ -1341,7 +1401,7 @@ DBaseStateSetImpl.local
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L31)
 
 ___
 
@@ -1359,7 +1419,7 @@ DBaseStateSetImpl.onActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L508)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L508)
 
 ___
 
@@ -1377,7 +1437,7 @@ DBaseStateSetImpl.onAlternated
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:832](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L832)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:852](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L852)
 
 ___
 
@@ -1395,7 +1455,7 @@ DBaseStateSetImpl.onChanged
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:812](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L812)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:832](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L832)
 
 ___
 
@@ -1413,7 +1473,7 @@ DBaseStateSetImpl.onDisabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:588](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L588)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:588](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L588)
 
 ___
 
@@ -1431,7 +1491,7 @@ DBaseStateSetImpl.onEnabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L568)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L568)
 
 ___
 
@@ -1449,7 +1509,7 @@ DBaseStateSetImpl.onFailed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:772](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L772)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L792)
 
 ___
 
@@ -1467,7 +1527,7 @@ DBaseStateSetImpl.onFocusReverse
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L672)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L672)
 
 ___
 
@@ -1485,7 +1545,7 @@ DBaseStateSetImpl.onFocusRoot
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:652](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L652)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:652](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L652)
 
 ___
 
@@ -1503,7 +1563,7 @@ DBaseStateSetImpl.onFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:692](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L692)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:692](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L692)
 
 ___
 
@@ -1521,7 +1581,7 @@ DBaseStateSetImpl.onFocused
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:632](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L632)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:632](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L632)
 
 ___
 
@@ -1539,7 +1599,7 @@ DBaseStateSetImpl.onGesturing
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:612](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L612)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:612](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L612)
 
 ___
 
@@ -1557,7 +1617,7 @@ DBaseStateSetImpl.onHovered
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L488)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L488)
 
 ___
 
@@ -1575,7 +1635,7 @@ DBaseStateSetImpl.onInvalid
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L732)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L732)
 
 ___
 
@@ -1593,7 +1653,25 @@ DBaseStateSetImpl.onPressed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:528](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L528)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:528](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L528)
+
+___
+
+### onProcessing
+
+• `get` **onProcessing**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+DBaseStateSetImpl.onProcessing
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:752](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L752)
 
 ___
 
@@ -1611,7 +1689,7 @@ DBaseStateSetImpl.onReadOnly
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:548](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L548)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:548](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L548)
 
 ___
 
@@ -1629,7 +1707,7 @@ DBaseStateSetImpl.onSucceeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:752](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L752)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:772](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L772)
 
 ___
 
@@ -1647,7 +1725,7 @@ DBaseStateSetImpl.onUnfocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:712](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L712)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:712](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L712)
 
 ___
 
@@ -1665,7 +1743,7 @@ DBaseStateSetImpl.onWarned
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L792)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:812](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L812)
 
 ___
 
@@ -1683,7 +1761,7 @@ DBaseStateSetImpl.parent
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L35)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L35)
 
 • `set` **parent**(`parent`): `void`
 
@@ -1703,7 +1781,7 @@ DBaseStateSetImpl.parent
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L39)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L39)
 
 ___
 
@@ -1717,7 +1795,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L42)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L42)
 
 ___
 
@@ -1735,7 +1813,7 @@ DBaseStateSetImpl.ticker
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L67)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L67)
 
 ___
 
@@ -1753,7 +1831,7 @@ DBaseStateSetImpl.underActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:512](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L512)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:512](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L512)
 
 ___
 
@@ -1771,7 +1849,7 @@ DBaseStateSetImpl.underAlternated
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:836](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L836)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:856](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L856)
 
 ___
 
@@ -1789,7 +1867,7 @@ DBaseStateSetImpl.underChanged
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:816](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L816)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:836](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L836)
 
 ___
 
@@ -1807,7 +1885,7 @@ DBaseStateSetImpl.underDisabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:592](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L592)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:592](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L592)
 
 ___
 
@@ -1825,7 +1903,7 @@ DBaseStateSetImpl.underEnabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L572)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L572)
 
 ___
 
@@ -1843,7 +1921,7 @@ DBaseStateSetImpl.underFailed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:776](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L776)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L796)
 
 ___
 
@@ -1861,7 +1939,7 @@ DBaseStateSetImpl.underFocusReverse
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:676](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L676)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:676](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L676)
 
 ___
 
@@ -1879,7 +1957,7 @@ DBaseStateSetImpl.underFocusRoot
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:656](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L656)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:656](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L656)
 
 ___
 
@@ -1897,7 +1975,7 @@ DBaseStateSetImpl.underFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:696](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L696)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:696](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L696)
 
 ___
 
@@ -1915,7 +1993,7 @@ DBaseStateSetImpl.underFocused
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:636](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L636)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:636](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L636)
 
 ___
 
@@ -1933,7 +2011,7 @@ DBaseStateSetImpl.underGesturing
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:616](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L616)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:616](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L616)
 
 ___
 
@@ -1951,7 +2029,7 @@ DBaseStateSetImpl.underHovered
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:492](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L492)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:492](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L492)
 
 ___
 
@@ -1969,7 +2047,7 @@ DBaseStateSetImpl.underInvalid
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:736](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L736)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:736](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L736)
 
 ___
 
@@ -1987,7 +2065,25 @@ DBaseStateSetImpl.underPressed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:532](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L532)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:532](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L532)
+
+___
+
+### underProcessing
+
+• `get` **underProcessing**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+DBaseStateSetImpl.underProcessing
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:756](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L756)
 
 ___
 
@@ -2005,7 +2101,7 @@ DBaseStateSetImpl.underReadOnly
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L552)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L552)
 
 ___
 
@@ -2023,7 +2119,7 @@ DBaseStateSetImpl.underSucceeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:756](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L756)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:776](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L776)
 
 ___
 
@@ -2041,7 +2137,7 @@ DBaseStateSetImpl.underUnfocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:716](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L716)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:716](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L716)
 
 ___
 
@@ -2059,7 +2155,7 @@ DBaseStateSetImpl.underWarned
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L796)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:816](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L816)
 
 ## Methods
 
@@ -2084,7 +2180,7 @@ DBaseStateSetImpl.underWarned
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L120)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L120)
 
 ___
 
@@ -2108,7 +2204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L152)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L152)
 
 ▸ **addAll**(`states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2128,7 +2224,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L153)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L153)
 
 ▸ **addAll**(`states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2148,7 +2244,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L154)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L154)
 
 ▸ **addAll**(`...states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2168,7 +2264,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L156)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L156)
 
 ▸ **addAll**(`...states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2188,7 +2284,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L157)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L157)
 
 ___
 
@@ -2212,7 +2308,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L189)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L189)
 
 ___
 
@@ -2236,7 +2332,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L177)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L177)
 
 ___
 
@@ -2254,7 +2350,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L51)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L51)
 
 ___
 
@@ -2279,7 +2375,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L115)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L115)
 
 ___
 
@@ -2303,7 +2399,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L140)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L140)
 
 ___
 
@@ -2327,7 +2423,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L129)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L129)
 
 ___
 
@@ -2351,7 +2447,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L202)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L202)
 
 ___
 
@@ -2375,7 +2471,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L225)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L225)
 
 ___
 
@@ -2399,7 +2495,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L215)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L215)
 
 ___
 
@@ -2417,7 +2513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:429](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L429)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:429](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L429)
 
 ___
 
@@ -2441,7 +2537,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:462](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L462)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:462](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L462)
 
 ___
 
@@ -2467,7 +2563,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:345](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L345)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:345](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L345)
 
 ___
 
@@ -2491,7 +2587,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L451)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L451)
 
 ___
 
@@ -2509,7 +2605,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L59)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L59)
 
 ___
 
@@ -2540,7 +2636,7 @@ true if the given state is on or if one of the parents has the given state.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L85)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L85)
 
 ___
 
@@ -2571,7 +2667,7 @@ true if the given state is on
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L80)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L80)
 
 ___
 
@@ -2600,7 +2696,7 @@ this
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L29)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L29)
 
 ___
 
@@ -2618,7 +2714,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L63)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L63)
 
 ___
 
@@ -2636,7 +2732,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L76)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L76)
 
 ___
 
@@ -2667,7 +2763,7 @@ true if the direct parent has the given state.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L89)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L89)
 
 ___
 
@@ -2688,7 +2784,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L70)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L70)
 
 ___
 
@@ -2713,7 +2809,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L47)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L47)
 
 ___
 
@@ -2737,7 +2833,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L206)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L206)
 
 ___
 
@@ -2761,7 +2857,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L235)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L235)
 
 ▸ **removeAll**(`states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2781,7 +2877,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L236)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L236)
 
 ▸ **removeAll**(`states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2801,7 +2897,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L237)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L237)
 
 ▸ **removeAll**(`...states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2821,7 +2917,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L239)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L239)
 
 ▸ **removeAll**(`...states`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2841,7 +2937,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L240)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L240)
 
 ▸ **removeAll**(`matcher`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2861,7 +2957,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L242)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L242)
 
 ___
 
@@ -2885,7 +2981,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L266)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L266)
 
 ___
 
@@ -2909,7 +3005,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L296)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L296)
 
 ___
 
@@ -2933,7 +3029,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L284)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L284)
 
 ___
 
@@ -2958,7 +3054,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L308)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L308)
 
 ▸ **set**(`state`, `value`, `on`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -2980,7 +3076,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:309](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L309)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:309](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L309)
 
 ▸ **set**(`added`, `removed`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3001,7 +3097,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L311)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L311)
 
 ▸ **set**(`added`, `value`, `removed`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3023,7 +3119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L312)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L312)
 
 ___
 
@@ -3048,7 +3144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:362](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L362)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:362](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L362)
 
 ▸ **setAll**(`states`, `on`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3069,7 +3165,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L363)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L363)
 
 ▸ **setAll**(`states`, `on`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3090,7 +3186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:364](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L364)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:364](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L364)
 
 ▸ **setAll**(`addeds`, `removeds`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3111,7 +3207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:366](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L366)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:366](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L366)
 
 ▸ **setAll**(`addeds`, `removeds`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3132,7 +3228,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:367](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L367)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:367](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L367)
 
 ▸ **setAll**(`addeds`, `removeds`): [`DBaseStateSetImplObservable`](DBaseStateSetImplObservable.md)
 
@@ -3153,7 +3249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:368](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L368)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:368](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L368)
 
 ___
 
@@ -3178,7 +3274,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:413](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L413)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:413](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L413)
 
 ___
 
@@ -3203,7 +3299,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:398](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L398)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:398](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L398)
 
 ___
 
@@ -3221,7 +3317,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:458](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L458)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:458](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L458)
 
 ___
 
@@ -3239,7 +3335,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:840](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L840)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:860](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L860)
 
 ___
 
@@ -3257,7 +3353,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:850](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L850)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:870](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L870)
 
 ___
 
@@ -3288,7 +3384,7 @@ true if one of the parents has the given state.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L94)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L94)
 
 ___
 
@@ -3311,7 +3407,7 @@ this
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L37)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl-observable.ts#L37)
 
 ___
 
@@ -3336,4 +3432,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:439](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L439)
+[src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts:439](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-impl.ts#L439)

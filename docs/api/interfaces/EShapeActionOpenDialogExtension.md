@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / EShapeActionOpenDialogExtension
+[Winter Cardinal UI - v0.407.0](../index.md) / EShapeActionOpenDialogExtension
 
 # Interface: EShapeActionOpenDialogExtension
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L10)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L11)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L9)

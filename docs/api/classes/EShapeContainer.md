@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / EShapeContainer
+[Winter Cardinal UI - v0.407.0](../index.md) / EShapeContainer
 
 # Class: EShapeContainer
 
@@ -26,12 +26,17 @@
 - [\_accessibleDiv](EShapeContainer.md#_accessiblediv)
 - [\_atlas](EShapeContainer.md#_atlas)
 - [\_bounds](EShapeContainer.md#_bounds)
+- [\_boundsID](EShapeContainer.md#_boundsid)
+- [\_boundsRect](EShapeContainer.md#_boundsrect)
 - [\_buffers](EShapeContainer.md#_buffers)
 - [\_childrenId](EShapeContainer.md#_childrenid)
 - [\_childrenIdRendered](EShapeContainer.md#_childrenidrendered)
 - [\_destroyed](EShapeContainer.md#_destroyed)
+- [\_enabledFilters](EShapeContainer.md#_enabledfilters)
 - [\_fontAtlases](EShapeContainer.md#_fontatlases)
 - [\_lastSortedIndex](EShapeContainer.md#_lastsortedindex)
+- [\_localBounds](EShapeContainer.md#_localbounds)
+- [\_localBoundsRect](EShapeContainer.md#_localboundsrect)
 - [\_mask](EShapeContainer.md#_mask)
 - [\_pixelScale](EShapeContainer.md#_pixelscale)
 - [\_pixelScaleId](EShapeContainer.md#_pixelscaleid)
@@ -86,8 +91,10 @@
 - [calculateBounds](EShapeContainer.md#calculatebounds)
 - [containsPoint](EShapeContainer.md#containspoint)
 - [destroy](EShapeContainer.md#destroy)
+- [disableTempParent](EShapeContainer.md#disabletempparent)
 - [displayObjectUpdateTransform](EShapeContainer.md#displayobjectupdatetransform)
 - [emit](EShapeContainer.md#emit)
+- [enableTempParent](EShapeContainer.md#enabletempparent)
 - [eventNames](EShapeContainer.md#eventnames)
 - [getAntialiasWeight](EShapeContainer.md#getantialiasweight)
 - [getAtlas](EShapeContainer.md#getatlas)
@@ -136,7 +143,7 @@ DisplayObject.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L33)
 
 ## Properties
 
@@ -160,7 +167,7 @@ DisplayObject.\_accessibleActive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8940
+node_modules/pixi.js/pixi.js.d.ts:9051
 
 ___
 
@@ -184,7 +191,7 @@ DisplayObject.\_accessibleDiv
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8946
+node_modules/pixi.js/pixi.js.d.ts:9057
 
 ___
 
@@ -194,13 +201,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L21)
 
 ___
 
 ### \_bounds
 
-• `Protected` **\_bounds**: `Bounds`
+• **\_bounds**: `Bounds`
 
 The bounds object, this is used to calculate and store the bounds of the displayObject.
 
@@ -214,7 +221,47 @@ DisplayObject.\_bounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9064
+node_modules/pixi.js/pixi.js.d.ts:9173
+
+___
+
+### \_boundsID
+
+• `Protected` **\_boundsID**: `number`
+
+Flags the cached bounds as dirty.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsID
+
+#### Inherited from
+
+DisplayObject.\_boundsID
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9186
+
+___
+
+### \_boundsRect
+
+• `Protected` **\_boundsRect**: `Bounds`
+
+Cache of this display-object's bounds-rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsRect
+
+#### Inherited from
+
+DisplayObject.\_boundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9193
 
 ___
 
@@ -224,7 +271,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L31)
 
 ___
 
@@ -234,7 +281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L18)
 
 ___
 
@@ -244,7 +291,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L19)
 
 ___
 
@@ -264,7 +311,27 @@ DisplayObject.\_destroyed
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9078
+node_modules/pixi.js/pixi.js.d.ts:9214
+
+___
+
+### \_enabledFilters
+
+• `Protected` **\_enabledFilters**: `Filter`[]
+
+Currently enabled filters
+
+**`Member`**
+
+PIXI.DisplayObject#_enabledFilters
+
+#### Inherited from
+
+DisplayObject.\_enabledFilters
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9167
 
 ___
 
@@ -274,7 +341,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L22)
 
 ___
 
@@ -295,13 +362,53 @@ DisplayObject.\_lastSortedIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9032
+node_modules/pixi.js/pixi.js.d.ts:9136
+
+___
+
+### \_localBounds
+
+• **\_localBounds**: `Bounds`
+
+Local bounds object, swapped with `_bounds` when using `getLocalBounds()`.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBounds
+
+#### Inherited from
+
+DisplayObject.\_localBounds
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9179
+
+___
+
+### \_localBoundsRect
+
+• `Protected` **\_localBoundsRect**: `Bounds`
+
+Cache of this display-object's local-bounds rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBoundsRect
+
+#### Inherited from
+
+DisplayObject.\_localBoundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9200
 
 ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
+• `Protected` **\_mask**: ``null`` \| `Container` \| `MaskData`
 
 The original, cached mask of the object.
 
@@ -315,7 +422,7 @@ DisplayObject.\_mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9071
+node_modules/pixi.js/pixi.js.d.ts:9207
 
 ___
 
@@ -325,7 +432,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L24)
 
 ___
 
@@ -335,7 +442,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L25)
 
 ___
 
@@ -345,7 +452,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L17)
 
 ___
 
@@ -355,7 +462,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L14)
 
 ___
 
@@ -365,7 +472,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L26)
 
 ___
 
@@ -375,13 +482,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L27)
 
 ___
 
 ### \_tempDisplayObjectParent
 
-• `Protected` **\_tempDisplayObjectParent**: `DisplayObject`
+• `Protected` **\_tempDisplayObjectParent**: `Container`
 
 **`Member`**
 
@@ -391,7 +498,7 @@ DisplayObject.\_tempDisplayObjectParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9093
+node_modules/pixi.js/pixi.js.d.ts:9314
 
 ___
 
@@ -401,7 +508,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L29)
 
 ___
 
@@ -422,7 +529,7 @@ DisplayObject.\_zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9040
+node_modules/pixi.js/pixi.js.d.ts:9144
 
 ___
 
@@ -445,7 +552,7 @@ DisplayObject.accessible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8919
+node_modules/pixi.js/pixi.js.d.ts:9030
 
 ___
 
@@ -474,7 +581,7 @@ DisplayObject.accessibleChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8973
+node_modules/pixi.js/pixi.js.d.ts:9084
 
 ___
 
@@ -496,7 +603,7 @@ DisplayObject.accessibleHint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8934
+node_modules/pixi.js/pixi.js.d.ts:9045
 
 ___
 
@@ -525,7 +632,7 @@ DisplayObject.accessiblePointerEvents
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8964
+node_modules/pixi.js/pixi.js.d.ts:9075
 
 ___
 
@@ -548,7 +655,7 @@ DisplayObject.accessibleTitle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8927
+node_modules/pixi.js/pixi.js.d.ts:9038
 
 ___
 
@@ -577,7 +684,7 @@ DisplayObject.accessibleType
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8955
+node_modules/pixi.js/pixi.js.d.ts:9066
 
 ___
 
@@ -597,7 +704,7 @@ DisplayObject.alpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8992
+node_modules/pixi.js/pixi.js.d.ts:9097
 
 ___
 
@@ -616,7 +723,7 @@ DisplayObject.angle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9254
+node_modules/pixi.js/pixi.js.d.ts:9401
 
 ___
 
@@ -647,7 +754,7 @@ DisplayObject.buttonMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9336
+node_modules/pixi.js/pixi.js.d.ts:9483
 
 ___
 
@@ -675,7 +782,7 @@ DisplayObject.cacheAsBitmap
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9363
+node_modules/pixi.js/pixi.js.d.ts:9510
 
 ___
 
@@ -685,7 +792,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L16)
 
 ___
 
@@ -720,7 +827,7 @@ DisplayObject.cursor
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9350
+node_modules/pixi.js/pixi.js.d.ts:9497
 
 ___
 
@@ -743,7 +850,7 @@ DisplayObject.filterArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9049
+node_modules/pixi.js/pixi.js.d.ts:9153
 
 ___
 
@@ -765,7 +872,7 @@ DisplayObject.filters
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9057
+node_modules/pixi.js/pixi.js.d.ts:9161
 
 ___
 
@@ -796,7 +903,7 @@ DisplayObject.hitArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9324
+node_modules/pixi.js/pixi.js.d.ts:9471
 
 ___
 
@@ -829,7 +936,7 @@ DisplayObject.interactive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9312
+node_modules/pixi.js/pixi.js.d.ts:9459
 
 ___
 
@@ -849,7 +956,7 @@ DisplayObject.isMask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9088
+node_modules/pixi.js/pixi.js.d.ts:9224
 
 ___
 
@@ -869,7 +976,7 @@ DisplayObject.isSprite
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9083
+node_modules/pixi.js/pixi.js.d.ts:9219
 
 ___
 
@@ -887,13 +994,13 @@ DisplayObject.localTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9212
+node_modules/pixi.js/pixi.js.d.ts:9359
 
 ___
 
 ### mask
 
-• **mask**: `Container` \| `MaskData`
+• **mask**: ``null`` \| `Container` \| `MaskData`
 
 Sets a mask for the displayObject. A mask is an object that limits the visibility of an
 object to the shape of the mask applied to it. In PixiJS a regular mask must be a
@@ -926,7 +1033,7 @@ DisplayObject.mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9290
+node_modules/pixi.js/pixi.js.d.ts:9437
 
 ___
 
@@ -950,13 +1057,13 @@ DisplayObject.name
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9370
+node_modules/pixi.js/pixi.js.d.ts:9517
 
 ___
 
 ### parent
 
-• `Readonly` **parent**: `Container`
+• **parent**: `Container`
 
 The display object container that contains this display object.
 
@@ -970,13 +1077,13 @@ DisplayObject.parent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9017
+node_modules/pixi.js/pixi.js.d.ts:9121
 
 ___
 
 ### pivot
 
-• **pivot**: `IPoint`
+• **pivot**: `ObservablePoint`
 
 The pivot point of the displayObject that it rotates around.
 Assignment by value since pixi-v4.
@@ -989,13 +1096,13 @@ DisplayObject.pivot
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9233
+node_modules/pixi.js/pixi.js.d.ts:9380
 
 ___
 
 ### position
 
-• **position**: `IPoint`
+• **position**: `ObservablePoint`
 
 The coordinate of the object relative to the local coordinates of the parent.
 Assignment by value since pixi-v4.
@@ -1008,7 +1115,7 @@ DisplayObject.position
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9219
+node_modules/pixi.js/pixi.js.d.ts:9366
 
 ___
 
@@ -1031,7 +1138,7 @@ DisplayObject.renderable
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9010
+node_modules/pixi.js/pixi.js.d.ts:9115
 
 ___
 
@@ -1050,13 +1157,13 @@ DisplayObject.rotation
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9247
+node_modules/pixi.js/pixi.js.d.ts:9394
 
 ___
 
 ### scale
 
-• **scale**: `IPoint`
+• **scale**: `ObservablePoint`
 
 The scale factor of the object.
 Assignment by value since pixi-v4.
@@ -1069,7 +1176,7 @@ DisplayObject.scale
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9226
+node_modules/pixi.js/pixi.js.d.ts:9373
 
 ___
 
@@ -1088,7 +1195,7 @@ DisplayObject.skew
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9240
+node_modules/pixi.js/pixi.js.d.ts:9387
 
 ___
 
@@ -1109,7 +1216,7 @@ DisplayObject.transform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8986
+node_modules/pixi.js/pixi.js.d.ts:9091
 
 ___
 
@@ -1132,7 +1239,7 @@ DisplayObject.visible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9001
+node_modules/pixi.js/pixi.js.d.ts:9106
 
 ___
 
@@ -1152,7 +1259,7 @@ DisplayObject.worldAlpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9024
+node_modules/pixi.js/pixi.js.d.ts:9128
 
 ___
 
@@ -1170,7 +1277,7 @@ DisplayObject.worldTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9205
+node_modules/pixi.js/pixi.js.d.ts:9352
 
 ___
 
@@ -1188,7 +1295,7 @@ DisplayObject.worldVisible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9270
+node_modules/pixi.js/pixi.js.d.ts:9417
 
 ___
 
@@ -1207,7 +1314,7 @@ DisplayObject.x
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9191
+node_modules/pixi.js/pixi.js.d.ts:9338
 
 ___
 
@@ -1226,7 +1333,7 @@ DisplayObject.y
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9198
+node_modules/pixi.js/pixi.js.d.ts:9345
 
 ___
 
@@ -1247,7 +1354,7 @@ DisplayObject.zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9263
+node_modules/pixi.js/pixi.js.d.ts:9410
 
 ## Methods
 
@@ -1268,7 +1375,7 @@ DisplayObject.\_recursivePostUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9110
+node_modules/pixi.js/pixi.js.d.ts:9235
 
 ___
 
@@ -1294,7 +1401,7 @@ DisplayObject.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24103
+node_modules/pixi.js/pixi.js.d.ts:25521
 
 ▸ **addListener**(`event`, `fn`, `context?`): [`EShapeContainer`](EShapeContainer.md)
 
@@ -1316,7 +1423,7 @@ DisplayObject.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24105
+node_modules/pixi.js/pixi.js.d.ts:25523
 
 ___
 
@@ -1328,13 +1435,9 @@ ___
 
 `void`
 
-#### Overrides
-
-DisplayObject.calculateBounds
-
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L54)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L54)
 
 ___
 
@@ -1354,7 +1457,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L98)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L98)
 
 ___
 
@@ -1372,7 +1475,33 @@ DisplayObject.destroy
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L192)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L192)
+
+___
+
+### disableTempParent
+
+▸ **disableTempParent**(`cacheParent`): `void`
+
+Pair method for `enableTempParent`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cacheParent` | `DisplayObject` | actual parent of element |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+DisplayObject.disableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9331
 
 ___
 
@@ -1401,7 +1530,7 @@ DisplayObject.displayObjectUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9298
+node_modules/pixi.js/pixi.js.d.ts:9445
 
 ___
 
@@ -1430,7 +1559,35 @@ DisplayObject.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### enableTempParent
+
+▸ **enableTempParent**(): `DisplayObject`
+
+Used in Renderer, cacheAsBitmap and other places where you call an `updateTransform` on root
+
+```
+const cacheParent = elem.enableTempParent();
+elem.updateTransform();
+elem.disableTempParent(cacheParent);
+```
+
+#### Returns
+
+`DisplayObject`
+
+current parent
+
+#### Inherited from
+
+DisplayObject.enableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9326
 
 ___
 
@@ -1450,7 +1607,7 @@ DisplayObject.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -1470,7 +1627,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L151)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L151)
 
 ___
 
@@ -1490,7 +1647,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L106)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L106)
 
 ___
 
@@ -1519,7 +1676,7 @@ DisplayObject.getBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9120
+node_modules/pixi.js/pixi.js.d.ts:9251
 
 ___
 
@@ -1533,7 +1690,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L115)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L115)
 
 ___
 
@@ -1547,7 +1704,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L102)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L102)
 
 ___
 
@@ -1584,7 +1741,7 @@ DisplayObject.getGlobalPosition
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9382
+node_modules/pixi.js/pixi.js.d.ts:9529
 
 ___
 
@@ -1612,7 +1769,7 @@ DisplayObject.getLocalBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9127
+node_modules/pixi.js/pixi.js.d.ts:9258
 
 ___
 
@@ -1626,7 +1783,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L147)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L147)
 
 ___
 
@@ -1640,7 +1797,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L133)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L133)
 
 ___
 
@@ -1661,7 +1818,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L155)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L155)
 
 ___
 
@@ -1682,7 +1839,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L174)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L174)
 
 ___
 
@@ -1696,7 +1853,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L66)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L66)
 
 ___
 
@@ -1722,7 +1879,7 @@ DisplayObject.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -1748,7 +1905,7 @@ DisplayObject.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -1774,7 +1931,7 @@ DisplayObject.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24100
+node_modules/pixi.js/pixi.js.d.ts:25518
 
 ▸ **off**(`event`, `fn?`, `context?`): [`EShapeContainer`](EShapeContainer.md)
 
@@ -1796,7 +1953,7 @@ DisplayObject.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24102
+node_modules/pixi.js/pixi.js.d.ts:25520
 
 ___
 
@@ -1822,7 +1979,7 @@ DisplayObject.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24089
+node_modules/pixi.js/pixi.js.d.ts:25507
 
 ▸ **on**(`event`, `fn`, `context?`): [`EShapeContainer`](EShapeContainer.md)
 
@@ -1844,7 +2001,7 @@ DisplayObject.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24091
+node_modules/pixi.js/pixi.js.d.ts:25509
 
 ___
 
@@ -1858,7 +2015,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L58)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L58)
 
 ___
 
@@ -1884,7 +2041,7 @@ DisplayObject.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24092
+node_modules/pixi.js/pixi.js.d.ts:25510
 
 ▸ **once**(`event`, `fn`, `context?`): [`EShapeContainer`](EShapeContainer.md)
 
@@ -1906,7 +2063,7 @@ DisplayObject.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24094
+node_modules/pixi.js/pixi.js.d.ts:25512
 
 ___
 
@@ -1930,7 +2087,7 @@ DisplayObject.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24098
+node_modules/pixi.js/pixi.js.d.ts:25516
 
 ▸ **removeAllListeners**(`event?`): [`EShapeContainer`](EShapeContainer.md)
 
@@ -1950,7 +2107,7 @@ DisplayObject.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24099
+node_modules/pixi.js/pixi.js.d.ts:25517
 
 ___
 
@@ -1976,7 +2133,7 @@ DisplayObject.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24095
+node_modules/pixi.js/pixi.js.d.ts:25513
 
 ▸ **removeListener**(`event`, `fn?`, `context?`): [`EShapeContainer`](EShapeContainer.md)
 
@@ -1998,7 +2155,7 @@ DisplayObject.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24097
+node_modules/pixi.js/pixi.js.d.ts:25515
 
 ___
 
@@ -2016,13 +2173,9 @@ ___
 
 `void`
 
-#### Overrides
-
-DisplayObject.render
-
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L70)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L70)
 
 ___
 
@@ -2050,7 +2203,7 @@ DisplayObject.setParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9161
+node_modules/pixi.js/pixi.js.d.ts:9286
 
 ___
 
@@ -2086,7 +2239,7 @@ DisplayObject.setTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9176
+node_modules/pixi.js/pixi.js.d.ts:9301
 
 ___
 
@@ -2100,13 +2253,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L62)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L62)
 
 ___
 
 ### toGlobal
 
-▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the global position of the display object.
 
@@ -2114,13 +2267,13 @@ Calculates the global position of the display object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `position` | `IPointData` | The world origin to calculate from. |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object.
 
@@ -2130,13 +2283,13 @@ DisplayObject.toGlobal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9137
+node_modules/pixi.js/pixi.js.d.ts:9268
 
 ___
 
 ### toLocal
 
-▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the local position of the display object relative to another point.
 
@@ -2144,14 +2297,14 @@ Calculates the local position of the display object relative to another point.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
+| `position` | `IPointData` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object
 
@@ -2161,7 +2314,7 @@ DisplayObject.toLocal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9148
+node_modules/pixi.js/pixi.js.d.ts:9279
 
 ___
 
@@ -2181,7 +2334,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L137)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L137)
 
 ___
 
@@ -2195,7 +2348,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L119)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L119)
 
 ___
 
@@ -2217,7 +2370,7 @@ DisplayObject.updateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9099
+node_modules/pixi.js/pixi.js.d.ts:9241
 
 ___
 
@@ -2243,4 +2396,4 @@ DisplayObject.mixin
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8979
+node_modules/pixi.js/pixi.js.d.ts:9230

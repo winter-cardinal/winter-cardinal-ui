@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeImageBase
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeImageBase
 
 # Interface: DThemeImageBase\<VALUE\>
 
@@ -15,6 +15,10 @@
 - [`DThemeTextBase`](DThemeTextBase.md)\<`VALUE`\>
 
 - [`DThemeImagePiece`](DThemeImagePiece.md)
+
+- [`DThemeImageBaseSecondary`](DThemeImageBaseSecondary.md)
+
+- [`DThemeImageBaseTertiary`](DThemeImageBaseTertiary.md)
 
   ↳ **`DThemeImageBase`**
 
@@ -77,6 +81,7 @@
 - [getImageAlignWith](DThemeImageBase.md#getimagealignwith)
 - [getImageMarginHorizontal](DThemeImageBase.md#getimagemarginhorizontal)
 - [getImageMarginVertial](DThemeImageBase.md#getimagemarginvertial)
+- [getImageRotation](DThemeImageBase.md#getimagerotation)
 - [getImageSource](DThemeImageBase.md#getimagesource)
 - [getImageTintAlpha](DThemeImageBase.md#getimagetintalpha)
 - [getImageTintColor](DThemeImageBase.md#getimagetintcolor)
@@ -97,6 +102,7 @@
 - [getSecondaryImageAlignWith](DThemeImageBase.md#getsecondaryimagealignwith)
 - [getSecondaryImageMarginHorizontal](DThemeImageBase.md#getsecondaryimagemarginhorizontal)
 - [getSecondaryImageMarginVertial](DThemeImageBase.md#getsecondaryimagemarginvertial)
+- [getSecondaryImageRotation](DThemeImageBase.md#getsecondaryimagerotation)
 - [getSecondaryImageSource](DThemeImageBase.md#getsecondaryimagesource)
 - [getSecondaryImageTintAlpha](DThemeImageBase.md#getsecondaryimagetintalpha)
 - [getSecondaryImageTintColor](DThemeImageBase.md#getsecondaryimagetintcolor)
@@ -106,6 +112,7 @@
 - [getTertiaryImageAlignWith](DThemeImageBase.md#gettertiaryimagealignwith)
 - [getTertiaryImageMarginHorizontal](DThemeImageBase.md#gettertiaryimagemarginhorizontal)
 - [getTertiaryImageMarginVertial](DThemeImageBase.md#gettertiaryimagemarginvertial)
+- [getTertiaryImageRotation](DThemeImageBase.md#gettertiaryimagerotation)
 - [getTertiaryImageSource](DThemeImageBase.md#gettertiaryimagesource)
 - [getTertiaryImageTintAlpha](DThemeImageBase.md#gettertiaryimagetintalpha)
 - [getTertiaryImageTintColor](DThemeImageBase.md#gettertiaryimagetintcolor)
@@ -149,7 +156,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L34)
+[src/main/typescript/wcardinal/ui/d-font.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L34)
 
 ___
 
@@ -175,7 +182,7 @@ Returns a background alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L552)
+[src/main/typescript/wcardinal/ui/d-base.ts:551](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L551)
 
 ___
 
@@ -202,7 +209,7 @@ If the color is null, backgrounds are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L545)
+[src/main/typescript/wcardinal/ui/d-base.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L544)
 
 ___
 
@@ -222,7 +229,7 @@ Returns a background texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L557)
+[src/main/typescript/wcardinal/ui/d-base.ts:556](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L556)
 
 ___
 
@@ -248,7 +255,7 @@ Returns a border align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:586](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L586)
+[src/main/typescript/wcardinal/ui/d-base.ts:585](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L585)
 
 ___
 
@@ -274,7 +281,7 @@ Returns a border alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L572)
+[src/main/typescript/wcardinal/ui/d-base.ts:571](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L571)
 
 ___
 
@@ -301,7 +308,7 @@ If the color is null, borders are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:565](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L565)
+[src/main/typescript/wcardinal/ui/d-base.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L564)
 
 ___
 
@@ -327,7 +334,7 @@ Returns a border mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:593](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L593)
+[src/main/typescript/wcardinal/ui/d-base.ts:592](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L592)
 
 ___
 
@@ -347,7 +354,7 @@ Returns a border texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:598](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L598)
+[src/main/typescript/wcardinal/ui/d-base.ts:597](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L597)
 
 ___
 
@@ -373,7 +380,7 @@ Returns a border width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:579](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L579)
+[src/main/typescript/wcardinal/ui/d-base.ts:578](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L578)
 
 ___
 
@@ -394,7 +401,7 @@ A clear type is for layout classes including [DLayoutVertical](../classes/DLayou
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:698](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L698)
+[src/main/typescript/wcardinal/ui/d-base.ts:697](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L697)
 
 ___
 
@@ -418,7 +425,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L33)
+[src/main/typescript/wcardinal/ui/d-font.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L33)
 
 ___
 
@@ -438,7 +445,7 @@ Returns a corner mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:628](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L628)
+[src/main/typescript/wcardinal/ui/d-base.ts:627](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L627)
 
 ___
 
@@ -458,7 +465,7 @@ Returns a corner radius.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:623](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L623)
+[src/main/typescript/wcardinal/ui/d-base.ts:622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L622)
 
 ___
 
@@ -484,7 +491,7 @@ Returns a cursor.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:720](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L720)
+[src/main/typescript/wcardinal/ui/d-base.ts:719](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L719)
 
 ___
 
@@ -502,7 +509,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L28)
+[src/main/typescript/wcardinal/ui/d-font.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L28)
 
 ___
 
@@ -520,7 +527,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L29)
+[src/main/typescript/wcardinal/ui/d-font.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L29)
 
 ___
 
@@ -538,7 +545,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L31)
+[src/main/typescript/wcardinal/ui/d-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L31)
 
 ___
 
@@ -556,7 +563,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L32)
+[src/main/typescript/wcardinal/ui/d-font.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L32)
 
 ___
 
@@ -574,7 +581,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L30)
+[src/main/typescript/wcardinal/ui/d-font.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L30)
 
 ___
 
@@ -594,7 +601,7 @@ Returns a height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:532](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L532)
+[src/main/typescript/wcardinal/ui/d-base.ts:531](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L531)
 
 ___
 
@@ -612,7 +619,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L60)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L20)
 
 ___
 
@@ -630,7 +637,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L61)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L21)
 
 ___
 
@@ -648,7 +655,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L62)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L22)
 
 ___
 
@@ -666,7 +673,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L63)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L23)
 
 ___
 
@@ -684,7 +691,31 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L64)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L24)
+
+___
+
+### getImageRotation
+
+▸ **getImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[DThemeImagePiece](DThemeImagePiece.md).[getImageRotation](DThemeImagePiece.md#getimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L28)
 
 ___
 
@@ -708,7 +739,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L67)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L27)
 
 ___
 
@@ -732,7 +763,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L66)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L26)
 
 ___
 
@@ -756,7 +787,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L65)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L25)
 
 ___
 
@@ -776,7 +807,7 @@ Returns an interactivity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L682)
+[src/main/typescript/wcardinal/ui/d-base.ts:681](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L681)
 
 ___
 
@@ -794,7 +825,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-font.ts#L35)
+[src/main/typescript/wcardinal/ui/d-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-font.ts#L35)
 
 ___
 
@@ -820,7 +851,7 @@ Returns an outline align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:664](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L664)
+[src/main/typescript/wcardinal/ui/d-base.ts:663](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L663)
 
 ___
 
@@ -846,7 +877,7 @@ Returns an outline alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:643](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L643)
+[src/main/typescript/wcardinal/ui/d-base.ts:642](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L642)
 
 ___
 
@@ -873,7 +904,7 @@ If the color is null, outlines are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:636](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L636)
+[src/main/typescript/wcardinal/ui/d-base.ts:635](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L635)
 
 ___
 
@@ -899,7 +930,7 @@ Returns an outline mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:671](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L671)
+[src/main/typescript/wcardinal/ui/d-base.ts:670](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L670)
 
 ___
 
@@ -925,7 +956,7 @@ Returns an outline offset.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:657](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L657)
+[src/main/typescript/wcardinal/ui/d-base.ts:656](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L656)
 
 ___
 
@@ -951,7 +982,7 @@ Returns an outline width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:650](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L650)
+[src/main/typescript/wcardinal/ui/d-base.ts:649](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L649)
 
 ___
 
@@ -971,7 +1002,7 @@ Returns a bottom padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:618](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L618)
+[src/main/typescript/wcardinal/ui/d-base.ts:617](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L617)
 
 ___
 
@@ -991,7 +1022,7 @@ Returns a left padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:603](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L603)
+[src/main/typescript/wcardinal/ui/d-base.ts:602](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L602)
 
 ___
 
@@ -1011,7 +1042,7 @@ Returns a right padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:608](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L608)
+[src/main/typescript/wcardinal/ui/d-base.ts:607](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L607)
 
 ___
 
@@ -1031,7 +1062,7 @@ Returns a top padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:613](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L613)
+[src/main/typescript/wcardinal/ui/d-base.ts:612](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L612)
 
 ___
 
@@ -1043,9 +1074,13 @@ ___
 
 [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageAlignHorizontal](DThemeImageBaseSecondary.md#getsecondaryimagealignhorizontal)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L54)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L9)
 
 ___
 
@@ -1057,9 +1092,13 @@ ___
 
 [`DAlignVertical`](../index.md#dalignvertical-1)
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageAlignVertical](DThemeImageBaseSecondary.md#getsecondaryimagealignvertical)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L55)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L10)
 
 ___
 
@@ -1071,9 +1110,13 @@ ___
 
 [`DAlignWith`](../index.md#dalignwith-1)
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageAlignWith](DThemeImageBaseSecondary.md#getsecondaryimagealignwith)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L56)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L11)
 
 ___
 
@@ -1085,9 +1128,13 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageMarginHorizontal](DThemeImageBaseSecondary.md#getsecondaryimagemarginhorizontal)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L57)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L12)
 
 ___
 
@@ -1099,9 +1146,37 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageMarginVertial](DThemeImageBaseSecondary.md#getsecondaryimagemarginvertial)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L58)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L13)
+
+___
+
+### getSecondaryImageRotation
+
+▸ **getSecondaryImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageRotation](DThemeImageBaseSecondary.md#getsecondaryimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L16)
 
 ___
 
@@ -1119,9 +1194,13 @@ ___
 
 ``null`` \| `DisplayObject` \| `Texture`
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageSource](DThemeImageBaseSecondary.md#getsecondaryimagesource)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L61)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L17)
 
 ___
 
@@ -1139,9 +1218,13 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageTintAlpha](DThemeImageBaseSecondary.md#getsecondaryimagetintalpha)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L60)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L15)
 
 ___
 
@@ -1159,9 +1242,13 @@ ___
 
 ``null`` \| `number`
 
+#### Inherited from
+
+[DThemeImageBaseSecondary](DThemeImageBaseSecondary.md).[getSecondaryImageTintColor](DThemeImageBaseSecondary.md#getsecondaryimagetintcolor)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L59)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-secondary.ts#L14)
 
 ___
 
@@ -1182,7 +1269,7 @@ If a shadow is null, no shadow is rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:677](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L677)
+[src/main/typescript/wcardinal/ui/d-base.ts:676](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L676)
 
 ___
 
@@ -1194,9 +1281,13 @@ ___
 
 [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageAlignHorizontal](DThemeImageBaseTertiary.md#gettertiaryimagealignhorizontal)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L63)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L9)
 
 ___
 
@@ -1208,9 +1299,13 @@ ___
 
 [`DAlignVertical`](../index.md#dalignvertical-1)
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageAlignVertical](DThemeImageBaseTertiary.md#gettertiaryimagealignvertical)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L64)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L10)
 
 ___
 
@@ -1222,9 +1317,13 @@ ___
 
 [`DAlignWith`](../index.md#dalignwith-1)
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageAlignWith](DThemeImageBaseTertiary.md#gettertiaryimagealignwith)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L65)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L11)
 
 ___
 
@@ -1236,9 +1335,13 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageMarginHorizontal](DThemeImageBaseTertiary.md#gettertiaryimagemarginhorizontal)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L66)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L12)
 
 ___
 
@@ -1250,9 +1353,37 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageMarginVertial](DThemeImageBaseTertiary.md#gettertiaryimagemarginvertial)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L67)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L13)
+
+___
+
+### getTertiaryImageRotation
+
+▸ **getTertiaryImageRotation**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](DBaseStateSet.md) |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageRotation](DThemeImageBaseTertiary.md#gettertiaryimagerotation)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L16)
 
 ___
 
@@ -1270,9 +1401,13 @@ ___
 
 ``null`` \| `DisplayObject` \| `Texture`
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageSource](DThemeImageBaseTertiary.md#gettertiaryimagesource)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L70)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L17)
 
 ___
 
@@ -1290,9 +1425,13 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageTintAlpha](DThemeImageBaseTertiary.md#gettertiaryimagetintalpha)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L69)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L15)
 
 ___
 
@@ -1310,9 +1449,13 @@ ___
 
 ``null`` \| `number`
 
+#### Inherited from
+
+[DThemeImageBaseTertiary](DThemeImageBaseTertiary.md).[getTertiaryImageTintColor](DThemeImageBaseTertiary.md#gettertiaryimagetintcolor)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-image-base.ts#L68)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L14)
 
 ___
 
@@ -1330,7 +1473,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L87)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L46)
 
 ___
 
@@ -1348,30 +1491,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L86)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L45)
 
 ___
 
 ### getTextFormatter
 
-▸ **getTextFormatter**(): (`value`: `VALUE`, `caller`: `any`) => `string`
+▸ **getTextFormatter**(): [`DTextPieceFormatter`](../index.md#dtextpieceformatter)\<`VALUE`\>
 
 #### Returns
 
-`fn`
-
-▸ (`value`, `caller`): `string`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `VALUE` |
-| `caller` | `any` |
-
-##### Returns
-
-`string`
+[`DTextPieceFormatter`](../index.md#dtextpieceformatter)\<`VALUE`\>
 
 #### Inherited from
 
@@ -1379,7 +1509,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L70)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L29)
 
 ___
 
@@ -1397,7 +1527,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L88)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L47)
 
 ___
 
@@ -1415,7 +1545,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L89)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L48)
 
 ___
 
@@ -1433,7 +1563,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L90)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L49)
 
 ___
 
@@ -1460,7 +1590,7 @@ Called to get a text vale if there is no text value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L84)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L43)
 
 ___
 
@@ -1480,7 +1610,7 @@ Returns a tooltip text.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:692](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L692)
+[src/main/typescript/wcardinal/ui/d-base.ts:691](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L691)
 
 ___
 
@@ -1502,7 +1632,7 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L705)
+[src/main/typescript/wcardinal/ui/d-base.ts:704](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L704)
 
 ___
 
@@ -1522,7 +1652,7 @@ Returns a width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L537)
+[src/main/typescript/wcardinal/ui/d-base.ts:536](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L536)
 
 ___
 
@@ -1542,7 +1672,7 @@ Returns a X coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L522)
+[src/main/typescript/wcardinal/ui/d-base.ts:521](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L521)
 
 ___
 
@@ -1562,7 +1692,7 @@ Returns a Y coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L527)
+[src/main/typescript/wcardinal/ui/d-base.ts:526](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L526)
 
 ___
 
@@ -1580,7 +1710,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L91)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L50)
 
 ___
 
@@ -1600,7 +1730,7 @@ Creates a new shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:710](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L710)
+[src/main/typescript/wcardinal/ui/d-base.ts:709](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L709)
 
 ___
 
@@ -1620,7 +1750,7 @@ Creates a new weak shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:715](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L715)
+[src/main/typescript/wcardinal/ui/d-base.ts:714](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L714)
 
 ___
 
@@ -1646,7 +1776,7 @@ Returns true if focusable.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L687)
+[src/main/typescript/wcardinal/ui/d-base.ts:686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L686)
 
 ___
 
@@ -1667,4 +1797,4 @@ Called to initialize a text value if a text value is not given.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L76)
+[src/main/typescript/wcardinal/ui/d-text-piece.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece.ts#L35)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DAnimation
+[Winter Cardinal UI - v0.407.0](../index.md) / DAnimation
 
 # Interface: DAnimation\<TARGET\>
 
@@ -54,7 +54,7 @@ An animation duration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L153)
+[src/main/typescript/wcardinal/ui/d-animation.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L153)
 
 ___
 
@@ -66,7 +66,7 @@ An animation target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L148)
+[src/main/typescript/wcardinal/ui/d-animation.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L148)
 
 ## Methods
 
@@ -94,7 +94,7 @@ utils.EventEmitter.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24076
+node_modules/pixi.js/pixi.js.d.ts:25495
 
 ___
 
@@ -125,7 +125,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L196)
+[src/main/typescript/wcardinal/ui/d-animation.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L196)
 
 ▸ **emit**(`event`, `...args`): `boolean`
 
@@ -146,7 +146,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L200)
+[src/main/typescript/wcardinal/ui/d-animation.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L200)
 
 ___
 
@@ -162,7 +162,7 @@ Moves an animation frame to the end.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L180)
+[src/main/typescript/wcardinal/ui/d-animation.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L180)
 
 ___
 
@@ -182,7 +182,7 @@ utils.EventEmitter.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -198,7 +198,7 @@ Returns true if an animation is in a reverse mode.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L170)
+[src/main/typescript/wcardinal/ui/d-animation.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L170)
 
 ___
 
@@ -214,7 +214,7 @@ Returns true if an animation is playing.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L165)
+[src/main/typescript/wcardinal/ui/d-animation.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L165)
 
 ___
 
@@ -240,7 +240,7 @@ utils.EventEmitter.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -266,7 +266,7 @@ utils.EventEmitter.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -295,7 +295,7 @@ utils.EventEmitter.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24070
+node_modules/pixi.js/pixi.js.d.ts:25489
 
 ___
 
@@ -327,7 +327,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L182)
+[src/main/typescript/wcardinal/ui/d-animation.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L182)
 
 ▸ **on**(`event`, `handler`, `context?`): [`DAnimation`](DAnimation.md)\<`TARGET`\>
 
@@ -349,7 +349,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L187)
+[src/main/typescript/wcardinal/ui/d-animation.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L187)
 
 ___
 
@@ -381,7 +381,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L189)
+[src/main/typescript/wcardinal/ui/d-animation.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L189)
 
 ▸ **once**(`event`, `handler`, `context?`): [`DAnimation`](DAnimation.md)\<`TARGET`\>
 
@@ -403,7 +403,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L194)
+[src/main/typescript/wcardinal/ui/d-animation.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L194)
 
 ___
 
@@ -431,7 +431,7 @@ utils.EventEmitter.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24064
+node_modules/pixi.js/pixi.js.d.ts:25483
 
 ___
 
@@ -462,7 +462,7 @@ utils.EventEmitter.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24056
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -484,7 +484,7 @@ Starts an animation.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L160)
+[src/main/typescript/wcardinal/ui/d-animation.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L160)
 
 ___
 
@@ -500,4 +500,4 @@ Stops an animation as is.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-animation.ts#L175)
+[src/main/typescript/wcardinal/ui/d-animation.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L175)

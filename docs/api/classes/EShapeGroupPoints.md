@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / EShapeGroupPoints
+[Winter Cardinal UI - v0.407.0](../index.md) / EShapeGroupPoints
 
 # Class: EShapeGroupPoints
 
@@ -23,6 +23,7 @@
 - [id](EShapeGroupPoints.md#id)
 - [length](EShapeGroupPoints.md#length)
 - [marker](EShapeGroupPoints.md#marker)
+- [plength](EShapeGroupPoints.md#plength)
 - [segments](EShapeGroupPoints.md#segments)
 - [style](EShapeGroupPoints.md#style)
 - [values](EShapeGroupPoints.md#values)
@@ -55,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L20)
 
 ## Properties
 
@@ -65,7 +66,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L18)
 
 ## Accessors
 
@@ -83,7 +84,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L152)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L163)
 
 ___
 
@@ -101,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L131)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L142)
 
 • `set` **formatter**(`formatter`): `void`
 
@@ -121,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L142)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L153)
 
 ___
 
@@ -139,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L46)
 
 ___
 
@@ -157,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L24)
 
 ___
 
@@ -175,7 +176,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L109)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L120)
+
+___
+
+### plength
+
+• `get` **plength**(): `number`
+
+Peak length
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[EShapePoints](../interfaces/EShapePoints.md).[plength](../interfaces/EShapePoints.md#plength)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L35)
 
 ___
 
@@ -193,7 +214,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L67)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L78)
 
 • `set` **segments**(`segments`): `void`
 
@@ -213,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L78)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L89)
 
 ___
 
@@ -231,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L88)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L99)
 
 • `set` **style**(`style`): `void`
 
@@ -251,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L99)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L110)
 
 ___
 
@@ -269,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L57)
 
 • `set` **values**(`values`): `void`
 
@@ -289,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L57)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L68)
 
 ## Methods
 
@@ -313,7 +334,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L189)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L200)
 
 ___
 
@@ -337,7 +358,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L167)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L178)
 
 ___
 
@@ -358,7 +379,7 @@ where the EShapePointsMarkerContainer instance do not need to be created.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L120)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L131)
 
 ___
 
@@ -376,7 +397,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L163)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L174)
 
 ___
 
@@ -400,7 +421,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L204)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L215)
 
 ___
 
@@ -426,7 +447,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L178)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L189)
 
 ___
 
@@ -450,4 +471,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L193)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-points.ts#L204)

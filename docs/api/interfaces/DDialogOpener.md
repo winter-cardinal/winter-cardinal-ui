@@ -1,12 +1,36 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDialogOpener
+[Winter Cardinal UI - v0.407.0](../index.md) / DDialogOpener
 
 # Interface: DDialogOpener
 
+## Hierarchy
+
+- [`DApplicationTarget`](DApplicationTarget.md)
+
+  ↳ **`DDialogOpener`**
+
 ## Table of contents
+
+### Properties
+
+- [parent](DDialogOpener.md#parent)
 
 ### Methods
 
 - [getBounds](DDialogOpener.md#getbounds)
+
+## Properties
+
+### parent
+
+• `Optional` **parent**: ``null`` \| [`DApplicationTarget`](DApplicationTarget.md)
+
+#### Inherited from
+
+[DApplicationTarget](DApplicationTarget.md).[parent](DApplicationTarget.md#parent)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
 
 ## Methods
 
@@ -27,4 +51,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dialog.ts#L96)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L97)

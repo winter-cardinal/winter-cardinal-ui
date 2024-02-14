@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DThemeDarkColorRecent
+[Winter Cardinal UI - v0.407.0](../index.md) / DThemeDarkColorRecent
 
 # Class: DThemeDarkColorRecent
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts#L10)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts#L10)
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts#L14)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-recent.ts#L14)

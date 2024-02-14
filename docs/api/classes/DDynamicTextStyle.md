@@ -1,6 +1,12 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextStyle
+[Winter Cardinal UI - v0.407.0](../index.md) / DDynamicTextStyle
 
 # Class: DDynamicTextStyle
+
+## Hierarchy
+
+- `EventEmitter`
+
+  ↳ **`DDynamicTextStyle`**
 
 ## Table of contents
 
@@ -10,7 +16,6 @@
 
 ### Properties
 
-- [\_align](DDynamicTextStyle.md#_align)
 - [\_clipping](DDynamicTextStyle.md#_clipping)
 - [\_fill](DDynamicTextStyle.md#_fill)
 - [\_fillApproved](DDynamicTextStyle.md#_fillapproved)
@@ -30,9 +35,7 @@
 - [\_isFontFitted](DDynamicTextStyle.md#_isfontfitted)
 - [\_lineHeight](DDynamicTextStyle.md#_lineheight)
 - [\_lineHeightFitted](DDynamicTextStyle.md#_lineheightfitted)
-- [\_onChange](DDynamicTextStyle.md#_onchange)
 - [\_wordWrap](DDynamicTextStyle.md#_wordwrap)
-- [DEFAULT\_OPTIONS](DDynamicTextStyle.md#default_options)
 
 ### Accessors
 
@@ -58,11 +61,19 @@
 
 ### Methods
 
+- [addListener](DDynamicTextStyle.md#addlistener)
 - [approve](DDynamicTextStyle.md#approve)
+- [emit](DDynamicTextStyle.md#emit)
+- [eventNames](DDynamicTextStyle.md#eventnames)
 - [fit](DDynamicTextStyle.md#fit)
-- [getDefaultOptions](DDynamicTextStyle.md#getdefaultoptions)
-- [newDefaultOptions](DDynamicTextStyle.md#newdefaultoptions)
+- [listenerCount](DDynamicTextStyle.md#listenercount)
+- [listeners](DDynamicTextStyle.md#listeners)
+- [off](DDynamicTextStyle.md#off)
+- [on](DDynamicTextStyle.md#on)
 - [onChange](DDynamicTextStyle.md#onchange)
+- [once](DDynamicTextStyle.md#once)
+- [removeAllListeners](DDynamicTextStyle.md#removealllisteners)
+- [removeListener](DDynamicTextStyle.md#removelistener)
 - [toFontId](DDynamicTextStyle.md#tofontid)
 - [unfit](DDynamicTextStyle.md#unfit)
 - [update](DDynamicTextStyle.md#update)
@@ -71,34 +82,29 @@
 
 ### constructor
 
-• **new DDynamicTextStyle**(`options`, `onChange`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+• **new DDynamicTextStyle**(`parent`, `theme`, `options?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `undefined` \| [`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md) |
-| `onChange` | () => `void` |
+| `parent` | [`DDynamicTextStyleParent`](../interfaces/DDynamicTextStyleParent.md) |
+| `theme` | [`DThemeDynamicTextStyle`](../interfaces/DThemeDynamicTextStyle.md) |
+| `options?` | [`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md) |
 
 #### Returns
 
 [`DDynamicTextStyle`](DDynamicTextStyle.md)
 
+#### Overrides
+
+utils.EventEmitter.constructor
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L54)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L60)
 
 ## Properties
-
-### \_align
-
-• `Protected` **\_align**: [`DDynamicTextAlign`](../index.md#ddynamictextalign)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L37)
-
-___
 
 ### \_clipping
 
@@ -106,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L47)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L54)
 
 ___
 
@@ -116,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L45)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L52)
 
 ___
 
@@ -126,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L46)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L53)
 
 ___
 
@@ -136,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L48)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L55)
 
 ___
 
@@ -146,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L38)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L45)
 
 ___
 
@@ -156,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L34)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L42)
 
 ___
 
@@ -166,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L35)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L43)
 
 ___
 
@@ -176,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L36)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L44)
 
 ___
 
@@ -186,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L33)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L41)
 
 ___
 
@@ -196,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L39)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L46)
 
 ___
 
@@ -206,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L40)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L47)
 
 ___
 
@@ -216,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L42)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L49)
 
 ___
 
@@ -226,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L43)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L50)
 
 ___
 
@@ -236,7 +242,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L44)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L51)
 
 ___
 
@@ -246,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L31)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L39)
 
 ___
 
@@ -256,7 +262,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L32)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L40)
 
 ___
 
@@ -266,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L41)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L48)
 
 ___
 
@@ -276,7 +282,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L50)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L57)
 
 ___
 
@@ -286,25 +292,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L51)
-
-___
-
-### \_onChange
-
-• `Protected` **\_onChange**: () => `void`
-
-#### Type declaration
-
-▸ (): `void`
-
-##### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L52)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L58)
 
 ___
 
@@ -314,17 +302,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L49)
-
-___
-
-### DEFAULT\_OPTIONS
-
-▪ `Static` `Protected` `Optional` **DEFAULT\_OPTIONS**: `Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L29)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L56)
 
 ## Accessors
 
@@ -338,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L254)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L233)
 
 • `set` **clipping**(`clipping`): `void`
 
@@ -354,7 +332,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L258)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L237)
 
 ___
 
@@ -368,7 +346,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L148)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L127)
 
 • `set` **fill**(`fill`): `void`
 
@@ -384,7 +362,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L152)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L131)
 
 ___
 
@@ -398,7 +376,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L164)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L143)
 
 ___
 
@@ -412,7 +390,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L265)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L244)
 
 • `set` **fitting**(`fitting`): `void`
 
@@ -428,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L269)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L248)
 
 ___
 
@@ -442,7 +420,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L175)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L154)
 
 • `set` **fontFamily**(`fontFamily`): `void`
 
@@ -458,7 +436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L179)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L158)
 
 ___
 
@@ -472,7 +450,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L134)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L113)
 
 ___
 
@@ -486,7 +464,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L144)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L123)
 
 ___
 
@@ -500,7 +478,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L139)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L118)
 
 ___
 
@@ -514,7 +492,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L186)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L165)
 
 • `set` **fontSize**(`fontSize`): `void`
 
@@ -530,7 +508,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L190)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L169)
 
 ___
 
@@ -544,7 +522,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L200)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L179)
 
 ___
 
@@ -558,7 +536,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L208)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L187)
 
 • `set` **fontStyle**(`fontStyle`): `void`
 
@@ -574,7 +552,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:212](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L212)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L191)
 
 ___
 
@@ -588,7 +566,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L219)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L198)
 
 • `set` **fontVariant**(`fontVariant`): `void`
 
@@ -604,7 +582,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L223)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L202)
 
 ___
 
@@ -618,7 +596,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L230)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L209)
 
 • `set` **fontWeight**(`fontWeight`): `void`
 
@@ -634,7 +612,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L234)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:213](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L213)
 
 ___
 
@@ -648,7 +626,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L126)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L105)
 
 ___
 
@@ -662,7 +640,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L130)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L109)
 
 ___
 
@@ -676,7 +654,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L204)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L183)
 
 ___
 
@@ -690,7 +668,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L287)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L266)
 
 • `set` **lineHeight**(`lineHeight`): `void`
 
@@ -706,7 +684,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L291)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L270)
 
 ___
 
@@ -720,7 +698,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L301)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:280](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L280)
 
 • `set` **lineHeightFitted**(`lineHeightFitted`): `void`
 
@@ -736,7 +714,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:305](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L305)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L284)
 
 ___
 
@@ -750,7 +728,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L276)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L255)
 
 • `set` **wordWrap**(`wordWrap`): `void`
 
@@ -766,9 +744,37 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:280](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L280)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L259)
 
 ## Methods
+
+### addListener
+
+▸ **addListener**(`event`, `fn`, `context?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+Alias method for `on`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn` | `Function` |
+| `context?` | `any` |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+#### Inherited from
+
+utils.EventEmitter.addListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25495
+
+___
 
 ### approve
 
@@ -780,7 +786,56 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L168)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L147)
+
+___
+
+### emit
+
+▸ **emit**(`event`, `...args`): `boolean`
+
+Calls each of the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `...args` | `any`[] | Arguments that are passed to registered listeners |
+
+#### Returns
+
+`boolean`
+
+`true` if the event had listeners, else `false`.
+
+#### Inherited from
+
+utils.EventEmitter.emit
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### eventNames
+
+▸ **eventNames**(): (`string` \| `symbol`)[]
+
+Return an array listing the events for which the emitter has registered listeners.
+
+#### Returns
+
+(`string` \| `symbol`)[]
+
+#### Inherited from
+
+utils.EventEmitter.eventNames
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -801,35 +856,118 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L312)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L291)
 
 ___
 
-### getDefaultOptions
+### listenerCount
 
-▸ **getDefaultOptions**(): `Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+▸ **listenerCount**(`event`): `number`
+
+Return the number of listeners listening to a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
 
 #### Returns
 
-`Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+`number`
+
+#### Inherited from
+
+utils.EventEmitter.listenerCount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L100)
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
-### newDefaultOptions
+### listeners
 
-▸ **newDefaultOptions**(): `Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+▸ **listeners**(`event`): `Function`[]
+
+Return the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
 
 #### Returns
 
-`Required`\<[`DDynamicTextStyleOptions`](../interfaces/DDynamicTextStyleOptions.md)\>
+`Function`[]
+
+#### Inherited from
+
+utils.EventEmitter.listeners
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L109)
+node_modules/pixi.js/pixi.js.d.ts:25424
+
+___
+
+### off
+
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+Alias method for `removeListener`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn?` | `Function` |
+| `context?` | `any` |
+| `once?` | `boolean` |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+#### Inherited from
+
+utils.EventEmitter.off
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25489
+
+___
+
+### on
+
+▸ **on**(`event`, `fn`, `context?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+Add a listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.on
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
@@ -843,7 +981,96 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L159)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L138)
+
+___
+
+### once
+
+▸ **once**(`event`, `fn`, `context?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+Add a one-time listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.once
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25463
+
+___
+
+### removeAllListeners
+
+▸ **removeAllListeners**(`event?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+Remove all listeners, or those of the specified event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event?` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.removeAllListeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25483
+
+___
+
+### removeListener
+
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+Remove the listeners of a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn?` | `Function` | Only remove the listeners that match this function. |
+| `context?` | `any` | Only remove the listeners that have this context. |
+| `once?` | `boolean` | Only remove one-time listeners. |
+
+#### Returns
+
+[`DDynamicTextStyle`](DDynamicTextStyle.md)
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.removeListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -863,7 +1090,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L250)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L229)
 
 ___
 
@@ -877,7 +1104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L332)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L311)
 
 ___
 
@@ -891,4 +1118,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L241)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-style.ts#L220)

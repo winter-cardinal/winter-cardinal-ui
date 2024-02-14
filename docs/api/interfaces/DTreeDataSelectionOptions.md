@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DTreeDataSelectionOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DTreeDataSelectionOptions
 
 # Interface: DTreeDataSelectionOptions\<ITEM, EMITTER\>
 
@@ -28,7 +28,7 @@ Mappings of event names and handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L53)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L53)
 
 ___
 
@@ -40,4 +40,4 @@ A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L48)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L48)

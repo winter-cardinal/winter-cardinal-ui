@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DDynamicTextGeometry
+[Winter Cardinal UI - v0.407.0](../index.md) / DDynamicTextGeometry
 
 # Class: DDynamicTextGeometry
 
@@ -57,7 +57,7 @@ MeshGeometry.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L28)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L28)
 
 ## Properties
 
@@ -67,7 +67,7 @@ MeshGeometry.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L26)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L26)
 
 ___
 
@@ -83,7 +83,7 @@ MeshGeometry.glVertexArrayObjects
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13799
+node_modules/pixi.js/pixi.js.d.ts:14256
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L23)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L23)
 
 ___
 
@@ -119,7 +119,7 @@ MeshGeometry.instanceCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13805
+node_modules/pixi.js/pixi.js.d.ts:14262
 
 ___
 
@@ -139,7 +139,7 @@ MeshGeometry.refCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13810
+node_modules/pixi.js/pixi.js.d.ts:14267
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L24)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L24)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L25)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L25)
 
 ___
 
@@ -169,15 +169,16 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L22)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L22)
 
 ## Methods
 
 ### addAttribute
 
-▸ **addAttribute**(`id`, `buffer?`, `size?`, `normalized?`, `type?`, `stride?`, `start?`): `Geometry`
+▸ **addAttribute**(`id`, `buffer?`, `size?`, `normalized?`, `type?`, `stride?`, `start?`, `instance?`): `Geometry`
 
 Adds an attribute to the geometry
+Note: `stride` and `start` should be `undefined` if you dont know them, not 0!
 
 #### Parameters
 
@@ -190,6 +191,7 @@ Adds an attribute to the geometry
 | `type?` | `number` | what type of number is the attribute. Check {PIXI.TYPES} to see the ones available |
 | `stride?` | `number` | How far apart (in floats) the start of each value is. (used for interleaving data) |
 | `start?` | `number` | How far into the array to start reading values (used for interleaving data) |
+| `instance?` | `boolean` | Instancing flag |
 
 #### Returns
 
@@ -203,7 +205,7 @@ MeshGeometry.addAttribute
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13825
+node_modules/pixi.js/pixi.js.d.ts:14284
 
 ___
 
@@ -232,7 +234,7 @@ MeshGeometry.addIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13848
+node_modules/pixi.js/pixi.js.d.ts:14307
 
 ___
 
@@ -254,7 +256,7 @@ MeshGeometry.clone
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13875
+node_modules/pixi.js/pixi.js.d.ts:14334
 
 ___
 
@@ -274,7 +276,7 @@ MeshGeometry.destroy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13869
+node_modules/pixi.js/pixi.js.d.ts:14328
 
 ___
 
@@ -294,7 +296,7 @@ MeshGeometry.dispose
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13865
+node_modules/pixi.js/pixi.js.d.ts:14324
 
 ___
 
@@ -322,7 +324,7 @@ MeshGeometry.getAttribute
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13832
+node_modules/pixi.js/pixi.js.d.ts:14291
 
 ___
 
@@ -350,7 +352,7 @@ MeshGeometry.getBuffer
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13839
+node_modules/pixi.js/pixi.js.d.ts:14298
 
 ___
 
@@ -372,7 +374,7 @@ MeshGeometry.getIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13854
+node_modules/pixi.js/pixi.js.d.ts:14313
 
 ___
 
@@ -395,7 +397,7 @@ MeshGeometry.interleave
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:13861
+node_modules/pixi.js/pixi.js.d.ts:14320
 
 ___
 
@@ -417,7 +419,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L37)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L37)
 
 ___
 
@@ -446,7 +448,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L99)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L99)
 
 ___
 
@@ -469,7 +471,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L155)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L155)
 
 ___
 
@@ -498,4 +500,4 @@ MeshGeometry.merge
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:3012
+node_modules/pixi.js/pixi.js.d.ts:3115

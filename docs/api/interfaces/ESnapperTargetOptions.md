@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / ESnapperTargetOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / ESnapperTargetOptions
 
 # Interface: ESnapperTargetOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts#L16)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts#L16)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts#L15)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target.ts#L15)

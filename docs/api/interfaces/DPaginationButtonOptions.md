@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DPaginationButtonOptions
+[Winter Cardinal UI - v0.407.0](../index.md) / DPaginationButtonOptions
 
 # Interface: DPaginationButtonOptions
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L51)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L51)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L46)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L46)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L41)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L41)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L36)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L36)
 
 ___
 
@@ -71,7 +71,7 @@ A space between page buttons and next / previous buttons.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L56)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L56)
 
 ___
 
@@ -83,4 +83,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-pagination.ts#L31)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L31)

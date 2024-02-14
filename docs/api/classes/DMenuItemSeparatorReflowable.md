@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.374.0](../index.md) / DMenuItemSeparatorReflowable
+[Winter Cardinal UI - v0.407.0](../index.md) / DMenuItemSeparatorReflowable
 
 # Class: DMenuItemSeparatorReflowable
 
@@ -23,11 +23,16 @@
 - [\_accessibleActive](DMenuItemSeparatorReflowable.md#_accessibleactive)
 - [\_accessibleDiv](DMenuItemSeparatorReflowable.md#_accessiblediv)
 - [\_bounds](DMenuItemSeparatorReflowable.md#_bounds)
+- [\_boundsID](DMenuItemSeparatorReflowable.md#_boundsid)
+- [\_boundsRect](DMenuItemSeparatorReflowable.md#_boundsrect)
 - [\_destroyed](DMenuItemSeparatorReflowable.md#_destroyed)
+- [\_enabledFilters](DMenuItemSeparatorReflowable.md#_enabledfilters)
 - [\_fillStyle](DMenuItemSeparatorReflowable.md#_fillstyle)
 - [\_holeMode](DMenuItemSeparatorReflowable.md#_holemode)
 - [\_lastSortedIndex](DMenuItemSeparatorReflowable.md#_lastsortedindex)
 - [\_lineStyle](DMenuItemSeparatorReflowable.md#_linestyle)
+- [\_localBounds](DMenuItemSeparatorReflowable.md#_localbounds)
+- [\_localBoundsRect](DMenuItemSeparatorReflowable.md#_localboundsrect)
 - [\_mask](DMenuItemSeparatorReflowable.md#_mask)
 - [\_matrix](DMenuItemSeparatorReflowable.md#_matrix)
 - [\_tempDisplayObjectParent](DMenuItemSeparatorReflowable.md#_tempdisplayobjectparent)
@@ -40,6 +45,7 @@
 - [accessibleType](DMenuItemSeparatorReflowable.md#accessibletype)
 - [alpha](DMenuItemSeparatorReflowable.md#alpha)
 - [angle](DMenuItemSeparatorReflowable.md#angle)
+- [batchDirty](DMenuItemSeparatorReflowable.md#batchdirty)
 - [batchTint](DMenuItemSeparatorReflowable.md#batchtint)
 - [batches](DMenuItemSeparatorReflowable.md#batches)
 - [blendMode](DMenuItemSeparatorReflowable.md#blendmode)
@@ -112,17 +118,24 @@
 - [clear](DMenuItemSeparatorReflowable.md#clear)
 - [clone](DMenuItemSeparatorReflowable.md#clone)
 - [closePath](DMenuItemSeparatorReflowable.md#closepath)
+- [containerUpdateTransform](DMenuItemSeparatorReflowable.md#containerupdatetransform)
 - [containsPoint](DMenuItemSeparatorReflowable.md#containspoint)
 - [destroy](DMenuItemSeparatorReflowable.md#destroy)
+- [disableTempParent](DMenuItemSeparatorReflowable.md#disabletempparent)
 - [displayObjectUpdateTransform](DMenuItemSeparatorReflowable.md#displayobjectupdatetransform)
+- [drawChamferRect](DMenuItemSeparatorReflowable.md#drawchamferrect)
 - [drawCircle](DMenuItemSeparatorReflowable.md#drawcircle)
 - [drawEllipse](DMenuItemSeparatorReflowable.md#drawellipse)
+- [drawFilletRect](DMenuItemSeparatorReflowable.md#drawfilletrect)
 - [drawPolygon](DMenuItemSeparatorReflowable.md#drawpolygon)
 - [drawRect](DMenuItemSeparatorReflowable.md#drawrect)
+- [drawRegularPolygon](DMenuItemSeparatorReflowable.md#drawregularpolygon)
 - [drawRoundedRect](DMenuItemSeparatorReflowable.md#drawroundedrect)
 - [drawShape](DMenuItemSeparatorReflowable.md#drawshape)
 - [drawStar](DMenuItemSeparatorReflowable.md#drawstar)
+- [drawTorus](DMenuItemSeparatorReflowable.md#drawtorus)
 - [emit](DMenuItemSeparatorReflowable.md#emit)
+- [enableTempParent](DMenuItemSeparatorReflowable.md#enabletempparent)
 - [endFill](DMenuItemSeparatorReflowable.md#endfill)
 - [endHole](DMenuItemSeparatorReflowable.md#endhole)
 - [eventNames](DMenuItemSeparatorReflowable.md#eventnames)
@@ -187,7 +200,7 @@ Graphics.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L11)
+[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L11)
 
 ## Properties
 
@@ -211,7 +224,7 @@ Graphics.\_accessibleActive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10142
+node_modules/pixi.js/pixi.js.d.ts:10383
 
 ___
 
@@ -235,13 +248,13 @@ Graphics.\_accessibleDiv
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10148
+node_modules/pixi.js/pixi.js.d.ts:10389
 
 ___
 
 ### \_bounds
 
-• `Protected` **\_bounds**: `Bounds`
+• **\_bounds**: `Bounds`
 
 The bounds object, this is used to calculate and store the bounds of the displayObject.
 
@@ -255,7 +268,47 @@ Graphics.\_bounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10260
+node_modules/pixi.js/pixi.js.d.ts:10505
+
+___
+
+### \_boundsID
+
+• `Protected` **\_boundsID**: `number`
+
+Flags the cached bounds as dirty.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsID
+
+#### Inherited from
+
+Graphics.\_boundsID
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10518
+
+___
+
+### \_boundsRect
+
+• `Protected` **\_boundsRect**: `Bounds`
+
+Cache of this display-object's bounds-rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_boundsRect
+
+#### Inherited from
+
+Graphics.\_boundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10525
 
 ___
 
@@ -275,7 +328,27 @@ Graphics.\_destroyed
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10274
+node_modules/pixi.js/pixi.js.d.ts:10546
+
+___
+
+### \_enabledFilters
+
+• `Protected` **\_enabledFilters**: `Filter`[]
+
+Currently enabled filters
+
+**`Member`**
+
+PIXI.DisplayObject#_enabledFilters
+
+#### Inherited from
+
+Graphics.\_enabledFilters
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10499
 
 ___
 
@@ -295,7 +368,7 @@ Graphics.\_fillStyle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9492
+node_modules/pixi.js/pixi.js.d.ts:9633
 
 ___
 
@@ -322,7 +395,7 @@ Graphics.\_holeMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9514
+node_modules/pixi.js/pixi.js.d.ts:9655
 
 ___
 
@@ -343,7 +416,7 @@ Graphics.\_lastSortedIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10228
+node_modules/pixi.js/pixi.js.d.ts:10468
 
 ___
 
@@ -363,13 +436,53 @@ Graphics.\_lineStyle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9499
+node_modules/pixi.js/pixi.js.d.ts:9640
+
+___
+
+### \_localBounds
+
+• **\_localBounds**: `Bounds`
+
+Local bounds object, swapped with `_bounds` when using `getLocalBounds()`.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBounds
+
+#### Inherited from
+
+Graphics.\_localBounds
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10511
+
+___
+
+### \_localBoundsRect
+
+• `Protected` **\_localBoundsRect**: `Bounds`
+
+Cache of this display-object's local-bounds rectangle.
+
+**`Member`**
+
+PIXI.DisplayObject#_localBoundsRect
+
+#### Inherited from
+
+Graphics.\_localBoundsRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10532
 
 ___
 
 ### \_mask
 
-• `Protected` **\_mask**: ``null`` \| `Sprite` \| `Graphics`
+• `Protected` **\_mask**: ``null`` \| `Container` \| `MaskData`
 
 The original, cached mask of the object.
 
@@ -383,7 +496,7 @@ Graphics.\_mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10267
+node_modules/pixi.js/pixi.js.d.ts:10539
 
 ___
 
@@ -403,13 +516,13 @@ Graphics.\_matrix
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9506
+node_modules/pixi.js/pixi.js.d.ts:9647
 
 ___
 
 ### \_tempDisplayObjectParent
 
-• `Protected` **\_tempDisplayObjectParent**: `DisplayObject`
+• `Protected` **\_tempDisplayObjectParent**: `Container`
 
 **`Member`**
 
@@ -419,7 +532,7 @@ Graphics.\_tempDisplayObjectParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10289
+node_modules/pixi.js/pixi.js.d.ts:10619
 
 ___
 
@@ -440,7 +553,7 @@ Graphics.\_zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10236
+node_modules/pixi.js/pixi.js.d.ts:10476
 
 ___
 
@@ -463,7 +576,7 @@ Graphics.accessible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10121
+node_modules/pixi.js/pixi.js.d.ts:10362
 
 ___
 
@@ -492,7 +605,7 @@ Graphics.accessibleChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10175
+node_modules/pixi.js/pixi.js.d.ts:10416
 
 ___
 
@@ -514,7 +627,7 @@ Graphics.accessibleHint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10136
+node_modules/pixi.js/pixi.js.d.ts:10377
 
 ___
 
@@ -543,7 +656,7 @@ Graphics.accessiblePointerEvents
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10166
+node_modules/pixi.js/pixi.js.d.ts:10407
 
 ___
 
@@ -566,7 +679,7 @@ Graphics.accessibleTitle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10129
+node_modules/pixi.js/pixi.js.d.ts:10370
 
 ___
 
@@ -595,7 +708,7 @@ Graphics.accessibleType
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10157
+node_modules/pixi.js/pixi.js.d.ts:10398
 
 ___
 
@@ -615,7 +728,7 @@ Graphics.alpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10188
+node_modules/pixi.js/pixi.js.d.ts:10429
 
 ___
 
@@ -634,7 +747,33 @@ Graphics.angle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10424
+node_modules/pixi.js/pixi.js.d.ts:10706
+
+___
+
+### batchDirty
+
+• `Protected` **batchDirty**: `number`
+
+Update dirty for limiting calculating batches.
+
+**`Member`**
+
+PIXI.Graphics#batchDirty
+
+**`Default`**
+
+```ts
+-1
+```
+
+#### Inherited from
+
+Graphics.batchDirty
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:9698
 
 ___
 
@@ -660,7 +799,7 @@ Graphics.batchTint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9549
+node_modules/pixi.js/pixi.js.d.ts:9690
 
 ___
 
@@ -680,7 +819,7 @@ Graphics.batches
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9541
+node_modules/pixi.js/pixi.js.d.ts:9682
 
 ___
 
@@ -709,7 +848,7 @@ Graphics.blendMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9579
+node_modules/pixi.js/pixi.js.d.ts:9737
 
 ___
 
@@ -740,7 +879,7 @@ Graphics.buttonMode
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10506
+node_modules/pixi.js/pixi.js.d.ts:10788
 
 ___
 
@@ -776,7 +915,7 @@ Graphics.cacheAsBitmap
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9534
+node_modules/pixi.js/pixi.js.d.ts:9675
 
 ___
 
@@ -796,7 +935,7 @@ Graphics.children
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9962
+node_modules/pixi.js/pixi.js.d.ts:10183
 
 ___
 
@@ -816,7 +955,7 @@ Graphics.currentPath
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9521
+node_modules/pixi.js/pixi.js.d.ts:9662
 
 ___
 
@@ -851,7 +990,7 @@ Graphics.cursor
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10520
+node_modules/pixi.js/pixi.js.d.ts:10802
 
 ___
 
@@ -869,7 +1008,7 @@ Graphics.fill
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9594
+node_modules/pixi.js/pixi.js.d.ts:9752
 
 ___
 
@@ -892,7 +1031,7 @@ Graphics.filterArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10245
+node_modules/pixi.js/pixi.js.d.ts:10485
 
 ___
 
@@ -914,7 +1053,7 @@ Graphics.filters
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10253
+node_modules/pixi.js/pixi.js.d.ts:10493
 
 ___
 
@@ -928,15 +1067,13 @@ this data to the GPU. Can be shared between multiple Mesh or Graphics objects.
 
 **`Member`**
 
-PIXI.Graphics#geometry
-
 #### Inherited from
 
 Graphics.geometry
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9473
+node_modules/pixi.js/pixi.js.d.ts:9721
 
 ___
 
@@ -954,7 +1091,7 @@ Graphics.height
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10096
+node_modules/pixi.js/pixi.js.d.ts:10326
 
 ___
 
@@ -985,7 +1122,7 @@ Graphics.hitArea
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10494
+node_modules/pixi.js/pixi.js.d.ts:10776
 
 ___
 
@@ -1018,7 +1155,7 @@ Graphics.interactive
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10482
+node_modules/pixi.js/pixi.js.d.ts:10764
 
 ___
 
@@ -1041,7 +1178,7 @@ Graphics.interactiveChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10104
+node_modules/pixi.js/pixi.js.d.ts:10342
 
 ___
 
@@ -1061,7 +1198,7 @@ Graphics.isMask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10284
+node_modules/pixi.js/pixi.js.d.ts:10556
 
 ___
 
@@ -1081,7 +1218,7 @@ Graphics.isSprite
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10279
+node_modules/pixi.js/pixi.js.d.ts:10551
 
 ___
 
@@ -1099,7 +1236,7 @@ Graphics.line
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9601
+node_modules/pixi.js/pixi.js.d.ts:9759
 
 ___
 
@@ -1117,13 +1254,13 @@ Graphics.localTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10382
+node_modules/pixi.js/pixi.js.d.ts:10664
 
 ___
 
 ### mask
 
-• **mask**: `Container` \| `MaskData`
+• **mask**: ``null`` \| `Container` \| `MaskData`
 
 Sets a mask for the displayObject. A mask is an object that limits the visibility of an
 object to the shape of the mask applied to it. In PixiJS a regular mask must be a
@@ -1156,7 +1293,7 @@ Graphics.mask
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10460
+node_modules/pixi.js/pixi.js.d.ts:10742
 
 ___
 
@@ -1180,13 +1317,13 @@ Graphics.name
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10527
+node_modules/pixi.js/pixi.js.d.ts:10809
 
 ___
 
 ### parent
 
-• `Readonly` **parent**: `Container`
+• **parent**: `Container`
 
 The display object container that contains this display object.
 
@@ -1200,13 +1337,13 @@ Graphics.parent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10213
+node_modules/pixi.js/pixi.js.d.ts:10453
 
 ___
 
 ### pivot
 
-• **pivot**: `IPoint`
+• **pivot**: `ObservablePoint`
 
 The pivot point of the displayObject that it rotates around.
 Assignment by value since pixi-v4.
@@ -1219,7 +1356,7 @@ Graphics.pivot
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10403
+node_modules/pixi.js/pixi.js.d.ts:10685
 
 ___
 
@@ -1245,13 +1382,13 @@ Graphics.pluginName
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9563
+node_modules/pixi.js/pixi.js.d.ts:9712
 
 ___
 
 ### position
 
-• **position**: `IPoint`
+• **position**: `ObservablePoint`
 
 The coordinate of the object relative to the local coordinates of the parent.
 Assignment by value since pixi-v4.
@@ -1264,7 +1401,7 @@ Graphics.position
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10389
+node_modules/pixi.js/pixi.js.d.ts:10671
 
 ___
 
@@ -1287,7 +1424,7 @@ Graphics.renderable
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10206
+node_modules/pixi.js/pixi.js.d.ts:10447
 
 ___
 
@@ -1306,13 +1443,13 @@ Graphics.rotation
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10417
+node_modules/pixi.js/pixi.js.d.ts:10699
 
 ___
 
 ### scale
 
-• **scale**: `IPoint`
+• **scale**: `ObservablePoint`
 
 The scale factor of the object.
 Assignment by value since pixi-v4.
@@ -1325,7 +1462,7 @@ Graphics.scale
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10396
+node_modules/pixi.js/pixi.js.d.ts:10678
 
 ___
 
@@ -1346,7 +1483,7 @@ Graphics.shader
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9479
+node_modules/pixi.js/pixi.js.d.ts:9619
 
 ___
 
@@ -1365,7 +1502,7 @@ Graphics.skew
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10410
+node_modules/pixi.js/pixi.js.d.ts:10692
 
 ___
 
@@ -1386,7 +1523,7 @@ Graphics.sortDirty
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9985
+node_modules/pixi.js/pixi.js.d.ts:10206
 
 ___
 
@@ -1422,7 +1559,7 @@ Graphics.sortableChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9978
+node_modules/pixi.js/pixi.js.d.ts:10199
 
 ___
 
@@ -1443,7 +1580,7 @@ Graphics.state
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9485
+node_modules/pixi.js/pixi.js.d.ts:9626
 
 ___
 
@@ -1468,7 +1605,7 @@ Graphics.tint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9587
+node_modules/pixi.js/pixi.js.d.ts:9745
 
 ___
 
@@ -1489,7 +1626,7 @@ Graphics.transform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10182
+node_modules/pixi.js/pixi.js.d.ts:10423
 
 ___
 
@@ -1509,7 +1646,7 @@ Graphics.vertexData
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9556
+node_modules/pixi.js/pixi.js.d.ts:9705
 
 ___
 
@@ -1532,7 +1669,7 @@ Graphics.visible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10197
+node_modules/pixi.js/pixi.js.d.ts:10438
 
 ___
 
@@ -1550,7 +1687,7 @@ Graphics.width
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10090
+node_modules/pixi.js/pixi.js.d.ts:10320
 
 ___
 
@@ -1570,7 +1707,7 @@ Graphics.worldAlpha
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10220
+node_modules/pixi.js/pixi.js.d.ts:10460
 
 ___
 
@@ -1588,7 +1725,7 @@ Graphics.worldTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10375
+node_modules/pixi.js/pixi.js.d.ts:10657
 
 ___
 
@@ -1606,7 +1743,7 @@ Graphics.worldVisible
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10440
+node_modules/pixi.js/pixi.js.d.ts:10722
 
 ___
 
@@ -1625,7 +1762,7 @@ Graphics.x
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10361
+node_modules/pixi.js/pixi.js.d.ts:10643
 
 ___
 
@@ -1644,7 +1781,7 @@ Graphics.y
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10368
+node_modules/pixi.js/pixi.js.d.ts:10650
 
 ___
 
@@ -1665,7 +1802,7 @@ Graphics.zIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10433
+node_modules/pixi.js/pixi.js.d.ts:10715
 
 ## Methods
 
@@ -1685,7 +1822,7 @@ Graphics.\_calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9893
+node_modules/pixi.js/pixi.js.d.ts:10057
 
 ___
 
@@ -1712,7 +1849,7 @@ Graphics.\_initCurve
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9685
+node_modules/pixi.js/pixi.js.d.ts:9849
 
 ___
 
@@ -1732,7 +1869,7 @@ Graphics.\_populateBatches
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9859
+node_modules/pixi.js/pixi.js.d.ts:10023
 
 ___
 
@@ -1753,7 +1890,7 @@ Graphics.\_recursivePostUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10294
+node_modules/pixi.js/pixi.js.d.ts:10561
 
 ___
 
@@ -1779,7 +1916,7 @@ Graphics.\_render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9853
+node_modules/pixi.js/pixi.js.d.ts:10017
 
 ___
 
@@ -1805,7 +1942,7 @@ Graphics.\_renderBatched
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9866
+node_modules/pixi.js/pixi.js.d.ts:10030
 
 ___
 
@@ -1831,7 +1968,7 @@ Graphics.\_renderDirect
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9873
+node_modules/pixi.js/pixi.js.d.ts:10037
 
 ___
 
@@ -1858,7 +1995,7 @@ Graphics.\_renderDrawCallDirect
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9880
+node_modules/pixi.js/pixi.js.d.ts:10044
 
 ___
 
@@ -1884,13 +2021,13 @@ Graphics.\_resolveDirectShader
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9887
+node_modules/pixi.js/pixi.js.d.ts:10051
 
 ___
 
 ### addChild
 
-▸ **addChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **addChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Adds one or more children to the container.
 
@@ -1906,7 +2043,7 @@ Multiple items can be added like so: `myContainer.addChild(thingOne, thingTwo, t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to add to the container |
+| `...children` | `TChildren` | The DisplayObject(s) to add to the container |
 
 #### Returns
 
@@ -1920,7 +2057,7 @@ Graphics.addChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10000
+node_modules/pixi.js/pixi.js.d.ts:10221
 
 ___
 
@@ -1955,7 +2092,7 @@ Graphics.addChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10008
+node_modules/pixi.js/pixi.js.d.ts:10229
 
 ___
 
@@ -1981,7 +2118,7 @@ Graphics.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24103
+node_modules/pixi.js/pixi.js.d.ts:25521
 
 ▸ **addListener**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
 
@@ -2003,7 +2140,7 @@ Graphics.addListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24105
+node_modules/pixi.js/pixi.js.d.ts:25523
 
 ___
 
@@ -2036,7 +2173,7 @@ Graphics.arc
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9736
+node_modules/pixi.js/pixi.js.d.ts:9900
 
 ___
 
@@ -2070,7 +2207,7 @@ Graphics.arcTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9721
+node_modules/pixi.js/pixi.js.d.ts:9885
 
 ___
 
@@ -2100,7 +2237,7 @@ Graphics.beginFill
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9745
+node_modules/pixi.js/pixi.js.d.ts:9909
 
 ___
 
@@ -2126,7 +2263,7 @@ Graphics.beginHole
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9933
+node_modules/pixi.js/pixi.js.d.ts:10097
 
 ___
 
@@ -2158,7 +2295,7 @@ Graphics.beginTextureFill
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9756
+node_modules/pixi.js/pixi.js.d.ts:9920
 
 ___
 
@@ -2191,7 +2328,7 @@ Graphics.bezierCurveTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9708
+node_modules/pixi.js/pixi.js.d.ts:9872
 
 ___
 
@@ -2211,7 +2348,7 @@ Graphics.calculateBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10071
+node_modules/pixi.js/pixi.js.d.ts:10292
 
 ___
 
@@ -2231,7 +2368,7 @@ Graphics.calculateTints
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9905
+node_modules/pixi.js/pixi.js.d.ts:10069
 
 ___
 
@@ -2252,7 +2389,7 @@ Graphics.calculateVertices
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9911
+node_modules/pixi.js/pixi.js.d.ts:10075
 
 ___
 
@@ -2274,7 +2411,7 @@ Graphics.clear
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9839
+node_modules/pixi.js/pixi.js.d.ts:10003
 
 ___
 
@@ -2283,7 +2420,7 @@ ___
 ▸ **clone**(): `Graphics`
 
 Creates a new Graphics object with the same values as this one.
-Note that the only the properties of the object are cloned, not its transform (position,scale,etc)
+Note that only the geometry of the object is cloned, not its transform (position,scale,etc)
 
 #### Returns
 
@@ -2297,7 +2434,7 @@ Graphics.clone
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9570
+node_modules/pixi.js/pixi.js.d.ts:9728
 
 ___
 
@@ -2319,7 +2456,36 @@ Graphics.closePath
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9917
+node_modules/pixi.js/pixi.js.d.ts:10081
+
+___
+
+### containerUpdateTransform
+
+▸ **containerUpdateTransform**(): `void`
+
+Container default updateTransform, does update children of container.
+Will crash if there's no parent element.
+
+#### Returns
+
+`void`
+
+**`Memberof`**
+
+PIXI.Container#
+
+**`Function`**
+
+containerUpdateTransform
+
+#### Inherited from
+
+Graphics.containerUpdateTransform
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10334
 
 ___
 
@@ -2333,7 +2499,7 @@ Tests if a point is inside this graphics object
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `point` | `Point` | the point to test |
+| `point` | `IPointData` | the point to test |
 
 #### Returns
 
@@ -2347,7 +2513,7 @@ Graphics.containsPoint
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9900
+node_modules/pixi.js/pixi.js.d.ts:10064
 
 ___
 
@@ -2376,7 +2542,33 @@ Graphics.destroy
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9951
+node_modules/pixi.js/pixi.js.d.ts:10115
+
+___
+
+### disableTempParent
+
+▸ **disableTempParent**(`cacheParent`): `void`
+
+Pair method for `enableTempParent`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cacheParent` | `DisplayObject` | actual parent of element |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Graphics.disableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10636
 
 ___
 
@@ -2405,7 +2597,45 @@ Graphics.displayObjectUpdateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10468
+node_modules/pixi.js/pixi.js.d.ts:10750
+
+___
+
+### drawChamferRect
+
+▸ **drawChamferRect**(`x`, `y`, `width`, `height`, `chamfer`): `Graphics`
+
+Draw Rectangle with chamfer corners.
+
+_Note: Only available with **@pixi/graphics-extras**._
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `number` | Upper left corner of rect |
+| `y` | `number` | Upper right corner of rect |
+| `width` | `number` | Width of rect |
+| `height` | `number` | Height of rect |
+| `chamfer` | `number` | accept negative or positive values |
+
+#### Returns
+
+`Graphics`
+
+Returns self.
+
+**`Method`**
+
+PIXI.Graphics#drawChamferRect
+
+#### Inherited from
+
+Graphics.drawChamferRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10133
 
 ___
 
@@ -2435,7 +2665,7 @@ Graphics.drawCircle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9797
+node_modules/pixi.js/pixi.js.d.ts:9961
 
 ___
 
@@ -2466,13 +2696,51 @@ Graphics.drawEllipse
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9807
+node_modules/pixi.js/pixi.js.d.ts:9971
+
+___
+
+### drawFilletRect
+
+▸ **drawFilletRect**(`x`, `y`, `width`, `height`, `fillet`): `Graphics`
+
+Draw Rectangle with fillet corners.
+
+_Note: Only available with **@pixi/graphics-extras**._
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `number` | Upper left corner of rect |
+| `y` | `number` | Upper right corner of rect |
+| `width` | `number` | Width of rect |
+| `height` | `number` | Height of rect |
+| `fillet` | `number` | non-zero real number, size of corner cutout |
+
+#### Returns
+
+`Graphics`
+
+Returns self.
+
+**`Method`**
+
+PIXI.Graphics#drawFilletRect
+
+#### Inherited from
+
+Graphics.drawFilletRect
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10147
 
 ___
 
 ### drawPolygon
 
-▸ **drawPolygon**(`path`): `Graphics`
+▸ **drawPolygon**(`...path`): `Graphics`
 
 Draws a polygon using the given path.
 
@@ -2480,7 +2748,7 @@ Draws a polygon using the given path.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `path` | `number`[] \| `Polygon` \| `Point`[] | The path data used to construct the polygon. |
+| `...path` | (`number`[] \| `Polygon` \| `Point`[])[] | The path data used to construct the polygon. |
 
 #### Returns
 
@@ -2494,7 +2762,7 @@ Graphics.drawPolygon
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9814
+node_modules/pixi.js/pixi.js.d.ts:9978
 
 ___
 
@@ -2525,7 +2793,43 @@ Graphics.drawRect
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9777
+node_modules/pixi.js/pixi.js.d.ts:9941
+
+___
+
+### drawRegularPolygon
+
+▸ **drawRegularPolygon**(`x`, `y`, `radius`, `sides`, `rotation`): `Graphics`
+
+Draw a regular polygon where all sides are the same length.
+
+_Note: Only available with **@pixi/graphics-extras**._
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `number` | X position |
+| `y` | `number` | Y position |
+| `radius` | `number` | Polygon radius |
+| `sides` | `number` | Minimum value is 3 |
+| `rotation` | `number` | Starting rotation values in radians.. |
+
+#### Returns
+
+`Graphics`
+
+**`Method`**
+
+PIXI.Graphics#drawRegularPolygon
+
+#### Inherited from
+
+Graphics.drawRegularPolygon
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10161
 
 ___
 
@@ -2557,7 +2861,7 @@ Graphics.drawRoundedRect
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9788
+node_modules/pixi.js/pixi.js.d.ts:9952
 
 ___
 
@@ -2585,7 +2889,7 @@ Graphics.drawShape
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9821
+node_modules/pixi.js/pixi.js.d.ts:9985
 
 ___
 
@@ -2618,7 +2922,44 @@ Graphics.drawStar
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9833
+node_modules/pixi.js/pixi.js.d.ts:9997
+
+___
+
+### drawTorus
+
+▸ **drawTorus**(`x`, `y`, `innerRadius`, `outerRadius`, `startArc?`, `endArc?`): `Graphics`
+
+Draw a torus shape, like a donut. Can be used for something like a circle loader.
+
+_Note: Only available with **@pixi/graphics-extras**._
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `number` | X position |
+| `y` | `number` | Y position |
+| `innerRadius` | `number` | Inner circle radius |
+| `outerRadius` | `number` | Outer circle radius |
+| `startArc?` | `number` | Where to begin sweep, in radians, 0.0 = to the right |
+| `endArc?` | `number` | Where to end sweep, in radians |
+
+#### Returns
+
+`Graphics`
+
+**`Method`**
+
+PIXI.Graphics#drawTorus
+
+#### Inherited from
+
+Graphics.drawTorus
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10176
 
 ___
 
@@ -2647,7 +2988,35 @@ Graphics.emit
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24022
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### enableTempParent
+
+▸ **enableTempParent**(): `DisplayObject`
+
+Used in Renderer, cacheAsBitmap and other places where you call an `updateTransform` on root
+
+```
+const cacheParent = elem.enableTempParent();
+elem.updateTransform();
+elem.disableTempParent(cacheParent);
+```
+
+#### Returns
+
+`DisplayObject`
+
+current parent
+
+#### Inherited from
+
+Graphics.enableTempParent
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:10631
 
 ___
 
@@ -2669,7 +3038,7 @@ Graphics.endFill
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9767
+node_modules/pixi.js/pixi.js.d.ts:9931
 
 ___
 
@@ -2691,7 +3060,7 @@ Graphics.endHole
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9938
+node_modules/pixi.js/pixi.js.d.ts:10102
 
 ___
 
@@ -2711,7 +3080,7 @@ Graphics.eventNames
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:23996
+node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
@@ -2731,7 +3100,7 @@ Graphics.finishPoly
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9660
+node_modules/pixi.js/pixi.js.d.ts:9824
 
 ___
 
@@ -2760,7 +3129,7 @@ Graphics.getBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10304
+node_modules/pixi.js/pixi.js.d.ts:10571
 
 ___
 
@@ -2788,21 +3157,24 @@ Graphics.getChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10036
+node_modules/pixi.js/pixi.js.d.ts:10257
 
 ___
 
 ### getChildByName
 
-▸ **getChildByName**(`name`): `DisplayObject`
+▸ **getChildByName**(`name`, `deep?`): `DisplayObject`
 
 Returns the display object in the container.
+
+Recursive searches are done in a preorder traversal.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `name` | `string` | Instance name. |
+| `deep?` | `boolean` | Whether to search recursively |
 
 #### Returns
 
@@ -2824,7 +3196,7 @@ Graphics.getChildByName
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10113
+node_modules/pixi.js/pixi.js.d.ts:10354
 
 ___
 
@@ -2852,7 +3224,7 @@ Graphics.getChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10022
+node_modules/pixi.js/pixi.js.d.ts:10243
 
 ___
 
@@ -2889,13 +3261,13 @@ Graphics.getGlobalPosition
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10539
+node_modules/pixi.js/pixi.js.d.ts:10821
 
 ___
 
 ### getLocalBounds
 
-▸ **getLocalBounds**(`rect?`): `Rectangle`
+▸ **getLocalBounds**(`rect?`, `skipChildrenUpdate?`): `Rectangle`
 
 Retrieves the local bounds of the displayObject as a rectangle object.
 
@@ -2904,6 +3276,7 @@ Retrieves the local bounds of the displayObject as a rectangle object.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `rect?` | `Rectangle` | Optional rectangle to store the result of the bounds calculation. |
+| `skipChildrenUpdate?` | `boolean` | Setting to `true` will stop re-calculation of children transforms, it was default behaviour of pixi 4.0-5.2 and caused many problems to users. |
 
 #### Returns
 
@@ -2917,7 +3290,7 @@ Graphics.getLocalBounds
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10311
+node_modules/pixi.js/pixi.js.d.ts:10301
 
 ___
 
@@ -2940,7 +3313,7 @@ Graphics.isFastRect
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9846
+node_modules/pixi.js/pixi.js.d.ts:10010
 
 ___
 
@@ -2977,7 +3350,7 @@ Graphics.lineStyle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9614
+node_modules/pixi.js/pixi.js.d.ts:9772
 
 ▸ **lineStyle**(`width?`, `color?`, `alpha?`, `alignment?`, `native?`): `Graphics`
 
@@ -3010,7 +3383,7 @@ Graphics.lineStyle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9627
+node_modules/pixi.js/pixi.js.d.ts:9785
 
 ___
 
@@ -3027,8 +3400,11 @@ Like line style but support texture for line fill.
 | `options?` | `Object` | Collection of options for setting line style. |
 | `options.alignment?` | `number` | alignment of the line to draw, (0 = inner, 0.5 = middle, 1 = outter) |
 | `options.alpha?` | `number` | alpha of the line to draw, will update the objects stored style |
+| `options.cap?` | `LINE_CAP` | line cap style |
 | `options.color?` | `number` | color of the line to draw, will update the objects stored style. Default 0xFFFFFF if texture present. |
+| `options.join?` | `LINE_JOIN` | line join style |
 | `options.matrix?` | `Matrix` | Texture matrix to transform texture |
+| `options.miterLimit?` | `number` | miter limit ratio |
 | `options.native?` | `boolean` | If true the lines will be draw using LINES instead of TRIANGLE_STRIP |
 | `options.texture?` | `Texture` | Texture to use |
 | `options.width?` | `number` | width of the line to draw, will update the objects stored style |
@@ -3045,7 +3421,7 @@ Graphics.lineTextureStyle
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9642
+node_modules/pixi.js/pixi.js.d.ts:9803
 
 ___
 
@@ -3075,7 +3451,7 @@ Graphics.lineTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9677
+node_modules/pixi.js/pixi.js.d.ts:9841
 
 ___
 
@@ -3101,7 +3477,7 @@ Graphics.listenerCount
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24013
+node_modules/pixi.js/pixi.js.d.ts:25432
 
 ___
 
@@ -3127,7 +3503,7 @@ Graphics.listeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24005
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -3156,7 +3532,7 @@ Graphics.moveTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9668
+node_modules/pixi.js/pixi.js.d.ts:9832
 
 ___
 
@@ -3182,7 +3558,7 @@ Graphics.off
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24116
+node_modules/pixi.js/pixi.js.d.ts:25534
 
 ___
 
@@ -3208,7 +3584,7 @@ Graphics.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24112
+node_modules/pixi.js/pixi.js.d.ts:25530
 
 ▸ **on**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
 
@@ -3230,7 +3606,7 @@ Graphics.on
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24114
+node_modules/pixi.js/pixi.js.d.ts:25532
 
 ___
 
@@ -3250,7 +3626,7 @@ Graphics.onChildrenChange
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9991
+node_modules/pixi.js/pixi.js.d.ts:10212
 
 ___
 
@@ -3276,7 +3652,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L17)
+[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L17)
 
 ___
 
@@ -3302,7 +3678,7 @@ Graphics.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24109
+node_modules/pixi.js/pixi.js.d.ts:25527
 
 ▸ **once**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
 
@@ -3324,7 +3700,7 @@ Graphics.once
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24111
+node_modules/pixi.js/pixi.js.d.ts:25529
 
 ___
 
@@ -3356,7 +3732,7 @@ Graphics.quadraticCurveTo
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9696
+node_modules/pixi.js/pixi.js.d.ts:9860
 
 ___
 
@@ -3380,7 +3756,7 @@ Graphics.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24098
+node_modules/pixi.js/pixi.js.d.ts:25516
 
 ▸ **removeAllListeners**(`event?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
 
@@ -3400,13 +3776,13 @@ Graphics.removeAllListeners
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24099
+node_modules/pixi.js/pixi.js.d.ts:25517
 
 ___
 
 ### removeChild
 
-▸ **removeChild**\<`TChildren`\>(`...child`): `TChildren`[``0``]
+▸ **removeChild**\<`TChildren`\>(`...children`): `TChildren`[``0``]
 
 Removes one or more children from the container.
 
@@ -3420,7 +3796,7 @@ Removes one or more children from the container.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...child` | `TChildren` | The DisplayObject(s) to remove |
+| `...children` | `TChildren` | The DisplayObject(s) to remove |
 
 #### Returns
 
@@ -3434,7 +3810,7 @@ Graphics.removeChild
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10043
+node_modules/pixi.js/pixi.js.d.ts:10264
 
 ___
 
@@ -3462,7 +3838,7 @@ Graphics.removeChildAt
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10050
+node_modules/pixi.js/pixi.js.d.ts:10271
 
 ___
 
@@ -3491,7 +3867,7 @@ Graphics.removeChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10058
+node_modules/pixi.js/pixi.js.d.ts:10279
 
 ___
 
@@ -3517,7 +3893,7 @@ Graphics.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24095
+node_modules/pixi.js/pixi.js.d.ts:25513
 
 ▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
 
@@ -3539,7 +3915,7 @@ Graphics.removeListener
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:24097
+node_modules/pixi.js/pixi.js.d.ts:25515
 
 ___
 
@@ -3565,7 +3941,7 @@ Graphics.render
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10077
+node_modules/pixi.js/pixi.js.d.ts:10307
 
 ___
 
@@ -3591,7 +3967,7 @@ Graphics.renderAdvanced
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10084
+node_modules/pixi.js/pixi.js.d.ts:10314
 
 ___
 
@@ -3618,7 +3994,7 @@ Graphics.setChildIndex
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10029
+node_modules/pixi.js/pixi.js.d.ts:10250
 
 ___
 
@@ -3646,7 +4022,7 @@ Graphics.setMatrix
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9924
+node_modules/pixi.js/pixi.js.d.ts:10088
 
 ___
 
@@ -3674,7 +4050,7 @@ Graphics.setParent
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10339
+node_modules/pixi.js/pixi.js.d.ts:10599
 
 ___
 
@@ -3710,7 +4086,7 @@ Graphics.setTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10354
+node_modules/pixi.js/pixi.js.d.ts:10614
 
 ___
 
@@ -3730,7 +4106,7 @@ Graphics.sortChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10062
+node_modules/pixi.js/pixi.js.d.ts:10283
 
 ___
 
@@ -3750,7 +4126,7 @@ Graphics.startPoly
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:9655
+node_modules/pixi.js/pixi.js.d.ts:9819
 
 ___
 
@@ -3777,13 +4153,13 @@ Graphics.swapChildren
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10015
+node_modules/pixi.js/pixi.js.d.ts:10236
 
 ___
 
 ### toGlobal
 
-▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toGlobal**(`position`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the global position of the display object.
 
@@ -3791,13 +4167,13 @@ Calculates the global position of the display object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `position` | `IPointData` | The world origin to calculate from. |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform. |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object.
 
@@ -3807,13 +4183,13 @@ Graphics.toGlobal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10321
+node_modules/pixi.js/pixi.js.d.ts:10581
 
 ___
 
 ### toLocal
 
-▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `IPoint`
+▸ **toLocal**(`position`, `from?`, `point?`, `skipUpdate?`): `Point`
 
 Calculates the local position of the display object relative to another point.
 
@@ -3821,14 +4197,14 @@ Calculates the local position of the display object relative to another point.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `position` | `IPoint` | The world origin to calculate from. |
+| `position` | `IPointData` | The world origin to calculate from. |
 | `from?` | `DisplayObject` | The DisplayObject to calculate the global position from. |
-| `point?` | `IPoint` | A Point object in which to store the value, optional (otherwise will create a new Point). |
+| `point?` | `Point` | A Point object in which to store the value, optional (otherwise will create a new Point). |
 | `skipUpdate?` | `boolean` | Should we skip the update transform |
 
 #### Returns
 
-`IPoint`
+`Point`
 
 A point object representing the position of this object
 
@@ -3838,7 +4214,7 @@ Graphics.toLocal
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10332
+node_modules/pixi.js/pixi.js.d.ts:10592
 
 ___
 
@@ -3858,7 +4234,7 @@ Graphics.updateTransform
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:10066
+node_modules/pixi.js/pixi.js.d.ts:10287
 
 ___
 
@@ -3884,4 +4260,4 @@ Graphics.mixin
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8979
+node_modules/pixi.js/pixi.js.d.ts:9230
