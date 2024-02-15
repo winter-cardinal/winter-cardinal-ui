@@ -196,7 +196,7 @@ export class DTextPieceImpl<VALUE> extends utils.EventEmitter implements DTextPi
 	protected updateObject(): boolean {
 		const computed = this._computed;
 		if (computed !== undefined) {
-			const formatted = this._formatter(computed, this);
+			const formatted = this._formatter(computed, this._parent);
 			const object = this._object;
 			if (object == null) {
 				if (0 < formatted.length) {
