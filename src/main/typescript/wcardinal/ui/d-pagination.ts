@@ -469,7 +469,7 @@ export class DPagination<
 	}
 
 	protected onButtonPageActive(button: DButton<number>): void {
-		const text = button.text;
+		const text = button.text.value;
 		if (isNumber(text)) {
 			this.moveTo(text - 1);
 			if (button.state.isFocused) {
