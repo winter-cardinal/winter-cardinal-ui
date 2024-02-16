@@ -301,17 +301,40 @@ export class DPagination<
 	}
 
 	protected onButtonLastActive(): void {
-		this.moveTo(this._size - 1);
+		this.goToLast();
 	}
 
-	protected moveTo(index: number): void {
+	/**
+	 * Goes to the last page.
+	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 *
+	 * @param silently true to suppress the change event
+	 * @returns true if succeeded.
+	 */
+	goToLast(silently?: boolean): boolean {
+		return this.goTo(this._size - 1, silently);
+	}
+
+	/**
+	 * Goes to the given page.
+	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 *
+	 * @param index a page index
+	 * @param silently true to suppress the change event
+	 * @returns this
+	 */
+	goTo(index: number, silently?: boolean): boolean {
 		if (0 <= index && index < this._size && this._value !== index) {
 			const oldIndex = this._value;
 			this._value = index;
-			this.emit("change", index, oldIndex, this);
+			if (silently !== true) {
+				this.emit("change", index, oldIndex, this);
+			}
 			this.toDirty();
 			DApplications.update(this);
+			return true;
 		}
+		return false;
 	}
 
 	protected get buttonNext(): DButton<string> | null {
@@ -336,7 +359,18 @@ export class DPagination<
 	}
 
 	protected onButtonNextActive(): void {
-		this.moveTo(this._value + 1);
+		this.goToNext();
+	}
+
+	/**
+	 * Goes to the next page.
+	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 *
+	 * @param silently true to suppress the change event
+	 * @returns true if succeeded.
+	 */
+	goToNext(silently?: boolean): boolean {
+		return this.goTo(this._value + 1, silently);
 	}
 
 	protected get buttonPrevious(): DButton<string> | null {
@@ -361,7 +395,18 @@ export class DPagination<
 	}
 
 	protected onButtonPreviousActive(): void {
-		this.moveTo(this._value - 1);
+		this.goToPrevious();
+	}
+
+	/**
+	 * Goes to the previous page.
+	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 *
+	 * @param silently true to suppress the change event
+	 * @returns true if succeeded.
+	 */
+	goToPrevious(silently?: boolean): boolean {
+		return this.goTo(this._value - 1, silently);
 	}
 
 	protected get buttonTop(): DButton<string> | null {
@@ -386,7 +431,18 @@ export class DPagination<
 	}
 
 	protected onButtonTopActive(): void {
-		this.moveTo(0);
+		this.goToTop();
+	}
+
+	/**
+	 * Goes to the top page.
+	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 *
+	 * @param silently true to suppress the change event
+	 * @returns true if succeeded.
+	 */
+	goToTop(silently?: boolean): boolean {
+		return this.goTo(0, silently);
 	}
 
 	protected newButtonPage(): DButton<number> {
@@ -471,7 +527,7 @@ export class DPagination<
 	protected onButtonPageActive(button: DButton<number>): void {
 		const text = button.text.value;
 		if (isNumber(text)) {
-			this.moveTo(text - 1);
+			this.goTo(text - 1);
 			if (button.state.isFocused) {
 				button.state.isHovered = false;
 				this.page.focus();
