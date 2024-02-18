@@ -21,13 +21,13 @@ import { EShapeContainer } from "./e-shape-container";
 import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 
 const VERTEX_SHADER = `
-attribute vec2 aPosition;
-attribute vec3 aClipping;
-attribute vec2 aStep;
-attribute vec4 aAntialias;
-attribute vec4 aColorFill;
-attribute vec4 aColorStroke;
-attribute vec2 aUv;
+attribute highp vec2 aPosition;
+attribute highp vec3 aClipping;
+attribute highp vec2 aStep;
+attribute highp vec4 aAntialias;
+attribute highp vec4 aColorFill;
+attribute highp vec4 aColorStroke;
+attribute highp vec2 aUv;
 
 uniform mat3 projectionMatrix;
 uniform mat3 translationMatrix;
@@ -64,16 +64,15 @@ vec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {
 	return vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );
 }
 
-vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in float strokeWidth, out float shift ) {
-	vec2 d0 = p - pprev;
-	vec2 d1 = pnext - p;
-	float l0 = dot( d0, d0 );
-	float l1 = dot( d1, d1 );
-	vec2 nd0 = normalize( toInverse( d0 ) );
-	vec2 nd1 = normalize( toInverse( d1 ) );
-	vec2 nd2 = 0.00001 < l1 ? nd1 : vec2(0.0, 0.0);
-	vec2 n0 = 0.00001 < l0 ? nd0 : nd2;
-	vec2 n1 = 0.00001 < l1 ? nd1 : n0;
+vec2 toPosition3456( in float type, in vec2 p, in vec2 n0p, in vec2 n1p, in float strokeWidth, out float shift ) {
+	vec3 t = vec3(1.0, 1.0/128.0, 1.0/128.0/128.0) * n0p.y;
+	t -= fract(t);
+	t -= t.yzx * vec3(128.0, 128.0, 0.0);
+	t *= vec3(1.0/63.5, 1.0/63.5, 1.0);
+	t -= vec3(1.0, 1.0, 0.0);
+	vec2 n0 = vec2(t.x, (t.z < 1.5 || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));
+	vec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));
+
 	vec2 n0i = toInverse( n0 );
 	vec2 n1i = toInverse( n1 );
 	float direction = sign( 4.5 - type );
@@ -87,8 +86,8 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 
 	// Miter
 	vec2 pmiter = p + offsetSize * offset;
-	float miterAngle0 = dot( n0i, pmiter - pprev );
-	float miterAngle1 = dot( n1i, pmiter - pnext );
+	float miterAngle0 = dot( n0i, offset + n0i );
+	float miterAngle1 = dot( n1i, offset - n1i );
 	float miterLength = dot( offset, offset );
 	float miterSide = direction * cross;
 

@@ -2,7 +2,6 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapePoints } from "../e-shape-points";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toDash } from "./to-dash";
-import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
 
 const LINE_FMIN: number = 0.00001;
@@ -174,6 +173,39 @@ export const buildLineVertexStepAndColorFill = (
 	);
 };
 
+const toNormal = (v: number[], l: number): number[] => {
+	if (0.00001 < l) {
+		const f = 1 / l;
+		const v0 = v[0] * f;
+		const v1 = v[1] * f;
+		v[0] = -v1;
+		v[1] = +v0;
+	} else {
+		v[0] = 0;
+		v[1] = 1;
+	}
+	return v;
+};
+
+const toVector = (x0: number, y0: number, x1: number, y1: number, result: number[]): number[] => {
+	result[0] = x1 - x0;
+	result[1] = y1 - y0;
+	return result;
+};
+
+const toVectorLength = (v: number[]): number => {
+	return Math.sqrt(v[0] * v[0] + v[1] * v[1]);
+};
+
+const toNormalPacked = (n0: number[], n1: number[]): number => {
+	const r = 128;
+	const f = (r - 1) * 0.5;
+	const x = Math.round(f * (1 + n0[0]));
+	const y = Math.round(f * (1 + n1[0]));
+	const z = (0 <= n0[1] ? 1 : 0) + (0 <= n1[1] ? 2 : 0);
+	return x + y * r + z * r * r;
+};
+
 const fillTransformedLineVertexStepAndColorFill = (
 	iv: number,
 	vertices: Float32Array,
@@ -185,30 +217,34 @@ const fillTransformedLineVertexStepAndColorFill = (
 	py: number,
 	strokeWidth: number,
 	scaleInvariant: number,
-	pprevx: number,
-	pprevy: number,
-	pnextx: number,
-	pnexty: number,
+	nprev: number[],
+	nnext: number[],
 	llo: number
 ): void => {
+	const d = toNormalPacked(nprev, nnext);
+
 	vertices[++iv] = px;
 	vertices[++iv] = py;
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = pprevx;
-	steps[++is] = pprevy;
-	steps[++is] = pnextx;
-	steps[++is] = pnexty;
+
+	steps[++is] = d;
+	steps[++is] = d;
+	steps[++is] = d;
+	steps[++is] = d;
+
 	colorFills[(icf += 1)] = llo;
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = pprevx;
-	steps[++is] = pprevy;
-	steps[++is] = pnextx;
-	steps[++is] = pnexty;
+
+	steps[++is] = d;
+	steps[++is] = d;
+	steps[++is] = d;
+	steps[++is] = d;
+
 	colorFills[(icf += 4)] = llo;
 };
 
@@ -483,6 +519,14 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	let pnexty = lineVertices[isecond + 1];
 	let pprevx = px - (pnextx - px);
 	let pprevy = py - (pnexty - py);
+	const nprev = [0, 1];
+	const nnext = [0, 1];
+	toVector(pprevx, pprevy, px, py, nprev);
+	toVector(px, py, pnextx, pnexty, nnext);
+	let lprev = toVectorLength(nprev);
+	let lnext = lprev;
+	toNormal(nprev, lprev);
+	toNormal(nnext, lnext);
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
 	let icf = (voffset << 2) - 1;
@@ -498,10 +542,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 		py,
 		strokeWidth,
 		scaleInvariant,
-		pprevx,
-		pprevy,
-		pnextx,
-		pnexty,
+		nprev,
+		nnext,
 		length
 	);
 	iv += 4;
@@ -519,10 +561,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 		py,
 		strokeWidth,
 		scaleInvariant,
-		pprevx,
-		pprevy,
-		pnextx,
-		pnexty,
+		nprev,
+		nnext,
 		l
 	);
 	iv += 4;
@@ -535,12 +575,17 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 		pprevy = py;
 		px = pnextx;
 		py = pnexty;
+		nprev[0] = nnext[0];
+		nprev[1] = nnext[1];
+		lprev = lnext;
 
 		const imiddle = (i + 1) % lineVertexCount << 1;
 		pnextx = lineVertices[imiddle];
 		pnexty = lineVertices[imiddle + 1];
-
-		l += toLength(pprevx, pprevy, px, py);
+		toVector(px, py, pnextx, pnexty, nnext);
+		lnext = toVectorLength(nnext);
+		toNormal(nnext, lnext);
+		l += lprev;
 
 		fillTransformedLineVertexStepAndColorFill(
 			iv,
@@ -553,10 +598,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 			py,
 			strokeWidth,
 			scaleInvariant,
-			pprevx,
-			pprevy,
-			pnextx,
-			pnexty,
+			nprev,
+			nnext,
 			l
 		);
 		iv += 4;
@@ -574,10 +617,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 			py,
 			strokeWidth,
 			scaleInvariant,
-			pprevx,
-			pprevy,
-			pnextx,
-			pnexty,
+			nprev,
+			nnext,
 			l
 		);
 		iv += 4;
@@ -590,11 +631,16 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	pprevy = py;
 	px = pnextx;
 	py = pnexty;
+	nprev[0] = nnext[0];
+	nprev[1] = nnext[1];
+	lprev = lnext;
 
 	pnextx = px + (px - pprevx);
 	pnexty = py + (py - pprevy);
 
-	l += toLength(pprevx, pprevy, px, py);
+	toVector(px, py, pnextx, pnexty, nnext);
+	toNormal(nnext, lnext);
+	l += lprev;
 
 	fillTransformedLineVertexStepAndColorFill(
 		iv,
@@ -607,10 +653,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 		py,
 		strokeWidth,
 		scaleInvariant,
-		pprevx,
-		pprevy,
-		pnextx,
-		pnexty,
+		nprev,
+		nnext,
 		l
 	);
 	iv += 4;
@@ -628,10 +672,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 		py,
 		strokeWidth,
 		scaleInvariant,
-		pprevx,
-		pprevy,
-		pnextx,
-		pnexty,
+		nprev,
+		nnext,
 		l
 	);
 	iv += 4;
@@ -656,16 +698,17 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 
 	// Fill the rest
 	if (0 <= vcount) {
+		const d = toNormalPacked(nprev, nnext);
 		const ivmax = ((voffset + vcount) << 1) - 1;
 		for (; iv < ivmax; ) {
 			vertices[++iv] = px;
 			vertices[++iv] = py;
 			steps[++is] = 0;
 			steps[++is] = scaleInvariant;
-			steps[++is] = pprevx;
-			steps[++is] = pprevy;
-			steps[++is] = pnextx;
-			steps[++is] = pnexty;
+			steps[++is] = d;
+			steps[++is] = d;
+			steps[++is] = d;
+			steps[++is] = d;
 			colorFills[++icf] = l;
 			colorFills[++icf] = dash0;
 			colorFills[++icf] = dash1;
@@ -699,6 +742,14 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	const ifirst = lineVertexFrom % lineVertexCount << 1;
 	let pnextx = lineVertices[ifirst];
 	let pnexty = lineVertices[ifirst + 1];
+	const nnext = [0, 1];
+	const nprev = [0, 1];
+	toVector(pprevx, pprevy, px, py, nprev);
+	toVector(px, py, pnextx, pnexty, nnext);
+	let lprev = toVectorLength(nprev);
+	let lnext = toVectorLength(nnext);
+	toNormal(nprev, lprev);
+	toNormal(nnext, lnext);
 	let l = 0;
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
@@ -708,12 +759,17 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 		pprevy = py;
 		px = pnextx;
 		py = pnexty;
+		nprev[0] = nnext[0];
+		nprev[1] = nnext[1];
+		lprev = lnext;
 
 		const imiddle = (i + 1) % lineVertexCount << 1;
 		pnextx = lineVertices[imiddle];
 		pnexty = lineVertices[imiddle + 1];
-
-		l += toLength(pprevx, pprevy, px, py);
+		toVector(px, py, pnextx, pnexty, nnext);
+		lnext = toVectorLength(nnext);
+		toNormal(nnext, lnext);
+		l += lprev;
 
 		fillTransformedLineVertexStepAndColorFill(
 			iv,
@@ -726,10 +782,8 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 			py,
 			strokeWidth,
 			scaleInvariant,
-			pprevx,
-			pprevy,
-			pnextx,
-			pnexty,
+			nprev,
+			nnext,
 			l
 		);
 		iv += 4;
@@ -747,10 +801,8 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 			py,
 			strokeWidth,
 			scaleInvariant,
-			pprevx,
-			pprevy,
-			pnextx,
-			pnexty,
+			nprev,
+			nnext,
 			l
 		);
 		iv += 4;
@@ -763,12 +815,17 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	pprevy = py;
 	px = pnextx;
 	py = pnexty;
+	nprev[0] = nnext[0];
+	nprev[1] = nnext[1];
+	lprev = lnext;
 
 	const isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
 	pnextx = lineVertices[isecond];
 	pnexty = lineVertices[isecond + 1];
-
-	l += toLength(pprevx, pprevy, px, py);
+	toVector(px, py, pnextx, pnexty, nnext);
+	lnext = toVectorLength(nnext);
+	toNormal(nnext, lnext);
+	l += lprev;
 
 	fillTransformedLineVertexStepAndColorFill(
 		iv,
@@ -781,10 +838,8 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 		py,
 		strokeWidth,
 		scaleInvariant,
-		pprevx,
-		pprevy,
-		pnextx,
-		pnexty,
+		nprev,
+		nnext,
 		l
 	);
 	iv += 4;
@@ -803,16 +858,17 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 
 	// Fill the rest
 	if (0 <= vcount) {
+		const d = toNormalPacked(nprev, nnext);
 		const ivmax = ((voffset + vcount) << 1) - 1;
 		for (; iv < ivmax; ) {
 			vertices[++iv] = px;
 			vertices[++iv] = py;
 			steps[++is] = strokeWidth;
 			steps[++is] = scaleInvariant;
-			steps[++is] = pprevx;
-			steps[++is] = pprevy;
-			steps[++is] = pnextx;
-			steps[++is] = pnexty;
+			steps[++is] = d;
+			steps[++is] = d;
+			steps[++is] = d;
+			steps[++is] = d;
 			colorFills[++icf] = l;
 			colorFills[++icf] = dash0;
 			colorFills[++icf] = dash1;
