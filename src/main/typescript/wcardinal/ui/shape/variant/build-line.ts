@@ -1,11 +1,10 @@
-import { Matrix, Point, TextureUvs } from "pixi.js";
+import { Matrix, TextureUvs } from "pixi.js";
 import { EShapePoints } from "../e-shape-points";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
-import { toDash } from "./to-dash";
+import { toDashCode } from "./to-dash";
 import { toScaleInvariant } from "./to-scale-invariant";
 
 const LINE_FMIN: number = 0.00001;
-const LINE_WORK_POINT: Point = new Point();
 
 export const toPointCount = (points?: EShapePoints): number => {
 	if (points) {
@@ -681,18 +680,16 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	icf += 8;
 
 	// Total length
-	const dash = toDash(l, strokeWidth, strokeStyle, LINE_WORK_POINT);
-	const dash0 = dash.x;
-	const dash1 = dash.y;
+	const dashCode = toDashCode(strokeStyle);
 	const icf0 = (voffset << 2) - 1;
 	for (let i = icf0, imax = icf0 + 8; i < imax; i += 4) {
-		colorFills[i + 2] = dash0;
-		colorFills[i + 3] = dash1;
+		colorFills[i + 2] = dashCode;
+		colorFills[i + 3] = dashCode;
 		colorFills[i + 4] = length;
 	}
 	for (let i = icf0 + 8; i < icf; i += 4) {
-		colorFills[i + 2] = dash0;
-		colorFills[i + 3] = dash1;
+		colorFills[i + 2] = dashCode;
+		colorFills[i + 3] = dashCode;
 		colorFills[i + 4] = l;
 	}
 
@@ -710,8 +707,8 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 			steps[++is] = d;
 			steps[++is] = d;
 			colorFills[++icf] = l;
-			colorFills[++icf] = dash0;
-			colorFills[++icf] = dash1;
+			colorFills[++icf] = dashCode;
+			colorFills[++icf] = dashCode;
 			colorFills[++icf] = l;
 		}
 	}
@@ -847,13 +844,11 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	icf += 8;
 
 	// Total length
-	const dash = toDash(l, strokeWidth, strokeStyle, LINE_WORK_POINT);
-	const dash0 = dash.x;
-	const dash1 = dash.y;
+	const dashCode = toDashCode(strokeStyle);
 	for (let i = (voffset << 2) - 1; i < icf; i += 4) {
-		colorFills[i + 2] = dash0;
-		colorFills[i + 3] = dash1;
-		colorFills[i + 4] = -1;
+		colorFills[i + 2] = dashCode;
+		colorFills[i + 3] = dashCode;
+		colorFills[i + 4] = l;
 	}
 
 	// Fill the rest
@@ -870,9 +865,9 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 			steps[++is] = d;
 			steps[++is] = d;
 			colorFills[++icf] = l;
-			colorFills[++icf] = dash0;
-			colorFills[++icf] = dash1;
-			colorFills[++icf] = -1;
+			colorFills[++icf] = dashCode;
+			colorFills[++icf] = dashCode;
+			colorFills[++icf] = l;
 		}
 	}
 	return l;

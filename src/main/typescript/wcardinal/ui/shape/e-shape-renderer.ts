@@ -70,7 +70,7 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 n0p, in vec2 n1p, in floa
 	t -= t.yzx * vec3(128.0, 128.0, 0.0);
 	t *= vec3(1.0/63.5, 1.0/63.5, 1.0);
 	t -= vec3(1.0, 1.0, 0.0);
-	vec2 n0 = vec2(t.x, (t.z < 1.5 || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));
+	vec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));
 	vec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));
 
 	vec2 n0i = toInverse( n0 );
@@ -124,10 +124,28 @@ float toDotAndDashScale( in float scale, in float strokeWidthScale ) {
 
 vec4 toColorStroke3456( in float shift, in float scale ) {
 	float x = aColorFill.x + shift;
-	float y = scale * aColorFill.y;
-	float z = scale * aColorFill.z;
+	float d = aColorFill.y;
+	float s = aStep.x * scale;
 	float w = aColorFill.w;
-	return vec4( x, y, z, w );
+	return (d < 0.5 ?
+		vec4(x, 2.0 * w, 0.0, w) :
+		(d < 3.5 ?
+			(d < 1.5 ?
+				vec4(x, s, s, w) :
+				(2.5 < d ?
+					vec4(x, s, 2.0 * s, w) :
+					vec4(x, s, 0.5 * s, w)
+				)
+			) :
+			(d < 4.5 ?
+				vec4(x, 2.0 * s, s, w) :
+				(5.5 < d ?
+					vec4(x, 2.0 * s, 2.0 * s, w) :
+					vec4(x, 2.0 * s, 0.5 * s, w)
+				)
+			)
+		)
+	);
 }
 
 float toStrokeWidthScale( in float scale ) {
