@@ -95,7 +95,7 @@ export const buildLineIndex = (
 
 export const buildLineUv = (
 	uvs: Float32Array,
-	colorFills: Float32Array,
+	steps: Float32Array,
 	voffset: number,
 	vcount: number,
 	textureUvs: TextureUvs,
@@ -119,9 +119,9 @@ export const buildLineUv = (
 
 	let iuv = (voffset << 1) - 1;
 	const iuvmax = ((voffset + vcount) << 1) - 1;
-	let icf = (voffset << 2) - 8;
+	let is = voffset * 6 - 8;
 	for (; iuv < iuvmax; ) {
-		const r = colorFills[(icf += 8)] * lengthInverse;
+		const r = steps[(is += 12)] * lengthInverse;
 		uvs[++iuv] = x0 + r * dx01;
 		uvs[++iuv] = y0 + r * dy01;
 		uvs[++iuv] = x3 + r * dx32;

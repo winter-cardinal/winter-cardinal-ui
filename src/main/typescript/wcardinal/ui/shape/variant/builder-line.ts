@@ -183,7 +183,7 @@ export class BuilderLine extends BuilderBase {
 			buffer.updateUvs();
 			buildLineUv(
 				buffer.uvs,
-				buffer.colorFills,
+				buffer.steps,
 				this.vertexOffset,
 				this.vertexCount,
 				toTextureUvs(texture),
