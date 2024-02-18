@@ -1,10 +1,16 @@
 import { Matrix, TextureUvs } from "pixi.js";
 import { EShapePoints } from "../e-shape-points";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
-import { toDashCode } from "./to-dash";
+import { toDash } from "./to-dash";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toNormalPacked } from "./to-normal-packed";
+import { toVectorLength } from "./to-vector-length";
+import { toVector } from "./to-vector";
+import { toNormal } from "./to-normal";
 
 const LINE_FMIN: number = 0.00001;
+const LINE_NPREV = [0, 1];
+const LINE_NNEXT = [0, 1];
 
 export const toPointCount = (points?: EShapePoints): number => {
 	if (points) {
@@ -125,10 +131,9 @@ export const buildLineUv = (
 
 let TRANSFORMED_POINT_VALUES: number[] | undefined;
 
-export const buildLineVertexStepAndColorFill = (
+export const buildLineVertexStep = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
 	pointCount: number,
@@ -157,10 +162,9 @@ export const buildLineVertexStepAndColorFill = (
 		transformedPointValues[iv] = a * x + c * y + tx;
 		transformedPointValues[iv + 1] = b * x + d * y + ty;
 	}
-	return buildTransformedLineVertexStepAndColorFill(
+	return buildTransformedLineVertexStep(
 		vertices,
 		steps,
-		colorFills,
 		voffset,
 		vcount,
 		pointCount,
@@ -172,53 +176,19 @@ export const buildLineVertexStepAndColorFill = (
 	);
 };
 
-const toNormal = (v: number[], l: number): number[] => {
-	if (0.00001 < l) {
-		const f = 1 / l;
-		const v0 = v[0] * f;
-		const v1 = v[1] * f;
-		v[0] = -v1;
-		v[1] = +v0;
-	} else {
-		v[0] = 0;
-		v[1] = 1;
-	}
-	return v;
-};
-
-const toVector = (x0: number, y0: number, x1: number, y1: number, result: number[]): number[] => {
-	result[0] = x1 - x0;
-	result[1] = y1 - y0;
-	return result;
-};
-
-const toVectorLength = (v: number[]): number => {
-	return Math.sqrt(v[0] * v[0] + v[1] * v[1]);
-};
-
-const toNormalPacked = (n0: number[], n1: number[]): number => {
-	const r = 128;
-	const f = (r - 1) * 0.5;
-	const x = Math.round(f * (1 + n0[0]));
-	const y = Math.round(f * (1 + n1[0]));
-	const z = (0 <= n0[1] ? 1 : 0) + (0 <= n1[1] ? 2 : 0);
-	return x + y * r + z * r * r;
-};
-
-const fillTransformedLineVertexStepAndColorFill = (
+const fillTransformedLineVertexStep = (
 	iv: number,
 	vertices: Float32Array,
 	is: number,
 	steps: Float32Array,
-	icf: number,
-	colorFills: Float32Array,
 	px: number,
 	py: number,
 	strokeWidth: number,
 	scaleInvariant: number,
 	nprev: number[],
 	nnext: number[],
-	llo: number
+	llo: number,
+	dashCode: number
 ): void => {
 	const d = toNormalPacked(nprev, nnext);
 
@@ -228,11 +198,9 @@ const fillTransformedLineVertexStepAndColorFill = (
 	steps[++is] = scaleInvariant;
 
 	steps[++is] = d;
-	steps[++is] = d;
-	steps[++is] = d;
-	steps[++is] = d;
-
-	colorFills[(icf += 1)] = llo;
+	steps[++is] = dashCode;
+	steps[++is] = llo;
+	steps[++is] = llo;
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
@@ -240,17 +208,14 @@ const fillTransformedLineVertexStepAndColorFill = (
 	steps[++is] = scaleInvariant;
 
 	steps[++is] = d;
-	steps[++is] = d;
-	steps[++is] = d;
-	steps[++is] = d;
-
-	colorFills[(icf += 4)] = llo;
+	steps[++is] = dashCode;
+	steps[++is] = llo;
+	steps[++is] = llo;
 };
 
-const buildTransformedLineVertexStepAndColorFill = (
+const buildTransformedLineVertexStep = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
 	lineVertexCount: number,
@@ -272,10 +237,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 			for (let i = 1; i < lineSegmentsLength; ++i) {
 				iseg = lineSegments[i];
 				if (2 <= iseg - iprevseg) {
-					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+					lprev = buildTransformedLineOpenSegmentVertexStep(
 						vertices,
 						steps,
-						colorFills,
 						ivoffset,
 						-1,
 						lineVertices,
@@ -295,10 +259,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 			// Last
 			iseg = lineSegments[0] + lineVertexCount;
 			if (2 <= iseg - iprevseg) {
-				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+				lprev = buildTransformedLineOpenSegmentVertexStep(
 					vertices,
 					steps,
-					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
 					lineVertices,
@@ -312,10 +275,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 				lmax = Math.max(lmax, lprev);
 				ivoffset += toLineVertexCount(iseg - iprevseg, false);
 			} else {
-				buildTransformedLineEmptyVertexStepAndColorFill(
+				buildTransformedLineEmptyVertexStep(
 					vertices,
 					steps,
-					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
 					lineVertices,
@@ -337,10 +299,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 			// First
 			let iseg = lineSegments[0];
 			if (2 <= iseg) {
-				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+				lprev = buildTransformedLineOpenSegmentVertexStep(
 					vertices,
 					steps,
-					colorFills,
 					ivoffset,
 					-1,
 					lineVertices,
@@ -360,10 +321,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 			for (let i = 1; i < lineSegmentsLength; ++i) {
 				iseg = lineSegments[i];
 				if (2 <= iseg - iprevseg) {
-					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+					lprev = buildTransformedLineOpenSegmentVertexStep(
 						vertices,
 						steps,
-						colorFills,
 						ivoffset,
 						-1,
 						lineVertices,
@@ -383,10 +343,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 			// Last
 			iseg = lineVertexCount;
 			if (2 <= iseg - iprevseg) {
-				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+				lprev = buildTransformedLineOpenSegmentVertexStep(
 					vertices,
 					steps,
-					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
 					lineVertices,
@@ -400,10 +359,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 				lmax = Math.max(lmax, lprev);
 				ivoffset += toLineVertexCount(iseg - iprevseg, false);
 			} else {
-				buildTransformedLineEmptyVertexStepAndColorFill(
+				buildTransformedLineEmptyVertexStep(
 					vertices,
 					steps,
-					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
 					lineVertices,
@@ -419,10 +377,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 		}
 	} else {
 		if (lineIsClosed) {
-			return buildTransformedLineClosedSegmentVertexStepAndColorFill(
+			return buildTransformedLineClosedSegmentVertexStep(
 				vertices,
 				steps,
-				colorFills,
 				voffset,
 				vcount,
 				lineVertices,
@@ -433,10 +390,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 				strokeStyle
 			);
 		} else {
-			return buildTransformedLineOpenSegmentVertexStepAndColorFill(
+			return buildTransformedLineOpenSegmentVertexStep(
 				vertices,
 				steps,
-				colorFills,
 				voffset,
 				vcount,
 				lineVertices,
@@ -451,10 +407,9 @@ const buildTransformedLineVertexStepAndColorFill = (
 	}
 };
 
-const buildTransformedLineEmptyVertexStepAndColorFill = (
+const buildTransformedLineEmptyVertexStep = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
 	lineVertices: number[],
@@ -467,9 +422,9 @@ const buildTransformedLineEmptyVertexStepAndColorFill = (
 ): number => {
 	if (0 <= vcount) {
 		const scaleInvariant = toScaleInvariant(strokeStyle);
+		const dash = toDash(strokeStyle);
 		let iv = (voffset << 1) - 1;
 		let is = voffset * 6 - 1;
-		let icf = (voffset << 2) - 1;
 		const ivmax = ((voffset + vcount) << 1) - 1;
 		const ifirst = lineVertexFrom % lineVertexCount << 1;
 		const px = lineVertices[ifirst];
@@ -479,24 +434,19 @@ const buildTransformedLineEmptyVertexStepAndColorFill = (
 			vertices[++iv] = py;
 			steps[++is] = 0;
 			steps[++is] = scaleInvariant;
-			steps[++is] = -1;
 			steps[++is] = 0;
-			steps[++is] = +1;
-			steps[++is] = 0;
-			colorFills[++icf] = length;
-			colorFills[++icf] = 0;
-			colorFills[++icf] = 0;
-			colorFills[++icf] = length;
+			steps[++is] = dash;
+			steps[++is] = length;
+			steps[++is] = length;
 		}
 	}
 
 	return 0;
 };
 
-const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
+const buildTransformedLineOpenSegmentVertexStep = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
 	lineVertices: number[],
@@ -518,55 +468,51 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	let pnexty = lineVertices[isecond + 1];
 	let pprevx = px - (pnextx - px);
 	let pprevy = py - (pnexty - py);
-	const nprev = [0, 1];
-	const nnext = [0, 1];
+	const nprev = LINE_NPREV;
+	const nnext = LINE_NNEXT;
 	toVector(pprevx, pprevy, px, py, nprev);
 	toVector(px, py, pnextx, pnexty, nnext);
 	let lprev = toVectorLength(nprev);
 	let lnext = lprev;
 	toNormal(nprev, lprev);
 	toNormal(nnext, lnext);
+	const dash = toDash(strokeStyle);
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
-	let icf = (voffset << 2) - 1;
 	let l = 0;
-	fillTransformedLineVertexStepAndColorFill(
+	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		icf,
-		colorFills,
 		px,
 		py,
 		strokeWidth,
 		scaleInvariant,
 		nprev,
 		nnext,
-		length
+		length,
+		dash
 	);
 	iv += 4;
 	is += 12;
-	icf += 8;
 
-	fillTransformedLineVertexStepAndColorFill(
+	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		icf,
-		colorFills,
 		px,
 		py,
 		strokeWidth,
 		scaleInvariant,
 		nprev,
 		nnext,
-		l
+		l,
+		dash
 	);
 	iv += 4;
 	is += 12;
-	icf += 8;
 
 	// Middle segments
 	for (let i = lineVertexFrom + 1, imax = lineVertexTo - 1; i < imax; ++i) {
@@ -586,43 +532,39 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 		toNormal(nnext, lnext);
 		l += lprev;
 
-		fillTransformedLineVertexStepAndColorFill(
+		fillTransformedLineVertexStep(
 			iv,
 			vertices,
 			is,
 			steps,
-			icf,
-			colorFills,
 			px,
 			py,
 			strokeWidth,
 			scaleInvariant,
 			nprev,
 			nnext,
-			l
+			l,
+			dash
 		);
 		iv += 4;
 		is += 12;
-		icf += 8;
 
-		fillTransformedLineVertexStepAndColorFill(
+		fillTransformedLineVertexStep(
 			iv,
 			vertices,
 			is,
 			steps,
-			icf,
-			colorFills,
 			px,
 			py,
 			strokeWidth,
 			scaleInvariant,
 			nprev,
 			nnext,
-			l
+			l,
+			dash
 		);
 		iv += 4;
 		is += 12;
-		icf += 8;
 	}
 
 	// Last segment
@@ -641,56 +583,47 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	toNormal(nnext, lnext);
 	l += lprev;
 
-	fillTransformedLineVertexStepAndColorFill(
+	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		icf,
-		colorFills,
 		px,
 		py,
 		strokeWidth,
 		scaleInvariant,
 		nprev,
 		nnext,
-		l
+		l,
+		dash
 	);
 	iv += 4;
 	is += 12;
-	icf += 8;
 
-	fillTransformedLineVertexStepAndColorFill(
+	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		icf,
-		colorFills,
 		px,
 		py,
 		strokeWidth,
 		scaleInvariant,
 		nprev,
 		nnext,
-		l
+		l,
+		dash
 	);
 	iv += 4;
 	is += 12;
-	icf += 8;
 
 	// Total length
-	const dashCode = toDashCode(strokeStyle);
-	const icf0 = (voffset << 2) - 1;
-	for (let i = icf0, imax = icf0 + 8; i < imax; i += 4) {
-		colorFills[i + 2] = dashCode;
-		colorFills[i + 3] = dashCode;
-		colorFills[i + 4] = length;
+	const is0 = voffset * 6 - 1;
+	for (let i = is0, imax = is0 + 12; i < imax; i += 6) {
+		steps[i + 6] = length;
 	}
-	for (let i = icf0 + 8; i < icf; i += 4) {
-		colorFills[i + 2] = dashCode;
-		colorFills[i + 3] = dashCode;
-		colorFills[i + 4] = l;
+	for (let i = is0 + 12; i < is; i += 6) {
+		steps[i + 6] = l;
 	}
 
 	// Fill the rest
@@ -703,23 +636,18 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 			steps[++is] = 0;
 			steps[++is] = scaleInvariant;
 			steps[++is] = d;
-			steps[++is] = d;
-			steps[++is] = d;
-			steps[++is] = d;
-			colorFills[++icf] = l;
-			colorFills[++icf] = dashCode;
-			colorFills[++icf] = dashCode;
-			colorFills[++icf] = l;
+			steps[++is] = dash;
+			steps[++is] = l;
+			steps[++is] = l;
 		}
 	}
 
 	return l;
 };
 
-const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
+const buildTransformedLineClosedSegmentVertexStep = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
 	lineVertices: number[],
@@ -739,18 +667,18 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	const ifirst = lineVertexFrom % lineVertexCount << 1;
 	let pnextx = lineVertices[ifirst];
 	let pnexty = lineVertices[ifirst + 1];
-	const nnext = [0, 1];
-	const nprev = [0, 1];
+	const nprev = LINE_NPREV;
+	const nnext = LINE_NNEXT;
 	toVector(pprevx, pprevy, px, py, nprev);
 	toVector(px, py, pnextx, pnexty, nnext);
 	let lprev = toVectorLength(nprev);
 	let lnext = toVectorLength(nnext);
 	toNormal(nprev, lprev);
 	toNormal(nnext, lnext);
+	const dash = toDash(strokeStyle);
 	let l = 0;
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
-	let icf = (voffset << 2) - 1;
 	for (let i = lineVertexFrom; i < lineVertexTo; ++i) {
 		pprevx = px;
 		pprevy = py;
@@ -768,43 +696,39 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 		toNormal(nnext, lnext);
 		l += lprev;
 
-		fillTransformedLineVertexStepAndColorFill(
+		fillTransformedLineVertexStep(
 			iv,
 			vertices,
 			is,
 			steps,
-			icf,
-			colorFills,
 			px,
 			py,
 			strokeWidth,
 			scaleInvariant,
 			nprev,
 			nnext,
-			l
+			l,
+			dash
 		);
 		iv += 4;
 		is += 12;
-		icf += 8;
 
-		fillTransformedLineVertexStepAndColorFill(
+		fillTransformedLineVertexStep(
 			iv,
 			vertices,
 			is,
 			steps,
-			icf,
-			colorFills,
 			px,
 			py,
 			strokeWidth,
 			scaleInvariant,
 			nprev,
 			nnext,
-			l
+			l,
+			dash
 		);
 		iv += 4;
 		is += 12;
-		icf += 8;
 	}
 
 	// Last segment
@@ -824,31 +748,26 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	toNormal(nnext, lnext);
 	l += lprev;
 
-	fillTransformedLineVertexStepAndColorFill(
+	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		icf,
-		colorFills,
 		px,
 		py,
 		strokeWidth,
 		scaleInvariant,
 		nprev,
 		nnext,
-		l
+		l,
+		dash
 	);
 	iv += 4;
 	is += 12;
-	icf += 8;
 
 	// Total length
-	const dashCode = toDashCode(strokeStyle);
-	for (let i = (voffset << 2) - 1; i < icf; i += 4) {
-		colorFills[i + 2] = dashCode;
-		colorFills[i + 3] = dashCode;
-		colorFills[i + 4] = l;
+	for (let i = voffset * 6 - 1; i < is; i += 6) {
+		steps[i + 6] = l;
 	}
 
 	// Fill the rest
@@ -861,13 +780,9 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 			steps[++is] = strokeWidth;
 			steps[++is] = scaleInvariant;
 			steps[++is] = d;
-			steps[++is] = d;
-			steps[++is] = d;
-			steps[++is] = d;
-			colorFills[++icf] = l;
-			colorFills[++icf] = dashCode;
-			colorFills[++icf] = dashCode;
-			colorFills[++icf] = l;
+			steps[++is] = dash;
+			steps[++is] = l;
+			steps[++is] = l;
 		}
 	}
 	return l;

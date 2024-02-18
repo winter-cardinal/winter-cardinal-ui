@@ -9,7 +9,7 @@ import {
 	buildLineClipping,
 	buildLineIndex,
 	buildLineUv,
-	buildLineVertexStepAndColorFill,
+	buildLineVertexStep,
 	toLineIndexCount,
 	toLinePointCount,
 	toLineVertexCount
@@ -86,7 +86,8 @@ export class BuilderLine extends BuilderBase {
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateLineClipping(buffer, shape);
-		this.updateLineVertexStepAndColorFill(buffer, shape);
+		this.updateLineVertexStep(buffer, shape);
+		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateLineUv(buffer, shape);
 	}
@@ -115,7 +116,7 @@ export class BuilderLine extends BuilderBase {
 		}
 	}
 
-	protected updateLineVertexStepAndColorFill(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateLineVertexStep(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points) {
 			const pointId = points.id;
@@ -149,11 +150,9 @@ export class BuilderLine extends BuilderBase {
 
 				buffer.updateVertices();
 				buffer.updateSteps();
-				buffer.updateColorFills();
-				this.length = buildLineVertexStepAndColorFill(
+				this.length = buildLineVertexStep(
 					buffer.vertices,
 					buffer.steps,
-					buffer.colorFills,
 					this.vertexOffset,
 					this.vertexCount,
 					this.pointCount,

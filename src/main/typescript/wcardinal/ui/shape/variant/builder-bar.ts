@@ -11,7 +11,7 @@ import {
 	buildBarClipping,
 	buildBarIndex,
 	buildBarUv,
-	buildBarVertexStepAndColorFill
+	buildBarVertexStep
 } from "./build-bar";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
@@ -41,12 +41,13 @@ export class BuilderBar extends BuilderBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexStepAndColorFill(buffer, shape);
+		this.updateVertexStep(buffer, shape);
+		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexStepAndColorFill(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateVertexStep(buffer: BuilderBuffer, shape: EShape): void {
 		if (shape instanceof EShapeBar) {
 			const size = shape.size;
 			const sizeX = size.x;
@@ -95,11 +96,9 @@ export class BuilderBar extends BuilderBase {
 
 				buffer.updateVertices();
 				buffer.updateSteps();
-				buffer.updateColorFills();
-				buildBarVertexStepAndColorFill(
+				buildBarVertexStep(
 					buffer.vertices,
 					buffer.steps,
-					buffer.colorFills,
 					this.vertexOffset,
 					points.values,
 					points.size,

@@ -64,8 +64,8 @@ vec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {
 	return vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );
 }
 
-vec2 toPosition3456( in float type, in vec2 p, in vec2 n0p, in vec2 n1p, in float strokeWidth, out float shift ) {
-	vec3 t = vec3(1.0, 1.0/128.0, 1.0/128.0/128.0) * n0p.y;
+vec2 toPosition3456( in float type, in vec2 p, in float npacked, in float strokeWidth, out float shift ) {
+	vec3 t = vec3(1.0, 1.0/128.0, 1.0/128.0/128.0) * npacked;
 	t -= fract(t);
 	t -= t.yzx * vec3(128.0, 128.0, 0.0);
 	t *= vec3(1.0/63.5, 1.0/63.5, 1.0);
@@ -123,10 +123,10 @@ float toDotAndDashScale( in float scale, in float strokeWidthScale ) {
 }
 
 vec4 toColorStroke3456( in float shift, in float scale ) {
-	float x = aColorFill.x + shift;
-	float d = aColorFill.y;
+	float x = aAntialias.z + shift;
+	float d = aAntialias.y;
 	float s = aStep.x * scale;
-	float w = aColorFill.w;
+	float w = aAntialias.w;
 	return (d < 0.5 ?
 		vec4(x, 2.0 * w, 0.0, w) :
 		(d < 3.5 ?
@@ -188,7 +188,7 @@ void main(void) {
 
 	// type === 3, 4, 5 or 6
 	float shift3456 = 0.0;
-	vec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );
+	vec2 p3456 = toPosition3456( type, aPosition, aAntialias.x, strokeWidth, shift3456 );
 	vec2 step3456 = toStep3456( type );
 	vec4 a3456 = toAntialias3456( strokeWidth );
 	vec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );
