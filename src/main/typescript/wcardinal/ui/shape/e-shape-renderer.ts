@@ -25,8 +25,8 @@ attribute highp vec2 aPosition;
 attribute highp vec3 aClipping;
 attribute highp vec2 aStep;
 attribute highp vec4 aAntialias;
-attribute highp vec4 aColorFill;
-attribute highp vec4 aColorStroke;
+attribute highp vec2 aColorFill;
+attribute highp vec2 aColorStroke;
 attribute highp vec2 aUv;
 
 uniform mat3 projectionMatrix;
@@ -169,6 +169,14 @@ vec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {
 	return antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));
 }
 
+vec4 toColor(in vec2 v) {
+	vec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v.x;
+	c -= fract(c);
+	c -= c.yzx * vec3(256.0, 256.0, 0.0);
+	c /= 255.0;
+	return vec4(c.x * v.y, c.y * v.y, c.z * v.y, v.y);
+}
+
 void main(void) {
 	vec2 p012 = toTransformedPosition( aPosition );
 
@@ -198,8 +206,8 @@ void main(void) {
 	vAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );
 	vClipping = aClipping;
 	vStep = ( 2.5 < type ? step3456 : step01 );
-	vColorFill = ( 2.5 < type ? aColorStroke : aColorFill );
-	vColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );
+	vColorFill = toColor( 2.5 < type ? aColorStroke : aColorFill );
+	vColorStroke = ( 2.5 < type ? colorStroke3456 : toColor(aColorStroke) );
 	vUv = aUv;
 }`;
 

@@ -56,10 +56,10 @@ export class EShapeBuffer {
 		this.steps = new Float32Array(nvertices * 6);
 		this._stepBuffer = null;
 
-		this.colorFills = new Float32Array(nvertices * 4);
+		this.colorFills = new Float32Array(nvertices * 2);
 		this._colorFillBuffer = null;
 
-		this.colorStrokes = new Float32Array(nvertices * 4);
+		this.colorStrokes = new Float32Array(nvertices * 2);
 		this._colorStrokeBuffer = null;
 
 		this.uvs = new Float32Array(nvertices * 2);
@@ -145,8 +145,8 @@ export class EShapeBuffer {
 				.addAttribute("aClipping", this._clippingBuffer, 3)
 				.addAttribute("aStep", this._stepBuffer, 2)
 				.addAttribute("aAntialias", this._stepBuffer, 4)
-				.addAttribute("aColorFill", this._colorFillBuffer, 4)
-				.addAttribute("aColorStroke", this._colorStrokeBuffer, 4)
+				.addAttribute("aColorFill", this._colorFillBuffer, 2)
+				.addAttribute("aColorStroke", this._colorStrokeBuffer, 2)
 				.addAttribute("aUv", this._uvBuffer, 2);
 		}
 		return result;
