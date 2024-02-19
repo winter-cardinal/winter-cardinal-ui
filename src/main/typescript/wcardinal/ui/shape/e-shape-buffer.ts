@@ -50,7 +50,7 @@ export class EShapeBuffer {
 		this._vertexCount = 0;
 		this._vertexBuffer = null;
 
-		this.clippings = new Float32Array(nvertices * 3);
+		this.clippings = new Float32Array(nvertices);
 		this._clippingBuffer = null;
 
 		this.steps = new Float32Array(nvertices * 6);
@@ -142,7 +142,7 @@ export class EShapeBuffer {
 			this._geometry = result = new Geometry()
 				.addIndex(this._indexBuffer)
 				.addAttribute("aPosition", this._vertexBuffer, 2)
-				.addAttribute("aClipping", this._clippingBuffer, 3)
+				.addAttribute("aClipping", this._clippingBuffer, 1)
 				.addAttribute("aStep", this._stepBuffer, 2)
 				.addAttribute("aAntialias", this._stepBuffer, 4)
 				.addAttribute("aColorFill", this._colorFillBuffer, 2)

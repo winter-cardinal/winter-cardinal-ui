@@ -132,7 +132,6 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
-			const clippings = buffer.clippings;
 			const uvs = buffer.uvs;
 			const textureUvs = toTextureUvs(texture);
 			const internalTransform = shape.transform.internalTransform;
@@ -164,9 +163,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 				if (isNotInited || isVertexChanged || isTransformChanged) {
 					buildTriangleStep(
 						steps,
-						clippings,
 						voffset,
-						TRIANGLE_VERTEX_COUNT,
 						strokeWidth,
 						strokeStyle,
 						TRIANGLE_WORLD_SIZE
@@ -199,15 +196,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 						TRIANGLE_WORLD_SIZE
 					);
 					if (isNotInited || isVertexChanged || isTransformChanged) {
-						buildTriangleStep(
-							steps,
-							clippings,
-							iv,
-							TRIANGLE_VERTEX_COUNT,
-							strokeWidth,
-							strokeStyle,
-							TRIANGLE_WORLD_SIZE
-						);
+						buildTriangleStep(steps, iv, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
 					}
 					if (isNotInited || isVertexChanged || isTextureChanged) {
 						buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);

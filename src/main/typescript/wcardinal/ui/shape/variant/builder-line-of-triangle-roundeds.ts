@@ -217,10 +217,10 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 				if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 					buildTriangleRoundedStep(
 						steps,
-						clippings,
 						voffset,
 						strokeWidth,
 						strokeStyle,
+						corner,
 						radius,
 						TRIANGLE_ROUNDED_WORLD_SIZE
 					);
@@ -272,10 +272,10 @@ export class BuilderLineOfTriangleRoundeds extends BuilderLineOfAny {
 					if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 						buildTriangleRoundedStep(
 							steps,
-							clippings,
 							iv,
 							strokeWidth,
 							strokeStyle,
+							corner,
 							radius,
 							TRIANGLE_ROUNDED_WORLD_SIZE
 						);

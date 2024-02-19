@@ -13,6 +13,7 @@ import { EShapeTextAlignVertical } from "../e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../e-shape-text-direction";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toClippingPacked } from "./to-clipping-packed";
 
 export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_VERTEX_COUNT_SHIFT = 2;
@@ -31,12 +32,11 @@ export const buildTextClipping = (
 	voffset: number,
 	vcount: number
 ): void => {
-	let ic = voffset * 3 - 1;
-	const icmax = (voffset + vcount) * 3 - 1;
+	const c002 = toClippingPacked(0, 0, 2);
+	let ic = voffset - 1;
+	const icmax = voffset + vcount - 1;
 	for (; ic < icmax; ) {
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 2;
+		clippings[++ic] = c002;
 	}
 };
 

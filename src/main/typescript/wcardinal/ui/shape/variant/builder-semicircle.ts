@@ -87,7 +87,6 @@ export class BuilderSemicircle extends BuilderBase {
 			);
 			buildSemicircleStep(
 				buffer.steps,
-				buffer.clippings,
 				this.vertexOffset,
 				strokeWidth,
 				strokeStyle,

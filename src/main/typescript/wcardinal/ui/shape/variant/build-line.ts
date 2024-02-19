@@ -7,6 +7,7 @@ import { toNormalPacked } from "./to-normal-packed";
 import { toVectorLength } from "./to-vector-length";
 import { toVector } from "./to-vector";
 import { toNormal } from "./to-normal";
+import { toClippingPacked } from "./to-clipping-packed";
 
 const LINE_FMIN: number = 0.00001;
 const LINE_NPREV = [0, 1];
@@ -42,33 +43,22 @@ export const buildLineClipping = (
 	vcount: number,
 	pointCount: number
 ): void => {
-	let ic = voffset * 3 - 1;
-	const icmax = (voffset + vcount) * 3 - 1;
+	const c103 = toClippingPacked(1, 0, 3);
+	const c015 = toClippingPacked(0, 1, 5);
+	const c104 = toClippingPacked(1, 0, 4);
+	const c016 = toClippingPacked(0, 1, 6);
+
+	let ic = voffset - 1;
+	const icmax = voffset + vcount - 1;
 	for (let i = 0; i < pointCount; ++i) {
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 3;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 5;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 4;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 6;
+		clippings[++ic] = c103;
+		clippings[++ic] = c015;
+		clippings[++ic] = c104;
+		clippings[++ic] = c016;
 	}
 	for (; ic < icmax; ) {
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 3;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 5;
+		clippings[++ic] = c103;
+		clippings[++ic] = c015;
 	}
 };
 

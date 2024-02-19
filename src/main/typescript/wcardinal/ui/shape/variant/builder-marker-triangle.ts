@@ -122,9 +122,7 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 				buffer.updateSteps();
 				buildTriangleStep(
 					buffer.steps,
-					buffer.clippings,
 					voffset,
-					TRIANGLE_VERTEX_COUNT,
 					strokeWidth,
 					strokeStyle,
 					TRIANGLE_WORLD_SIZE

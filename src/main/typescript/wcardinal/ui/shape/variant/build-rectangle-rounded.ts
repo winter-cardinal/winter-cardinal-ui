@@ -4,6 +4,7 @@ import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toClippingPacked } from "./to-clipping-packed";
 
 export const RECTANGLE_ROUNDED_VERTEX_COUNT = 36;
 export const RECTANGLE_ROUNDED_INDEX_COUNT = 24;
@@ -329,234 +330,103 @@ export const buildRectangleRoundedClipping = (
 	corner: EShapeCorner,
 	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
 ): void => {
-	let ic = voffset * 3 - 1;
+	let ic = voffset - 1;
 	const rxc = 1 - worldSize[0] / worldSize[1];
 	const ryc = 1 - worldSize[0] / worldSize[2];
+	const c111 = toClippingPacked(1, 1, 1);
+	const c011 = toClippingPacked(0, 1, 1);
+	const c101 = toClippingPacked(1, 0, 1);
+	const c001 = toClippingPacked(0, 0, 1);
+	const c110 = toClippingPacked(1, 1, 0);
+	const cx10 = toClippingPacked(rxc, 1, 0);
+	const c1y0 = toClippingPacked(1, ryc, 0);
+	const cxy0 = toClippingPacked(rxc, ryc, 0);
+	const c010 = toClippingPacked(0, 1, 0);
+	const c0y0 = toClippingPacked(0, ryc, 0);
+	const c100 = toClippingPacked(1, 0, 0);
+	const c000 = toClippingPacked(0, 0, 0);
 
 	// Top-left corner
 	if (corner & EShapeCorner.TOP_LEFT) {
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
+		clippings[++ic] = c111;
+		clippings[++ic] = c011;
+		clippings[++ic] = c101;
+		clippings[++ic] = c001;
 	} else {
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = rxc;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = rxc;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
+		clippings[++ic] = c110;
+		clippings[++ic] = cx10;
+		clippings[++ic] = c1y0;
+		clippings[++ic] = cxy0;
 	}
 
 	// Top-right corner
 	if (corner & EShapeCorner.TOP_RIGHT) {
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
+		clippings[++ic] = c011;
+		clippings[++ic] = c111;
+		clippings[++ic] = c001;
+		clippings[++ic] = c101;
 	} else {
-		clippings[++ic] = rxc;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = rxc;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
+		clippings[++ic] = cx10;
+		clippings[++ic] = c110;
+		clippings[++ic] = cxy0;
+		clippings[++ic] = c1y0;
 	}
 
 	// Bottom-left corner
 	if (corner & EShapeCorner.BOTTOM_LEFT) {
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
+		clippings[++ic] = c101;
+		clippings[++ic] = c001;
+		clippings[++ic] = c111;
+		clippings[++ic] = c011;
 	} else {
-		clippings[++ic] = 1;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = rxc;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = rxc;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
+		clippings[++ic] = c1y0;
+		clippings[++ic] = cxy0;
+		clippings[++ic] = c110;
+		clippings[++ic] = cx10;
 	}
 
 	// Bottom-right corner
 	if (corner & EShapeCorner.BOTTOM_RIGHT) {
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
+		clippings[++ic] = c001;
+		clippings[++ic] = c101;
+		clippings[++ic] = c011;
+		clippings[++ic] = c111;
 	} else {
-		clippings[++ic] = rxc;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = ryc;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = rxc;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
+		clippings[++ic] = cxy0;
+		clippings[++ic] = c1y0;
+		clippings[++ic] = cx10;
+		clippings[++ic] = c110;
 	}
 
 	// Top edge
-	clippings[++ic] = rxc;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = rxc;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
+	clippings[++ic] = cx10;
+	clippings[++ic] = c010;
+	clippings[++ic] = cx10;
 
 	// Top
-	clippings[++ic] = 1;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = rxc;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = rxc;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
+	clippings[++ic] = c1y0;
+	clippings[++ic] = cxy0;
+	clippings[++ic] = c0y0;
+	clippings[++ic] = cxy0;
+	clippings[++ic] = c1y0;
 
 	// Middle
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
+	clippings[++ic] = c100;
+	clippings[++ic] = c000;
+	clippings[++ic] = c000;
+	clippings[++ic] = c100;
 
 	// Bottom
-	clippings[++ic] = 1;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = rxc;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = rxc;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = ryc;
-	clippings[++ic] = 0;
+	clippings[++ic] = c1y0;
+	clippings[++ic] = cxy0;
+	clippings[++ic] = c0y0;
+	clippings[++ic] = cxy0;
+	clippings[++ic] = c1y0;
 
 	// Bottom edge
-	clippings[++ic] = rxc;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = rxc;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
+	clippings[++ic] = cx10;
+	clippings[++ic] = c010;
+	clippings[++ic] = cx10;
 };
 
 export const buildRectangleRoundedStep = (

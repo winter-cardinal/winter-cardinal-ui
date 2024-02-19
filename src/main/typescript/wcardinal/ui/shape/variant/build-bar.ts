@@ -5,6 +5,7 @@ import { toScaleInvariant } from "./to-scale-invariant";
 import { toVector } from "./to-vector";
 import { toNormal } from "./to-normal";
 import { toNormalPacked } from "./to-normal-packed";
+import { toClippingPacked } from "./to-clipping-packed";
 
 export const BAR_VERTEX_COUNT = 4;
 export const BAR_INDEX_COUNT = 2;
@@ -13,22 +14,14 @@ const BAR_NNEXT = [0, 1];
 const BAR_FMIN: number = 0.00001;
 
 export const buildBarClipping = (clippings: Float32Array, voffset: number): void => {
-	let ic = voffset * 3 - 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 3;
+	const c103 = toClippingPacked(1, 0, 3);
+	const c015 = toClippingPacked(0, 1, 5);
 
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 5;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 3;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 5;
+	let ic = voffset - 1;
+	clippings[++ic] = c103;
+	clippings[++ic] = c015;
+	clippings[++ic] = c103;
+	clippings[++ic] = c015;
 };
 
 export const buildBarIndex = (

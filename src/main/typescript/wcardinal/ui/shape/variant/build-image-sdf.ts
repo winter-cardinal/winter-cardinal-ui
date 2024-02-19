@@ -2,6 +2,7 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toClippingPacked } from "./to-clipping-packed";
 
 export const IMAGE_SDF_VERTEX_COUNT = 9;
 export const IMAGE_SDF_INDEX_COUNT = 8;
@@ -9,12 +10,11 @@ export const IMAGE_SDF_WORLD_SIZE: [number, number] = [0, 0];
 const IMAGE_SDF_WORK_POINT: Point = new Point();
 
 export const buildImageSdfClipping = (clippings: Float32Array, voffset: number): void => {
-	let ic = voffset * 3 - 1;
-	const icmax = (voffset + IMAGE_SDF_VERTEX_COUNT) * 3 - 1;
+	const c002 = toClippingPacked(0, 0, 2);
+	let ic = voffset - 1;
+	const icmax = voffset + IMAGE_SDF_VERTEX_COUNT - 1;
 	for (; ic < icmax; ) {
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 2;
+		clippings[++ic] = c002;
 	}
 };
 

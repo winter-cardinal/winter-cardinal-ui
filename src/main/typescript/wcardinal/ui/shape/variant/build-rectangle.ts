@@ -3,6 +3,7 @@ import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toClippingPacked } from "./to-clipping-packed";
 
 export const RECTANGLE_VERTEX_COUNT = 24;
 export const RECTANGLE_INDEX_COUNT = 16;
@@ -16,109 +17,45 @@ export const buildRectangleClipping = (
 ): void => {
 	const brxi = 1 - worldSize[0];
 	const bryi = 1 - worldSize[1];
+	const c010 = toClippingPacked(0, 1, 0);
+	const c100 = toClippingPacked(1, 0, 0);
+	const cx00 = toClippingPacked(brxi, 0, 0);
+	const c0y0 = toClippingPacked(0, bryi, 0);
 
-	let ic = voffset * 3 - 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = bryi;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = bryi;
-	clippings[++ic] = 0;
+	let ic = voffset - 1;
+	clippings[++ic] = c010;
+	clippings[++ic] = c010;
+	clippings[++ic] = c010;
+	clippings[++ic] = c010;
+	clippings[++ic] = c0y0;
+	clippings[++ic] = c0y0;
 
 	// --------------------------------
 
-	clippings[++ic] = 0;
-	clippings[++ic] = bryi;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = bryi;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
+	clippings[++ic] = c0y0;
+	clippings[++ic] = c0y0;
+	clippings[++ic] = c010;
+	clippings[++ic] = c010;
+	clippings[++ic] = c010;
+	clippings[++ic] = c010;
 
 	// --------------------------------
 
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = brxi;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = brxi;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
+	clippings[++ic] = c100;
+	clippings[++ic] = c100;
+	clippings[++ic] = c100;
+	clippings[++ic] = c100;
+	clippings[++ic] = cx00;
+	clippings[++ic] = cx00;
 
 	// --------------------------------
 
-	clippings[++ic] = brxi;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = brxi;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
+	clippings[++ic] = cx00;
+	clippings[++ic] = cx00;
+	clippings[++ic] = c100;
+	clippings[++ic] = c100;
+	clippings[++ic] = c100;
+	clippings[++ic] = c100;
 };
 
 export const buildRectangleIndex = (

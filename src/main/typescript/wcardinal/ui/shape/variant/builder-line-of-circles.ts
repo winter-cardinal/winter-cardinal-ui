@@ -124,7 +124,6 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
-			const clippings = buffer.clippings;
 			const internalTransform = shape.transform.internalTransform;
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
@@ -151,14 +150,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 					pointsValues,
 					pointOffset
 				);
-				buildCircleStep(
-					steps,
-					clippings,
-					voffset,
-					strokeWidth,
-					strokeStyle,
-					CIRCLE_WORLD_SIZE
-				);
+				buildCircleStep(steps, voffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
 				copyStep(steps, voffset, CIRCLE_VERTEX_COUNT, pointCount);
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
@@ -180,14 +172,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 						internalTransform,
 						CIRCLE_WORLD_SIZE
 					);
-					buildCircleStep(
-						steps,
-						clippings,
-						iv,
-						strokeWidth,
-						strokeStyle,
-						CIRCLE_WORLD_SIZE
-					);
+					buildCircleStep(steps, iv, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
 				}
 			}
 

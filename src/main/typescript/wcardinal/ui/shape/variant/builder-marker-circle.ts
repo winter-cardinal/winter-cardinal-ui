@@ -113,7 +113,6 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 			);
 			buildCircleStep(
 				buffer.steps,
-				buffer.clippings,
 				this.vertexOffset,
 				strokeWidth,
 				strokeStyle,

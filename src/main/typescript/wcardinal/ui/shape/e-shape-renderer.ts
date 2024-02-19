@@ -22,7 +22,7 @@ import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 
 const VERTEX_SHADER = `
 attribute highp vec2 aPosition;
-attribute highp vec3 aClipping;
+attribute highp float aClipping;
 attribute highp vec2 aStep;
 attribute highp vec4 aAntialias;
 attribute highp vec2 aColorFill;
@@ -177,10 +177,19 @@ vec4 toColor(in vec2 v) {
 	return vec4(c.x * v.y, c.y * v.y, c.z * v.y, v.y);
 }
 
+vec3 toClipping(in float v) {
+	vec3 c = vec3(1.0, 1.0/512.0, 1.0/512.0/512.0) * v;
+	c -= fract(c);
+	c -= c.yzx * vec3(512.0, 512.0, 0.0);
+	c /= vec3(511.0, 511.0, 1.0);
+	return c;
+}
+
 void main(void) {
 	vec2 p012 = toTransformedPosition( aPosition );
 
-	float type = aClipping.z;
+	vec3 clipping = toClipping(aClipping);
+	float type = clipping.z;
 	float strokeWidthScale = toStrokeWidthScale( aStep.y );
 	float strokeWidth = strokeWidthScale * aStep.x;
 
@@ -204,7 +213,7 @@ void main(void) {
 	//
 	gl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );
 	vAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );
-	vClipping = aClipping;
+	vClipping = clipping;
 	vStep = ( 2.5 < type ? step3456 : step01 );
 	vColorFill = toColor( 2.5 < type ? aColorStroke : aColorFill );
 	vColorStroke = ( 2.5 < type ? colorStroke3456 : toColor(aColorStroke) );

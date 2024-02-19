@@ -3,10 +3,8 @@ export const buildNullClipping = (
 	voffset: number,
 	vcount: number
 ): void => {
-	for (let i = voffset * 3, imax = (voffset + vcount) * 3; i < imax; i += 3) {
-		clippings[i + 0] = 0;
-		clippings[i + 1] = 0;
-		clippings[i + 2] = 0;
+	for (let i = voffset, imax = voffset + vcount; i < imax; ++i) {
+		clippings[i] = 0;
 	}
 };
 

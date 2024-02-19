@@ -127,11 +127,11 @@ export class BuilderTriangleRounded extends BuilderBase {
 				buffer.updateSteps();
 				buildTriangleRoundedStep(
 					buffer.steps,
-					buffer.clippings,
 					voffset,
 					strokeWidth,
 					strokeStyle,
-					shape.radius,
+					corner,
+					radius,
 					TRIANGLE_ROUNDED_WORLD_SIZE
 				);
 			}
