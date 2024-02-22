@@ -439,11 +439,15 @@ export class DTableBodyRow<
 		return 0;
 	}
 
-	resizeCell(index: any, newWidth: number) {
+	resizeCell(index: number, newWidth: number): void {
 		const cells = this.children;
 		for (const cell of cells) {
 			if (this.isCell(cell) && cell.columnIndex === index) {
+				const ratio = newWidth / cell.width;
 				cell.width = newWidth;
+				if (cell.weight > 0) {
+					cell.weight = cell.weight * ratio;
+				}
 			}
 		}
 	}

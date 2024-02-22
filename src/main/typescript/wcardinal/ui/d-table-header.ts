@@ -3,14 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { InteractionEvent, InteractionManager, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { DTableColumn } from "./d-table-column";
 import { DTableData } from "./d-table-data";
 import { DTableHeaderCell, DTableHeaderCellOptions } from "./d-table-header-cell";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
-import { UtilPointerEvent } from "./util";
-import { DApplications } from "./d-applications";
 
 export interface DTableHeaderTableBody {
 	update(forcibly?: boolean): void;
@@ -28,22 +25,15 @@ export interface DTableHeaderOptions<ROW, THEME extends DThemeTableHeader = DThe
 	cell?: DTableHeaderCellOptions<ROW>;
 }
 
-export interface DThemeTableHeader extends DThemeTableRow {
-	getMinWidth(): number;
-}
+export interface DThemeTableHeader extends DThemeTableRow {}
 
 export class DTableHeader<
 	ROW,
 	THEME extends DThemeTableHeader = DThemeTableHeader,
 	OPTIONS extends DTableHeaderOptions<ROW, THEME> = DTableHeaderOptions<ROW, THEME>
 > extends DTableRow<ROW, DTableColumn<ROW, unknown>, THEME, OPTIONS> {
-	
 	protected _table: DTableHeaderTable<ROW> | null;
 	protected _offset: number;
-	protected _columnIndexResizing: number | undefined;
-	protected _onCellResizeBound: (e: InteractionEvent) => void;
-	protected _onCellUpBound: (e: InteractionEvent) => void;
-	protected _interactionManager?: InteractionManager;
 
 	constructor(options: OPTIONS) {
 		super(options);
@@ -55,14 +45,6 @@ export class DTableHeader<
 		this.transform.position.y = offset;
 
 		this.initCells(options, this._columns, this._frozen);
-
-		this._onCellResizeBound = (e: InteractionEvent): void => {
-			this.onCellResize(e);
-		}
-
-		this._onCellUpBound = (e: InteractionEvent): void => {
-			this.onCellUp(e);
-		}
 	}
 
 	get table(): DTableHeaderTable<ROW> | null {
@@ -90,54 +72,10 @@ export class DTableHeader<
 		options: OPTIONS
 	): DBase {
 		const cell = new DTableHeaderCell<ROW>(this.toCellOptions(columnIndex, column, options));
-		cell.on(UtilPointerEvent.down, (e: InteractionEvent) => {
-			this._columnIndexResizing = cell.columnIndex;
-			this.onCellDown(e);
+		cell.on("resize", (newWidth: number, isWeight: boolean) => {
+			this.emit("columnresize", columnIndex, newWidth, isWeight);
 		});
 		return cell;
-	}
-
-	protected onCellDown(e: InteractionEvent) {
-		const layer = DApplications.getLayer(this);
-		if (layer) {
-			const interactionManager = layer.renderer.plugins.interaction;
-			this._interactionManager = interactionManager;
-			const onCellResizeBound = this._onCellResizeBound;
-			interactionManager.on(UtilPointerEvent.move, onCellResizeBound);
-			const onCellUpBound = this._onCellUpBound;
-			interactionManager.on(UtilPointerEvent.up, onCellUpBound);
-			interactionManager.on(UtilPointerEvent.upoutside, onCellUpBound);
-			interactionManager.on(UtilPointerEvent.cancel, onCellUpBound);
-		}
-	}
-
-	protected onCellResize(e: InteractionEvent): void {
-		const point = new Point(0, 0);
-		this.toLocal(e.data.global, undefined, point);
-		const cells = this.children;
-		for (const cell of cells) {
-			if (cell instanceof DTableHeaderCell && cell.columnIndex === this._columnIndexResizing) {
-				const newWidth = Math.max(this.theme.getMinWidth(), point.x - cell.position.x);
-				cell.width = newWidth;
-				console.log(newWidth);
-				this.emit("columnresize", this._columnIndexResizing, newWidth);
-				break;
-			}
-
-		}
-	}
-
-	protected onCellUp(e: InteractionEvent): void {
-		const interactionManager = this._interactionManager;
-		if (interactionManager) {
-			this._interactionManager = undefined;
-			const onCellResizeBound = this._onCellResizeBound;
-			interactionManager.off(UtilPointerEvent.move, onCellResizeBound);
-			const onCellUpBound = this._onCellUpBound;
-			interactionManager.off(UtilPointerEvent.up, onCellUpBound);
-			interactionManager.off(UtilPointerEvent.upoutside, onCellUpBound);
-			interactionManager.off(UtilPointerEvent.cancel, onCellUpBound);
-		}
 	}
 
 	protected toCellOptions(

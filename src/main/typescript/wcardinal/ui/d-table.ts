@@ -434,7 +434,9 @@ const toColumn = <ROW, CELL>(
 
 		link: options.link,
 
-		update: toEnum(options.update ?? DTableColumnUpdate.CELL, DTableColumnUpdate)
+		update: toEnum(options.update ?? DTableColumnUpdate.CELL, DTableColumnUpdate),
+
+		resizable: options.resizable
 	};
 };
 
@@ -494,9 +496,15 @@ export class DTable<
 		const header = this.header;
 		if (header) {
 			content.addChild(header);
-			header.on("columnresize", (columnIndex: number | undefined, newWidth: number) => {
-				body.resizeColumn(columnIndex, newWidth);
-			});
+			header.on(
+				"columnresize",
+				(columnIndex: number, newWidth: number, isWeight: boolean) => {
+					body.resizeColumn(columnIndex, newWidth);
+					if (!isWeight) {
+						this.updateContentWidth();
+					}
+				}
+			);
 		}
 
 		const categories = this.categories;
@@ -1106,5 +1114,19 @@ export class DTable<
 
 	protected getType(): string {
 		return "DTable";
+	}
+
+	protected updateContentWidth(): void {
+		const header = this.header;
+		if (header != null) {
+			const headerCells = header.children;
+			let totalWidth = 0;
+			for (const cell of headerCells) {
+				if (cell instanceof DBase) {
+					totalWidth += cell.width;
+				}
+			}
+			this.content.width = Math.max(this.width, totalWidth);
+		}
 	}
 }

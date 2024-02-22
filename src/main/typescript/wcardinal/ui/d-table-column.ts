@@ -99,6 +99,8 @@ export interface DTableColumnOptions<
 	 * * ALL: All the rows.
 	 */
 	update?: keyof typeof DTableColumnUpdate | DTableColumnUpdate;
+
+	resizable?: boolean;
 }
 
 export interface DTableColumn<
@@ -135,4 +137,6 @@ export interface DTableColumn<
 	link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
 
 	update: DTableColumnUpdate;
+
+	resizable?: boolean;
 }

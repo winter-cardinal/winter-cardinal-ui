@@ -173,4 +173,12 @@ export class DThemeDarkTableHeaderCell
 		}
 		return "";
 	}
+
+	getMinWidth(): number {
+		return 8;
+	}
+
+	getResizeWidth(): number {
+		return 16;
+	}
 }

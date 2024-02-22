@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { InteractionEvent, Point } from "pixi.js";
+import { InteractionEvent, InteractionManager, Point } from "pixi.js";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
@@ -12,6 +12,7 @@ import { DTableHeaderTable } from "./d-table-header";
 import { DTableHeaderCellCheck, DTableHeaderCellCheckOptions } from "./d-table-header-cell-check";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DApplications } from "./d-applications";
 
 export interface DTableHeaderCellHeader<ROW> {
 	readonly table: DTableHeaderTable<ROW> | null;
@@ -27,7 +28,10 @@ export interface DTableHeaderCellOptions<
 	check?: DTableHeaderCellCheckOptions;
 }
 
-export interface DThemeTableHeaderCell extends DThemeImage<string | null> {}
+export interface DThemeTableHeaderCell extends DThemeImage<string | null> {
+	getMinWidth(): number;
+	getResizeWidth(): number;
+}
 
 export class DTableHeaderCell<
 	ROW,
@@ -41,7 +45,26 @@ export class DTableHeaderCell<
 	protected _columnIndex?: number;
 	protected _check!: DTableHeaderCellCheck<ROW>;
 	protected _checkWork?: Point;
+	protected _onCellResizeBound: (e: InteractionEvent) => void;
+	protected _onCellUpBound: (e: InteractionEvent) => void;
+	protected _onCellHoverBound: (e: InteractionEvent) => void;
+	protected _interactionManager?: InteractionManager;
+	protected _isResizing?: boolean;
 
+	constructor(options?: OPTIONS) {
+		super(options);
+		this._onCellResizeBound = (e: InteractionEvent): void => {
+			this.onCellResize(e);
+		};
+
+		this._onCellUpBound = (e: InteractionEvent): void => {
+			this.onCellUp(e);
+		};
+
+		this._onCellHoverBound = (e: InteractionEvent): void => {
+			this.onCellHover(e);
+		};
+	}
 	protected init(options?: OPTIONS): void {
 		if (options != null) {
 			this._header = options.header;
@@ -53,6 +76,16 @@ export class DTableHeaderCell<
 		}
 		super.init(options);
 		this.initOnClick(options);
+
+		if (this.isResizable) {
+			this.on(UtilPointerEvent.down, (e: InteractionEvent) => {
+				this.onCellDown(e);
+			});
+
+			this.on(UtilPointerEvent.move, (e: InteractionEvent) => {
+				this.onCellHover(e);
+			});
+		}
 	}
 
 	get column(): DTableColumn<ROW, unknown> | undefined {
@@ -189,7 +222,13 @@ export class DTableHeaderCell<
 			this.onToggleStart();
 			this.onToggleEnd();
 		} else {
-			this.doSort(e);
+			if (e instanceof InteractionEvent) {
+				if (this.isResizable && !this._isResizing) {
+					this.doSort(e);
+				}
+			} else {
+				this.doSort(e);
+			}
 			this.emit("active", this);
 		}
 	}
@@ -228,6 +267,17 @@ export class DTableHeaderCell<
 
 	get isToggle(): boolean {
 		return this._check.isEnabled;
+	}
+
+	get isResizable(): boolean {
+		const column = this._column;
+		if (column) {
+			const resizable = column.resizable;
+			if (resizable != null) {
+				return resizable;
+			}
+		}
+		return false;
 	}
 
 	toggle(): void {
@@ -306,5 +356,73 @@ export class DTableHeaderCell<
 		this._onSorterChangeBound = undefined;
 
 		super.destroy();
+	}
+
+	protected onCellDown(e: InteractionEvent): void {
+		if (!this.isOnEdge(e) || this._isResizing) return;
+		const layer = DApplications.getLayer(this);
+		if (layer) {
+			this._isResizing = true;
+			const interactionManager = layer.renderer.plugins.interaction;
+			this._interactionManager = interactionManager;
+			const onCellResizeBound = this._onCellResizeBound;
+			interactionManager.on(UtilPointerEvent.move, onCellResizeBound);
+			const onCellUpBound = this._onCellUpBound;
+			interactionManager.on(UtilPointerEvent.up, onCellUpBound);
+			interactionManager.on(UtilPointerEvent.upoutside, onCellUpBound);
+			interactionManager.on(UtilPointerEvent.cancel, onCellUpBound);
+		}
+	}
+
+	protected onCellResize(e: InteractionEvent): void {
+		const point = new Point(0, 0);
+		this.toLocal(e.data.global, undefined, point);
+		const oldWidth = this.width;
+		const newWidth = Math.max(this.theme.getMinWidth(), point.x);
+		const ratio = newWidth / oldWidth;
+		this.width = newWidth;
+		let isWeight = false;
+		if (this.weight > 0) {
+			this.weight = this.weight * ratio;
+			isWeight = true;
+		}
+		this.emit("resize", newWidth, isWeight, this);
+	}
+
+	protected onCellUp(e: InteractionEvent): void {
+		if (!this._isResizing) return;
+		this._isResizing = false;
+		const interactionManager = this._interactionManager;
+		if (interactionManager) {
+			this._interactionManager = undefined;
+			const onCellResizeBound = this._onCellResizeBound;
+			interactionManager.off(UtilPointerEvent.move, onCellResizeBound);
+			const onCellUpBound = this._onCellUpBound;
+			interactionManager.off(UtilPointerEvent.up, onCellUpBound);
+			interactionManager.off(UtilPointerEvent.upoutside, onCellUpBound);
+			interactionManager.off(UtilPointerEvent.cancel, onCellUpBound);
+		}
+	}
+
+	protected isOnEdge(e: InteractionEvent): boolean {
+		const local = this.toLocal(e.data.global);
+		const localBounds = this.getLocalBounds();
+		const isInWidthRange = local.x >= 0 && local.x <= localBounds.width;
+		const isInHeightRange = local.y >= 0 && local.y <= localBounds.height;
+		if (isInHeightRange && isInWidthRange) {
+			const isOnEdge = localBounds.width - local.x < this.theme.getResizeWidth();
+			return isOnEdge;
+		}
+		return false;
+	}
+
+	protected onCellHover(e: InteractionEvent): void {
+		if (!this._isResizing) {
+			if (this.isOnEdge(e)) {
+				this.cursor = "col-resize";
+			} else {
+				this.cursor = this.isSortable ? "pointer" : "default";
+			}
+		}
 	}
 }

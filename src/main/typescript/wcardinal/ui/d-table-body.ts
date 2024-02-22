@@ -181,7 +181,7 @@ export class DTableBody<
 		this.update();
 	}
 
-	resizeColumn(columnIndex: number | undefined, newWidth: number) {
+	resizeColumn(columnIndex: number, newWidth: number): void {
 		const rows = this.children;
 		for (const row of rows) {
 			if (row instanceof DTableBodyRow) {
