@@ -16,24 +16,35 @@ export const buildRectangleClipping = (clippings: Float32Array, voffset: number)
 	const c000 = toClippingPacked(0, 0, 0);
 	const c100 = toClippingPacked(1, 0, 0);
 
+	// c0     c1   c4     c5
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c2     c3   c6     c7
+	//
+	// c8     c9   c12   c13
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c10   c11   c14   c15
 	let ic = voffset - 1;
 	clippings[++ic] = c110;
 	clippings[++ic] = c010;
+	clippings[++ic] = c100;
+	clippings[++ic] = c000;
+
 	clippings[++ic] = c010;
 	clippings[++ic] = c110;
-
-	clippings[++ic] = c100;
-	clippings[++ic] = c000;
 	clippings[++ic] = c000;
 	clippings[++ic] = c100;
 
 	clippings[++ic] = c100;
 	clippings[++ic] = c000;
-	clippings[++ic] = c000;
-	clippings[++ic] = c100;
-
 	clippings[++ic] = c110;
 	clippings[++ic] = c010;
+
+	clippings[++ic] = c000;
+	clippings[++ic] = c100;
 	clippings[++ic] = c010;
 	clippings[++ic] = c110;
 };
@@ -43,37 +54,44 @@ export const buildRectangleIndex = (
 	voffset: number,
 	ioffset: number
 ): void => {
+	// c0     c1   c4     c5
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c2     c3   c6     c7
+	//
+	// c8     c9   c12   c13
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c10   c11   c14   c15
 	let ii = ioffset * 3 - 1;
 	indices[++ii] = voffset + 0;
 	indices[++ii] = voffset + 1;
-	indices[++ii] = voffset + 4;
-
-	indices[++ii] = voffset + 4;
-	indices[++ii] = voffset + 1;
-	indices[++ii] = voffset + 5;
-
 	indices[++ii] = voffset + 2;
+	indices[++ii] = voffset + 2;
+	indices[++ii] = voffset + 1;
 	indices[++ii] = voffset + 3;
-	indices[++ii] = voffset + 6;
 
+	indices[++ii] = voffset + 4;
+	indices[++ii] = voffset + 5;
 	indices[++ii] = voffset + 6;
-	indices[++ii] = voffset + 3;
+	indices[++ii] = voffset + 6;
+	indices[++ii] = voffset + 5;
 	indices[++ii] = voffset + 7;
 
 	indices[++ii] = voffset + 8;
 	indices[++ii] = voffset + 9;
-	indices[++ii] = voffset + 12;
-
-	indices[++ii] = voffset + 12;
-	indices[++ii] = voffset + 9;
-	indices[++ii] = voffset + 13;
-
 	indices[++ii] = voffset + 10;
+	indices[++ii] = voffset + 10;
+	indices[++ii] = voffset + 9;
 	indices[++ii] = voffset + 11;
-	indices[++ii] = voffset + 14;
 
+	indices[++ii] = voffset + 12;
+	indices[++ii] = voffset + 13;
 	indices[++ii] = voffset + 14;
-	indices[++ii] = voffset + 11;
+	indices[++ii] = voffset + 14;
+	indices[++ii] = voffset + 13;
 	indices[++ii] = voffset + 15;
 };
 
@@ -89,13 +107,13 @@ export const buildRectangleVertex = (
 	internalTransform: Matrix,
 	worldSize: typeof RECTANGLE_WORLD_SIZE
 ): void => {
-	// b0              b1
+	// b0      b1      b2
 	// |-------|-------|
 	// |       |       |
-	// |-------|-------|
+	// b3------b4------b5
 	// |       |       |
 	// |-------|-------|
-	// b3              b2
+	// b6      b7      b8
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
@@ -104,85 +122,84 @@ export const buildRectangleVertex = (
 	internalTransform.apply(work, work);
 	const b0x = work.x;
 	const b0y = work.y;
-	work.set(originX + sx, originY - sy);
+	work.set(originX, originY - sy);
 	internalTransform.apply(work, work);
 	const b1x = work.x;
 	const b1y = work.y;
-	work.set(originX + sx, originY + sy);
+	work.set(originX - sx, originY);
 	internalTransform.apply(work, work);
-	const b2x = work.x;
-	const b2y = work.y;
-	const b3x = b0x + (b2x - b1x);
-	const b3y = b0y + (b2y - b1y);
+	const b3x = work.x;
+	const b3y = work.y;
 
-	const ax = toLength(b0x, b0y, b1x, b1y) * 0.5;
-	const ay = toLength(b1x, b1y, b2x, b2y) * 0.5;
-	worldSize[0] = ax;
-	worldSize[1] = ay;
+	const d01x = b1x - b0x;
+	const d01y = b1y - b0y;
+	const d03x = b3x - b0x;
+	const d03y = b3y - b0y;
 
-	// c0     c1   c2     c3
+	const b2x = b1x + d01x;
+	const b2y = b1y + d01y;
+	const b4x = b3x + d01x;
+	const b4y = b3y + d01y;
+	const b5x = b2x + d03x;
+	const b5y = b2y + d03y;
+	const b6x = b3x + d03x;
+	const b6y = b3y + d03y;
+	const b7x = b6x + d01x;
+	const b7y = b6y + d01y;
+	const b8x = b7x + d01x;
+	const b8y = b7y + d01y;
+
+	// c0     c1   c4     c5
 	//  |-----|     |-----|
 	//  |     |     |     |
 	//  |-----|     |-----|
-	// c4     c5   c6     c7
+	// c2     c3   c6     c7
 	//
-	// c8     c9   c10   c11
+	// c8     c9   c12   c13
 	//  |-----|     |-----|
 	//  |     |     |     |
 	//  |-----|     |-----|
-	// c12   c13   c14   c15
-	const d01x = (b1x - b0x) * 0.5;
-	const d01y = (b1y - b0y) * 0.5;
-	const d03x = (b3x - b0x) * 0.5;
-	const d03y = (b3y - b0y) * 0.5;
-
-	const c1x = b0x + d01x;
-	const c1y = b0y + d01y;
-	const c4x = b0x + d03x;
-	const c4y = b0y + d03y;
-	const c5x = c4x + d01x;
-	const c5y = c4y + d01y;
-	const c7x = b1x + d03x;
-	const c7y = b1y + d03y;
-	const c13x = b3x + d01x;
-	const c13y = b3y + d01y;
-
+	// c10   c11   c14   c15
 	let iv = (voffset << 1) - 1;
 	vertices[++iv] = b0x;
 	vertices[++iv] = b0y;
-	vertices[++iv] = c1x;
-	vertices[++iv] = c1y;
-	vertices[++iv] = c1x;
-	vertices[++iv] = c1y;
 	vertices[++iv] = b1x;
 	vertices[++iv] = b1y;
+	vertices[++iv] = b3x;
+	vertices[++iv] = b3y;
+	vertices[++iv] = b4x;
+	vertices[++iv] = b4y;
 
-	vertices[++iv] = c4x;
-	vertices[++iv] = c4y;
-	vertices[++iv] = c5x;
-	vertices[++iv] = c5y;
-	vertices[++iv] = c5x;
-	vertices[++iv] = c5y;
-	vertices[++iv] = c7x;
-	vertices[++iv] = c7y;
-
-	vertices[++iv] = c4x;
-	vertices[++iv] = c4y;
-	vertices[++iv] = c5x;
-	vertices[++iv] = c5y;
-	vertices[++iv] = c5x;
-	vertices[++iv] = c5y;
-	vertices[++iv] = c7x;
-	vertices[++iv] = c7y;
+	vertices[++iv] = b1x;
+	vertices[++iv] = b1y;
+	vertices[++iv] = b2x;
+	vertices[++iv] = b2y;
+	vertices[++iv] = b4x;
+	vertices[++iv] = b4y;
+	vertices[++iv] = b5x;
+	vertices[++iv] = b5y;
 
 	vertices[++iv] = b3x;
 	vertices[++iv] = b3y;
-	vertices[++iv] = c13x;
-	vertices[++iv] = c13y;
-	vertices[++iv] = c13x;
-	vertices[++iv] = c13y;
-	vertices[++iv] = b2x;
-	vertices[++iv] = b2y;
+	vertices[++iv] = b4x;
+	vertices[++iv] = b4y;
+	vertices[++iv] = b6x;
+	vertices[++iv] = b6y;
+	vertices[++iv] = b7x;
+	vertices[++iv] = b7y;
+
+	vertices[++iv] = b4x;
+	vertices[++iv] = b4y;
+	vertices[++iv] = b5x;
+	vertices[++iv] = b5y;
+	vertices[++iv] = b7x;
+	vertices[++iv] = b7y;
+	vertices[++iv] = b8x;
+	vertices[++iv] = b8y;
+
+	// World size
+	worldSize[0] = toLength(b0x, b0y, b1x, b1y);
+	worldSize[1] = toLength(b0x, b0y, b3x, b3y);
 };
 
 export const buildRectangleStep = (
@@ -201,48 +218,132 @@ export const buildRectangleStep = (
 	const wb = strokeSide & EShapeStrokeSide.BOTTOM ? 1 : 0;
 	const wl = strokeSide & EShapeStrokeSide.LEFT ? 1 : 0;
 
-	// 0 1 2 3
-	let is = (voffset - 1) * 6 - 1;
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wt);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wt);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wt);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wt);
+	// c0     c1   c4     c5
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c2     c3   c6     c7
+	//
+	// c8     c9   c12   c13
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c10   c11   c14   c15
+	let is = voffset * 6 - 1;
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wt;
 
-	// 4 5 6 7
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wt);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wt);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wt);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wt);
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wt;
 
-	// 8 9 10 11
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wb);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wb);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wb);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wb);
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wt;
 
-	// 12 13 14 15
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wb);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wl, wb);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wb);
-	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, ax, ay, wr, wb);
-};
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wt;
 
-const fillRectangleStep = (
-	steps: Float32Array,
-	is: number,
-	v0: number,
-	v1: number,
-	v2: number,
-	v3: number,
-	v4: number,
-	v5: number
-): void => {
-	steps[++is] = v0;
-	steps[++is] = v1;
-	steps[++is] = v2;
-	steps[++is] = v3;
-	steps[++is] = v4;
-	steps[++is] = v5;
+	//
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wt;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wt;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wt;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wt;
+
+	//
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wb;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wb;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wb;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wl;
+	steps[++is] = wb;
+
+	//
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wb;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wb;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wb;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = wr;
+	steps[++is] = wb;
 };
 
 export const buildRectangleUv = (
@@ -250,66 +351,84 @@ export const buildRectangleUv = (
 	voffset: number,
 	textureUvs: TextureUvs
 ): void => {
+	// b0      b1      b2
+	// |-------|-------|
+	// |       |       |
+	// b3------b4------b5
+	// |       |       |
+	// |-------|-------|
+	// b6      b7      b8
 	const b0x = textureUvs.x0;
 	const b0y = textureUvs.y0;
-	const b1y = textureUvs.y1;
-	const b1x = textureUvs.x1;
-	const b2y = textureUvs.y2;
-	const b2x = textureUvs.x2;
-	const b3y = textureUvs.y3;
-	const b3x = textureUvs.x3;
+	const b2x = textureUvs.x1;
+	const b2y = textureUvs.y1;
+	const b8x = textureUvs.x2;
+	const b8y = textureUvs.y2;
+	const b6x = textureUvs.x3;
+	const b6y = textureUvs.y3;
 
-	const d01x = (b1x - b0x) * 0.5;
-	const d01y = (b1y - b0y) * 0.5;
-	const d03x = (b3x - b0x) * 0.5;
-	const d03y = (b3y - b0y) * 0.5;
+	const b1x = (b0x + b2x) * 0.5;
+	const b1y = (b0y + b2y) * 0.5;
+	const b3x = (b0x + b6x) * 0.5;
+	const b3y = (b0y + b6y) * 0.5;
 
-	const c1x = b0x + d01x;
-	const c1y = b0y + d01y;
-	const c4x = b0x + d03x;
-	const c4y = b0y + d03y;
-	const c5x = c4x + d01x;
-	const c5y = c4y + d01y;
-	const c7x = b1x + d03x;
-	const c7y = b1y + d03y;
-	const c13x = b3x + d01x;
-	const c13y = b3y + d01y;
+	const d01x = b1x - b0x;
+	const d01y = b1y - b0y;
+	const d03x = b3x - b0x;
+	const d03y = b3y - b0y;
 
-	// UVs
+	const b4x = b3x + d01x;
+	const b4y = b3y + d01y;
+	const b5x = b2x + d03x;
+	const b5y = b2y + d03y;
+	const b7x = b6x + d01x;
+	const b7y = b6y + d01y;
+
+	// c0     c1   c4     c5
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c2     c3   c6     c7
+	//
+	// c8     c9   c12   c13
+	//  |-----|     |-----|
+	//  |     |     |     |
+	//  |-----|     |-----|
+	// c10   c11   c14   c15
 	let iuv = (voffset << 1) - 1;
 	uvs[++iuv] = b0x;
 	uvs[++iuv] = b0y;
-	uvs[++iuv] = c1x;
-	uvs[++iuv] = c1y;
-	uvs[++iuv] = c1x;
-	uvs[++iuv] = c1y;
 	uvs[++iuv] = b1x;
 	uvs[++iuv] = b1y;
+	uvs[++iuv] = b3x;
+	uvs[++iuv] = b3y;
+	uvs[++iuv] = b4x;
+	uvs[++iuv] = b4y;
 
-	uvs[++iuv] = c4x;
-	uvs[++iuv] = c4y;
-	uvs[++iuv] = c5x;
-	uvs[++iuv] = c5y;
-	uvs[++iuv] = c5x;
-	uvs[++iuv] = c5y;
-	uvs[++iuv] = c7x;
-	uvs[++iuv] = c7y;
-
-	uvs[++iuv] = c4x;
-	uvs[++iuv] = c4y;
-	uvs[++iuv] = c5x;
-	uvs[++iuv] = c5y;
-	uvs[++iuv] = c5x;
-	uvs[++iuv] = c5y;
-	uvs[++iuv] = c7x;
-	uvs[++iuv] = c7y;
+	uvs[++iuv] = b1x;
+	uvs[++iuv] = b1y;
+	uvs[++iuv] = b2x;
+	uvs[++iuv] = b2y;
+	uvs[++iuv] = b4x;
+	uvs[++iuv] = b4y;
+	uvs[++iuv] = b5x;
+	uvs[++iuv] = b5y;
 
 	uvs[++iuv] = b3x;
 	uvs[++iuv] = b3y;
-	uvs[++iuv] = c13x;
-	uvs[++iuv] = c13y;
-	uvs[++iuv] = c13x;
-	uvs[++iuv] = c13y;
-	uvs[++iuv] = b2x;
-	uvs[++iuv] = b2y;
+	uvs[++iuv] = b4x;
+	uvs[++iuv] = b4y;
+	uvs[++iuv] = b6x;
+	uvs[++iuv] = b6y;
+	uvs[++iuv] = b7x;
+	uvs[++iuv] = b7y;
+
+	uvs[++iuv] = b4x;
+	uvs[++iuv] = b4y;
+	uvs[++iuv] = b5x;
+	uvs[++iuv] = b5y;
+	uvs[++iuv] = b7x;
+	uvs[++iuv] = b7y;
+	uvs[++iuv] = b8x;
+	uvs[++iuv] = b8y;
 };

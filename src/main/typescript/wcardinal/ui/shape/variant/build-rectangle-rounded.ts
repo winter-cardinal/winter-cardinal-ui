@@ -141,7 +141,13 @@ export const buildRectangleRoundedVertex = (
 	internalTransform: Matrix,
 	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
 ): void => {
-	// Calculate the transformed positions
+	// b0      b1      b2
+	// |-------|-------|
+	// |       |       |
+	// b3------b4------b5
+	// |       |       |
+	// |-------|-------|
+	// b6      b7      b8
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
@@ -150,14 +156,6 @@ export const buildRectangleRoundedVertex = (
 	const a = radius * Math.min(ax, ay);
 	const rx = a / ax;
 	const ry = a / ay;
-
-	// b0      b1      b2
-	// |-------|-------|
-	// |       |       |
-	// b3------b4------b5
-	// |       |       |
-	// |-------|-------|
-	// b6      b7      b8
 	const work = RECTANGLE_ROUNDED_WORK_POINT;
 	work.set(originX - sx, originY - sy);
 	internalTransform.apply(work, work);
