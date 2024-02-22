@@ -494,6 +494,9 @@ export class DTable<
 		const header = this.header;
 		if (header) {
 			content.addChild(header);
+			header.on("columnresize", (columnIndex: number | undefined, newWidth: number) => {
+				body.resizeColumn(columnIndex, newWidth);
+			});
 		}
 
 		const categories = this.categories;

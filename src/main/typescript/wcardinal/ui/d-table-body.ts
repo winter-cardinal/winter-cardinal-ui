@@ -181,6 +181,15 @@ export class DTableBody<
 		this.update();
 	}
 
+	resizeColumn(columnIndex: number | undefined, newWidth: number) {
+		const rows = this.children;
+		for (const row of rows) {
+			if (row instanceof DTableBodyRow) {
+				row.resizeCell(columnIndex, newWidth);
+			}
+		}
+	}
+
 	get selection(): DTableDataSelection<ROW> {
 		return this._data.selection;
 	}

@@ -438,4 +438,13 @@ export class DTableBodyRow<
 		}
 		return 0;
 	}
+
+	resizeCell(index: any, newWidth: number) {
+		const cells = this.children;
+		for (const cell of cells) {
+			if (this.isCell(cell) && cell.columnIndex === index) {
+				cell.width = newWidth;
+			}
+		}
+	}
 }
