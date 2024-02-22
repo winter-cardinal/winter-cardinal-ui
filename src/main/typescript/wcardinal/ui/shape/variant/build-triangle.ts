@@ -136,7 +136,7 @@ export const buildTriangleStep = (
 	steps[++is] = scaleInvariant;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 2;
+	steps[++is] = 1;
 	steps[++is] = 1;
 
 	// 100
@@ -144,7 +144,7 @@ export const buildTriangleStep = (
 	steps[++is] = scaleInvariant;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 2;
+	steps[++is] = 1;
 	steps[++is] = 1;
 
 	// 010
@@ -153,7 +153,7 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = 1;
-	steps[++is] = 2;
+	steps[++is] = 1;
 
 	// 010
 	steps[++is] = strokeWidth;
@@ -161,14 +161,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = 1;
-	steps[++is] = 2;
-
-	// 100
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = s;
-	steps[++is] = s;
-	steps[++is] = 2;
 	steps[++is] = 1;
 
 	// 100
@@ -176,7 +168,15 @@ export const buildTriangleStep = (
 	steps[++is] = scaleInvariant;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 2;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = 1;
 	steps[++is] = 1;
 };
 

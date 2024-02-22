@@ -161,14 +161,6 @@ float toStrokeWidthScale( in float scale ) {
 	);
 }
 
-vec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {
-	return weight / max(vec2(0.00001), vec2(1.0) - strokeWidth / size);
-}
-
-vec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {
-	return antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));
-}
-
 vec4 toColor(in vec2 v) {
 	vec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v.x;
 	c -= fract(c);
@@ -194,11 +186,8 @@ void main(void) {
 	float strokeWidth = strokeWidthScale * aStep.x;
 
 	// type === 0 or 1
-	vec2 size01 = aAntialias.xy;
-	vec2 weight01 = abs(aAntialias.zw - sign(aAntialias.zw));
-	vec2 strokeWidth01 = step(vec2(0.0), aAntialias.zw) * strokeWidth;
-	vec2 step01 = toStep01( size01, weight01, strokeWidth01 );
-	vec4 a01 = toAntialias01( toAntialias01b( size01, strokeWidth01 ) );
+	vec2 step01 = strokeWidth * aAntialias.zw;
+	vec4 a01 = aAntialias;
 
 	// type === 2
 	vec4 a2 = toAntialias2( aAntialias, strokeWidth );
@@ -230,30 +219,61 @@ varying mediump vec2 vUv;
 
 uniform sampler2D sampler;
 uniform mediump float pixelScale;
+uniform mediump float antialiasWeight;
 
-vec4 color1(float type, vec4 texture) {
-	vec2 v0 = vStep;
-	vec2 v1 = vClipping.xy;
-	vec2 v2 = v0 * vAntialias.xy;
-	vec2 v3 = v1 * vAntialias.zw;
-	vec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );
-	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
-	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
-	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
-	vec4 d = (type == 1.0 ? d1 : d0);
-	vec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );
-	return texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));
+vec4 color0(in float type, in vec4 texture, in vec2 c, in vec2 d, in vec2 awd, in vec2 swd) {
+	vec2 one = vec2(1.0);
+	vec2 zero = vec2(0.0);
+	vec2 p0 = clamp(one - awd, zero, one);
+	vec2 p1 = clamp(one - swd, zero, one);
+	vec2 p2 = clamp(one - swd - awd, zero, one);
+	vec2 s0 = smoothstep(p0, one, c);
+	vec2 s1 = smoothstep(p2, p1, c);
+	float s2 = max(s0.x, s0.y);
+	float s3 = max(s1.x, s1.y);
+	return texture * (
+		vColorStroke * (s3 - s2) +
+		vColorFill * (1.0 - s3)
+	);
 }
 
-vec4 color2(float type, vec4 texture) {
-	vec2 a0 = vAntialias.xy;
-	vec2 a1 = vAntialias.zw;
-	vec2 a2 = vec2( (texture.b * 0.00392156862745098 + texture.g) * 0.00392156862745098 + texture.r );
-	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
-	return a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
+vec4 color1(in float type, in vec4 texture, in vec2 c, in vec2 d, in vec2 awd, in vec2 swd) {
+	float awa = mix(awd.x, awd.y, 0.5);
+	float swa = mix(swd.x, swd.y, 0.5);
+	vec2 one = vec2(1.0);
+	vec2 zero = vec2(0.0);
+	vec2 p = clamp(vec2(1.0 - awa, 1.0 - awa / (1.0 - swa)), zero, one);
+	vec2 e = vec2(
+		length(c),
+		length(c / clamp(one - swd, zero, one))
+	);
+	vec2 s = smoothstep(p, vec2(1.0), e);
+	return texture * (
+		vColorStroke * (s.y - s.x) +
+		vColorFill * (1.0 - s.y)
+	);
 }
 
-float color3456(float type, vec4 texture) {
+vec4 color01(in float type, in vec4 texture) {
+	vec2 c = vClipping.xy;
+	vec2 d = vAntialias.xy;
+	vec2 awd = antialiasWeight / d;
+	vec2 swd = vStep / d;
+	return (type < 0.5 ?
+		color0(type, texture, c, d, awd, swd) :
+		color1(type, texture, c, d, awd, swd)
+	);
+}
+
+vec4 color2(in float type, in vec4 texture) {
+	vec2 p0 = vAntialias.xy;
+	vec2 p1 = vAntialias.zw;
+	vec2 d = vec2( (texture.b * 0.00392156862745098 + texture.g) * 0.00392156862745098 + texture.r );
+	vec2 s = smoothstep( p0 - p1, p0 + p1, d );
+	return vColorStroke * (s.y - s.x) + vColorFill * s.x;
+}
+
+float color3456(in float type, in vec4 texture) {
 	float l = vColorStroke.x;
 	float lp0 = vColorStroke.y;
 	float lp1 = vColorStroke.z;
@@ -270,7 +290,7 @@ void main(void) {
 	vec4 texture = texture2D(sampler, vUv);
 	gl_FragColor = (type == 2.0 ?
 		color2(type, texture) :
-		color1(type, texture) * (2.5 < type ? color3456(type, texture) : 1.0)
+		color01(type, texture) * (2.5 < type ? color3456(type, texture) : 1.0)
 	);
 }`;
 

@@ -177,13 +177,13 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 
 				// Clippings
 				if (isNotInited || isVertexChanged) {
-					buildRectangleClipping(clippings, voffset, RECTANGLE_WORLD_SIZE);
+					buildRectangleClipping(clippings, voffset);
 					copyClipping(clippings, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
 				}
 
 				// UVs
 				if (isNotInited || isVertexChanged || isTextureChanged) {
-					buildRectangleUv(uvs, voffset, textureUvs, RECTANGLE_WORLD_SIZE);
+					buildRectangleUv(uvs, voffset, textureUvs);
 					copyUvs(uvs, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
 				}
 			} else {
@@ -223,12 +223,12 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 
 					// Clippings
 					if (isNotInited || isVertexChanged) {
-						buildRectangleClipping(clippings, iv, RECTANGLE_WORLD_SIZE);
+						buildRectangleClipping(clippings, iv);
 					}
 
 					// UVs
 					if (isNotInited || isVertexChanged || isTextureChanged) {
-						buildRectangleUv(uvs, iv, textureUvs, RECTANGLE_WORLD_SIZE);
+						buildRectangleUv(uvs, iv, textureUvs);
 					}
 				}
 			}

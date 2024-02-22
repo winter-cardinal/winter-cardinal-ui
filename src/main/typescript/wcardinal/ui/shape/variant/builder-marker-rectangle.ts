@@ -135,13 +135,13 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 			// Clippings
 			if (isNotInited || isVertexChanged) {
 				buffer.updateClippings();
-				buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
+				buildRectangleClipping(buffer.clippings, voffset);
 			}
 
 			// UVs
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture));
 			}
 		}
 	}

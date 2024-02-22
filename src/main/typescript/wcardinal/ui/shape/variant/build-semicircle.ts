@@ -122,28 +122,7 @@ export const buildSemicircleStep = (
 	steps[++is] = scaleInvariant;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
 	steps[++is] = 1;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
 	steps[++is] = 1;
 
 	steps[++is] = strokeWidth;
@@ -157,7 +136,28 @@ export const buildSemicircleStep = (
 	steps[++is] = scaleInvariant;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
-	steps[++is] = 2;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = 1;
 	steps[++is] = 1;
 };
 

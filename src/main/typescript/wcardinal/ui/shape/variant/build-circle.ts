@@ -145,72 +145,72 @@ export const buildCircleStep = (
 	worldSize: typeof CIRCLE_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
-	const ws0 = worldSize[0];
-	const ws1 = worldSize[1];
+	const ax = worldSize[0];
+	const ay = worldSize[1];
 
 	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 1;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 1;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
+	steps[++is] = ax;
+	steps[++is] = ay;
 	steps[++is] = 1;
 	steps[++is] = 1;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
 	steps[++is] = 1;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 2;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
+	steps[++is] = ax;
+	steps[++is] = ay;
 	steps[++is] = 1;
-	steps[++is] = 2;
+	steps[++is] = 1;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = ws0;
-	steps[++is] = ws1;
-	steps[++is] = 2;
-	steps[++is] = 2;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
+	steps[++is] = 1;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = 1;
+	steps[++is] = 1;
 };
 
 export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {
