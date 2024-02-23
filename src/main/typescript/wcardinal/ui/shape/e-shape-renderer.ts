@@ -22,8 +22,8 @@ import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 
 const VERTEX_SHADER = `
 attribute highp vec2 aPosition;
-attribute highp vec2 aStep;
-attribute highp vec4 aAntialias;
+attribute highp vec2 aStep0;
+attribute highp vec3 aStep1;
 attribute highp vec2 aColorFill;
 attribute highp vec2 aColorStroke;
 attribute highp vec2 aUv;
@@ -36,7 +36,7 @@ uniform mediump float antialiasWeight;
 
 varying mediump float vType;
 varying mediump vec2 vStep;
-varying mediump vec4 vAntialias;
+varying mediump vec4 vAnti;
 varying mediump vec4 vColorFill;
 varying mediump vec4 vColorStroke;
 varying mediump vec2 vUv;
@@ -77,7 +77,7 @@ float toStrokeWidthScale(in float scale) {
 	);
 }
 
-vec4 toAntialias01(in vec4 a) {
+vec4 toAnti01(in vec3 a) {
 	vec2 c = vec2(1.0, 1.0/1024.0) * a.z;
 	c -= fract(c);
 	c -= c.yx * vec2(1024.0, 0.0);
@@ -85,10 +85,10 @@ vec4 toAntialias01(in vec4 a) {
 	return vec4(a.x, a.y, c.x, c.y);
 }
 
-vec4 toAntialias2(in vec4 antialias, in float strokeWidth) {
+vec4 toAnti2(in vec3 antialias, in float strokeWidth) {
 	float x = min(0.4, 0.4 / 12.0 * antialias.x * pixelScale * antialiasWeight);
-	float w = clamp(strokeWidth / antialias.y, 0.0, 1.0) * 0.4;
-	float p = w * antialias.z + antialias.w;
+	float w = clamp(strokeWidth, 0.0, 1.0) * 0.4;
+	float p = w * antialias.y + antialias.z;
 	float y = 0.5 - p;
 	float z = 0.5 - p - w;
 	return vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));
@@ -140,30 +140,29 @@ vec2 toStep3(in float type, in float strokeWidth) {
 	return vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);
 }
 
-vec4 toAntialias3(in float shift, in float strokeScaling, in float strokeWidthScale) {
-	float x = aAntialias.z + shift;
-	float d = aAntialias.y;
-	float s = aStep.x * (
+vec4 toAnti3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {
+	float l = aStep1.y + shift;
+	float s = aStep0.x * (
 		strokeScaling == 4.0 || strokeScaling == 5.0 ||
 		strokeScaling == 6.0 || strokeScaling == 7.0 ?
 		strokeWidthScale : 1.0
 	);
-	float w = aAntialias.w;
-	return (d < 0.5 ?
-		vec4(x, 2.0 * abs(w), 0.0, w) :
-		(d < 3.5 ?
-			(d < 1.5 ?
-				vec4(x, s, s, w) :
-				(2.5 < d ?
-					vec4(x, s, 2.0 * s, w) :
-					vec4(x, s, 0.5 * s, w)
+	float lt = aStep1.z;
+	return (dash < 0.5 ?
+		vec4(l, 2.0 * abs(lt), 0.0, lt) :
+		(dash < 3.5 ?
+			(dash < 1.5 ?
+				vec4(l, s, s, lt) :
+				(2.5 < dash ?
+					vec4(l, s, 2.0 * s, lt) :
+					vec4(l, s, 0.5 * s, lt)
 				)
 			) :
-			(d < 4.5 ?
-				vec4(x, 2.0 * s, s, w) :
-				(5.5 < d ?
-					vec4(x, 2.0 * s, 2.0 * s, w) :
-					vec4(x, 2.0 * s, 0.5 * s, w)
+			(dash < 4.5 ?
+				vec4(l, 2.0 * s, s, lt) :
+				(5.5 < dash ?
+					vec4(l, 2.0 * s, 2.0 * s, lt) :
+					vec4(l, 2.0 * s, 0.5 * s, lt)
 				)
 			)
 		)
@@ -171,31 +170,31 @@ vec4 toAntialias3(in float shift, in float strokeScaling, in float strokeWidthSc
 }
 
 void main(void) {
-	vec4 general = toGeneral(aStep.y);
+	vec4 general = toGeneral(aStep0.y);
 	float type = general.x;
 	float strokeScaling = general.y;
 	float strokeWidthScale = toStrokeWidthScale(strokeScaling);
-	float strokeWidth = strokeWidthScale * aStep.x;
+	float strokeWidth = strokeWidthScale * aStep0.x;
 
 	// Type 0, 1
 	vec2 p012 = toTransformed(aPosition);
 	vec2 s012 = strokeWidth * general.zw;
-	vec4 a01 = toAntialias01(aAntialias);
+	vec4 a01 = toAnti01(aStep1);
 
 	// Type 2
-	vec4 a2 = toAntialias2(aAntialias, strokeWidth);
+	vec4 a2 = toAnti2(aStep1, strokeWidth);
 
 	// Type 3 ~ 6
 	float shift3 = 0.0;
-	vec2 p3 = toPosition3(type, aPosition, aAntialias.x, strokeWidth, shift3);
+	vec2 p3 = toPosition3(type, aPosition, aStep1.x, strokeWidth, shift3);
 	vec2 s3 = toStep3(type, strokeWidth);
-	vec4 a3 = toAntialias3(shift3, strokeScaling, strokeWidthScale);
+	vec4 a3 = toAnti3(shift3, general.z, strokeScaling, strokeWidthScale);
 
 	//
 	gl_Position = vec4((2.5 < type ? p3 : p012), 0.0, 1.0);
 	vType = type;
 	vStep = (2.5 < type ? s3 : s012);
-	vAntialias = (1.5 < type ? (2.5 < type ? a3 : a2) : a01);
+	vAnti = (1.5 < type ? (2.5 < type ? a3 : a2) : a01);
 	vColorFill = toColor(aColorFill);
 	vColorStroke = toColor(aColorStroke);
 	vUv = aUv;
@@ -204,7 +203,7 @@ void main(void) {
 const FRAGMENT_SHADER = `
 varying mediump float vType;
 varying mediump vec2 vStep;
-varying mediump vec4 vAntialias;
+varying mediump vec4 vAnti;
 varying mediump vec4 vColorFill;
 varying mediump vec4 vColorStroke;
 varying mediump vec2 vUv;
@@ -247,9 +246,9 @@ vec4 toColor1(in vec4 texture, in vec2 c, in vec2 d, in vec2 awd, in vec2 swd) {
 }
 
 vec4 toColor01(in float type, in vec4 texture) {
-	vec2 d = vAntialias.xy;
-	vec2 c = vAntialias.zw;
-	vec2 awd = antialiasWeight / d;
+	vec2 d = vAnti.xy;
+	vec2 c = vAnti.zw;
+	vec2 awd = pixelScale * antialiasWeight / d;
 	vec2 swd = vStep / d;
 	return (type < 0.5 ?
 		toColor0(texture, c, d, awd, swd) :
@@ -258,25 +257,25 @@ vec4 toColor01(in float type, in vec4 texture) {
 }
 
 vec4 toColor2(in vec4 texture) {
-	vec2 p0 = vAntialias.xy;
-	vec2 p1 = vAntialias.zw;
+	vec2 p0 = vAnti.xy;
+	vec2 p1 = vAnti.zw;
 	vec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));
 	vec2 s = smoothstep(p0 - p1, p0 + p1, d);
 	return vColorStroke * (s.y - s.x) + vColorFill * s.x;
 }
 
 vec4 toColor3(in vec4 texture) {
-	float l = vAntialias.x;
-	float lp0 = vAntialias.y;
-	float lp1 = vAntialias.z;
-	float lt = vAntialias.w;
-	float ld = 0.5 * pixelScale;
+	float l = vAnti.x;
+	float lp0 = vAnti.y;
+	float lp1 = vAnti.z;
+	float lt = vAnti.w;
+	float ld = pixelScale * antialiasWeight;
 	float lm = mod(l, lp0 + lp1);
 	float ls0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
 	float ls1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
 
 	float c = vStep.x;
-	float awd = antialiasWeight / vStep.y;
+	float awd = pixelScale * antialiasWeight / vStep.y;
 	float p0 = clamp(awd, 0.0, 1.0);
 	float p1 = clamp(1.0 - awd, 0.0, 1.0);
 	float s0 = smoothstep(0.0, p0, c);

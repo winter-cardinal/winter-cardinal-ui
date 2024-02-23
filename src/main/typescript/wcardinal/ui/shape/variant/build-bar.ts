@@ -80,11 +80,11 @@ export const buildBarVertexStep = (
 
 	//
 	const scaleInvariant = toScaleInvariant(strokeStyle);
-	const e3 = toPackedI4x64(3, scaleInvariant, 0, 0);
-	const e5 = toPackedI4x64(5, scaleInvariant, 0, 0);
 	const dash = toDash(strokeStyle);
+	const e3 = toPackedI4x64(3, scaleInvariant, dash, 0);
+	const e5 = toPackedI4x64(5, scaleInvariant, dash, 0);
 	let iv = (voffset << 1) - 1;
-	let is = voffset * 6 - 1;
+	let is = voffset * 5 - 1;
 	vertices[++iv] = p1x;
 	vertices[++iv] = p1y;
 	vertices[++iv] = p1x;
@@ -92,13 +92,11 @@ export const buildBarVertexStep = (
 	steps[++is] = strokeWidth;
 	steps[++is] = e3;
 	steps[++is] = packed;
-	steps[++is] = dash;
 	steps[++is] = 0;
 	steps[++is] = l;
 	steps[++is] = strokeWidth;
 	steps[++is] = e5;
 	steps[++is] = packed;
-	steps[++is] = dash;
 	steps[++is] = 0;
 	steps[++is] = l;
 
@@ -109,13 +107,11 @@ export const buildBarVertexStep = (
 	steps[++is] = strokeWidth;
 	steps[++is] = e3;
 	steps[++is] = packed;
-	steps[++is] = dash;
 	steps[++is] = l;
 	steps[++is] = l;
 	steps[++is] = strokeWidth;
 	steps[++is] = e5;
 	steps[++is] = packed;
-	steps[++is] = dash;
 	steps[++is] = l;
 	steps[++is] = l;
 };

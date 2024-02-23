@@ -59,8 +59,8 @@ export const buildTextStep = (
 	scaleX: number,
 	scaleY: number
 ): void => {
-	let is = voffset * 6 - 1;
-	const ismax = (voffset + vcount) * 6 - 1;
+	let is = voffset * 5 - 1;
+	const ismax = (voffset + vcount) * 5 - 1;
 	const scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
 	const e = toPackedI4x64(2, scaleInvariant, 1, 1);
 	if (textAtlas != null) {
@@ -70,7 +70,6 @@ export const buildTextStep = (
 			steps[++is] = textOutlineWidth;
 			steps[++is] = e;
 			steps[++is] = scale;
-			steps[++is] = 1;
 			steps[++is] = 0;
 			steps[++is] = position;
 		}
@@ -79,7 +78,6 @@ export const buildTextStep = (
 			steps[++is] = 0;
 			steps[++is] = e;
 			steps[++is] = 0;
-			steps[++is] = 1;
 			steps[++is] = 0;
 			steps[++is] = 0;
 		}

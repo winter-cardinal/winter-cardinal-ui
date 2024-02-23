@@ -253,7 +253,7 @@ export const buildTriangleRoundedStep = (
 	const cw0 = toPackedF2x1024(w, 0);
 
 	// Top corner
-	let is = voffset * 6 - 1;
+	let is = voffset * 5 - 1;
 	if (corner & EShapeCorner.TOP) {
 		// 001
 		steps[++is] = strokeWidth;
@@ -261,7 +261,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c00;
-		steps[++is] = 0;
 
 		// 101
 		steps[++is] = strokeWidth;
@@ -269,7 +268,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c10;
-		steps[++is] = 0;
 
 		// 111
 		steps[++is] = strokeWidth;
@@ -277,7 +275,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		// 011
 		steps[++is] = strokeWidth;
@@ -285,7 +282,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c01;
-		steps[++is] = 0;
 	} else {
 		// ww0
 		steps[++is] = strokeWidth;
@@ -293,7 +289,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = cww;
-		steps[++is] = 0;
 
 		// 1w0
 		steps[++is] = strokeWidth;
@@ -301,7 +296,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = c1w;
-		steps[++is] = 0;
 
 		// 110
 		steps[++is] = strokeWidth;
@@ -309,7 +303,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		// w10
 		steps[++is] = strokeWidth;
@@ -317,7 +310,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = cw1;
-		steps[++is] = 0;
 	}
 
 	// Bottom-right corner
@@ -328,7 +320,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c00;
-		steps[++is] = 0;
 
 		// 101
 		steps[++is] = strokeWidth;
@@ -336,7 +327,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c10;
-		steps[++is] = 0;
 
 		// 111
 		steps[++is] = strokeWidth;
@@ -344,7 +334,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		// 011
 		steps[++is] = strokeWidth;
@@ -352,7 +341,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c01;
-		steps[++is] = 0;
 	} else {
 		// ww0
 		steps[++is] = strokeWidth;
@@ -360,7 +348,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = cww;
-		steps[++is] = 0;
 
 		// 1w0
 		steps[++is] = strokeWidth;
@@ -368,7 +355,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = c1w;
-		steps[++is] = 0;
 
 		// 110
 		steps[++is] = strokeWidth;
@@ -376,7 +362,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		// w10
 		steps[++is] = strokeWidth;
@@ -384,7 +369,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = cw1;
-		steps[++is] = 0;
 	}
 
 	// Bottom-left corner
@@ -395,7 +379,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c00;
-		steps[++is] = 0;
 
 		// 101
 		steps[++is] = strokeWidth;
@@ -403,7 +386,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c10;
-		steps[++is] = 0;
 
 		// 111
 		steps[++is] = strokeWidth;
@@ -411,7 +393,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		// 011
 		steps[++is] = strokeWidth;
@@ -419,7 +400,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = sr;
 		steps[++is] = sr;
 		steps[++is] = c01;
-		steps[++is] = 0;
 	} else {
 		// ww0
 		steps[++is] = strokeWidth;
@@ -427,7 +407,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = cww;
-		steps[++is] = 0;
 
 		// 1w0
 		steps[++is] = strokeWidth;
@@ -435,7 +414,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = c1w;
-		steps[++is] = 0;
 
 		// 110
 		steps[++is] = strokeWidth;
@@ -443,7 +421,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		// w10
 		steps[++is] = strokeWidth;
@@ -451,7 +428,6 @@ export const buildTriangleRoundedStep = (
 		steps[++is] = s;
 		steps[++is] = s;
 		steps[++is] = cw1;
-		steps[++is] = 0;
 	}
 
 	// Others
@@ -461,7 +437,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	// w00
 	steps[++is] = strokeWidth;
@@ -469,7 +444,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = cw0;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -477,7 +451,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -485,7 +458,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// w00
 	steps[++is] = strokeWidth;
@@ -493,7 +465,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = cw0;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -501,7 +472,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -509,7 +479,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// w00
 	steps[++is] = strokeWidth;
@@ -517,7 +486,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = cw0;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -525,7 +493,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -533,7 +500,6 @@ export const buildTriangleRoundedStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 };
 
 export const buildTriangleRoundedUv = (

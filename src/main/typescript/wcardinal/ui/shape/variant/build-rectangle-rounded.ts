@@ -463,63 +463,55 @@ export const buildRectangleRoundedStep = (
 	//  |   |          |   |
 	//  |---|          |---|
 	//c10   c11      c14   c15
-	let is = voffset * 6 - 1;
+	let is = voffset * 5 - 1;
 	if (corner & EShapeCorner.TOP_LEFT) {
 		steps[++is] = strokeWidth;
 		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c01;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c10;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c00;
-		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
 		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cx1;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c1y;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cxy;
-		steps[++is] = 0;
 	}
 
 	if (corner & EShapeCorner.TOP_RIGHT) {
@@ -528,56 +520,48 @@ export const buildRectangleRoundedStep = (
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c01;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c00;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c10;
-		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
 		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cx1;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cxy;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c1y;
-		steps[++is] = 0;
 	}
 
 	if (corner & EShapeCorner.BOTTOM_LEFT) {
@@ -586,56 +570,48 @@ export const buildRectangleRoundedStep = (
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c10;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c00;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c01;
-		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
 		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c1y;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cxy;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c11;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cx1;
-		steps[++is] = 0;
 	}
 
 	if (corner & EShapeCorner.BOTTOM_RIGHT) {
@@ -644,56 +620,48 @@ export const buildRectangleRoundedStep = (
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c00;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c10;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c01;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
 		steps[++is] = c11;
-		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
 		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cxy;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c1y;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = cx1;
-		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
 		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
 		steps[++is] = c11;
-		steps[++is] = 0;
 	}
 
 	//     16  17  23  24
@@ -708,98 +676,84 @@ export const buildRectangleRoundedStep = (
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cx1;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c1y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cxy;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c0y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cx1;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c0y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cxy;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c1y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 30------31  37------38
 	//  |       |  |       |
@@ -813,98 +767,84 @@ export const buildRectangleRoundedStep = (
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c1y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cxy;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c0y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cx1;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c0y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cxy;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c1y;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = cx1;
-	steps[++is] = 0;
 };
 
 export const buildRectangleRoundedUv = (

@@ -60,70 +60,61 @@ export const buildImageSdfStep = (
 	const scaleX = textureWidth / worldSize[0];
 	const scaleY = textureHeight / worldSize[1];
 	const scaleZ = (scaleX + scaleY) * 0.5;
-	const strokeWidthMax = 12;
+	const strokeWidthRatio = strokeWidth / 12.0;
 	const position = -1 + strokeAlign;
 
-	let is = voffset * 6 - 1;
-	steps[++is] = strokeWidth;
+	let is = voffset * 5 - 1;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleY;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleX;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleX;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleY;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleY;
-	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 };

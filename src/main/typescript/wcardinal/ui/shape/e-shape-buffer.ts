@@ -47,7 +47,7 @@ export class EShapeBuffer {
 		this._vertexCount = 0;
 		this._vertexBuffer = null;
 
-		this.steps = new Float32Array(nvertices * 6);
+		this.steps = new Float32Array(nvertices * 5);
 		this._stepBuffer = null;
 
 		this.colorFills = new Float32Array(nvertices * 2);
@@ -128,8 +128,8 @@ export class EShapeBuffer {
 			this._geometry = result = new Geometry()
 				.addIndex(this._indexBuffer)
 				.addAttribute("aPosition", this._vertexBuffer, 2)
-				.addAttribute("aStep", this._stepBuffer, 2)
-				.addAttribute("aAntialias", this._stepBuffer, 4)
+				.addAttribute("aStep0", this._stepBuffer, 2)
+				.addAttribute("aStep1", this._stepBuffer, 3)
 				.addAttribute("aColorFill", this._colorFillBuffer, 2)
 				.addAttribute("aColorStroke", this._colorStrokeBuffer, 2)
 				.addAttribute("aUv", this._uvBuffer, 2);

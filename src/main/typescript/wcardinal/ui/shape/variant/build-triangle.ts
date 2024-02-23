@@ -114,13 +114,12 @@ export const buildTriangleStep = (
 	const c01 = toPackedF2x1024(0, 1);
 
 	// 000
-	let is = voffset * 6 - 1;
+	let is = voffset * 5 - 1;
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -128,7 +127,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -136,7 +134,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 010
 	steps[++is] = strokeWidth;
@@ -144,7 +141,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	// 010
 	steps[++is] = strokeWidth;
@@ -152,7 +148,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -160,7 +155,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
@@ -168,7 +162,6 @@ export const buildTriangleStep = (
 	steps[++is] = s;
 	steps[++is] = s;
 	steps[++is] = c10;
-	steps[++is] = 0;
 };
 
 export const buildTriangleUv = (

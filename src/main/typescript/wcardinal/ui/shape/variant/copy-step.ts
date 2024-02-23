@@ -9,8 +9,8 @@ export const copyStep = (
 	vcountPerPoint: number,
 	pointCount: number
 ): void => {
-	const iss0 = voffset * 6;
-	let isd = (voffset + vcountPerPoint) * 6;
+	const iss0 = voffset * 5;
+	let isd = (voffset + vcountPerPoint) * 5;
 	for (let i = 1; i < pointCount; ++i) {
 		let iss = iss0;
 		for (let j = 0; j < vcountPerPoint; ++j) {
@@ -19,9 +19,8 @@ export const copyStep = (
 			steps[isd + 2] = steps[iss + 2];
 			steps[isd + 3] = steps[iss + 3];
 			steps[isd + 4] = steps[iss + 4];
-			steps[isd + 5] = steps[iss + 5];
-			isd += 6;
-			iss += 6;
+			isd += 5;
+			iss += 5;
 		}
 	}
 };

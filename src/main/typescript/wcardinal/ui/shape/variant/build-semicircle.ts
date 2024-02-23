@@ -110,48 +110,42 @@ export const buildSemicircleStep = (
 	const c10 = toPackedF2x1024(1, 0);
 	const c00 = toPackedF2x1024(0, 0);
 
-	let is = voffset * 6 - 1;
+	let is = voffset * 5 - 1;
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
 	steps[++is] = c11;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
 	steps[++is] = c01;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
 	steps[++is] = c11;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
 	steps[++is] = c10;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
 	steps[++is] = c00;
-	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = e;
 	steps[++is] = ws0;
 	steps[++is] = ws1;
 	steps[++is] = c10;
-	steps[++is] = 0;
 };
 
 export const buildSemicircleUv = (
