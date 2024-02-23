@@ -6,31 +6,38 @@
 import { EShape } from "../e-shape";
 import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
 
+const NONE = 0;
+const VERTEX = 1;
+const STEP = 2;
+const COLOR_FILL = 4;
+const COLOR_STROKE = 8;
+const UV = 16;
+const INDEX = 32;
+
+const VERTEX_AND_STEP = VERTEX | STEP;
+const VERTEX_STEP_AND_UV = VERTEX_AND_STEP | UV;
+
+const ALL = VERTEX | STEP | COLOR_FILL | COLOR_STROKE | UV | INDEX;
+
 export const BuilderFlag = {
-	NONE: 0,
-	VERTEX: 1,
-	CLIPPING: 2,
-	STEP: 4,
-	COLOR_FILL: 8,
-	COLOR_STROKE: 16,
-	UV: 32,
-	INDEX: 64,
+	NONE,
+	VERTEX,
+	STEP,
+	COLOR_FILL,
+	COLOR_STROKE,
+	UV,
+	INDEX,
 
-	VERTEX_AND_STEP: 5,
-	VERTEX_STEP_AND_UV: 37,
-	VERTEX_STEP_AND_COLOR_FILL: 13,
-	VERTEX_CLIPPING_STEP_AND_UV: 39,
+	VERTEX_AND_STEP,
+	VERTEX_STEP_AND_UV,
 
-	CLIPPING_AND_INDEX: 66,
-
-	ALL: 127
+	ALL
 } as const;
 
 export type BuilderFlag = number;
 
 export interface BuilderBuffer {
 	readonly vertices: Float32Array;
-	readonly clippings: Float32Array;
 	readonly steps: Float32Array;
 	readonly colorFills: Float32Array;
 	readonly colorStrokes: Float32Array;
@@ -40,7 +47,6 @@ export interface BuilderBuffer {
 	check(vindex: number, ioffset: number, vcount: number, icount: number): boolean;
 
 	updateVertices(): void;
-	updateClippings(): void;
 	updateSteps(): void;
 	updateColorFills(): void;
 	updateColorStrokes(): void;

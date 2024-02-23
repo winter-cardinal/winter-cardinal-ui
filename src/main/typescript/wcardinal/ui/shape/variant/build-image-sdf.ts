@@ -2,21 +2,12 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toClippingPacked } from "./to-clipping-packed";
+import { toPackedI4x64 } from "./to-packed";
 
 export const IMAGE_SDF_VERTEX_COUNT = 9;
 export const IMAGE_SDF_INDEX_COUNT = 8;
 export const IMAGE_SDF_WORLD_SIZE: [number, number] = [0, 0];
 const IMAGE_SDF_WORK_POINT: Point = new Point();
-
-export const buildImageSdfClipping = (clippings: Float32Array, voffset: number): void => {
-	const c002 = toClippingPacked(0, 0, 2);
-	let ic = voffset - 1;
-	const icmax = voffset + IMAGE_SDF_VERTEX_COUNT - 1;
-	for (; ic < icmax; ) {
-		clippings[++ic] = c002;
-	}
-};
 
 export const buildImageSdfIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -64,6 +55,7 @@ export const buildImageSdfStep = (
 	worldSize: typeof IMAGE_SDF_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const e = toPackedI4x64(2, scaleInvariant, 1, 1);
 
 	const scaleX = textureWidth / worldSize[0];
 	const scaleY = textureHeight / worldSize[1];
@@ -73,63 +65,63 @@ export const buildImageSdfStep = (
 
 	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleY;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleX;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleX;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleY;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = scaleY;
 	steps[++is] = strokeWidthMax;
 	steps[++is] = position;

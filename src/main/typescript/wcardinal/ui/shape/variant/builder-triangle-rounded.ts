@@ -6,7 +6,6 @@
 import { EShape } from "../e-shape";
 import { EShapeCorner } from "../e-shape-corner";
 import {
-	buildTriangleRoundedClipping,
 	buildTriangleRoundedIndex,
 	buildTriangleRoundedStep,
 	buildTriangleRoundedUv,
@@ -44,12 +43,12 @@ export class BuilderTriangleRounded extends BuilderBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexClippingStepAndUv(buffer, shape);
+		this.updateVertexStepAndUv(buffer, shape);
 		this.updateColorFill(buffer, shape);
 		this.updateColorStroke(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -80,7 +79,7 @@ export class BuilderTriangleRounded extends BuilderBase {
 
 		const isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
 
-		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
 		if (
 			isNotInited ||
@@ -89,7 +88,7 @@ export class BuilderTriangleRounded extends BuilderBase {
 			isCornerChanged ||
 			isTextureChanged
 		) {
-			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.radius = radius;
@@ -117,11 +116,6 @@ export class BuilderTriangleRounded extends BuilderBase {
 				shape.transform.internalTransform,
 				TRIANGLE_ROUNDED_WORLD_SIZE
 			);
-
-			if (isNotInited || isRadiusChanged || isCornerChanged) {
-				buffer.updateClippings();
-				buildTriangleRoundedClipping(buffer.clippings, voffset, corner, radius);
-			}
 
 			if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 				buffer.updateSteps();

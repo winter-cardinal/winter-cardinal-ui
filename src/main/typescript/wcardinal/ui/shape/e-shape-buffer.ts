@@ -15,9 +15,6 @@ export class EShapeBuffer {
 	protected _vertexCount: number;
 	protected _vertexBuffer: Buffer | null;
 
-	clippings: Float32Array;
-	protected _clippingBuffer: Buffer | null;
-
 	steps: Float32Array;
 	protected _stepBuffer: Buffer | null;
 
@@ -50,9 +47,6 @@ export class EShapeBuffer {
 		this._vertexCount = 0;
 		this._vertexBuffer = null;
 
-		this.clippings = new Float32Array(nvertices);
-		this._clippingBuffer = null;
-
 		this.steps = new Float32Array(nvertices * 6);
 		this._stepBuffer = null;
 
@@ -83,13 +77,6 @@ export class EShapeBuffer {
 		const vertexBuffer = this._vertexBuffer;
 		if (vertexBuffer) {
 			vertexBuffer.update();
-		}
-	}
-
-	updateClippings(): void {
-		const clippingBuffer = this._clippingBuffer;
-		if (clippingBuffer) {
-			clippingBuffer.update();
 		}
 	}
 
@@ -132,7 +119,6 @@ export class EShapeBuffer {
 		let result = this._geometry;
 		if (result == null) {
 			this._vertexBuffer = new Buffer(this.vertices, false, false);
-			this._clippingBuffer = new Buffer(this.clippings, false, false);
 			this._stepBuffer = new Buffer(this.steps, false, false);
 			this._colorFillBuffer = new Buffer(this.colorFills, false, false);
 			this._colorStrokeBuffer = new Buffer(this.colorStrokes, false, false);
@@ -142,7 +128,6 @@ export class EShapeBuffer {
 			this._geometry = result = new Geometry()
 				.addIndex(this._indexBuffer)
 				.addAttribute("aPosition", this._vertexBuffer, 2)
-				.addAttribute("aClipping", this._clippingBuffer, 1)
 				.addAttribute("aStep", this._stepBuffer, 2)
 				.addAttribute("aAntialias", this._stepBuffer, 4)
 				.addAttribute("aColorFill", this._colorFillBuffer, 2)

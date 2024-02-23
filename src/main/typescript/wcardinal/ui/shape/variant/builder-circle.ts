@@ -5,7 +5,6 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildCircleClipping,
 	buildCircleIndex,
 	buildCircleStep,
 	buildCircleUv,
@@ -25,12 +24,10 @@ export class BuilderCircle extends BuilderBase {
 
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
-		buildCircleClipping(buffer.clippings, voffset);
 		buildCircleIndex(buffer.indices, voffset, this.indexOffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {

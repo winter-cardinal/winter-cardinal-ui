@@ -3,7 +3,7 @@ import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toClippingPacked } from "./to-clipping-packed";
+import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
 export const RECTANGLE_ROUNDED_VERTEX_COUNT = 44;
 export const RECTANGLE_ROUNDED_INDEX_COUNT = 24;
@@ -411,134 +411,6 @@ export const buildRectangleRoundedVertex = (
 	worldSize[4] = ry;
 };
 
-export const buildRectangleRoundedClipping = (
-	clippings: Float32Array,
-	voffset: number,
-	corner: EShapeCorner,
-	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
-): void => {
-	let ic = voffset - 1;
-	const rxi = 1 - worldSize[3];
-	const ryi = 1 - worldSize[4];
-	const c111 = toClippingPacked(1, 1, 1);
-	const c011 = toClippingPacked(0, 1, 1);
-	const c101 = toClippingPacked(1, 0, 1);
-	const c001 = toClippingPacked(0, 0, 1);
-	const c110 = toClippingPacked(1, 1, 0);
-	const cx10 = toClippingPacked(rxi, 1, 0);
-	const c1y0 = toClippingPacked(1, ryi, 0);
-	const cxy0 = toClippingPacked(rxi, ryi, 0);
-	const c010 = toClippingPacked(0, 1, 0);
-	const c0y0 = toClippingPacked(0, ryi, 0);
-	const c100 = toClippingPacked(1, 0, 0);
-	const c000 = toClippingPacked(0, 0, 0);
-
-	// c0   c1        c4   c5
-	//  |---|          |---|
-	//  |   |          |   |
-	//  |---|          |---|
-	// c2   c3        c6   c7
-	//
-	// c8   c9       c12   c13
-	//  |---|          |---|
-	//  |   |          |   |
-	//  |---|          |---|
-	//c10   c11      c14   c15
-	if (corner & EShapeCorner.TOP_LEFT) {
-		clippings[++ic] = c111;
-		clippings[++ic] = c011;
-		clippings[++ic] = c101;
-		clippings[++ic] = c001;
-	} else {
-		clippings[++ic] = c110;
-		clippings[++ic] = cx10;
-		clippings[++ic] = c1y0;
-		clippings[++ic] = cxy0;
-	}
-
-	if (corner & EShapeCorner.TOP_RIGHT) {
-		clippings[++ic] = c011;
-		clippings[++ic] = c111;
-		clippings[++ic] = c001;
-		clippings[++ic] = c101;
-	} else {
-		clippings[++ic] = cx10;
-		clippings[++ic] = c110;
-		clippings[++ic] = cxy0;
-		clippings[++ic] = c1y0;
-	}
-
-	if (corner & EShapeCorner.BOTTOM_LEFT) {
-		clippings[++ic] = c101;
-		clippings[++ic] = c001;
-		clippings[++ic] = c111;
-		clippings[++ic] = c011;
-	} else {
-		clippings[++ic] = c1y0;
-		clippings[++ic] = cxy0;
-		clippings[++ic] = c110;
-		clippings[++ic] = cx10;
-	}
-
-	if (corner & EShapeCorner.BOTTOM_RIGHT) {
-		clippings[++ic] = c001;
-		clippings[++ic] = c101;
-		clippings[++ic] = c011;
-		clippings[++ic] = c111;
-	} else {
-		clippings[++ic] = cxy0;
-		clippings[++ic] = c1y0;
-		clippings[++ic] = cx10;
-		clippings[++ic] = c110;
-	}
-
-	//     16  17  23  24
-	//      |---|  |---|
-	//      |   |  |   |
-	// 18--19--20  25--26--27
-	//  |       |  |       |
-	//  |       |  |       |
-	// 21------22  28------29
-	clippings[++ic] = cx10;
-	clippings[++ic] = c010;
-	clippings[++ic] = c1y0;
-	clippings[++ic] = cxy0;
-	clippings[++ic] = c0y0;
-	clippings[++ic] = c100;
-	clippings[++ic] = c000;
-
-	clippings[++ic] = c010;
-	clippings[++ic] = cx10;
-	clippings[++ic] = c0y0;
-	clippings[++ic] = cxy0;
-	clippings[++ic] = c1y0;
-	clippings[++ic] = c000;
-	clippings[++ic] = c100;
-
-	// 30------31  37------38
-	//  |       |  |       |
-	//  |       |  |       |
-	// 32--33--34  39--40--41
-	//      |   |  |   |
-	//      |---|  |---|
-	//     35  36  42  43
-	clippings[++ic] = c100;
-	clippings[++ic] = c000;
-	clippings[++ic] = c1y0;
-	clippings[++ic] = cxy0;
-	clippings[++ic] = c0y0;
-	clippings[++ic] = cx10;
-	clippings[++ic] = c010;
-
-	clippings[++ic] = c000;
-	clippings[++ic] = c100;
-	clippings[++ic] = c0y0;
-	clippings[++ic] = cxy0;
-	clippings[++ic] = c1y0;
-	clippings[++ic] = c010;
-	clippings[++ic] = cx10;
-};
-
 export const buildRectangleRoundedStep = (
 	steps: Float32Array,
 	voffset: number,
@@ -559,6 +431,27 @@ export const buildRectangleRoundedStep = (
 	const wb = strokeSide & EShapeStrokeSide.BOTTOM ? 1 : 0;
 	const wl = strokeSide & EShapeStrokeSide.LEFT ? 1 : 0;
 
+	const elt0 = toPackedI4x64(0, scaleInvariant, wl, wt);
+	const ert0 = toPackedI4x64(0, scaleInvariant, wr, wt);
+	const elb0 = toPackedI4x64(0, scaleInvariant, wl, wb);
+	const erb0 = toPackedI4x64(0, scaleInvariant, wr, wb);
+
+	const elt1 = toPackedI4x64(1, scaleInvariant, wl, wt);
+	const ert1 = toPackedI4x64(1, scaleInvariant, wr, wt);
+	const elb1 = toPackedI4x64(1, scaleInvariant, wl, wb);
+	const erb1 = toPackedI4x64(1, scaleInvariant, wr, wb);
+
+	const rxi = 1 - worldSize[3];
+	const ryi = 1 - worldSize[4];
+	const c11 = toPackedF2x1024(1, 1);
+	const c01 = toPackedF2x1024(0, 1);
+	const c10 = toPackedF2x1024(1, 0);
+	const c00 = toPackedF2x1024(0, 0);
+	const cx1 = toPackedF2x1024(rxi, 1);
+	const c1y = toPackedF2x1024(1, ryi);
+	const cxy = toPackedF2x1024(rxi, ryi);
+	const c0y = toPackedF2x1024(0, ryi);
+
 	// c0   c1        c4   c5
 	//  |---|          |---|
 	//  |   |          |   |
@@ -573,234 +466,234 @@ export const buildRectangleRoundedStep = (
 	let is = voffset * 6 - 1;
 	if (corner & EShapeCorner.TOP_LEFT) {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = c11;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = c01;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = c10;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = c00;
+		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = c11;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = cx1;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = c1y;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elt0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wt;
+		steps[++is] = cxy;
+		steps[++is] = 0;
 	}
 
 	if (corner & EShapeCorner.TOP_RIGHT) {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = c01;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = c11;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = c00;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = c10;
+		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = cx1;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = c11;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = cxy;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = ert0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = c1y;
+		steps[++is] = 0;
 	}
 
 	if (corner & EShapeCorner.BOTTOM_LEFT) {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = c10;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = c00;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = c11;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = c01;
+		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = c1y;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = cxy;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = c11;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = elb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wl;
-		steps[++is] = wb;
+		steps[++is] = cx1;
+		steps[++is] = 0;
 	}
 
 	if (corner & EShapeCorner.BOTTOM_RIGHT) {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = c00;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = c10;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = c01;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb1;
 		steps[++is] = a;
 		steps[++is] = a;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = c11;
+		steps[++is] = 0;
 	} else {
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = cxy;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = c1y;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = cx1;
+		steps[++is] = 0;
 
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
+		steps[++is] = erb0;
 		steps[++is] = ax;
 		steps[++is] = ay;
-		steps[++is] = wr;
-		steps[++is] = wb;
+		steps[++is] = c11;
+		steps[++is] = 0;
 	}
 
 	//     16  17  23  24
@@ -811,102 +704,102 @@ export const buildRectangleRoundedStep = (
 	//  |       |  |       |
 	// 21------22  28------29
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = cx1;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c1y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = cxy;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c0y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = cx1;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = c0y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = cxy;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = c1y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	// 30------31  37------38
 	//  |       |  |       |
@@ -916,102 +809,102 @@ export const buildRectangleRoundedStep = (
 	//      |---|  |---|
 	//     35  36  42  43
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c1y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = cxy;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c0y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = cx1;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c0y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = cxy;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c1y;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = erb0;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = cx1;
+	steps[++is] = 0;
 };
 
 export const buildRectangleRoundedUv = (

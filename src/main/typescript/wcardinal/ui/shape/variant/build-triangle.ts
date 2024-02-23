@@ -2,27 +2,12 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toClippingPacked } from "./to-clipping-packed";
+import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
 export const TRIANGLE_VERTEX_COUNT = 7;
 export const TRIANGLE_INDEX_COUNT = 3;
 export const TRIANGLE_WORLD_SIZE: [number, number, number] = [0, 0, 0];
 const TRIANGLE_WORK_POINT: Point = new Point();
-
-export const buildTriangleClipping = (clippings: Float32Array, voffset: number): void => {
-	const c000 = toClippingPacked(0, 0, 0);
-	const c100 = toClippingPacked(1, 0, 0);
-	const c010 = toClippingPacked(0, 1, 0);
-
-	let iv = voffset - 1;
-	clippings[++iv] = c000;
-	clippings[++iv] = c100;
-	clippings[++iv] = c100;
-	clippings[++iv] = c010;
-	clippings[++iv] = c010;
-	clippings[++iv] = c100;
-	clippings[++iv] = c100;
-};
 
 export const buildTriangleIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -122,62 +107,68 @@ export const buildTriangleStep = (
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const s = worldSize[0];
 
+	const e = toPackedI4x64(0, scaleInvariant, 1, 1);
+
+	const c00 = toPackedF2x1024(0, 0);
+	const c10 = toPackedF2x1024(1, 0);
+	const c01 = toPackedF2x1024(0, 1);
+
 	// 000
 	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	// 010
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	// 010
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	// 100
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e;
 	steps[++is] = s;
 	steps[++is] = s;
-	steps[++is] = 1;
-	steps[++is] = 1;
+	steps[++is] = c10;
+	steps[++is] = 0;
 };
 
 export const buildTriangleUv = (

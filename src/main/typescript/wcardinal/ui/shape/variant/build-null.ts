@@ -1,13 +1,3 @@
-export const buildNullClipping = (
-	clippings: Float32Array,
-	voffset: number,
-	vcount: number
-): void => {
-	for (let i = voffset, imax = voffset + vcount; i < imax; ++i) {
-		clippings[i] = 0;
-	}
-};
-
 export const buildNullIndex = (
 	indices: Uint16Array | Uint32Array,
 	voffset: number,

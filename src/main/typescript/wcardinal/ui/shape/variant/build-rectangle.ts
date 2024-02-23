@@ -3,51 +3,12 @@ import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toClippingPacked } from "./to-clipping-packed";
+import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
 export const RECTANGLE_VERTEX_COUNT = 16;
 export const RECTANGLE_INDEX_COUNT = 8;
 export const RECTANGLE_WORLD_SIZE: [number, number] = [0, 0];
 const RECTANGLE_WORK_POINT: Point = new Point();
-
-export const buildRectangleClipping = (clippings: Float32Array, voffset: number): void => {
-	const c110 = toClippingPacked(1, 1, 0);
-	const c010 = toClippingPacked(0, 1, 0);
-	const c000 = toClippingPacked(0, 0, 0);
-	const c100 = toClippingPacked(1, 0, 0);
-
-	// c0     c1   c4     c5
-	//  |-----|     |-----|
-	//  |     |     |     |
-	//  |-----|     |-----|
-	// c2     c3   c6     c7
-	//
-	// c8     c9   c12   c13
-	//  |-----|     |-----|
-	//  |     |     |     |
-	//  |-----|     |-----|
-	// c10   c11   c14   c15
-	let ic = voffset - 1;
-	clippings[++ic] = c110;
-	clippings[++ic] = c010;
-	clippings[++ic] = c100;
-	clippings[++ic] = c000;
-
-	clippings[++ic] = c010;
-	clippings[++ic] = c110;
-	clippings[++ic] = c000;
-	clippings[++ic] = c100;
-
-	clippings[++ic] = c100;
-	clippings[++ic] = c000;
-	clippings[++ic] = c110;
-	clippings[++ic] = c010;
-
-	clippings[++ic] = c000;
-	clippings[++ic] = c100;
-	clippings[++ic] = c010;
-	clippings[++ic] = c110;
-};
 
 export const buildRectangleIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -218,6 +179,16 @@ export const buildRectangleStep = (
 	const wb = strokeSide & EShapeStrokeSide.BOTTOM ? 1 : 0;
 	const wl = strokeSide & EShapeStrokeSide.LEFT ? 1 : 0;
 
+	const elt = toPackedI4x64(0, scaleInvariant, wl, wt);
+	const ert = toPackedI4x64(0, scaleInvariant, wr, wt);
+	const elb = toPackedI4x64(0, scaleInvariant, wl, wb);
+	const erb = toPackedI4x64(0, scaleInvariant, wr, wb);
+
+	const c11 = toPackedF2x1024(1, 1);
+	const c01 = toPackedF2x1024(0, 1);
+	const c00 = toPackedF2x1024(0, 0);
+	const c10 = toPackedF2x1024(1, 0);
+
 	// c0     c1   c4     c5
 	//  |-----|     |-----|
 	//  |     |     |     |
@@ -231,119 +202,119 @@ export const buildRectangleStep = (
 	// c10   c11   c14   c15
 	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c11;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wt;
-
-	//
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ax;
-	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ax;
-	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ax;
-	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
-
-	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = ax;
-	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wt;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	//
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c11;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c00;
+	steps[++is] = wt;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wl;
-	steps[++is] = wb;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	//
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c11;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
-	steps[++is] = wr;
-	steps[++is] = wb;
+	steps[++is] = c01;
+	steps[++is] = 0;
+
+	//
+	steps[++is] = strokeWidth;
+	steps[++is] = erb;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c00;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = erb;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = erb;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c01;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = erb;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c11;
+	steps[++is] = 0;
 };
 
 export const buildRectangleUv = (

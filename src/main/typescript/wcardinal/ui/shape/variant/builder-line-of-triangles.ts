@@ -6,7 +6,6 @@
 import { EShape } from "../e-shape";
 import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildTriangleClipping,
 	buildTriangleIndex,
 	buildTriangleStep,
 	buildTriangleUv,
@@ -18,7 +17,6 @@ import {
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
-import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
@@ -29,16 +27,12 @@ import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 export class BuilderLineOfTriangles extends BuilderLineOfAny {
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		const clippings = buffer.clippings;
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildTriangleClipping(clippings, voffset);
-			copyClipping(clippings, voffset, TRIANGLE_VERTEX_COUNT, pointCountReserved);
 			buildTriangleIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
@@ -48,7 +42,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 				pointCountReserved
 			);
 		}
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {

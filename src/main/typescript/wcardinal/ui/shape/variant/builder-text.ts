@@ -9,7 +9,6 @@ import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
 import { EShapeTextAtlas } from "../e-shape-text";
 import { buildColor } from "./build-color";
 import {
-	buildTextClipping,
 	buildTextIndex,
 	buildTextStep,
 	buildTextVertex,
@@ -111,17 +110,13 @@ export class BuilderText implements Builder {
 	init(): this {
 		const vcount = this.vertexCount;
 		if (0 < vcount) {
-			// Clippings
+			// Indices
 			const buffer = this.buffer;
 			const voffset = this.vertexOffset;
-			buffer.updateClippings();
-			buildTextClipping(buffer.clippings, voffset, vcount);
-
-			// Indices
 			buffer.updateIndices();
 			buildTextIndex(buffer.indices, voffset, this.indexOffset, this.indexCount);
 		}
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 		return this;
 	}
 

@@ -5,24 +5,13 @@ import { toScaleInvariant } from "./to-scale-invariant";
 import { toVector } from "./to-vector";
 import { toNormal } from "./to-normal";
 import { toNormalPacked } from "./to-normal-packed";
-import { toClippingPacked } from "./to-clipping-packed";
+import { toPackedI4x64 } from "./to-packed";
 
 export const BAR_VERTEX_COUNT = 4;
 export const BAR_INDEX_COUNT = 2;
 const BAR_NPREV = [0, 1];
 const BAR_NNEXT = [0, 1];
 const BAR_FMIN: number = 0.00001;
-
-export const buildBarClipping = (clippings: Float32Array, voffset: number): void => {
-	const c103 = toClippingPacked(1, 0, 3);
-	const c015 = toClippingPacked(0, 1, 5);
-
-	let ic = voffset - 1;
-	clippings[++ic] = c103;
-	clippings[++ic] = c015;
-	clippings[++ic] = c103;
-	clippings[++ic] = c015;
-};
 
 export const buildBarIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -91,6 +80,8 @@ export const buildBarVertexStep = (
 
 	//
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const e3 = toPackedI4x64(3, scaleInvariant, 0, 0);
+	const e5 = toPackedI4x64(5, scaleInvariant, 0, 0);
 	const dash = toDash(strokeStyle);
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
@@ -99,13 +90,13 @@ export const buildBarVertexStep = (
 	vertices[++iv] = p1x;
 	vertices[++iv] = p1y;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e3;
 	steps[++is] = packed;
 	steps[++is] = dash;
 	steps[++is] = 0;
 	steps[++is] = l;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e5;
 	steps[++is] = packed;
 	steps[++is] = dash;
 	steps[++is] = 0;
@@ -116,13 +107,13 @@ export const buildBarVertexStep = (
 	vertices[++iv] = p2x;
 	vertices[++iv] = p2y;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e3;
 	steps[++is] = packed;
 	steps[++is] = dash;
 	steps[++is] = l;
 	steps[++is] = l;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e5;
 	steps[++is] = packed;
 	steps[++is] = dash;
 	steps[++is] = l;

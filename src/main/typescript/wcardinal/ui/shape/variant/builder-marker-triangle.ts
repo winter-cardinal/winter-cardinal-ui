@@ -6,7 +6,6 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
-	buildTriangleClipping,
 	buildTriangleIndex,
 	buildTriangleStep,
 	buildTriangleUv,
@@ -30,11 +29,9 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		buildTriangleClipping(buffer.clippings, this.vertexOffset);
 		buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {

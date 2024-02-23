@@ -7,7 +7,7 @@ import { toNormalPacked } from "./to-normal-packed";
 import { toVectorLength } from "./to-vector-length";
 import { toVector } from "./to-vector";
 import { toNormal } from "./to-normal";
-import { toClippingPacked } from "./to-clipping-packed";
+import { toPackedI4x64 } from "./to-packed";
 
 const LINE_FMIN: number = 0.00001;
 const LINE_NPREV = [0, 1];
@@ -35,31 +35,6 @@ export const toLineVertexCount = (pointCount: number, isClosed: boolean): number
 
 export const toLineIndexCount = (pointCount: number, isClosed: boolean): number => {
 	return toLineVertexCount(pointCount, isClosed) - 2;
-};
-
-export const buildLineClipping = (
-	clippings: Float32Array,
-	voffset: number,
-	vcount: number,
-	pointCount: number
-): void => {
-	const c103 = toClippingPacked(1, 0, 3);
-	const c015 = toClippingPacked(0, 1, 5);
-	const c104 = toClippingPacked(1, 0, 4);
-	const c016 = toClippingPacked(0, 1, 6);
-
-	let ic = voffset - 1;
-	const icmax = voffset + vcount - 1;
-	for (let i = 0; i < pointCount; ++i) {
-		clippings[++ic] = c103;
-		clippings[++ic] = c015;
-		clippings[++ic] = c104;
-		clippings[++ic] = c016;
-	}
-	for (; ic < icmax; ) {
-		clippings[++ic] = c103;
-		clippings[++ic] = c015;
-	}
 };
 
 export const buildLineIndex = (
@@ -174,18 +149,19 @@ const fillTransformedLineVertexStep = (
 	px: number,
 	py: number,
 	strokeWidth: number,
-	scaleInvariant: number,
 	nprev: number[],
 	nnext: number[],
 	llo: number,
-	dashCode: number
+	dashCode: number,
+	e0: number,
+	e1: number
 ): void => {
 	const d = toNormalPacked(nprev, nnext);
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e0;
 
 	steps[++is] = d;
 	steps[++is] = dashCode;
@@ -195,7 +171,7 @@ const fillTransformedLineVertexStep = (
 	vertices[++iv] = px;
 	vertices[++iv] = py;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
+	steps[++is] = e1;
 
 	steps[++is] = d;
 	steps[++is] = dashCode;
@@ -412,6 +388,9 @@ const buildTransformedLineEmptyVertexStep = (
 ): number => {
 	if (0 <= vcount) {
 		const scaleInvariant = toScaleInvariant(strokeStyle);
+		const e3 = toPackedI4x64(3, scaleInvariant, 0, 0);
+		const e5 = toPackedI4x64(5, scaleInvariant, 0, 0);
+
 		const dash = toDash(strokeStyle);
 		let iv = (voffset << 1) - 1;
 		let is = voffset * 6 - 1;
@@ -423,7 +402,16 @@ const buildTransformedLineEmptyVertexStep = (
 			vertices[++iv] = px;
 			vertices[++iv] = py;
 			steps[++is] = 0;
-			steps[++is] = scaleInvariant;
+			steps[++is] = e3;
+			steps[++is] = 0;
+			steps[++is] = dash;
+			steps[++is] = length;
+			steps[++is] = length;
+
+			vertices[++iv] = px;
+			vertices[++iv] = py;
+			steps[++is] = 0;
+			steps[++is] = e5;
 			steps[++is] = 0;
 			steps[++is] = dash;
 			steps[++is] = length;
@@ -448,6 +436,10 @@ const buildTransformedLineOpenSegmentVertexStep = (
 	length: number
 ): number => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const e3 = toPackedI4x64(3, scaleInvariant, 0, 0);
+	const e4 = toPackedI4x64(4, scaleInvariant, 0, 0);
+	const e5 = toPackedI4x64(5, scaleInvariant, 0, 0);
+	const e6 = toPackedI4x64(6, scaleInvariant, 0, 0);
 
 	// First segment
 	const ifirst = lineVertexFrom % lineVertexCount << 1;
@@ -478,11 +470,12 @@ const buildTransformedLineOpenSegmentVertexStep = (
 		px,
 		py,
 		strokeWidth,
-		scaleInvariant,
 		nprev,
 		nnext,
 		length,
-		dash
+		dash,
+		e3,
+		e5
 	);
 	iv += 4;
 	is += 12;
@@ -495,11 +488,12 @@ const buildTransformedLineOpenSegmentVertexStep = (
 		px,
 		py,
 		strokeWidth,
-		scaleInvariant,
 		nprev,
 		nnext,
 		l,
-		dash
+		dash,
+		e4,
+		e6
 	);
 	iv += 4;
 	is += 12;
@@ -530,11 +524,12 @@ const buildTransformedLineOpenSegmentVertexStep = (
 			px,
 			py,
 			strokeWidth,
-			scaleInvariant,
 			nprev,
 			nnext,
 			l,
-			dash
+			dash,
+			e3,
+			e5
 		);
 		iv += 4;
 		is += 12;
@@ -547,11 +542,12 @@ const buildTransformedLineOpenSegmentVertexStep = (
 			px,
 			py,
 			strokeWidth,
-			scaleInvariant,
 			nprev,
 			nnext,
 			l,
-			dash
+			dash,
+			e4,
+			e6
 		);
 		iv += 4;
 		is += 12;
@@ -581,11 +577,12 @@ const buildTransformedLineOpenSegmentVertexStep = (
 		px,
 		py,
 		strokeWidth,
-		scaleInvariant,
 		nprev,
 		nnext,
 		l,
-		dash
+		dash,
+		e3,
+		e5
 	);
 	iv += 4;
 	is += 12;
@@ -598,11 +595,12 @@ const buildTransformedLineOpenSegmentVertexStep = (
 		px,
 		py,
 		strokeWidth,
-		scaleInvariant,
 		nprev,
 		nnext,
 		l,
-		dash
+		dash,
+		e4,
+		e6
 	);
 	iv += 4;
 	is += 12;
@@ -624,7 +622,16 @@ const buildTransformedLineOpenSegmentVertexStep = (
 			vertices[++iv] = px;
 			vertices[++iv] = py;
 			steps[++is] = 0;
-			steps[++is] = scaleInvariant;
+			steps[++is] = e3;
+			steps[++is] = d;
+			steps[++is] = dash;
+			steps[++is] = l;
+			steps[++is] = l;
+
+			vertices[++iv] = px;
+			vertices[++iv] = py;
+			steps[++is] = 0;
+			steps[++is] = e5;
 			steps[++is] = d;
 			steps[++is] = dash;
 			steps[++is] = l;
@@ -648,6 +655,10 @@ const buildTransformedLineClosedSegmentVertexStep = (
 	strokeStyle: EShapeStrokeStyle
 ): number => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const e3 = toPackedI4x64(3, scaleInvariant, 0, 0);
+	const e4 = toPackedI4x64(4, scaleInvariant, 0, 0);
+	const e5 = toPackedI4x64(5, scaleInvariant, 0, 0);
+	const e6 = toPackedI4x64(6, scaleInvariant, 0, 0);
 
 	const ilast = (lineVertexTo - 1) % lineVertexCount << 1;
 	let pprevx = 0;
@@ -694,11 +705,12 @@ const buildTransformedLineClosedSegmentVertexStep = (
 			px,
 			py,
 			strokeWidth,
-			scaleInvariant,
 			nprev,
 			nnext,
 			l,
-			dash
+			dash,
+			e3,
+			e5
 		);
 		iv += 4;
 		is += 12;
@@ -711,11 +723,12 @@ const buildTransformedLineClosedSegmentVertexStep = (
 			px,
 			py,
 			strokeWidth,
-			scaleInvariant,
 			nprev,
 			nnext,
 			l,
-			dash
+			dash,
+			e4,
+			e6
 		);
 		iv += 4;
 		is += 12;
@@ -746,18 +759,19 @@ const buildTransformedLineClosedSegmentVertexStep = (
 		px,
 		py,
 		strokeWidth,
-		scaleInvariant,
 		nprev,
 		nnext,
 		l,
-		dash
+		dash,
+		e3,
+		e5
 	);
 	iv += 4;
 	is += 12;
 
 	// Total length
 	for (let i = voffset * 6 - 1; i < is; i += 6) {
-		steps[i + 6] = l;
+		steps[i + 6] = -l;
 	}
 
 	// Fill the rest
@@ -768,11 +782,20 @@ const buildTransformedLineClosedSegmentVertexStep = (
 			vertices[++iv] = px;
 			vertices[++iv] = py;
 			steps[++is] = strokeWidth;
-			steps[++is] = scaleInvariant;
+			steps[++is] = e3;
 			steps[++is] = d;
 			steps[++is] = dash;
 			steps[++is] = l;
+			steps[++is] = -l;
+
+			vertices[++iv] = px;
+			vertices[++iv] = py;
+			steps[++is] = strokeWidth;
+			steps[++is] = e5;
+			steps[++is] = d;
+			steps[++is] = dash;
 			steps[++is] = l;
+			steps[++is] = -l;
 		}
 	}
 	return l;

@@ -8,7 +8,6 @@ import { EShapePointsStyle } from "../e-shape-points-style";
 import {
 	BAR_INDEX_COUNT,
 	BAR_VERTEX_COUNT,
-	buildBarClipping,
 	buildBarIndex,
 	buildBarUv,
 	buildBarVertexStep
@@ -32,11 +31,9 @@ export class BuilderBar extends BuilderBase {
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		buildBarClipping(buffer.clippings, voffset);
 		buildBarIndex(buffer.indices, voffset, ioffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
@@ -70,7 +67,7 @@ export class BuilderBar extends BuilderBase {
 			const pointsStyle = points.style;
 			const isPointsStyleChanged = pointsStyle !== this.pointsStyle;
 
-			const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_COLOR_FILL);
+			const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
 
 			if (
 				isNotInited ||
@@ -80,7 +77,7 @@ export class BuilderBar extends BuilderBase {
 				isPointsIdChanged ||
 				isPointsStyleChanged
 			) {
-				this.inited |= BuilderFlag.VERTEX_STEP_AND_COLOR_FILL;
+				this.inited |= BuilderFlag.VERTEX_AND_STEP;
 				this.sizeX = sizeX;
 				this.sizeY = sizeY;
 				this.strokeWidth = strokeWidth;

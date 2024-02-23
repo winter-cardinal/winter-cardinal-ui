@@ -5,7 +5,6 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildSemicircleClipping,
 	buildSemicircleIndex,
 	buildSemicircleStep,
 	buildSemicircleUv,
@@ -25,12 +24,10 @@ export class BuilderSemicircle extends BuilderBase {
 
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
-		buildSemicircleClipping(buffer.clippings, voffset);
 		buildSemicircleIndex(buffer.indices, voffset, this.indexOffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
