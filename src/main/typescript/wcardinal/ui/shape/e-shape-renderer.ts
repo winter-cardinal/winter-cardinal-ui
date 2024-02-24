@@ -212,7 +212,11 @@ uniform sampler2D sampler;
 uniform mediump float pixelScale;
 uniform mediump float antialiasWeight;
 
-vec4 toColor0(in vec4 texture, in vec2 c, in vec2 d, in vec2 awd, in vec2 swd) {
+vec4 toColor0(in vec4 texture) {
+	vec2 d = vAnti.xy;
+	vec2 c = vAnti.zw;
+	vec2 awd = pixelScale * antialiasWeight / d;
+	vec2 swd = vStep / d;
 	vec2 one = vec2(1.0);
 	vec2 zero = vec2(0.0);
 	vec2 p0 = clamp(one - awd, zero, one);
@@ -228,31 +232,18 @@ vec4 toColor0(in vec4 texture, in vec2 c, in vec2 d, in vec2 awd, in vec2 swd) {
 	);
 }
 
-vec4 toColor1(in vec4 texture, in vec2 c, in vec2 d, in vec2 awd, in vec2 swd) {
-	float awa = mix(awd.x, awd.y, 0.5);
-	float swa = mix(swd.x, swd.y, 0.5);
-	vec2 one = vec2(1.0);
-	vec2 zero = vec2(0.0);
-	vec2 p = clamp(vec2(1.0 - awa, 1.0 - awa / (1.0 - swa)), zero, one);
-	vec2 e = vec2(
-		length(c),
-		length(c / clamp(one - swd, zero, one))
-	);
-	vec2 s = smoothstep(p, one, e);
-	return texture * (
-		vColorStroke * (s.y - s.x) +
-		vColorFill * (1.0 - s.y)
-	);
-}
-
-vec4 toColor01(in float type, in vec4 texture) {
+vec4 toColor1(in vec4 texture) {
 	vec2 d = vAnti.xy;
 	vec2 c = vAnti.zw;
 	vec2 awd = pixelScale * antialiasWeight / d;
 	vec2 swd = vStep / d;
-	return (type < 0.5 ?
-		toColor0(texture, c, d, awd, swd) :
-		toColor1(texture, c, d, awd, swd)
+	vec2 one = vec2(1.0);
+	vec2 zero = vec2(0.0);
+	float s0 = smoothstep(length(c), length(c/clamp(one - awd, zero, one)), 1.0);
+	float s1 = smoothstep(length(c/clamp(one - swd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);
+	return texture * (
+		vColorStroke * (s0 - s1) +
+		vColorFill * s1
 	);
 }
 
@@ -286,7 +277,10 @@ vec4 toColor3(in vec4 texture) {
 void main(void) {
 	vec4 texture = texture2D(sampler, vUv);
 	gl_FragColor = (vType < 1.5 ?
-		toColor01(vType, texture) :
+		(vType < 0.5 ?
+			toColor0(texture) :
+			toColor1(texture)
+		) :
 		(vType < 2.5 ?
 			toColor2(texture) :
 			toColor3(texture)
