@@ -128,8 +128,8 @@ export class EShapeBuffer {
 			this._geometry = result = new Geometry()
 				.addIndex(this._indexBuffer)
 				.addAttribute("aPosition", this._vertexBuffer, 2)
-				.addAttribute("aStep0", this._stepBuffer, 2)
-				.addAttribute("aStep1", this._stepBuffer, 3)
+				.addAttribute("aStepA", this._stepBuffer, 2)
+				.addAttribute("aStepB", this._stepBuffer, 3)
 				.addAttribute("aColorFill", this._colorFillBuffer, 2)
 				.addAttribute("aColorStroke", this._colorStrokeBuffer, 2)
 				.addAttribute("aUv", this._uvBuffer, 2);
