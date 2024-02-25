@@ -200,30 +200,34 @@ export const buildRectangleStep = (
 	//  |     |     |     |
 	//  |-----|     |-----|
 	// c10   c11   c14   c15
-	let is = voffset * 5 - 1;
+	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidth;
 	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c11;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elt;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
+	steps[++is] = 0;
 
 	//
 	steps[++is] = strokeWidth;
@@ -231,24 +235,28 @@ export const buildRectangleStep = (
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c11;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = ert;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
+	steps[++is] = 0;
 
 	//
 	steps[++is] = strokeWidth;
@@ -256,24 +264,28 @@ export const buildRectangleStep = (
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c11;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = elb;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
+	steps[++is] = 0;
 
 	//
 	steps[++is] = strokeWidth;
@@ -281,24 +293,28 @@ export const buildRectangleStep = (
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c00;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c10;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c01;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidth;
 	steps[++is] = erb;
 	steps[++is] = ax;
 	steps[++is] = ay;
 	steps[++is] = c11;
+	steps[++is] = 0;
 };
 
 export const buildRectangleUv = (

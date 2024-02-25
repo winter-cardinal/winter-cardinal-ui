@@ -23,7 +23,7 @@ import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 const VERTEX_SHADER = `
 attribute highp vec2 aPosition;
 attribute highp vec2 aStepA;
-attribute highp vec3 aStepB;
+attribute highp vec4 aStepB;
 attribute highp vec3 aColor;
 attribute highp vec2 aUv;
 
@@ -83,58 +83,59 @@ vec2 toPosition012(in vec2 v) {
 	return (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;
 }
 
-vec4 toStepB01(in vec3 a) {
-	return vec4(a.xy, toUnpackedF2x1024(a.z));
+vec4 toStepB01(in vec4 sb) {
+	return vec4(sb.xy, toUnpackedF2x1024(sb.z));
 }
 
-vec4 toStepB2(in vec3 antialias, in float strokeWidth) {
-	float x = min(0.4, 0.4 / 12.0 * antialias.x * antialiasWeight);
+vec4 toStepB2(in vec4 sb, in float strokeWidth) {
+	float x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);
 	float w = clamp(strokeWidth, 0.0, 1.0) * 0.4;
-	float p = w * antialias.y + antialias.z;
+	float p = w * sb.y + sb.z;
 	float y = 0.5 - p;
 	float z = 0.5 - p - w;
 	return vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));
 }
 
-vec2 toPosition3(in float type, in vec2 p, in float npacked, in float strokeWidth, out float shift) {
-	vec3 t = vec3(1.0, 1.0/128.0, 1.0/128.0/128.0) * npacked;
+vec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {
+	vec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;
 	t -= fract(t);
-	t -= t.yzx * vec3(128.0, 128.0, 0.0);
-	t *= vec3(1.0/63.5, 1.0/63.5, 1.0);
+	t -= t.yzx * vec3(1024.0, 1024.0, 0.0);
+	t *= vec3(1.0/511.5, 1.0/511.5, 1.0);
 	t -= vec3(1.0, 1.0, 0.0);
 	vec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));
 	vec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));
 
-	vec2 n0i = toInverse( n0 );
-	vec2 n1i = toInverse( n1 );
-	float direction = sign( 4.5 - type );
+	vec2 n0i = toInverse(n0);
+	vec2 n1i = toInverse(n1);
+	float direction = sign(4.5 - type);
 
 	// Offset
-	float cross = dot( n0i, n1 );
-	float crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );
-	float b = dot(n1 - n0, n0) * crossInverse;
+	float cross = dot(n0i, n1);
+	bool bcross = 0.00001 < abs(cross);
+	float crossi = (bcross ? 1.0 / cross : 0.0);
+	float b = dot(n1 - n0, n0) * crossi;
 	float offsetSize = direction * strokeWidth * 0.5;
 	vec2 offset = n1 + n1i * b;
 
 	// Miter
 	vec2 pmiter = p + offsetSize * offset;
-	float miterAngle0 = dot( n0i, offset + n0i );
-	float miterAngle1 = dot( n1i, offset - n1i );
+	float miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );
+	float miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );
 	float miterLength = dot( offset, offset );
 	float miterSide = direction * cross;
 
 	// Bevel
-	vec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );
+	vec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);
 	vec2 pbevel = p + offsetSize * n;
 
 	//
 	vec2 presult = (
 		0.0 <= miterSide ?
-		( miterAngle0 < 0.0 && 0.0 <= miterAngle1 ? pmiter : pbevel ) :
-		( miterLength < 6.0 ? pmiter : pbevel )
+		(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :
+		(miterLength < 6.0 && bcross ? pmiter : pbevel)
 	);
-	vec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );
-	shift = dot( ni, p - presult );
+	vec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);
+	shift = dot(ni, p - presult);
 	return toPosition012(presult);
 }
 
@@ -196,7 +197,7 @@ void main(void) {
 
 	// Type 3 ~ 6
 	float shift3 = 0.0;
-	vec2 p3 = toPosition3(type, aPosition, aStepB.x, strokeWidth, shift3);
+	vec2 p3 = toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3);
 	vec2 sa3 = toStepA3(type, strokeWidth);
 	vec4 sb3 = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
 

@@ -84,7 +84,7 @@ export const buildBarVertexStep = (
 	const e3 = toPackedI4x64(3, scaleInvariant, dash, 0);
 	const e5 = toPackedI4x64(5, scaleInvariant, dash, 0);
 	let iv = (voffset << 1) - 1;
-	let is = voffset * 5 - 1;
+	let is = voffset * 6 - 1;
 	vertices[++iv] = p1x;
 	vertices[++iv] = p1y;
 	vertices[++iv] = p1x;
@@ -94,11 +94,13 @@ export const buildBarVertexStep = (
 	steps[++is] = packed;
 	steps[++is] = 0;
 	steps[++is] = l;
+	steps[++is] = 0;
 	steps[++is] = strokeWidth;
 	steps[++is] = e5;
 	steps[++is] = packed;
 	steps[++is] = 0;
 	steps[++is] = l;
+	steps[++is] = 0;
 
 	vertices[++iv] = p2x;
 	vertices[++iv] = p2y;
@@ -109,11 +111,13 @@ export const buildBarVertexStep = (
 	steps[++is] = packed;
 	steps[++is] = l;
 	steps[++is] = l;
+	steps[++is] = 0;
 	steps[++is] = strokeWidth;
 	steps[++is] = e5;
 	steps[++is] = packed;
 	steps[++is] = l;
 	steps[++is] = l;
+	steps[++is] = 0;
 };
 
 export const buildBarUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {

@@ -19,7 +19,7 @@ export const buildNullVertex = (vertices: Float32Array, voffset: number, vcount:
 };
 
 export const buildNullStep = (steps: Float32Array, voffset: number, vcount: number): void => {
-	for (let i = voffset * 5, imax = (voffset + vcount) * 5; i < imax; i += 5) {
+	for (let i = voffset * 6, imax = (voffset + vcount) * 6; i < imax; i += 6) {
 		steps[i + 0] = 0;
 		steps[i + 1] = 0;
 		steps[i + 2] = 0;

@@ -63,11 +63,12 @@ export const buildImageSdfStep = (
 	const strokeWidthRatio = strokeWidth / 12.0;
 	const position = -1 + strokeAlign;
 
-	let is = voffset * 5 - 1;
+	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = position;
+	steps[++is] = 0;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
@@ -75,11 +76,13 @@ export const buildImageSdfStep = (
 	steps[++is] = scaleY;
 	steps[++is] = position;
 	steps[++is] = 0;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = position;
+	steps[++is] = 0;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
@@ -87,11 +90,13 @@ export const buildImageSdfStep = (
 	steps[++is] = scaleX;
 	steps[++is] = position;
 	steps[++is] = 0;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = position;
+	steps[++is] = 0;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
@@ -99,23 +104,27 @@ export const buildImageSdfStep = (
 	steps[++is] = scaleX;
 	steps[++is] = position;
 	steps[++is] = 0;
+	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleZ;
 	steps[++is] = position;
 	steps[++is] = 0;
-
-	steps[++is] = strokeWidthRatio;
-	steps[++is] = e;
-	steps[++is] = scaleY;
-	steps[++is] = position;
 	steps[++is] = 0;
 
 	steps[++is] = strokeWidthRatio;
 	steps[++is] = e;
 	steps[++is] = scaleY;
 	steps[++is] = position;
+	steps[++is] = 0;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidthRatio;
+	steps[++is] = e;
+	steps[++is] = scaleY;
+	steps[++is] = position;
+	steps[++is] = 0;
 	steps[++is] = 0;
 };
 
