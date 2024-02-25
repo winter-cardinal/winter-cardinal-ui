@@ -18,11 +18,8 @@ export class EShapeBuffer {
 	steps: Float32Array;
 	protected _stepBuffer: Buffer | null;
 
-	colorFills: Float32Array;
-	protected _colorFillBuffer: Buffer | null;
-
-	colorStrokes: Float32Array;
-	protected _colorStrokeBuffer: Buffer | null;
+	colors: Float32Array;
+	protected _colorBuffer: Buffer | null;
 
 	uvs: Float32Array;
 	protected _uvBuffer: Buffer | null;
@@ -50,11 +47,8 @@ export class EShapeBuffer {
 		this.steps = new Float32Array(nvertices * 5);
 		this._stepBuffer = null;
 
-		this.colorFills = new Float32Array(nvertices * 2);
-		this._colorFillBuffer = null;
-
-		this.colorStrokes = new Float32Array(nvertices * 2);
-		this._colorStrokeBuffer = null;
+		this.colors = new Float32Array(nvertices * 3);
+		this._colorBuffer = null;
 
 		this.uvs = new Float32Array(nvertices * 2);
 		this._uvBuffer = null;
@@ -87,17 +81,10 @@ export class EShapeBuffer {
 		}
 	}
 
-	updateColorFills(): void {
-		const colorFillBuffer = this._colorFillBuffer;
-		if (colorFillBuffer) {
-			colorFillBuffer.update();
-		}
-	}
-
-	updateColorStrokes(): void {
-		const colorStrokeBuffer = this._colorStrokeBuffer;
-		if (colorStrokeBuffer) {
-			colorStrokeBuffer.update();
+	updateColors(): void {
+		const colorBuffer = this._colorBuffer;
+		if (colorBuffer) {
+			colorBuffer.update();
 		}
 	}
 
@@ -120,8 +107,7 @@ export class EShapeBuffer {
 		if (result == null) {
 			this._vertexBuffer = new Buffer(this.vertices, false, false);
 			this._stepBuffer = new Buffer(this.steps, false, false);
-			this._colorFillBuffer = new Buffer(this.colorFills, false, false);
-			this._colorStrokeBuffer = new Buffer(this.colorStrokes, false, false);
+			this._colorBuffer = new Buffer(this.colors, false, false);
 			this._uvBuffer = new Buffer(this.uvs, false, false);
 			this._indexBuffer = new Buffer(this.indices, false, true);
 
@@ -130,8 +116,7 @@ export class EShapeBuffer {
 				.addAttribute("aPosition", this._vertexBuffer, 2)
 				.addAttribute("aStepA", this._stepBuffer, 2)
 				.addAttribute("aStepB", this._stepBuffer, 3)
-				.addAttribute("aColorFill", this._colorFillBuffer, 2)
-				.addAttribute("aColorStroke", this._colorStrokeBuffer, 2)
+				.addAttribute("aColor", this._colorBuffer, 3)
 				.addAttribute("aUv", this._uvBuffer, 2);
 		}
 		return result;

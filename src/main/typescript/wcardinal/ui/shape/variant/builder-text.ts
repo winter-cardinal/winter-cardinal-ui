@@ -164,8 +164,7 @@ export class BuilderText implements Builder {
 			if (textAtlas != null) {
 				const buffer = this.buffer;
 				this.updateVertex(buffer, shape, textAtlas);
-				this.updateColorFill(buffer, shape);
-				this.updateColorStroke(buffer, shape);
+				this.updateColor(buffer, shape);
 				this.updateStep(buffer, shape);
 			}
 		}
@@ -301,34 +300,39 @@ export class BuilderText implements Builder {
 		}
 	}
 
-	protected updateColorFill(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateColor(buffer: BuilderBuffer, shape: EShape): void {
 		const text = shape.text;
 		const color = text.color;
 		const alpha = shape.visible && text.enable ? text.alpha : 0;
-		const isNotInited = !(this.inited & BuilderFlag.COLOR_FILL);
-		if (isNotInited || color !== this.color || alpha !== this.alpha) {
-			this.inited |= BuilderFlag.COLOR_FILL;
+
+		const outline = text.outline;
+		const outlineColor = outline.color;
+		const outlineAlpha = shape.visible && text.enable ? outline.alpha : 0;
+		const isNotInited = !(this.inited & BuilderFlag.COLOR);
+
+		if (
+			isNotInited ||
+			color !== this.color ||
+			alpha !== this.alpha ||
+			color !== this.outlineColor ||
+			alpha !== this.outlineAlpha
+		) {
+			this.inited |= BuilderFlag.COLOR;
 			this.color = color;
 			this.alpha = alpha;
-			buffer.updateColorFills();
+			this.outlineColor = outlineColor;
+			this.outlineAlpha = outlineAlpha;
+			buffer.updateColors();
 
-			buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorFills);
-		}
-	}
-
-	protected updateColorStroke(buffer: BuilderBuffer, shape: EShape): void {
-		const text = shape.text;
-		const outline = text.outline;
-		const color = outline.color;
-		const alpha = shape.visible && text.enable ? outline.alpha : 0;
-		const isNotInited = !(this.inited & BuilderFlag.COLOR_STROKE);
-		if (isNotInited || color !== this.outlineColor || alpha !== this.outlineAlpha) {
-			this.inited |= BuilderFlag.COLOR_STROKE;
-			this.outlineColor = color;
-			this.outlineAlpha = alpha;
-			buffer.updateColorStrokes();
-
-			buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorStrokes);
+			buildColor(
+				color,
+				alpha,
+				outlineColor,
+				outlineAlpha,
+				this.vertexOffset,
+				this.vertexCount,
+				buffer.colors
+			);
 		}
 	}
 

@@ -81,7 +81,7 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		return pointCount === this.pointCountReserved;
 	}
 
-	protected updateLineOfAnyColorFill(
+	protected updateLineOfAnyColor(
 		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints,
@@ -97,33 +97,6 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		const alphaFill = isFillEnabled ? fill.alpha : 0;
 		const isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
 
-		const isNotInited = !(this.inited & BuilderFlag.COLOR_FILL);
-
-		if (isNotInited || isPointFillChanged || isFillChanged) {
-			this.inited |= BuilderFlag.COLOR_FILL;
-			this.colorFill = colorFill;
-			this.alphaFill = alphaFill;
-			this.pointFillId = pointFillId;
-			buffer.updateColorFills();
-			buildLineOfAnyColor(
-				this.vertexOffset,
-				vcountPerPoint,
-				pointFill,
-				this.pointCountReserved,
-				buffer.colorFills,
-				isFillEnabled,
-				colorFill,
-				alphaFill
-			);
-		}
-	}
-
-	protected updateLineOfAnyColorStroke(
-		buffer: BuilderBuffer,
-		shape: EShape,
-		points: EShapeLineOfAnyPoints,
-		vcountPerPoint: number
-	): void {
 		const pointStroke = points.stroke;
 		const pointStrokeId = pointStroke.id;
 		const isPointStrokeChanged = pointStrokeId !== this.pointStrokeId;
@@ -135,21 +108,34 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		const isStrokeChanged =
 			colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
 
-		const isNotInited = !(this.inited & BuilderFlag.COLOR_STROKE);
+		const isNotInited = !(this.inited & BuilderFlag.COLOR);
 
-		if (isNotInited || isPointStrokeChanged || isStrokeChanged) {
-			this.inited |= BuilderFlag.COLOR_STROKE;
+		if (
+			isNotInited ||
+			isPointFillChanged ||
+			isFillChanged ||
+			isPointStrokeChanged ||
+			isStrokeChanged
+		) {
+			this.inited |= BuilderFlag.COLOR;
+			this.colorFill = colorFill;
+			this.alphaFill = alphaFill;
+			this.pointFillId = pointFillId;
 			this.colorStroke = colorStroke;
 			this.alphaStroke = alphaStroke;
 			this.pointStrokeId = pointStrokeId;
-			buffer.updateColorStrokes();
+			buffer.updateColors();
 			buildLineOfAnyColor(
 				this.vertexOffset,
 				vcountPerPoint,
+				pointFill,
 				pointStroke,
 				this.pointCountReserved,
-				buffer.colorStrokes,
+				buffer.colors,
+				isFillEnabled,
 				isStrokeEnabled,
+				colorFill,
+				alphaFill,
 				colorStroke,
 				alphaStroke
 			);

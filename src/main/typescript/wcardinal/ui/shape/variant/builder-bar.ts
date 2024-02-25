@@ -39,8 +39,7 @@ export class BuilderBar extends BuilderBase {
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateVertexStep(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 

@@ -24,8 +24,7 @@ const VERTEX_SHADER = `
 attribute highp vec2 aPosition;
 attribute highp vec2 aStepA;
 attribute highp vec3 aStepB;
-attribute highp vec2 aColorFill;
-attribute highp vec2 aColorStroke;
+attribute highp vec3 aColor;
 attribute highp vec2 aUv;
 
 uniform mat3 projectionMatrix;
@@ -42,14 +41,6 @@ varying mediump vec2 vUv;
 
 vec2 toInverse(in vec2 v) {
 	return vec2(-v.y, v.x);
-}
-
-vec4 toColor(in vec2 v) {
-	vec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v.x;
-	c -= fract(c);
-	c -= c.yzx * vec3(256.0, 256.0, 0.0);
-	c /= 255.0;
-	return vec4(c.zyx * v.y, v.y);
 }
 
 vec4 toGeneral(in float v) {
@@ -72,16 +63,28 @@ float toStrokeWidthScale(in float scale) {
 	);
 }
 
+vec2 toUnpackedF2x1024(in float v) {
+	vec2 c = vec2(1.0, 1.0/1024.0) * v;
+	c -= fract(c);
+	c -= c.yx * vec2(1024.0, 0.0);
+	c /= vec2(1023.0, 1023.0);
+	return c;
+}
+
+vec3 toUnpackedF3x256(in float v) {
+	vec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;
+	c -= fract(c);
+	c -= c.yzx * vec3(256.0, 256.0, 0.0);
+	c /= 255.0;
+	return c;
+}
+
 vec2 toPosition012(in vec2 v) {
 	return (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;
 }
 
 vec4 toStepB01(in vec3 a) {
-	vec2 c = vec2(1.0, 1.0/1024.0) * a.z;
-	c -= fract(c);
-	c -= c.yx * vec2(1024.0, 0.0);
-	c /= vec2(1023.0, 1023.0);
-	return vec4(a.x, a.y, c.x, c.y);
+	return vec4(a.xy, toUnpackedF2x1024(a.z));
 }
 
 vec4 toStepB2(in vec3 antialias, in float strokeWidth) {
@@ -168,6 +171,14 @@ vec4 toStepB3(in float shift, in float dash, in float strokeScaling, in float st
 	);
 }
 
+void toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {
+	vec2 a = toUnpackedF2x1024(source.z);
+	fillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;
+	fillColor.w = a.x;
+	strokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;
+	strokeColor.w = a.y;
+}
+
 void main(void) {
 	vec4 general = toGeneral(aStepA.y);
 	float type = general.x;
@@ -194,8 +205,7 @@ void main(void) {
 	vType = type;
 	vStepA = (2.5 < type ? sa3 : sa012);
 	vStepB = (1.5 < type ? (2.5 < type ? sb3 : sb2) : sb01);
-	vColorFill = toColor(aColorFill);
-	vColorStroke = toColor(aColorStroke);
+	toColors(aColor, vColorFill, vColorStroke);
 	vUv = aUv;
 }`;
 

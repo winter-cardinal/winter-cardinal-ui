@@ -32,8 +32,7 @@ export class BuilderRectanglePivoted extends BuilderBase {
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateVertexStepAndUv(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 	}
 
 	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {

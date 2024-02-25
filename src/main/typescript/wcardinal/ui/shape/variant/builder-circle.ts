@@ -33,8 +33,7 @@ export class BuilderCircle extends BuilderBase {
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateVertexAndStep(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 

@@ -9,22 +9,20 @@ import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
 const NONE = 0;
 const VERTEX = 1;
 const STEP = 2;
-const COLOR_FILL = 4;
-const COLOR_STROKE = 8;
-const UV = 16;
-const INDEX = 32;
+const COLOR = 4;
+const UV = 8;
+const INDEX = 16;
 
 const VERTEX_AND_STEP = VERTEX | STEP;
 const VERTEX_STEP_AND_UV = VERTEX_AND_STEP | UV;
 
-const ALL = VERTEX | STEP | COLOR_FILL | COLOR_STROKE | UV | INDEX;
+const ALL = VERTEX | STEP | COLOR | UV | INDEX;
 
 export const BuilderFlag = {
 	NONE,
 	VERTEX,
 	STEP,
-	COLOR_FILL,
-	COLOR_STROKE,
+	COLOR,
 	UV,
 	INDEX,
 
@@ -39,8 +37,7 @@ export type BuilderFlag = number;
 export interface BuilderBuffer {
 	readonly vertices: Float32Array;
 	readonly steps: Float32Array;
-	readonly colorFills: Float32Array;
-	readonly colorStrokes: Float32Array;
+	readonly colors: Float32Array;
 	readonly uvs: Float32Array;
 	readonly indices: Uint16Array | Uint32Array;
 
@@ -48,8 +45,7 @@ export interface BuilderBuffer {
 
 	updateVertices(): void;
 	updateSteps(): void;
-	updateColorFills(): void;
-	updateColorStrokes(): void;
+	updateColors(): void;
 	updateUvs(): void;
 	updateIndices(): void;
 }

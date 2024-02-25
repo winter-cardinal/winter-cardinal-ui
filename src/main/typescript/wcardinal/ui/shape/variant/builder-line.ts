@@ -85,8 +85,7 @@ export class BuilderLine extends BuilderBase {
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateLineVertexStep(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateLineUv(buffer, shape);
 	}
 

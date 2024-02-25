@@ -50,8 +50,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexAndStep(buffer, shape, points);
-			this.updateLineOfAnyColorFill(buffer, shape, points, CIRCLE_VERTEX_COUNT);
-			this.updateLineOfAnyColorStroke(buffer, shape, points, CIRCLE_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, CIRCLE_VERTEX_COUNT);
 			this.updateUv(buffer, shape);
 		}
 	}

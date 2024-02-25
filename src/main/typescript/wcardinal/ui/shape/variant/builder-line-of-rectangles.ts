@@ -50,8 +50,7 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexStepAndUv(buffer, shape, points);
-			this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
-			this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
 		}
 	}
 
