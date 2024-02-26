@@ -134,6 +134,7 @@
     * [Line (Marker, Programatically)](./diagram/line-marker-programatically.html)
     * [Line (Textured)](./diagram/line-textured.html)
     * [Line (Textured, Embedding)](./diagram/line-textured-embedding.html)
+    * [Map (Large)](./diagram/map-large.html)
     * [Overflow Mask](./diagram/mask.html)
     * [Opening Date Dialog](./diagram/open-date.html)
     * [Opening Datetime Dialog](./diagram/open-datetime.html)
