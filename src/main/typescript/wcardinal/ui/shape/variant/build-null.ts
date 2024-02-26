@@ -25,6 +25,7 @@ export const buildNullStep = (steps: Float32Array, voffset: number, vcount: numb
 		steps[i + 2] = 0;
 		steps[i + 3] = 0;
 		steps[i + 4] = 0;
+		steps[i + 5] = 0;
 	}
 };
 
