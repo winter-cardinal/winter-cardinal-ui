@@ -3,6 +3,7 @@ import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
 export const TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
 export const TRIANGLE_ROUNDED_INDEX_COUNT = 15;
@@ -224,146 +225,12 @@ export const buildTriangleRoundedVertex = (
 	vertices[++iv] = y9;
 };
 
-export const buildTriangleRoundedClipping = (
-	clippings: Float32Array,
-	voffset: number,
-	corner: EShapeCorner,
-	radius: number
-): void => {
-	// Top corner
-	let iv = voffset * 3 - 1;
-	const w = 1 - radius;
-	if (corner & EShapeCorner.TOP) {
-		clippings[++iv] = 0;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-	} else {
-		clippings[++iv] = w;
-		clippings[++iv] = w;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = w;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = w;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-	}
-
-	// Bottom-right corner
-	if (corner & EShapeCorner.BOTTOM_RIGHT) {
-		clippings[++iv] = 0;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-	} else {
-		clippings[++iv] = w;
-		clippings[++iv] = w;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = w;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = w;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-	}
-
-	// Bottom-left corner
-	if (corner & EShapeCorner.BOTTOM_LEFT) {
-		clippings[++iv] = 0;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-	} else {
-		clippings[++iv] = w;
-		clippings[++iv] = w;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = w;
-		clippings[++iv] = 0;
-		clippings[++iv] = 1;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-		clippings[++iv] = w;
-		clippings[++iv] = 1;
-		clippings[++iv] = 0;
-	}
-
-	// Others
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-
-	clippings[++iv] = w;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-
-	clippings[++iv] = 1;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-	clippings[++iv] = 1;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-
-	clippings[++iv] = w;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-
-	clippings[++iv] = 1;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-	clippings[++iv] = 1;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-
-	clippings[++iv] = w;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-
-	clippings[++iv] = 1;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-	clippings[++iv] = 1;
-	clippings[++iv] = 0;
-	clippings[++iv] = 0;
-};
-
 export const buildTriangleRoundedStep = (
 	steps: Float32Array,
-	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
+	corner: EShapeCorner,
 	radius: number,
 	worldSize: typeof TRIANGLE_ROUNDED_WORLD_SIZE
 ): void => {
@@ -371,24 +238,302 @@ export const buildTriangleRoundedStep = (
 
 	const s = worldSize[0];
 	const sr = radius * s;
+	const w = 1 - radius;
 
-	let ic = voffset * 3;
+	const e0 = toPackedI4x64(0, scaleInvariant, 1, 1);
+	const e1 = toPackedI4x64(1, scaleInvariant, 1, 1);
+
+	const c00 = toPackedF2x1024(0, 0);
+	const c10 = toPackedF2x1024(1, 0);
+	const c11 = toPackedF2x1024(1, 1);
+	const c01 = toPackedF2x1024(0, 1);
+	const cww = toPackedF2x1024(w, w);
+	const c1w = toPackedF2x1024(1, w);
+	const cw1 = toPackedF2x1024(w, 1);
+	const cw0 = toPackedF2x1024(w, 0);
+
+	// Top corner
 	let is = voffset * 6 - 1;
-	for (let i = 0; i < TRIANGLE_ROUNDED_VERTEX_COUNT; i += 1, ic += 3) {
+	if (corner & EShapeCorner.TOP) {
+		// 001
 		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
-		if (0.5 < clippings[ic + 2]) {
-			steps[++is] = sr;
-			steps[++is] = sr;
-			steps[++is] = 1 + clippings[ic];
-			steps[++is] = 1 + clippings[ic + 1];
-		} else {
-			steps[++is] = s;
-			steps[++is] = s;
-			steps[++is] = 1 + clippings[ic];
-			steps[++is] = 1 + clippings[ic + 1];
-		}
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c00;
+		steps[++is] = 0;
+
+		// 101
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c10;
+		steps[++is] = 0;
+
+		// 111
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c11;
+		steps[++is] = 0;
+
+		// 011
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c01;
+		steps[++is] = 0;
+	} else {
+		// ww0
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = cww;
+		steps[++is] = 0;
+
+		// 1w0
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = c1w;
+		steps[++is] = 0;
+
+		// 110
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = c11;
+		steps[++is] = 0;
+
+		// w10
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = cw1;
+		steps[++is] = 0;
 	}
+
+	// Bottom-right corner
+	if (corner & EShapeCorner.BOTTOM_RIGHT) {
+		// 001
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c00;
+		steps[++is] = 0;
+
+		// 101
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c10;
+		steps[++is] = 0;
+
+		// 111
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c11;
+		steps[++is] = 0;
+
+		// 011
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c01;
+		steps[++is] = 0;
+	} else {
+		// ww0
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = cww;
+		steps[++is] = 0;
+
+		// 1w0
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = c1w;
+		steps[++is] = 0;
+
+		// 110
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = c11;
+		steps[++is] = 0;
+
+		// w10
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = cw1;
+		steps[++is] = 0;
+	}
+
+	// Bottom-left corner
+	if (corner & EShapeCorner.BOTTOM_LEFT) {
+		// 001
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c00;
+		steps[++is] = 0;
+
+		// 101
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c10;
+		steps[++is] = 0;
+
+		// 111
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c11;
+		steps[++is] = 0;
+
+		// 011
+		steps[++is] = strokeWidth;
+		steps[++is] = e1;
+		steps[++is] = sr;
+		steps[++is] = sr;
+		steps[++is] = c01;
+		steps[++is] = 0;
+	} else {
+		// ww0
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = cww;
+		steps[++is] = 0;
+
+		// 1w0
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = c1w;
+		steps[++is] = 0;
+
+		// 110
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = c11;
+		steps[++is] = 0;
+
+		// w10
+		steps[++is] = strokeWidth;
+		steps[++is] = e0;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = cw1;
+		steps[++is] = 0;
+	}
+
+	// Others
+	// 000
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c00;
+	steps[++is] = 0;
+
+	// w00
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = cw0;
+	steps[++is] = 0;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	// w00
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = cw0;
+	steps[++is] = 0;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	// w00
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = cw0;
+	steps[++is] = 0;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	// 100
+	steps[++is] = strokeWidth;
+	steps[++is] = e0;
+	steps[++is] = s;
+	steps[++is] = s;
+	steps[++is] = c10;
+	steps[++is] = 0;
 };
 
 export const buildTriangleRoundedUv = (

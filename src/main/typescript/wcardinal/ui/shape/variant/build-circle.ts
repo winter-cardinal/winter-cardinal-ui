@@ -2,50 +2,12 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
 export const CIRCLE_VERTEX_COUNT = 9;
 export const CIRCLE_INDEX_COUNT = 8;
 export const CIRCLE_WORLD_SIZE: [number, number] = [0, 0];
 const CIRCLE_WORK_POINT: Point = new Point();
-
-export const buildCircleClipping = (clippings: Float32Array, voffset: number): void => {
-	let ic = voffset * 3 - 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-};
 
 export const buildCircleIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -159,23 +121,85 @@ export const buildCircleVertex = (
 
 export const buildCircleStep = (
 	steps: Float32Array,
-	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
 	worldSize: typeof CIRCLE_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const ax = worldSize[0];
+	const ay = worldSize[1];
+
+	const e = toPackedI4x64(1, scaleInvariant, 1, 1);
+
+	const c11 = toPackedF2x1024(1, 1);
+	const c01 = toPackedF2x1024(0, 1);
+	const c10 = toPackedF2x1024(1, 0);
+	const c00 = toPackedF2x1024(0, 0);
+
 	let is = voffset * 6 - 1;
-	let ic = voffset * 3;
-	for (let i = 0; i < CIRCLE_VERTEX_COUNT; i += 1, ic += 3) {
-		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
-		steps[++is] = worldSize[0];
-		steps[++is] = worldSize[1];
-		steps[++is] = 1 + clippings[ic];
-		steps[++is] = 1 + clippings[ic + 1];
-	}
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c11;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c01;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c11;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c00;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c11;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c01;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ax;
+	steps[++is] = ay;
+	steps[++is] = c11;
+	steps[++is] = 0;
 };
 
 export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {

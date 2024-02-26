@@ -6,7 +6,6 @@
 import { EShape } from "../e-shape";
 import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildTriangleClipping,
 	buildTriangleIndex,
 	buildTriangleStep,
 	buildTriangleUv,
@@ -18,7 +17,6 @@ import {
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
-import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
@@ -29,16 +27,12 @@ import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 export class BuilderLineOfTriangles extends BuilderLineOfAny {
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		const clippings = buffer.clippings;
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildTriangleClipping(clippings, voffset);
-			copyClipping(clippings, voffset, TRIANGLE_VERTEX_COUNT, pointCountReserved);
 			buildTriangleIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
@@ -48,7 +42,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 				pointCountReserved
 			);
 		}
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
@@ -56,8 +50,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexStepAndUvs(buffer, shape, points);
-			this.updateLineOfAnyColorFill(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
-			this.updateLineOfAnyColorStroke(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
 		}
 	}
 
@@ -132,7 +125,6 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
-			const clippings = buffer.clippings;
 			const uvs = buffer.uvs;
 			const textureUvs = toTextureUvs(texture);
 			const internalTransform = shape.transform.internalTransform;
@@ -164,9 +156,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 				if (isNotInited || isVertexChanged || isTransformChanged) {
 					buildTriangleStep(
 						steps,
-						clippings,
 						voffset,
-						TRIANGLE_VERTEX_COUNT,
 						strokeWidth,
 						strokeStyle,
 						TRIANGLE_WORLD_SIZE
@@ -199,15 +189,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 						TRIANGLE_WORLD_SIZE
 					);
 					if (isNotInited || isVertexChanged || isTransformChanged) {
-						buildTriangleStep(
-							steps,
-							clippings,
-							iv,
-							TRIANGLE_VERTEX_COUNT,
-							strokeWidth,
-							strokeStyle,
-							TRIANGLE_WORLD_SIZE
-						);
+						buildTriangleStep(steps, iv, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
 					}
 					if (isNotInited || isVertexChanged || isTextureChanged) {
 						buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);

@@ -4,9 +4,8 @@
  */
 
 import { EShape } from "../e-shape";
-import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
+import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildRectangleClipping,
 	buildRectangleIndex,
 	buildRectangleStep,
 	buildRectangleUv,
@@ -18,7 +17,6 @@ import {
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
-import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
@@ -51,13 +49,12 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
-			this.updateVertexClippingStepAndUv(buffer, shape, points);
-			this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
-			this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
+			this.updateVertexStepAndUv(buffer, shape, points);
+			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
 		}
 	}
 
-	protected updateVertexClippingStepAndUv(
+	protected updateVertexStepAndUv(
 		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
@@ -98,10 +95,10 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		const isVertexChanged =
 			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
 
-		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
 		if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
-			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.pointId = pointId;
 			const formatted = points.formatted;
 			this.pointCount = formatted.length;
@@ -120,9 +117,6 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 			if (isNotInited || isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 			}
-			if (isNotInited || isVertexChanged) {
-				buffer.updateClippings();
-			}
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 			}
@@ -130,7 +124,6 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
-			const clippings = buffer.clippings;
 			const steps = buffer.steps;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
@@ -175,15 +168,9 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 					copyStep(steps, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
 				}
 
-				// Clippings
-				if (isNotInited || isVertexChanged) {
-					buildRectangleClipping(clippings, voffset, RECTANGLE_WORLD_SIZE);
-					copyClipping(clippings, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
-				}
-
 				// UVs
 				if (isNotInited || isVertexChanged || isTextureChanged) {
-					buildRectangleUv(uvs, voffset, textureUvs, RECTANGLE_WORLD_SIZE);
+					buildRectangleUv(uvs, voffset, textureUvs);
 					copyUvs(uvs, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
 				}
 			} else {
@@ -221,14 +208,9 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 						);
 					}
 
-					// Clippings
-					if (isNotInited || isVertexChanged) {
-						buildRectangleClipping(clippings, iv, RECTANGLE_WORLD_SIZE);
-					}
-
 					// UVs
 					if (isNotInited || isVertexChanged || isTextureChanged) {
-						buildRectangleUv(uvs, iv, textureUvs, RECTANGLE_WORLD_SIZE);
+						buildRectangleUv(uvs, iv, textureUvs);
 					}
 				}
 			}
@@ -239,7 +221,6 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 			const vcountReserved = RECTANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
-			buildNullClipping(clippings, voffsetReserved, vcountReserved);
 			buildNullUv(uvs, voffsetReserved, vcountReserved);
 		}
 	}

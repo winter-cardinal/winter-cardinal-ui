@@ -148,7 +148,7 @@ export class EShapeContainer extends DisplayObject {
 		return this._pixelScale;
 	}
 
-	getAntialiasWeight(resolution: number): number {
+	toAntialiasWeight(resolution: number): number {
 		return 1.25 / resolution;
 	}
 

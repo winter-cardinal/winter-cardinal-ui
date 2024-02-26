@@ -5,7 +5,6 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildTriangleClipping,
 	buildTriangleIndex,
 	buildTriangleStep,
 	buildTriangleUv,
@@ -25,18 +24,15 @@ export class BuilderTriangle extends BuilderBase {
 
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		buildTriangleClipping(buffer.clippings, this.vertexOffset);
 		buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateVertexStepAndUv(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 	}
 
 	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
@@ -97,9 +93,7 @@ export class BuilderTriangle extends BuilderBase {
 				buffer.updateSteps();
 				buildTriangleStep(
 					buffer.steps,
-					buffer.clippings,
 					voffset,
-					TRIANGLE_VERTEX_COUNT,
 					strokeWidth,
 					strokeStyle,
 					TRIANGLE_WORLD_SIZE

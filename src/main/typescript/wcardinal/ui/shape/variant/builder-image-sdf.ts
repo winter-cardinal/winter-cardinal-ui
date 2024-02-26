@@ -5,7 +5,6 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildImageSdfClipping,
 	buildImageSdfIndex,
 	buildImageSdfStep,
 	buildImageSdfUv,
@@ -31,18 +30,15 @@ export class BuilderImageSdf extends BuilderBase {
 	override init(): void {
 		const voffset = this.vertexOffset;
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		buildImageSdfClipping(buffer.clippings, voffset);
 		buildImageSdfIndex(buffer.indices, voffset, this.indexOffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateVertexAndStep(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 

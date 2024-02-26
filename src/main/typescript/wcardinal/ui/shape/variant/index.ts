@@ -47,7 +47,6 @@ export * from "./builder-triangle-rounded";
 export * from "./builder-triangle";
 export * from "./builder";
 export * from "./builders";
-export * from "./copy-clipping";
 export * from "./copy-index";
 export * from "./copy-step";
 export * from "./copy-uv";

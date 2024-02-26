@@ -6,10 +6,9 @@
 import { EShape } from "../e-shape";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import {
-	buildLineClipping,
 	buildLineIndex,
 	buildLineUv,
-	buildLineVertexStepAndColorFill,
+	buildLineVertexStep,
 	toLineIndexCount,
 	toLinePointCount,
 	toLineVertexCount
@@ -85,43 +84,22 @@ export class BuilderLine extends BuilderBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateLineClipping(buffer, shape);
-		this.updateLineVertexStepAndColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateLineVertexStep(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateLineUv(buffer, shape);
 	}
 
-	protected updateLineClipping(buffer: BuilderBuffer, shape: EShape): void {
-		const points = shape.points;
-		if (points) {
-			const formatted = points.formatted;
-			const pointCount = formatted.length;
-			const isNotInited = !(this.inited & BuilderFlag.CLIPPING);
-			if (isNotInited || this.pointCount !== pointCount) {
-				this.inited |= BuilderFlag.CLIPPING;
-				this.pointCount = pointCount;
-
-				// Invalidate the vertex buffer
-				this.inited &= ~BuilderFlag.VERTEX;
-
-				buffer.updateClippings();
-				buildLineClipping(
-					buffer.clippings,
-					this.vertexOffset,
-					this.vertexCount,
-					pointCount
-				);
-			}
-		}
-	}
-
-	protected updateLineVertexStepAndColorFill(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateLineVertexStep(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points) {
 			const pointId = points.id;
 			const formatted = points.formatted;
+			const pointCount = formatted.length;
 			const pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
-			const isPointChanged = pointId !== this.pointId || pointsClosed !== this.pointsClosed;
+			const isPointChanged =
+				pointId !== this.pointId ||
+				pointCount !== this.pointCount ||
+				pointsClosed !== this.pointsClosed;
 
 			const stroke = shape.stroke;
 			const strokeWidth = stroke.enable ? stroke.width : 0;
@@ -132,11 +110,12 @@ export class BuilderLine extends BuilderBase {
 			const transformLocalId = toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
 
-			const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_COLOR_FILL);
+			const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
 
 			if (isNotInited || isPointChanged || isTransformChanged || isStrokeWidthChanged) {
-				this.inited |= BuilderFlag.VERTEX_STEP_AND_COLOR_FILL;
+				this.inited |= BuilderFlag.VERTEX_AND_STEP;
 				this.pointId = pointId;
+				this.pointCount = pointCount;
 				this.pointsClosed = pointsClosed;
 				this.strokeWidth = strokeWidth;
 				this.strokeStyle = strokeStyle;
@@ -149,11 +128,9 @@ export class BuilderLine extends BuilderBase {
 
 				buffer.updateVertices();
 				buffer.updateSteps();
-				buffer.updateColorFills();
-				this.length = buildLineVertexStepAndColorFill(
+				this.length = buildLineVertexStep(
 					buffer.vertices,
 					buffer.steps,
-					buffer.colorFills,
 					this.vertexOffset,
 					this.vertexCount,
 					this.pointCount,
@@ -184,7 +161,7 @@ export class BuilderLine extends BuilderBase {
 			buffer.updateUvs();
 			buildLineUv(
 				buffer.uvs,
-				buffer.colorFills,
+				buffer.steps,
 				this.vertexOffset,
 				this.vertexCount,
 				toTextureUvs(texture),

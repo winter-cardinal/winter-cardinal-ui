@@ -5,7 +5,6 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildRectangleClipping,
 	buildRectangleIndex,
 	buildRectangleStep,
 	buildRectangleUv,
@@ -32,12 +31,11 @@ export class BuilderRectanglePivoted extends BuilderBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexClippingStepAndUv(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateVertexStepAndUv(buffer, shape);
+		this.updateColor(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -64,10 +62,10 @@ export class BuilderRectanglePivoted extends BuilderBase {
 
 		const isVertexChanged = isSizeChanged || isStrokeChanged;
 
-		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
 		if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
-			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -107,16 +105,10 @@ export class BuilderRectanglePivoted extends BuilderBase {
 				);
 			}
 
-			// Clippings
-			if (isNotInited || isVertexChanged) {
-				buffer.updateClippings();
-				buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
-			}
-
 			// UVs
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture));
 			}
 		}
 	}

@@ -6,7 +6,6 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
-	buildRectangleClipping,
 	buildRectangleIndex,
 	buildRectangleStep,
 	buildRectangleUv,
@@ -37,12 +36,11 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexClippingStepAndUv(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateVertexStepAndUv(buffer, shape);
+		this.updateColor(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points == null) {
 			return;
@@ -81,7 +79,7 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 		const pointId = points.id;
 		const isPointChanged = pointId !== this.pointId;
 
-		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
 		if (
 			isNotInited ||
@@ -90,7 +88,7 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 			isTextureChanged ||
 			isPointChanged
 		) {
-			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -132,16 +130,10 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 				);
 			}
 
-			// Clippings
-			if (isNotInited || isVertexChanged) {
-				buffer.updateClippings();
-				buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
-			}
-
 			// UVs
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture));
 			}
 		}
 	}

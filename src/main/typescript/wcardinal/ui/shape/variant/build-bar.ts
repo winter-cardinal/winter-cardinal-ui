@@ -1,31 +1,17 @@
-import { Matrix, Point, TextureUvs } from "pixi.js";
+import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toDash } from "./to-dash";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toVector } from "./to-vector";
+import { toNormal } from "./to-normal";
+import { toNormalPacked } from "./to-normal-packed";
+import { toPackedI4x64 } from "./to-packed";
 
 export const BAR_VERTEX_COUNT = 4;
 export const BAR_INDEX_COUNT = 2;
+const BAR_NPREV = [0, 1];
+const BAR_NNEXT = [0, 1];
 const BAR_FMIN: number = 0.00001;
-const BAR_WORK_POINT: Point = new Point();
-
-export const buildBarClipping = (clippings: Float32Array, voffset: number): void => {
-	let ic = voffset * 3 - 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 3;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 5;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 3;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 5;
-};
 
 export const buildBarIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -42,10 +28,9 @@ export const buildBarIndex = (
 	indices[++ii] = voffset + 3;
 };
 
-export const buildBarVertexStepAndColorFill = (
+export const buildBarVertexStep = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	colorFills: Float32Array,
 	voffset: number,
 	pointValues: number[],
 	pointsSize: number,
@@ -85,69 +70,54 @@ export const buildBarVertexStepAndColorFill = (
 		l = pointsSize;
 	}
 
-	// Other points
-	const p0x = p1x - dx;
-	const p0y = p1y - dy;
-	const p3x = p2x + dx;
-	const p3y = p2y + dy;
+	const nprev = BAR_NPREV;
+	const nnext = BAR_NNEXT;
+	toVector(p1x - dx, p1y - dy, p1x, p1y, nprev);
+	toVector(p1x, p1y, p2x, p2y, nnext);
+	toNormal(nprev, l);
+	toNormal(nnext, l);
+	const packed = toNormalPacked(nprev, nnext);
 
 	//
 	const scaleInvariant = toScaleInvariant(strokeStyle);
-	const dash = toDash(l, strokeWidth, strokeStyle, BAR_WORK_POINT);
-	const dash0 = dash.x;
-	const dash1 = dash.y;
+	const dash = toDash(strokeStyle);
+	const e3 = toPackedI4x64(3, scaleInvariant, dash, 0);
+	const e5 = toPackedI4x64(5, scaleInvariant, dash, 0);
 	let iv = (voffset << 1) - 1;
-	let icf = (voffset << 2) - 1;
 	let is = voffset * 6 - 1;
 	vertices[++iv] = p1x;
 	vertices[++iv] = p1y;
 	vertices[++iv] = p1x;
 	vertices[++iv] = p1y;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = p0x;
-	steps[++is] = p0y;
-	steps[++is] = p2x;
-	steps[++is] = p2y;
+	steps[++is] = e3;
+	steps[++is] = packed;
+	steps[++is] = 0;
+	steps[++is] = l;
+	steps[++is] = 0;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = p0x;
-	steps[++is] = p0y;
-	steps[++is] = p2x;
-	steps[++is] = p2y;
-	colorFills[++icf] = 0;
-	colorFills[++icf] = dash0;
-	colorFills[++icf] = dash1;
-	colorFills[++icf] = l;
-	colorFills[++icf] = 0;
-	colorFills[++icf] = dash0;
-	colorFills[++icf] = dash1;
-	colorFills[++icf] = l;
+	steps[++is] = e5;
+	steps[++is] = packed;
+	steps[++is] = 0;
+	steps[++is] = l;
+	steps[++is] = 0;
 
 	vertices[++iv] = p2x;
 	vertices[++iv] = p2y;
 	vertices[++iv] = p2x;
 	vertices[++iv] = p2y;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = p1x;
-	steps[++is] = p1y;
-	steps[++is] = p3x;
-	steps[++is] = p3y;
+	steps[++is] = e3;
+	steps[++is] = packed;
+	steps[++is] = l;
+	steps[++is] = l;
+	steps[++is] = 0;
 	steps[++is] = strokeWidth;
-	steps[++is] = scaleInvariant;
-	steps[++is] = p1x;
-	steps[++is] = p1y;
-	steps[++is] = p3x;
-	steps[++is] = p3y;
-	colorFills[++icf] = l;
-	colorFills[++icf] = dash0;
-	colorFills[++icf] = dash1;
-	colorFills[++icf] = l;
-	colorFills[++icf] = l;
-	colorFills[++icf] = dash0;
-	colorFills[++icf] = dash1;
-	colorFills[++icf] = l;
+	steps[++is] = e5;
+	steps[++is] = packed;
+	steps[++is] = l;
+	steps[++is] = l;
+	steps[++is] = 0;
 };
 
 export const buildBarUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {

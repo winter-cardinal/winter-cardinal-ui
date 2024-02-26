@@ -8,10 +8,9 @@ import { EShapePointsStyle } from "../e-shape-points-style";
 import {
 	BAR_INDEX_COUNT,
 	BAR_VERTEX_COUNT,
-	buildBarClipping,
 	buildBarIndex,
 	buildBarUv,
-	buildBarVertexStepAndColorFill
+	buildBarVertexStep
 } from "./build-bar";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
@@ -32,21 +31,19 @@ export class BuilderBar extends BuilderBase {
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
-		buildBarClipping(buffer.clippings, voffset);
 		buildBarIndex(buffer.indices, voffset, ioffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexStepAndColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateVertexStep(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexStepAndColorFill(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateVertexStep(buffer: BuilderBuffer, shape: EShape): void {
 		if (shape instanceof EShapeBar) {
 			const size = shape.size;
 			const sizeX = size.x;
@@ -69,7 +66,7 @@ export class BuilderBar extends BuilderBase {
 			const pointsStyle = points.style;
 			const isPointsStyleChanged = pointsStyle !== this.pointsStyle;
 
-			const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_COLOR_FILL);
+			const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
 
 			if (
 				isNotInited ||
@@ -79,7 +76,7 @@ export class BuilderBar extends BuilderBase {
 				isPointsIdChanged ||
 				isPointsStyleChanged
 			) {
-				this.inited |= BuilderFlag.VERTEX_STEP_AND_COLOR_FILL;
+				this.inited |= BuilderFlag.VERTEX_AND_STEP;
 				this.sizeX = sizeX;
 				this.sizeY = sizeY;
 				this.strokeWidth = strokeWidth;
@@ -95,11 +92,9 @@ export class BuilderBar extends BuilderBase {
 
 				buffer.updateVertices();
 				buffer.updateSteps();
-				buffer.updateColorFills();
-				buildBarVertexStepAndColorFill(
+				buildBarVertexStep(
 					buffer.vertices,
 					buffer.steps,
-					buffer.colorFills,
 					this.vertexOffset,
 					points.values,
 					points.size,

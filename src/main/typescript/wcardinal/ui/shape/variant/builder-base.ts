@@ -106,33 +106,40 @@ export abstract class BuilderBase implements Builder {
 
 	abstract update(shape: EShape): void;
 
-	protected updateColorFill(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateColor(buffer: BuilderBuffer, shape: EShape): void {
 		const fill = shape.fill;
-		const color = fill.color;
-		const alpha = shape.visible && fill.enable ? fill.alpha : 0;
-		const isNotInited = !(this.inited & BuilderFlag.COLOR_FILL);
-		if (isNotInited || color !== this.colorFill || alpha !== this.alphaFill) {
-			this.inited |= BuilderFlag.COLOR_FILL;
-			this.colorFill = color;
-			this.alphaFill = alpha;
-			buffer.updateColorFills();
+		const colorFill = fill.color;
+		const alphaFill = shape.visible && fill.enable ? fill.alpha : 0;
 
-			buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorFills);
-		}
-	}
-
-	protected updateColorStroke(buffer: BuilderBuffer, shape: EShape): void {
 		const stroke = shape.stroke;
-		const color = stroke.color;
-		const alpha = shape.visible && stroke.enable && 0 < stroke.width ? stroke.alpha : 0;
-		const isNotInited = !(this.inited & BuilderFlag.COLOR_STROKE);
-		if (isNotInited || color !== this.colorStroke || alpha !== this.alphaStroke) {
-			this.inited |= BuilderFlag.COLOR_STROKE;
-			this.colorStroke = color;
-			this.alphaStroke = alpha;
-			buffer.updateColorStrokes();
+		const colorStroke = stroke.color;
+		const alphaStroke = shape.visible && stroke.enable && 0 < stroke.width ? stroke.alpha : 0;
 
-			buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorStrokes);
+		const isNotInited = !(this.inited & BuilderFlag.COLOR);
+
+		if (
+			isNotInited ||
+			colorFill !== this.colorFill ||
+			alphaFill !== this.alphaFill ||
+			colorStroke !== this.colorStroke ||
+			alphaStroke !== this.alphaStroke
+		) {
+			this.inited |= BuilderFlag.COLOR;
+			this.colorFill = colorFill;
+			this.alphaFill = alphaFill;
+			this.colorStroke = colorStroke;
+			this.alphaStroke = alphaStroke;
+			buffer.updateColors();
+
+			buildColor(
+				colorFill,
+				alphaFill,
+				colorStroke,
+				alphaStroke,
+				this.vertexOffset,
+				this.vertexCount,
+				buffer.colors
+			);
 		}
 	}
 

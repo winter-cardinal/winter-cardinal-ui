@@ -2,38 +2,12 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
 export const SEMICIRCLE_VERTEX_COUNT = 6;
 export const SEMICIRCLE_INDEX_COUNT = 4;
 export const SEMICIRCLE_WORLD_SIZE: [number, number] = [0, 0];
 const SEMICIRCLE_WORK_POINT: Point = new Point();
-
-export const buildSemicircleClipping = (clippings: Float32Array, voffset: number): void => {
-	let ic = voffset * 3 - 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 0;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-
-	clippings[++ic] = 1;
-	clippings[++ic] = 0;
-	clippings[++ic] = 1;
-};
 
 export const buildSemicircleIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -120,23 +94,64 @@ export const buildSemicircleVertex = (
 
 export const buildSemicircleStep = (
 	steps: Float32Array,
-	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
 	worldSize: typeof SEMICIRCLE_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const ws0 = worldSize[0];
+	const ws1 = worldSize[1];
+
+	const e = toPackedI4x64(1, scaleInvariant, 1, 1);
+
+	const c11 = toPackedF2x1024(1, 1);
+	const c01 = toPackedF2x1024(0, 1);
+	const c10 = toPackedF2x1024(1, 0);
+	const c00 = toPackedF2x1024(0, 0);
+
 	let is = voffset * 6 - 1;
-	let ic = voffset * 3;
-	for (let i = 0; i < SEMICIRCLE_VERTEX_COUNT; i += 1, ic += 3) {
-		steps[++is] = strokeWidth;
-		steps[++is] = scaleInvariant;
-		steps[++is] = worldSize[0];
-		steps[++is] = worldSize[1];
-		steps[++is] = 1 + clippings[ic];
-		steps[++is] = 1 + clippings[ic + 1];
-	}
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = c11;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = c01;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = c11;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = c10;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = c00;
+	steps[++is] = 0;
+
+	steps[++is] = strokeWidth;
+	steps[++is] = e;
+	steps[++is] = ws0;
+	steps[++is] = ws1;
+	steps[++is] = c10;
+	steps[++is] = 0;
 };
 
 export const buildSemicircleUv = (

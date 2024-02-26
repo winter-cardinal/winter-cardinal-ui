@@ -6,7 +6,6 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
-	buildCircleClipping,
 	buildCircleIndex,
 	buildCircleStep,
 	buildCircleUv,
@@ -30,19 +29,16 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 
 	override init(): void {
 		const buffer = this.buffer;
-		buffer.updateClippings();
 		buffer.updateIndices();
 		const vertexOffset = this.vertexOffset;
-		buildCircleClipping(buffer.clippings, vertexOffset);
 		buildCircleIndex(buffer.indices, vertexOffset, this.indexOffset);
-		this.inited |= BuilderFlag.CLIPPING_AND_INDEX;
+		this.inited |= BuilderFlag.INDEX;
 	}
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
 		this.updateVertexAndStep(buffer, shape);
-		this.updateColorFill(buffer, shape);
-		this.updateColorStroke(buffer, shape);
+		this.updateColor(buffer, shape);
 		this.updateUv(buffer, shape);
 	}
 
@@ -113,7 +109,6 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 			);
 			buildCircleStep(
 				buffer.steps,
-				buffer.clippings,
 				this.vertexOffset,
 				strokeWidth,
 				strokeStyle,

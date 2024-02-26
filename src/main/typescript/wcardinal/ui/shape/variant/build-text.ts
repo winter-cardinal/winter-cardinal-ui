@@ -13,6 +13,7 @@ import { EShapeTextAlignVertical } from "../e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../e-shape-text-direction";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
+import { toPackedI4x64 } from "./to-packed";
 
 export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_VERTEX_COUNT_SHIFT = 2;
@@ -24,20 +25,6 @@ const TEXT_WORK_POINT: Point = new Point();
 export const toTextBufferCount = (shape: EShape): number => {
 	const l = shape.text.plength;
 	return ((l >> 3) + (0 < (l & 0x7) ? 1 : 0)) << 3;
-};
-
-export const buildTextClipping = (
-	clippings: Float32Array,
-	voffset: number,
-	vcount: number
-): void => {
-	let ic = voffset * 3 - 1;
-	const icmax = (voffset + vcount) * 3 - 1;
-	for (; ic < icmax; ) {
-		clippings[++ic] = 0;
-		clippings[++ic] = 0;
-		clippings[++ic] = 2;
-	}
 };
 
 export const buildTextIndex = (
@@ -75,23 +62,24 @@ export const buildTextStep = (
 	let is = voffset * 6 - 1;
 	const ismax = (voffset + vcount) * 6 - 1;
 	const scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
+	const e = toPackedI4x64(2, scaleInvariant, 1, 1);
 	if (textAtlas != null) {
 		const scale = textAtlas.font.size / (textSize * (scaleX + scaleY) * 0.5);
 		const position = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
 		for (; is < ismax; ) {
 			steps[++is] = textOutlineWidth;
-			steps[++is] = scaleInvariant;
+			steps[++is] = e;
 			steps[++is] = scale;
-			steps[++is] = 1;
 			steps[++is] = 0;
 			steps[++is] = position;
+			steps[++is] = 0;
 		}
 	} else {
 		for (; is < ismax; ) {
 			steps[++is] = 0;
-			steps[++is] = scaleInvariant;
+			steps[++is] = e;
 			steps[++is] = 0;
-			steps[++is] = 1;
+			steps[++is] = 0;
 			steps[++is] = 0;
 			steps[++is] = 0;
 		}

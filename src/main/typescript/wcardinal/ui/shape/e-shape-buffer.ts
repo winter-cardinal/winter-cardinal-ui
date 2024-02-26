@@ -15,17 +15,11 @@ export class EShapeBuffer {
 	protected _vertexCount: number;
 	protected _vertexBuffer: Buffer | null;
 
-	clippings: Float32Array;
-	protected _clippingBuffer: Buffer | null;
-
 	steps: Float32Array;
 	protected _stepBuffer: Buffer | null;
 
-	colorFills: Float32Array;
-	protected _colorFillBuffer: Buffer | null;
-
-	colorStrokes: Float32Array;
-	protected _colorStrokeBuffer: Buffer | null;
+	colors: Float32Array;
+	protected _colorBuffer: Buffer | null;
 
 	uvs: Float32Array;
 	protected _uvBuffer: Buffer | null;
@@ -50,17 +44,11 @@ export class EShapeBuffer {
 		this._vertexCount = 0;
 		this._vertexBuffer = null;
 
-		this.clippings = new Float32Array(nvertices * 3);
-		this._clippingBuffer = null;
-
 		this.steps = new Float32Array(nvertices * 6);
 		this._stepBuffer = null;
 
-		this.colorFills = new Float32Array(nvertices * 4);
-		this._colorFillBuffer = null;
-
-		this.colorStrokes = new Float32Array(nvertices * 4);
-		this._colorStrokeBuffer = null;
+		this.colors = new Float32Array(nvertices * 3);
+		this._colorBuffer = null;
 
 		this.uvs = new Float32Array(nvertices * 2);
 		this._uvBuffer = null;
@@ -86,13 +74,6 @@ export class EShapeBuffer {
 		}
 	}
 
-	updateClippings(): void {
-		const clippingBuffer = this._clippingBuffer;
-		if (clippingBuffer) {
-			clippingBuffer.update();
-		}
-	}
-
 	updateSteps(): void {
 		const stepBuffer = this._stepBuffer;
 		if (stepBuffer) {
@@ -100,17 +81,10 @@ export class EShapeBuffer {
 		}
 	}
 
-	updateColorFills(): void {
-		const colorFillBuffer = this._colorFillBuffer;
-		if (colorFillBuffer) {
-			colorFillBuffer.update();
-		}
-	}
-
-	updateColorStrokes(): void {
-		const colorStrokeBuffer = this._colorStrokeBuffer;
-		if (colorStrokeBuffer) {
-			colorStrokeBuffer.update();
+	updateColors(): void {
+		const colorBuffer = this._colorBuffer;
+		if (colorBuffer) {
+			colorBuffer.update();
 		}
 	}
 
@@ -132,21 +106,17 @@ export class EShapeBuffer {
 		let result = this._geometry;
 		if (result == null) {
 			this._vertexBuffer = new Buffer(this.vertices, false, false);
-			this._clippingBuffer = new Buffer(this.clippings, false, false);
 			this._stepBuffer = new Buffer(this.steps, false, false);
-			this._colorFillBuffer = new Buffer(this.colorFills, false, false);
-			this._colorStrokeBuffer = new Buffer(this.colorStrokes, false, false);
+			this._colorBuffer = new Buffer(this.colors, false, false);
 			this._uvBuffer = new Buffer(this.uvs, false, false);
 			this._indexBuffer = new Buffer(this.indices, false, true);
 
 			this._geometry = result = new Geometry()
 				.addIndex(this._indexBuffer)
 				.addAttribute("aPosition", this._vertexBuffer, 2)
-				.addAttribute("aClipping", this._clippingBuffer, 3)
-				.addAttribute("aStep", this._stepBuffer, 2)
-				.addAttribute("aAntialias", this._stepBuffer, 4)
-				.addAttribute("aColorFill", this._colorFillBuffer, 4)
-				.addAttribute("aColorStroke", this._colorStrokeBuffer, 4)
+				.addAttribute("aStepA", this._stepBuffer, 2)
+				.addAttribute("aStepB", this._stepBuffer, 4)
+				.addAttribute("aColor", this._colorBuffer, 3)
 				.addAttribute("aUv", this._uvBuffer, 2);
 		}
 		return result;

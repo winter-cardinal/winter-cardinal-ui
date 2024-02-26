@@ -21,222 +21,279 @@ import { EShapeContainer } from "./e-shape-container";
 import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 
 const VERTEX_SHADER = `
-attribute vec2 aPosition;
-attribute vec3 aClipping;
-attribute vec2 aStep;
-attribute vec4 aAntialias;
-attribute vec4 aColorFill;
-attribute vec4 aColorStroke;
-attribute vec2 aUv;
+attribute highp vec2 aPosition;
+attribute highp vec2 aStepA;
+attribute highp vec4 aStepB;
+attribute highp vec3 aColor;
+attribute highp vec2 aUv;
 
 uniform mat3 projectionMatrix;
 uniform mat3 translationMatrix;
 uniform mediump float shapeScale;
-uniform mediump float pixelScale;
 uniform mediump float antialiasWeight;
 
-varying mediump vec3 vClipping;
-varying mediump vec2 vStep;
-varying mediump vec4 vAntialias;
+varying mediump float vType;
+varying mediump vec2 vStepA;
+varying mediump vec4 vStepB;
 varying mediump vec4 vColorFill;
 varying mediump vec4 vColorStroke;
 varying mediump vec2 vUv;
 
-vec2 toInverse( in vec2 v ) {
-	return vec2( -v.y, v.x );
+vec2 toInverse(in vec2 v) {
+	return vec2(-v.y, v.x);
 }
 
-vec2 toTransformedPosition( in vec2 v ) {
-	return (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;
+vec4 toGeneral(in float v) {
+	vec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;
+	c -= fract(c);
+	c -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);
+	return c;
 }
 
-vec4 toAntialias01( in vec4 antialias ) {
-	// Taylor series of 1 / ( 1 - a ) = 1 + a + a^2 + ....
-	return 1.0 + min( vec4( 1.0 ), antialias * pixelScale );
-}
-
-vec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {
-	float x = min( 0.4, 0.4 / 12.0 * antialias.x * pixelScale * antialiasWeight );
-	float w = clamp( strokeWidth / antialias.y, 0.0, 1.0 ) * 0.4;
-	float p = w * antialias.z + antialias.w;
-	float y = 0.5 - p;
-	float z = 0.5 - p - w;
-	return vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );
-}
-
-vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in float strokeWidth, out float shift ) {
-	vec2 d0 = p - pprev;
-	vec2 d1 = pnext - p;
-	float l0 = dot( d0, d0 );
-	float l1 = dot( d1, d1 );
-	vec2 nd0 = normalize( toInverse( d0 ) );
-	vec2 nd1 = normalize( toInverse( d1 ) );
-	vec2 nd2 = 0.00001 < l1 ? nd1 : vec2(0.0, 0.0);
-	vec2 n0 = 0.00001 < l0 ? nd0 : nd2;
-	vec2 n1 = 0.00001 < l1 ? nd1 : n0;
-	vec2 n0i = toInverse( n0 );
-	vec2 n1i = toInverse( n1 );
-	float direction = sign( 4.5 - type );
-
-	// Offset
-	float cross = dot( n0i, n1 );
-	float crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );
-	float b = dot(n1 - n0, n0) * crossInverse;
-	float offsetSize = direction * strokeWidth * 0.5;
-	vec2 offset = n1 + n1i * b;
-
-	// Miter
-	vec2 pmiter = p + offsetSize * offset;
-	float miterAngle0 = dot( n0i, pmiter - pprev );
-	float miterAngle1 = dot( n1i, pmiter - pnext );
-	float miterLength = dot( offset, offset );
-	float miterSide = direction * cross;
-
-	// Bevel
-	vec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );
-	vec2 pbevel = p + offsetSize * n;
-
-	//
-	vec2 presult = (
-		0.0 <= miterSide ?
-		( miterAngle0 < 0.0 && 0.0 <= miterAngle1 ? pmiter : pbevel ) :
-		( miterLength < 6.0 ? pmiter : pbevel )
-	);
-	vec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );
-	shift = dot( ni, p - presult );
-	return toTransformedPosition( presult );
-}
-
-vec2 toStep3456( in float type ) {
-	return ( type < 4.5 ? vec2( 1.0, 0.0 ) : vec2( 0.0, 1.0 ) );
-}
-
-vec4 toAntialias3456( in float strokeWidth ) {
-	float a = antialiasWeight / max( 0.0001, strokeWidth );
-	return toAntialias01( vec4( a, a, a, a ) );
-}
-
-float toDotAndDashScale( in float scale, in float strokeWidthScale ) {
-	return (
-		scale == 4.0 || scale == 5.0 || scale == 6.0 || scale == 7.0 ?
-		strokeWidthScale : 1.0
-	);
-}
-
-vec4 toColorStroke3456( in float shift, in float scale ) {
-	float x = aColorFill.x + shift;
-	float y = scale * aColorFill.y;
-	float z = scale * aColorFill.z;
-	float w = aColorFill.w;
-	return vec4( x, y, z, w );
-}
-
-float toStrokeWidthScale( in float scale ) {
+float toStrokeWidthScale(in float scale) {
 	return (
 		scale == 3.0 || scale == 7.0 ?
 		shapeScale : (
 			scale == 1.0 || scale == 5.0 ?
-			min( 1.0, shapeScale ) : (
+			min(1.0, shapeScale) : (
 				scale == 2.0 || scale == 6.0 ?
-				max( 1.0, shapeScale ) : 1.0
+				max(1.0, shapeScale) : 1.0
 			)
 		)
 	);
 }
 
-vec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {
-	return weight / max(vec2(0.00001), vec2(1.0) - strokeWidth / size);
+vec2 toUnpackedF2x1024(in float v) {
+	vec2 c = vec2(1.0, 1.0/1024.0) * v;
+	c -= fract(c);
+	c -= c.yx * vec2(1024.0, 0.0);
+	c /= vec2(1023.0, 1023.0);
+	return c;
 }
 
-vec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {
-	return antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));
+vec3 toUnpackedF3x256(in float v) {
+	vec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;
+	c -= fract(c);
+	c -= c.yzx * vec3(256.0, 256.0, 0.0);
+	c /= 255.0;
+	return c;
+}
+
+vec2 toPosition012(in vec2 v) {
+	return (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;
+}
+
+vec4 toStepB01(in vec4 sb) {
+	return vec4(sb.xy, toUnpackedF2x1024(sb.z));
+}
+
+vec4 toStepB2(in vec4 sb, in float strokeWidth) {
+	float x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);
+	float w = clamp(strokeWidth, 0.0, 1.0) * 0.4;
+	float p = w * sb.y + sb.z;
+	float y = 0.5 - p;
+	float z = 0.5 - p - w;
+	return vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));
+}
+
+vec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {
+	vec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;
+	t -= fract(t);
+	t -= t.yzx * vec3(1024.0, 1024.0, 0.0);
+	t *= vec3(1.0/511.5, 1.0/511.5, 1.0);
+	t -= vec3(1.0, 1.0, 0.0);
+	vec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));
+	vec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));
+
+	vec2 n0i = toInverse(n0);
+	vec2 n1i = toInverse(n1);
+	float direction = sign(4.5 - type);
+
+	// Offset
+	float cross = dot(n0i, n1);
+	bool bcross = 0.00001 < abs(cross);
+	float crossi = (bcross ? 1.0 / cross : 0.0);
+	float b = dot(n1 - n0, n0) * crossi;
+	float offsetSize = direction * strokeWidth * 0.5;
+	vec2 offset = n1 + n1i * b;
+
+	// Miter
+	vec2 pmiter = p + offsetSize * offset;
+	float miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );
+	float miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );
+	float miterLength = dot( offset, offset );
+	float miterSide = direction * cross;
+
+	// Bevel
+	vec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);
+	vec2 pbevel = p + offsetSize * n;
+
+	//
+	vec2 presult = (
+		0.0 <= miterSide ?
+		(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :
+		(miterLength < 6.0 && bcross ? pmiter : pbevel)
+	);
+	vec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);
+	shift = dot(ni, p - presult);
+	return toPosition012(presult);
+}
+
+vec2 toStepA3(in float type, in float strokeWidth) {
+	return vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);
+}
+
+vec4 toStepB3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {
+	float l = aStepB.y + shift;
+	float s = aStepA.x * (
+		strokeScaling == 4.0 || strokeScaling == 5.0 ||
+		strokeScaling == 6.0 || strokeScaling == 7.0 ?
+		strokeWidthScale : 1.0
+	);
+	float lt = aStepB.z;
+	return (dash < 0.5 ?
+		vec4(l, 2.0 * abs(lt), 0.0, lt) :
+		(dash < 3.5 ?
+			(dash < 1.5 ?
+				vec4(l, s, s, lt) :
+				(2.5 < dash ?
+					vec4(l, s, 2.0 * s, lt) :
+					vec4(l, s, 0.5 * s, lt)
+				)
+			) :
+			(dash < 4.5 ?
+				vec4(l, 2.0 * s, s, lt) :
+				(5.5 < dash ?
+					vec4(l, 2.0 * s, 2.0 * s, lt) :
+					vec4(l, 2.0 * s, 0.5 * s, lt)
+				)
+			)
+		)
+	);
+}
+
+void toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {
+	vec2 a = toUnpackedF2x1024(source.z);
+	fillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;
+	fillColor.w = a.x;
+	strokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;
+	strokeColor.w = a.y;
 }
 
 void main(void) {
-	vec2 p012 = toTransformedPosition( aPosition );
+	vec4 general = toGeneral(aStepA.y);
+	float type = general.x;
+	float strokeScaling = general.y;
+	float strokeWidthScale = toStrokeWidthScale(strokeScaling);
+	float strokeWidth = strokeWidthScale * aStepA.x;
 
-	float type = aClipping.z;
-	float strokeWidthScale = toStrokeWidthScale( aStep.y );
-	float strokeWidth = strokeWidthScale * aStep.x;
+	// Type 0, 1
+	vec2 p012 = toPosition012(aPosition);
+	vec2 sa012 = strokeWidth * general.zw;
+	vec4 sb01 = toStepB01(aStepB);
 
-	// type === 0 or 1
-	vec2 size01 = aAntialias.xy;
-	vec2 weight01 = abs(aAntialias.zw - sign(aAntialias.zw));
-	vec2 strokeWidth01 = step(vec2(0.0), aAntialias.zw) * strokeWidth;
-	vec2 step01 = toStep01( size01, weight01, strokeWidth01 );
-	vec4 a01 = toAntialias01( toAntialias01b( size01, strokeWidth01 ) );
+	// Type 2
+	vec4 sb2 = toStepB2(aStepB, strokeWidth);
 
-	// type === 2
-	vec4 a2 = toAntialias2( aAntialias, strokeWidth );
-
-	// type === 3, 4, 5 or 6
-	float shift3456 = 0.0;
-	vec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );
-	vec2 step3456 = toStep3456( type );
-	vec4 a3456 = toAntialias3456( strokeWidth );
-	vec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );
+	// Type 3 ~ 6
+	float shift3 = 0.0;
+	vec2 p3 = toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3);
+	vec2 sa3 = toStepA3(type, strokeWidth);
+	vec4 sb3 = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
 
 	//
-	gl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );
-	vAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );
-	vClipping = aClipping;
-	vStep = ( 2.5 < type ? step3456 : step01 );
-	vColorFill = ( 2.5 < type ? aColorStroke : aColorFill );
-	vColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );
+	gl_Position = vec4((2.5 < type ? p3 : p012), 0.0, 1.0);
+	vType = type;
+	vStepA = (2.5 < type ? sa3 : sa012);
+	vStepB = (1.5 < type ? (2.5 < type ? sb3 : sb2) : sb01);
+	toColors(aColor, vColorFill, vColorStroke);
 	vUv = aUv;
 }`;
 
 const FRAGMENT_SHADER = `
-varying mediump vec3 vClipping;
-varying mediump vec2 vStep;
-varying mediump vec4 vAntialias;
+varying mediump float vType;
+varying mediump vec2 vStepA;
+varying mediump vec4 vStepB;
 varying mediump vec4 vColorFill;
 varying mediump vec4 vColorStroke;
 varying mediump vec2 vUv;
 
 uniform sampler2D sampler;
-uniform mediump float pixelScale;
+uniform mediump float antialiasWeight;
 
-vec4 color1(float type, vec4 texture) {
-	vec2 v0 = vStep;
-	vec2 v1 = vClipping.xy;
-	vec2 v2 = v0 * vAntialias.xy;
-	vec2 v3 = v1 * vAntialias.zw;
-	vec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );
-	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
-	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
-	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
-	vec4 d = (type == 1.0 ? d1 : d0);
-	vec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );
-	return texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));
+vec4 toColor0(in vec4 texture) {
+	vec2 d = vStepB.xy;
+	vec2 c = vStepB.zw;
+	vec2 awd = antialiasWeight / d;
+	vec2 swd = vStepA / d;
+	vec2 one = vec2(1.0);
+	vec2 zero = vec2(0.0);
+	vec2 p0 = clamp(one - awd, zero, one);
+	vec2 p1 = clamp(one - swd, zero, one);
+	vec2 p2 = clamp(one - swd - awd, zero, one);
+	vec2 s0 = smoothstep(p0, one, c);
+	vec2 s1 = smoothstep(p2, p1, c);
+	float s2 = max(s0.x, s0.y);
+	float s3 = max(s1.x, s1.y);
+	return texture * (
+		vColorStroke * (s3 - s2) +
+		vColorFill * (1.0 - s3)
+	);
 }
 
-vec4 color2(float type, vec4 texture) {
-	vec2 a0 = vAntialias.xy;
-	vec2 a1 = vAntialias.zw;
-	vec2 a2 = vec2( (texture.b * 0.00392156862745098 + texture.g) * 0.00392156862745098 + texture.r );
-	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
-	return a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
+vec4 toColor1(in vec4 texture) {
+	vec2 d = vStepB.xy;
+	vec2 c = vStepB.zw;
+	vec2 awd = antialiasWeight / d;
+	vec2 swd = vStepA / d;
+	vec2 one = vec2(1.0);
+	vec2 zero = vec2(0.0);
+	float s0 = smoothstep(length(c), length(c/clamp(one - awd, zero, one)), 1.0);
+	float s1 = smoothstep(length(c/clamp(one - swd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);
+	return texture * (
+		vColorStroke * (s0 - s1) +
+		vColorFill * s1
+	);
 }
 
-float color3456(float type, vec4 texture) {
-	float l = vColorStroke.x;
-	float lp0 = vColorStroke.y;
-	float lp1 = vColorStroke.z;
-	float lt = vColorStroke.w;
-	float ld = 0.5 * pixelScale;
-	float lm = mod( l, lp0 + lp1 );
-	float ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );
-	float ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );
-	return ls0 * ls1;
+vec4 toColor2(in vec4 texture) {
+	vec2 p0 = vStepB.xy;
+	vec2 p1 = vStepB.zw;
+	vec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));
+	vec2 s = smoothstep(p0 - p1, p0 + p1, d);
+	return vColorStroke * (s.y - s.x) + vColorFill * s.x;
+}
+
+vec4 toColor3(in vec4 texture) {
+	float l = vStepB.x;
+	float lp0 = vStepB.y;
+	float lp1 = vStepB.z;
+	float lt = vStepB.w;
+	float ld = antialiasWeight;
+	float lm = mod(l, lp0 + lp1);
+	float ls0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
+	float ls1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
+
+	float c = vStepA.x;
+	float awd = antialiasWeight / vStepA.y;
+	float p0 = clamp(awd, 0.0, 1.0);
+	float p1 = clamp(1.0 - awd, 0.0, 1.0);
+	float s0 = smoothstep(0.0, p0, c);
+	float s1 = smoothstep(p1, 1.0, c);
+	return texture * vColorStroke * (s0 - s1) * ls0 * ls1;
 }
 
 void main(void) {
-	float type = vClipping.z;
 	vec4 texture = texture2D(sampler, vUv);
-	gl_FragColor = (type == 2.0 ?
-		color2(type, texture) :
-		color1(type, texture) * (2.5 < type ? color3456(type, texture) : 1.0)
+	gl_FragColor = (vType < 1.5 ?
+		(vType < 0.5 ?
+			toColor0(texture) :
+			toColor1(texture)
+		) :
+		(vType < 2.5 ?
+			toColor2(texture) :
+			toColor3(texture)
+		)
 	);
 }`;
 
@@ -375,7 +432,7 @@ export class EShapeRenderer extends ObjectRenderer {
 		if (shader != null && (shape != null || 0 < shapes.length)) {
 			const resolution = renderer.resolution;
 			const buffers = container.getBuffers();
-			const antialiasWeight = container.getAntialiasWeight(resolution);
+			const antialiasWeight = container.toAntialiasWeight(resolution);
 
 			// Update textures
 			if (isDirty) {
@@ -399,8 +456,7 @@ export class EShapeRenderer extends ObjectRenderer {
 
 			// Render buffers
 			shader.uniforms.shapeScale = container.toShapeScale();
-			shader.uniforms.pixelScale = container.toPixelScale(resolution);
-			shader.uniforms.antialiasWeight = antialiasWeight;
+			shader.uniforms.antialiasWeight = container.toPixelScale(resolution) * antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
 			renderer.shader.bind(shader, false);
 			renderer.state.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));

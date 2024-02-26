@@ -5,9 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeCorner } from "../e-shape-corner";
-import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
+import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildRectangleRoundedClipping,
 	buildRectangleRoundedIndex,
 	buildRectangleRoundedStep,
 	buildRectangleRoundedUv,
@@ -19,7 +18,6 @@ import {
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
-import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
@@ -79,13 +77,12 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
-			this.updateVertexClippingStepAndUv(buffer, shape, points);
-			this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
-			this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
+			this.updateVertexStepAndUv(buffer, shape, points);
+			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
 		}
 	}
 
-	protected updateVertexClippingStepAndUv(
+	protected updateVertexStepAndUv(
 		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
@@ -131,7 +128,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 		const isVertexChanged =
 			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
 
-		const isNotInited = !(this.inited & BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV);
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
 		if (
 			isNotInited ||
@@ -140,7 +137,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 			isCornerChanged ||
 			isTextureChanged
 		) {
-			this.inited |= BuilderFlag.VERTEX_CLIPPING_STEP_AND_UV;
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.pointId = pointId;
 			const formatted = points.formatted;
 			this.pointCount = formatted.length;
@@ -160,11 +157,8 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 
 			// Buffer
 			buffer.updateVertices();
-			if (isNotInited || isVertexChanged || isTransformChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 				buffer.updateSteps();
-			}
-			if (isNotInited || isVertexChanged || isCornerChanged) {
-				buffer.updateClippings();
 			}
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
@@ -173,7 +167,6 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
-			const clippings = buffer.clippings;
 			const steps = buffer.steps;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
@@ -207,7 +200,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 				);
 
 				// Steps
-				if (isNotInited || isVertexChanged || isTransformChanged) {
+				if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 					buildRectangleRoundedStep(
 						steps,
 						voffset,
@@ -218,17 +211,6 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
 					copyStep(steps, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
-				}
-
-				// Clippings
-				if (isNotInited || isVertexChanged || isCornerChanged) {
-					buildRectangleRoundedClipping(
-						clippings,
-						voffset,
-						corner,
-						RECTANGLE_ROUNDED_WORLD_SIZE
-					);
-					copyClipping(clippings, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
 				}
 
 				// UVs
@@ -262,23 +244,13 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 					);
 
 					// Steps
-					if (isNotInited || isVertexChanged || isTransformChanged) {
+					if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 						buildRectangleRoundedStep(
 							steps,
 							iv,
 							strokeWidth,
 							strokeSide,
 							strokeStyle,
-							corner,
-							RECTANGLE_ROUNDED_WORLD_SIZE
-						);
-					}
-
-					// Clippings
-					if (isNotInited || isVertexChanged || isCornerChanged) {
-						buildRectangleRoundedClipping(
-							clippings,
-							iv,
 							corner,
 							RECTANGLE_ROUNDED_WORLD_SIZE
 						);
@@ -298,7 +270,6 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 				RECTANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
-			buildNullClipping(clippings, voffsetReserved, vcountReserved);
 			buildNullUv(uvs, voffsetReserved, vcountReserved);
 		}
 	}
