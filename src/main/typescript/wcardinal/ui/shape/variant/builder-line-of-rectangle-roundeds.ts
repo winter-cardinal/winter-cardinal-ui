@@ -157,7 +157,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 
 			// Buffer
 			buffer.updateVertices();
-			if (isNotInited || isVertexChanged || isTransformChanged) {
+			if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 				buffer.updateSteps();
 			}
 			if (isNotInited || isVertexChanged || isTextureChanged) {
@@ -200,7 +200,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 				);
 
 				// Steps
-				if (isNotInited || isVertexChanged || isTransformChanged) {
+				if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
 					buildRectangleRoundedStep(
 						steps,
 						voffset,
