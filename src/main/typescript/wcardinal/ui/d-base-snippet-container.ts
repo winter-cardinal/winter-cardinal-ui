@@ -64,10 +64,19 @@ export class DBaseSnippetContainer {
 		if (this._renderable) {
 			const list = phase ? this._befores : this._afters;
 			for (let i = 0, imax = list.length; i < imax; ++i) {
-				const snippet = list[i];
-				snippet.updateTransform();
-				snippet.render(renderer);
+				list[i].render(renderer);
 			}
+		}
+	}
+
+	updateTransform(): void {
+		const befores = this._befores;
+		for (let i = 0, imax = befores.length; i < imax; ++i) {
+			befores[i].updateTransform();
+		}
+		const afters = this._afters;
+		for (let i = 0, imax = afters.length; i < imax; ++i) {
+			afters[i].updateTransform();
 		}
 	}
 }

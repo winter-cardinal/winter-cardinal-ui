@@ -2050,13 +2050,18 @@ export class DBase<
 	}
 
 	//
-	render(renderer: Renderer): void {
+	override render(renderer: Renderer): void {
 		if (this.visible && 0 < this.worldAlpha && this.renderable) {
 			const snippet = this._snippet;
 			snippet.render(renderer, true);
 			super.render(renderer);
 			snippet.render(renderer, false);
 		}
+	}
+
+	override updateTransform(): void {
+		super.updateTransform();
+		this._snippet.updateTransform();
 	}
 
 	//

@@ -122,6 +122,7 @@ export abstract class DScrollBar<
 				}
 				if (!this.visible) {
 					this.visible = true;
+					this.updateTransform();
 				}
 			} else {
 				if (this._fadeOutDelay < 0 && this.visible) {
