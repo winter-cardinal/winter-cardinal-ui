@@ -5,11 +5,13 @@
 
 import { DThemes } from "../theme/d-themes";
 import { eShapePointsFormatterCurve } from "./e-shape-points-formatter-curve";
+import { eShapePointsFormatterCurveBezierQuadratic } from "./e-shape-points-formatter-curve-bezier-quadratic";
 import { EShapePointsFormatterDatum } from "./e-shape-points-formatter-datum";
 import { EShapePointsStyle } from "./e-shape-points-style";
 
 export interface EThemeShapePointsFormatter {
-	getCurveLabel(): string;
+	getCurveSplineLabel(): string;
+	getCurveBezierQuadraticLabel(): string;
 }
 
 export class EShapePointsFormatters {
@@ -47,9 +49,13 @@ export class EShapePointsFormatters {
 	private static newData(): Map<number, EShapePointsFormatterDatum> {
 		const result = new Map<number, EShapePointsFormatterDatum>();
 		const theme = DThemes.get<EThemeShapePointsFormatter>("EShapePointsFormatter");
-		result.set(EShapePointsStyle.FORMATTER_CURVE, {
-			label: theme.getCurveLabel(),
+		result.set(EShapePointsStyle.FORMATTER_CURVE_SPLINE, {
+			label: theme.getCurveSplineLabel(),
 			formatter: eShapePointsFormatterCurve
+		});
+		result.set(EShapePointsStyle.FORMATTER_CURVE_BEZIER_QUADRATIC, {
+			label: theme.getCurveBezierQuadraticLabel(),
+			formatter: eShapePointsFormatterCurveBezierQuadratic
 		});
 		return result;
 	}

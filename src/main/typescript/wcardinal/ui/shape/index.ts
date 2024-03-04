@@ -70,6 +70,7 @@ export * from "./e-shape-layer-state";
 export * from "./e-shape-layer";
 export * from "./e-shape-layout";
 export * from "./e-shape-points-formatted";
+export * from "./e-shape-points-formatter-curve-bezier-quadratic";
 export * from "./e-shape-points-formatter-curve";
 export * from "./e-shape-points-formatter";
 export * from "./e-shape-points-formatter-datum";

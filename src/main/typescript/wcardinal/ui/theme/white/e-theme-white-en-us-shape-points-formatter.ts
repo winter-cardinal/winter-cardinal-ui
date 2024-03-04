@@ -1,7 +1,11 @@
 import { EThemeWhiteShapePointsFormatter } from "./e-theme-white-shape-points-formatter";
 
 export class EThemeWhiteEnUsShapePointsFormatter extends EThemeWhiteShapePointsFormatter {
-	override getCurveLabel(): string {
-		return "Curve";
+	override getCurveSplineLabel(): string {
+		return "Spline Curve";
+	}
+
+	override getCurveBezierQuadraticLabel(): string {
+		return "Quadratic Bezier Curve";
 	}
 }
