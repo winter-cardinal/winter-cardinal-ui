@@ -1142,6 +1142,14 @@ export class DBase<
 		return this._weight;
 	}
 
+	set weight(weight: number) {
+		if (this._weight !== weight) {
+			this._weight = weight;
+			this.toHierarchyDirty();
+			DApplications.update(this);
+		}
+	}
+
 	protected onMove(newX: number, newY: number, oldX: number, oldY: number): void {
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
