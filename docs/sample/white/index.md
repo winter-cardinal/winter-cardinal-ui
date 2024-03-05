@@ -271,6 +271,7 @@
 * Other
     * [CDN](./other/cdn.html)
     * [State Change Event](./other/state.html)
+    * [Weight](./other/weight.html)
 * Pagination
     * [Basics](./pagination/basics.html)
     * [Last Button](./pagination/last.html)
@@ -298,6 +299,7 @@
     * [SDF Image](./shape/image-sdf.html)
     * [Line](./shape/line.html)
     * [Line (Curve)](./shape/line-curve.html)
+    * [Line (Curve, Quadratic Bezier)](./shape/line-curve-bezier-quadratic.html)
     * [Line (Formatter Extension)](./shape/line-formatter-extension.html)
     * [Line (Formatter Function)](./shape/line-formatter-function.html)
     * [Line (Marker)](./shape/line-marker.html)
