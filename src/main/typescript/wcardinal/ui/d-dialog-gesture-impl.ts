@@ -29,7 +29,7 @@ export class DDialogGestureImpl<PARENT extends DDialogGestureParent>
 
 	protected _isDirty: boolean;
 	protected _constraint?: DDialogGestureConstraint;
-	protected _util?: UtilGesture<any>;
+	protected _util?: UtilGesture<PARENT>;
 
 	constructor(parent: PARENT, options: DDialogGestureOptions) {
 		this._parent = parent;
@@ -87,11 +87,11 @@ export class DDialogGestureImpl<PARENT extends DDialogGestureParent>
 		}
 	}
 
-	protected newUtil(): UtilGesture<any> {
+	protected newUtil(): UtilGesture<PARENT> {
 		const p = new Point();
 		const parent = this._parent;
 		const position = parent.position;
-		return new UtilGesture<any>({
+		return new UtilGesture<PARENT>({
 			bind: parent,
 			checker: {
 				start: (e): boolean => {

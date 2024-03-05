@@ -303,6 +303,7 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 		if (target == null || !target.state.isGesturing) {
 			return;
 		}
+		const oldTime = data.time;
 		if (!data.end(e)) {
 			return;
 		}
@@ -338,7 +339,7 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 		}
 		const easing = data.easing;
 		if (easing) {
-			easing.onEnd(e.data.originalEvent.timeStamp - data.time);
+			easing.onEnd(data.time - oldTime);
 		} else {
 			this.deleteData(data);
 			const onEasingEnd = this._onEasingEnd;

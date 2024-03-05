@@ -30,6 +30,7 @@ export class UtilGestureEasing {
 	protected _t: number;
 	protected _onMove: UtilGestureEasingOnMove;
 	protected _onEnd: UtilGestureEasingOnEnd;
+	protected _duration: number;
 
 	constructor(
 		onMove: UtilGestureEasingOnMove,
@@ -46,6 +47,7 @@ export class UtilGestureEasing {
 		this._dt = 0;
 		this._dtw = 0;
 		this._t = 0;
+		this._duration = 333 * (options?.duration ?? 1);
 		this._animation = new DAnimationBase({
 			onTime: (t: number): void => {
 				this.onEase(t);
@@ -54,7 +56,7 @@ export class UtilGestureEasing {
 				this.onEaseEnd();
 			},
 			timing: DAnimationTimings.LINEAR,
-			duration: 333 * (options?.duration ?? 1)
+			duration: this._duration
 		});
 		this._onMove = onMove;
 		this._onEnd = onEnd;
@@ -141,6 +143,12 @@ export class UtilGestureEasing {
 	}
 
 	onEnd(ldt: number): void {
+		const d0 = this._duration;
+		const d = d0 - ldt;
+		if (d <= 0) {
+			return this.onEaseEnd();
+		}
+
 		this.updateHistoriesSorted(ldt);
 		const sorted = this._historiesSorted;
 		const sortedLength = sorted.length;
@@ -167,7 +175,7 @@ export class UtilGestureEasing {
 		dx *= w;
 		dy *= w;
 		ds *= w;
-		dt *= w;
+		dt *= w * (d0 / d); // Effectively, this lowers the velocity (dx, dy, ds) by d / d0.
 		this._dx = dx;
 		this._dy = dy;
 		this._ds = ds;
@@ -175,8 +183,8 @@ export class UtilGestureEasing {
 
 		// Start animation
 		const animation = this._animation;
-		const d = animation.duration;
-		this._t = -ldt / d;
+		animation.duration = d;
+		this._t = 0;
 		this._dtw = d / dt;
 		animation.start();
 	}
@@ -184,7 +192,12 @@ export class UtilGestureEasing {
 	protected onEase(t: number): void {
 		const ot = this._t;
 		this._t = t;
-		// Note: Integral of (1-x) is x (1 - 0.5 x) + c.
+		// Note: Integral_{x=ot...t} (1-x) dx
+		//       = [x (1 - 0.5 x)]_{x=ot...t}
+		//       = t (1 - 0.5 t) - ot (1 - 0.5 ot)
+		//       = t - ot - 0.5 t t + 0.5 ot ot
+		//       = (t - ot) - 0.5 (t + ot) (t - ot)
+		//       = (1 - 0.5 (t + ot)) * (t - ot)
 		const w = (1 - 0.5 * (t + ot)) * (t - ot) * this._dtw;
 		this._onMove(this._dx * w, this._dy * w, 1 + (this._ds - 1) * w, t);
 	}
