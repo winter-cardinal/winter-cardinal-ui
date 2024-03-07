@@ -97,14 +97,12 @@ export class DTableHeaderCell<
 			const layer = DApplications.getLayer(this);
 			if (layer != null) {
 				const interactionManager = layer.renderer.plugins.interaction;
-				const oldWidth = this.width;
+				const width = this.width;
 				const x = this.toClickPosition(e);
 				const threshold = 10;
 				const columnIndex = this._columnIndex;
-				if (oldWidth - threshold <= x && x <= oldWidth) {
-					if (columnIndex + 1 < this._header.children.length) {
-						this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
-					}
+				if (width - threshold <= x && x <= width) {
+					this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
 				} else if (0 <= x && x <= threshold) {
 					if (1 <= columnIndex) {
 						this.onDownEdge(e.data.global.x, columnIndex - 1, interactionManager);
@@ -119,17 +117,29 @@ export class DTableHeaderCell<
 		columnIndex: number,
 		interactionManager: InteractionManager
 	): void {
+		// Find the resizable cell
 		const children = this._header.children;
 		const childrenLength = children.length;
-		const target = children[childrenLength - columnIndex - 1];
-		const targetColumn = target.column;
+		let target: DTableHeaderCell<ROW> | null = null;
+		for (let i = columnIndex; 0 <= i; --i) {
+			const child = children[childrenLength - i - 1];
+			if (child.column.resizable) {
+				target = child;
+				break;
+			}
+		}
+		if (target == null) {
+			// No resizable cell
+			return;
+		}
 
+		const column = target.column;
 		const oldWidth = target.width;
 		const oldWeight = target.weight;
 		if (oldWeight < 0) {
 			const onMoveBound = (e: InteractionEvent): void => {
 				const newWidth = Math.max(1, oldWidth + e.data.global.x - onDownPoint);
-				targetColumn.width = newWidth;
+				column.width = newWidth;
 			};
 			const onUpBound = () => {
 				interactionManager.off(UtilPointerEvent.move, onMoveBound);
@@ -140,19 +150,29 @@ export class DTableHeaderCell<
 			interactionManager.on(UtilPointerEvent.up, onUpBound);
 			interactionManager.on(UtilPointerEvent.upoutside, onUpBound);
 		} else {
+			if (oldWidth <= 0) {
+				// The cell doesn't have non-zero width
+				return;
+			}
 			let oldWeightTotal = 0;
 			let oldWidthTotal = 0;
 			const oldWeights: number[] = [];
 			for (let i = columnIndex + 1; i < childrenLength; ++i) {
 				const child = children[childrenLength - i - 1];
 				const childColumn = child.column;
-				const childColumnWeight = childColumn.weight;
-				if (childColumnWeight != null) {
-					const childWidth = child.width;
-					oldWeightTotal += childColumnWeight;
-					oldWidthTotal += childWidth;
-					oldWeights.push(childColumnWeight);
+				if (childColumn.resizable) {
+					const childColumnWeight = childColumn.weight;
+					if (childColumnWeight != null) {
+						const childWidth = child.width;
+						oldWeightTotal += childColumnWeight;
+						oldWidthTotal += childWidth;
+						oldWeights.push(childColumnWeight);
+					}
 				}
+			}
+			if (oldWeightTotal <= 0 || oldWeights.length <= 0) {
+				// No resizable cells with non-negative weights
+				return;
 			}
 			const newWidthMin = 1;
 			const newWidthMax = oldWidth + oldWidthTotal - 1;
@@ -162,14 +182,16 @@ export class DTableHeaderCell<
 					Math.min(newWidthMax, oldWidth + e.data.global.x - onDownPoint)
 				);
 				const newWeight = oldWeight * (newWidth / oldWidth);
-				targetColumn.weight = newWeight;
+				column.weight = newWeight;
 				const rweight = (oldWeightTotal - (newWeight - oldWeight)) / oldWeightTotal;
 				for (let i = columnIndex + 1, j = -1; i < childrenLength; ++i) {
 					const child = children[childrenLength - i - 1];
 					const childColumn = child.column;
-					const childColumnWeight = childColumn.weight;
-					if (childColumnWeight != null) {
-						childColumn.weight = oldWeights[++j] * rweight;
+					if (childColumn.resizable) {
+						const childColumnWeight = childColumn.weight;
+						if (childColumnWeight != null) {
+							childColumn.weight = oldWeights[++j] * rweight;
+						}
 					}
 				}
 			};
