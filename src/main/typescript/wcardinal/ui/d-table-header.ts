@@ -32,6 +32,7 @@ export class DTableHeader<
 > extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
 	protected _table: DTableHeaderTable<ROW>;
 	protected _offset: number;
+	declare children: DTableHeaderCell<ROW>[];
 
 	constructor(
 		table: DTableHeaderTable<ROW>,
@@ -74,11 +75,15 @@ export class DTableHeader<
 		columns: Array<DTableColumn<ROW>>,
 		options?: OPTIONS
 	): DBase {
-		return new DTableHeaderCell<ROW>(this.toCellOptions(columnIndex, column, options));
+		return new DTableHeaderCell<ROW>(
+			this,
+			columnIndex,
+			column,
+			this.toCellOptions(column, options)
+		);
 	}
 
 	protected toCellOptions(
-		columnIndex: number,
 		column: DTableColumn<ROW>,
 		options?: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
@@ -97,15 +102,6 @@ export class DTableHeader<
 			} else if (result.text.value === undefined) {
 				result.text.value = column.label;
 			}
-			if (result.header === undefined) {
-				result.header = this;
-			}
-			if (result.column === undefined) {
-				result.column = column;
-			}
-			if (result.columnIndex === undefined) {
-				result.columnIndex = columnIndex;
-			}
 			return result;
 		} else {
 			return {
@@ -113,10 +109,7 @@ export class DTableHeader<
 				width: column.width,
 				text: {
 					value: column.label
-				},
-				header: this,
-				column,
-				columnIndex
+				}
 			};
 		}
 	}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { InteractionEvent, Point } from "pixi.js";
+import { InteractionEvent, InteractionManager, Point } from "pixi.js";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
@@ -12,18 +12,17 @@ import { DTableHeaderTable } from "./d-table-header";
 import { DTableHeaderCellCheck, DTableHeaderCellCheckOptions } from "./d-table-header-cell-check";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DApplications } from "./d-applications";
 
 export interface DTableHeaderCellHeader<ROW> {
 	readonly table: DTableHeaderTable<ROW> | null;
+	readonly children: DTableHeaderCell<ROW>[];
 }
 
 export interface DTableHeaderCellOptions<
 	ROW,
 	THEME extends DThemeTableHeaderCell = DThemeTableHeaderCell
 > extends DImageOptions<string | null, THEME> {
-	header?: DTableHeaderCellHeader<ROW>;
-	column?: DTableColumn<ROW>;
-	columnIndex?: number;
 	check?: DTableHeaderCellCheckOptions;
 }
 
@@ -36,34 +35,36 @@ export class DTableHeaderCell<
 > extends DImage<string | null, THEME, OPTIONS> {
 	protected _sorter?: DTableDataSorter<ROW>;
 	protected _onSorterChangeBound?: () => void;
-	protected _header?: DTableHeaderCellHeader<ROW>;
-	protected _column?: DTableColumn<ROW>;
-	protected _columnIndex?: number;
-	protected _check!: DTableHeaderCellCheck<ROW>;
+	protected _header: DTableHeaderCellHeader<ROW>;
+	protected _column: DTableColumn<ROW>;
+	protected _columnIndex: number;
+	protected _check: DTableHeaderCellCheck<ROW>;
 	protected _checkWork?: Point;
+	protected _resizeWork?: Point;
 
-	protected init(options?: OPTIONS): void {
-		if (options != null) {
-			this._header = options.header;
-			this._column = options.column;
-			this._columnIndex = options.columnIndex;
-			this._check = new DTableHeaderCellCheck<ROW>(this, options.check);
-		} else {
-			this._check = new DTableHeaderCellCheck<ROW>(this);
-		}
-		super.init(options);
+	constructor(
+		header: DTableHeaderCellHeader<ROW>,
+		columnIndex: number,
+		column: DTableColumn<ROW>,
+		options?: OPTIONS
+	) {
+		super(options);
+		this._header = header;
+		this._column = column;
+		this._columnIndex = columnIndex;
+		this._check = new DTableHeaderCellCheck<ROW>(this, options?.check);
 		this.initOnClick(options);
 	}
 
-	get column(): DTableColumn<ROW> | undefined {
+	get column(): DTableColumn<ROW> {
 		return this._column;
 	}
 
-	get columnIndex(): number | undefined {
+	get columnIndex(): number {
 		return this._columnIndex;
 	}
 
-	get header(): DTableHeaderCellHeader<ROW> | undefined {
+	get header(): DTableHeaderCellHeader<ROW> {
 		return this._header;
 	}
 
@@ -86,6 +87,98 @@ export class DTableHeaderCell<
 				state.set(DTableState.CHECKABLE, checkable);
 				state.unlock();
 			}
+		}
+	}
+
+	protected override onDown(e: InteractionEvent): void {
+		super.onDown(e);
+
+		const layer = DApplications.getLayer(this);
+		if (layer != null) {
+			const interactionManager = layer.renderer.plugins.interaction;
+			const oldWidth = this.width;
+			const x = this.toClickPosition(e);
+			const threshold = 10;
+			const columnIndex = this._columnIndex;
+			if (oldWidth - threshold <= x && x <= oldWidth) {
+				if (columnIndex + 1 < this._header.children.length) {
+					this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
+				}
+			} else if (0 <= x && x <= threshold) {
+				if (1 <= columnIndex) {
+					this.onDownEdge(e.data.global.x, columnIndex - 1, interactionManager);
+				}
+			}
+		}
+	}
+
+	protected onDownEdge(
+		onDownPoint: number,
+		columnIndex: number,
+		interactionManager: InteractionManager
+	): void {
+		const children = this._header.children;
+		const childrenLength = children.length;
+		const target = children[childrenLength - columnIndex - 1];
+		const targetColumn = target.column;
+
+		const oldWidth = target.width;
+		const oldWeight = target.weight;
+		if (oldWeight < 0) {
+			const onMoveBound = (e: InteractionEvent): void => {
+				const newWidth = Math.max(1, oldWidth + e.data.global.x - onDownPoint);
+				targetColumn.width = newWidth;
+			};
+			const onUpBound = () => {
+				interactionManager.off(UtilPointerEvent.move, onMoveBound);
+				interactionManager.off(UtilPointerEvent.up, onUpBound);
+				interactionManager.off(UtilPointerEvent.upoutside, onUpBound);
+			};
+			interactionManager.on(UtilPointerEvent.move, onMoveBound);
+			interactionManager.on(UtilPointerEvent.up, onUpBound);
+			interactionManager.on(UtilPointerEvent.upoutside, onUpBound);
+		} else {
+			let oldWeightTotal = 0;
+			let oldWidthTotal = 0;
+			const oldWeights: number[] = [];
+			for (let i = columnIndex + 1; i < childrenLength; ++i) {
+				const child = children[childrenLength - i - 1];
+				const childColumn = child.column;
+				const childColumnWeight = childColumn.weight;
+				if (childColumnWeight != null) {
+					const childWidth = child.width;
+					oldWeightTotal += childColumnWeight;
+					oldWidthTotal += childWidth;
+					oldWeights.push(childColumnWeight);
+				}
+			}
+			const newWidthMin = 1;
+			const newWidthMax = oldWidth + oldWidthTotal - 1;
+			const onMoveBound = (e: InteractionEvent): void => {
+				const newWidth = Math.max(
+					newWidthMin,
+					Math.min(newWidthMax, oldWidth + e.data.global.x - onDownPoint)
+				);
+				const newWeight = oldWeight * (newWidth / oldWidth);
+				targetColumn.weight = newWeight;
+				const rweight = (oldWeightTotal - (newWeight - oldWeight)) / oldWeightTotal;
+				for (let i = columnIndex + 1, j = -1; i < childrenLength; ++i) {
+					const child = children[childrenLength - i - 1];
+					const childColumn = child.column;
+					const childColumnWeight = childColumn.weight;
+					if (childColumnWeight != null) {
+						childColumn.weight = oldWeights[++j] * rweight;
+					}
+				}
+			};
+			const onUpBound = () => {
+				interactionManager.off(UtilPointerEvent.move, onMoveBound);
+				interactionManager.off(UtilPointerEvent.up, onUpBound);
+				interactionManager.off(UtilPointerEvent.upoutside, onUpBound);
+			};
+			interactionManager.on(UtilPointerEvent.move, onMoveBound);
+			interactionManager.on(UtilPointerEvent.up, onUpBound);
+			interactionManager.on(UtilPointerEvent.upoutside, onUpBound);
 		}
 	}
 
@@ -143,8 +236,7 @@ export class DTableHeaderCell<
 	}
 
 	protected toClickPosition(e: InteractionEvent): number {
-		const checkWork = this._checkWork || new Point();
-		this._checkWork = checkWork;
+		const checkWork = (this._checkWork ??= new Point());
 		return e.data.getLocalPosition(this, checkWork).x;
 	}
 

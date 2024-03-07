@@ -119,7 +119,7 @@ export class DTable<
 		if (header != null) {
 			const columnWeight = column.weight;
 			if (columnWeight != null) {
-				this.onColumnResizeWidth(header, index, columnWeight);
+				this.onColumnResizeWeight(header, index, columnWeight);
 			} else {
 				const columnWidth = column.width;
 				if (columnWidth != null) {
@@ -134,7 +134,7 @@ export class DTable<
 		const columnWeight = column.weight;
 		if (columnWeight != null) {
 			for (let i = 0, imax = rows.length; i < imax; ++i) {
-				this.onColumnResizeWidth(rows[i], index, columnWeight);
+				this.onColumnResizeWeight(rows[i], index, columnWeight);
 			}
 		} else {
 			const columnWidth = column.width;
