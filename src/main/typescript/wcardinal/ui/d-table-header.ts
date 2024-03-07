@@ -90,9 +90,6 @@ export class DTableHeader<
 			if (result.width === undefined) {
 				result.width = column.width;
 			}
-			if (result.visible === undefined) {
-				result.visible = column.visible;
-			}
 			if (result.text === undefined) {
 				result.text = {
 					value: column.label

@@ -363,7 +363,6 @@ export class DTableColumnImpl<
 {
 	protected _weight?: number;
 	protected _width?: number;
-	protected _visible: boolean;
 
 	readonly type: DTableColumnType;
 	readonly label: string;
@@ -410,7 +409,6 @@ export class DTableColumnImpl<
 
 		this._weight = weight;
 		this._width = width;
-		this._visible = options.visible ?? true;
 		this.type = type;
 		this.label = label;
 		this.getter = getter;
@@ -456,18 +454,6 @@ export class DTableColumnImpl<
 		if (this._width != null && this._width !== width) {
 			this._width = width;
 			this.emit("resize", this);
-		}
-	}
-
-	get visible(): boolean {
-		return this._visible;
-	}
-
-	set visible(visible: boolean) {
-		const oldVisible = this._visible;
-		if (oldVisible !== visible) {
-			this._visible = visible;
-			this.emit("change", "visible", visible, oldVisible, this);
 		}
 	}
 }

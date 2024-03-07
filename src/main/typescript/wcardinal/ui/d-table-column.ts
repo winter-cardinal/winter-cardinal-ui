@@ -112,7 +112,6 @@ export interface DTableColumn<
 > extends utils.EventEmitter {
 	weight?: number;
 	width?: number;
-	visible: boolean;
 
 	readonly type: DTableColumnType;
 	label: string;

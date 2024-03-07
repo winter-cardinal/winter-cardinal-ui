@@ -282,9 +282,6 @@ export class DTableBodyRow<
 		// Width
 		result.width = column.width;
 
-		// Visible
-		result.visible = column.visible;
-
 		// State
 		result.state ??= column.state.initial;
 
