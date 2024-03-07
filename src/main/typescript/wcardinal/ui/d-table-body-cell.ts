@@ -8,7 +8,7 @@ import { DBase } from "./d-base";
 import { DTableColumn } from "./d-table-column";
 import { DTableDataSupplimental } from "./d-table-data";
 
-export type DTableBodyCellOnChange<ROW, VALUE, EMITTER = any> = (
+export type DTableBodyCellOnChange<ROW, VALUE = unknown, EMITTER = any> = (
 	newValue: VALUE,
 	oldValue: VALUE,
 	row: ROW,
@@ -18,7 +18,7 @@ export type DTableBodyCellOnChange<ROW, VALUE, EMITTER = any> = (
 	emitter: EMITTER
 ) => void;
 
-export interface DTableBodyCell<ROW, VALUE> extends DBase {
+export interface DTableBodyCell<ROW, VALUE = unknown> extends DBase {
 	/**
 	 * A row data if exists.
 	 * Otherwise, Undefined.

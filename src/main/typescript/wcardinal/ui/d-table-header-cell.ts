@@ -22,7 +22,7 @@ export interface DTableHeaderCellOptions<
 	THEME extends DThemeTableHeaderCell = DThemeTableHeaderCell
 > extends DImageOptions<string | null, THEME> {
 	header?: DTableHeaderCellHeader<ROW>;
-	column?: DTableColumn<ROW, unknown>;
+	column?: DTableColumn<ROW>;
 	columnIndex?: number;
 	check?: DTableHeaderCellCheckOptions;
 }
@@ -37,7 +37,7 @@ export class DTableHeaderCell<
 	protected _sorter?: DTableDataSorter<ROW>;
 	protected _onSorterChangeBound?: () => void;
 	protected _header?: DTableHeaderCellHeader<ROW>;
-	protected _column?: DTableColumn<ROW, unknown>;
+	protected _column?: DTableColumn<ROW>;
 	protected _columnIndex?: number;
 	protected _check!: DTableHeaderCellCheck<ROW>;
 	protected _checkWork?: Point;
@@ -55,7 +55,7 @@ export class DTableHeaderCell<
 		this.initOnClick(options);
 	}
 
-	get column(): DTableColumn<ROW, unknown> | undefined {
+	get column(): DTableColumn<ROW> | undefined {
 		return this._column;
 	}
 

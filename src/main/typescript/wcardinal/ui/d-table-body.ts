@@ -53,11 +53,8 @@ export interface DTableBodyOptions<
 	THEME extends DThemeTableBody = DThemeTableBody,
 	EMITTER = any
 > extends DBaseOptions<THEME, EMITTER> {
-	columns?: Array<DTableColumn<ROW, unknown>>;
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataListOptions<ROW> | DATA;
-	offset?: number;
-	frozen?: number;
 	on?: DTableBodyOnOptions<EMITTER>;
 }
 
@@ -70,17 +67,10 @@ const toRowOptions = <ROW, DATA extends DTableData<ROW>>(
 	options: DTableBodyOptions<ROW, DATA>,
 	selectionType: DTableDataSelectionType
 ): DTableBodyRowOptions<ROW> => {
-	const columns = options.columns || [];
 	let result = options.row;
 	if (result != null) {
 		if (result.height == null) {
 			result.height = theme.getRowHeight();
-		}
-		if (result.columns === undefined) {
-			result.columns = columns;
-		}
-		if (result.frozen == null) {
-			result.frozen = options.frozen;
 		}
 		if (result.selection === undefined) {
 			result.selection = {
@@ -91,9 +81,7 @@ const toRowOptions = <ROW, DATA extends DTableData<ROW>>(
 		}
 	} else {
 		result = {
-			columns,
 			height: theme.getRowHeight(),
-			frozen: options.frozen,
 			selection: {
 				type: selectionType
 			}
@@ -110,7 +98,8 @@ export class DTableBody<
 > extends DBase<THEME, OPTIONS> {
 	protected static WORK_ON_CLICK = new Point();
 
-	protected _columns: Array<DTableColumn<ROW, unknown>>;
+	protected _columns: DTableColumn<ROW>[];
+	protected _frozen: number;
 	protected _rowHeight: number;
 	protected _rowIndexMappedStart: number;
 	protected _rowIndexMappedEnd: number;
@@ -119,22 +108,23 @@ export class DTableBody<
 	protected _isUpdateRowsCalled: boolean;
 	protected _isUpdateRowsCalledForcibly: boolean;
 	protected _workRows: Array<DTableBodyRow<ROW>>;
-	protected _onRowChangeBound: DTableBodyRowOnChange<ROW, unknown>;
+	protected _onRowChangeBound: DTableBodyRowOnChange<ROW>;
 	protected _columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>;
 	protected _data: DATA;
 
-	constructor(options: OPTIONS) {
+	constructor(columns: DTableColumn<ROW>[], frozen: number, offset: number, options: OPTIONS) {
 		super(options);
 
-		this.transform.position.y = options.offset ?? 0;
+		this.transform.position.y = offset;
 		const data = this.toData(options.data);
 		this._data = data;
 		data.bind(this);
 		const theme = this.theme;
+		this._columns = columns;
+		this._frozen = frozen;
 		const rowOptions = toRowOptions(theme, options, data.selection.type);
 		this._rowOptions = rowOptions;
 		this._rowHeight = rowOptions.height != null ? rowOptions.height : theme.getRowHeight();
-		this._columns = rowOptions.columns || [];
 		this._rowIndexMappedStart = 0;
 		this._rowIndexMappedEnd = 0;
 		this._updateRowsCount = 0;
@@ -154,7 +144,7 @@ export class DTableBody<
 		row: ROW,
 		rowIndex: number,
 		columnIndex: number,
-		column: DTableColumn<ROW, unknown>
+		column: DTableColumn<ROW>
 	): void {
 		const data = this._data;
 		data.emit("change", newValue, oldValue, row, rowIndex, columnIndex, data);
@@ -392,6 +382,8 @@ export class DTableBody<
 			this._onRowChangeBound,
 			isEven,
 			this._columnIndexToCellOptions,
+			this._columns,
+			this._frozen,
 			this._rowOptions
 		);
 	}
@@ -402,7 +394,7 @@ export class DTableBody<
 	}
 
 	protected updateFrozenCellPosition(x: number): void {
-		const frozen = this._rowOptions.frozen;
+		const frozen = this._frozen;
 		if (frozen != null && 0 < frozen) {
 			const rows = this.children as Array<DTableBodyRow<ROW>>;
 			for (let i = 0, imax = rows.length; i < imax; ++i) {

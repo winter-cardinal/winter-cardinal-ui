@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Rectangle } from "pixi.js";
+import { Rectangle, utils } from "pixi.js";
 import { DBase } from "./d-base";
 import {
 	DLayoutHorizontal,
@@ -12,16 +12,14 @@ import {
 } from "./d-layout-horizontal";
 import { DTableState } from "./d-table-state";
 
-export interface DTableRowOptions<ROW, COLUMN, THEME extends DThemeTableRow = DThemeTableRow>
-	extends DLayoutHorizontalOptions<THEME> {
-	columns?: COLUMN[];
-	frozen?: number;
-}
+export interface DTableRowOptions<THEME extends DThemeTableRow = DThemeTableRow>
+	extends DLayoutHorizontalOptions<THEME> {}
 
 export interface DThemeTableRow extends DThemeLayoutHorizontal {}
 
-export interface DTableRowColumn {
+export interface DTableRowColumn extends utils.EventEmitter {
 	weight?: number;
+	width?: number;
 	frozen?: boolean;
 	offset: number;
 }
@@ -30,20 +28,23 @@ export abstract class DTableRow<
 	ROW,
 	COLUMN extends DTableRowColumn,
 	THEME extends DThemeTableRow = DThemeTableRow,
-	OPTIONS extends DTableRowOptions<ROW, COLUMN, THEME> = DTableRowOptions<ROW, COLUMN, THEME>
+	OPTIONS extends DTableRowOptions<THEME> = DTableRowOptions<THEME>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
 	protected _columns: COLUMN[];
 	protected _frozen: number;
 
-	constructor(options: OPTIONS) {
+	constructor(columns: COLUMN[], frozen: number, options?: OPTIONS) {
 		super(options);
 
 		this._reverse = true;
-		this._frozen = options.frozen ?? 0;
-		this._columns = options.columns ?? [];
+		this._frozen = frozen;
+		this._columns = columns;
 	}
 
-	protected initCells(options: OPTIONS, columns: COLUMN[], frozen: number): void {
+	protected initCells(): void {
+		const columns = this._columns;
+		const frozen = this._frozen;
+		const options = this._options;
 		const iend = this.toIndexEnd(columns);
 		for (let i = columns.length - 1; 0 <= i; --i) {
 			const cell = this.newCell(i, columns[i], columns, options);
@@ -136,7 +137,7 @@ export abstract class DTableRow<
 		columnIndex: number,
 		column: COLUMN,
 		columns: COLUMN[],
-		options: OPTIONS
+		options?: OPTIONS
 	): DBase;
 
 	protected getType(): string {

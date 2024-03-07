@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { utils } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DTableBodyCellLinkLinkOptions } from "./d-table-body-cell-link";
 import { DTableBodyCellOptions } from "./d-table-body-cell-options";
@@ -34,6 +35,7 @@ export interface DTableColumnOptions<
 > {
 	weight?: number;
 	width?: number;
+	visible?: boolean;
 
 	type?: keyof typeof DTableColumnType | DTableColumnType;
 	label?: string;
@@ -103,36 +105,37 @@ export interface DTableColumnOptions<
 
 export interface DTableColumn<
 	ROW_VALUE,
-	CELL_VALUE,
+	CELL_VALUE = unknown,
 	DIALOG_VALUE = CELL_VALUE,
 	DIALOG extends
 		DTableColumnSelectingDialog<DIALOG_VALUE> = DTableColumnSelectingDialog<DIALOG_VALUE>
-> {
-	weight: number | undefined;
-	width: number | undefined;
+> extends utils.EventEmitter {
+	weight?: number;
+	width?: number;
+	visible: boolean;
 
-	type: DTableColumnType;
+	readonly type: DTableColumnType;
 	label: string;
-	getter: DTableColumnGetter<ROW_VALUE, CELL_VALUE>;
-	setter: DTableColumnSetter<ROW_VALUE, CELL_VALUE>;
-	formatter?: DTableColumnFormatter<CELL_VALUE>;
-	align: DAlignHorizontal;
-	state: DTableColumnState<ROW_VALUE>;
-	renderable: boolean | DTableColumnRenderable<ROW_VALUE>;
+	readonly getter: DTableColumnGetter<ROW_VALUE, CELL_VALUE>;
+	readonly setter: DTableColumnSetter<ROW_VALUE, CELL_VALUE>;
+	readonly formatter?: DTableColumnFormatter<CELL_VALUE>;
+	readonly align: DAlignHorizontal;
+	readonly state: DTableColumnState<ROW_VALUE>;
+	readonly renderable: boolean | DTableColumnRenderable<ROW_VALUE>;
 
-	editing: DTableColumnEditing<ROW_VALUE, CELL_VALUE>;
-	sorting: DTableColumnSorting<ROW_VALUE>;
+	readonly editing: DTableColumnEditing<ROW_VALUE, CELL_VALUE>;
+	readonly sorting: DTableColumnSorting<ROW_VALUE>;
 
-	header?: DTableHeaderCellOptions<ROW_VALUE>;
-	body?: DTableBodyCellOptions<ROW_VALUE>;
+	readonly header?: DTableHeaderCellOptions<ROW_VALUE>;
+	readonly body?: DTableBodyCellOptions<ROW_VALUE>;
 
-	selecting: DTableColumnSelecting<CELL_VALUE, DIALOG_VALUE, DIALOG>;
+	readonly selecting: DTableColumnSelecting<CELL_VALUE, DIALOG_VALUE, DIALOG>;
 
-	category?: string | string[];
-	frozen?: boolean;
+	readonly category?: string | string[];
+	readonly frozen?: boolean;
 	offset: number;
 
-	link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
+	readonly link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
 
-	update: DTableColumnUpdate;
+	readonly update: DTableColumnUpdate;
 }
