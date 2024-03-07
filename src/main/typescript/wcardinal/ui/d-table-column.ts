@@ -35,7 +35,7 @@ export interface DTableColumnOptions<
 > {
 	weight?: number;
 	width?: number;
-	visible?: boolean;
+	resizable?: boolean;
 
 	type?: keyof typeof DTableColumnType | DTableColumnType;
 	label?: string;
@@ -112,6 +112,7 @@ export interface DTableColumn<
 > extends utils.EventEmitter {
 	weight?: number;
 	width?: number;
+	readonly resizable: boolean;
 
 	readonly type: DTableColumnType;
 	label: string;

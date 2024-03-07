@@ -93,20 +93,22 @@ export class DTableHeaderCell<
 	protected override onDown(e: InteractionEvent): void {
 		super.onDown(e);
 
-		const layer = DApplications.getLayer(this);
-		if (layer != null) {
-			const interactionManager = layer.renderer.plugins.interaction;
-			const oldWidth = this.width;
-			const x = this.toClickPosition(e);
-			const threshold = 10;
-			const columnIndex = this._columnIndex;
-			if (oldWidth - threshold <= x && x <= oldWidth) {
-				if (columnIndex + 1 < this._header.children.length) {
-					this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
-				}
-			} else if (0 <= x && x <= threshold) {
-				if (1 <= columnIndex) {
-					this.onDownEdge(e.data.global.x, columnIndex - 1, interactionManager);
+		if (this._column.resizable) {
+			const layer = DApplications.getLayer(this);
+			if (layer != null) {
+				const interactionManager = layer.renderer.plugins.interaction;
+				const oldWidth = this.width;
+				const x = this.toClickPosition(e);
+				const threshold = 10;
+				const columnIndex = this._columnIndex;
+				if (oldWidth - threshold <= x && x <= oldWidth) {
+					if (columnIndex + 1 < this._header.children.length) {
+						this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
+					}
+				} else if (0 <= x && x <= threshold) {
+					if (1 <= columnIndex) {
+						this.onDownEdge(e.data.global.x, columnIndex - 1, interactionManager);
+					}
 				}
 			}
 		}

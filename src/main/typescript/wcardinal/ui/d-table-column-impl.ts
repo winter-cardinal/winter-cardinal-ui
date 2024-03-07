@@ -363,6 +363,7 @@ export class DTableColumnImpl<
 {
 	protected _weight?: number;
 	protected _width?: number;
+	readonly resizable: boolean;
 
 	readonly type: DTableColumnType;
 	readonly label: string;
@@ -409,6 +410,7 @@ export class DTableColumnImpl<
 
 		this._weight = weight;
 		this._width = width;
+		this.resizable = options.resizable ?? false;
 		this.type = type;
 		this.label = label;
 		this.getter = getter;
