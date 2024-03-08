@@ -13,10 +13,12 @@ import { DTableHeaderCellCheck, DTableHeaderCellCheckOptions } from "./d-table-h
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { DApplications } from "./d-applications";
+import { DBaseStateSet } from "./d-base-state-set";
 
 export interface DTableHeaderCellHeader<ROW> {
 	readonly table: DTableHeaderTable<ROW> | null;
 	readonly children: DTableHeaderCell<ROW>[];
+	readonly state: DBaseStateSet;
 }
 
 export interface DTableHeaderCellOptions<
@@ -27,6 +29,15 @@ export interface DTableHeaderCellOptions<
 }
 
 export interface DThemeTableHeaderCell extends DThemeImage<string | null> {}
+
+export const DTableHeaderCellEdge = {
+	NONE: 0,
+	LEFT: 1,
+	RIGHT: 2,
+	BOTH: 3
+} as const;
+
+export type DTableHeaderCellEdge = (typeof DTableHeaderCellEdge)[keyof typeof DTableHeaderCellEdge];
 
 export class DTableHeaderCell<
 	ROW,
@@ -41,6 +52,8 @@ export class DTableHeaderCell<
 	protected _check: DTableHeaderCellCheck<ROW>;
 	protected _checkWork?: Point;
 	protected _resizeWork?: Point;
+	protected _onHoveredBound?: (e: InteractionEvent) => void;
+	protected _resizableEdges?: DTableHeaderCellEdge;
 
 	constructor(
 		header: DTableHeaderCellHeader<ROW>,
@@ -52,8 +65,21 @@ export class DTableHeaderCell<
 		this._header = header;
 		this._column = column;
 		this._columnIndex = columnIndex;
-		this._check = new DTableHeaderCellCheck<ROW>(this, options?.check);
-		this.initOnClick(options);
+		const check = new DTableHeaderCellCheck<ROW>(this, options?.check);
+		this._check = check;
+
+		const sortable = column.sorting.enable;
+		const checkable = check.isEnabled;
+		if (checkable || sortable) {
+			this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
+				this.onClick(e);
+			});
+			const state = this.state;
+			state.lock();
+			state.set(DTableState.SORTABLE, sortable);
+			state.set(DTableState.CHECKABLE, checkable);
+			state.unlock();
+		}
 	}
 
 	get column(): DTableColumn<ROW> {
@@ -72,43 +98,174 @@ export class DTableHeaderCell<
 		return this._check;
 	}
 
-	protected initOnClick(options?: OPTIONS): void {
-		const column = this._column;
-		if (column) {
-			const sortable = column.sorting.enable;
-			const checkable = this._check.isEnabled;
-			if (checkable || sortable) {
-				this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
-					this.onClick(e);
-				});
-				const state = this.state;
-				state.lock();
-				state.set(DTableState.SORTABLE, sortable);
-				state.set(DTableState.CHECKABLE, checkable);
-				state.unlock();
+	protected override onDown(e: InteractionEvent): void {
+		super.onDown(e);
+
+		const edges = this.state.valueOf(DTableState.HOVERED_ON_EDGE);
+		if (edges != null) {
+			const layer = DApplications.getLayer(this);
+			if (layer != null) {
+				const interactionManager = layer.renderer.plugins.interaction;
+				const columnIndex = this._columnIndex;
+				if (edges === DTableHeaderCellEdge.LEFT) {
+					this.onDownEdge(e.data.global.x, columnIndex - 1, interactionManager);
+				} else {
+					this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
+				}
 			}
 		}
 	}
 
-	protected override onDown(e: InteractionEvent): void {
-		super.onDown(e);
+	protected findLeftResizableCell(columnIndex: number): DTableHeaderCell<ROW> | null {
+		const children = this._header.children;
+		const childrenLength = children.length;
+		for (let i = columnIndex; 0 <= i; --i) {
+			const child = children[childrenLength - i - 1];
+			if (child.column.resizable) {
+				return child;
+			}
+		}
+		return null;
+	}
 
-		if (this._column.resizable) {
-			const layer = DApplications.getLayer(this);
-			if (layer != null) {
-				const interactionManager = layer.renderer.plugins.interaction;
-				const width = this.width;
-				const x = this.toClickPosition(e);
-				const threshold = 10;
-				const columnIndex = this._columnIndex;
-				if (width - threshold <= x && x <= width) {
-					this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
-				} else if (0 <= x && x <= threshold) {
-					if (1 <= columnIndex) {
-						this.onDownEdge(e.data.global.x, columnIndex - 1, interactionManager);
-					}
+	protected findRightResizableCell(columnIndex: number): DTableHeaderCell<ROW> | null {
+		const children = this._header.children;
+		const childrenLength = children.length;
+		for (let i = columnIndex + 1; i < childrenLength; ++i) {
+			const child = children[childrenLength - i - 1];
+			const childColumn = child.column;
+			if (childColumn.resizable) {
+				const childColumnWeight = childColumn.weight;
+				if (childColumnWeight != null) {
+					return child;
 				}
 			}
+		}
+		return null;
+	}
+
+	protected isLeftEdgeResizable(): boolean {
+		const columnIndex = this._columnIndex;
+		if (columnIndex <= 0) {
+			return false;
+		}
+		if (this._column.resizable) {
+			const target = this.findLeftResizableCell(columnIndex - 1);
+			if (target != null) {
+				if (target.column.weight != null) {
+					return this.findRightResizableCell(target.columnIndex) != null;
+				} else {
+					return true;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			const children = this._header.children;
+			const childrenLength = children.length;
+			const child = children[childrenLength - (columnIndex - 1) - 1];
+			const childColumn = child.column;
+			if (childColumn.resizable) {
+				if (childColumn.weight != null) {
+					return this.findRightResizableCell(columnIndex - 1) != null;
+				} else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	protected isRightEdgeResizable(): boolean {
+		const column = this._column;
+		if (column.resizable) {
+			if (column.weight != null) {
+				return this.findRightResizableCell(this._columnIndex) != null;
+			} else {
+				return true;
+			}
+		} else {
+			const target = this.findLeftResizableCell(this._columnIndex - 1);
+			if (target != null) {
+				if (target.column.weight != null) {
+					return this.findRightResizableCell(target.columnIndex) != null;
+				} else {
+					return true;
+				}
+			} else {
+				return false;
+			}
+		}
+	}
+
+	protected getResizableEdges(): DTableHeaderCellEdge {
+		let result = this._resizableEdges;
+		if (result == null) {
+			if (this.isLeftEdgeResizable()) {
+				if (this.isRightEdgeResizable()) {
+					result = DTableHeaderCellEdge.BOTH;
+				} else {
+					result = DTableHeaderCellEdge.LEFT;
+				}
+			} else {
+				if (this.isRightEdgeResizable()) {
+					result = DTableHeaderCellEdge.RIGHT;
+				} else {
+					result = DTableHeaderCellEdge.NONE;
+				}
+			}
+			this._resizableEdges = result;
+		}
+		return result;
+	}
+
+	protected override onOver(e: InteractionEvent): void {
+		super.onOver(e);
+
+		if (this.getResizableEdges() !== DTableHeaderCellEdge.NONE) {
+			const onHoveredBound = (this._onHoveredBound ??= (event: InteractionEvent): void => {
+				this.onHovered(event);
+			});
+			this.on(UtilPointerEvent.move, onHoveredBound);
+
+			// Since the cursor is set by InteractionManager before this method is called,
+			// the cursor need to be overriden.
+			this.onHovered(e);
+			const layer = DApplications.getLayer(this);
+			if (layer != null) {
+				layer.renderer.plugins.interaction.cursor = this.cursor;
+			}
+		}
+	}
+
+	protected override onOut(e: InteractionEvent): void {
+		super.onOut(e);
+
+		const onHoveredBound = this._onHoveredBound;
+		if (onHoveredBound != null) {
+			this.state.remove(DTableState.HOVERED_ON_EDGE);
+			this.off(UtilPointerEvent.move, onHoveredBound);
+		}
+	}
+
+	protected onHovered(e: InteractionEvent): void {
+		const width = this.width;
+		const x = this.toClickPosition(e);
+		const threshold = 10;
+		if (0 <= x && x <= threshold) {
+			if (this.getResizableEdges() & DTableHeaderCellEdge.LEFT) {
+				this.state.add(DTableState.HOVERED_ON_EDGE, DTableHeaderCellEdge.LEFT);
+			} else {
+				this.state.remove(DTableState.HOVERED_ON_EDGE);
+			}
+		} else if (width - threshold <= x && x <= width) {
+			if (this.getResizableEdges() & DTableHeaderCellEdge.RIGHT) {
+				this.state.add(DTableState.HOVERED_ON_EDGE, DTableHeaderCellEdge.RIGHT);
+			} else {
+				this.state.remove(DTableState.HOVERED_ON_EDGE);
+			}
+		} else {
+			this.state.remove(DTableState.HOVERED_ON_EDGE);
 		}
 	}
 
@@ -118,30 +275,24 @@ export class DTableHeaderCell<
 		interactionManager: InteractionManager
 	): void {
 		// Find the resizable cell
-		const children = this._header.children;
-		const childrenLength = children.length;
-		let target: DTableHeaderCell<ROW> | null = null;
-		for (let i = columnIndex; 0 <= i; --i) {
-			const child = children[childrenLength - i - 1];
-			if (child.column.resizable) {
-				target = child;
-				break;
-			}
-		}
+		const target = this.findLeftResizableCell(columnIndex);
 		if (target == null) {
 			// No resizable cell
 			return;
 		}
 
+		const header = this._header;
 		const column = target.column;
 		const oldWidth = target.width;
 		const oldWeight = target.weight;
 		if (oldWeight < 0) {
+			header.state.add(DTableState.RESIZING);
 			const onMoveBound = (e: InteractionEvent): void => {
 				const newWidth = Math.max(1, oldWidth + e.data.global.x - onDownPoint);
 				column.width = newWidth;
 			};
 			const onUpBound = () => {
+				header.state.remove(DTableState.RESIZING);
 				interactionManager.off(UtilPointerEvent.move, onMoveBound);
 				interactionManager.off(UtilPointerEvent.up, onUpBound);
 				interactionManager.off(UtilPointerEvent.upoutside, onUpBound);
@@ -157,6 +308,8 @@ export class DTableHeaderCell<
 			let oldWeightTotal = 0;
 			let oldWidthTotal = 0;
 			const oldWeights: number[] = [];
+			const children = this._header.children;
+			const childrenLength = children.length;
 			for (let i = columnIndex + 1; i < childrenLength; ++i) {
 				const child = children[childrenLength - i - 1];
 				const childColumn = child.column;
@@ -174,6 +327,7 @@ export class DTableHeaderCell<
 				// No resizable cells with non-negative weights
 				return;
 			}
+			header.state.add(DTableState.RESIZING);
 			const newWidthMin = 1;
 			const newWidthMax = oldWidth + oldWidthTotal - 1;
 			const onMoveBound = (e: InteractionEvent): void => {
@@ -196,6 +350,7 @@ export class DTableHeaderCell<
 				}
 			};
 			const onUpBound = () => {
+				header.state.remove(DTableState.RESIZING);
 				interactionManager.off(UtilPointerEvent.move, onMoveBound);
 				interactionManager.off(UtilPointerEvent.up, onUpBound);
 				interactionManager.off(UtilPointerEvent.upoutside, onUpBound);
@@ -232,11 +387,7 @@ export class DTableHeaderCell<
 	}
 
 	get comparator(): DTableDataComparator<ROW> | null {
-		const column = this._column;
-		if (column) {
-			return column.sorting.comparator || null;
-		}
-		return null;
+		return this._column.sorting.comparator || null;
 	}
 
 	protected onSorterChange(): void {
@@ -335,11 +486,11 @@ export class DTableHeaderCell<
 	}
 
 	get isSortable(): boolean {
-		const column = this._column;
-		if (column) {
-			return column.sorting.enable;
-		}
-		return false;
+		return this._column.sorting.enable;
+	}
+
+	get isResizable(): boolean {
+		return this._column.resizable;
 	}
 
 	get isToggle(): boolean {

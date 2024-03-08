@@ -60,5 +60,15 @@ export const DTableState = {
 	/**
 	 * Selectable row
 	 */
-	SELECTABLE: "SELECTABLE"
+	SELECTABLE: "SELECTABLE",
+
+	/**
+	 *
+	 */
+	HOVERED_ON_EDGE: "HOVERED_ON_EDGE",
+
+	/**
+	 *
+	 */
+	RESIZING: "RESIZING"
 };
