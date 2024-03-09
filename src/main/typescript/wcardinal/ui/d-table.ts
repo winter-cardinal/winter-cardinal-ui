@@ -8,7 +8,6 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DFocusable, DFocusableContainer } from "./d-controller-focus";
-import { DCoordinateSize } from "./d-coordinate";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DTableBody, DTableBodyOptions } from "./d-table-body";
 import { DTableCategory, DTableCategoryOptions } from "./d-table-category";
@@ -34,7 +33,7 @@ export interface DTableOptions<
 	THEME extends DThemeTable = DThemeTable,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
-	columns: Array<DTableColumnOptions<ROW>>;
+	columns: DTableColumnOptions<ROW>[];
 	category?: DTableCategoryOptions;
 	header?: DTableHeaderOptions<ROW>;
 	body?: DTableBodyOptions<ROW, DATA>;
@@ -66,8 +65,6 @@ export class DTable<
 		super(options);
 
 		const content = this.content;
-		content.setWidth(this.toContentWidth(options));
-
 		const body = this.body;
 		content.addChild(body);
 		if (body.data.selection.type !== DTableDataSelectionType.NONE) {
@@ -226,24 +223,53 @@ export class DTable<
 		});
 	}
 
-	protected toContentWidth(options?: OPTIONS): DCoordinateSize {
+	protected newContent(options?: CONTENT_OPTIONS): DBase {
+		const result = super.newContent(options);
+
+		// X & Width
 		let columnWidthTotal = 0;
-		const columns = options?.columns;
-		if (columns) {
-			for (let i = 0, imax = columns.length; i < imax; ++i) {
-				const column = columns[i];
-				const columnWidth = column.width;
-				if (columnWidth != null) {
-					columnWidthTotal += columnWidth;
-				}
+		const columns = this.columns;
+		const columnsLength = columns.length;
+		for (let i = 0; i < columnsLength; ++i) {
+			const column = columns[i];
+			const columnWidth = column.width;
+			if (columnWidth != null) {
+				columnWidthTotal += columnWidth;
 			}
 		}
 		if (0 < columnWidthTotal) {
-			return (p: number): number => {
-				return Math.max(p, columnWidthTotal);
+			const onColumnResize = () => {
+				columnWidthTotal = 0;
+				for (let i = 0; i < columnsLength; ++i) {
+					const column = columns[i];
+					const columnWidth = column.width;
+					if (columnWidth != null) {
+						columnWidthTotal += columnWidth;
+					}
+				}
+				const parentWidth = this.width;
+				const parentHeight = this.height;
+				const newWidth = Math.max(parentWidth, columnWidthTotal);
+				const newXMin = parentWidth - newWidth;
+				// The X position must be in [newXMin, 0].
+				if (result.x < newXMin) {
+					result.x = newXMin;
+				}
+				// Force the with reevaluated
+				result.onParentResize(parentWidth, parentHeight, this.padding);
 			};
+			for (let i = 0; i < columnsLength; ++i) {
+				columns[i].on("resize", onColumnResize);
+			}
+			result.setWidth((p) => {
+				return Math.max(p, columnWidthTotal);
+			});
+		} else {
+			result.setWidth("100%");
 		}
-		return "100%";
+
+		// Done
+		return result;
 	}
 
 	protected getHeaderOffset(): number {

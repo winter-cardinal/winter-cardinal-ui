@@ -176,4 +176,8 @@ export class DThemeDarkTableHeaderCell
 		}
 		return "";
 	}
+
+	getEdgeWidth(): number {
+		return 10;
+	}
 }

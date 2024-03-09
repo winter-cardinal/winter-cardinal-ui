@@ -28,7 +28,9 @@ export interface DTableHeaderCellOptions<
 	check?: DTableHeaderCellCheckOptions;
 }
 
-export interface DThemeTableHeaderCell extends DThemeImage<string | null> {}
+export interface DThemeTableHeaderCell extends DThemeImage<string | null> {
+	getEdgeWidth(): number;
+}
 
 export const DTableHeaderCellEdge = {
 	NONE: 0,
@@ -54,6 +56,8 @@ export class DTableHeaderCell<
 	protected _resizeWork?: Point;
 	protected _onHoveredBound?: (e: InteractionEvent) => void;
 	protected _resizableEdges?: DTableHeaderCellEdge;
+	protected _edgeSize: number;
+	protected _wasResizing: boolean;
 
 	constructor(
 		header: DTableHeaderCellHeader<ROW>,
@@ -67,6 +71,8 @@ export class DTableHeaderCell<
 		this._columnIndex = columnIndex;
 		const check = new DTableHeaderCellCheck<ROW>(this, options?.check);
 		this._check = check;
+		this._edgeSize = this.theme.getEdgeWidth();
+		this._wasResizing = false;
 
 		const sortable = column.sorting.enable;
 		const checkable = check.isEnabled;
@@ -99,8 +105,7 @@ export class DTableHeaderCell<
 	}
 
 	protected override onDown(e: InteractionEvent): void {
-		super.onDown(e);
-
+		this._wasResizing = false;
 		const edges = this.state.valueOf(DTableState.HOVERED_ON_EDGE);
 		if (edges != null) {
 			const layer = DApplications.getLayer(this);
@@ -113,6 +118,8 @@ export class DTableHeaderCell<
 					this.onDownEdge(e.data.global.x, columnIndex, interactionManager);
 				}
 			}
+		} else {
+			super.onDown(e);
 		}
 	}
 
@@ -251,14 +258,14 @@ export class DTableHeaderCell<
 	protected onHovered(e: InteractionEvent): void {
 		const width = this.width;
 		const x = this.toClickPosition(e);
-		const threshold = 10;
-		if (0 <= x && x <= threshold) {
+		const edgeSize = this._edgeSize;
+		if (0 <= x && x <= edgeSize) {
 			if (this.getResizableEdges() & DTableHeaderCellEdge.LEFT) {
 				this.state.add(DTableState.HOVERED_ON_EDGE, DTableHeaderCellEdge.LEFT);
 			} else {
 				this.state.remove(DTableState.HOVERED_ON_EDGE);
 			}
-		} else if (width - threshold <= x && x <= width) {
+		} else if (width - edgeSize <= x && x <= width) {
 			if (this.getResizableEdges() & DTableHeaderCellEdge.RIGHT) {
 				this.state.add(DTableState.HOVERED_ON_EDGE, DTableHeaderCellEdge.RIGHT);
 			} else {
@@ -288,10 +295,11 @@ export class DTableHeaderCell<
 		if (oldWeight < 0) {
 			header.state.add(DTableState.RESIZING);
 			const onMoveBound = (e: InteractionEvent): void => {
+				this._wasResizing = true;
 				const newWidth = Math.max(1, oldWidth + e.data.global.x - onDownPoint);
 				column.width = newWidth;
 			};
-			const onUpBound = () => {
+			const onUpBound = (e: InteractionEvent) => {
 				header.state.remove(DTableState.RESIZING);
 				interactionManager.off(UtilPointerEvent.move, onMoveBound);
 				interactionManager.off(UtilPointerEvent.up, onUpBound);
@@ -331,6 +339,7 @@ export class DTableHeaderCell<
 			const newWidthMin = 1;
 			const newWidthMax = oldWidth + oldWidthTotal - 1;
 			const onMoveBound = (e: InteractionEvent): void => {
+				this._wasResizing = true;
 				const newWidth = Math.max(
 					newWidthMin,
 					Math.min(newWidthMax, oldWidth + e.data.global.x - onDownPoint)
@@ -354,7 +363,7 @@ export class DTableHeaderCell<
 					}
 				}
 			};
-			const onUpBound = () => {
+			const onUpBound = (e: InteractionEvent) => {
 				header.state.remove(DTableState.RESIZING);
 				interactionManager.off(UtilPointerEvent.move, onMoveBound);
 				interactionManager.off(UtilPointerEvent.up, onUpBound);
@@ -446,6 +455,15 @@ export class DTableHeaderCell<
 		return false;
 	}
 
+	protected isEdgeClicked(
+		e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): boolean {
+		return (
+			e instanceof InteractionEvent &&
+			(this.state.is(DTableState.HOVERED_ON_EDGE) || this._wasResizing)
+		);
+	}
+
 	protected onClick(e: InteractionEvent): void {
 		if (this.state.isActionable) {
 			this.activate(e);
@@ -457,12 +475,14 @@ export class DTableHeaderCell<
 	}
 
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
-		if (this.isCheckClicked(e)) {
-			this.onToggleStart();
-			this.onToggleEnd();
-		} else {
-			this.doSort(e);
-			this.emit("active", this);
+		if (!this.isEdgeClicked(e)) {
+			if (this.isCheckClicked(e)) {
+				this.onToggleStart();
+				this.onToggleEnd();
+			} else {
+				this.doSort(e);
+				this.emit("active", this);
+			}
 		}
 	}
 
