@@ -254,18 +254,20 @@ export class DTableHeaderCell<
 		const leftOldWeight = left.weight;
 		if (leftColumn.weight == null) {
 			header.state.add(DTableState.RESIZING);
-			const onMoveBound = (e: InteractionEvent): void => {
+			const onMove = (e: InteractionEvent): void => {
 				leftColumn.width = Math.max(1, leftOldWidth + e.data.global.x - onDownPoint);
 			};
-			const onUpBound = (e: InteractionEvent) => {
+			const onUp = (e: InteractionEvent) => {
 				header.state.remove(DTableState.RESIZING);
-				interactionManager.off(UtilPointerEvent.move, onMoveBound);
-				interactionManager.off(UtilPointerEvent.up, onUpBound);
-				interactionManager.off(UtilPointerEvent.upoutside, onUpBound);
+				interactionManager.off(UtilPointerEvent.move, onMove);
+				interactionManager.off(UtilPointerEvent.up, onUp);
+				interactionManager.off(UtilPointerEvent.upoutside, onUp);
+				interactionManager.off(UtilPointerEvent.cancel, onUp);
 			};
-			interactionManager.on(UtilPointerEvent.move, onMoveBound);
-			interactionManager.on(UtilPointerEvent.up, onUpBound);
-			interactionManager.on(UtilPointerEvent.upoutside, onUpBound);
+			interactionManager.on(UtilPointerEvent.move, onMove);
+			interactionManager.on(UtilPointerEvent.up, onUp);
+			interactionManager.on(UtilPointerEvent.upoutside, onUp);
+			interactionManager.on(UtilPointerEvent.cancel, onUp);
 		} else {
 			const right = this.findRightResizableCellOfWeight(left.columnIndex);
 			if (right == null) {
@@ -282,7 +284,7 @@ export class DTableHeaderCell<
 				return;
 			}
 			header.state.add(DTableState.RESIZING);
-			const onMoveBound = (e: InteractionEvent): void => {
+			const onMove = (e: InteractionEvent): void => {
 				const leftNewWidth = Math.max(
 					0,
 					Math.min(totalWidth, leftOldWidth + e.data.global.x - onDownPoint)
@@ -291,15 +293,17 @@ export class DTableHeaderCell<
 				leftColumn.weight = leftNewWeight;
 				rightColumn.weight = totalWeight - leftNewWeight;
 			};
-			const onUpBound = (e: InteractionEvent) => {
+			const onUp = (e: InteractionEvent) => {
 				header.state.remove(DTableState.RESIZING);
-				interactionManager.off(UtilPointerEvent.move, onMoveBound);
-				interactionManager.off(UtilPointerEvent.up, onUpBound);
-				interactionManager.off(UtilPointerEvent.upoutside, onUpBound);
+				interactionManager.off(UtilPointerEvent.move, onMove);
+				interactionManager.off(UtilPointerEvent.up, onUp);
+				interactionManager.off(UtilPointerEvent.upoutside, onUp);
+				interactionManager.off(UtilPointerEvent.cancel, onUp);
 			};
-			interactionManager.on(UtilPointerEvent.move, onMoveBound);
-			interactionManager.on(UtilPointerEvent.up, onUpBound);
-			interactionManager.on(UtilPointerEvent.upoutside, onUpBound);
+			interactionManager.on(UtilPointerEvent.move, onMove);
+			interactionManager.on(UtilPointerEvent.up, onUp);
+			interactionManager.on(UtilPointerEvent.upoutside, onUp);
+			interactionManager.on(UtilPointerEvent.cancel, onUp);
 		}
 	}
 

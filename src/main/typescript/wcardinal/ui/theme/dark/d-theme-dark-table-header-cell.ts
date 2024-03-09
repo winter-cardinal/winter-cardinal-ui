@@ -169,7 +169,7 @@ export class DThemeDarkTableHeaderCell
 			return "";
 		}
 		if (state.is(DTableState.HOVERED_ON_EDGE) || state.on(DTableState.RESIZING)) {
-			return "ew-resize";
+			return "col-resize";
 		}
 		if (state.is(DTableState.CHECKABLE) || state.is(DTableState.SORTABLE)) {
 			return "pointer";
