@@ -105,9 +105,9 @@ export class DTableHeaderCell<
 	}
 
 	protected override onDown(e: InteractionEvent): void {
-		this._wasResizing = false;
 		const edges = this.state.valueOf(DTableState.HOVERED_ON_EDGE);
 		if (edges != null) {
+			this._wasResizing = true;
 			const layer = DApplications.getLayer(this);
 			if (layer != null) {
 				const interactionManager = layer.renderer.plugins.interaction;
@@ -119,6 +119,7 @@ export class DTableHeaderCell<
 				}
 			}
 		} else {
+			this._wasResizing = false;
 			super.onDown(e);
 		}
 	}
@@ -135,7 +136,7 @@ export class DTableHeaderCell<
 		return null;
 	}
 
-	protected findRightResizableCell(columnIndex: number): DTableHeaderCell<ROW> | null {
+	protected findRightResizableCellOfWeight(columnIndex: number): DTableHeaderCell<ROW> | null {
 		const children = this._header.children;
 		const childrenLength = children.length;
 		for (let i = columnIndex + 1; i < childrenLength; ++i) {
@@ -151,71 +152,30 @@ export class DTableHeaderCell<
 		return null;
 	}
 
-	protected isLeftEdgeResizable(): boolean {
-		const columnIndex = this._columnIndex;
-		if (columnIndex <= 0) {
-			return false;
-		}
-		if (this._column.resizable) {
-			const target = this.findLeftResizableCell(columnIndex - 1);
-			if (target != null) {
-				if (target.column.weight != null) {
-					return this.findRightResizableCell(target.columnIndex) != null;
-				} else {
-					return true;
-				}
+	protected checkIfEdgeResizable(columnIndex: number): boolean {
+		const target = this.findLeftResizableCell(columnIndex);
+		if (target != null) {
+			if (target.column.weight != null) {
+				return this.findRightResizableCellOfWeight(target.columnIndex) != null;
 			} else {
-				return false;
-			}
-		} else {
-			const children = this._header.children;
-			const childrenLength = children.length;
-			const child = children[childrenLength - (columnIndex - 1) - 1];
-			const childColumn = child.column;
-			if (childColumn.resizable) {
-				if (childColumn.weight != null) {
-					return this.findRightResizableCell(columnIndex - 1) != null;
-				} else {
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
 	}
 
-	protected isRightEdgeResizable(): boolean {
-		const column = this._column;
-		if (column.resizable) {
-			if (column.weight != null) {
-				return this.findRightResizableCell(this._columnIndex) != null;
-			} else {
-				return true;
-			}
-		} else {
-			const target = this.findLeftResizableCell(this._columnIndex - 1);
-			if (target != null) {
-				if (target.column.weight != null) {
-					return this.findRightResizableCell(target.columnIndex) != null;
-				} else {
-					return true;
-				}
-			} else {
-				return false;
-			}
-		}
-	}
-
 	protected getResizableEdges(): DTableHeaderCellEdge {
 		let result = this._resizableEdges;
 		if (result == null) {
-			if (this.isLeftEdgeResizable()) {
-				if (this.isRightEdgeResizable()) {
+			const columnIndex = this._columnIndex;
+			if (this.checkIfEdgeResizable(columnIndex - 1)) {
+				if (this.checkIfEdgeResizable(columnIndex)) {
 					result = DTableHeaderCellEdge.BOTH;
 				} else {
 					result = DTableHeaderCellEdge.LEFT;
 				}
 			} else {
-				if (this.isRightEdgeResizable()) {
+				if (this.checkIfEdgeResizable(columnIndex)) {
 					result = DTableHeaderCellEdge.RIGHT;
 				} else {
 					result = DTableHeaderCellEdge.NONE;
@@ -282,22 +242,20 @@ export class DTableHeaderCell<
 		interactionManager: InteractionManager
 	): void {
 		// Find the resizable cell
-		const target = this.findLeftResizableCell(columnIndex);
-		if (target == null) {
+		const left = this.findLeftResizableCell(columnIndex);
+		if (left == null) {
 			// No resizable cell
 			return;
 		}
 
 		const header = this._header;
-		const column = target.column;
-		const oldWidth = target.width;
-		const oldWeight = target.weight;
-		if (oldWeight < 0) {
+		const leftColumn = left.column;
+		const leftOldWidth = left.width;
+		const leftOldWeight = left.weight;
+		if (leftColumn.weight == null) {
 			header.state.add(DTableState.RESIZING);
 			const onMoveBound = (e: InteractionEvent): void => {
-				this._wasResizing = true;
-				const newWidth = Math.max(1, oldWidth + e.data.global.x - onDownPoint);
-				column.width = newWidth;
+				leftColumn.width = Math.max(1, leftOldWidth + e.data.global.x - onDownPoint);
 			};
 			const onUpBound = (e: InteractionEvent) => {
 				header.state.remove(DTableState.RESIZING);
@@ -309,59 +267,29 @@ export class DTableHeaderCell<
 			interactionManager.on(UtilPointerEvent.up, onUpBound);
 			interactionManager.on(UtilPointerEvent.upoutside, onUpBound);
 		} else {
-			if (oldWidth <= 0) {
-				// The cell doesn't have non-zero width
+			const right = this.findRightResizableCellOfWeight(left.columnIndex);
+			if (right == null) {
+				// No right resizable cell found
 				return;
 			}
-			let oldWeightTotal = 0;
-			let oldWidthTotal = 0;
-			const oldWeights: number[] = [];
-			const children = this._header.children;
-			const childrenLength = children.length;
-			for (let i = columnIndex + 1; i < childrenLength; ++i) {
-				const child = children[childrenLength - i - 1];
-				const childColumn = child.column;
-				if (childColumn.resizable) {
-					const childColumnWeight = childColumn.weight;
-					if (childColumnWeight != null) {
-						const childWidth = child.width;
-						oldWeightTotal += childColumnWeight;
-						oldWidthTotal += childWidth;
-						oldWeights.push(childColumnWeight);
-					}
-				}
-			}
-			if (oldWeightTotal <= 0 || oldWeights.length <= 0) {
-				// No resizable cells with non-negative weights
+			const rightColumn = right.column;
+			const rightOldWeight = right.weight;
+			const rightOldWidth = right.width;
+			const totalWidth = leftOldWidth + rightOldWidth;
+			const totalWeight = leftOldWeight + rightOldWeight;
+			if (totalWidth <= 0) {
+				// The left and right resizable cells doesn't have non-zero width
 				return;
 			}
 			header.state.add(DTableState.RESIZING);
-			const newWidthMin = 1;
-			const newWidthMax = oldWidth + oldWidthTotal - 1;
 			const onMoveBound = (e: InteractionEvent): void => {
-				this._wasResizing = true;
-				const newWidth = Math.max(
-					newWidthMin,
-					Math.min(newWidthMax, oldWidth + e.data.global.x - onDownPoint)
+				const leftNewWidth = Math.max(
+					0,
+					Math.min(totalWidth, leftOldWidth + e.data.global.x - onDownPoint)
 				);
-				// 0 <= oldWeightTotal - (newWeight - oldWeight)
-				// newWeight <= oldWeightTotal + oldWeight
-				const newWeight = Math.min(
-					oldWeight * (newWidth / oldWidth),
-					oldWeightTotal + oldWeight
-				);
-				column.weight = newWeight;
-				const rweight = (oldWeightTotal - (newWeight - oldWeight)) / oldWeightTotal;
-				for (let i = columnIndex + 1, j = -1; i < childrenLength; ++i) {
-					const child = children[childrenLength - i - 1];
-					const childColumn = child.column;
-					if (childColumn.resizable) {
-						const childColumnWeight = childColumn.weight;
-						if (childColumnWeight != null) {
-							childColumn.weight = oldWeights[++j] * rweight;
-						}
-					}
-				}
+				const leftNewWeight = totalWeight * (leftNewWidth / totalWidth);
+				leftColumn.weight = leftNewWeight;
+				rightColumn.weight = totalWeight - leftNewWeight;
 			};
 			const onUpBound = (e: InteractionEvent) => {
 				header.state.remove(DTableState.RESIZING);
