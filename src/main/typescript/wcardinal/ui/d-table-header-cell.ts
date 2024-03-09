@@ -335,7 +335,12 @@ export class DTableHeaderCell<
 					newWidthMin,
 					Math.min(newWidthMax, oldWidth + e.data.global.x - onDownPoint)
 				);
-				const newWeight = oldWeight * (newWidth / oldWidth);
+				// 0 <= oldWeightTotal - (newWeight - oldWeight)
+				// newWeight <= oldWeightTotal + oldWeight
+				const newWeight = Math.min(
+					oldWeight * (newWidth / oldWidth),
+					oldWeightTotal + oldWeight
+				);
 				column.weight = newWeight;
 				const rweight = (oldWeightTotal - (newWeight - oldWeight)) / oldWeightTotal;
 				for (let i = columnIndex + 1, j = -1; i < childrenLength; ++i) {
