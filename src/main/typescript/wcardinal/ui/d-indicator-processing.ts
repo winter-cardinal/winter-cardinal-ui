@@ -40,19 +40,19 @@ export interface DThemeIndicatorProcessing<VALUE = unknown> {
 	newProcessImageRotation(): DStateAwareOrValueMightBe<number>;
 }
 
-const STATE_INITIAL = 0;
-const STATE_STARTED = 1;
-const STATE_RESOLVED = 2;
-const STATE_REJECTED = 3;
-type STATE =
-	| typeof STATE_INITIAL
-	| typeof STATE_STARTED
-	| typeof STATE_RESOLVED
-	| typeof STATE_REJECTED;
+export const DIndicatorProcessingState = {
+	INITIAL: 0,
+	STARTED: 1,
+	RESOLVED: 2,
+	REJECTED: 3
+} as const;
+
+export type DIndicatorProcessingState =
+	(typeof DIndicatorProcessingState)[keyof typeof DIndicatorProcessingState];
 
 export class DIndicatorProcessing<VALUE> {
 	protected _parent: DImageBase<VALUE>;
-	protected _state: STATE;
+	protected _state: DIndicatorProcessingState;
 	protected _startTime: number;
 	protected _delayDone: number;
 	protected _delayClose: number | null;
@@ -71,7 +71,7 @@ export class DIndicatorProcessing<VALUE> {
 
 	constructor(parent: DImageBase<VALUE>, options?: DIndicatorProcessingOptions<VALUE>) {
 		this._parent = parent;
-		this._state = STATE_INITIAL;
+		this._state = DIndicatorProcessingState.INITIAL;
 		this._startTime = 0;
 
 		// Delay
@@ -99,11 +99,14 @@ export class DIndicatorProcessing<VALUE> {
 
 	start(): this {
 		const state = this._state;
-		if (state === STATE_INITIAL) {
-			this._state = STATE_STARTED;
+		if (state === DIndicatorProcessingState.INITIAL) {
+			this._state = DIndicatorProcessingState.STARTED;
 			this.onBegin();
-		} else if (state === STATE_RESOLVED || state === STATE_REJECTED) {
-			this._state = STATE_STARTED;
+		} else if (
+			state === DIndicatorProcessingState.RESOLVED ||
+			state === DIndicatorProcessingState.REJECTED
+		) {
+			this._state = DIndicatorProcessingState.STARTED;
 			this.onEnd();
 			this.onBegin();
 		}
@@ -159,8 +162,12 @@ export class DIndicatorProcessing<VALUE> {
 
 	end(): this {
 		const state = this._state;
-		if (state === STATE_STARTED || state === STATE_RESOLVED || state === STATE_REJECTED) {
-			this._state = STATE_INITIAL;
+		if (
+			state === DIndicatorProcessingState.STARTED ||
+			state === DIndicatorProcessingState.RESOLVED ||
+			state === DIndicatorProcessingState.REJECTED
+		) {
+			this._state = DIndicatorProcessingState.INITIAL;
 			this.onEnd();
 		}
 		return this;
@@ -200,8 +207,8 @@ export class DIndicatorProcessing<VALUE> {
 	}
 
 	resolve(message?: DStateAwareOrValueMightBe<VALUE>): void {
-		if (this._state === STATE_STARTED) {
-			this._state = STATE_RESOLVED;
+		if (this._state === DIndicatorProcessingState.STARTED) {
+			this._state = DIndicatorProcessingState.RESOLVED;
 			const elapsedTime = Date.now() - this._startTime;
 			const delay = this._delayDone - elapsedTime;
 			if (0 < delay) {
@@ -234,8 +241,8 @@ export class DIndicatorProcessing<VALUE> {
 	}
 
 	reject(message?: DStateAwareOrValueMightBe<VALUE>): void {
-		if (this._state === STATE_STARTED) {
-			this._state = STATE_REJECTED;
+		if (this._state === DIndicatorProcessingState.STARTED) {
+			this._state = DIndicatorProcessingState.REJECTED;
 			const elapsedTime = Date.now() - this._startTime;
 			const delay = this._delayDone - elapsedTime;
 			if (0 < delay) {

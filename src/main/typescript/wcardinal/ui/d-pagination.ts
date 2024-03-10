@@ -306,7 +306,7 @@ export class DPagination<
 
 	/**
 	 * Goes to the last page.
-	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 * Unlike {@link value}, this method emits the change event if silently is not true.
 	 *
 	 * @param silently true to suppress the change event
 	 * @returns true if succeeded.
@@ -317,7 +317,7 @@ export class DPagination<
 
 	/**
 	 * Goes to the given page.
-	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 * Unlike {@link value}, this method emits the change event if silently is not true.
 	 *
 	 * @param index a page index
 	 * @param silently true to suppress the change event
@@ -364,7 +364,7 @@ export class DPagination<
 
 	/**
 	 * Goes to the next page.
-	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 * Unlike {@link value}, this method emits the change event if silently is not true.
 	 *
 	 * @param silently true to suppress the change event
 	 * @returns true if succeeded.
@@ -400,7 +400,7 @@ export class DPagination<
 
 	/**
 	 * Goes to the previous page.
-	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 * Unlike {@link value}, this method emits the change event if silently is not true.
 	 *
 	 * @param silently true to suppress the change event
 	 * @returns true if succeeded.
@@ -436,7 +436,7 @@ export class DPagination<
 
 	/**
 	 * Goes to the top page.
-	 * Unlike {@link #value}, this method emits the change event if silently is not true.
+	 * Unlike {@link value}, this method emits the change event if silently is not true.
 	 *
 	 * @param silently true to suppress the change event
 	 * @returns true if succeeded.
