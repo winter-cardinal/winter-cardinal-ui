@@ -22,7 +22,7 @@ export interface DSelectEvents<VALUE, EMITTER>
 	/**
 	 * Triggered when a selection is changed.
 	 *
-	 * @param newVAlue a newly-selected value
+	 * @param newValue a newly-selected value
 	 * @param oldValue a previously-selected value
 	 * @param item a newly-selected item
 	 * @param emitter an emitter

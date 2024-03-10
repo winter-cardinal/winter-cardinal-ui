@@ -97,7 +97,7 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 	/**
 	 * Removes the given node.
 	 *
-	 * @param item a node to be removed
+	 * @param target a node to be removed
 	 * @return true if succeeded
 	 */
 	remove(target: NODE): boolean;

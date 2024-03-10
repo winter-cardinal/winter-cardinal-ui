@@ -57,10 +57,10 @@ export interface DTableDataMapped<ROW> {
 	 * If called iteratee explicitly returns false, stops an iteration.
 	 *
 	 * @param iteratee an function called on each mapped datum
-	 * @param ifrom an index to start an iteration
-	 * @param ito an index before which an interation stops
+	 * @param istart an index to start an iteration
+	 * @param iend an index before which an interation stops
 	 */
-	each(iteratee: DTableDataMappedEachIteratee<ROW>, ifrom?: number, iend?: number): void;
+	each(iteratee: DTableDataMappedEachIteratee<ROW>, istart?: number, iend?: number): void;
 }
 
 export type DTableDataEachIteratee<ROW> = (row: ROW, index: number) => void | boolean;
