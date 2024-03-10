@@ -22,10 +22,10 @@ export class DTableCategoryColumnImpl<
 	label: string | undefined;
 	protected _weight: number | undefined;
 	protected _width: number | undefined;
-	protected _nresizable: number;
 	protected _isLocked: boolean;
 	offset: number;
-	columns: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>[];
+	protected _columns: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>[];
+	protected _nresizable: number;
 
 	protected _onResizeBound: (
 		column: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>
@@ -50,10 +50,10 @@ export class DTableCategoryColumnImpl<
 
 		this._weight = column.weight;
 		this._width = column.width;
-		this._nresizable = column.resizable ? 1 : 0;
 		this._isLocked = false;
 		this.offset = 0.0;
-		this.columns = [column];
+		this._columns = [column];
+		this._nresizable = column.resizable ? 1 : 0;
 
 		const onResizeBound = (): void => {
 			this.onResize();
@@ -66,7 +66,7 @@ export class DTableCategoryColumnImpl<
 		if (this._isLocked) {
 			return;
 		}
-		const columns = this.columns;
+		const columns = this._columns;
 		if (this._weight != null) {
 			let newWeight = 0;
 			for (let i = 0, imax = columns.length; i < imax; ++i) {
@@ -106,7 +106,7 @@ export class DTableCategoryColumnImpl<
 		const oldWeight = this._weight;
 		const nresizable = this._nresizable;
 		if (0 < nresizable && oldWeight != null && oldWeight !== weight) {
-			const columns = this.columns;
+			const columns = this._columns;
 			const columnsLength = columns.length;
 			const minWeight = this.minWeight;
 			const newWeight = Math.max(minWeight, weight);
@@ -139,7 +139,7 @@ export class DTableCategoryColumnImpl<
 
 	get minWeight(): number {
 		let result = 0;
-		const columns = this.columns;
+		const columns = this._columns;
 		const columnsLength = columns.length;
 		for (let i = 0; i < columnsLength; ++i) {
 			const column = columns[i];
@@ -159,7 +159,7 @@ export class DTableCategoryColumnImpl<
 		const oldWidth = this._width;
 		const nresizable = this._nresizable;
 		if (0 < nresizable && oldWidth != null && oldWidth !== width) {
-			const columns = this.columns;
+			const columns = this._columns;
 			const columnsLength = columns.length;
 			const minWidth = this.minWidth;
 			const newWidth = Math.max(minWidth, width);
@@ -192,7 +192,7 @@ export class DTableCategoryColumnImpl<
 
 	get minWidth(): number {
 		let result = 0;
-		const columns = this.columns;
+		const columns = this._columns;
 		const columnsLength = columns.length;
 		for (let i = 0; i < columnsLength; ++i) {
 			const column = columns[i];
@@ -205,7 +205,7 @@ export class DTableCategoryColumnImpl<
 	}
 
 	add(column: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>): void {
-		this.columns.push(column);
+		this._columns.push(column);
 		if (this._weight != null) {
 			const weight = column.weight;
 			if (weight != null) {
