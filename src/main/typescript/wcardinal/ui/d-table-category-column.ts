@@ -6,8 +6,11 @@
 import { utils } from "pixi.js";
 
 export interface DTableCategoryColumn extends utils.EventEmitter {
-	label?: string;
+	readonly label?: string;
 	weight?: number;
+	readonly minWeight: number;
 	width?: number;
+	readonly minWidth: number;
 	offset: number;
+	readonly resizable: boolean;
 }

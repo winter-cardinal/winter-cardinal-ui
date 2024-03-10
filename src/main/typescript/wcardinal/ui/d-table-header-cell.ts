@@ -53,7 +53,6 @@ export class DTableHeaderCell<
 	protected _columnIndex: number;
 	protected _check: DTableHeaderCellCheck<ROW>;
 	protected _checkWork?: Point;
-	protected _resizeWork?: Point;
 	protected _onHoveredBound?: (e: InteractionEvent) => void;
 	protected _resizableEdges?: DTableHeaderCellEdge;
 	protected _edgeSize: number;

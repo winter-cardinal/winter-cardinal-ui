@@ -22,6 +22,7 @@ export class DTableCategory<
 	protected _columns: DTableCategoryColumn[];
 	protected _frozen: number;
 	protected _offset: number;
+	declare children: DTableCategoryCell[];
 
 	constructor(
 		columns: DTableCategoryColumn[],
@@ -51,22 +52,18 @@ export class DTableCategory<
 	}
 
 	protected onColumnResize(index: number, column: DTableCategoryColumn): void {
-		this.onResizeHeader(index, column);
-	}
-
-	protected onResizeHeader(index: number, column: DTableCategoryColumn): void {
 		const columnWeight = column.weight;
 		if (columnWeight != null) {
-			this.onResizeWeight(this, index, columnWeight);
+			this.onColumnResizeWeight(this, index, columnWeight);
 		} else {
 			const columnWidth = column.width;
 			if (columnWidth != null) {
-				this.onResizeWidth(this, index, columnWidth);
+				this.onColumnResizeWidth(this, index, columnWidth);
 			}
 		}
 	}
 
-	protected onResizeWeight(row: DBase, index: number, columnWeight: number): void {
+	protected onColumnResizeWeight(row: DBase, index: number, columnWeight: number): void {
 		const cells = row.children as DBase[];
 		const cellsLength = cells.length;
 		const cellsIndex = cellsLength - index - 1;
@@ -75,7 +72,7 @@ export class DTableCategory<
 		}
 	}
 
-	protected onResizeWidth(row: DBase, index: number, columnWidth: number): void {
+	protected onColumnResizeWidth(row: DBase, index: number, columnWidth: number): void {
 		const cells = row.children as DBase[];
 		const cellsLength = cells.length;
 		const cellsIndex = cellsLength - index - 1;
@@ -104,7 +101,12 @@ export class DTableCategory<
 		columns: DTableCategoryColumn[],
 		options?: OPTIONS
 	): DBase {
-		return new DTableCategoryCell(this.toCellOptions(columnIndex, column, options));
+		return new DTableCategoryCell(
+			this,
+			columnIndex,
+			column,
+			this.toCellOptions(columnIndex, column, options)
+		);
 	}
 
 	protected toCellOptions(
