@@ -5,18 +5,11 @@
 
 import { DBase } from "./d-base";
 import { DTableCategoryCell, DTableCategoryCellOptions } from "./d-table-category-cell";
+import { DTableCategoryColumn } from "./d-table-category-column";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 
-export interface DTableCategoryColumn {
-	label?: string;
-	weight?: number;
-	width?: number;
-	offset: number;
-}
-
 export interface DTableCategoryOptions<THEME extends DThemeTableCategory = DThemeTableCategory>
-	extends DTableRowOptions<unknown, DTableCategoryColumn, THEME> {
-	offset?: number;
+	extends DTableRowOptions<THEME> {
 	cell?: DTableCategoryCellOptions;
 }
 
@@ -26,16 +19,66 @@ export class DTableCategory<
 	THEME extends DThemeTableCategory = DThemeTableCategory,
 	OPTIONS extends DTableCategoryOptions<THEME> = DTableCategoryOptions<THEME>
 > extends DTableRow<unknown, DTableCategoryColumn, THEME, OPTIONS> {
+	protected _columns: DTableCategoryColumn[];
+	protected _frozen: number;
 	protected _offset: number;
+	declare children: DTableCategoryCell[];
 
-	constructor(options: OPTIONS) {
-		super(options);
+	constructor(
+		columns: DTableCategoryColumn[],
+		frozen: number,
+		offset: number,
+		options?: OPTIONS
+	) {
+		super(columns, frozen, options);
 
-		const offset = options.offset ?? 0;
+		this._columns = columns;
+		this._frozen = frozen;
 		this._offset = offset;
 		this.transform.position.y = offset;
 
-		this.initCells(options, this._columns, this._frozen);
+		this.initCells();
+
+		for (let i = 0, imax = columns.length; i < imax; ++i) {
+			const column = columns[i];
+			column.on("resize", this.newOnColumnResize(i, column));
+		}
+	}
+
+	protected newOnColumnResize(index: number, column: DTableCategoryColumn): () => void {
+		return (): void => {
+			this.onColumnResize(index, column);
+		};
+	}
+
+	protected onColumnResize(index: number, column: DTableCategoryColumn): void {
+		const columnWeight = column.weight;
+		if (columnWeight != null) {
+			this.onColumnResizeWeight(this, index, columnWeight);
+		} else {
+			const columnWidth = column.width;
+			if (columnWidth != null) {
+				this.onColumnResizeWidth(this, index, columnWidth);
+			}
+		}
+	}
+
+	protected onColumnResizeWeight(row: DBase, index: number, columnWeight: number): void {
+		const cells = row.children as DBase[];
+		const cellsLength = cells.length;
+		const cellsIndex = cellsLength - index - 1;
+		if (0 <= cellsIndex && cellsIndex < cellsLength) {
+			cells[cellsIndex].weight = columnWeight;
+		}
+	}
+
+	protected onColumnResizeWidth(row: DBase, index: number, columnWidth: number): void {
+		const cells = row.children as DBase[];
+		const cellsLength = cells.length;
+		const cellsIndex = cellsLength - index - 1;
+		if (0 <= cellsIndex && cellsIndex < cellsLength) {
+			cells[cellsIndex].width = columnWidth;
+		}
 	}
 
 	protected onParentMove(newX: number, newY: number, oldX: number, oldY: number): void {
@@ -56,23 +99,35 @@ export class DTableCategory<
 		columnIndex: number,
 		column: DTableCategoryColumn,
 		columns: DTableCategoryColumn[],
-		options: OPTIONS
+		options?: OPTIONS
 	): DBase {
-		return new DTableCategoryCell(this.toCellOptions(columnIndex, column, options));
+		return new DTableCategoryCell(
+			this,
+			columnIndex,
+			column,
+			this.toCellOptions(columnIndex, column, options)
+		);
 	}
 
 	protected toCellOptions(
 		columnIndex: number,
 		column: DTableCategoryColumn,
-		options: OPTIONS
+		options?: OPTIONS
 	): DTableCategoryCellOptions {
-		const result = options.cell;
+		const result = options?.cell;
 		if (result) {
+			// Weight
 			result.weight = column.weight;
+
+			// Width
 			result.width = column.width;
+
+			// Label
 			const text = result.text || {};
 			result.text = text;
 			text.value = text.value || column.label;
+
+			// Done
 			return result;
 		} else {
 			return {

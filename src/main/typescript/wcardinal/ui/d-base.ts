@@ -1986,8 +1986,7 @@ export class DBase<
 	protected onDownThis(e: InteractionEvent): void {
 		const oe = e.data.originalEvent;
 		if ("touches" in oe) {
-			const lastDownPoint = this._lastDownPoint || new Point();
-			this._lastDownPoint = lastDownPoint;
+			const lastDownPoint = (this._lastDownPoint ??= new Point());
 			lastDownPoint.copyFrom(e.data.global);
 		} else {
 			this.focusOnClosest();

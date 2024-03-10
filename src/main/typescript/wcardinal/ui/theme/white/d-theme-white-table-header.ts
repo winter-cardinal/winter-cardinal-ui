@@ -7,6 +7,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableHeader } from "../../d-table-header";
+import { DTableState } from "../../d-table-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteTableRow } from "./d-theme-white-table-row";
@@ -43,5 +44,12 @@ export class DThemeWhiteTableHeader extends DThemeWhiteTableRow implements DThem
 
 	getHeight(): DCoordinateSize {
 		return 30;
+	}
+
+	getCursor(state: DBaseStateSet): string {
+		if (state.is(DTableState.RESIZING)) {
+			return "col-resize";
+		}
+		return super.getCursor(state);
 	}
 }

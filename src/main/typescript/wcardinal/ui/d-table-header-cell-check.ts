@@ -10,7 +10,7 @@ export interface DTableHeaderCellCheckOptions {
 }
 
 export interface DTableHeaderCellCheckParent<ROW> {
-	readonly column?: DTableColumn<ROW, unknown>;
+	readonly column?: DTableColumn<ROW>;
 	readonly columnIndex?: number;
 	readonly header?: DTableHeaderCellHeader<ROW>;
 }

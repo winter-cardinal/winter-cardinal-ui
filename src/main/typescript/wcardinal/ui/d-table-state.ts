@@ -60,5 +60,15 @@ export const DTableState = {
 	/**
 	 * Selectable row
 	 */
-	SELECTABLE: "SELECTABLE"
+	SELECTABLE: "SELECTABLE",
+
+	/**
+	 * Header or category cells hovered on their edges.
+	 */
+	HOVERED_ON_EDGE: "HOVERED_ON_EDGE",
+
+	/**
+	 * Header or category of being resized.
+	 */
+	RESIZING: "RESIZING"
 };

@@ -44,7 +44,7 @@ export interface DTableBodyRowSelectionOptions {
 }
 
 export interface DTableBodyRowOptions<ROW, THEME extends DThemeTableBodyRow = DThemeTableBodyRow>
-	extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
+	extends DTableRowOptions<THEME> {
 	height?: number;
 	cell?: DTableBodyCellOptions<ROW>;
 	selection?: DTableBodyRowSelectionOptions;
@@ -52,7 +52,7 @@ export interface DTableBodyRowOptions<ROW, THEME extends DThemeTableBodyRow = DT
 
 export interface DThemeTableBodyRow extends DThemeTableRow {}
 
-export type DTableBodyRowOnChange<ROW, VALUE, EMITTER = any> = (
+export type DTableBodyRowOnChange<ROW, VALUE = unknown, EMITTER = any> = (
 	newValue: VALUE,
 	oldValue: VALUE,
 	row: ROW,
@@ -66,21 +66,23 @@ export class DTableBodyRow<
 	ROW,
 	THEME extends DThemeTableBodyRow = DThemeTableBodyRow,
 	OPTIONS extends DTableBodyRowOptions<ROW, THEME> = DTableBodyRowOptions<ROW, THEME>
-> extends DTableRow<ROW, DTableColumn<ROW, unknown>, THEME, OPTIONS> {
+> extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
 	protected _value?: ROW;
 	protected _supplimental?: DTableDataSupplimental | null;
 	protected _index: number;
-	protected _onChange: DTableBodyRowOnChange<ROW, unknown>;
+	protected _onChange: DTableBodyRowOnChange<ROW>;
 	protected _onCellChangeBound: DTableBodyCellOnChange<ROW, any>;
 	protected _columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>;
 
 	constructor(
-		onChange: DTableBodyRowOnChange<ROW, unknown>,
+		onChange: DTableBodyRowOnChange<ROW>,
 		isEven: boolean,
 		columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>,
+		columns: DTableColumn<ROW>[],
+		frozen: number,
 		options: OPTIONS
 	) {
-		super(options);
+		super(columns, frozen, options);
 
 		this._index = -1;
 		this._onChange = onChange;
@@ -96,7 +98,7 @@ export class DTableBodyRow<
 		};
 		this._columnIndexToCellOptions = columnIndexToCellOptions;
 		this.state.isAlternated = !isEven;
-		this.initCells(options, this._columns, this._frozen);
+		this.initCells();
 	}
 
 	protected onCellChange(
@@ -105,7 +107,7 @@ export class DTableBodyRow<
 		row: ROW,
 		rowIndex: number,
 		columnIndex: number,
-		column: DTableColumn<ROW, unknown>
+		column: DTableColumn<ROW>
 	): void {
 		this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, this);
 		if (column.update === DTableColumnUpdate.ROW) {
@@ -121,9 +123,9 @@ export class DTableBodyRow<
 
 	protected newCell(
 		columnIndex: number,
-		column: DTableColumn<ROW, unknown>,
-		columns: Array<DTableColumn<ROW, unknown>>,
-		options: OPTIONS
+		column: DTableColumn<ROW>,
+		columns: DTableColumn<ROW>[],
+		options?: OPTIONS
 	): DBase {
 		const onChange = this._onCellChangeBound;
 		const columnIndexToCellOptions = this._columnIndexToCellOptions;
@@ -251,8 +253,8 @@ export class DTableBodyRow<
 
 	protected newCellAction(
 		columnIndex: number,
-		column: DTableColumn<ROW, any>,
-		onChange: DTableBodyCellOnChange<ROW, any>,
+		column: DTableColumn<ROW>,
+		onChange: DTableBodyCellOnChange<ROW>,
 		options: any
 	): DBase {
 		const selecting = column.selecting;
@@ -269,10 +271,10 @@ export class DTableBodyRow<
 
 	protected toCellOptions(
 		columnIndex: number,
-		column: DTableColumn<ROW, unknown>,
-		options: OPTIONS
+		column: DTableColumn<ROW>,
+		options?: OPTIONS
 	): DTableBodyCellOptions<ROW> {
-		const result = toMerged(column.body, options.cell);
+		const result = toMerged(column.body, options?.cell);
 
 		// Weight
 		result.weight = column.weight;

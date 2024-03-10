@@ -19,9 +19,7 @@ export interface DTableHeaderTable<ROW> {
 }
 
 export interface DTableHeaderOptions<ROW, THEME extends DThemeTableHeader = DThemeTableHeader>
-	extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
-	table?: DTableHeaderTable<ROW>;
-	offset?: number;
+	extends DTableRowOptions<THEME> {
 	cell?: DTableHeaderCellOptions<ROW>;
 }
 
@@ -31,20 +29,26 @@ export class DTableHeader<
 	ROW,
 	THEME extends DThemeTableHeader = DThemeTableHeader,
 	OPTIONS extends DTableHeaderOptions<ROW, THEME> = DTableHeaderOptions<ROW, THEME>
-> extends DTableRow<ROW, DTableColumn<ROW, unknown>, THEME, OPTIONS> {
-	protected _table: DTableHeaderTable<ROW> | null;
+> extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
+	protected _table: DTableHeaderTable<ROW>;
 	protected _offset: number;
+	declare children: DTableHeaderCell<ROW>[];
 
-	constructor(options: OPTIONS) {
-		super(options);
+	constructor(
+		table: DTableHeaderTable<ROW>,
+		columns: DTableColumn<ROW>[],
+		frozen: number,
+		offset: number,
+		options?: OPTIONS
+	) {
+		super(columns, frozen, options);
 
-		this._table = options.table ?? null;
+		this._table = table;
 
-		const offset = options.offset ?? 0;
 		this._offset = offset;
 		this.transform.position.y = offset;
 
-		this.initCells(options, this._columns, this._frozen);
+		this.initCells();
 	}
 
 	get table(): DTableHeaderTable<ROW> | null {
@@ -67,19 +71,23 @@ export class DTableHeader<
 
 	protected newCell(
 		columnIndex: number,
-		column: DTableColumn<ROW, unknown>,
-		columns: Array<DTableColumn<ROW, unknown>>,
-		options: OPTIONS
+		column: DTableColumn<ROW>,
+		columns: Array<DTableColumn<ROW>>,
+		options?: OPTIONS
 	): DBase {
-		return new DTableHeaderCell<ROW>(this.toCellOptions(columnIndex, column, options));
+		return new DTableHeaderCell<ROW>(
+			this,
+			columnIndex,
+			column,
+			this.toCellOptions(column, options)
+		);
 	}
 
 	protected toCellOptions(
-		columnIndex: number,
-		column: DTableColumn<ROW, unknown>,
-		options: OPTIONS
+		column: DTableColumn<ROW>,
+		options?: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
-		const result = column.header || options.cell;
+		const result = column.header || options?.cell;
 		if (result != null) {
 			if (result.weight === undefined) {
 				result.weight = column.weight;
@@ -94,15 +102,6 @@ export class DTableHeader<
 			} else if (result.text.value === undefined) {
 				result.text.value = column.label;
 			}
-			if (result.header === undefined) {
-				result.header = this;
-			}
-			if (result.column === undefined) {
-				result.column = column;
-			}
-			if (result.columnIndex === undefined) {
-				result.columnIndex = columnIndex;
-			}
 			return result;
 		} else {
 			return {
@@ -110,10 +109,7 @@ export class DTableHeader<
 				width: column.width,
 				text: {
 					value: column.label
-				},
-				header: this,
-				column,
-				columnIndex
+				}
 			};
 		}
 	}

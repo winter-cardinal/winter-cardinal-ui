@@ -54,7 +54,7 @@ export class DThemeDarkTableHeaderCell
 	protected readonly BORDER_COLOR_FROZEN = UtilRgb.darken(this.BORDER_COLOR, 0.05);
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
-		if (state.inDisabled) {
+		if (state.inDisabled || state.on(DTableState.RESIZING)) {
 			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
 		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
@@ -168,9 +168,16 @@ export class DThemeDarkTableHeaderCell
 		if (!state.isActionable) {
 			return "";
 		}
+		if (state.is(DTableState.HOVERED_ON_EDGE) || state.on(DTableState.RESIZING)) {
+			return "col-resize";
+		}
 		if (state.is(DTableState.CHECKABLE) || state.is(DTableState.SORTABLE)) {
 			return "pointer";
 		}
 		return "";
+	}
+
+	getEdgeWidth(): number {
+		return 10;
 	}
 }
