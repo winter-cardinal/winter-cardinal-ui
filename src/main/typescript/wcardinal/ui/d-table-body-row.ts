@@ -125,7 +125,7 @@ export class DTableBodyRow<
 		columnIndex: number,
 		column: DTableColumn<ROW>,
 		columns: DTableColumn<ROW>[],
-		options: OPTIONS
+		options?: OPTIONS
 	): DBase {
 		const onChange = this._onCellChangeBound;
 		const columnIndexToCellOptions = this._columnIndexToCellOptions;
@@ -272,9 +272,9 @@ export class DTableBodyRow<
 	protected toCellOptions(
 		columnIndex: number,
 		column: DTableColumn<ROW>,
-		options: OPTIONS
+		options?: OPTIONS
 	): DTableBodyCellOptions<ROW> {
-		const result = toMerged(column.body, options.cell);
+		const result = toMerged(column.body, options?.cell);
 
 		// Weight
 		result.weight = column.weight;

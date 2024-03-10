@@ -1,3 +1,4 @@
+import { utils } from "pixi.js";
 import { DTableColumn } from "./d-table-column";
 import { DTableColumnSelectingDialog } from "./d-table-column-selecting";
 
@@ -17,9 +18,10 @@ export interface DTableColumnContainer<
 	DIALOG_VALUE = CELL_VALUE,
 	DIALOG extends
 		DTableColumnSelectingDialog<DIALOG_VALUE> = DTableColumnSelectingDialog<DIALOG_VALUE>
-> {
+> extends utils.EventEmitter {
 	readonly frozen: number;
 	readonly items: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>[];
+	readonly width: number;
 
 	get(index: number): DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG> | null;
 	each(iteratee: DTableColumnIteratee<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>): this;

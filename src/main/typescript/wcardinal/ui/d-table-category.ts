@@ -37,6 +37,51 @@ export class DTableCategory<
 		this.transform.position.y = offset;
 
 		this.initCells();
+
+		for (let i = 0, imax = columns.length; i < imax; ++i) {
+			const column = columns[i];
+			column.on("resize", this.newOnColumnResize(i, column));
+		}
+	}
+
+	protected newOnColumnResize(index: number, column: DTableCategoryColumn): () => void {
+		return (): void => {
+			this.onColumnResize(index, column);
+		};
+	}
+
+	protected onColumnResize(index: number, column: DTableCategoryColumn): void {
+		this.onResizeHeader(index, column);
+	}
+
+	protected onResizeHeader(index: number, column: DTableCategoryColumn): void {
+		const columnWeight = column.weight;
+		if (columnWeight != null) {
+			this.onResizeWeight(this, index, columnWeight);
+		} else {
+			const columnWidth = column.width;
+			if (columnWidth != null) {
+				this.onResizeWidth(this, index, columnWidth);
+			}
+		}
+	}
+
+	protected onResizeWeight(row: DBase, index: number, columnWeight: number): void {
+		const cells = row.children as DBase[];
+		const cellsLength = cells.length;
+		const cellsIndex = cellsLength - index - 1;
+		if (0 <= cellsIndex && cellsIndex < cellsLength) {
+			cells[cellsIndex].weight = columnWeight;
+		}
+	}
+
+	protected onResizeWidth(row: DBase, index: number, columnWidth: number): void {
+		const cells = row.children as DBase[];
+		const cellsLength = cells.length;
+		const cellsIndex = cellsLength - index - 1;
+		if (0 <= cellsIndex && cellsIndex < cellsLength) {
+			cells[cellsIndex].width = columnWidth;
+		}
 	}
 
 	protected onParentMove(newX: number, newY: number, oldX: number, oldY: number): void {
@@ -57,7 +102,7 @@ export class DTableCategory<
 		columnIndex: number,
 		column: DTableCategoryColumn,
 		columns: DTableCategoryColumn[],
-		options: OPTIONS
+		options?: OPTIONS
 	): DBase {
 		return new DTableCategoryCell(this.toCellOptions(columnIndex, column, options));
 	}
@@ -65,15 +110,22 @@ export class DTableCategory<
 	protected toCellOptions(
 		columnIndex: number,
 		column: DTableCategoryColumn,
-		options: OPTIONS
+		options?: OPTIONS
 	): DTableCategoryCellOptions {
-		const result = options.cell;
+		const result = options?.cell;
 		if (result) {
+			// Weight
 			result.weight = column.weight;
+
+			// Width
 			result.width = column.width;
+
+			// Label
 			const text = result.text || {};
 			result.text = text;
 			text.value = text.value || column.label;
+
+			// Done
 			return result;
 		} else {
 			return {

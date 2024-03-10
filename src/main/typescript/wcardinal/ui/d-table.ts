@@ -91,74 +91,7 @@ export class DTable<
 	}
 
 	protected newColumn(): DTableColumnContainer<ROW> {
-		const result = new DTableColumnContainerImpl<ROW>(this._options?.columns);
-		const columns = result.items;
-		for (let i = 0, imax = columns.length; i < imax; ++i) {
-			const column = columns[i];
-			column.on("resize", this.newOnColumnResize(i, column));
-		}
-		return result;
-	}
-
-	protected newOnColumnResize(index: number, column: DTableColumn<ROW>): () => void {
-		return (): void => {
-			this.onColumnResize(index, column);
-		};
-	}
-
-	protected onColumnResize(index: number, column: DTableColumn<ROW>): void {
-		this.onColumnResizeHeader(index, column);
-		this.onColumnResizeBody(index, column);
-	}
-
-	protected onColumnResizeHeader(index: number, column: DTableColumn<ROW>): void {
-		const header = this.header;
-		if (header != null) {
-			const columnWeight = column.weight;
-			if (columnWeight != null) {
-				this.onColumnResizeWeight(header, index, columnWeight);
-			} else {
-				const columnWidth = column.width;
-				if (columnWidth != null) {
-					this.onColumnResizeWidth(header, index, columnWidth);
-				}
-			}
-		}
-	}
-
-	protected onColumnResizeBody(index: number, column: DTableColumn<ROW>): void {
-		const rows = this.body.children as DTableRow<ROW, DTableColumn<ROW>>[];
-		const columnWeight = column.weight;
-		if (columnWeight != null) {
-			for (let i = 0, imax = rows.length; i < imax; ++i) {
-				this.onColumnResizeWeight(rows[i], index, columnWeight);
-			}
-		} else {
-			const columnWidth = column.width;
-			if (columnWidth != null) {
-				for (let i = 0, imax = rows.length; i < imax; ++i) {
-					this.onColumnResizeWidth(rows[i], index, columnWidth);
-				}
-			}
-		}
-	}
-
-	protected onColumnResizeWeight(row: DBase, index: number, columnWeight: number): void {
-		const cells = row.children as DBase[];
-		const cellsLength = cells.length;
-		const cellsIndex = cellsLength - index - 1;
-		if (0 <= cellsIndex && cellsIndex < cellsLength) {
-			cells[cellsIndex].weight = columnWeight;
-		}
-	}
-
-	protected onColumnResizeWidth(row: DBase, index: number, columnWidth: number): void {
-		const cells = row.children as DBase[];
-		const cellsLength = cells.length;
-		const cellsIndex = cellsLength - index - 1;
-		if (0 <= cellsIndex && cellsIndex < cellsLength) {
-			cells[cellsIndex].width = columnWidth;
-		}
+		return new DTableColumnContainerImpl<ROW>(this, this._options?.columns);
 	}
 
 	get columns(): DTableColumn<ROW>[] {
@@ -227,42 +160,26 @@ export class DTable<
 		const result = super.newContent(options);
 
 		// X & Width
-		let columnWidthTotal = 0;
-		const columns = this.columns;
-		const columnsLength = columns.length;
-		for (let i = 0; i < columnsLength; ++i) {
-			const column = columns[i];
-			const columnWidth = column.width;
-			if (columnWidth != null) {
-				columnWidthTotal += columnWidth;
-			}
-		}
-		if (0 < columnWidthTotal) {
-			const onColumnResize = () => {
-				columnWidthTotal = 0;
-				for (let i = 0; i < columnsLength; ++i) {
-					const column = columns[i];
-					const columnWidth = column.width;
-					if (columnWidth != null) {
-						columnWidthTotal += columnWidth;
-					}
-				}
+		const column = this.column;
+		let columnWidth = column.width;
+		if (0 < columnWidth) {
+			column.on("resize", () => {
+				columnWidth = column.width;
 				const parentWidth = this.width;
 				const parentHeight = this.height;
-				const newWidth = Math.max(parentWidth, columnWidthTotal);
+				const newWidth = Math.max(parentWidth, columnWidth);
 				const newXMin = parentWidth - newWidth;
+
 				// The X position must be in [newXMin, 0].
 				if (result.x < newXMin) {
 					result.x = newXMin;
 				}
+
 				// Force the with reevaluated
 				result.onParentResize(parentWidth, parentHeight, this.padding);
-			};
-			for (let i = 0; i < columnsLength; ++i) {
-				columns[i].on("resize", onColumnResize);
-			}
+			});
 			result.setWidth((p) => {
-				return Math.max(p, columnWidthTotal);
+				return Math.max(p, columnWidth);
 			});
 		} else {
 			result.setWidth("100%");

@@ -41,7 +41,7 @@ export class DTableCategoryColumnImpl<
 				}
 			} else {
 				if (index < category.length) {
-					this.label, category[index];
+					this.label = category[index];
 				}
 			}
 		}
