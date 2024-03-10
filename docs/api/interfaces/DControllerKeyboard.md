@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DControllerKeyboard
+[Winter Cardinal UI - v0.414.0](../index.md) / DControllerKeyboard
 
 # Interface: DControllerKeyboard
 
@@ -28,7 +28,7 @@
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -42,7 +42,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+`this`
 
 #### Inherited from
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-controller-keyboard.ts#L10)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-keyboard.ts#L10)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -194,7 +194,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+`this`
 
 #### Inherited from
 
@@ -208,7 +208,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -222,7 +222,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+`this`
 
 `this`.
 
@@ -238,7 +238,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -252,7 +252,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+`this`
 
 `this`.
 
@@ -268,7 +268,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -280,7 +280,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+`this`
 
 `this`.
 
@@ -296,7 +296,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -311,7 +311,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+`this`
 
 `this`.
 

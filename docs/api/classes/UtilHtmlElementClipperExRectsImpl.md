@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / UtilHtmlElementClipperExRectsImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / UtilHtmlElementClipperExRectsImpl
 
 # Class: UtilHtmlElementClipperExRectsImpl
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L14)
 
 ## Accessors
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L21)
 
 ___
 
@@ -73,13 +73,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L25)
 
 ## Methods
 
 ### add
 
-▸ **add**(`x0`, `y0`, `x1`, `y1`): [`UtilHtmlElementClipperExRectsImpl`](UtilHtmlElementClipperExRectsImpl.md)
+▸ **add**(`x0`, `y0`, `x1`, `y1`): `this`
 
 #### Parameters
 
@@ -92,7 +92,7 @@ ___
 
 #### Returns
 
-[`UtilHtmlElementClipperExRectsImpl`](UtilHtmlElementClipperExRectsImpl.md)
+`this`
 
 #### Implementation of
 
@@ -100,17 +100,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L54)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L54)
 
 ___
 
 ### begin
 
-▸ **begin**(): [`UtilHtmlElementClipperExRectsImpl`](UtilHtmlElementClipperExRectsImpl.md)
+▸ **begin**(): `this`
 
 #### Returns
 
-[`UtilHtmlElementClipperExRectsImpl`](UtilHtmlElementClipperExRectsImpl.md)
+`this`
 
 #### Implementation of
 
@@ -118,17 +118,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L37)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L37)
 
 ___
 
 ### end
 
-▸ **end**(): [`UtilHtmlElementClipperExRectsImpl`](UtilHtmlElementClipperExRectsImpl.md)
+▸ **end**(): `this`
 
 #### Returns
 
-[`UtilHtmlElementClipperExRectsImpl`](UtilHtmlElementClipperExRectsImpl.md)
+`this`
 
 #### Implementation of
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L42)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L42)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L29)
 
 ___
 
@@ -172,4 +172,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-html-element-clipper-ex-rects-impl.ts#L33)

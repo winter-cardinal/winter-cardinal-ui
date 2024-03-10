@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeTextImplParent
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeTextImplParent
 
 # Interface: EShapeTextImplParent
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts#L7)
 
 ## Methods
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts#L8)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-impl-parent.ts#L9)

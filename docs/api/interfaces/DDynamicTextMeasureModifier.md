@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDynamicTextMeasureModifier
+[Winter Cardinal UI - v0.414.0](../index.md) / DDynamicTextMeasureModifier
 
 # Interface: DDynamicTextMeasureModifier
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L11)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L11)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L12)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L12)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L15)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L15)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L16)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L16)
 
 ___
 
@@ -61,14 +61,14 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L14)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L14)
 
 ___
 
 ### wordWrap
 
-• **wordWrap**: [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap-1)
+• **wordWrap**: [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L13)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L13)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DViewParent
+[Winter Cardinal UI - v0.414.0](../index.md) / DViewParent
 
 # Interface: DViewParent
 
@@ -29,7 +29,7 @@
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DViewParent`](DViewParent.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -43,7 +43,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DViewParent`](DViewParent.md)
+`this`
 
 #### Inherited from
 
@@ -158,7 +158,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DViewParent`](DViewParent.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -173,7 +173,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DViewParent`](DViewParent.md)
+`this`
 
 #### Inherited from
 
@@ -187,7 +187,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DViewParent`](DViewParent.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -201,7 +201,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DViewParent`](DViewParent.md)
+`this`
 
 `this`.
 
@@ -217,7 +217,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DViewParent`](DViewParent.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -231,7 +231,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DViewParent`](DViewParent.md)
+`this`
 
 `this`.
 
@@ -247,7 +247,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DViewParent`](DViewParent.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -259,7 +259,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DViewParent`](DViewParent.md)
+`this`
 
 `this`.
 
@@ -275,7 +275,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DViewParent`](DViewParent.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -290,7 +290,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DViewParent`](DViewParent.md)
+`this`
 
 `this`.
 
@@ -314,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-parent.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L9)
+[src/main/typescript/wcardinal/ui/d-view-parent.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L9)
 
 ___
 
@@ -334,4 +334,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-parent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L10)
+[src/main/typescript/wcardinal/ui/d-view-parent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L10)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DShadow
+[Winter Cardinal UI - v0.414.0](../index.md) / DShadow
 
 # Interface: DShadow
 
@@ -1201,7 +1201,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DShadow`](DShadow.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1213,7 +1213,7 @@ ___
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1223,7 +1223,7 @@ DisplayObject.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DShadow`](DShadow.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1235,7 +1235,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1550,7 +1550,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DShadow`](DShadow.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1562,7 +1562,7 @@ ___
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1572,7 +1572,7 @@ DisplayObject.off
 
 node_modules/pixi.js/pixi.js.d.ts:25518
 
-▸ **off**(`event`, `fn?`, `context?`): [`DShadow`](DShadow.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1584,7 +1584,7 @@ node_modules/pixi.js/pixi.js.d.ts:25518
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1598,7 +1598,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DShadow`](DShadow.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1610,7 +1610,7 @@ ___
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1620,7 +1620,7 @@ DisplayObject.on
 
 node_modules/pixi.js/pixi.js.d.ts:25507
 
-▸ **on**(`event`, `fn`, `context?`): [`DShadow`](DShadow.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1632,7 +1632,7 @@ node_modules/pixi.js/pixi.js.d.ts:25507
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1666,13 +1666,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-reflowable.ts#L9)
+[src/main/typescript/wcardinal/ui/d-base-reflowable.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-reflowable.ts#L9)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DShadow`](DShadow.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1684,7 +1684,7 @@ ___
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1694,7 +1694,7 @@ DisplayObject.once
 
 node_modules/pixi.js/pixi.js.d.ts:25510
 
-▸ **once**(`event`, `fn`, `context?`): [`DShadow`](DShadow.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1706,7 +1706,7 @@ node_modules/pixi.js/pixi.js.d.ts:25510
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1720,7 +1720,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DShadow`](DShadow.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -1730,7 +1730,7 @@ ___
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1740,7 +1740,7 @@ DisplayObject.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DShadow`](DShadow.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -1750,7 +1750,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1764,7 +1764,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DShadow`](DShadow.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1776,7 +1776,7 @@ ___
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1786,7 +1786,7 @@ DisplayObject.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DShadow`](DShadow.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1798,7 +1798,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DShadow`](DShadow.md)
+`this`
 
 #### Inherited from
 
@@ -1826,7 +1826,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow.ts#L10)
+[src/main/typescript/wcardinal/ui/d-shadow.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow.ts#L10)
 
 ___
 

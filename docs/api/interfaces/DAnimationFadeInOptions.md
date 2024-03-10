@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DAnimationFadeInOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DAnimationFadeInOptions
 
 # Interface: DAnimationFadeInOptions\<TARGET\>
 
@@ -44,7 +44,7 @@ An animation duration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L136)
+[src/main/typescript/wcardinal/ui/d-animation.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L136)
 
 ___
 
@@ -60,7 +60,7 @@ Event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L141)
+[src/main/typescript/wcardinal/ui/d-animation.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L141)
 
 ___
 
@@ -76,7 +76,7 @@ Triggered when an animation ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L124)
+[src/main/typescript/wcardinal/ui/d-animation.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L124)
 
 ___
 
@@ -92,7 +92,7 @@ A function called when an animation starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L114)
+[src/main/typescript/wcardinal/ui/d-animation.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L114)
 
 ___
 
@@ -108,7 +108,7 @@ Triggered when an animation stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L129)
+[src/main/typescript/wcardinal/ui/d-animation.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L129)
 
 ___
 
@@ -124,7 +124,7 @@ A function called constantly when an animation is on a run.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L119)
+[src/main/typescript/wcardinal/ui/d-animation.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L119)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L18)
+[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L18)
 
 ___
 
@@ -150,7 +150,7 @@ An animation target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L109)
+[src/main/typescript/wcardinal/ui/d-animation.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L109)
 
 ___
 
@@ -164,4 +164,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-animation.ts#L131)
+[src/main/typescript/wcardinal/ui/d-animation.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L131)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTableColumn
+[Winter Cardinal UI - v0.414.0](../index.md) / DTableColumn
 
 # Interface: DTableColumn\<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
@@ -7,9 +7,19 @@
 | Name | Type |
 | :------ | :------ |
 | `ROW_VALUE` | `ROW_VALUE` |
-| `CELL_VALUE` | `CELL_VALUE` |
+| `CELL_VALUE` | `unknown` |
 | `DIALOG_VALUE` | `CELL_VALUE` |
 | `DIALOG` | extends [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`DIALOG_VALUE`\> = [`DTableColumnSelectingDialog`](DTableColumnSelectingDialog.md)\<`DIALOG_VALUE`\> |
+
+## Hierarchy
+
+- `EventEmitter`
+
+  ↳ **`DTableColumn`**
+
+## Implemented by
+
+- [`DTableColumnImpl`](../classes/DTableColumnImpl.md)
 
 ## Table of contents
 
@@ -27,6 +37,7 @@
 - [link](DTableColumn.md#link)
 - [offset](DTableColumn.md#offset)
 - [renderable](DTableColumn.md#renderable)
+- [resizable](DTableColumn.md#resizable)
 - [selecting](DTableColumn.md#selecting)
 - [setter](DTableColumn.md#setter)
 - [sorting](DTableColumn.md#sorting)
@@ -36,85 +47,98 @@
 - [weight](DTableColumn.md#weight)
 - [width](DTableColumn.md#width)
 
+### Methods
+
+- [addListener](DTableColumn.md#addlistener)
+- [emit](DTableColumn.md#emit)
+- [eventNames](DTableColumn.md#eventnames)
+- [listenerCount](DTableColumn.md#listenercount)
+- [listeners](DTableColumn.md#listeners)
+- [off](DTableColumn.md#off)
+- [on](DTableColumn.md#on)
+- [once](DTableColumn.md#once)
+- [removeAllListeners](DTableColumn.md#removealllisteners)
+- [removeListener](DTableColumn.md#removelistener)
+
 ## Properties
 
 ### align
 
-• **align**: [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+• `Readonly` **align**: [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L119)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L122)
 
 ___
 
 ### body
 
-• `Optional` **body**: [`DTableBodyCellOptions`](../index.md#dtablebodycelloptions)\<`ROW_VALUE`\>
+• `Optional` `Readonly` **body**: [`DTableBodyCellOptions`](../index.md#dtablebodycelloptions)\<`ROW_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L127)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L130)
 
 ___
 
 ### category
 
-• `Optional` **category**: `string` \| `string`[]
+• `Optional` `Readonly` **category**: `string` \| `string`[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L131)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L134)
 
 ___
 
 ### editing
 
-• **editing**: [`DTableColumnEditing`](DTableColumnEditing.md)\<`ROW_VALUE`, `CELL_VALUE`\>
+• `Readonly` **editing**: [`DTableColumnEditing`](DTableColumnEditing.md)\<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L123)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L126)
 
 ___
 
 ### formatter
 
-• `Optional` **formatter**: [`DTableColumnFormatter`](../index.md#dtablecolumnformatter)\<`CELL_VALUE`\>
+• `Optional` `Readonly` **formatter**: [`DTableColumnFormatter`](../index.md#dtablecolumnformatter)\<`CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L118)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L121)
 
 ___
 
 ### frozen
 
-• `Optional` **frozen**: `boolean`
+• `Optional` `Readonly` **frozen**: `boolean`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L132)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L135)
 
 ___
 
 ### getter
 
-• **getter**: [`DTableColumnGetter`](../index.md#dtablecolumngetter)\<`ROW_VALUE`, `CELL_VALUE`\>
+• `Readonly` **getter**: [`DTableColumnGetter`](../index.md#dtablecolumngetter)\<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L116)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L119)
 
 ___
 
 ### header
 
-• `Optional` **header**: [`DTableHeaderCellOptions`](DTableHeaderCellOptions.md)\<`ROW_VALUE`, [`DThemeTableHeaderCell`](DThemeTableHeaderCell.md)\>
+• `Optional` `Readonly` **header**: [`DTableHeaderCellOptions`](DTableHeaderCellOptions.md)\<`ROW_VALUE`, [`DThemeTableHeaderCell`](DThemeTableHeaderCell.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L126)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L129)
 
 ___
 
@@ -124,17 +148,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L115)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L118)
 
 ___
 
 ### link
 
-• `Optional` **link**: [`DTableBodyCellLinkLinkOptions`](DTableBodyCellLinkLinkOptions.md)\<`ROW_VALUE`, `CELL_VALUE`\>
+• `Optional` `Readonly` **link**: [`DTableBodyCellLinkLinkOptions`](DTableBodyCellLinkLinkOptions.md)\<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L135)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L138)
 
 ___
 
@@ -144,94 +168,381 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L133)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L136)
 
 ___
 
 ### renderable
 
-• **renderable**: `boolean` \| [`DTableColumnRenderable`](../index.md#dtablecolumnrenderable)\<`ROW_VALUE`\>
+• `Readonly` **renderable**: `boolean` \| [`DTableColumnRenderable`](../index.md#dtablecolumnrenderable)\<`ROW_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L121)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L124)
+
+___
+
+### resizable
+
+• `Readonly` **resizable**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-column.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L115)
 
 ___
 
 ### selecting
 
-• **selecting**: [`DTableColumnSelecting`](DTableColumnSelecting.md)\<`CELL_VALUE`, `DIALOG_VALUE`, `DIALOG`\>
+• `Readonly` **selecting**: [`DTableColumnSelecting`](DTableColumnSelecting.md)\<`CELL_VALUE`, `DIALOG_VALUE`, `DIALOG`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L129)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L132)
 
 ___
 
 ### setter
 
-• **setter**: [`DTableColumnSetter`](../index.md#dtablecolumnsetter)\<`ROW_VALUE`, `CELL_VALUE`\>
+• `Readonly` **setter**: [`DTableColumnSetter`](../index.md#dtablecolumnsetter)\<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L117)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L120)
 
 ___
 
 ### sorting
 
-• **sorting**: [`DTableColumnSorting`](DTableColumnSorting.md)\<`ROW_VALUE`\>
+• `Readonly` **sorting**: [`DTableColumnSorting`](DTableColumnSorting.md)\<`ROW_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L124)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L127)
 
 ___
 
 ### state
 
-• **state**: [`DTableColumnState`](DTableColumnState.md)\<`ROW_VALUE`\>
+• `Readonly` **state**: [`DTableColumnState`](DTableColumnState.md)\<`ROW_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L120)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L123)
 
 ___
 
 ### type
 
-• **type**: [`DTableColumnType`](../index.md#dtablecolumntype-1)
+• `Readonly` **type**: [`DTableColumnType`](../index.md#dtablecolumntype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L114)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L117)
 
 ___
 
 ### update
 
-• **update**: [`DTableColumnUpdate`](../index.md#dtablecolumnupdate-1)
+• `Readonly` **update**: [`DTableColumnUpdate`](../index.md#dtablecolumnupdate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L137)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L140)
 
 ___
 
 ### weight
 
-• **weight**: `undefined` \| `number`
+• `Optional` **weight**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L111)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L113)
 
 ___
 
 ### width
 
-• **width**: `undefined` \| `number`
+• `Optional` **width**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L112)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L114)
+
+## Methods
+
+### addListener
+
+▸ **addListener**(`event`, `fn`, `context?`): `this`
+
+Alias method for `on`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn` | `Function` |
+| `context?` | `any` |
+
+#### Returns
+
+`this`
+
+#### Inherited from
+
+utils.EventEmitter.addListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25495
+
+___
+
+### emit
+
+▸ **emit**(`event`, `...args`): `boolean`
+
+Calls each of the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `...args` | `any`[] | Arguments that are passed to registered listeners |
+
+#### Returns
+
+`boolean`
+
+`true` if the event had listeners, else `false`.
+
+#### Inherited from
+
+utils.EventEmitter.emit
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### eventNames
+
+▸ **eventNames**(): (`string` \| `symbol`)[]
+
+Return an array listing the events for which the emitter has registered listeners.
+
+#### Returns
+
+(`string` \| `symbol`)[]
+
+#### Inherited from
+
+utils.EventEmitter.eventNames
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25415
+
+___
+
+### listenerCount
+
+▸ **listenerCount**(`event`): `number`
+
+Return the number of listeners listening to a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+utils.EventEmitter.listenerCount
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25432
+
+___
+
+### listeners
+
+▸ **listeners**(`event`): `Function`[]
+
+Return the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`Function`[]
+
+#### Inherited from
+
+utils.EventEmitter.listeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25424
+
+___
+
+### off
+
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
+
+Alias method for `removeListener`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn?` | `Function` |
+| `context?` | `any` |
+| `once?` | `boolean` |
+
+#### Returns
+
+`this`
+
+#### Inherited from
+
+utils.EventEmitter.off
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25489
+
+___
+
+### on
+
+▸ **on**(`event`, `fn`, `context?`): `this`
+
+Add a listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.on
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25452
+
+___
+
+### once
+
+▸ **once**(`event`, `fn`, `context?`): `this`
+
+Add a one-time listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.once
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25463
+
+___
+
+### removeAllListeners
+
+▸ **removeAllListeners**(`event?`): `this`
+
+Remove all listeners, or those of the specified event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event?` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.removeAllListeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25483
+
+___
+
+### removeListener
+
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
+
+Remove the listeners of a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn?` | `Function` | Only remove the listeners that match this function. |
+| `context?` | `any` | Only remove the listeners that have this context. |
+| `once?` | `boolean` | Only remove one-time listeners. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.removeListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25475

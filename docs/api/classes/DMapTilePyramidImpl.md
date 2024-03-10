@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DMapTilePyramidImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DMapTilePyramidImpl
 
 # Class: DMapTilePyramidImpl
 
@@ -91,7 +91,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L35)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L35)
 
 ## Properties
 
@@ -101,7 +101,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L20)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L19)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L28)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L30)
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L31)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L33)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L32)
 
 ___
 
@@ -187,7 +187,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L26)
 
 ___
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L27)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L25)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L24)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L29)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L21)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L23)
 
 ___
 
@@ -265,7 +265,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L22)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L17)
 
 ## Accessors
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L67)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L67)
 
 ___
 
@@ -311,7 +311,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L117)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L117)
 
 • `set` **mapping**(`mapping`): `void`
 
@@ -331,13 +331,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L121)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L121)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -351,7 +351,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 #### Implementation of
 
@@ -377,17 +377,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L273)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L273)
 
 ___
 
 ### destroy
 
-▸ **destroy**(): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **destroy**(): `this`
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 #### Implementation of
 
@@ -395,7 +395,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L306)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L306)
 
 ___
 
@@ -416,7 +416,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L263)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L263)
 
 ___
 
@@ -437,7 +437,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L253)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L253)
 
 ___
 
@@ -500,11 +500,11 @@ ___
 
 ### fit
 
-▸ **fit**(): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **fit**(): `this`
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 #### Implementation of
 
@@ -512,7 +512,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L217)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L217)
 
 ___
 
@@ -526,7 +526,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L71)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L71)
 
 ___
 
@@ -592,7 +592,7 @@ ___
 
 ### move
 
-▸ **move**(`scale`, `lon0`, `lat0`, `lon1`, `lat1`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **move**(`scale`, `lon0`, `lat0`, `lon1`, `lat1`): `this`
 
 #### Parameters
 
@@ -606,7 +606,7 @@ ___
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 #### Implementation of
 
@@ -614,7 +614,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L191)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L191)
 
 ___
 
@@ -634,13 +634,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L145)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L145)
 
 ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -655,7 +655,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 #### Implementation of
 
@@ -673,7 +673,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -687,7 +687,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 `this`.
 
@@ -715,13 +715,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L301)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L301)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -735,7 +735,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 `this`.
 
@@ -755,7 +755,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -767,7 +767,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 `this`.
 
@@ -787,7 +787,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -802,7 +802,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DMapTilePyramidImpl`](DMapTilePyramidImpl.md)
+`this`
 
 `this`.
 
@@ -836,7 +836,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L156)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L156)
 
 ___
 
@@ -858,7 +858,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L77)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L77)
 
 ___
 
@@ -878,7 +878,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L179)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L179)
 
 ___
 
@@ -898,7 +898,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L187)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L187)
 
 ___
 
@@ -912,4 +912,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L183)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid-impl.ts#L183)

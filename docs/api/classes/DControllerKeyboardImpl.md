@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DControllerKeyboardImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DControllerKeyboardImpl
 
 # Class: DControllerKeyboardImpl
 
@@ -48,7 +48,7 @@ utils.EventEmitter.constructor
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -62,7 +62,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+`this`
 
 #### Inherited from
 
@@ -139,7 +139,7 @@ target is Object
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L65)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L65)
 
 ___
 
@@ -159,7 +159,7 @@ target is Object
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L69)
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L11)
 
 ___
 
@@ -239,7 +239,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -254,7 +254,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+`this`
 
 #### Inherited from
 
@@ -268,7 +268,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -282,7 +282,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+`this`
 
 `this`.
 
@@ -298,7 +298,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -312,7 +312,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+`this`
 
 `this`.
 
@@ -328,7 +328,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -340,7 +340,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+`this`
 
 `this`.
 
@@ -356,7 +356,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -371,7 +371,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DControllerKeyboardImpl`](DControllerKeyboardImpl.md)
+`this`
 
 `this`.
 

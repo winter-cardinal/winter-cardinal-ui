@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DMenuItemSeparatorReflowable
+[Winter Cardinal UI - v0.414.0](../index.md) / DMenuItemSeparatorReflowable
 
 # Class: DMenuItemSeparatorReflowable
 
@@ -200,7 +200,7 @@ Graphics.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L11)
+[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L11)
 
 ## Properties
 
@@ -2098,7 +2098,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2110,7 +2110,7 @@ ___
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -2120,7 +2120,7 @@ Graphics.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2132,7 +2132,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3538,7 +3538,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3550,7 +3550,7 @@ ___
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3564,7 +3564,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3576,7 +3576,7 @@ ___
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3586,7 +3586,7 @@ Graphics.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3598,7 +3598,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3652,13 +3652,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L17)
+[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L17)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3670,7 +3670,7 @@ ___
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3680,7 +3680,7 @@ Graphics.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3692,7 +3692,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3738,7 +3738,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -3748,7 +3748,7 @@ ___
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3758,7 +3758,7 @@ Graphics.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -3768,7 +3768,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3873,7 +3873,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3885,7 +3885,7 @@ ___
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 
@@ -3895,7 +3895,7 @@ Graphics.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3907,7 +3907,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DMenuItemSeparatorReflowable`](DMenuItemSeparatorReflowable.md)
+`this`
 
 #### Inherited from
 

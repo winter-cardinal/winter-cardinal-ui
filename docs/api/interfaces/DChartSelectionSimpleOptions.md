@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartSelectionSimpleOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartSelectionSimpleOptions
 
 # Interface: DChartSelectionSimpleOptions\<CHART, EMITTER\>
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L20)
 
 ___
 
@@ -36,17 +36,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L22)
 
 ___
 
 ### point
 
-• `Optional` **point**: ``"PREVIOUS"`` \| ``"NEXT"`` \| ``"CLOSER"`` \| ``"INTERSECTION"`` \| [`DChartSelectionPoint`](../index.md#dchartselectionpoint-1)
+• `Optional` **point**: ``"PREVIOUS"`` \| ``"NEXT"`` \| ``"CLOSER"`` \| ``"INTERSECTION"`` \| [`DChartSelectionPoint`](../index.md#dchartselectionpoint)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L21)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L19)

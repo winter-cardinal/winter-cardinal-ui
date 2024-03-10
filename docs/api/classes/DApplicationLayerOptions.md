@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DApplicationLayerOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DApplicationLayerOptions
 
 # Class: DApplicationLayerOptions
 
@@ -49,7 +49,7 @@ DApplicationLayer options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L52)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L52)
 
 ## Methods
 
@@ -66,7 +66,7 @@ The default antialias setting is false.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L267)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L267)
 
 ___
 
@@ -82,7 +82,7 @@ Returns a background color.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L249)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L249)
 
 ___
 
@@ -98,7 +98,7 @@ Returns a canvas height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L188)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L188)
 
 ___
 
@@ -115,7 +115,7 @@ The default padding size is 6.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L225)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L225)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L288)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L288)
 
 ___
 
@@ -147,7 +147,7 @@ The default root element is `document.body`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L125)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L125)
 
 ___
 
@@ -163,7 +163,7 @@ Returns a canvas width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L152)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L152)
 
 ___
 
@@ -181,7 +181,7 @@ true if the height is fixed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L207)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L207)
 
 ___
 
@@ -197,7 +197,7 @@ Returns true if a layer is supposed to be an overlay layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L284)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L284)
 
 ___
 
@@ -215,13 +215,13 @@ true if the width is fixed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L171)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L171)
 
 ___
 
 ### setAntialias
 
-▸ **setAntialias**(`antialias`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setAntialias**(`antialias`): `this`
 
 Sets an antialias setting.
 
@@ -233,17 +233,17 @@ Sets an antialias setting.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L276)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L276)
 
 ___
 
 ### setBackgroundColor
 
-▸ **setBackgroundColor**(`color`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setBackgroundColor**(`color`): `this`
 
 Sets a background color.
 
@@ -255,17 +255,17 @@ Sets a background color.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L258)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L258)
 
 ___
 
 ### setHeight
 
-▸ **setHeight**(`height`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setHeight**(`height`): `this`
 
 Sets a canvas height.
 
@@ -277,17 +277,17 @@ Sets a canvas height.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L197)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L197)
 
 ___
 
 ### setHeightFixed
 
-▸ **setHeightFixed**(`fixed`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setHeightFixed**(`fixed`): `this`
 
 Makes the canvas height fixed.
 
@@ -299,17 +299,17 @@ Makes the canvas height fixed.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L216)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L216)
 
 ___
 
 ### setPadding
 
-▸ **setPadding**(`left`, `top`, `right`, `bottom`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setPadding**(`left`, `top`, `right`, `bottom`): `this`
 
 Sets padding sizes.
 
@@ -324,17 +324,17 @@ Sets padding sizes.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L237)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L237)
 
 ___
 
 ### setRootElement
 
-▸ **setRootElement**(`root`, `updateWidthAndHeight?`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setRootElement**(`root`, `updateWidthAndHeight?`): `this`
 
 Sets a root element and updates the canvas width and height
 if `updateWidthAndHeight` is not false.
@@ -348,17 +348,17 @@ if `updateWidthAndHeight` is not false.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L136)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L136)
 
 ___
 
 ### setWidth
 
-▸ **setWidth**(`width`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setWidth**(`width`): `this`
 
 Sets a canvas width.
 
@@ -370,17 +370,17 @@ Sets a canvas width.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L161)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L161)
 
 ___
 
 ### setWidthFixed
 
-▸ **setWidthFixed**(`fixed`): [`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+▸ **setWidthFixed**(`fixed`): `this`
 
 Makes the canvas width fixed.
 
@@ -392,8 +392,8 @@ Makes the canvas width fixed.
 
 #### Returns
 
-[`DApplicationLayerOptions`](DApplicationLayerOptions.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L180)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L180)

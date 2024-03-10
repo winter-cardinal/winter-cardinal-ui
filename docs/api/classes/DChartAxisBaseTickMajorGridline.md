@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartAxisBaseTickMajorGridline
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartAxisBaseTickMajorGridline
 
 # Class: DChartAxisBaseTickMajorGridline\<CHART\>
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L19)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L15)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L16)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L14)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L17)
 
 ## Accessors
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L24)
 
 ## Methods
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L63)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L63)
 
 ___
 
@@ -154,21 +154,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L84)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L84)
 
 ___
 
 ### newShapePosition
 
-▸ **newShapePosition**(): [`EShapeBarPosition`](../index.md#eshapebarposition-1)
+▸ **newShapePosition**(): [`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Returns
 
-[`EShapeBarPosition`](../index.md#eshapebarposition-1)
+[`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L53)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L53)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L33)
 
 ___
 
@@ -196,4 +196,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L73)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-major-gridline.ts#L73)

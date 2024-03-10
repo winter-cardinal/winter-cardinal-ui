@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DShadowImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DShadowImpl
 
 # Class: DShadowImpl
 
@@ -181,7 +181,7 @@ NineSlicePlane.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L16)
 
 ## Properties
 
@@ -484,7 +484,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L11)
 
 ___
 
@@ -494,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L12)
 
 ___
 
@@ -504,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L13)
 
 ___
 
@@ -514,7 +514,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L14)
 
 ___
 
@@ -1329,7 +1329,7 @@ ___
 
 • **material**: `MeshMaterial`
 
-Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
+Alias for PIXI.Mesh#shader.
 
 **`Member`**
 
@@ -2284,7 +2284,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2296,7 +2296,7 @@ ___
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -2310,7 +2310,7 @@ NineSlicePlane.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2322,7 +2322,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -2902,7 +2902,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2914,7 +2914,7 @@ ___
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -2932,7 +2932,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2944,7 +2944,7 @@ ___
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -2958,7 +2958,7 @@ NineSlicePlane.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2970,7 +2970,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3028,7 +3028,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L36)
 
 ___
 
@@ -3042,13 +3042,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L32)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3060,7 +3060,7 @@ ___
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3074,7 +3074,7 @@ NineSlicePlane.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3086,7 +3086,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3104,7 +3104,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -3114,7 +3114,7 @@ ___
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3128,7 +3128,7 @@ NineSlicePlane.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -3138,7 +3138,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3247,7 +3247,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3259,7 +3259,7 @@ ___
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3273,7 +3273,7 @@ NineSlicePlane.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DShadowImpl`](DShadowImpl.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3285,7 +3285,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DShadowImpl`](DShadowImpl.md)
+`this`
 
 #### Implementation of
 
@@ -3325,7 +3325,7 @@ NineSlicePlane.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L45)
 
 ___
 

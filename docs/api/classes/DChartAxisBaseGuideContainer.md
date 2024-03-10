@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartAxisBaseGuideContainer
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartAxisBaseGuideContainer
 
 # Class: DChartAxisBaseGuideContainer\<CHART\>
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L16)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L10)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L10)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L11)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L12)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L12)
 
 ___
 
@@ -101,13 +101,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L14)
 
 ## Methods
 
 ### add
 
-▸ **add**(`guide`): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
+▸ **add**(`guide`): `this`
 
 #### Parameters
 
@@ -117,7 +117,7 @@ ___
 
 #### Returns
 
-[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
+`this`
 
 #### Implementation of
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L22)
 
 ___
 
@@ -150,17 +150,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L57)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L57)
 
 ___
 
 ### clear
 
-▸ **clear**(): [`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
+▸ **clear**(): `this`
 
 #### Returns
 
-[`DChartAxisBaseGuideContainer`](DChartAxisBaseGuideContainer.md)\<`CHART`\>
+`this`
 
 #### Implementation of
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L44)
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L87)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L87)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L32)
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L40)
 
 ___
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L53)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L53)
 
 ___
 
@@ -270,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L67)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L67)
 
 ___
 
@@ -288,4 +288,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L76)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-guide-container.ts#L76)

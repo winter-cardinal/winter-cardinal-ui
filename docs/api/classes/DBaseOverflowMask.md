@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseOverflowMask
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseOverflowMask
 
 # Class: DBaseOverflowMask
 
@@ -205,7 +205,7 @@ Graphics.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L18)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L18)
 
 ## Properties
 
@@ -323,7 +323,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L15)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L16)
 
 ___
 
@@ -403,7 +403,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L14)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L14)
 
 ___
 
@@ -440,7 +440,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L12)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L12)
 
 ___
 
@@ -587,7 +587,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L13)
 
 ___
 
@@ -2153,7 +2153,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2165,7 +2165,7 @@ ___
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -2175,7 +2175,7 @@ Graphics.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2187,7 +2187,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3593,7 +3593,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3605,7 +3605,7 @@ ___
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3619,7 +3619,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3631,7 +3631,7 @@ ___
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3641,7 +3641,7 @@ Graphics.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3653,7 +3653,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3707,13 +3707,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L34)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L34)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3725,7 +3725,7 @@ ___
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3735,7 +3735,7 @@ Graphics.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3747,7 +3747,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3793,7 +3793,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -3803,7 +3803,7 @@ ___
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3813,7 +3813,7 @@ Graphics.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -3823,7 +3823,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3928,7 +3928,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3940,7 +3940,7 @@ ___
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3950,7 +3950,7 @@ Graphics.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DBaseOverflowMask`](DBaseOverflowMask.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3962,7 +3962,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DBaseOverflowMask`](DBaseOverflowMask.md)
+`this`
 
 #### Inherited from
 
@@ -3994,7 +3994,7 @@ Graphics.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L29)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask.ts#L29)
 
 ___
 

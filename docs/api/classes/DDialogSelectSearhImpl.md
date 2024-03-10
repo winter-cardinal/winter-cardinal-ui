@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDialogSelectSearhImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DDialogSelectSearhImpl
 
 # Class: DDialogSelectSearhImpl\<VALUE, CATEGORY_ID\>
 
@@ -77,7 +77,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L18)
 
 ## Properties
 
@@ -87,7 +87,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L15)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L16)
 
 ___
 
@@ -107,13 +107,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L14)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -127,7 +127,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+`this`
 
 #### Inherited from
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L27)
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L49)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-select-search-impl.ts#L49)
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -299,7 +299,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+`this`
 
 #### Inherited from
 
@@ -313,7 +313,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -327,7 +327,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+`this`
 
 `this`.
 
@@ -347,7 +347,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -361,7 +361,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+`this`
 
 `this`.
 
@@ -377,7 +377,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -389,7 +389,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+`this`
 
 `this`.
 
@@ -405,7 +405,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -420,7 +420,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DDialogSelectSearhImpl`](DDialogSelectSearhImpl.md)\<`VALUE`, `CATEGORY_ID`\>
+`this`
 
 `this`.
 

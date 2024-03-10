@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DImagePieceMargin
+[Winter Cardinal UI - v0.414.0](../index.md) / DImagePieceMargin
 
 # Interface: DImagePieceMargin
 
@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-margin.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-margin.ts#L8)
+[src/main/typescript/wcardinal/ui/d-image-piece-margin.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-margin.ts#L8)
 
 ___
 
@@ -35,13 +35,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-margin.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-margin.ts#L7)
+[src/main/typescript/wcardinal/ui/d-image-piece-margin.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-margin.ts#L7)
 
 ## Methods
 
 ### set
 
-▸ **set**(`vertical?`, `horizontal?`): [`DImagePieceMargin`](DImagePieceMargin.md)
+▸ **set**(`vertical?`, `horizontal?`): `this`
 
 #### Parameters
 
@@ -52,8 +52,8 @@ ___
 
 #### Returns
 
-[`DImagePieceMargin`](DImagePieceMargin.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-margin.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-margin.ts#L9)
+[src/main/typescript/wcardinal/ui/d-image-piece-margin.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-margin.ts#L9)

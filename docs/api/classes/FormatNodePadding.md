@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / FormatNodePadding
+[Winter Cardinal UI - v0.414.0](../index.md) / FormatNodePadding
 
 # Class: FormatNodePadding
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L14)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L14)
 
 ## Properties
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L11)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L11)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L10)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L10)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L12)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L12)
 
 ## Methods
 
@@ -98,4 +98,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L20)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-padding.ts#L20)

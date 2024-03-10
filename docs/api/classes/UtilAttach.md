@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / UtilAttach
+[Winter Cardinal UI - v0.414.0](../index.md) / UtilAttach
 
 # Class: UtilAttach
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-attach.ts#L158)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-attach.ts#L158)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 | `offsetY` | `number` |
 | `clippingWidth` | `number` |
 | `clippingHeight` | `number` |
-| `align` | [`UtilAttachAlign`](../index.md#utilattachalign-1) |
+| `align` | [`UtilAttachAlign`](../index.md#utilattachalign) |
 
 #### Returns
 
@@ -70,4 +70,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-attach.ts#L43)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-attach.ts#L43)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTableHeaderCell
+[Winter Cardinal UI - v0.414.0](../index.md) / DTableHeaderCell
 
 # Class: DTableHeaderCell\<ROW, THEME, OPTIONS\>
 
@@ -43,6 +43,7 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [\_corner](DTableHeaderCell.md#_corner)
 - [\_cursor](DTableHeaderCell.md#_cursor)
 - [\_destroyed](DTableHeaderCell.md#_destroyed)
+- [\_edgeSize](DTableHeaderCell.md#_edgesize)
 - [\_enabledFilters](DTableHeaderCell.md#_enabledfilters)
 - [\_header](DTableHeaderCell.md#_header)
 - [\_image](DTableHeaderCell.md#_image)
@@ -51,18 +52,21 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [\_localBounds](DTableHeaderCell.md#_localbounds)
 - [\_localBoundsRect](DTableHeaderCell.md#_localboundsrect)
 - [\_mask](DTableHeaderCell.md#_mask)
+- [\_onHoveredBound](DTableHeaderCell.md#_onhoveredbound)
 - [\_onSorterChangeBound](DTableHeaderCell.md#_onsorterchangebound)
 - [\_options](DTableHeaderCell.md#_options)
 - [\_outline](DTableHeaderCell.md#_outline)
 - [\_overflowMask](DTableHeaderCell.md#_overflowmask)
 - [\_padding](DTableHeaderCell.md#_padding)
 - [\_reflowable](DTableHeaderCell.md#_reflowable)
+- [\_resizableEdges](DTableHeaderCell.md#_resizableedges)
 - [\_shortcuts](DTableHeaderCell.md#_shortcuts)
 - [\_snippet](DTableHeaderCell.md#_snippet)
 - [\_sorter](DTableHeaderCell.md#_sorter)
 - [\_tempDisplayObjectParent](DTableHeaderCell.md#_tempdisplayobjectparent)
 - [\_text](DTableHeaderCell.md#_text)
 - [\_title](DTableHeaderCell.md#_title)
+- [\_wasResizing](DTableHeaderCell.md#_wasresizing)
 - [\_zIndex](DTableHeaderCell.md#_zindex)
 - [accessible](DTableHeaderCell.md#accessible)
 - [accessibleChildren](DTableHeaderCell.md#accessiblechildren)
@@ -113,6 +117,7 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [header](DTableHeaderCell.md#header)
 - [height](DTableHeaderCell.md#height)
 - [image](DTableHeaderCell.md#image)
+- [isResizable](DTableHeaderCell.md#isresizable)
 - [isSortable](DTableHeaderCell.md#issortable)
 - [isToggle](DTableHeaderCell.md#istoggle)
 - [options](DTableHeaderCell.md#options)
@@ -148,6 +153,7 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [applyTitle](DTableHeaderCell.md#applytitle)
 - [blur](DTableHeaderCell.md#blur)
 - [calculateBounds](DTableHeaderCell.md#calculatebounds)
+- [checkIfEdgeResizable](DTableHeaderCell.md#checkifedgeresizable)
 - [containerUpdateTransform](DTableHeaderCell.md#containerupdatetransform)
 - [containsGlobalPoint](DTableHeaderCell.md#containsglobalpoint)
 - [containsLocalPoint](DTableHeaderCell.md#containslocalpoint)
@@ -159,6 +165,8 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [emit](DTableHeaderCell.md#emit)
 - [enableTempParent](DTableHeaderCell.md#enabletempparent)
 - [eventNames](DTableHeaderCell.md#eventnames)
+- [findLeftResizableCell](DTableHeaderCell.md#findleftresizablecell)
+- [findRightResizableCellOfWeight](DTableHeaderCell.md#findrightresizablecellofweight)
 - [focus](DTableHeaderCell.md#focus)
 - [focusOnClosest](DTableHeaderCell.md#focusonclosest)
 - [getBounds](DTableHeaderCell.md#getbounds)
@@ -174,6 +182,7 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [getLocalBounds](DTableHeaderCell.md#getlocalbounds)
 - [getOverflowMask](DTableHeaderCell.md#getoverflowmask)
 - [getParentOfSize](DTableHeaderCell.md#getparentofsize)
+- [getResizableEdges](DTableHeaderCell.md#getresizableedges)
 - [getText](DTableHeaderCell.md#gettext)
 - [getThemeDefault](DTableHeaderCell.md#getthemedefault)
 - [getType](DTableHeaderCell.md#gettype)
@@ -185,10 +194,10 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [hasRefitableWidth](DTableHeaderCell.md#hasrefitablewidth)
 - [hide](DTableHeaderCell.md#hide)
 - [init](DTableHeaderCell.md#init)
-- [initOnClick](DTableHeaderCell.md#initonclick)
 - [initReflowable](DTableHeaderCell.md#initreflowable)
 - [isCheckClicked](DTableHeaderCell.md#ischeckclicked)
 - [isDirty](DTableHeaderCell.md#isdirty)
+- [isEdgeClicked](DTableHeaderCell.md#isedgeclicked)
 - [isEventTarget](DTableHeaderCell.md#iseventtarget)
 - [isHidden](DTableHeaderCell.md#ishidden)
 - [isHierarchyDirty](DTableHeaderCell.md#ishierarchydirty)
@@ -212,9 +221,11 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 - [onClick](DTableHeaderCell.md#onclick)
 - [onDblClick](DTableHeaderCell.md#ondblclick)
 - [onDown](DTableHeaderCell.md#ondown)
+- [onDownEdge](DTableHeaderCell.md#ondownedge)
 - [onDownThis](DTableHeaderCell.md#ondownthis)
 - [onFocus](DTableHeaderCell.md#onfocus)
 - [onHierarchyDirty](DTableHeaderCell.md#onhierarchydirty)
+- [onHovered](DTableHeaderCell.md#onhovered)
 - [onKeyDown](DTableHeaderCell.md#onkeydown)
 - [onKeyUp](DTableHeaderCell.md#onkeyup)
 - [onMove](DTableHeaderCell.md#onmove)
@@ -275,7 +286,7 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 
 ### constructor
 
-• **new DTableHeaderCell**\<`ROW`, `THEME`, `OPTIONS`\>(`options?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+• **new DTableHeaderCell**\<`ROW`, `THEME`, `OPTIONS`\>(`header`, `columnIndex`, `column`, `options?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
 
 #### Type parameters
 
@@ -289,19 +300,22 @@ See [DImageBaseEvents](../interfaces/DImageBaseEvents.md) for event details.
 
 | Name | Type |
 | :------ | :------ |
+| `header` | [`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\> |
+| `columnIndex` | `number` |
+| `column` | [`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\> |
 | `options?` | `OPTIONS` |
 
 #### Returns
 
 [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
 
-#### Inherited from
+#### Overrides
 
 [DImage](DImage.md).[constructor](DImage.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:798](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L798)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L61)
 
 ## Properties
 
@@ -363,7 +377,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:777](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L777)
+[src/main/typescript/wcardinal/ui/d-base.ts:777](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L777)
 
 ___
 
@@ -377,7 +391,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:788](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L788)
+[src/main/typescript/wcardinal/ui/d-base.ts:788](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L788)
 
 ___
 
@@ -391,7 +405,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:789](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L789)
+[src/main/typescript/wcardinal/ui/d-base.ts:789](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L789)
 
 ___
 
@@ -461,7 +475,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L42)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L54)
 
 ___
 
@@ -471,7 +485,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L43)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L55)
 
 ___
 
@@ -485,27 +499,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:791](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L791)
+[src/main/typescript/wcardinal/ui/d-base.ts:791](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L791)
 
 ___
 
 ### \_column
 
-• `Protected` `Optional` **\_column**: [`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\>
+• `Protected` **\_column**: [`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L52)
 
 ___
 
 ### \_columnIndex
 
-• `Protected` `Optional` **\_columnIndex**: `number`
+• `Protected` **\_columnIndex**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L41)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L53)
 
 ___
 
@@ -519,7 +533,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:775](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L775)
+[src/main/typescript/wcardinal/ui/d-base.ts:775](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L775)
 
 ___
 
@@ -533,7 +547,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L796)
+[src/main/typescript/wcardinal/ui/d-base.ts:796](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L796)
 
 ___
 
@@ -554,6 +568,16 @@ PIXI.DisplayObject#_destroyed
 #### Defined in
 
 node_modules/pixi.js/pixi.js.d.ts:8722
+
+___
+
+### \_edgeSize
+
+• `Protected` **\_edgeSize**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L58)
 
 ___
 
@@ -579,11 +603,11 @@ ___
 
 ### \_header
 
-• `Protected` `Optional` **\_header**: [`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\>
+• `Protected` **\_header**: [`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L39)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L51)
 
 ___
 
@@ -597,7 +621,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L61)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L61)
 
 ___
 
@@ -611,7 +635,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:795](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L795)
+[src/main/typescript/wcardinal/ui/d-base.ts:795](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L795)
 
 ___
 
@@ -696,6 +720,30 @@ node_modules/pixi.js/pixi.js.d.ts:8715
 
 ___
 
+### \_onHoveredBound
+
+• `Protected` `Optional` **\_onHoveredBound**: (`e`: `InteractionEvent`) => `void`
+
+#### Type declaration
+
+▸ (`e`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `e` | `InteractionEvent` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L56)
+
+___
+
 ### \_onSorterChangeBound
 
 • `Protected` `Optional` **\_onSorterChangeBound**: () => `void`
@@ -710,7 +758,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L38)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L50)
 
 ___
 
@@ -724,7 +772,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:771](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L771)
+[src/main/typescript/wcardinal/ui/d-base.ts:771](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L771)
 
 ___
 
@@ -738,7 +786,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:790](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L790)
+[src/main/typescript/wcardinal/ui/d-base.ts:790](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L790)
 
 ___
 
@@ -752,7 +800,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L57)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L57)
 
 ___
 
@@ -766,7 +814,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:774](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L774)
+[src/main/typescript/wcardinal/ui/d-base.ts:774](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L774)
 
 ___
 
@@ -780,7 +828,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:794](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L794)
+[src/main/typescript/wcardinal/ui/d-base.ts:794](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L794)
+
+___
+
+### \_resizableEdges
+
+• `Protected` `Optional` **\_resizableEdges**: [`DTableHeaderCellEdge`](../index.md#dtableheadercelledge)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L57)
 
 ___
 
@@ -794,7 +852,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L792)
+[src/main/typescript/wcardinal/ui/d-base.ts:792](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L792)
 
 ___
 
@@ -808,7 +866,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:793](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L793)
+[src/main/typescript/wcardinal/ui/d-base.ts:793](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L793)
 
 ___
 
@@ -818,7 +876,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L37)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L49)
 
 ___
 
@@ -848,7 +906,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L56)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L56)
 
 ___
 
@@ -862,7 +920,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L787)
+[src/main/typescript/wcardinal/ui/d-base.ts:787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L787)
+
+___
+
+### \_wasResizing
+
+• `Protected` **\_wasResizing**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L59)
 
 ___
 
@@ -1717,7 +1785,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L55)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L55)
 
 ___
 
@@ -1731,7 +1799,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:767](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L767)
+[src/main/typescript/wcardinal/ui/d-base.ts:767](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L767)
 
 ## Accessors
 
@@ -1749,7 +1817,7 @@ DImage.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1463)
+[src/main/typescript/wcardinal/ui/d-base.ts:1471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1471)
 
 ___
 
@@ -1767,7 +1835,7 @@ DImage.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1467)
+[src/main/typescript/wcardinal/ui/d-base.ts:1475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1475)
 
 ___
 
@@ -1781,35 +1849,35 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L70)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L102)
 
 ___
 
 ### column
 
-• `get` **column**(): `undefined` \| [`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\>
+• `get` **column**(): [`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\>
 
 #### Returns
 
-`undefined` \| [`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\>
+[`DTableColumn`](../interfaces/DTableColumn.md)\<`ROW`, `unknown`, `unknown`, [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)\<`unknown`\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L58)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L90)
 
 ___
 
 ### columnIndex
 
-• `get` **columnIndex**(): `undefined` \| `number`
+• `get` **columnIndex**(): `number`
 
 #### Returns
 
-`undefined` \| `number`
+`number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L62)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L94)
 
 ___
 
@@ -1823,7 +1891,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L117)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:334](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L334)
 
 ___
 
@@ -1841,21 +1909,21 @@ DImage.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1459)
+[src/main/typescript/wcardinal/ui/d-base.ts:1467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1467)
 
 ___
 
 ### header
 
-• `get` **header**(): `undefined` \| [`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\>
+• `get` **header**(): [`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\>
 
 #### Returns
 
-`undefined` \| [`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\>
+[`DTableHeaderCellHeader`](../interfaces/DTableHeaderCellHeader.md)\<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L66)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L98)
 
 ___
 
@@ -1873,7 +1941,7 @@ DImage.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
+[src/main/typescript/wcardinal/ui/d-base.ts:1390](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1390)
 
 • `set` **height**(`height`): `void`
 
@@ -1893,7 +1961,7 @@ DImage.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
+[src/main/typescript/wcardinal/ui/d-base.ts:1394](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1394)
 
 ___
 
@@ -1911,7 +1979,7 @@ DImage.image
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L68)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L68)
 
 • `set` **image**(`imageSource`): `void`
 
@@ -1931,7 +1999,21 @@ DImage.image
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L80)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L80)
+
+___
+
+### isResizable
+
+• `get` **isResizable**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:448](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L448)
 
 ___
 
@@ -1945,7 +2027,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L221)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:444](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L444)
 
 ___
 
@@ -1959,7 +2041,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L229)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L452)
 
 ___
 
@@ -1977,7 +2059,7 @@ DImage.options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
+[src/main/typescript/wcardinal/ui/d-base.ts:1690](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1690)
 
 ___
 
@@ -1995,7 +2077,7 @@ DImage.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1471)
+[src/main/typescript/wcardinal/ui/d-base.ts:1479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1479)
 
 ___
 
@@ -2013,7 +2095,7 @@ DImage.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1455](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1455)
+[src/main/typescript/wcardinal/ui/d-base.ts:1463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1463)
 
 ___
 
@@ -2031,7 +2113,7 @@ DImage.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1441](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1441)
+[src/main/typescript/wcardinal/ui/d-base.ts:1449](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1449)
 
 ___
 
@@ -2049,7 +2131,7 @@ DImage.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
+[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
 
 ___
 
@@ -2067,7 +2149,7 @@ DImage.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1446](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1446)
+[src/main/typescript/wcardinal/ui/d-base.ts:1454](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1454)
 
 ___
 
@@ -2085,7 +2167,7 @@ DImage.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1845](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1845)
+[src/main/typescript/wcardinal/ui/d-base.ts:1853](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1853)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -2105,7 +2187,7 @@ DImage.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1849](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1849)
+[src/main/typescript/wcardinal/ui/d-base.ts:1857](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1857)
 
 ___
 
@@ -2123,7 +2205,7 @@ DImage.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1451)
+[src/main/typescript/wcardinal/ui/d-base.ts:1459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1459)
 
 ___
 
@@ -2141,7 +2223,7 @@ DImage.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1116)
+[src/main/typescript/wcardinal/ui/d-base.ts:1116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1116)
 
 ___
 
@@ -2155,7 +2237,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L92)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:309](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L309)
 
 ___
 
@@ -2173,7 +2255,7 @@ DImage.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
+[src/main/typescript/wcardinal/ui/d-base.ts:1686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1686)
 
 ___
 
@@ -2191,7 +2273,7 @@ DImage.text
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L84)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L84)
 
 • `set` **text**(`text`): `void`
 
@@ -2211,7 +2293,7 @@ DImage.text
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L96)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L96)
 
 ___
 
@@ -2229,7 +2311,7 @@ DImage.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1686)
+[src/main/typescript/wcardinal/ui/d-base.ts:1694](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1694)
 
 • `set` **theme**(`theme`): `void`
 
@@ -2249,7 +2331,7 @@ DImage.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1690](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1690)
+[src/main/typescript/wcardinal/ui/d-base.ts:1698](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1698)
 
 ___
 
@@ -2267,7 +2349,7 @@ DImage.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1479)
+[src/main/typescript/wcardinal/ui/d-base.ts:1487](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1487)
 
 • `set` **title**(`title`): `void`
 
@@ -2287,7 +2369,7 @@ DImage.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1483](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1483)
+[src/main/typescript/wcardinal/ui/d-base.ts:1491](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1491)
 
 ___
 
@@ -2305,7 +2387,7 @@ DImage.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1238)
+[src/main/typescript/wcardinal/ui/d-base.ts:1246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1246)
 
 ___
 
@@ -2323,7 +2405,7 @@ DImage.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1475)
+[src/main/typescript/wcardinal/ui/d-base.ts:1483](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1483)
 
 ___
 
@@ -2341,7 +2423,27 @@ DImage.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1141)
+[src/main/typescript/wcardinal/ui/d-base.ts:1141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1141)
+
+• `set` **weight**(`weight`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `weight` | `number` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+DImage.weight
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:1145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1145)
 
 ___
 
@@ -2359,7 +2461,7 @@ DImage.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
+[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
 
 • `set` **width**(`width`): `void`
 
@@ -2379,7 +2481,7 @@ DImage.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+[src/main/typescript/wcardinal/ui/d-base.ts:1335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1335)
 
 ___
 
@@ -2397,7 +2499,7 @@ DImage.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1243)
+[src/main/typescript/wcardinal/ui/d-base.ts:1251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1251)
 
 • `set` **x**(`x`): `void`
 
@@ -2417,7 +2519,7 @@ DImage.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1247)
+[src/main/typescript/wcardinal/ui/d-base.ts:1255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1255)
 
 ___
 
@@ -2435,7 +2537,7 @@ DImage.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1283)
+[src/main/typescript/wcardinal/ui/d-base.ts:1291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1291)
 
 • `set` **y**(`y`): `void`
 
@@ -2455,7 +2557,7 @@ DImage.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1287)
+[src/main/typescript/wcardinal/ui/d-base.ts:1295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1295)
 
 ## Methods
 
@@ -2473,7 +2575,7 @@ DImage.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2072](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2072)
+[src/main/typescript/wcardinal/ui/d-base.ts:2084](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2084)
 
 ___
 
@@ -2540,7 +2642,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L183)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L404)
 
 ___
 
@@ -2617,7 +2719,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2629,7 +2731,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -2639,7 +2741,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2651,7 +2753,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -2677,13 +2779,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L136)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L136)
 
 ___
 
 ### blur
 
-▸ **blur**(`recursively?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **blur**(`recursively?`): `this`
 
 #### Parameters
 
@@ -2693,7 +2795,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -2701,7 +2803,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1598](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1598)
+[src/main/typescript/wcardinal/ui/d-base.ts:1606](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1606)
 
 ___
 
@@ -2722,6 +2824,26 @@ Recalculates the bounds of the container.
 #### Defined in
 
 node_modules/pixi.js/pixi.js.d.ts:8436
+
+___
+
+### checkIfEdgeResizable
+
+▸ **checkIfEdgeResizable**(`columnIndex`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `columnIndex` | `number` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L154)
 
 ___
 
@@ -2774,7 +2896,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2086](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2086)
+[src/main/typescript/wcardinal/ui/d-base.ts:2098](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2098)
 
 ___
 
@@ -2798,7 +2920,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2090](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2090)
+[src/main/typescript/wcardinal/ui/d-base.ts:2102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2102)
 
 ___
 
@@ -2822,7 +2944,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2077](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2077)
+[src/main/typescript/wcardinal/ui/d-base.ts:2089](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2089)
 
 ___
 
@@ -2840,7 +2962,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L299)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L522)
 
 ___
 
@@ -2915,7 +3037,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L197)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:420](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L420)
 
 ___
 
@@ -2996,13 +3118,53 @@ node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
-### focus
+### findLeftResizableCell
 
-▸ **focus**(): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **findLeftResizableCell**(`columnIndex`): ``null`` \| [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md), [`DTableHeaderCellOptions`](../interfaces/DTableHeaderCellOptions.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md)\>\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `columnIndex` | `number` |
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+``null`` \| [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md), [`DTableHeaderCellOptions`](../interfaces/DTableHeaderCellOptions.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L126)
+
+___
+
+### findRightResizableCellOfWeight
+
+▸ **findRightResizableCellOfWeight**(`columnIndex`): ``null`` \| [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md), [`DTableHeaderCellOptions`](../interfaces/DTableHeaderCellOptions.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md)\>\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `columnIndex` | `number` |
+
+#### Returns
+
+``null`` \| [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md), [`DTableHeaderCellOptions`](../interfaces/DTableHeaderCellOptions.md)\<`ROW`, [`DThemeTableHeaderCell`](../interfaces/DThemeTableHeaderCell.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L138)
+
+___
+
+### focus
+
+▸ **focus**(): `this`
+
+#### Returns
+
+`this`
 
 #### Inherited from
 
@@ -3010,7 +3172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1594)
+[src/main/typescript/wcardinal/ui/d-base.ts:1602](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1602)
 
 ___
 
@@ -3028,7 +3190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2012](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2012)
+[src/main/typescript/wcardinal/ui/d-base.ts:2019](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2019)
 
 ___
 
@@ -3170,7 +3332,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1207)
+[src/main/typescript/wcardinal/ui/d-base.ts:1215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1215)
 
 ___
 
@@ -3197,7 +3359,7 @@ Returns a clipping rect.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2103)
+[src/main/typescript/wcardinal/ui/d-base.ts:2115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2115)
 
 ___
 
@@ -3252,7 +3414,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1390](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1390)
+[src/main/typescript/wcardinal/ui/d-base.ts:1398](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1398)
 
 ___
 
@@ -3270,7 +3432,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L72)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L72)
 
 ___
 
@@ -3288,7 +3450,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L105)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L105)
 
 ___
 
@@ -3335,7 +3497,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L64)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L64)
 
 ___
 
@@ -3353,7 +3515,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1879](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1879)
+[src/main/typescript/wcardinal/ui/d-base.ts:1887](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1887)
+
+___
+
+### getResizableEdges
+
+▸ **getResizableEdges**(): [`DTableHeaderCellEdge`](../index.md#dtableheadercelledge)
+
+#### Returns
+
+[`DTableHeaderCellEdge`](../index.md#dtableheadercelledge)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L166)
 
 ___
 
@@ -3371,7 +3547,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L88)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L88)
 
 ___
 
@@ -3389,7 +3565,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2063](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2063)
+[src/main/typescript/wcardinal/ui/d-base.ts:2075](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2075)
 
 ___
 
@@ -3407,7 +3583,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L295)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:518](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L518)
 
 ___
 
@@ -3425,7 +3601,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
+[src/main/typescript/wcardinal/ui/d-base.ts:1339](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1339)
 
 ___
 
@@ -3443,7 +3619,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1251)
+[src/main/typescript/wcardinal/ui/d-base.ts:1259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1259)
 
 ___
 
@@ -3461,7 +3637,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1291)
+[src/main/typescript/wcardinal/ui/d-base.ts:1299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1299)
 
 ___
 
@@ -3479,7 +3655,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1580)
+[src/main/typescript/wcardinal/ui/d-base.ts:1588](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1588)
 
 ___
 
@@ -3507,7 +3683,7 @@ true if the given target has a height that doesn't depend on its parent height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1823](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1823)
+[src/main/typescript/wcardinal/ui/d-base.ts:1831](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1831)
 
 ___
 
@@ -3535,17 +3711,17 @@ true if the given target has a width that doesn't depend on its parent width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1835](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1835)
+[src/main/typescript/wcardinal/ui/d-base.ts:1843](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1843)
 
 ___
 
 ### hide
 
-▸ **hide**(): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **hide**(): `this`
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -3553,7 +3729,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1512](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1512)
+[src/main/typescript/wcardinal/ui/d-base.ts:1520](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1520)
 
 ___
 
@@ -3571,33 +3747,13 @@ ___
 
 `void`
 
-#### Overrides
+#### Inherited from
 
 [DImage](DImage.md).[init](DImage.md#init)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L45)
-
-___
-
-### initOnClick
-
-▸ **initOnClick**(`options?`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `options?` | `OPTIONS` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L74)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L63)
 
 ___
 
@@ -3615,7 +3771,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
+[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
 
 ___
 
@@ -3635,7 +3791,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L151)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L363)
 
 ___
 
@@ -3653,7 +3809,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1576)
+[src/main/typescript/wcardinal/ui/d-base.ts:1584](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1584)
+
+___
+
+### isEdgeClicked
+
+▸ **isEdgeClicked**(`e?`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `e?` | `MouseEvent` \| `KeyboardEvent` \| `TouchEvent` \| `InteractionEvent` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:389](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L389)
 
 ___
 
@@ -3677,7 +3853,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1957](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1957)
+[src/main/typescript/wcardinal/ui/d-base.ts:1965](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1965)
 
 ___
 
@@ -3695,7 +3871,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1522)
+[src/main/typescript/wcardinal/ui/d-base.ts:1530](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1530)
 
 ___
 
@@ -3713,7 +3889,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1568)
+[src/main/typescript/wcardinal/ui/d-base.ts:1576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1576)
 
 ___
 
@@ -3737,7 +3913,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L107)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L107)
 
 ___
 
@@ -3755,7 +3931,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1508)
+[src/main/typescript/wcardinal/ui/d-base.ts:1516](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1516)
 
 ___
 
@@ -3825,7 +4001,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L76)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L76)
 
 ___
 
@@ -3843,7 +4019,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L73)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L73)
 
 ___
 
@@ -3869,7 +4045,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1095](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1095)
+[src/main/typescript/wcardinal/ui/d-base.ts:1095](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1095)
 
 ___
 
@@ -3887,13 +4063,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L92)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L92)
 
 ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -3905,7 +4081,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -3919,7 +4095,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3931,7 +4107,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -3941,7 +4117,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -3953,7 +4129,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -3981,7 +4157,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L187)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:408](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L408)
 
 ___
 
@@ -4001,7 +4177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L256)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L479)
 
 ___
 
@@ -4021,7 +4197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L266)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:489](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L489)
 
 ___
 
@@ -4039,7 +4215,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1671](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1671)
+[src/main/typescript/wcardinal/ui/d-base.ts:1679](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1679)
 
 ___
 
@@ -4063,7 +4239,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1664](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1664)
+[src/main/typescript/wcardinal/ui/d-base.ts:1672](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1672)
 
 ___
 
@@ -4087,7 +4263,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1650](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1650)
+[src/main/typescript/wcardinal/ui/d-base.ts:1658](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1658)
 
 ___
 
@@ -4105,7 +4281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1128)
+[src/main/typescript/wcardinal/ui/d-base.ts:1128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1128)
 
 ___
 
@@ -4125,7 +4301,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L177)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:398](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L398)
 
 ___
 
@@ -4150,7 +4326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2044](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2044)
+[src/main/typescript/wcardinal/ui/d-base.ts:2051](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2051)
 
 ___
 
@@ -4168,13 +4344,35 @@ ___
 
 `void`
 
-#### Inherited from
+#### Overrides
 
 [DImage](DImage.md).[onDown](DImage.md#ondown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1971](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1971)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L106)
+
+___
+
+### onDownEdge
+
+▸ **onDownEdge**(`onDownPoint`, `columnIndex`, `interactionManager`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `onDownPoint` | `number` |
+| `columnIndex` | `number` |
+| `interactionManager` | `InteractionManager` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L238)
 
 ___
 
@@ -4198,7 +4396,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1978](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1978)
+[src/main/typescript/wcardinal/ui/d-base.ts:1986](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1986)
 
 ___
 
@@ -4216,7 +4414,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1657](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1657)
+[src/main/typescript/wcardinal/ui/d-base.ts:1665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1665)
 
 ___
 
@@ -4234,7 +4432,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1572](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1572)
+[src/main/typescript/wcardinal/ui/d-base.ts:1580](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1580)
+
+___
+
+### onHovered
+
+▸ **onHovered**(`e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L217)
 
 ___
 
@@ -4258,7 +4476,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L279)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:502](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L502)
 
 ___
 
@@ -4282,7 +4500,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L287)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:510](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L510)
 
 ___
 
@@ -4309,7 +4527,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1145)
+[src/main/typescript/wcardinal/ui/d-base.ts:1153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1153)
 
 ___
 
@@ -4327,13 +4545,13 @@ ___
 
 `void`
 
-#### Inherited from
+#### Overrides
 
 [DImage](DImage.md).[onOut](DImage.md#onout)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2035](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2035)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L207)
 
 ___
 
@@ -4351,13 +4569,13 @@ ___
 
 `void`
 
-#### Inherited from
+#### Overrides
 
 [DImage](DImage.md).[onOver](DImage.md#onover)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2021](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2021)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L188)
 
 ___
 
@@ -4386,7 +4604,7 @@ Called when a parent moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1935](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1935)
+[src/main/typescript/wcardinal/ui/d-base.ts:1943](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1943)
 
 ___
 
@@ -4414,7 +4632,7 @@ Called when a parent resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1894](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1894)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
@@ -4432,7 +4650,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1731](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1731)
+[src/main/typescript/wcardinal/ui/d-base.ts:1739](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1739)
 
 ___
 
@@ -4450,7 +4668,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L100)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L100)
 
 ___
 
@@ -4468,7 +4686,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L92)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L92)
 
 ___
 
@@ -4495,7 +4713,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1211)
+[src/main/typescript/wcardinal/ui/d-base.ts:1219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1219)
 
 ___
 
@@ -4522,7 +4740,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1228)
+[src/main/typescript/wcardinal/ui/d-base.ts:1236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1236)
 
 ___
 
@@ -4546,7 +4764,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1133)
+[src/main/typescript/wcardinal/ui/d-base.ts:1133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1133)
 
 ___
 
@@ -4573,7 +4791,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1233)
+[src/main/typescript/wcardinal/ui/d-base.ts:1241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1241)
 
 ___
 
@@ -4587,7 +4805,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L125)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:338](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L338)
 
 ___
 
@@ -4612,7 +4830,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L87)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L87)
 
 ___
 
@@ -4626,7 +4844,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L246)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:469](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L469)
 
 ___
 
@@ -4640,7 +4858,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L242)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:465](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L465)
 
 ___
 
@@ -4664,7 +4882,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1989](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1989)
+[src/main/typescript/wcardinal/ui/d-base.ts:1996](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1996)
 
 ___
 
@@ -4688,7 +4906,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1996](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1996)
+[src/main/typescript/wcardinal/ui/d-base.ts:2003](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2003)
 
 ___
 
@@ -4714,13 +4932,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1940](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1940)
+[src/main/typescript/wcardinal/ui/d-base.ts:1948](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1948)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -4732,7 +4950,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -4742,7 +4960,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -4754,7 +4972,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -4780,13 +4998,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1704](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1704)
+[src/main/typescript/wcardinal/ui/d-base.ts:1712](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1712)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -4796,7 +5014,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -4806,7 +5024,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -4816,7 +5034,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -4921,7 +5139,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -4933,7 +5151,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -4943,7 +5161,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -4955,7 +5173,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -4987,7 +5205,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:2053](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L2053)
+[src/main/typescript/wcardinal/ui/d-base.ts:2060](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2060)
 
 ___
 
@@ -5038,7 +5256,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1157)
+[src/main/typescript/wcardinal/ui/d-base.ts:1165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1165)
 
 ___
 
@@ -5071,7 +5289,7 @@ ___
 
 ### setFocused
 
-▸ **setFocused**(`isFocused`): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **setFocused**(`isFocused`): `this`
 
 #### Parameters
 
@@ -5081,7 +5299,7 @@ ___
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -5089,7 +5307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1584](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1584)
+[src/main/typescript/wcardinal/ui/d-base.ts:1592](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1592)
 
 ___
 
@@ -5113,7 +5331,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1394](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1394)
+[src/main/typescript/wcardinal/ui/d-base.ts:1402](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1402)
 
 ___
 
@@ -5201,7 +5419,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1335)
+[src/main/typescript/wcardinal/ui/d-base.ts:1343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1343)
 
 ___
 
@@ -5225,7 +5443,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1260)
+[src/main/typescript/wcardinal/ui/d-base.ts:1268](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1268)
 
 ___
 
@@ -5249,17 +5467,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1300](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1300)
+[src/main/typescript/wcardinal/ui/d-base.ts:1308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1308)
 
 ___
 
 ### show
 
-▸ **show**(): [`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+▸ **show**(): `this`
 
 #### Returns
 
-[`DTableHeaderCell`](DTableHeaderCell.md)\<`ROW`, `THEME`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -5267,7 +5485,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1499](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1499)
+[src/main/typescript/wcardinal/ui/d-base.ts:1507](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1507)
 
 ___
 
@@ -5334,7 +5552,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L145)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:358](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L358)
 
 ___
 
@@ -5359,7 +5577,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1099](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1099)
+[src/main/typescript/wcardinal/ui/d-base.ts:1099](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1099)
 
 ___
 
@@ -5377,7 +5595,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1526](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1526)
+[src/main/typescript/wcardinal/ui/d-base.ts:1534](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1534)
 
 ___
 
@@ -5425,7 +5643,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1535](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1535)
+[src/main/typescript/wcardinal/ui/d-base.ts:1543](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1543)
 
 ___
 
@@ -5443,7 +5661,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1551](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1551)
+[src/main/typescript/wcardinal/ui/d-base.ts:1559](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1559)
 
 ___
 
@@ -5492,7 +5710,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1544)
+[src/main/typescript/wcardinal/ui/d-base.ts:1552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1552)
 
 ___
 
@@ -5510,7 +5728,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1561](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1561)
+[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
 
 ___
 
@@ -5528,7 +5746,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1872](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base.ts#L1872)
+[src/main/typescript/wcardinal/ui/d-base.ts:1880](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L1880)
 
 ___
 
@@ -5542,15 +5760,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L233)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:456](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L456)
 
 ___
 
 ### updateTransform
 
 ▸ **updateTransform**(): `void`
-
-Updates the transform on all children of this container for rendering
 
 #### Returns
 
@@ -5562,7 +5778,7 @@ Updates the transform on all children of this container for rendering
 
 #### Defined in
 
-node_modules/pixi.js/pixi.js.d.ts:8431
+[src/main/typescript/wcardinal/ui/d-base.ts:2069](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L2069)
 
 ___
 

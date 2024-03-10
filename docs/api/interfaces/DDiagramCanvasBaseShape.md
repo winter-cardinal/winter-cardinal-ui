@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramCanvasBaseShape
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramCanvasBaseShape
 
 # Interface: DDiagramCanvasBaseShape
 
@@ -24,7 +24,7 @@
 
 ### each
 
-▸ **each**(`iteratee`, `ignoreCapability?`): [`DDiagramCanvasBaseShape`](DDiagramCanvasBaseShape.md)
+▸ **each**(`iteratee`, `ignoreCapability?`): `this`
 
 #### Parameters
 
@@ -35,8 +35,8 @@
 
 #### Returns
 
-[`DDiagramCanvasBaseShape`](DDiagramCanvasBaseShape.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts#L21)

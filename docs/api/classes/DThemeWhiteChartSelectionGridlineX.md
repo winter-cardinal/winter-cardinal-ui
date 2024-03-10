@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DThemeWhiteChartSelectionGridlineX
+[Winter Cardinal UI - v0.414.0](../index.md) / DThemeWhiteChartSelectionGridlineX
 
 # Class: DThemeWhiteChartSelectionGridlineX
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts#L14)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts#L14)
 
 ___
 
@@ -79,4 +79,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-gridline-x.ts#L18)

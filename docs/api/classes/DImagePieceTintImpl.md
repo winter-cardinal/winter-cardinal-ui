@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DImagePieceTintImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DImagePieceTintImpl
 
 # Class: DImagePieceTintImpl
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L19)
 
 ## Properties
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L16)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L15)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L14)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L17)
 
 ## Accessors
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L58)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L58)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L62)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L62)
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L32)
 
 • `set` **color**(`color`): `void`
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L36)
 
 ## Methods
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L69)
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L43)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L43)
 
 ___
 
@@ -229,13 +229,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L103)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L103)
 
 ___
 
 ### set
 
-▸ **set**(`color?`, `alpha?`): [`DImagePieceTintImpl`](DImagePieceTintImpl.md)
+▸ **set**(`color?`, `alpha?`): `this`
 
 #### Parameters
 
@@ -246,7 +246,7 @@ ___
 
 #### Returns
 
-[`DImagePieceTintImpl`](DImagePieceTintImpl.md)
+`this`
 
 #### Implementation of
 
@@ -254,4 +254,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L84)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint-impl.ts#L84)

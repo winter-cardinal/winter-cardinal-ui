@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DThemeWhiteTableBodyCellActions
+[Winter Cardinal UI - v0.414.0](../index.md) / DThemeWhiteTableBodyCellActions
 
 # Class: DThemeWhiteTableBodyCellActions
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts#L21)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts#L21)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts#L25)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts#L25)
 
 ___
 
@@ -76,4 +76,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts#L7)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-table-body-cell-actions.ts#L7)

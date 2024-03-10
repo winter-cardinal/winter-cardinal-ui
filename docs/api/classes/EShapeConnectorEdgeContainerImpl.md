@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeConnectorEdgeContainerImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeConnectorEdgeContainerImpl
 
 # Class: EShapeConnectorEdgeContainerImpl
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L26)
 
 ## Properties
 
@@ -67,7 +67,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L24)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L21)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L20)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L22)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L19)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L23)
 
 ## Accessors
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L72)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L72)
 
 ___
 
@@ -161,17 +161,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L68)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L68)
 
 ## Methods
 
 ### attach
 
-▸ **attach**(): [`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+▸ **attach**(): `this`
 
 #### Returns
 
-[`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+`this`
 
 #### Implementation of
 
@@ -179,13 +179,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L119)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L119)
 
 ___
 
 ### copy
 
-▸ **copy**(`source`): [`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+▸ **copy**(`source`): `this`
 
 #### Parameters
 
@@ -195,7 +195,7 @@ ___
 
 #### Returns
 
-[`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+`this`
 
 #### Implementation of
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L76)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L76)
 
 ___
 
@@ -229,13 +229,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L98)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L98)
 
 ___
 
 ### detach
 
-▸ **detach**(`exceptions?`): [`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+▸ **detach**(`exceptions?`): `this`
 
 #### Parameters
 
@@ -245,7 +245,7 @@ ___
 
 #### Returns
 
-[`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+`this`
 
 #### Implementation of
 
@@ -253,13 +253,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L131)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L131)
 
 ___
 
 ### fit
 
-▸ **fit**(`forcibly?`): [`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+▸ **fit**(`forcibly?`): `this`
 
 #### Parameters
 
@@ -269,7 +269,7 @@ ___
 
 #### Returns
 
-[`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+`this`
 
 #### Implementation of
 
@@ -277,17 +277,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L84)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L84)
 
 ___
 
 ### lock
 
-▸ **lock**(): [`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+▸ **lock**(): `this`
 
 #### Returns
 
-[`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+`this`
 
 #### Implementation of
 
@@ -295,7 +295,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L42)
 
 ___
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L60)
 
 ___
 
@@ -333,17 +333,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L92)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L92)
 
 ___
 
 ### unlock
 
-▸ **unlock**(): [`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+▸ **unlock**(): `this`
 
 #### Returns
 
-[`EShapeConnectorEdgeContainerImpl`](EShapeConnectorEdgeContainerImpl.md)
+`this`
 
 #### Implementation of
 
@@ -351,4 +351,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge-container-impl.ts#L50)

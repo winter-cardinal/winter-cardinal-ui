@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / ESnapperResultScale
+[Winter Cardinal UI - v0.414.0](../index.md) / ESnapperResultScale
 
 # Class: ESnapperResultScale
 
@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts#L12)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts#L12)
 
 ## Properties
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts#L9)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts#L9)
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts#L10)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-result-scale.ts#L10)

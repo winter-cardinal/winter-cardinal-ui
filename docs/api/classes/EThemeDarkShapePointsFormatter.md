@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EThemeDarkShapePointsFormatter
+[Winter Cardinal UI - v0.414.0](../index.md) / EThemeDarkShapePointsFormatter
 
 # Class: EThemeDarkShapePointsFormatter
 
@@ -22,7 +22,8 @@
 
 ### Methods
 
-- [getCurveLabel](EThemeDarkShapePointsFormatter.md#getcurvelabel)
+- [getCurveBezierQuadraticLabel](EThemeDarkShapePointsFormatter.md#getcurvebezierquadraticlabel)
+- [getCurveSplineLabel](EThemeDarkShapePointsFormatter.md#getcurvesplinelabel)
 
 ## Constructors
 
@@ -36,9 +37,9 @@
 
 ## Methods
 
-### getCurveLabel
+### getCurveBezierQuadraticLabel
 
-▸ **getCurveLabel**(): `string`
+▸ **getCurveBezierQuadraticLabel**(): `string`
 
 #### Returns
 
@@ -46,8 +47,26 @@
 
 #### Implementation of
 
-[EThemeShapePointsFormatter](../interfaces/EThemeShapePointsFormatter.md).[getCurveLabel](../interfaces/EThemeShapePointsFormatter.md#getcurvelabel)
+[EThemeShapePointsFormatter](../interfaces/EThemeShapePointsFormatter.md).[getCurveBezierQuadraticLabel](../interfaces/EThemeShapePointsFormatter.md#getcurvebezierquadraticlabel)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-points-formatter.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-points-formatter.ts#L4)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-points-formatter.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-points-formatter.ts#L5)
+
+___
+
+### getCurveSplineLabel
+
+▸ **getCurveSplineLabel**(): `string`
+
+#### Returns
+
+`string`
+
+#### Implementation of
+
+[EThemeShapePointsFormatter](../interfaces/EThemeShapePointsFormatter.md).[getCurveSplineLabel](../interfaces/EThemeShapePointsFormatter.md#getcurvesplinelabel)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-points-formatter.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-points-formatter.ts#L4)

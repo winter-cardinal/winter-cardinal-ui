@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EThemeDarkShapeActionValue
+[Winter Cardinal UI - v0.414.0](../index.md) / EThemeDarkShapeActionValue
 
 # Class: EThemeDarkShapeActionValue
 
@@ -57,7 +57,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype-1) |
+| `type` | [`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype) |
 
 #### Returns
 
@@ -69,7 +69,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L141)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L141)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueChangeColorTarget`](../index.md#eshapeactionvaluechangecolortarget-1) |
+| `type` | [`EShapeActionValueChangeColorTarget`](../index.md#eshapeactionvaluechangecolortarget) |
 
 #### Returns
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L249)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L249)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L225)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L225)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueChangeTextType`](../index.md#eshapeactionvaluechangetexttype-1) |
+| `type` | [`EShapeActionValueChangeTextType`](../index.md#eshapeactionvaluechangetexttype) |
 
 #### Returns
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L264)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L264)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L132)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L132)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L352)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L352)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueGestureType`](../index.md#eshapeactionvaluegesturetype-1) |
+| `type` | [`EShapeActionValueGestureType`](../index.md#eshapeactionvaluegesturetype) |
 
 #### Returns
 
@@ -213,7 +213,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L343)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L343)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `when` | [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1) |
+| `when` | [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen) |
 
 #### Returns
 
@@ -237,7 +237,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:393](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L393)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:393](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L393)
 
 ___
 
@@ -261,7 +261,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L30)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L30)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueMiscType`](../index.md#eshapeactionvaluemisctype-1) |
+| `type` | [`EShapeActionValueMiscType`](../index.md#eshapeactionvaluemisctype) |
 
 #### Returns
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:362](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L362)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:362](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L362)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction-1) |
+| `type` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction) |
 
 #### Returns
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:407](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L407)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:407](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L407)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:314](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L314)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:314](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L314)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L273)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L273)
 
 ___
 
@@ -370,8 +370,8 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `type` | `number` |
-| `subtype` | [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype-1) |
-| `opetype` | [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype-1) |
+| `subtype` | [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype) |
+| `opetype` | [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype) |
 | `value` | [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)\<`any`, `any`\> |
 
 #### Returns
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L79)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L79)
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueShowHideType`](../index.md#eshapeactionvalueshowhidetype-1) |
+| `type` | [`EShapeActionValueShowHideType`](../index.md#eshapeactionvalueshowhidetype) |
 
 #### Returns
 
@@ -404,7 +404,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L158)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L158)
 
 ___
 
@@ -426,7 +426,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L53)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L53)
 
 ___
 
@@ -438,7 +438,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype-1) |
+| `type` | [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype) |
 
 #### Returns
 
@@ -450,7 +450,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L191)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L191)
 
 ___
 
@@ -462,7 +462,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueTransformResizeType`](../index.md#eshapeactionvaluetransformresizetype-1) |
+| `type` | [`EShapeActionValueTransformResizeType`](../index.md#eshapeactionvaluetransformresizetype) |
 
 #### Returns
 
@@ -474,7 +474,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L208)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L208)
 
 ___
 
@@ -486,7 +486,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype-1) |
+| `type` | [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype) |
 
 #### Returns
 
@@ -498,7 +498,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L182)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L182)
 
 ___
 
@@ -510,7 +510,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype-1) |
+| `type` | [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype) |
 
 #### Returns
 
@@ -522,7 +522,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L171)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L171)
 
 ___
 
@@ -546,7 +546,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L100)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L100)
 
 ___
 
@@ -567,4 +567,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L49)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-shape-action-value.ts#L49)

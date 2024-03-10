@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateSetSub
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseStateSetSub
 
 # Interface: DBaseStateSetSub
 
@@ -27,7 +27,7 @@
 
 ### add
 
-▸ **add**(`state`, `interval`): [`DBaseStateSetSub`](DBaseStateSetSub.md)
+▸ **add**(`state`, `interval`): `this`
 
 #### Parameters
 
@@ -38,25 +38,25 @@
 
 #### Returns
 
-[`DBaseStateSetSub`](DBaseStateSetSub.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L2)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L2)
 
 ___
 
 ### clear
 
-▸ **clear**(): [`DBaseStateSetSub`](DBaseStateSetSub.md)
+▸ **clear**(): `this`
 
 #### Returns
 
-[`DBaseStateSetSub`](DBaseStateSetSub.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L5)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L5)
 
 ___
 
@@ -76,13 +76,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L4)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L4)
 
 ___
 
 ### remove
 
-▸ **remove**(`state`): [`DBaseStateSetSub`](DBaseStateSetSub.md)
+▸ **remove**(`state`): `this`
 
 #### Parameters
 
@@ -92,8 +92,8 @@ ___
 
 #### Returns
 
-[`DBaseStateSetSub`](DBaseStateSetSub.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L3)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L3)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EThemeShapePointsFormatter
+[Winter Cardinal UI - v0.414.0](../index.md) / EThemeShapePointsFormatter
 
 # Interface: EThemeShapePointsFormatter
 
@@ -11,13 +11,14 @@
 
 ### Methods
 
-- [getCurveLabel](EThemeShapePointsFormatter.md#getcurvelabel)
+- [getCurveBezierQuadraticLabel](EThemeShapePointsFormatter.md#getcurvebezierquadraticlabel)
+- [getCurveSplineLabel](EThemeShapePointsFormatter.md#getcurvesplinelabel)
 
 ## Methods
 
-### getCurveLabel
+### getCurveBezierQuadraticLabel
 
-▸ **getCurveLabel**(): `string`
+▸ **getCurveBezierQuadraticLabel**(): `string`
 
 #### Returns
 
@@ -25,4 +26,18 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-formatters.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatters.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-formatters.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatters.ts#L14)
+
+___
+
+### getCurveSplineLabel
+
+▸ **getCurveSplineLabel**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-formatters.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatters.ts#L13)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartSelection
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartSelection
 
 # Interface: DChartSelection\<CHART\>
 
@@ -41,7 +41,7 @@
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -55,7 +55,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)\<`CHART`\>
+`this`
 
 #### Inherited from
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L27)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -205,7 +205,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)\<`CHART`\>
+`this`
 
 #### Inherited from
 
@@ -219,7 +219,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -233,7 +233,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -257,13 +257,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L30)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -277,7 +277,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -293,7 +293,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -305,7 +305,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -321,7 +321,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelection`](DChartSelection.md)\<`CHART`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -336,7 +336,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DChartSelection`](DChartSelection.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L28)
 
 ___
 
@@ -374,4 +374,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L29)

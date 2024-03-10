@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeLineOfAnyPointsPointImplParent
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeLineOfAnyPointsPointImplParent
 
 # Interface: EShapeLineOfAnyPointsPointImplParent
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts#L14)
 
 ## Methods
 
@@ -34,4 +34,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point-impl.ts#L15)

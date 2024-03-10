@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DThemeWhiteEnUsLink
+[Winter Cardinal UI - v0.414.0](../index.md) / DThemeWhiteEnUsLink
 
 # Class: DThemeWhiteEnUsLink
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L18)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts#L12)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts#L12)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts#L4)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts#L4)
 
 ___
 
@@ -112,17 +112,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts#L8)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-en-us-link.ts#L8)
 
 ___
 
 ### getMenuOptions
 
-▸ **getMenuOptions**(): [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
+▸ **getMenuOptions**(): [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
 
 #### Returns
 
-[`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
+[`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
 
 #### Inherited from
 
@@ -130,4 +130,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L22)

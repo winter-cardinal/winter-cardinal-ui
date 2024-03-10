@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DThemeDarkColorStandard
+[Winter Cardinal UI - v0.414.0](../index.md) / DThemeDarkColorStandard
 
 # Class: DThemeDarkColorStandard
 
@@ -42,4 +42,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-standard.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-standard.ts#L10)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-standard.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-color-standard.ts#L10)

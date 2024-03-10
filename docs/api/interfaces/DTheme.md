@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTheme
+[Winter Cardinal UI - v0.414.0](../index.md) / DTheme
 
 # Interface: DTheme
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-theme.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L9)
+[src/main/typescript/wcardinal/ui/theme/d-theme.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L9)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-theme.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L13)
+[src/main/typescript/wcardinal/ui/theme/d-theme.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L13)
 
 ___
 
@@ -87,13 +87,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-theme.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/d-theme.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L11)
 
 ___
 
 ### set
 
-▸ **set**\<`THEME`\>(`type`, `instance`): [`DTheme`](DTheme.md)
+▸ **set**\<`THEME`\>(`type`, `instance`): `this`
 
 #### Type parameters
 
@@ -110,17 +110,17 @@ ___
 
 #### Returns
 
-[`DTheme`](DTheme.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-theme.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L10)
+[src/main/typescript/wcardinal/ui/theme/d-theme.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L10)
 
 ___
 
 ### setClass
 
-▸ **setClass**\<`THEME`\>(`type`, `themeClass`): [`DTheme`](DTheme.md)
+▸ **setClass**\<`THEME`\>(`type`, `themeClass`): `this`
 
 #### Type parameters
 
@@ -137,8 +137,8 @@ ___
 
 #### Returns
 
-[`DTheme`](DTheme.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-theme.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L12)
+[src/main/typescript/wcardinal/ui/theme/d-theme.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/d-theme.ts#L12)

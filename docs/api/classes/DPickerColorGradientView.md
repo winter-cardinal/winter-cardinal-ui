@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DPickerColorGradientView
+[Winter Cardinal UI - v0.414.0](../index.md) / DPickerColorGradientView
 
 # Class: DPickerColorGradientView
 
@@ -182,7 +182,7 @@ Mesh.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L73)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L73)
 
 ## Properties
 
@@ -300,7 +300,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L64)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L64)
 
 ___
 
@@ -350,7 +350,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L65)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L65)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L66)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L66)
 
 ___
 
@@ -451,7 +451,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L61)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L61)
 
 ___
 
@@ -461,7 +461,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L71)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L71)
 
 ___
 
@@ -487,7 +487,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L63)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L63)
 
 ___
 
@@ -497,7 +497,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L62)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L62)
 
 ___
 
@@ -507,7 +507,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L68)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L68)
 
 ___
 
@@ -517,7 +517,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L69)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L69)
 
 ___
 
@@ -1176,7 +1176,7 @@ ___
 
 • **material**: `MeshMaterial`
 
-Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
+Alias for PIXI.Mesh#shader.
 
 **`Member`**
 
@@ -1828,7 +1828,7 @@ Mesh.\_calculateBounds
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L222)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L222)
 
 ___
 
@@ -2004,7 +2004,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2016,7 +2016,7 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2026,7 +2026,7 @@ Mesh.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2038,7 +2038,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2159,7 +2159,7 @@ Mesh.containsPoint
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L304)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L304)
 
 ___
 
@@ -2462,7 +2462,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L125)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L125)
 
 ___
 
@@ -2513,7 +2513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L140)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L140)
 
 ___
 
@@ -2562,7 +2562,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L106)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L106)
 
 ___
 
@@ -2620,7 +2620,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2632,7 +2632,7 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2646,7 +2646,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2658,7 +2658,7 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2668,7 +2668,7 @@ Mesh.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2680,7 +2680,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2714,7 +2714,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2726,7 +2726,7 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2736,7 +2736,7 @@ Mesh.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2748,7 +2748,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2762,7 +2762,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2772,7 +2772,7 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2782,7 +2782,7 @@ Mesh.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2792,7 +2792,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2897,7 +2897,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2909,7 +2909,7 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -2919,7 +2919,7 @@ Mesh.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DPickerColorGradientView`](DPickerColorGradientView.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2931,7 +2931,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DPickerColorGradientView`](DPickerColorGradientView.md)
+`this`
 
 #### Inherited from
 
@@ -3039,7 +3039,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L133)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L133)
 
 ___
 
@@ -3091,7 +3091,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L114)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L114)
 
 ___
 
@@ -3150,7 +3150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L190)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L190)
 
 ___
 
@@ -3173,7 +3173,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L177)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L177)
 
 ___
 
@@ -3295,7 +3295,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L235)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L235)
 
 ___
 
@@ -3338,7 +3338,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L317)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L317)
 
 ___
 

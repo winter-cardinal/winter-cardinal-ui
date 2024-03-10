@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTableDataFilter
+[Winter Cardinal UI - v0.414.0](../index.md) / DTableDataFilter
 
 # Interface: DTableDataFilter\<ROW\>
 
@@ -56,7 +56,7 @@ Table data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L29)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L29)
 
 ___
 
@@ -69,13 +69,13 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L35)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L35)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -89,7 +89,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+`this`
 
 #### Inherited from
 
@@ -113,7 +113,7 @@ Applys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L40)
 
 ___
 
@@ -178,7 +178,7 @@ Returns a current filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L55)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L55)
 
 ___
 
@@ -194,7 +194,7 @@ Returns true if a filter is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L50)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L50)
 
 ___
 
@@ -268,13 +268,13 @@ Returns a mapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L69)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L69)
 
 ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -289,7 +289,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+`this`
 
 #### Inherited from
 
@@ -303,7 +303,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -317,7 +317,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -333,7 +333,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -347,7 +347,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -363,7 +363,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -375,7 +375,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -391,7 +391,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -406,7 +406,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataFilter`](DTableDataFilter.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -438,7 +438,7 @@ Sets to the given filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L62)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L62)
 
 ___
 
@@ -454,7 +454,7 @@ Unapplys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L45)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L45)
 
 ___
 
@@ -477,4 +477,4 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L77)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L77)

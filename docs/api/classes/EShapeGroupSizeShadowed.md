@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeGroupSizeShadowed
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeGroupSizeShadowed
 
 # Class: EShapeGroupSizeShadowed
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L14)
 
 ## Properties
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L11)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L12)
 
 ## Accessors
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L23)
 
 • `set` **x**(`x`): `void`
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L27)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L36)
 
 • `set` **y**(`y`): `void`
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L40)
 
 ## Methods
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L68)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L68)
 
 ___
 
@@ -182,13 +182,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L73)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L73)
 
 ___
 
 ### copyFrom
 
-▸ **copyFrom**(`point`): [`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+▸ **copyFrom**(`point`): `this`
 
 #### Parameters
 
@@ -198,7 +198,7 @@ ___
 
 #### Returns
 
-[`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+`this`
 
 #### Implementation of
 
@@ -206,7 +206,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L77)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L77)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L91)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L91)
 
 ___
 
@@ -254,17 +254,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L95)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L95)
 
 ___
 
 ### fit
 
-▸ **fit**(): [`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+▸ **fit**(): `this`
 
 #### Returns
 
-[`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+`this`
 
 #### Implementation of
 
@@ -272,17 +272,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L99)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L99)
 
 ___
 
 ### init
 
-▸ **init**(): [`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+▸ **init**(): `this`
 
 #### Returns
 
-[`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+`this`
 
 #### Implementation of
 
@@ -290,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L19)
 
 ___
 
@@ -311,13 +311,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L103)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L103)
 
 ___
 
 ### set
 
-▸ **set**(`x?`, `y?`): [`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+▸ **set**(`x?`, `y?`): `this`
 
 #### Parameters
 
@@ -328,7 +328,7 @@ ___
 
 #### Returns
 
-[`EShapeGroupSizeShadowed`](EShapeGroupSizeShadowed.md)
+`this`
 
 #### Implementation of
 
@@ -336,4 +336,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-shadowed.ts#L49)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateAndValue
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseStateAndValue
 
 # Interface: DBaseStateAndValue
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-and-value.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-and-value.ts#L2)
+[src/main/typescript/wcardinal/ui/d-base-state-and-value.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-and-value.ts#L2)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-and-value.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-and-value.ts#L3)
+[src/main/typescript/wcardinal/ui/d-base-state-and-value.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-and-value.ts#L3)

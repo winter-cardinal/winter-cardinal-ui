@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DMapTilePyramidsFromOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DMapTilePyramidsFromOptions
 
 # Interface: DMapTilePyramidsFromOptions
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L45)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L45)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L44)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L44)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L46)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L46)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L47)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramids.ts#L47)

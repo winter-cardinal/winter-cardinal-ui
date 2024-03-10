@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramLayersShapeContainer
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramLayersShapeContainer
 
 # Interface: DDiagramLayersShapeContainer
 
@@ -87,7 +87,6 @@
 - [emit](DDiagramLayersShapeContainer.md#emit)
 - [enableTempParent](DDiagramLayersShapeContainer.md#enabletempparent)
 - [eventNames](DDiagramLayersShapeContainer.md#eventnames)
-- [getAntialiasWeight](DDiagramLayersShapeContainer.md#getantialiasweight)
 - [getAtlas](DDiagramLayersShapeContainer.md#getatlas)
 - [getBounds](DDiagramLayersShapeContainer.md#getbounds)
 - [getBuffers](DDiagramLayersShapeContainer.md#getbuffers)
@@ -110,6 +109,7 @@
 - [render](DDiagramLayersShapeContainer.md#render)
 - [setParent](DDiagramLayersShapeContainer.md#setparent)
 - [setTransform](DDiagramLayersShapeContainer.md#settransform)
+- [toAntialiasWeight](DDiagramLayersShapeContainer.md#toantialiasweight)
 - [toDirty](DDiagramLayersShapeContainer.md#todirty)
 - [toGlobal](DDiagramLayersShapeContainer.md#toglobal)
 - [toLocal](DDiagramLayersShapeContainer.md#tolocal)
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L21)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L31)
 
 ___
 
@@ -265,7 +265,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L18)
 
 ___
 
@@ -279,7 +279,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L19)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L22)
 
 ___
 
@@ -428,7 +428,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L24)
 
 ___
 
@@ -442,7 +442,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L25)
 
 ___
 
@@ -456,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L17)
 
 ___
 
@@ -470,7 +470,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L14)
 
 ___
 
@@ -484,7 +484,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L26)
 
 ___
 
@@ -498,7 +498,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L27)
 
 ___
 
@@ -528,7 +528,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L29)
 
 ___
 
@@ -816,7 +816,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L16)
 
 ___
 
@@ -1229,7 +1229,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layers.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layers.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-layers.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layers.ts#L16)
 
 ___
 
@@ -1415,7 +1415,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1427,7 +1427,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -1437,7 +1437,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1449,7 +1449,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -1475,7 +1475,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L54)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L54)
 
 ___
 
@@ -1499,7 +1499,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L98)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L98)
 
 ___
 
@@ -1517,7 +1517,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L192)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L192)
 
 ___
 
@@ -1653,30 +1653,6 @@ node_modules/pixi.js/pixi.js.d.ts:25415
 
 ___
 
-### getAntialiasWeight
-
-▸ **getAntialiasWeight**(`resolution`): `number`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `resolution` | `number` |
-
-#### Returns
-
-`number`
-
-#### Inherited from
-
-[EShapeContainer](../classes/EShapeContainer.md).[getAntialiasWeight](../classes/EShapeContainer.md#getantialiasweight)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L151)
-
-___
-
 ### getAtlas
 
 ▸ **getAtlas**(`resolution`): [`DynamicAtlas`](../classes/DynamicAtlas.md)
@@ -1697,7 +1673,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L106)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L106)
 
 ___
 
@@ -1744,7 +1720,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L115)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L115)
 
 ___
 
@@ -1762,7 +1738,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L102)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L102)
 
 ___
 
@@ -1845,7 +1821,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L147)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L147)
 
 ___
 
@@ -1863,7 +1839,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L133)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L133)
 
 ___
 
@@ -1888,7 +1864,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L155)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L155)
 
 ___
 
@@ -1913,7 +1889,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L174)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L174)
 
 ___
 
@@ -1931,7 +1907,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L66)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L66)
 
 ___
 
@@ -1989,7 +1965,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2001,7 +1977,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2011,7 +1987,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25518
 
-▸ **off**(`event`, `fn?`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2023,7 +1999,7 @@ node_modules/pixi.js/pixi.js.d.ts:25518
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2037,7 +2013,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2049,7 +2025,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2059,7 +2035,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25507
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2071,7 +2047,7 @@ node_modules/pixi.js/pixi.js.d.ts:25507
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2097,13 +2073,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L58)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L58)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2115,7 +2091,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2125,7 +2101,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25510
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2137,7 +2113,7 @@ node_modules/pixi.js/pixi.js.d.ts:25510
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2151,7 +2127,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2161,7 +2137,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2171,7 +2147,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2181,7 +2157,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2195,7 +2171,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2207,7 +2183,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2217,7 +2193,7 @@ ___
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2229,7 +2205,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DDiagramLayersShapeContainer`](DDiagramLayersShapeContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2261,7 +2237,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L70)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L70)
 
 ___
 
@@ -2329,6 +2305,30 @@ node_modules/pixi.js/pixi.js.d.ts:9301
 
 ___
 
+### toAntialiasWeight
+
+▸ **toAntialiasWeight**(`resolution`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `resolution` | `number` |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[EShapeContainer](../classes/EShapeContainer.md).[toAntialiasWeight](../classes/EShapeContainer.md#toantialiasweight)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L151)
+
+___
+
 ### toDirty
 
 ▸ **toDirty**(): `number`
@@ -2343,7 +2343,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L62)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L62)
 
 ___
 
@@ -2428,7 +2428,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L137)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L137)
 
 ___
 
@@ -2446,7 +2446,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L119)
+[src/main/typescript/wcardinal/ui/shape/e-shape-container.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-container.ts#L119)
 
 ___
 

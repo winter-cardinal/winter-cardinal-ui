@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DImagePieceTint
+[Winter Cardinal UI - v0.414.0](../index.md) / DImagePieceTint
 
 # Interface: DImagePieceTint
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L11)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L11)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L10)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L10)
 
 ## Methods
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L17)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L17)
 
 ___
 
@@ -77,13 +77,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L16)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L16)
 
 ___
 
 ### set
 
-▸ **set**(`color?`, `alpha?`): [`DImagePieceTint`](DImagePieceTint.md)
+▸ **set**(`color?`, `alpha?`): `this`
 
 #### Parameters
 
@@ -94,8 +94,8 @@ ___
 
 #### Returns
 
-[`DImagePieceTint`](DImagePieceTint.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L12)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L12)

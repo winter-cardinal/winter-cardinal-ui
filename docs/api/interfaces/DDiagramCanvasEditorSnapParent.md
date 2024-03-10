@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramCanvasEditorSnapParent
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramCanvasEditorSnapParent
 
 # Interface: DDiagramCanvasEditorSnapParent
 
@@ -743,7 +743,7 @@ Container.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L79)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L79)
 
 ___
 
@@ -1204,7 +1204,7 @@ Container.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L78)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L78)
 
 ___
 
@@ -1464,7 +1464,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1476,7 +1476,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -1486,7 +1486,7 @@ Container.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1498,7 +1498,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -1965,7 +1965,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1977,7 +1977,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -1991,7 +1991,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2003,7 +2003,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2013,7 +2013,7 @@ Container.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2025,7 +2025,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2059,7 +2059,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2071,7 +2071,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2081,7 +2081,7 @@ Container.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2093,7 +2093,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2107,7 +2107,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2117,7 +2117,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2127,7 +2127,7 @@ Container.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2137,7 +2137,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2242,7 +2242,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2254,7 +2254,7 @@ ___
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2264,7 +2264,7 @@ Container.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2276,7 +2276,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapParent`](DDiagramCanvasEditorSnapParent.md)
+`this`
 
 #### Inherited from
 
@@ -2488,7 +2488,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L80)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L80)
 
 ___
 

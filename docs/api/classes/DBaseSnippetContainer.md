@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseSnippetContainer
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseSnippetContainer
 
 # Class: DBaseSnippetContainer
 
@@ -25,6 +25,7 @@
 - [addAt](DBaseSnippetContainer.md#addat)
 - [remove](DBaseSnippetContainer.md#remove)
 - [render](DBaseSnippetContainer.md#render)
+- [updateTransform](DBaseSnippetContainer.md#updatetransform)
 
 ## Constructors
 
@@ -44,7 +45,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L15)
 
 ## Properties
 
@@ -54,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L12)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L12)
 
 ___
 
@@ -64,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L11)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L11)
 
 ___
 
@@ -74,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L10)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L10)
 
 ___
 
@@ -84,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L13)
 
 ## Accessors
 
@@ -98,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L22)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L22)
 
 • `set` **renderable**(`renderable`): `void`
 
@@ -114,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L26)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L26)
 
 ## Methods
 
@@ -135,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L30)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L30)
 
 ___
 
@@ -157,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L38)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L38)
 
 ___
 
@@ -178,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L52)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L52)
 
 ___
 
@@ -199,4 +200,18 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L63)
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L63)
+
+___
+
+### updateTransform
+
+▸ **updateTransform**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base-snippet-container.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-snippet-container.ts#L72)

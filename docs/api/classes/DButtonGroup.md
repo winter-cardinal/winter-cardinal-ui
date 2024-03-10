@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DButtonGroup
+[Winter Cardinal UI - v0.414.0](../index.md) / DButtonGroup
 
 # Class: DButtonGroup\<BUTTON, OPTIONS\>
 
@@ -83,7 +83,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L45)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L45)
 
 ## Properties
 
@@ -93,7 +93,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L41)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L41)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L40)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L40)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L43)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L43)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L42)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L42)
 
 ## Accessors
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L86)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L86)
 
 • `set` **active**(`newActive`): `void`
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L90)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L90)
 
 ## Methods
 
@@ -187,13 +187,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L69)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L69)
 
 ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -207,7 +207,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -229,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L124)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L124)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L118)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L118)
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L163)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L163)
 
 ___
 
@@ -277,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L147)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L147)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L137)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L137)
 
 ___
 
@@ -340,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L155)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L155)
 
 ___
 
@@ -418,7 +418,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -433,7 +433,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+`this`
 
 #### Inherited from
 
@@ -447,7 +447,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -461,7 +461,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+`this`
 
 `this`.
 
@@ -477,7 +477,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -491,7 +491,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+`this`
 
 `this`.
 
@@ -521,13 +521,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L105)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L105)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -539,7 +539,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+`this`
 
 `this`.
 
@@ -555,7 +555,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -570,7 +570,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DButtonGroup`](DButtonGroup.md)\<`BUTTON`, `OPTIONS`\>
+`this`
 
 `this`.
 
@@ -594,4 +594,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L133)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L133)

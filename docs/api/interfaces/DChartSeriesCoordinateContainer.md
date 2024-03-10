@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartSeriesCoordinateContainer
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartSeriesCoordinateContainer
 
 # Interface: DChartSeriesCoordinateContainer\<CHART\>
 
@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L22)
 
 • `set` **x**(`coordinate`): `void`
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L23)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L25)
+[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L25)
 
 • `set` **y**(`coordinate`): `void`
 
@@ -77,4 +77,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-coordinate-container.ts#L26)

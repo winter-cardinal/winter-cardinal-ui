@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateSetTickerDatumImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseStateSetTickerDatumImpl
 
 # Class: DBaseStateSetTickerDatumImpl
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L10)
 
 ## Accessors
 
@@ -68,13 +68,13 @@ DBaseStateSetSubDatumImp.interval
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L16)
 
 ## Methods
 
 ### add
 
-▸ **add**(`state`, `target`): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+▸ **add**(`state`, `target`): `this`
 
 #### Parameters
 
@@ -85,7 +85,7 @@ DBaseStateSetSubDatumImp.interval
 
 #### Returns
 
-[`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+`this`
 
 #### Inherited from
 
@@ -93,7 +93,7 @@ DBaseStateSetSubDatumImp.interval
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L20)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts#L8)
+[src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts#L8)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts#L4)
+[src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-ticker-datum-impl.ts#L4)
 
 ___
 
@@ -161,13 +161,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L68)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L68)
 
 ___
 
 ### remove
 
-▸ **remove**(`state`, `target`): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+▸ **remove**(`state`, `target`): `this`
 
 #### Parameters
 
@@ -178,7 +178,7 @@ ___
 
 #### Returns
 
-[`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+`this`
 
 #### Inherited from
 
@@ -186,17 +186,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L36)
 
 ___
 
 ### start
 
-▸ **start**(): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+▸ **start**(): `this`
 
 #### Returns
 
-[`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+`this`
 
 #### Inherited from
 
@@ -204,17 +204,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L52)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L52)
 
 ___
 
 ### stop
 
-▸ **stop**(): [`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+▸ **stop**(): `this`
 
 #### Returns
 
-[`DBaseStateSetTickerDatumImpl`](DBaseStateSetTickerDatumImpl.md)
+`this`
 
 #### Inherited from
 
@@ -222,4 +222,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L59)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub-datum-impl.ts#L59)

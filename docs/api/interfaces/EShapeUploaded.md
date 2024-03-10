@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeUploaded
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeUploaded
 
 # Interface: EShapeUploaded
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L24)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L23)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L22)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L21)
 
 ___
 
@@ -94,13 +94,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L20)
 
 ___
 
 ### init
 
-▸ **init**(`shape`): [`EShapeUploaded`](EShapeUploaded.md)
+▸ **init**(`shape`): `this`
 
 #### Parameters
 
@@ -110,11 +110,11 @@ ___
 
 #### Returns
 
-[`EShapeUploaded`](EShapeUploaded.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L11)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L19)
 
 ___
 
@@ -157,13 +157,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L12)
 
 ___
 
 ### update
 
-▸ **update**(`shape`): [`EShapeUploaded`](EShapeUploaded.md)
+▸ **update**(`shape`): `this`
 
 #### Parameters
 
@@ -173,8 +173,8 @@ ___
 
 #### Returns
 
-[`EShapeUploaded`](EShapeUploaded.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uploaded.ts#L18)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDialogLayeredFooterButtonSpaceOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DDialogLayeredFooterButtonSpaceOptions
 
 # Interface: DDialogLayeredFooterButtonSpaceOptions
 
@@ -19,7 +19,7 @@ True to make the left space.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L20)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L20)
 
 ___
 
@@ -31,4 +31,4 @@ True to make the right space.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L25)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L25)

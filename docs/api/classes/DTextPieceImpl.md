@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTextPieceImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DTextPieceImpl
 
 # Class: DTextPieceImpl\<VALUE\>
 
@@ -110,7 +110,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L43)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L43)
 
 ## Properties
 
@@ -120,7 +120,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L39)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L39)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L36)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L35)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L35)
 
 ___
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L34)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L34)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L38)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L38)
 
 ___
 
@@ -170,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L40)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L41)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L41)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L32)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L30)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L37)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L37)
 
 ___
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L31)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L33)
 
 ## Accessors
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L160)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L160)
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L133)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L133)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -286,7 +286,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L137)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L137)
 
 ___
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L122)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L122)
 
 • `set` **color**(`color`): `void`
 
@@ -324,7 +324,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L126)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L126)
 
 ___
 
@@ -342,7 +342,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L107)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L107)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L111)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L111)
 
 • `set` **formatter**(`formatter`): `void`
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L115)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L115)
 
 ___
 
@@ -398,7 +398,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L168)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L168)
 
 ___
 
@@ -416,7 +416,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L164)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L164)
 
 ___
 
@@ -434,7 +434,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L68)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L68)
 
 • `set` **value**(`value`): `void`
 
@@ -454,7 +454,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L72)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L72)
 
 ___
 
@@ -468,7 +468,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L278)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L278)
 
 • `set` **visible**(`visible`): `void`
 
@@ -484,13 +484,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L286)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L286)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -504,7 +504,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 #### Implementation of
 
@@ -540,17 +540,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L103)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L103)
 
 ___
 
 ### destroy
 
-▸ **destroy**(): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **destroy**(): `this`
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 #### Implementation of
 
@@ -558,7 +558,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L312)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L312)
 
 ___
 
@@ -633,17 +633,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L79)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L79)
 
 ___
 
 ### hide
 
-▸ **hide**(): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **hide**(): `this`
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 #### Implementation of
 
@@ -651,7 +651,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L299)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L299)
 
 ___
 
@@ -669,7 +669,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L304)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L304)
 
 ___
 
@@ -749,7 +749,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L259)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L259)
 
 ___
 
@@ -769,7 +769,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L244)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L244)
 
 ___
 
@@ -783,7 +783,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L229)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L229)
 
 ___
 
@@ -797,13 +797,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L274)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L274)
 
 ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -818,7 +818,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 #### Implementation of
 
@@ -836,7 +836,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -850,7 +850,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 `this`.
 
@@ -878,7 +878,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L144)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L144)
 
 ___
 
@@ -892,7 +892,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L308)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L308)
 
 ___
 
@@ -912,13 +912,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L90)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L90)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -932,7 +932,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 `this`.
 
@@ -952,7 +952,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -964,7 +964,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 `this`.
 
@@ -984,7 +984,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -999,7 +999,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 `this`.
 
@@ -1038,17 +1038,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L83)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L83)
 
 ___
 
 ### show
 
-▸ **show**(): [`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+▸ **show**(): `this`
 
 #### Returns
 
-[`DTextPieceImpl`](DTextPieceImpl.md)\<`VALUE`\>
+`this`
 
 #### Implementation of
 
@@ -1056,7 +1056,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L294)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L294)
 
 ___
 
@@ -1076,7 +1076,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L172)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L172)
 
 ___
 
@@ -1090,4 +1090,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L196)
+[src/main/typescript/wcardinal/ui/d-text-piece-impl.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-impl.ts#L196)

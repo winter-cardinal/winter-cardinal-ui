@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramSnapshotOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSnapshotOptions
 
 # Interface: DDiagramSnapshotOptions\<CANVAS, EMITTER\>
 
@@ -23,4 +23,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L80)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L80)

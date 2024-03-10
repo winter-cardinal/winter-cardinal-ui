@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramDataRemoteOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramDataRemoteOptions
 
 # Interface: DDiagramDataRemoteOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L11)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L11)

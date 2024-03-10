@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DMapTilePyramid
+[Winter Cardinal UI - v0.414.0](../index.md) / DMapTilePyramid
 
 # Interface: DMapTilePyramid
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L27)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L27)
 
 ___
 
@@ -53,13 +53,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L28)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L28)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -73,7 +73,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 #### Inherited from
 
@@ -87,15 +87,15 @@ ___
 
 ### destroy
 
-▸ **destroy**(): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **destroy**(): `this`
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L31)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L31)
 
 ___
 
@@ -150,15 +150,15 @@ ___
 
 ### fit
 
-▸ **fit**(): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **fit**(): `this`
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L30)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L30)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 ### move
 
-▸ **move**(`z`, `lon0`, `lat0`, `lon1`, `lat1`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **move**(`z`, `lon0`, `lat0`, `lon1`, `lat1`): `this`
 
 #### Parameters
 
@@ -230,17 +230,17 @@ ___
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L29)
+[src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-map-tile-pyramid.ts#L29)
 
 ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -255,7 +255,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 #### Inherited from
 
@@ -269,7 +269,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -283,7 +283,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 `this`.
 
@@ -299,7 +299,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -313,7 +313,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 `this`.
 
@@ -329,7 +329,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -341,7 +341,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 `this`.
 
@@ -357,7 +357,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DMapTilePyramid`](DMapTilePyramid.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -372,7 +372,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DMapTilePyramid`](DMapTilePyramid.md)
+`this`
 
 `this`.
 

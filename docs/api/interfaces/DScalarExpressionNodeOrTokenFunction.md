@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DScalarExpressionNodeOrTokenFunction
+[Winter Cardinal UI - v0.414.0](../index.md) / DScalarExpressionNodeOrTokenFunction
 
 # Interface: DScalarExpressionNodeOrTokenFunction
 
@@ -13,11 +13,11 @@
 
 ### 0
 
-• **0**: ``12`` \| ``11``
+• **0**: ``11`` \| ``12``
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L90)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L90)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L91)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L91)

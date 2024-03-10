@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DMenuSidedSelectionOptions
+[Winter Cardinal UI - v0.414.0](../index.md) / DMenuSidedSelectionOptions
 
 # Interface: DMenuSidedSelectionOptions\<EMITTER\>
 
@@ -41,13 +41,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L58)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L58)
 
 ___
 
 ### mode
 
-• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype-1)
+• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
 
 **`Deprecated`**
 
@@ -55,7 +55,7 @@ in favor of [type](DMenuSidedSelectionOptions.md#type)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L49)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L49)
 
 ___
 
@@ -65,16 +65,16 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L56)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L56)
 
 ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype-1)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
 
 A selection type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L54)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L54)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DLinkMenu
+[Winter Cardinal UI - v0.414.0](../index.md) / DLinkMenu
 
 # Class: DLinkMenu
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L26)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L26)
 
 ## Properties
 
@@ -56,27 +56,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L24)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L24)
 
 ___
 
 ### \_menu
 
-• `Protected` `Optional` **\_menu**: [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+• `Protected` `Optional` **\_menu**: [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L22)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L22)
 
 ___
 
 ### \_options
 
-• `Protected` **\_options**: [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+• `Protected` **\_options**: [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L23)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L23)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L21)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L21)
 
 ## Accessors
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L32)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L32)
 
 • `set` **enable**(`enable`): `void`
 
@@ -116,41 +116,41 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L36)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L36)
 
 ## Methods
 
 ### get
 
-▸ **get**(): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **get**(): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Returns
 
-[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L44)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L44)
 
 ___
 
 ### newMenu
 
-▸ **newMenu**(`options`): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **newMenu**(`options`): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> |
+| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> |
 
 #### Returns
 
-[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L72)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L72)
 
 ___
 
@@ -162,9 +162,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1) |
-| `item` | [`DMenuItem`](DMenuItem.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\> |
-| `menu` | [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
+| `value` | [`DLinkMenuItemId`](../index.md#dlinkmenuitemid) |
+| `item` | [`DMenuItem`](DMenuItem.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\> |
+| `menu` | [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
 
 #### Returns
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L76)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L76)
 
 ___
 
@@ -192,24 +192,24 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L40)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L40)
 
 ___
 
 ### toMenu
 
-▸ **toMenu**(`options`): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+▸ **toMenu**(`options`): [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
+| `options` | [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\> \| [`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\> |
 
 #### Returns
 
-[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
+[`DMenu`](DMenu.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md), [`DMenuOptions`](../interfaces/DMenuOptions.md)\<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link-menu.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L63)
+[src/main/typescript/wcardinal/ui/d-link-menu.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-link-menu.ts#L63)

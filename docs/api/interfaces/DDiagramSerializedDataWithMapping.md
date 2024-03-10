@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramSerializedDataWithMapping
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSerializedDataWithMapping
 
 # Interface: DDiagramSerializedDataWithMapping
 
@@ -63,7 +63,7 @@ The last number is a resource index number of JSON.stringify(DDiagramSerializedD
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L107)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L107)
 
 ___
 
@@ -75,7 +75,7 @@ A resource index number of JSON.stringify(DDiagramSerializedDataSystem).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L112)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L112)
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 ### copyWithin
 
-▸ **copyWithin**(`target`, `start`, `end?`): [`DDiagramSerializedDataWithMapping`](DDiagramSerializedDataWithMapping.md)
+▸ **copyWithin**(`target`, `start`, `end?`): `this`
 
 Returns the this object after copying a section of the array identified by start and end
 to the same array starting at position target
@@ -236,7 +236,7 @@ to the same array starting at position target
 
 #### Returns
 
-[`DDiagramSerializedDataWithMapping`](DDiagramSerializedDataWithMapping.md)
+`this`
 
 #### Inherited from
 
@@ -326,7 +326,7 @@ ___
 
 ### fill
 
-▸ **fill**(`value`, `start?`, `end?`): [`DDiagramSerializedDataWithMapping`](DDiagramSerializedDataWithMapping.md)
+▸ **fill**(`value`, `start?`, `end?`): `this`
 
 Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 
@@ -340,7 +340,7 @@ Changes all array elements from `start` to `end` index to a static `value` and r
 
 #### Returns
 
-[`DDiagramSerializedDataWithMapping`](DDiagramSerializedDataWithMapping.md)
+`this`
 
 #### Inherited from
 
@@ -977,7 +977,7 @@ ___
 
 ### sort
 
-▸ **sort**(`compareFn?`): [`DDiagramSerializedDataWithMapping`](DDiagramSerializedDataWithMapping.md)
+▸ **sort**(`compareFn?`): `this`
 
 Sorts an array in place.
 This method mutates the array and returns a reference to the same array.
@@ -990,7 +990,7 @@ This method mutates the array and returns a reference to the same array.
 
 #### Returns
 
-[`DDiagramSerializedDataWithMapping`](DDiagramSerializedDataWithMapping.md)
+`this`
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseBackgroundMesh
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseBackgroundMesh
 
 # Class: DBaseBackgroundMesh
 
@@ -162,7 +162,7 @@ Mesh.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L15)
 
 ## Properties
 
@@ -848,7 +848,7 @@ Mesh.geometry
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L12)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L12)
 
 ___
 
@@ -1040,7 +1040,7 @@ ___
 
 • **material**: `MeshMaterial`
 
-Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
+Alias for PIXI.Mesh#shader.
 
 **`Member`**
 
@@ -1234,7 +1234,7 @@ Mesh.shader
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L13)
 
 ___
 
@@ -1663,7 +1663,7 @@ node_modules/pixi.js/pixi.js.d.ts:13540
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L48)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L48)
 
 • `set` **cornerMask**(`cornerMask`): `void`
 
@@ -1679,7 +1679,7 @@ node_modules/pixi.js/pixi.js.d.ts:13540
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L52)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L52)
 
 ___
 
@@ -1693,7 +1693,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L40)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L40)
 
 • `set` **cornerRadius**(`cornerRadius`): `void`
 
@@ -1709,7 +1709,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L44)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L44)
 
 ___
 
@@ -1727,7 +1727,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L32)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L32)
 
 • `set` **height**(`height`): `void`
 
@@ -1747,7 +1747,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L36)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L36)
 
 ___
 
@@ -1765,7 +1765,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L23)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L23)
 
 • `set` **width**(`width`): `void`
 
@@ -1785,7 +1785,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L27)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L27)
 
 ## Methods
 
@@ -1851,7 +1851,7 @@ Mesh.\_render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L56)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-background-mesh.ts#L56)
 
 ___
 
@@ -1980,7 +1980,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1992,7 +1992,7 @@ ___
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2002,7 +2002,7 @@ Mesh.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2014,7 +2014,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2546,7 +2546,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2558,7 +2558,7 @@ ___
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2572,7 +2572,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2584,7 +2584,7 @@ ___
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2594,7 +2594,7 @@ Mesh.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2606,7 +2606,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2640,7 +2640,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2652,7 +2652,7 @@ ___
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2662,7 +2662,7 @@ Mesh.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2674,7 +2674,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2688,7 +2688,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2698,7 +2698,7 @@ ___
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2708,7 +2708,7 @@ Mesh.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2718,7 +2718,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2823,7 +2823,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2835,7 +2835,7 @@ ___
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2845,7 +2845,7 @@ Mesh.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2857,7 +2857,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DBaseBackgroundMesh`](DBaseBackgroundMesh.md)
+`this`
 
 #### Inherited from
 

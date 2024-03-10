@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseBorderMesh
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseBorderMesh
 
 # Class: DBaseBorderMesh
 
@@ -164,7 +164,7 @@ Mesh.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L16)
 
 ## Properties
 
@@ -850,7 +850,7 @@ Mesh.geometry
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L13)
 
 ___
 
@@ -1042,7 +1042,7 @@ ___
 
 • **material**: `MeshMaterial`
 
-Alias for [PIXI.Mesh#shader](DDynamicText.md#shader).
+Alias for PIXI.Mesh#shader.
 
 **`Member`**
 
@@ -1236,7 +1236,7 @@ Mesh.shader
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L14)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L14)
 
 ___
 
@@ -1665,7 +1665,7 @@ node_modules/pixi.js/pixi.js.d.ts:13540
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L65)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L65)
 
 • `set` **borderMask**(`borderMask`): `void`
 
@@ -1681,7 +1681,7 @@ node_modules/pixi.js/pixi.js.d.ts:13540
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L69)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L69)
 
 ___
 
@@ -1695,7 +1695,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L57)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L57)
 
 • `set` **borderWidth**(`borderWidth`): `void`
 
@@ -1711,7 +1711,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L61)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L61)
 
 ___
 
@@ -1725,7 +1725,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L49)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L49)
 
 • `set` **cornerMask**(`cornerMask`): `void`
 
@@ -1741,7 +1741,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L53)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L53)
 
 ___
 
@@ -1755,7 +1755,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L41)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L41)
 
 • `set` **cornerRadius**(`cornerRadius`): `void`
 
@@ -1771,7 +1771,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L45)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L45)
 
 ___
 
@@ -1789,7 +1789,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L33)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L33)
 
 • `set` **height**(`height`): `void`
 
@@ -1809,7 +1809,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L37)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L37)
 
 ___
 
@@ -1827,7 +1827,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L24)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L24)
 
 • `set` **width**(`width`): `void`
 
@@ -1847,7 +1847,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L28)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L28)
 
 ## Methods
 
@@ -1913,7 +1913,7 @@ Mesh.\_render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L73)
+[src/main/typescript/wcardinal/ui/d-base-border-mesh.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-border-mesh.ts#L73)
 
 ___
 
@@ -2042,7 +2042,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2054,7 +2054,7 @@ ___
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2064,7 +2064,7 @@ Mesh.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2076,7 +2076,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2608,7 +2608,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2620,7 +2620,7 @@ ___
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2634,7 +2634,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2646,7 +2646,7 @@ ___
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2656,7 +2656,7 @@ Mesh.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2668,7 +2668,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2702,7 +2702,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2714,7 +2714,7 @@ ___
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2724,7 +2724,7 @@ Mesh.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2736,7 +2736,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2750,7 +2750,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2760,7 +2760,7 @@ ___
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2770,7 +2770,7 @@ Mesh.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2780,7 +2780,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2885,7 +2885,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2897,7 +2897,7 @@ ___
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 
@@ -2907,7 +2907,7 @@ Mesh.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DBaseBorderMesh`](DBaseBorderMesh.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2919,7 +2919,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DBaseBorderMesh`](DBaseBorderMesh.md)
+`this`
 
 #### Inherited from
 

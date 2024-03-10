@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTableDataListMappedParent
+[Winter Cardinal UI - v0.414.0](../index.md) / DTableDataListMappedParent
 
 # Interface: DTableDataListMappedParent\<ROW\>
 
@@ -59,7 +59,7 @@ A data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L108)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L108)
 
 ___
 
@@ -75,7 +75,7 @@ Sorted and filtered data.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L118)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L118)
 
 ___
 
@@ -91,7 +91,7 @@ A list of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L9)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L9)
 
 ___
 
@@ -107,7 +107,7 @@ A data selection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L103)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L103)
 
 ___
 
@@ -123,7 +123,7 @@ A data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L113)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L113)
 
 ___
 
@@ -133,13 +133,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L10)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L10)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -153,7 +153,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+`this`
 
 #### Inherited from
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L123)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L123)
 
 ___
 
@@ -214,7 +214,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L152)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L152)
 
 ___
 
@@ -290,7 +290,7 @@ The index is an index on rows filters and sorters are not applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L142)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L142)
 
 ___
 
@@ -360,13 +360,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L127)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L127)
 
 ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -381,7 +381,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+`this`
 
 #### Inherited from
 
@@ -395,7 +395,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -409,7 +409,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -425,7 +425,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -439,7 +439,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -455,7 +455,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -467,7 +467,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -483,7 +483,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -498,7 +498,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DTableDataListMappedParent`](DTableDataListMappedParent.md)\<`ROW`\>
+`this`
 
 `this`.
 
@@ -528,7 +528,7 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L134)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L134)
 
 ___
 
@@ -552,7 +552,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L129)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L129)
 
 ___
 
@@ -576,4 +576,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L125)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L125)

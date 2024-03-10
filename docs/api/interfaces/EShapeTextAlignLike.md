@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeTextAlignLike
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeTextAlignLike
 
 # Interface: EShapeTextAlignLike
 
@@ -19,18 +19,18 @@
 
 ### horizontal
 
-• **horizontal**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1)
+• **horizontal**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts#L12)
 
 ___
 
 ### vertical
 
-• **vertical**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)
+• **vertical**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-align.ts#L13)

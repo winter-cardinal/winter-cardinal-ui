@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DPickerColorGradientRecent
+[Winter Cardinal UI - v0.414.0](../index.md) / DPickerColorGradientRecent
 
 # Class: DPickerColorGradientRecent
 
@@ -62,7 +62,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L35)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L35)
 
 ## Properties
 
@@ -72,7 +72,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L33)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L33)
 
 ___
 
@@ -82,13 +82,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L32)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L32)
 
 ## Methods
 
 ### add
 
-▸ **add**(`points`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **add**(`points`): `this`
 
 #### Parameters
 
@@ -98,17 +98,17 @@ ___
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L75)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L75)
 
 ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -122,7 +122,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 #### Inherited from
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L65)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L65)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L46)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L46)
 
 ___
 
@@ -233,7 +233,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L42)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L42)
 
 ___
 
@@ -291,7 +291,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -306,7 +306,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 #### Inherited from
 
@@ -320,7 +320,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -334,7 +334,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 `this`.
 
@@ -350,7 +350,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -364,7 +364,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 `this`.
 
@@ -388,13 +388,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L85)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L85)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -406,7 +406,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 `this`.
 
@@ -422,7 +422,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -437,7 +437,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DPickerColorGradientRecent`](DPickerColorGradientRecent.md)
+`this`
 
 `this`.
 
@@ -468,7 +468,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L54)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L54)
 
 ___
 
@@ -482,4 +482,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L95)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L95)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramLayerContainer
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramLayerContainer
 
 # Class: DDiagramLayerContainer
 
@@ -158,7 +158,7 @@ Container.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L19)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L19)
 
 ## Properties
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L15)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L15)
 
 ___
 
@@ -326,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L17)
 
 ___
 
@@ -433,7 +433,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L16)
 
 ___
 
@@ -721,7 +721,7 @@ Container.children
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L14)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L14)
 
 ___
 
@@ -1413,7 +1413,7 @@ node_modules/pixi.js/pixi.js.d.ts:8891
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L38)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L38)
 
 • `set` **active**(`layer`): `void`
 
@@ -1429,7 +1429,7 @@ node_modules/pixi.js/pixi.js.d.ts:8891
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L42)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L42)
 
 ## Methods
 
@@ -1574,7 +1574,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1586,7 +1586,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -1596,7 +1596,7 @@ Container.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1608,7 +1608,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -1639,7 +1639,7 @@ Adds the specified layer and activates it if the `activate` is true.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L61)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L61)
 
 ___
 
@@ -1661,7 +1661,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L70)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L70)
 
 ___
 
@@ -1695,7 +1695,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L141)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L141)
 
 ___
 
@@ -1745,7 +1745,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L49)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L49)
 
 ___
 
@@ -1769,7 +1769,7 @@ This method does not destroy the specified layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L106)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L106)
 
 ___
 
@@ -1790,7 +1790,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L188)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L188)
 
 ___
 
@@ -1808,7 +1808,7 @@ Container.destroy
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L155)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L155)
 
 ___
 
@@ -1832,7 +1832,7 @@ This method does not destroy the secified layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L85)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L85)
 
 ___
 
@@ -1984,7 +1984,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L133)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L133)
 
 ___
 
@@ -2188,7 +2188,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L28)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L28)
 
 ___
 
@@ -2246,7 +2246,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2258,7 +2258,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2272,7 +2272,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2284,7 +2284,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2294,7 +2294,7 @@ Container.on
 
 node_modules/pixi.js/pixi.js.d.ts:25530
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2306,7 +2306,7 @@ node_modules/pixi.js/pixi.js.d.ts:25530
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2348,13 +2348,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L166)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L166)
 
 ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2366,7 +2366,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2376,7 +2376,7 @@ Container.once
 
 node_modules/pixi.js/pixi.js.d.ts:25527
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -2388,7 +2388,7 @@ node_modules/pixi.js/pixi.js.d.ts:25527
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2402,7 +2402,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2412,7 +2412,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2422,7 +2422,7 @@ Container.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -2432,7 +2432,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2537,7 +2537,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2549,7 +2549,7 @@ ___
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2559,7 +2559,7 @@ Container.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -2571,7 +2571,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`DDiagramLayerContainer`](DDiagramLayerContainer.md)
+`this`
 
 #### Inherited from
 
@@ -2652,7 +2652,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L170)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L170)
 
 ___
 
@@ -2757,7 +2757,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L162)
+[src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-layer-container.ts#L162)
 
 ___
 

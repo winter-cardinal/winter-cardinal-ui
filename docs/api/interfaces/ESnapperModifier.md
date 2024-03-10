@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / ESnapperModifier
+[Winter Cardinal UI - v0.414.0](../index.md) / ESnapperModifier
 
 # Interface: ESnapperModifier
 
@@ -696,7 +696,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L18)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L18)
 
 ___
 
@@ -1073,7 +1073,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L17)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L17)
 
 ___
 
@@ -1215,7 +1215,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1227,7 +1227,7 @@ ___
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1237,7 +1237,7 @@ DisplayObject.addListener
 
 node_modules/pixi.js/pixi.js.d.ts:25521
 
-▸ **addListener**(`event`, `fn`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1249,7 +1249,7 @@ node_modules/pixi.js/pixi.js.d.ts:25521
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1564,7 +1564,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1576,7 +1576,7 @@ ___
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1586,7 +1586,7 @@ DisplayObject.off
 
 node_modules/pixi.js/pixi.js.d.ts:25518
 
-▸ **off**(`event`, `fn?`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **off**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1598,7 +1598,7 @@ node_modules/pixi.js/pixi.js.d.ts:25518
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1612,7 +1612,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1624,7 +1624,7 @@ ___
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1634,7 +1634,7 @@ DisplayObject.on
 
 node_modules/pixi.js/pixi.js.d.ts:25507
 
-▸ **on**(`event`, `fn`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1646,7 +1646,7 @@ node_modules/pixi.js/pixi.js.d.ts:25507
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1660,7 +1660,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1672,7 +1672,7 @@ ___
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1682,7 +1682,7 @@ DisplayObject.once
 
 node_modules/pixi.js/pixi.js.d.ts:25510
 
-▸ **once**(`event`, `fn`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 #### Parameters
 
@@ -1694,7 +1694,7 @@ node_modules/pixi.js/pixi.js.d.ts:25510
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1708,7 +1708,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -1718,7 +1718,7 @@ ___
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1728,7 +1728,7 @@ DisplayObject.removeAllListeners
 
 node_modules/pixi.js/pixi.js.d.ts:25516
 
-▸ **removeAllListeners**(`event?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 #### Parameters
 
@@ -1738,7 +1738,7 @@ node_modules/pixi.js/pixi.js.d.ts:25516
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1752,7 +1752,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1764,7 +1764,7 @@ ___
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 
@@ -1774,7 +1774,7 @@ DisplayObject.removeListener
 
 node_modules/pixi.js/pixi.js.d.ts:25513
 
-▸ **removeListener**(`event`, `fn?`, `context?`): [`ESnapperModifier`](ESnapperModifier.md)
+▸ **removeListener**(`event`, `fn?`, `context?`): `this`
 
 #### Parameters
 
@@ -1786,7 +1786,7 @@ node_modules/pixi.js/pixi.js.d.ts:25513
 
 #### Returns
 
-[`ESnapperModifier`](ESnapperModifier.md)
+`this`
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramSnapshot
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSnapshot
 
 # Class: DDiagramSnapshot\<CANVAS\>
 
@@ -73,7 +73,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L88)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L88)
 
 ## Properties
 
@@ -83,13 +83,13 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L86)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L86)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -103,7 +103,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+`this`
 
 #### Inherited from
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L234)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L234)
 
 ___
 
@@ -159,7 +159,7 @@ Creates and downloads a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L144)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L144)
 
 ▸ **createAsFile**(`size`, `filename`): `void`
 
@@ -178,7 +178,7 @@ Creates and downloads a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L152)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L152)
 
 ▸ **createAsFile**(`options`): `void`
 
@@ -196,7 +196,7 @@ Creates and downloads a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L159)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L159)
 
 ___
 
@@ -220,7 +220,7 @@ an URL of a created image or undefined
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L108)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L108)
 
 ▸ **createAsUrl**(`options`): `undefined` \| `string`
 
@@ -240,7 +240,7 @@ an URL of a created image or undefined
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L116)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L116)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -362,7 +362,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+`this`
 
 #### Inherited from
 
@@ -376,7 +376,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -390,7 +390,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+`this`
 
 `this`.
 
@@ -406,7 +406,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -420,7 +420,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+`this`
 
 `this`.
 
@@ -436,7 +436,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -448,7 +448,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+`this`
 
 `this`.
 
@@ -464,7 +464,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -479,7 +479,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DDiagramSnapshot`](DDiagramSnapshot.md)\<`CANVAS`\>
+`this`
 
 `this`.
 
@@ -509,7 +509,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L210)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L210)
 
 ___
 
@@ -529,7 +529,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L223)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L223)
 
 ___
 
@@ -549,7 +549,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L199)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L199)
 
 ___
 
@@ -570,4 +570,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L192)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L192)

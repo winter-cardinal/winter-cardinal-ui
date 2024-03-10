@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DBaseStateSetTicker
+[Winter Cardinal UI - v0.414.0](../index.md) / DBaseStateSetTicker
 
 # Interface: DBaseStateSetTicker
 
@@ -25,7 +25,7 @@
 
 ### add
 
-▸ **add**(`state`, `interval`): [`DBaseStateSetTicker`](DBaseStateSetTicker.md)
+▸ **add**(`state`, `interval`): `this`
 
 #### Parameters
 
@@ -36,7 +36,7 @@
 
 #### Returns
 
-[`DBaseStateSetTicker`](DBaseStateSetTicker.md)
+`this`
 
 #### Inherited from
 
@@ -44,17 +44,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L2)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L2)
 
 ___
 
 ### clear
 
-▸ **clear**(): [`DBaseStateSetTicker`](DBaseStateSetTicker.md)
+▸ **clear**(): `this`
 
 #### Returns
 
-[`DBaseStateSetTicker`](DBaseStateSetTicker.md)
+`this`
 
 #### Inherited from
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L5)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L5)
 
 ___
 
@@ -86,13 +86,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L4)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L4)
 
 ___
 
 ### remove
 
-▸ **remove**(`state`): [`DBaseStateSetTicker`](DBaseStateSetTicker.md)
+▸ **remove**(`state`): `this`
 
 #### Parameters
 
@@ -102,7 +102,7 @@ ___
 
 #### Returns
 
-[`DBaseStateSetTicker`](DBaseStateSetTicker.md)
+`this`
 
 #### Inherited from
 
@@ -110,4 +110,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L3)
+[src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base-state-set-sub.ts#L3)

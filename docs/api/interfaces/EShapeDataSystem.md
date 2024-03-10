@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeDataSystem
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeDataSystem
 
 # Interface: EShapeDataSystem
 
@@ -25,15 +25,15 @@
 
 ### clear
 
-▸ **clear**(): [`EShapeDataSystem`](EShapeDataSystem.md)
+▸ **clear**(): `this`
 
 #### Returns
 
-[`EShapeDataSystem`](EShapeDataSystem.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L14)
 
 ___
 
@@ -53,13 +53,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L12)
 
 ___
 
 ### copy
 
-▸ **copy**(`target`): [`EShapeDataSystem`](EShapeDataSystem.md)
+▸ **copy**(`target`): `this`
 
 #### Parameters
 
@@ -69,11 +69,11 @@ ___
 
 #### Returns
 
-[`EShapeDataSystem`](EShapeDataSystem.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L18)
 
 ___
 
@@ -94,13 +94,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L21)
 
 ___
 
 ### each
 
-▸ **each**(`iteratee`): [`EShapeDataSystem`](EShapeDataSystem.md)
+▸ **each**(`iteratee`): `this`
 
 #### Parameters
 
@@ -110,11 +110,11 @@ ___
 
 #### Returns
 
-[`EShapeDataSystem`](EShapeDataSystem.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L17)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L11)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L13)
 
 ___
 
@@ -174,13 +174,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L20)
 
 ___
 
 ### set
 
-▸ **set**(`key`, `value`): [`EShapeDataSystem`](EShapeDataSystem.md)
+▸ **set**(`key`, `value`): `this`
 
 #### Parameters
 
@@ -191,11 +191,11 @@ ___
 
 #### Returns
 
-[`EShapeDataSystem`](EShapeDataSystem.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L10)
 
 ___
 
@@ -209,4 +209,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-system.ts#L15)

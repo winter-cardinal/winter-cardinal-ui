@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeAcceptor
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeAcceptor
 
 # Interface: EShapeAcceptor
 
@@ -17,7 +17,7 @@
 
 ### each
 
-▸ **each**(`shape`, `iteratee`): [`EShapeAcceptor`](EShapeAcceptor.md)
+▸ **each**(`shape`, `iteratee`): `this`
 
 #### Parameters
 
@@ -28,11 +28,11 @@
 
 #### Returns
 
-[`EShapeAcceptor`](EShapeAcceptor.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L11)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L10)

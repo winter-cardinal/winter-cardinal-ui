@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeEmbeddeds
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeEmbeddeds
 
 # Class: EShapeEmbeddeds
 
@@ -37,7 +37,7 @@
 | `width` | `number` |
 | `height` | `number` |
 | `container` | [`EShapeLayerContainer`](../interfaces/EShapeLayerContainer.md) |
-| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
+| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode) |
 | `depth` | `number` |
 
 #### Returns
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L50)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 | :------ | :------ |
 | `serializedOrSimple` | [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md) \| [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) |
 | `controller` | `undefined` \| ``null`` \| [`DDiagramBaseController`](../interfaces/DDiagramBaseController.md) |
-| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
+| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode) |
 
 #### Returns
 
@@ -68,4 +68,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L17)

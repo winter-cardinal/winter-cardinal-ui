@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapeCapabilityContainer
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapeCapabilityContainer
 
 # Interface: EShapeCapabilityContainer
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L4)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L4)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L6)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L6)
 
 ___
 
@@ -52,13 +52,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L5)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L5)
 
 ## Methods
 
 ### add
 
-▸ **add**(`target`): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **add**(`target`): `this`
 
 #### Parameters
 
@@ -68,31 +68,31 @@ ___
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L8)
 
 ___
 
 ### clear
 
-▸ **clear**(): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **clear**(): `this`
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L12)
 
 ___
 
 ### copy
 
-▸ **copy**(`target`): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **copy**(`target`): `this`
 
 #### Parameters
 
@@ -102,17 +102,17 @@ ___
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L15)
 
 ___
 
 ### lock
 
-▸ **lock**(`target`): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **lock**(`target`): `this`
 
 #### Parameters
 
@@ -122,17 +122,17 @@ ___
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L10)
 
 ___
 
 ### remove
 
-▸ **remove**(`target`): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **remove**(`target`): `this`
 
 #### Parameters
 
@@ -142,17 +142,17 @@ ___
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L9)
 
 ___
 
 ### set
 
-▸ **set**(`added?`, `removed?`, `locked?`): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **set**(`added?`, `removed?`, `locked?`): `this`
 
 #### Parameters
 
@@ -164,17 +164,17 @@ ___
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L14)
 
 ___
 
 ### unlock
 
-▸ **unlock**(`target`): [`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+▸ **unlock**(`target`): `this`
 
 #### Parameters
 
@@ -184,8 +184,8 @@ ___
 
 #### Returns
 
-[`EShapeCapabilityContainer`](EShapeCapabilityContainer.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-capability-container.ts#L11)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartRegion
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartRegion
 
 # Interface: DChartRegion
 
@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L7)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L7)
 
 ___
 
@@ -38,13 +38,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L8)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L8)
 
 ## Methods
 
 ### add
 
-▸ **add**(`from`, `to`): [`DChartRegion`](DChartRegion.md)
+▸ **add**(`from`, `to`): `this`
 
 #### Parameters
 
@@ -55,31 +55,31 @@ ___
 
 #### Returns
 
-[`DChartRegion`](DChartRegion.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L10)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L10)
 
 ___
 
 ### clear
 
-▸ **clear**(): [`DChartRegion`](DChartRegion.md)
+▸ **clear**(): `this`
 
 #### Returns
 
-[`DChartRegion`](DChartRegion.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L11)
 
 ___
 
 ### set
 
-▸ **set**(`from?`, `to?`): [`DChartRegion`](DChartRegion.md)
+▸ **set**(`from?`, `to?`): `this`
 
 #### Parameters
 
@@ -90,8 +90,8 @@ ___
 
 #### Returns
 
-[`DChartRegion`](DChartRegion.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L9)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L9)

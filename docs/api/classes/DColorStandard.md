@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DColorStandard
+[Winter Cardinal UI - v0.414.0](../index.md) / DColorStandard
 
 # Class: DColorStandard
 
@@ -58,7 +58,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L15)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L15)
 
 ## Properties
 
@@ -68,13 +68,13 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L13)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L13)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DColorStandard`](DColorStandard.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -88,7 +88,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 #### Inherited from
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L54)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L54)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L20)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L20)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DColorStandard`](DColorStandard.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -258,7 +258,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 #### Inherited from
 
@@ -272,7 +272,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DColorStandard`](DColorStandard.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -286,7 +286,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 `this`.
 
@@ -302,7 +302,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DColorStandard`](DColorStandard.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -316,7 +316,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 `this`.
 
@@ -332,7 +332,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DColorStandard`](DColorStandard.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -344,7 +344,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 `this`.
 
@@ -360,7 +360,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DColorStandard`](DColorStandard.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -375,7 +375,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 `this`.
 
@@ -406,13 +406,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L28)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L28)
 
 ___
 
 ### setAll
 
-▸ **setAll**(`colors`): [`DColorStandard`](DColorStandard.md)
+▸ **setAll**(`colors`): `this`
 
 #### Parameters
 
@@ -422,11 +422,11 @@ ___
 
 #### Returns
 
-[`DColorStandard`](DColorStandard.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L39)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L39)
 
 ___
 
@@ -440,4 +440,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L64)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L64)

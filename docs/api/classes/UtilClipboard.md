@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / UtilClipboard
+[Winter Cardinal UI - v0.414.0](../index.md) / UtilClipboard
 
 # Class: UtilClipboard
 
@@ -44,13 +44,13 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L81)
+[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L81)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`UtilClipboard`](UtilClipboard.md)
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -64,7 +64,7 @@ Alias method for `on`
 
 #### Returns
 
-[`UtilClipboard`](UtilClipboard.md)
+`this`
 
 #### Inherited from
 
@@ -179,7 +179,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`UtilClipboard`](UtilClipboard.md)
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -194,7 +194,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`UtilClipboard`](UtilClipboard.md)
+`this`
 
 #### Inherited from
 
@@ -208,7 +208,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`UtilClipboard`](UtilClipboard.md)
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -222,7 +222,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`UtilClipboard`](UtilClipboard.md)
+`this`
 
 `this`.
 
@@ -238,7 +238,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`UtilClipboard`](UtilClipboard.md)
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -252,7 +252,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`UtilClipboard`](UtilClipboard.md)
+`this`
 
 `this`.
 
@@ -268,7 +268,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`UtilClipboard`](UtilClipboard.md)
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -280,7 +280,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`UtilClipboard`](UtilClipboard.md)
+`this`
 
 `this`.
 
@@ -296,7 +296,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`UtilClipboard`](UtilClipboard.md)
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -311,7 +311,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`UtilClipboard`](UtilClipboard.md)
+`this`
 
 `this`.
 
@@ -341,4 +341,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L110)
+[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L110)

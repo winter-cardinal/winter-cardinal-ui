@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DThemeWhiteChartCoordinateTransform
+[Winter Cardinal UI - v0.414.0](../index.md) / DThemeWhiteChartCoordinateTransform
 
 # Class: DThemeWhiteChartCoordinateTransform
 
@@ -50,4 +50,4 @@ Returns true if the specified value is too close to zero.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-coordinate-transform.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-coordinate-transform.ts#L9)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-coordinate-transform.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-coordinate-transform.ts#L9)

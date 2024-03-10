@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DDiagramSerializedTextAlign
+[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSerializedTextAlign
 
 # Interface: DDiagramSerializedTextAlign
 
@@ -15,22 +15,22 @@ A serialized text align.
 
 ### 0
 
-• **0**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1)
+• **0**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 A horizontal align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L190)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L190)
 
 ___
 
 ### 1
 
-• **1**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)
+• **1**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 A vertical align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L193)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L193)

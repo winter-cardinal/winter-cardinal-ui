@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DTextPieceAlign
+[Winter Cardinal UI - v0.414.0](../index.md) / DTextPieceAlign
 
 # Interface: DTextPieceAlign
 
@@ -21,39 +21,39 @@
 
 ### horizontal
 
-• **horizontal**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+• **horizontal**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L6)
+[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L6)
 
 ___
 
 ### vertical
 
-• **vertical**: ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical-1)
+• **vertical**: ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L5)
+[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L5)
 
 ## Methods
 
 ### set
 
-▸ **set**(`vertical?`, `horizontal?`): [`DTextPieceAlign`](DTextPieceAlign.md)
+▸ **set**(`vertical?`, `horizontal?`): `this`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `vertical?` | ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical-1) |
-| `horizontal?` | ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1) |
+| `vertical?` | ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical) |
+| `horizontal?` | ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal) |
 
 #### Returns
 
-[`DTextPieceAlign`](DTextPieceAlign.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L8)
+[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L8)

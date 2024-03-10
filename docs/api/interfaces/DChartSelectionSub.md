@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DChartSelectionSub
+[Winter Cardinal UI - v0.414.0](../index.md) / DChartSelectionSub
 
 # Interface: DChartSelectionSub\<CHART\>
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L30)
 
 ___
 
@@ -61,13 +61,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L29)
 
 ## Methods
 
 ### addListener
 
-▸ **addListener**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+▸ **addListener**(`event`, `fn`, `context?`): `this`
 
 Alias method for `on`
 
@@ -81,7 +81,7 @@ Alias method for `on`
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+`this`
 
 #### Inherited from
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L32)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 ### off
 
-▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Alias method for `removeListener`
 
@@ -231,7 +231,7 @@ Alias method for `removeListener`
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+`this`
 
 #### Inherited from
 
@@ -245,7 +245,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+▸ **on**(`event`, `fn`, `context?`): `this`
 
 Add a listener for a given event.
 
@@ -259,7 +259,7 @@ Add a listener for a given event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -275,7 +275,7 @@ ___
 
 ### once
 
-▸ **once**(`event`, `fn`, `context?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+▸ **once**(`event`, `fn`, `context?`): `this`
 
 Add a one-time listener for a given event.
 
@@ -289,7 +289,7 @@ Add a one-time listener for a given event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -305,7 +305,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+▸ **removeAllListeners**(`event?`): `this`
 
 Remove all listeners, or those of the specified event.
 
@@ -317,7 +317,7 @@ Remove all listeners, or those of the specified event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -333,7 +333,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
 
 Remove the listeners of a given event.
 
@@ -348,7 +348,7 @@ Remove the listeners of a given event.
 
 #### Returns
 
-[`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\>
+`this`
 
 `this`.
 
@@ -379,7 +379,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L34)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L33)
 
 ___
 
@@ -407,7 +407,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L38)
 
 ___
 
@@ -421,4 +421,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L39)

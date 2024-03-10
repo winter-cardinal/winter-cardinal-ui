@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / EShapePointsMarker
+[Winter Cardinal UI - v0.414.0](../index.md) / EShapePointsMarker
 
 # Interface: EShapePointsMarker
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L18)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L16)
 
 ___
 
@@ -53,23 +53,23 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L17)
 
 ___
 
 ### type
 
-• **type**: [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype-1)
+• **type**: [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L15)
 
 ## Methods
 
 ### copy
 
-▸ **copy**(`source`): [`EShapePointsMarker`](EShapePointsMarker.md)
+▸ **copy**(`source`): `this`
 
 #### Parameters
 
@@ -79,11 +79,11 @@ ___
 
 #### Returns
 
-[`EShapePointsMarker`](EShapePointsMarker.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L22)
 
 ___
 
@@ -104,21 +104,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L25)
 
 ___
 
 ### lock
 
-▸ **lock**(): [`EShapePointsMarker`](EShapePointsMarker.md)
+▸ **lock**(): `this`
 
 #### Returns
 
-[`EShapePointsMarker`](EShapePointsMarker.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L20)
 
 ___
 
@@ -138,40 +138,40 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L24)
 
 ___
 
 ### set
 
-▸ **set**(`type?`, `sizeX?`, `sizeY?`): [`EShapePointsMarker`](EShapePointsMarker.md)
+▸ **set**(`type?`, `sizeX?`, `sizeY?`): `this`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `type?` | [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype-1) |
+| `type?` | [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype) |
 | `sizeX?` | `number` |
 | `sizeY?` | `number` |
 
 #### Returns
 
-[`EShapePointsMarker`](EShapePointsMarker.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L23)
 
 ___
 
 ### unlock
 
-▸ **unlock**(): [`EShapePointsMarker`](EShapePointsMarker.md)
+▸ **unlock**(): `this`
 
 #### Returns
 
-[`EShapePointsMarker`](EShapePointsMarker.md)
+`this`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker.ts#L21)

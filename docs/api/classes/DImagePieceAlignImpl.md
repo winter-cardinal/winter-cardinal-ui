@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.407.0](../index.md) / DImagePieceAlignImpl
+[Winter Cardinal UI - v0.414.0](../index.md) / DImagePieceAlignImpl
 
 # Class: DImagePieceAlignImpl
 
@@ -50,17 +50,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L18)
 
 ## Properties
 
 ### \_horizontal
 
-• `Protected` **\_horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+• `Protected` **\_horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L16)
 
 ___
 
@@ -70,37 +70,37 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L13)
 
 ___
 
 ### \_vertical
 
-• `Protected` **\_vertical**: [`DAlignVertical`](../index.md#dalignvertical-1)
+• `Protected` **\_vertical**: [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L15)
 
 ___
 
 ### \_with
 
-• `Protected` **\_with**: [`DAlignWith`](../index.md#dalignwith-1)
+• `Protected` **\_with**: [`DAlignWith`](../index.md#dalignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L14)
 
 ## Accessors
 
 ### horizontal
 
-• `get` **horizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+• `get` **horizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../index.md#dalignhorizontal-1)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Implementation of
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L56)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L56)
 
 • `set` **horizontal**(`horizontal`): `void`
 
@@ -116,7 +116,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal` | ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1) |
+| `horizontal` | ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal) |
 
 #### Returns
 
@@ -128,17 +128,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L60)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L60)
 
 ___
 
 ### vertical
 
-• `get` **vertical**(): [`DAlignVertical`](../index.md#dalignvertical-1)
+• `get` **vertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../index.md#dalignvertical-1)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Implementation of
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L44)
 
 • `set` **vertical**(`vertical`): `void`
 
@@ -154,7 +154,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `vertical` | ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical-1) |
+| `vertical` | ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical) |
 
 #### Returns
 
@@ -166,17 +166,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L48)
 
 ___
 
 ### with
 
-• `get` **with**(): [`DAlignWith`](../index.md#dalignwith-1)
+• `get` **with**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../index.md#dalignwith-1)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Implementation of
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L32)
 
 • `set` **with**(`w`): `void`
 
@@ -192,7 +192,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `w` | ``"PADDING"`` \| ``"TEXT"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith-1) |
+| `w` | ``"PADDING"`` \| ``"TEXT"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith) |
 
 #### Returns
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L36)
 
 ## Methods
 
@@ -218,25 +218,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L101)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L101)
 
 ___
 
 ### set
 
-▸ **set**(`w?`, `vertical?`, `horizontal?`): [`DImagePieceAlignImpl`](DImagePieceAlignImpl.md)
+▸ **set**(`w?`, `vertical?`, `horizontal?`): `this`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `w?` | ``"PADDING"`` \| ``"TEXT"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith-1) |
-| `vertical?` | ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical-1) |
-| `horizontal?` | ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1) |
+| `w?` | ``"PADDING"`` \| ``"TEXT"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith) |
+| `vertical?` | ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical) |
+| `horizontal?` | ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal) |
 
 #### Returns
 
-[`DImagePieceAlignImpl`](DImagePieceAlignImpl.md)
+`this`
 
 #### Implementation of
 
@@ -244,4 +244,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.407.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L68)
+[src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-align-impl.ts#L68)
