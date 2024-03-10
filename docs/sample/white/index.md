@@ -340,6 +340,8 @@
         * [Header Less](./table\column/header-less.html)
         * [Image](./table\column/image.html)
         * [Padding](./table\column/padding.html)
+        * [Resizable](./table\column/resizable.html)
+        * [Resizing programatically](./table\column/resizing.html)
         * [Sortable](./table\column/sortable.html)
         * [State](./table\column/state.html)
         * [Text](./table\column/text.html)
