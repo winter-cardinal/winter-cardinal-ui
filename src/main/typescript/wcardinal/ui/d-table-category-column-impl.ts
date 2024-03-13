@@ -25,7 +25,7 @@ export class DTableCategoryColumnImpl<
 	protected _isLocked: boolean;
 	offset: number;
 	protected _columns: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>[];
-	protected _nresizable: number;
+	readonly resizable: boolean;
 
 	protected _onResizeBound: (
 		column: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>
@@ -53,7 +53,7 @@ export class DTableCategoryColumnImpl<
 		this._isLocked = false;
 		this.offset = 0.0;
 		this._columns = [column];
-		this._nresizable = column.resizable ? 1 : 0;
+		this.resizable = column.resizable;
 
 		const onResizeBound = (): void => {
 			this.onResize();
@@ -94,18 +94,13 @@ export class DTableCategoryColumnImpl<
 		}
 	}
 
-	get resizable(): boolean {
-		return 0 < this._nresizable;
-	}
-
 	get weight(): number | undefined {
 		return this._weight;
 	}
 
 	set weight(weight: number) {
 		const oldWeight = this._weight;
-		const nresizable = this._nresizable;
-		if (0 < nresizable && oldWeight != null && oldWeight !== weight) {
+		if (oldWeight != null && oldWeight !== weight) {
 			const columns = this._columns;
 			const columnsLength = columns.length;
 			const minWeight = this.minWeight;
@@ -113,21 +108,24 @@ export class DTableCategoryColumnImpl<
 			if (this._weight !== newWeight) {
 				this._isLocked = true;
 				if (minWeight < oldWeight) {
-					const columnWeightRatio = (newWeight - minWeight) / (oldWeight - minWeight);
+					// TODO: IMPROVE THIS
+					const columnWeightRatio = newWeight / oldWeight;
 					for (let i = 0; i < columnsLength; ++i) {
 						const column = columns[i];
 						const columnWeight = column.weight;
-						if (column.resizable && columnWeight != null) {
-							column.weight = columnWeight * columnWeightRatio;
+						if (columnWeight != null) {
+							column.weight = Math.max(
+								column.minWeight,
+								columnWeight * columnWeightRatio
+							);
 						}
 					}
 				} else {
-					const newColumnWeight = (newWeight - minWeight) / this._nresizable;
 					for (let i = 0; i < columnsLength; ++i) {
 						const column = columns[i];
 						const columnWeight = column.weight;
-						if (column.resizable && columnWeight != null) {
-							column.weight = newColumnWeight;
+						if (columnWeight != null) {
+							column.weight = column.minWeight;
 						}
 					}
 				}
@@ -144,8 +142,8 @@ export class DTableCategoryColumnImpl<
 		for (let i = 0; i < columnsLength; ++i) {
 			const column = columns[i];
 			const columnWeight = column.weight;
-			if (!column.resizable && columnWeight != null) {
-				result += columnWeight;
+			if (columnWeight != null) {
+				result += column.minWeight;
 			}
 		}
 		return result;
@@ -157,8 +155,7 @@ export class DTableCategoryColumnImpl<
 
 	set width(width: number) {
 		const oldWidth = this._width;
-		const nresizable = this._nresizable;
-		if (0 < nresizable && oldWidth != null && oldWidth !== width) {
+		if (oldWidth != null && oldWidth !== width) {
 			const columns = this._columns;
 			const columnsLength = columns.length;
 			const minWidth = this.minWidth;
@@ -166,21 +163,24 @@ export class DTableCategoryColumnImpl<
 			if (oldWidth !== newWidth) {
 				this._isLocked = true;
 				if (minWidth < oldWidth) {
-					const columnWidthRatio = (newWidth - minWidth) / (oldWidth - minWidth);
+					// TODO: IMPROVE THIS
+					const columnWidthRatio = newWidth / oldWidth;
 					for (let i = 0; i < columnsLength; ++i) {
 						const column = columns[i];
 						const columnWidth = column.width;
-						if (column.resizable && columnWidth != null) {
-							column.width = columnWidth * columnWidthRatio;
+						if (columnWidth != null) {
+							column.width = Math.max(
+								column.minWidth,
+								columnWidth * columnWidthRatio
+							);
 						}
 					}
 				} else {
-					const newColumnWidth = (newWidth - minWidth) / this._nresizable;
 					for (let i = 0; i < columnsLength; ++i) {
 						const column = columns[i];
 						const columnWidth = column.width;
-						if (column.resizable && columnWidth != null) {
-							column.width = newColumnWidth;
+						if (columnWidth != null) {
+							column.width = column.minWidth;
 						}
 					}
 				}
@@ -197,8 +197,8 @@ export class DTableCategoryColumnImpl<
 		for (let i = 0; i < columnsLength; ++i) {
 			const column = columns[i];
 			const columnWidth = column.width;
-			if (!column.resizable && columnWidth != null) {
-				result += columnWidth;
+			if (columnWidth != null) {
+				result += column.minWidth;
 			}
 		}
 		return result;
@@ -210,18 +210,12 @@ export class DTableCategoryColumnImpl<
 			const weight = column.weight;
 			if (weight != null) {
 				this._weight += weight;
-				if (column.resizable) {
-					this._nresizable += 1;
-				}
 				column.on("resize", this._onResizeBound);
 			}
 		} else if (this._width != null) {
 			const width = column.width;
 			if (width != null) {
 				this._width += width;
-				if (column.resizable) {
-					this._nresizable += 1;
-				}
 				column.on("resize", this._onResizeBound);
 			}
 		}

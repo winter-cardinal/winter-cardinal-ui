@@ -51,7 +51,7 @@ export class DTableCategoryContainerImpl<
 		return result;
 	}
 
-	protected isCategory(
+	protected isEqual(
 		index: number,
 		a: string | string[] | undefined,
 		b: string | string[] | undefined
@@ -144,12 +144,18 @@ export class DTableCategoryContainerImpl<
 				i !== frozen &&
 				ccolumn &&
 				tcolumn &&
-				this.isCategory(index, tcolumn.category, column.category)
+				this.isEqual(index, tcolumn.category, column.category)
 			) {
-				if (ccolumn.weight != null && column.weight != null) {
-					ccolumn.add(column);
-				} else if (ccolumn.width != null && column.width != null) {
-					ccolumn.add(column);
+				if (ccolumn.resizable === column.resizable) {
+					if (ccolumn.weight != null && column.weight != null) {
+						ccolumn.add(column);
+					} else if (ccolumn.width != null && column.width != null) {
+						ccolumn.add(column);
+					} else {
+						tcolumn = column;
+						ccolumn = new DTableCategoryColumnImpl(index, column);
+						result.push(ccolumn);
+					}
 				} else {
 					tcolumn = column;
 					ccolumn = new DTableCategoryColumnImpl(index, column);
