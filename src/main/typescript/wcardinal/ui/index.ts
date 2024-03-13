@@ -563,6 +563,7 @@ export * from "./d-table-category-column";
 export * from "./d-table-category-container-impl";
 export * from "./d-table-category-container";
 export * from "./d-table-category";
+export * from "./d-table-cell-edge";
 export * from "./d-table-column-container-impl";
 export * from "./d-table-column-container";
 export * from "./d-table-column-editing";

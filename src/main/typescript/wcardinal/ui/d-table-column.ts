@@ -111,7 +111,9 @@ export interface DTableColumn<
 		DTableColumnSelectingDialog<DIALOG_VALUE> = DTableColumnSelectingDialog<DIALOG_VALUE>
 > extends utils.EventEmitter {
 	weight?: number;
+	minWeight: number;
 	width?: number;
+	minWidth: number;
 	readonly resizable: boolean;
 
 	readonly type: DTableColumnType;

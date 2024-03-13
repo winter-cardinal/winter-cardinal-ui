@@ -362,7 +362,9 @@ export class DTableColumnImpl<
 	implements DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG>
 {
 	protected _weight?: number;
+	readonly minWeight: number;
 	protected _width?: number;
+	readonly minWidth: number;
 	readonly resizable: boolean;
 
 	readonly type: DTableColumnType;
@@ -409,7 +411,9 @@ export class DTableColumnImpl<
 		const setter = toSetter(options, type, path);
 
 		this._weight = weight;
+		this.minWeight = 0;
 		this._width = width;
+		this.minWidth = 0;
 		this.resizable = options.resizable ?? false;
 		this.type = type;
 		this.label = label;
