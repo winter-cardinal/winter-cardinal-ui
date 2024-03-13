@@ -214,7 +214,6 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		let result = this._left;
 		if (result === undefined) {
 			result = this.calcData(this._columnIndex - 1);
-			console.log("left", this._columnIndex, result);
 			this._left = result;
 		}
 		return result;
@@ -224,7 +223,6 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		let result = this._right;
 		if (result === undefined) {
 			result = this.calcData(this._columnIndex);
-			console.log("right", this._columnIndex, result);
 			this._right = result;
 		}
 		return result;
