@@ -72,6 +72,7 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 	protected _right?: DTableCellEdgeData<CELL> | null;
 	protected _size: number;
 	protected _dragged: boolean;
+	protected _minWidth: number;
 
 	constructor(row: DTableCellEdgeRow<CELL>, cell: CELL, columnIndex: number, size: number) {
 		this._row = row;
@@ -79,6 +80,7 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		this._columnIndex = columnIndex;
 		this._size = size;
 		this._dragged = false;
+		this._minWidth = 8;
 	}
 
 	protected findResizableCell(
@@ -308,7 +310,7 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		const cell = this._cell;
 		const width = cell.width;
 		const x = this.toX(e);
-		const size = this._size;
+		const size = Math.min(this._size, 0.5 * width);
 		if (0 <= x && x <= size) {
 			if (this.left != null) {
 				cell.state.add(DTableState.HOVERED_ON_EDGE, DTableCellEdgeHovered.LEFT);
@@ -339,7 +341,7 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		const left = data[1];
 		const leftColumn = left.column;
 		const leftOldWidth = left.width;
-		const leftMinWidth = leftColumn.minWidth;
+		const leftMinWidth = Math.max(this._minWidth, leftColumn.minWidth);
 		const onMove = (e: InteractionEvent): void => {
 			leftColumn.width = Math.max(leftMinWidth, leftOldWidth + e.data.global.x - onDownPoint);
 		};
@@ -351,17 +353,21 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		data: DTableCellEdgeData1<CELL>,
 		interactionManager: InteractionManager
 	): void {
+		const minWidth = this._minWidth;
+
 		const left = data[1];
-		const right = data[2];
 		const leftColumn = left.column;
-		const rightColumn = right.column;
 		const leftOldWidth = left.width;
+
+		const right = data[2];
+		const rightColumn = right.column;
 		const rightOldWidth = right.width;
-		const leftMinWidth = leftColumn.minWidth;
-		const rightMinWidth = rightColumn.minWidth;
+
 		const totalWidth = leftOldWidth + rightOldWidth;
-		const leftMaxWidth = totalWidth - rightMinWidth;
 		if (leftColumn.weight == null) {
+			const leftMinWidth = Math.max(minWidth, leftColumn.minWidth);
+			const rightMinWidth = Math.max(minWidth, rightColumn.minWidth);
+			const leftMaxWidth = totalWidth - rightMinWidth;
 			if (totalWidth <= 0 || leftMaxWidth <= leftMinWidth) {
 				// The left and right resizable cells doesn't have enough width
 				return;
@@ -382,14 +388,17 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 			const leftMinWeight = leftColumn.minWeight;
 			const rightMinWeight = rightColumn.minWeight;
 			const leftMaxWeight = totalWeight - rightMinWeight;
-			if (totalWidth <= 0 || leftMaxWeight <= leftMinWeight) {
+			const leftMinWidth = minWidth;
+			const rightMinWidth = minWidth;
+			const leftMaxWidth = totalWidth - rightMinWidth;
+			if (totalWidth <= 0 || leftMaxWidth <= leftMinWidth || leftMaxWeight <= leftMinWeight) {
 				// The left and right resizable cells doesn't have enough width
 				return;
 			}
 			const onMove = (e: InteractionEvent): void => {
 				const leftNewWidth = Math.max(
-					0,
-					Math.min(totalWidth, leftOldWidth + e.data.global.x - onDownPoint)
+					leftMinWidth,
+					Math.min(leftMaxWidth, leftOldWidth + e.data.global.x - onDownPoint)
 				);
 				const leftNewWeight = Math.max(
 					leftMinWeight,
@@ -419,23 +428,27 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		data: DTableCellEdgeData2<CELL>,
 		interactionManager: InteractionManager
 	): void {
+		const minWidth = this._minWidth;
+
 		const left = data[1];
 		const leftColumn = left.column;
 		const leftOldWidth = left.width;
-		const leftMinWidth = leftColumn.minWidth;
+		const leftMinWidth = Math.max(minWidth, leftColumn.minWidth);
 
 		const right = data[2];
 		const rightOldWidth = right.width;
+		const rightMinWidth = minWidth;
 
 		const totalWidth = leftOldWidth + rightOldWidth;
-		if (totalWidth <= 0 || totalWidth <= leftMinWidth) {
+		const leftMaxWidth = totalWidth - rightMinWidth;
+		if (totalWidth <= 0 || leftMaxWidth <= leftMinWidth) {
 			// The left and right resizable cells doesn't have enough width
 			return;
 		}
 		const onMove = (e: InteractionEvent): void => {
 			leftColumn.width = Math.max(
 				leftMinWidth,
-				Math.min(totalWidth, leftOldWidth + e.data.global.x - onDownPoint)
+				Math.min(leftMaxWidth, leftOldWidth + e.data.global.x - onDownPoint)
 			);
 		};
 		this.newOnUp(onMove, interactionManager);
@@ -446,10 +459,12 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		data: DTableCellEdgeData2<CELL>,
 		interactionManager: InteractionManager
 	): void {
+		const minWidth = this._minWidth;
+
 		const left = data[1];
 		const leftColumn = left.column;
 		const leftOldWidth = left.width;
-		const leftMinWidth = leftColumn.minWidth;
+		const leftMinWidth = Math.max(minWidth, leftColumn.minWidth);
 
 		const right = data[2];
 		const rightColumn = right.column;
@@ -470,7 +485,7 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		}
 
 		const totalWidth = leftOldWidth + rightOldWidth;
-		const rightMinWidth = totalSpace * (rightMinWeight / totalWeight);
+		const rightMinWidth = Math.max(minWidth, totalSpace * (rightMinWeight / totalWeight));
 		const leftMaxWidth = totalWidth - rightMinWidth;
 		if (totalWidth <= 0 || leftMaxWidth <= leftMinWidth) {
 			// The left and right resizable cells doesn't have enough width
@@ -509,23 +524,27 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		data: DTableCellEdgeData3<CELL>,
 		interactionManager: InteractionManager
 	): void {
+		const minWidth = this._minWidth;
+
 		const left = data[1];
 		const leftOldWidth = left.width;
+		const leftMinWidth = minWidth;
 
 		const right = data[2];
 		const rightColumn = right.column;
 		const rightOldWidth = right.width;
-		const rightMinWidth = rightColumn.minWidth;
+		const rightMinWidth = Math.max(minWidth, rightColumn.minWidth);
 
 		const totalWidth = leftOldWidth + rightOldWidth;
-		if (totalWidth <= 0 || totalWidth <= rightMinWidth) {
+		const rightMaxWidth = totalWidth - leftMinWidth;
+		if (totalWidth <= 0 || rightMaxWidth <= rightMinWidth) {
 			// The left and right resizable cells doesn't have enough width
 			return;
 		}
 		const onMove = (e: InteractionEvent): void => {
 			rightColumn.width = Math.max(
 				rightMinWidth,
-				Math.min(totalWidth, rightOldWidth + onDownPoint - e.data.global.x)
+				Math.min(rightMaxWidth, rightOldWidth + onDownPoint - e.data.global.x)
 			);
 		};
 		this.newOnUp(onMove, interactionManager);
@@ -536,6 +555,8 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		data: DTableCellEdgeData3<CELL>,
 		interactionManager: InteractionManager
 	): void {
+		const minWidth = this._minWidth;
+
 		const left = data[1];
 		const leftColumn = left.column;
 		const leftOldWidth = left.width;
@@ -544,7 +565,9 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 		const right = data[2];
 		const rightColumn = right.column;
 		const rightOldWidth = right.width;
-		const rightMinWidth = rightColumn.minWidth;
+		const rightMinWidth = Math.max(minWidth, rightColumn.minWidth);
+
+		const totalWidth = leftOldWidth + rightOldWidth;
 
 		const others = data[3];
 		let totalWeight = 0;
@@ -555,21 +578,21 @@ export class DTableCellEdge<CELL extends DTableCellEdgeCell> {
 			totalSpace += other.width;
 		}
 		if (totalWeight <= 0 || totalSpace <= 0) {
-			const totalWidth = leftOldWidth + rightOldWidth;
-			if (totalWidth <= 0 || totalWidth <= rightMinWidth) {
+			const leftMinWidth = minWidth;
+			const rightMaxWidth = totalWidth - leftMinWidth;
+			if (totalWidth <= 0 || rightMaxWidth <= rightMinWidth) {
 				// The left and right resizable cells doesn't have enough width
 				return;
 			}
 			const onMove = (e: InteractionEvent): void => {
 				rightColumn.width = Math.max(
 					rightMinWidth,
-					Math.min(totalWidth, rightOldWidth + onDownPoint - e.data.global.x)
+					Math.min(rightMaxWidth, rightOldWidth + onDownPoint - e.data.global.x)
 				);
 			};
 			this.newOnUp(onMove, interactionManager);
 		} else {
-			const totalWidth = leftOldWidth + rightOldWidth;
-			const leftMinWidth = totalSpace * (leftMinWeight / totalWeight);
+			const leftMinWidth = Math.max(minWidth, totalSpace * (leftMinWeight / totalWeight));
 			const rightMaxWidth = totalWidth - leftMinWidth;
 			if (totalWidth <= 0 || rightMaxWidth <= rightMinWidth) {
 				// The left and right resizable cells doesn't have enough width
