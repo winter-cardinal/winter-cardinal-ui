@@ -10,6 +10,7 @@ import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-ty
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicFontAtlasFont } from "./dynamic-font-atlas-font";
 import { UtilCharacterIterator } from "./util-character-iterator";
+import { UtilFont } from "./util-font";
 
 export class DynamicFontAtlas {
 	protected _id: string;
@@ -220,7 +221,7 @@ export class DynamicFontAtlas {
 			context.lineWidth = 0;
 			context.lineCap = "round";
 			context.lineJoin = "miter";
-			context.miterLimit = 0;
+			context.miterLimit = 10;
 			context.fillStyle = font.color;
 			context.strokeStyle = "#0000ff";
 		}
@@ -243,9 +244,6 @@ export class DynamicFontAtlas {
 				));
 
 				const offsetX = this._padding;
-				const offsetY = Math.round(
-					(fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent
-				);
 				let x = 0;
 				let y = 0;
 				for (const key in characters) {
@@ -258,7 +256,6 @@ export class DynamicFontAtlas {
 					character.x = x;
 					character.y = y;
 					character.origin.x = x + offsetX;
-					character.origin.y = y + offsetY;
 
 					x += character.width;
 				}
@@ -275,11 +272,16 @@ export class DynamicFontAtlas {
 				canvas.height = realHeight;
 				const context = this.getContext();
 				if (context != null) {
+					UtilFont.measure(context, font);
+					const offsetY = Math.round(
+						(fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent
+					);
 					context.save();
 					context.scale(resolution, resolution);
 					context.clearRect(0, 0, width, height);
 					for (const key in characters) {
 						const character = characters[key];
+						character.origin.y = character.y + offsetY;
 						context.fillText(key, character.origin.x, character.origin.y);
 					}
 					context.restore();

@@ -3,19 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemes } from "../theme/d-themes";
 import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
+import { DynamicSDFFontAtlasFont } from "./dynamic-sdf-font-atlas-font";
 import { DynamicSDFFontGenerator } from "./dynamic-sdf-font-generator";
 import { UtilCharacterIterator } from "./util-character-iterator";
-
-export interface DynamicSDFFontAtlasFont {
-	family: string;
-	size: number;
-	italic: boolean;
-}
+import { UtilFont } from "./util-font";
 
 export interface DynamicSDFFontAtlasJson {
 	width: number;
@@ -25,8 +20,6 @@ export interface DynamicSDFFontAtlasJson {
 }
 
 export class DynamicSDFFontAtlas {
-	protected static FONT_FAMILY_AUTO: string | null = null;
-
 	protected _id: string;
 	protected _generator: DynamicSDFFontGenerator | null;
 	protected _canvas: HTMLCanvasElement | null;
@@ -41,11 +34,7 @@ export class DynamicSDFFontAtlas {
 		this._id = `font-atlas:${fontFamily}`;
 		this._generator = DynamicSDFFontGenerator.getInstance().init();
 		this._canvas = document.createElement("canvas");
-		this._font = {
-			family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
-			size: 32,
-			italic: false
-		};
+		this._font = new DynamicSDFFontAtlasFont(fontFamily);
 		this._characters = {};
 		this._length = 0;
 		this._width = 1;
@@ -62,7 +51,7 @@ export class DynamicSDFFontAtlas {
 	}
 
 	set font(font: DynamicSDFFontAtlasFont) {
-		this._font.family = font.family;
+		this._font.id = font.id;
 		this._font.size = font.size;
 		this._font.italic = font.italic;
 	}
@@ -179,24 +168,27 @@ export class DynamicSDFFontAtlas {
 					const font = this._font;
 					const characters = this._characters;
 					const characterSize = font.size + 14;
-					const width = DynamicSDFFontAtlas.toPowerOf2(
+					const width = this.toPowerOf2(
 						Math.ceil(Math.sqrt(this._length)) * characterSize
 					);
 					this._width = width;
 					const fontStyle =
-						(font.italic ? "italic " : "") + (font.size + "px ") + font.family;
+						(font.italic ? "italic " : "") + (font.size + "px ") + font.id;
 
 					context.font = fontStyle;
 					context.textAlign = "left";
-					context.textBaseline = "middle";
+					context.textBaseline = "alphabetic";
 					context.lineWidth = 0;
 					context.lineCap = "round";
 					context.lineJoin = "miter";
-					context.miterLimit = 0;
+					context.miterLimit = 10;
 					context.fillStyle = "#FFFFFF";
+					UtilFont.measure(context, font);
 
 					const offsetX = 7;
-					const offsetY = characterSize >> 1;
+					const offsetY = Math.round(
+						(characterSize - (font.ascent + font.descent)) * 0.5 + font.ascent
+					);
 					let x = 0;
 					let y = 0;
 					for (const id in characters) {
@@ -228,11 +220,11 @@ export class DynamicSDFFontAtlas {
 					canvas.height = height;
 					context.font = fontStyle;
 					context.textAlign = "left";
-					context.textBaseline = "middle";
+					context.textBaseline = "alphabetic";
 					context.lineWidth = 0;
 					context.lineCap = "round";
 					context.lineJoin = "miter";
-					context.miterLimit = 4;
+					context.miterLimit = 10;
 					context.fillStyle = "#FFFFFF";
 					context.clearRect(0, 0, width, height);
 					for (const id in characters) {
@@ -286,24 +278,11 @@ export class DynamicSDFFontAtlas {
 		}
 	}
 
-	static toFontFamily(fontFamily: string): string {
-		return fontFamily === "auto" ? DynamicSDFFontAtlas.getAutoFontFamily() : fontFamily;
-	}
-
-	static toPowerOf2(size: number): number {
+	protected toPowerOf2(size: number): number {
 		let result = 32;
 		while (result < size) {
 			result <<= 1;
 		}
 		return result;
-	}
-
-	static getAutoFontFamily(): string {
-		if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
-			DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance()
-				.get<any>("DBase")
-				.getFontFamilly() as string;
-		}
-		return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
 	}
 }

@@ -4,7 +4,6 @@
  */
 
 import { utils } from "pixi.js";
-import { UtilFont } from "./util-font";
 
 export class DynamicFontAtlasFont {
 	id: string;
@@ -12,6 +11,7 @@ export class DynamicFontAtlasFont {
 	color: string;
 	height: number;
 
+	measured: boolean;
 	ascent: number;
 	descent: number;
 
@@ -20,8 +20,8 @@ export class DynamicFontAtlasFont {
 		this.size = size;
 		this.color = utils.hex2string(color);
 		this.height = size + padding * 2;
-		const metrics = UtilFont.measure(fontId);
-		this.ascent = metrics.ascent;
-		this.descent = metrics.descent;
+		this.measured = false;
+		this.ascent = 0;
+		this.descent = 0;
 	}
 }

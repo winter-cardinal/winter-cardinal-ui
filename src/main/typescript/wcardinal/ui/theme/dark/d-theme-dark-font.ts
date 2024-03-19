@@ -9,7 +9,7 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkFont implements DThemeFont {
 	getFontFamilly(): string {
-		return `"Helvetica Neue","Helvetica","Hiragino Sans","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Arial","Yu Gothic","Meiryo",sans-serif`;
+		return `"Helvetica Neue","Helvetica","Hiragino Sans","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Arial","Yu Gothic UI","Meiryo UI",sans-serif`;
 	}
 
 	getFontSize(): number {

@@ -3,7 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { TextMetrics } from "pixi.js";
+
 export interface UtilFontMetrics {
+	ascent: number;
+	descent: number;
+}
+
+export interface UtilFontFont {
+	id: string;
+	measured: boolean;
 	ascent: number;
 	descent: number;
 }
@@ -12,33 +21,20 @@ export class UtilFont {
 	private static _span?: HTMLSpanElement;
 	private static _block?: HTMLDivElement;
 	private static _div?: HTMLDivElement;
-	private static _results?: Map<string, UtilFontMetrics>;
 
-	public static measure(font: string): UtilFontMetrics {
-		let results = this._results;
-		if (results == null) {
-			results = new Map<string, UtilFontMetrics>();
-			this._results = results;
+	static measure(context: CanvasRenderingContext2D, font: UtilFontFont): void {
+		if (!font.measured) {
+			if ("fontBoundingBoxAscent" in window.TextMetrics.prototype) {
+				const metrics = context.measureText(TextMetrics.METRICS_STRING);
+				font.ascent = metrics.fontBoundingBoxAscent;
+				font.descent = metrics.fontBoundingBoxDescent;
+			} else {
+				const measured = TextMetrics.measureFont(font.id);
+				font.ascent = measured.ascent;
+				font.descent = measured.descent;
+			}
+			font.measured = true;
 		}
-
-		let result = results.get(font);
-		if (result != null) {
-			return result;
-		}
-
-		this.setup(font);
-
-		const blockRect = this._block!.getBoundingClientRect();
-		const blockRectTop = blockRect.top;
-		const spanRect = this._span!.getBoundingClientRect();
-		const ascent = blockRectTop - spanRect.top;
-		const descent = spanRect.bottom - blockRectTop;
-		result = {
-			ascent: ascent,
-			descent: descent
-		};
-		results.set(font, result);
-		return result;
 	}
 
 	static toSize(font: string): number {

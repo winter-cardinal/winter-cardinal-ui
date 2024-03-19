@@ -19,6 +19,7 @@ export * from "./dynamic-font-atlas-characters";
 export * from "./dynamic-font-atlas-font";
 export * from "./dynamic-font-atlas";
 export * from "./dynamic-font-atlases";
+export * from "./dynamic-sdf-font-atlas-font";
 export * from "./dynamic-sdf-font-atlas";
 export * from "./dynamic-sdf-font-atlases";
 export * from "./dynamic-sdf-font-generator";

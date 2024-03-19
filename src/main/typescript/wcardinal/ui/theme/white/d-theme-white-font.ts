@@ -9,7 +9,7 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteFont implements DThemeFont {
 	getFontFamilly(): string {
-		return `"Helvetica Neue","Helvetica","Hiragino Sans","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Arial","Yu Gothic","Meiryo",sans-serif`;
+		return `"Helvetica Neue","Helvetica","Hiragino Sans","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Arial","Yu Gothic UI","Meiryo UI",sans-serif`;
 	}
 
 	getFontSize(): number {
