@@ -11,7 +11,7 @@ import {
 } from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateContainerSubImpl } from "./d-chart-coordinate-container-sub-impl";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { isArray } from "./util/is-array";
 
 export class DChartCoordinateContainerImpl<CHART extends DBase = DBase>
@@ -19,10 +19,10 @@ export class DChartCoordinateContainerImpl<CHART extends DBase = DBase>
 {
 	protected _x: DChartCoordinateContainerSub<CHART>;
 	protected _y: DChartCoordinateContainerSub<CHART>;
-	protected _plotArea: DChartPlotArea<CHART>;
+	protected _plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>;
 
 	constructor(
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		options?: DChartCoordinateContainerOptions<CHART>
 	) {
 		this._plotArea = plotArea;
@@ -62,7 +62,7 @@ export class DChartCoordinateContainerImpl<CHART extends DBase = DBase>
 		return this._y;
 	}
 
-	get plotArea(): DChartPlotArea<CHART> {
+	get plotArea(): DChartPlotArea<CHART> | DChartPlotAreaLike<CHART> {
 		return this._plotArea;
 	}
 

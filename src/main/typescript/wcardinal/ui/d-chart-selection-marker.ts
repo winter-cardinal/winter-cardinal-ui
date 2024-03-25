@@ -32,8 +32,13 @@ export class DChartSelectionMarker<
 	): boolean {
 		const x = mappedPosition.x;
 		const y = mappedPosition.y;
-		const plotArea = container.plotArea;
-		return 0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height;
+		const bounds = container.plotArea.getPixelBounds();
+		return (
+			bounds.x <= x &&
+			x <= bounds.x + bounds.width &&
+			bounds.y <= y &&
+			y <= bounds.y + bounds.height
+		);
 	}
 
 	protected getType(): string {

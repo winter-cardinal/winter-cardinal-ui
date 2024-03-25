@@ -11,7 +11,7 @@ import { DChartAxisTickMinor } from "./d-chart-axis-tick-minor";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
 import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { EShape } from "./shape/e-shape";
@@ -86,6 +86,11 @@ export class DChartAxisBaseTickContainer<
 		const minorShapes = this._minor.shapes;
 		if (parser.tick.enable && container != null && majorShapes && minorShapes) {
 			const plotArea = container.plotArea;
+			const plotAreaBounds = plotArea.getAxisBounds(parser.position);
+			const plotAreaX = plotAreaBounds.x;
+			const plotAreaY = plotAreaBounds.y;
+			const plotAreaWidth = plotAreaBounds.width;
+			const plotAreaHeight = plotAreaBounds.height;
 			const transform = plotArea.container.transform.localTransform;
 			const gridlineShapes = this._major.gridline.shapes;
 
@@ -102,7 +107,6 @@ export class DChartAxisBaseTickContainer<
 						const domainVisible = this.getDomainVisible(plotArea, coordinate, work);
 						const domainVisibleFrom = domainVisible.from;
 						const domainVisibleTo = domainVisible.to;
-						const plotAreaHeight = plotArea.height;
 						return this.updateX(
 							domainFrom,
 							domainTo,
@@ -112,8 +116,9 @@ export class DChartAxisBaseTickContainer<
 							majorShapes,
 							minorShapes,
 							gridlineShapes,
-							0 - offset,
+							plotAreaY - offset,
 							transform,
+							plotAreaY,
 							plotAreaHeight
 						);
 					}
@@ -127,7 +132,6 @@ export class DChartAxisBaseTickContainer<
 						const domainVisible = this.getDomainVisible(plotArea, coordinate, work);
 						const domainVisibleFrom = domainVisible.from;
 						const domainVisibleTo = domainVisible.to;
-						const plotAreaHeight = plotArea.height;
 						return this.updateX(
 							domainFrom,
 							domainTo,
@@ -137,8 +141,9 @@ export class DChartAxisBaseTickContainer<
 							majorShapes,
 							minorShapes,
 							gridlineShapes,
-							plotAreaHeight + offset,
+							plotAreaY + plotAreaHeight + offset,
 							transform,
+							plotAreaY,
 							plotAreaHeight
 						);
 					}
@@ -152,7 +157,6 @@ export class DChartAxisBaseTickContainer<
 						const rangeVisible = this.getRangeVisible(plotArea, coordinate, work);
 						const rangeVisibleFrom = rangeVisible.from;
 						const rangeVisibleTo = rangeVisible.to;
-						const plotAreaWidth = plotArea.width;
 						return this.updateY(
 							rangeFrom,
 							rangeTo,
@@ -162,8 +166,9 @@ export class DChartAxisBaseTickContainer<
 							majorShapes,
 							minorShapes,
 							gridlineShapes,
-							0 - offset,
+							plotAreaX - offset,
 							transform,
+							plotAreaX,
 							plotAreaWidth
 						);
 					}
@@ -177,7 +182,6 @@ export class DChartAxisBaseTickContainer<
 						const rangeVisible = this.getRangeVisible(plotArea, coordinate, work);
 						const rangeVisibleFrom = rangeVisible.from;
 						const rangeVisibleTo = rangeVisible.to;
-						const plotAreaWidth = plotArea.width;
 						return this.updateY(
 							rangeFrom,
 							rangeTo,
@@ -187,8 +191,9 @@ export class DChartAxisBaseTickContainer<
 							majorShapes,
 							minorShapes,
 							gridlineShapes,
-							plotAreaWidth + offset,
+							plotAreaX + plotAreaWidth + offset,
 							transform,
+							plotAreaX,
 							plotAreaWidth
 						);
 					}
@@ -199,11 +204,11 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected getDomain(
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		coordinate: DChartCoordinate<CHART>,
 		result: DChartRegion
 	): DChartRegion {
-		const bounds = plotArea.getBoundsInContainer();
+		const bounds = plotArea.getContainerBounds();
 		const transform = coordinate.transform;
 		return result.set(
 			coordinate.unmap(transform.unmap(bounds.x)),
@@ -212,7 +217,7 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected getDomainVisible(
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		coordinate: DChartCoordinate<CHART>,
 		result: DChartRegion
 	): DChartRegion {
@@ -220,11 +225,11 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected getRange(
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		coordinate: DChartCoordinate<CHART>,
 		result: DChartRegion
 	): DChartRegion {
-		const bounds = plotArea.getBoundsInContainer();
+		const bounds = plotArea.getContainerBounds();
 		const transform = coordinate.transform;
 		return result.set(
 			coordinate.unmap(transform.unmap(bounds.y)),
@@ -233,7 +238,7 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected getRangeVisible(
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		coordinate: DChartCoordinate<CHART>,
 		result: DChartRegion
 	): DChartRegion {
@@ -251,6 +256,7 @@ export class DChartAxisBaseTickContainer<
 		gridlineShapes: EShape[],
 		shapePositionY: number,
 		transform: Matrix,
+		plotAreaY: number,
 		plotAreaHeight: number
 	): boolean {
 		const tick = this._parser.tick;
@@ -303,7 +309,7 @@ export class DChartAxisBaseTickContainer<
 						gridlineShapes[i],
 						majorTickPosition,
 						majotTickPositionX,
-						plotAreaHeight * 0.5,
+						plotAreaY + plotAreaHeight * 0.5,
 						0,
 						plotAreaHeight
 					);
@@ -348,6 +354,7 @@ export class DChartAxisBaseTickContainer<
 		gridlineShapes: EShape[],
 		shapePositionX: number,
 		transform: Matrix,
+		plotAreaX: number,
 		plotAreaWidth: number
 	): boolean {
 		const tick = this._parser.tick;
@@ -399,7 +406,7 @@ export class DChartAxisBaseTickContainer<
 					this.showMajorGridline(
 						gridlineShapes[i],
 						majorTickPosition,
-						plotAreaWidth * 0.5,
+						plotAreaX + plotAreaWidth * 0.5,
 						majotTickPositionY,
 						plotAreaWidth,
 						0

@@ -6,7 +6,7 @@
 import { DBase } from "./d-base";
 import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisPosition } from "./d-chart-axis-position";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
 
 export interface DChartAxisContainerOptions<CHART extends DBase = DBase> {
@@ -15,7 +15,7 @@ export interface DChartAxisContainerOptions<CHART extends DBase = DBase> {
 
 export interface DChartAxisContainer<CHART extends DBase = DBase> {
 	readonly container: EShapeContainer;
-	readonly plotArea: DChartPlotArea<CHART>;
+	readonly plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>;
 
 	add(axis: DChartAxis<CHART>): void;
 	get(

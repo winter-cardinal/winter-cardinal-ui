@@ -75,28 +75,38 @@ export class DChartAxisBaseBar<CHART extends DBase = DBase> implements DChartAxi
 		const index = this._index;
 		const shape = this._shape;
 		if (shape != null && container != null) {
+			const parser = this._parser;
 			const plotArea = container.plotArea;
-			const plotAreaWidth = plotArea.width;
-			const plotAreaHeight = plotArea.height;
-			const offset = this._parser.padding * index;
+			const plotAreaBounds = plotArea.getAxisBounds(parser.position);
+			const plotAreaX = plotAreaBounds.x;
+			const plotAreaY = plotAreaBounds.y;
+			const plotAreaWidth = plotAreaBounds.width;
+			const plotAreaHeight = plotAreaBounds.height;
+			const offset = parser.padding * index;
 			shape.lock(EShapeLockPart.UPLOADED);
 			const position = shape.transform.position;
 			const size = shape.size;
-			switch (this._parser.position) {
+			switch (parser.position) {
 				case DChartAxisPosition.TOP:
-					position.set(plotAreaWidth * 0.5, 0 - offset);
+					position.set(plotAreaX + plotAreaWidth * 0.5, plotAreaY - offset);
 					size.set(plotAreaWidth, 0);
 					break;
 				case DChartAxisPosition.BOTTOM:
-					position.set(plotAreaWidth * 0.5, plotAreaHeight + offset);
+					position.set(
+						plotAreaX + plotAreaWidth * 0.5,
+						plotAreaY + plotAreaHeight + offset
+					);
 					size.set(plotAreaWidth, 0);
 					break;
 				case DChartAxisPosition.LEFT:
-					position.set(0 - offset, plotAreaHeight * 0.5);
+					position.set(plotAreaX - offset, plotAreaY + plotAreaHeight * 0.5);
 					size.set(0, plotAreaHeight);
 					break;
 				case DChartAxisPosition.RIGHT:
-					position.set(plotAreaWidth + offset, plotAreaHeight * 0.5);
+					position.set(
+						plotAreaX + plotAreaWidth + offset,
+						plotAreaY + plotAreaHeight * 0.5
+					);
 					size.set(0, plotAreaHeight);
 					break;
 			}

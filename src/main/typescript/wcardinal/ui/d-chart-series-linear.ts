@@ -136,7 +136,7 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		let p1y = NaN;
 
 		const threshold = 0.00001;
-		const bounds = container.plotArea.getBoundsInContainer();
+		const bounds = container.plotArea.getContainerBounds();
 		if (babs <= aabs) {
 			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(bounds.x));
 			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(bounds.x + bounds.width));

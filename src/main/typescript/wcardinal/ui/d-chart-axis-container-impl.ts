@@ -7,18 +7,21 @@ import { DBase } from "./d-base";
 import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
 import { DChartAxisPosition } from "./d-chart-axis-position";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
 import { toEnum } from "./util/to-enum";
 
 export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	implements DChartAxisContainer<CHART>
 {
-	protected _plotArea: DChartPlotArea<CHART>;
+	protected _plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>;
 	protected _container: EShapeContainer;
 	protected _list: Map<DChartAxisPosition, DChartAxis<CHART>[]>;
 
-	constructor(plotArea: DChartPlotArea<CHART>, options?: DChartAxisContainerOptions<CHART>) {
+	constructor(
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
+		options?: DChartAxisContainerOptions<CHART>
+	) {
 		this._plotArea = plotArea;
 		this._container = new EShapeContainer();
 		this._list = new Map<DChartAxisPosition, DChartAxis<CHART>[]>();
@@ -28,7 +31,7 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 		return this._container;
 	}
 
-	get plotArea(): DChartPlotArea<CHART> {
+	get plotArea(): DChartPlotArea<CHART> | DChartPlotAreaLike<CHART> {
 		return this._plotArea;
 	}
 
