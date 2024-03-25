@@ -91,6 +91,9 @@
         * [Rounded Triangle](./chart\series/rounded-triangle.html)
         * [Switching Coordinates](./chart\series/switching-coordinates.html)
         * [Triangle](./chart\series/triangle.html)
+    * Twofold
+        * [Basics](./chart\twofold/basics.html)
+        * [Selection](./chart\twofold/selection.html)
     * View
         * [Constraint](./chart\view/constraint.html)
         * [Domain](./chart\view/domain.html)
