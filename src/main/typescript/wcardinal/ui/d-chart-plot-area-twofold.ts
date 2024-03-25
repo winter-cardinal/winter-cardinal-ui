@@ -10,7 +10,7 @@ import { DChartPlotAreaContainer } from "./d-chart-plot-area-container";
 import { DChartPlotAreaBase } from "./d-chart-plot-area-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
-import { DChartAxisContainer } from "./d-chart-axis-container";
+import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
 import { DAnimationTimings } from "./d-animation-timings";
 import { DChartPlotAreaTwofoldCoorinateContainer } from "./d-chart-plot-area-twofold-coordinate-container";
 import { DChartPlotAreaTwofoldSeriesContainer } from "./d-chart-plot-area-twofold-series-container";
@@ -23,6 +23,7 @@ import { DChartSeries } from "./d-chart-series";
 import { DChartAxis } from "./d-chart-axis";
 import { DViewImpl } from "./d-view-impl";
 import { DChartPlotAreaTwofoldViewTarget } from "./d-chart-plot-area-twofold-view-target";
+import { EShapeContainer } from "./shape";
 
 export interface DChartPlotAreaTwofoldOptions<
 	CHART extends DBase = DBase,
@@ -31,6 +32,7 @@ export interface DChartPlotAreaTwofoldOptions<
 	primary?: DChartPlotAreaTwofoldSubOptions<CHART>;
 	secondary?: DChartPlotAreaTwofoldSubOptions<CHART>;
 	selection?: DChartSelection<CHART>;
+	axis?: DChartAxisContainerOptions<CHART>;
 	margin?: number;
 }
 
@@ -48,30 +50,29 @@ export class DChartPlotAreaTwofold<
 
 	protected _coordinate: DChartCoordinateContainer<CHART>;
 	protected _series: DChartPlotAreaTwofoldSeriesContainer<CHART>;
-	protected _axis: DChartAxisContainer<CHART>;
+	protected _axis: DChartPlotAreaTwofoldAxisContainer<CHART>;
 
 	constructor(chart: CHART, options?: OPTIONS) {
 		super(chart, options);
 
 		// Margin
-		let margin = options?.margin;
-		if (margin == null) {
-			const padding = this.padding;
-			margin = (padding.getTop() + padding.getBottom()) * 0.5;
-		}
+		const theme = this.theme;
+		const margin = options?.margin ?? theme.getMargin();
 		this._margin = margin;
 
 		// Primary
+		const axisShapeContainer = new EShapeContainer();
 		const onContainerChangeBound = (): void => {
 			this.onContainerChange();
 		};
-		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
+		const mask = options?.mask ?? theme.isOverflowMaskEnabled();
 		const primaryOptions = options?.primary;
 		const primary = new DChartPlotAreaTwofoldSubPrimary<CHART>(
 			this,
 			onContainerChangeBound,
 			mask,
 			margin,
+			axisShapeContainer,
 			primaryOptions
 		);
 		this._primary = primary;
@@ -83,6 +84,7 @@ export class DChartPlotAreaTwofold<
 			onContainerChangeBound,
 			mask,
 			margin,
+			axisShapeContainer,
 			secondaryOptions
 		);
 		this._secondary = secondary;
@@ -111,13 +113,14 @@ export class DChartPlotAreaTwofold<
 		// Axis
 		const primaryAxis = primary.axis;
 		const secondaryAxis = secondary.axis;
-		this.addChild(primaryAxis.container);
-		this.addChild(secondaryAxis.container);
-		this._axis = new DChartPlotAreaTwofoldAxisContainer<CHART>(
+		this.addChild(axisShapeContainer);
+		const axis = new DChartPlotAreaTwofoldAxisContainer<CHART>(
 			this,
+			axisShapeContainer,
 			primaryAxis,
 			secondaryAxis
 		);
+		this._axis = axis;
 
 		// Add Series
 		this.addSeries(primarySeries, primaryOptions?.series?.list);
@@ -126,6 +129,7 @@ export class DChartPlotAreaTwofold<
 		// Add Axes
 		this.addAxes(primaryAxis, primaryOptions?.axis?.list);
 		this.addAxes(secondaryAxis, secondaryOptions?.axis?.list);
+		this.addAxes(axis, options?.axis?.list);
 
 		// Selection
 		const selection = options?.selection;
@@ -200,14 +204,6 @@ export class DChartPlotAreaTwofold<
 	}
 
 	protected override onViewDirty(): void {
-		// const primary = this.primary.container;
-		// const primaryTransform = primary.transform;
-		// const secondary = this.secondary.container;
-		// const secondaryTransform = secondary.transform;
-		// primaryTransform.position.copyFrom(secondaryTransform.position);
-		// primaryTransform.scale.copyFrom(secondaryTransform.scale);
-		// primary.updateTransform();
-
 		this._coordinate.fit();
 		this._axis.onRender();
 		this._series.onRender();
@@ -269,5 +265,6 @@ export class DChartPlotAreaTwofold<
 	override destroy(): void {
 		this._primary?.destroy();
 		this._secondary?.destroy();
+		this._axis.destroy();
 	}
 }

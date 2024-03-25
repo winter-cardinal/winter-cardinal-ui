@@ -23,6 +23,7 @@ import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries } from "./d-chart-series";
 import { DChartAxis } from "./d-chart-axis";
 import { DViewImpl } from "./d-view-impl";
+import { EShapeContainer } from "./shape/e-shape-container";
 
 export interface DChartPlotAreaSingleSeriesContainerOptions<CHART extends DBase = DBase>
 	extends DChartSeriesContainerOptions<CHART> {
@@ -83,7 +84,7 @@ export class DChartPlotAreaOnefold<
 
 		// Axis
 		const axisOptions = options?.axis;
-		const axis = new DChartAxisContainerImpl(this, axisOptions);
+		const axis = new DChartAxisContainerImpl(this, new EShapeContainer(), axisOptions);
 		this._axis = axis;
 		this.addChild(axis.container);
 

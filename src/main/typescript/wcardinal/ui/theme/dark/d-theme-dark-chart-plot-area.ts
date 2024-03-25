@@ -53,4 +53,8 @@ export class DThemeDarkChartPlotArea extends DThemeDarkBase implements DThemeCha
 	isOverflowMaskEnabled(): boolean {
 		return true;
 	}
+
+	getMargin(): number {
+		return 20;
+	}
 }

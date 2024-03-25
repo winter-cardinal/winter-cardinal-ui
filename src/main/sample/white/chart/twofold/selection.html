@@ -69,11 +69,6 @@
 					},
 					axis: {
 						list: [
-							new wcardinal.ui.DChartAxisX({
-								label: {
-									value: "X Axis"
-								}
-							}),
 							new wcardinal.ui.DChartAxisY({
 								label: {
 									value: "Y Axis"
@@ -82,7 +77,15 @@
 						]
 					}
 				},
-				margin: 20,
+				axis: {
+					list: [
+						new wcardinal.ui.DChartAxisX({
+							label: {
+								value: "X Axis"
+							}
+						})
+					]
+				},
 				selection: new wcardinal.ui.DChartSelectionSimple({
 					selected: {
 						on: {

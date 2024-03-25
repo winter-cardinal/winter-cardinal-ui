@@ -119,6 +119,7 @@ export class DChartAxisBaseBar<CHART extends DBase = DBase> implements DChartAxi
 	destroy(): void {
 		const shape = this._shape;
 		if (shape != null) {
+			this._shape = undefined;
 			shape.destroy();
 		}
 		this._index = 0;

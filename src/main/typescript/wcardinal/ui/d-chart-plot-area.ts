@@ -19,6 +19,7 @@ export interface DChartPlotAreaOptions<
 
 export interface DThemeChartPlotArea extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
+	getMargin(): number;
 }
 
 export interface DChartPlotAreaLike<CHART extends DBase = DBase> extends DApplicationTarget {

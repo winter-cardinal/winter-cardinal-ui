@@ -20,10 +20,11 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 
 	constructor(
 		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
+		container: EShapeContainer,
 		options?: DChartAxisContainerOptions<CHART>
 	) {
 		this._plotArea = plotArea;
-		this._container = new EShapeContainer();
+		this._container = container;
 		this._list = new Map<DChartAxisPosition, DChartAxis<CHART>[]>();
 	}
 

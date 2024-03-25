@@ -19,6 +19,7 @@ import {
 import { Point, Rectangle } from "pixi.js";
 import { DChartRegion } from "./d-chart-region";
 import { DChartAxisPosition } from "./d-chart-axis-position";
+import { EShapeContainer } from "./shape/e-shape-container";
 
 export interface DChartPlotAreaTwofoldSubParent<CHART extends DBase = DBase>
 	extends DChartPlotArea<CHART> {}
@@ -43,6 +44,7 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 		onContainerChange: () => void,
 		mask: boolean,
 		margin: number,
+		axisShapeContainer: EShapeContainer,
 		options?: DChartPlotAreaTwofoldSubOptions<CHART>
 	) {
 		this._isContainerBoundsDirty = true;
@@ -69,7 +71,7 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 		this._series = new DChartSeriesContainerImpl(this, options?.series);
 
 		// Axis
-		this._axis = new DChartAxisContainerImpl(this, options?.axis);
+		this._axis = new DChartAxisContainerImpl(this, axisShapeContainer, options?.axis);
 	}
 
 	protected abstract getOverflowMask(): DBaseOverflowMaskSimple;
@@ -122,17 +124,11 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 	abstract getPixelBounds(): Rectangle;
 
 	getAxisBounds(position: DChartAxisPosition): Rectangle {
-		switch (position) {
-			case DChartAxisPosition.TOP:
-			case DChartAxisPosition.BOTTOM:
-				return this._plotArea.getPixelBounds();
-			default:
-				return this.getPixelBounds();
-		}
+		return this.getPixelBounds();
 	}
 
 	getSelectionBoundsX(): Rectangle {
-		return this._plotArea.getPixelBounds();
+		return this.getPixelBounds();
 	}
 
 	getSelectionBoundsY(): Rectangle {
