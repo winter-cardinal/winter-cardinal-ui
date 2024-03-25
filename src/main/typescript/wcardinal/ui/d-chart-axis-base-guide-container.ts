@@ -89,6 +89,7 @@ export class DChartAxisBaseGuideContainer<CHART extends DBase = DBase>
 		for (let i = 0, imax = list.length; i < imax; ++i) {
 			list[i].destroy();
 		}
+		list.length = 0;
 		this._index = 0;
 		this._container = undefined;
 	}

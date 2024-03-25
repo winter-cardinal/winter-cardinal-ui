@@ -23,12 +23,7 @@ export class DChartAxisBaseTickMajor<CHART extends DBase = DBase>
 	}
 
 	get shapes(): EShape[] {
-		let result = this._shapes;
-		if (result == null) {
-			result = this.newShapes();
-			this._shapes = result;
-		}
-		return result;
+		return (this._shapes ??= this.newShapes());
 	}
 
 	protected newShapes(): EShape[] {
@@ -91,6 +86,8 @@ export class DChartAxisBaseTickMajor<CHART extends DBase = DBase>
 			for (let i = 0, imax = shapes.length; i < imax; ++i) {
 				shapes[i].destroy();
 			}
+			shapes.length = 0;
+			this._shapes = undefined;
 		}
 		this._gridline.destroy();
 		this._index = 0;

@@ -5,7 +5,7 @@
 
 import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
@@ -32,7 +32,6 @@ import {
 
 export interface DChartSeriesContainerOptions<CHART extends DBase = DBase> {
 	list: DChartSeries<CHART>[];
-	selection?: DChartSelection<CHART>;
 
 	fill?: DChartSeriesFillOptions;
 	stroke?: DChartSeriesStrokeOptions;
@@ -45,7 +44,7 @@ export interface DChartSeriesContainer<CHART extends DBase = DBase> {
 	domain: DChartRegion;
 	range: DChartRegion;
 
-	readonly plotArea: DChartPlotArea<CHART>;
+	readonly plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>;
 	readonly selection: DChartSelection<CHART> | null;
 
 	newFill(

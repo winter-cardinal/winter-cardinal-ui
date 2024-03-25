@@ -5,7 +5,7 @@
 
 import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSelection } from "./d-chart-selection";
@@ -41,7 +41,7 @@ export class DChartSeriesContainerImpl<CHART extends DBase = DBase>
 {
 	protected static WORK_CALCHITPOINT: DChartSeriesHitResult = new DChartSeriesHitResult();
 
-	protected _plotArea: DChartPlotArea<CHART>;
+	protected _plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>;
 	protected _list: DChartSeries<CHART>[];
 	protected _domain: DChartRegionImpl;
 	protected _range: DChartRegionImpl;
@@ -53,11 +53,14 @@ export class DChartSeriesContainerImpl<CHART extends DBase = DBase>
 	protected _offset: DChartSeriesPointImpl;
 	protected _padding: DChartSeriesPaddingImpl;
 
-	constructor(plotArea: DChartPlotArea<CHART>, options?: DChartSeriesContainerOptions<CHART>) {
+	constructor(
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
+		options?: DChartSeriesContainerOptions<CHART>
+	) {
 		this._plotArea = plotArea;
 		this._domain = new DChartRegionImpl(NaN, NaN);
 		this._range = new DChartRegionImpl(NaN, NaN);
-		this._selection = options?.selection ?? null;
+		this._selection = null;
 
 		this._fill = new DChartSeriesFillImpl(options?.fill);
 		this._stroke = new DChartSeriesStrokeImpl(options?.stroke);
@@ -107,12 +110,16 @@ export class DChartSeriesContainerImpl<CHART extends DBase = DBase>
 		return DChartSeriesPaddingComputedImpl.from(this._padding, index, options);
 	}
 
-	get plotArea(): DChartPlotArea<CHART> {
+	get plotArea(): DChartPlotArea<CHART> | DChartPlotAreaLike<CHART> {
 		return this._plotArea;
 	}
 
 	get selection(): DChartSelection<CHART> | null {
 		return this._selection;
+	}
+
+	set selection(selection: DChartSelection<CHART> | null) {
+		this._selection = selection;
 	}
 
 	update(): void {

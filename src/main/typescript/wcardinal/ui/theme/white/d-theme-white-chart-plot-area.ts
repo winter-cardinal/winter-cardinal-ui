@@ -53,4 +53,8 @@ export class DThemeWhiteChartPlotArea extends DThemeWhiteBase implements DThemeC
 	isOverflowMaskEnabled(): boolean {
 		return true;
 	}
+
+	getMargin(): number {
+		return 20;
+	}
 }

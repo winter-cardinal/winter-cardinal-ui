@@ -5,34 +5,40 @@
 
 import { DBase } from "./d-base";
 import { DChartAxis } from "./d-chart-axis";
-import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
+import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisPosition } from "./d-chart-axis-position";
-import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
+import { DChartPlotArea } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
 import { toEnum } from "./util/to-enum";
 
-export class DChartAxisContainerImpl<CHART extends DBase = DBase>
+export class DChartPlotAreaTwofoldAxisContainer<CHART extends DBase = DBase>
 	implements DChartAxisContainer<CHART>
 {
-	protected _plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>;
+	protected _plotArea: DChartPlotArea<CHART>;
 	protected _container: EShapeContainer;
 	protected _list: Map<DChartAxisPosition, DChartAxis<CHART>[]>;
 
+	protected _primary: DChartAxisContainer<CHART>;
+	protected _secondary: DChartAxisContainer<CHART>;
+
 	constructor(
-		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
+		plotArea: DChartPlotArea<CHART>,
 		container: EShapeContainer,
-		options?: DChartAxisContainerOptions<CHART>
+		primary: DChartAxisContainer<CHART>,
+		secondary: DChartAxisContainer<CHART>
 	) {
 		this._plotArea = plotArea;
 		this._container = container;
 		this._list = new Map<DChartAxisPosition, DChartAxis<CHART>[]>();
+		this._primary = primary;
+		this._secondary = secondary;
 	}
 
 	get container(): EShapeContainer {
 		return this._container;
 	}
 
-	get plotArea(): DChartPlotArea<CHART> | DChartPlotAreaLike<CHART> {
+	get plotArea(): DChartPlotArea<CHART> {
 		return this._plotArea;
 	}
 
@@ -51,17 +57,39 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 		position: DChartAxisPosition | keyof typeof DChartAxisPosition,
 		index: number
 	): DChartAxis<CHART> | null {
+		const primary = this._primary;
+		const primarySize = primary.size(position);
+		if (0 <= index && index < primarySize) {
+			return primary.get(position, index);
+		}
+		const secondary = this._secondary;
+		const secondarySize = secondary.size(position);
+		if (primarySize <= index && index < primarySize + secondarySize) {
+			return secondary.get(position, index);
+		}
 		const list = this._list;
 		const axes = list.get(toEnum(position, DChartAxisPosition));
 		if (axes) {
-			if (0 <= index && index < axes.length) {
-				return axes[index];
+			if (
+				primarySize + secondarySize <= index &&
+				index < primarySize + secondarySize + axes.length
+			) {
+				return axes[index - primarySize - secondarySize];
 			}
 		}
 		return null;
 	}
 
 	indexOf(axis: DChartAxis<CHART>): number {
+		const primary = this._primary;
+		let result = primary.indexOf(axis);
+		if (0 <= result) {
+			return result;
+		}
+		result = this._secondary.indexOf(axis);
+		if (0 <= result) {
+			return primary.size(axis.position) + result;
+		}
 		const list = this._list;
 		const axes = list.get(axis.position);
 		if (axes) {
@@ -71,6 +99,8 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	}
 
 	clear(position: DChartAxisPosition | keyof typeof DChartAxisPosition): this {
+		this._primary.clear(position);
+		this._secondary.clear(position);
 		const list = this._list;
 		const axes = list.get(toEnum(position, DChartAxisPosition));
 		if (axes) {
@@ -85,13 +115,16 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	size(position: DChartAxisPosition | keyof typeof DChartAxisPosition): number {
 		const list = this._list;
 		const axes = list.get(toEnum(position, DChartAxisPosition));
-		if (axes) {
-			return axes.length;
-		}
-		return 0;
+		return (
+			this._primary.size(position) +
+			this._secondary.size(position) +
+			(axes != null ? axes.length : 0)
+		);
 	}
 
 	update(): void {
+		this._primary.update();
+		this._secondary.update();
 		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {
 				axes[i].update();
@@ -100,6 +133,8 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	}
 
 	onRender(): void {
+		this._primary.onRender();
+		this._secondary.onRender();
 		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {
 				axes[i].onRender();
@@ -108,6 +143,8 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	}
 
 	destroy(): void {
+		this._primary.destroy();
+		this._secondary.destroy();
 		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {
 				axes[i].destroy();

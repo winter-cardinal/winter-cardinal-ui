@@ -5,11 +5,15 @@
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
-import { DChartPlotArea, DChartPlotAreaOptions } from "./d-chart-plot-area";
-import { DChartPlotAreaImpl } from "./d-chart-plot-area-impl";
+import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotAreaOnefold, DChartPlotAreaSingleOptions } from "./d-chart-plot-area-onefold";
+import {
+	DChartPlotAreaTwofold,
+	DChartPlotAreaTwofoldOptions
+} from "./d-chart-plot-area-twofold";
 
 export interface DChartOptions<THEME extends DThemeChart> extends DBaseOptions<THEME> {
-	plotArea: DChartPlotAreaOptions<DChart>;
+	plotArea: DChartPlotAreaSingleOptions<DChart> | DChartPlotAreaTwofoldOptions<DChart>;
 	mask?: boolean;
 }
 
@@ -27,11 +31,8 @@ export class DChart<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		// Plot area
-		const plotArea = this.plotArea;
-		this.addChild(plotArea);
-
 		// Overflow mask
+		const plotArea = this.plotArea;
 		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
 		if (mask) {
 			plotArea.axis.container.mask = this.getOverflowMask();
@@ -48,20 +49,20 @@ export class DChart<
 	}
 
 	get plotArea(): DChartPlotArea<DChart> {
-		let result = this._plotArea;
-		if (result == null) {
-			result = this.newPlotArea();
-			this._plotArea = result;
-		}
-		return result;
+		return (this._plotArea ??= this.newPlotArea());
 	}
 
 	protected newPlotArea(): DChartPlotArea<DChart> {
-		return new DChartPlotAreaImpl<DChart>(this, this._options?.plotArea);
-	}
-
-	protected getType(): string {
-		return "DChart";
+		const plotArea = this._options?.plotArea;
+		if (plotArea != null && ("primary" in plotArea || "secondary" in plotArea)) {
+			const result = new DChartPlotAreaTwofold<DChart>(this, plotArea);
+			this.addChild(result);
+			return result;
+		} else {
+			const result = new DChartPlotAreaOnefold<DChart>(this, plotArea);
+			this.addChild(result);
+			return result;
+		}
 	}
 
 	destroy(): void {
@@ -69,5 +70,9 @@ export class DChart<
 			this._plotArea?.destroy();
 			super.destroy();
 		}
+	}
+
+	protected getType(): string {
+		return "DChart";
 	}
 }

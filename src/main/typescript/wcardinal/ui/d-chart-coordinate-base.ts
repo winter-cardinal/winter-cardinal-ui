@@ -23,7 +23,7 @@ import {
 	DChartCoordinateTransformMark,
 	DChartCoordinateTransformMarkImpl
 } from "./d-chart-coordinate-transform-mark";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaLike } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
@@ -128,7 +128,7 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 			const work = this._work;
 			switch (this._direction) {
 				case DChartCoordinateDirection.X:
-					this.getPixelDomain(plotArea, work);
+					plotArea.getPixelDomain(work);
 					this.doFit_(
 						work.from,
 						work.to,
@@ -137,7 +137,7 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 					);
 					break;
 				case DChartCoordinateDirection.Y:
-					this.getPixelRange(plotArea, work);
+					plotArea.getPixelRange(work);
 					this.doFit_(
 						work.from,
 						work.to,
@@ -149,20 +149,10 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 		}
 	}
 
-	protected getPixelDomain(plotArea: DChartPlotArea<CHART>, result: DChartRegion): DChartRegion {
-		const padding = plotArea.padding;
-		return result.set(padding.getLeft(), plotArea.width - padding.getRight());
-	}
-
-	protected getPixelRange(plotArea: DChartPlotArea<CHART>, result: DChartRegion): DChartRegion {
-		const padding = plotArea.padding;
-		return result.set(plotArea.height - padding.getBottom(), padding.getTop());
-	}
-
 	protected toFitDomain(
 		from: number | undefined,
 		to: number | undefined,
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		result: DChartRegion
 	): DChartRegion {
 		if (from == null) {
@@ -183,7 +173,7 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 	protected toFitRange(
 		from: number | undefined,
 		to: number | undefined,
-		plotArea: DChartPlotArea<CHART>,
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
 		result: DChartRegion
 	): DChartRegion {
 		if (from == null) {

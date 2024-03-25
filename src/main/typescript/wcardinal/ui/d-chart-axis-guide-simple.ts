@@ -95,9 +95,12 @@ export class DChartAxisGuideSimple<CHART extends DBase = DBase> implements DChar
 		const axis = this._axis;
 		if (shape != null && container != null && axis != null) {
 			const plotArea = container.plotArea;
+			const plotAreaBounds = plotArea.getAxisBounds(axis.position);
+			const plotAreaX = plotAreaBounds.x;
+			const plotAreaY = plotAreaBounds.y;
+			const plotAreaWidth = plotAreaBounds.width;
+			const plotAreaHeight = plotAreaBounds.height;
 			const transform = plotArea.container.transform.localTransform;
-			const plotAreaWidth = plotArea.width;
-			const plotAreaHeight = plotArea.height;
 			const offset = axis.padding * index;
 			switch (axis.position) {
 				case DChartAxisPosition.TOP:
@@ -111,8 +114,8 @@ export class DChartAxisGuideSimple<CHART extends DBase = DBase> implements DChar
 						shape.update(
 							axis.position,
 							x,
-							plotAreaHeight * 0.5,
-							this._isShown && 0 <= x && x <= plotAreaWidth,
+							plotAreaY + plotAreaHeight * 0.5,
+							this._isShown && plotAreaX <= x && x <= plotAreaX + plotAreaWidth,
 							plotAreaWidth,
 							plotAreaHeight,
 							offset
@@ -120,8 +123,8 @@ export class DChartAxisGuideSimple<CHART extends DBase = DBase> implements DChar
 					} else {
 						shape.update(
 							axis.position,
-							0,
-							plotAreaHeight * 0.5,
+							plotAreaX,
+							plotAreaY + plotAreaHeight * 0.5,
 							false,
 							plotAreaWidth,
 							plotAreaHeight,
@@ -139,9 +142,9 @@ export class DChartAxisGuideSimple<CHART extends DBase = DBase> implements DChar
 						const y = work.y;
 						shape.update(
 							axis.position,
-							plotAreaWidth * 0.5,
+							plotAreaX + plotAreaWidth * 0.5,
 							y,
-							this._isShown && 0 <= y && y <= plotAreaHeight,
+							this._isShown && plotAreaY <= y && y <= plotAreaY + plotAreaHeight,
 							plotAreaWidth,
 							plotAreaHeight,
 							offset
@@ -149,8 +152,8 @@ export class DChartAxisGuideSimple<CHART extends DBase = DBase> implements DChar
 					} else {
 						shape.update(
 							axis.position,
-							plotAreaWidth * 0.5,
-							0,
+							plotAreaX + plotAreaWidth * 0.5,
+							plotAreaY,
 							false,
 							plotAreaWidth,
 							plotAreaHeight,

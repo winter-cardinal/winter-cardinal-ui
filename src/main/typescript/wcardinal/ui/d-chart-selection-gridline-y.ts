@@ -19,22 +19,13 @@ export class DChartSelectionGridlineY<
 		const shape = this._shape;
 		if (shape) {
 			const mappedY = mappedPosition.y;
-			const width = container.plotArea.width;
-			shape.transform.position.set(width * 0.5, mappedY);
-			shape.size.set(width, 0);
-			shape.visible = this.isVisible(container, position, mappedPosition);
+			const bounds = container.plotArea.getSelectionBoundsY();
+			shape.transform.position.set(bounds.x + bounds.width * 0.5, mappedY);
+			shape.size.set(bounds.width, 0);
+			shape.visible = bounds.y <= mappedY && mappedY <= bounds.y + bounds.height;
 			return true;
 		}
 		return false;
-	}
-
-	protected isVisible(
-		container: DChartSeriesContainer<CHART>,
-		position: IPoint,
-		mappedPosition: IPoint
-	): boolean {
-		const y = mappedPosition.y;
-		return 0 <= y && y <= container.plotArea.height;
 	}
 
 	protected getType(): string {
