@@ -74,7 +74,7 @@ export class DChartPlotAreaTwofoldAxisContainer<CHART extends DBase = DBase>
 				primarySize + secondarySize <= index &&
 				index < primarySize + secondarySize + axes.length
 			) {
-				return axes[index];
+				return axes[index - primarySize - secondarySize];
 			}
 		}
 		return null;
