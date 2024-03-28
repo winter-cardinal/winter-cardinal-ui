@@ -65,7 +65,7 @@ export class DChartPlotAreaTwofoldAxisContainer<CHART extends DBase = DBase>
 		const secondary = this._secondary;
 		const secondarySize = secondary.size(position);
 		if (primarySize <= index && index < primarySize + secondarySize) {
-			return secondary.get(position, index);
+			return secondary.get(position, index - primarySize);
 		}
 		const list = this._list;
 		const axes = list.get(toEnum(position, DChartAxisPosition));
@@ -86,14 +86,15 @@ export class DChartPlotAreaTwofoldAxisContainer<CHART extends DBase = DBase>
 		if (0 <= result) {
 			return result;
 		}
-		result = this._secondary.indexOf(axis);
+		const secondary = this._secondary;
+		result = secondary.indexOf(axis);
 		if (0 <= result) {
 			return primary.size(axis.position) + result;
 		}
 		const list = this._list;
 		const axes = list.get(axis.position);
 		if (axes) {
-			return axes.indexOf(axis);
+			return primary.size(axis.position) + secondary.size(axis.position) + axes.indexOf(axis);
 		}
 		return -1;
 	}

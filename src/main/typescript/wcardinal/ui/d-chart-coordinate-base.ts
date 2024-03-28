@@ -128,7 +128,7 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 			const work = this._work;
 			switch (this._direction) {
 				case DChartCoordinateDirection.X:
-					plotArea.getPixelDomain(work);
+					this.getPixelDomain(plotArea, work);
 					this.doFit_(
 						work.from,
 						work.to,
@@ -137,7 +137,7 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 					);
 					break;
 				case DChartCoordinateDirection.Y:
-					plotArea.getPixelRange(work);
+					this.getPixelRange(plotArea, work);
 					this.doFit_(
 						work.from,
 						work.to,
@@ -147,6 +147,20 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 					break;
 			}
 		}
+	}
+
+	protected getPixelDomain(
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
+		result: DChartRegion
+	): DChartRegion {
+		return plotArea.getPixelDomain(result);
+	}
+
+	protected getPixelRange(
+		plotArea: DChartPlotArea<CHART> | DChartPlotAreaLike<CHART>,
+		result: DChartRegion
+	): DChartRegion {
+		return plotArea.getPixelRange(result);
 	}
 
 	protected toFitDomain(
