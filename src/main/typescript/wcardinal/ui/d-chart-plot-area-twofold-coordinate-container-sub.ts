@@ -57,19 +57,20 @@ export class DChartPlotAreaTwofoldCoorinateContainerSub<CHART extends DBase = DB
 		const secondary = this._secondary;
 		const secondarySize = secondary.size();
 		if (primarySize <= index && index < primarySize + secondarySize) {
-			secondary.get(index - primarySize);
+			return secondary.get(index - primarySize);
 		}
 		return null;
 	}
 
 	indexOf(coordinate: DChartCoordinate<CHART>): number {
-		let result = this._primary.indexOf(coordinate);
+		const primary = this._primary;
+		let result = primary.indexOf(coordinate);
 		if (0 <= result) {
 			return result;
 		}
 		result = this._secondary.indexOf(coordinate);
 		if (0 <= result) {
-			return this._primary.size() + result;
+			return primary.size() + result;
 		}
 		return -1;
 	}
@@ -87,7 +88,7 @@ export class DChartPlotAreaTwofoldCoorinateContainerSub<CHART extends DBase = DB
 			const secondary = this._secondary;
 			const secondarySize = secondary.size();
 			if (primarySize <= index && index < primarySize + secondarySize) {
-				secondary.remove(index - primarySize);
+				return secondary.remove(index - primarySize);
 			}
 		} else {
 			const coordinate = coordinateOrIndex;
