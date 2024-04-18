@@ -206,7 +206,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 			}
 		}
 
-		this.update();
+		this.render();
 	}
 
 	protected initWheelHandling(): void {
