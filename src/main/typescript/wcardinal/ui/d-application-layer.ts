@@ -197,6 +197,9 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		const newHeight = options.isHeightFixed() ? options.getHeight() : bbox.height;
 		this.renderer.resize(newWidth, newHeight);
 
+		const wasLocked = this._isLocked;
+		this._isLocked = true;
+
 		const padding = this._padding;
 		const children = this.stage.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
@@ -206,7 +209,10 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 			}
 		}
 
-		this.render();
+		this._isLocked = wasLocked;
+		if (!this._isLocked && this._renderId == null) {
+			this.render();
+		}
 	}
 
 	protected initWheelHandling(): void {
