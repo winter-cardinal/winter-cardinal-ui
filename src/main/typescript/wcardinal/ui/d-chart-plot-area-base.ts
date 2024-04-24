@@ -64,7 +64,12 @@ export abstract class DChartPlotAreaBase<
 		this._view = this.newView(options);
 	}
 
-	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+	override onResize(
+		newWidth: number,
+		newHeight: number,
+		oldWidth: number,
+		oldHeight: number
+	): void {
 		this._isViewDirty = true;
 		this._isContainerBoundsDirty = true;
 		super.onResize(newWidth, newHeight, oldWidth, oldHeight);

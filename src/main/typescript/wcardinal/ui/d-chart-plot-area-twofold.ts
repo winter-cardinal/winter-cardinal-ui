@@ -140,6 +140,17 @@ export class DChartPlotAreaTwofold<
 		}
 	}
 
+	override onResize(
+		newWidth: number,
+		newHeight: number,
+		oldWidth: number,
+		oldHeight: number
+	): void {
+		this._primary.toBoundsDirty();
+		this._secondary.toBoundsDirty();
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+	}
+
 	protected addSeries(series: DChartSeriesContainer<CHART>, list?: DChartSeries<CHART>[]): void {
 		if (list != null) {
 			const listLength = list.length;
