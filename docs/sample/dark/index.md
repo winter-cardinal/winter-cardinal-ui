@@ -33,6 +33,7 @@
         * [Datetime Axis](./chart\axis/datetime.html)
         * [Digital](./chart\axis/digital.html)
         * [Guide Bar](./chart\axis/guide-bar.html)
+        * [Guide Bar at Fixed Position](./chart\axis/guide-bar-fixed.html)
         * [Guide Bar Styling](./chart\axis/guide-bar-styling.html)
         * [Guide Label on Axes](./chart\axis/guide-label.html)
         * [Guide Label Styling](./chart\axis/guide-label-styling.html)
