@@ -7,6 +7,8 @@ import { DynamicFontAtlasCharacterOrigin } from "./dynamic-font-atlas-chaaracter
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 
 export class DynamicFontAtlasCharacter {
+	static LIFE = 10;
+
 	ref: number;
 	life: number;
 	character: string;
@@ -28,7 +30,7 @@ export class DynamicFontAtlasCharacter {
 		advance: number
 	) {
 		this.ref = 1;
-		this.life = 10;
+		this.life = DynamicFontAtlasCharacter.LIFE;
 		this.character = character;
 		this.x = x;
 		this.y = y;
