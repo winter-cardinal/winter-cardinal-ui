@@ -55,18 +55,16 @@ export class UtilCharacterIterator {
 	}
 
 	/**
-	 * Advances the position if the next character is not equal to
-	 * the given `except`.
+	 * Advances the position if the next character is not "\n".
 	 *
 	 * @param except
 	 * @return true if the position is advanced
 	 */
-	advance(except?: string): boolean {
+	advance(): boolean {
 		const target = this.target;
 		const position = this.position;
-		const nextBreak = this.findNextBreak(target, position + 1);
-		if (target.substring(position, nextBreak) !== except) {
-			this.position = nextBreak;
+		if (target.charCodeAt(position) !== 10 /* "\n".charCodeAt(0) */) {
+			this.position = this.findNextBreak(target, position + 1);
 			return true;
 		}
 		return false;

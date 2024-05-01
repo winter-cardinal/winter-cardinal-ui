@@ -847,7 +847,7 @@ export const buildTextVertex = (
 						);
 
 						for (iv += 8; true; iv += 8) {
-							if (iterator.hasNext() && iterator.advance("\n")) {
+							if (iterator.hasNext() && iterator.advance()) {
 								writeCharacterEmpty(
 									vertices,
 									uvs,
