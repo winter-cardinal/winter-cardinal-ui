@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { MeshGeometry } from "pixi.js";
+import { Buffer, MeshGeometry } from "pixi.js";
 import { DDynamicTextMeasure } from "./d-dynamic-text-measure";
 import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
@@ -19,19 +19,44 @@ export interface DDynamicTextGeometryModifier {
 }
 
 export class DDynamicTextGeometry extends MeshGeometry {
+	protected static VERTICES?: Float32Array;
+	protected static UVS?: Float32Array;
+	protected static INDICES?: Uint16Array;
+
 	width: number;
 	height: number;
 	scale: number;
 	scaled: boolean;
 	clipped: boolean;
 
+	nchars: number;
+	vertexBuffer: Buffer;
+	vertices: Float32Array;
+	uvBuffer: Buffer;
+	uvs: Float32Array;
+	indexBuffer: Buffer;
+	indices: Uint16Array;
+
 	constructor() {
-		super(new Float32Array(64), new Float32Array(64), new Uint16Array(48));
+		super(
+			(DDynamicTextGeometry.VERTICES ??= new Float32Array(0)),
+			(DDynamicTextGeometry.UVS ??= new Float32Array(0)),
+			(DDynamicTextGeometry.INDICES ??= new Uint16Array(0))
+		);
 		this.width = 0;
 		this.height = 0;
 		this.scale = 1;
 		this.scaled = false;
 		this.clipped = false;
+
+		this.vertexBuffer = this.getBuffer("aVertexPosition");
+		this.vertices = DDynamicTextGeometry.VERTICES;
+		this.uvBuffer = this.getBuffer("aTextureCoord");
+		this.uvs = DDynamicTextGeometry.UVS;
+		this.indexBuffer = this.getIndex();
+		this.indices = DDynamicTextGeometry.INDICES;
+
+		this.nchars = 0;
 	}
 
 	update(
@@ -39,41 +64,46 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		atlas: DynamicFontAtlas | null,
 		modifier: DDynamicTextGeometryModifier
 	): void {
-		const vertexBuffer = this.getBuffer("aVertexPosition");
-		const uvBuffer = this.getBuffer("aTextureCoord");
-		const indexBuffer = this.getIndex();
-
 		const result = DDynamicTextMeasure.measure(text, atlas, modifier);
-		const requiredTextSize = Math.ceil(result.count / 8) << 3;
-		const requiredVertexSize = requiredTextSize << 3;
-		if ((vertexBuffer.data as Float32Array).length < requiredVertexSize) {
-			vertexBuffer.data = new Float32Array(requiredVertexSize);
-			uvBuffer.data = new Float32Array(requiredVertexSize);
+		const resultCount = result.count;
+		let nchars = ((resultCount >> 3) + (resultCount & 0x7 ? 1 : 0)) << 3;
+		if (this.nchars < nchars) {
+			this.nchars = nchars;
+
+			const nvertex = nchars << 3;
+			this.vertices = new Float32Array(nvertex);
+			this.uvs = new Float32Array(nvertex);
+			this.vertexBuffer.data = this.vertices;
+			this.uvBuffer.data = this.uvs;
+
+			const nindex = (nchars << 2) + (nchars << 1);
+			this.indices = new Uint16Array(nindex);
+			this.indexBuffer.data = this.indices;
+			this.initIndices(this.indices);
+			this.indexBuffer.update();
+		} else {
+			nchars = this.nchars;
 		}
-		const requiredIndexSize = requiredTextSize * 6;
-		if ((indexBuffer.data as Uint16Array).length < requiredIndexSize) {
-			indexBuffer.data = new Uint16Array(requiredIndexSize);
+		if (nchars <= 0) {
+			return;
 		}
 
-		const vertices = vertexBuffer.data as Float32Array;
-		const uvs = uvBuffer.data as Float32Array;
-		const indices = indexBuffer.data as Uint16Array;
-
+		const vertices = this.vertices;
+		const uvs = this.uvs;
 		if (atlas != null) {
-			const count = result.count;
 			const characters = result.characters;
 			const scale = result.scale;
-			for (let i = 0; i < count; ++i) {
+			const fw = 1 / atlas.width;
+			const fh = 1 / atlas.height;
+			for (let i = 0; i < resultCount; ++i) {
 				const character = characters[i];
 				const cx = character.x;
 				const cy = character.y;
 				const cc = character.character;
-				const w = atlas.width;
-				const h = atlas.height;
-				this.writeCharacter(vertices, uvs, indices, i, cx, cy, scale, cc, w, h);
+				this.fill(vertices, uvs, i, cx, cy, scale, cc, fw, fh);
 			}
-			for (let i = count, imax = vertices.length >> 3; i < imax; ++i) {
-				this.writeCharacterEmpty(vertices, uvs, indices, i);
+			for (let i = resultCount; i < nchars; ++i) {
+				this.fillBlank(vertices, uvs, i);
 			}
 			this.width = result.width * scale;
 			this.height = result.height * scale;
@@ -81,8 +111,8 @@ export class DDynamicTextGeometry extends MeshGeometry {
 			this.scaled = result.scaled;
 			this.clipped = result.clipped;
 		} else {
-			for (let i = 0, imax = vertices.length >> 3; i < imax; ++i) {
-				this.writeCharacterEmpty(vertices, uvs, indices, i);
+			for (let i = 0; i < nchars; ++i) {
+				this.fillBlank(vertices, uvs, i);
 			}
 			this.width = 0;
 			this.height = 0;
@@ -90,23 +120,20 @@ export class DDynamicTextGeometry extends MeshGeometry {
 			this.scaled = false;
 			this.clipped = false;
 		}
-
-		vertexBuffer.update();
-		uvBuffer.update();
-		indexBuffer.update();
+		this.vertexBuffer.update();
+		this.uvBuffer.update();
 	}
 
-	protected writeCharacter(
+	protected fill(
 		vertices: Float32Array,
 		uvs: Float32Array,
-		indices: Uint16Array,
 		index: number,
 		x: number,
 		y: number,
 		scale: number,
 		character: DynamicFontAtlasCharacter,
-		width: number,
-		height: number
+		fw: number,
+		fh: number
 	): void {
 		const cx = character.x;
 		const cy = character.y;
@@ -129,10 +156,11 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		vertices[iv + 6] = x0;
 		vertices[iv + 7] = y1;
 
-		const u0 = cx / width;
-		const v0 = cy / height;
-		const u1 = (cx + cw) / width;
-		const v1 = (cy + ch) / height;
+		const u0 = cx * fw;
+		const v0 = cy * fh;
+		const u1 = (cx + cw) * fw;
+		const v1 = (cy + ch) * fh;
+
 		uvs[iv + 0] = u0;
 		uvs[iv + 1] = v0;
 		uvs[iv + 2] = u1;
@@ -141,23 +169,9 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		uvs[iv + 5] = v1;
 		uvs[iv + 6] = u0;
 		uvs[iv + 7] = v1;
-
-		const ii = index * 6;
-		const vo = index << 2;
-		indices[ii + 0] = vo + 0;
-		indices[ii + 1] = vo + 1;
-		indices[ii + 2] = vo + 3;
-		indices[ii + 3] = vo + 1;
-		indices[ii + 4] = vo + 2;
-		indices[ii + 5] = vo + 3;
 	}
 
-	protected writeCharacterEmpty(
-		vertices: Float32Array,
-		uvs: Float32Array,
-		indices: Uint16Array,
-		index: number
-	): void {
+	protected fillBlank(vertices: Float32Array, uvs: Float32Array, index: number): void {
 		const iv = index << 3;
 		vertices[iv + 0] = 0;
 		vertices[iv + 1] = 0;
@@ -176,14 +190,16 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		uvs[iv + 5] = 0;
 		uvs[iv + 6] = 0;
 		uvs[iv + 7] = 0;
+	}
 
-		const ii = index * 6;
-		const vo = index << 2;
-		indices[ii + 0] = vo + 0;
-		indices[ii + 1] = vo + 1;
-		indices[ii + 2] = vo + 3;
-		indices[ii + 3] = vo + 1;
-		indices[ii + 4] = vo + 2;
-		indices[ii + 5] = vo + 3;
+	protected initIndices(indices: Uint16Array): void {
+		for (let iv = 0, ivmax = this.nchars << 2, ii = 0; iv < ivmax; iv += 4, ii += 6) {
+			indices[ii] = iv;
+			indices[ii + 1] = iv + 1;
+			indices[ii + 2] = iv + 3;
+			indices[ii + 3] = iv + 1;
+			indices[ii + 4] = iv + 2;
+			indices[ii + 5] = iv + 3;
+		}
 	}
 }
