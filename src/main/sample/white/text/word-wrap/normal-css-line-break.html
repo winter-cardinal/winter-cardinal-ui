@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Word Wrap (Break All)</title>
+	<title>Normal (CSS Line Break)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -21,12 +21,18 @@
 	</style>
 </head>
 <body>
-	<script src="../../js/pixi/latest/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../../js/css-line-break/latest/css-line-break.umd.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(() => {
 		"use strict";
+
+		// ** NOTE **
+		//
+		// If the LineBreaker class from the css-line-break NPM module exists at window["css-line-break"],
+		// the LineBreaker class is used for more accurate word wrappings.
 
 		const application = new wcardinal.ui.DApplication();
 
@@ -42,7 +48,7 @@
 						value: "Apple Orange Pineapple Melon Strawberry",
 						style: {
 							clipping: false,
-							wordWrap: "BREAK_ALL"
+							wordWrap: "NORMAL"
 						}
 					},
 					border: {
@@ -55,7 +61,7 @@
 						value: "AppleOrangePineappleMelonStrawberry",
 						style: {
 							clipping: false,
-							wordWrap: "BREAK_ALL"
+							wordWrap: "NORMAL"
 						}
 					},
 					border: {
@@ -68,7 +74,7 @@
 						value: "リンゴ Apple パイナップル Pineapple オレンジ Orange",
 						style: {
 							clipping: false,
-							wordWrap: "BREAK_ALL"
+							wordWrap: "NORMAL"
 						}
 					},
 					border: {
@@ -81,7 +87,7 @@
 						value: "リンゴ　オレンジ　パイナップル　メロン　ストロベリー",
 						style: {
 							clipping: false,
-							wordWrap: "BREAK_ALL"
+							wordWrap: "NORMAL"
 						}
 					},
 					border: {
@@ -94,7 +100,7 @@
 						value: "Apple Orange Pineapple Melon Strawberry",
 						style: {
 							clipping: true,
-							wordWrap: "BREAK_ALL"
+							wordWrap: "NORMAL"
 						}
 					},
 					border: {
@@ -107,7 +113,7 @@
 						value: "リンゴ　オレンジ　パイナップル　メロン　ストロベリー",
 						style: {
 							clipping: true,
-							wordWrap: "BREAK_ALL"
+							wordWrap: "NORMAL"
 						}
 					},
 					border: {
