@@ -5,6 +5,7 @@
 
 import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DynamicFontAtlas } from "./dynamic-font-atlas";
+import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 
 const update = (atlas: DynamicFontAtlas): void => {
 	atlas.update();
@@ -47,7 +48,7 @@ export class DynamicFontAtlases {
 			atlas = new DynamicFontAtlas(fontId, fontSize, fontColor, this._resolution);
 			colorToAtlas.set(fontColor, atlas);
 		}
-		atlas.add(targets);
+		atlas.add(targets, DynamicFontAtlasCharacterType.LETTER);
 	}
 
 	remove(fontId: string, fontColor: number, targets: string): void {

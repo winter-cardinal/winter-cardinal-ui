@@ -5,4 +5,4 @@
 
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 
-export type DynamicFontAtlasCharacters = Record<string, DynamicFontAtlasCharacter>;
+export type DynamicFontAtlasCharacters = Map<string, DynamicFontAtlasCharacter>;

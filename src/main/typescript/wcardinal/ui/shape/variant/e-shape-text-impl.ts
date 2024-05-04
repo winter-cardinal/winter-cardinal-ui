@@ -129,7 +129,7 @@ export class EShapeTextImpl implements EShapeText {
 		if (characters != null) {
 			for (let i = 0, imax = value.length; i < imax; ++i) {
 				const char = value[i];
-				if (!(char in characters)) {
+				if (!characters.has(char)) {
 					return false;
 				}
 			}

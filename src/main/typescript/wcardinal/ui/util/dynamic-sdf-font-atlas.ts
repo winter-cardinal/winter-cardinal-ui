@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ASCII_CHARACTERS } from "./ascii";
+import { ASCII_LETTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
@@ -35,7 +35,7 @@ export class DynamicSDFFontAtlas {
 		this._generator = DynamicSDFFontGenerator.getInstance().init();
 		this._canvas = document.createElement("canvas");
 		this._font = new DynamicSDFFontAtlasFont(fontFamily);
-		this._characters = {};
+		this._characters = new Map<string, DynamicFontAtlasCharacter>();
 		this._length = 0;
 		this._width = 1;
 		this._height = 1;
@@ -79,46 +79,45 @@ export class DynamicSDFFontAtlas {
 	begin(): void {
 		this._length = 0;
 		const characters = this._characters;
-		for (const id in characters) {
-			characters[id].ref = 0;
-		}
+		characters.forEach((character) => {
+			character.ref = 0;
+		});
 	}
 
 	end(): void {
 		const characters = this._characters;
-		for (const id in characters) {
-			const data = characters[id];
-			if (data.ref <= 0) {
-				data.life -= 1;
-				if (data.life <= 0) {
-					delete characters[id];
+		characters.forEach((character, id) => {
+			if (character.ref <= 0) {
+				character.life -= 1;
+				if (character.life <= 0) {
+					characters.delete(id);
 					this._isDirty = true;
 				}
 			}
-		}
+		});
 	}
 
 	addAscii(): void {
 		this.addChar(" ", " ", DynamicFontAtlasCharacterType.SPACE_R);
 		this.addChar("\t", "    ", DynamicFontAtlasCharacterType.SPACE_R);
 		this.addChar("...", "...", DynamicFontAtlasCharacterType.LETTER_RNB);
-		for (let i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
-			const char = ASCII_CHARACTERS[i];
-			this.addChar(char, char, DynamicFontAtlasCharacterType.LETTER_RNB);
+		for (let i = 0, imax = ASCII_LETTERS.length; i < imax; ++i) {
+			const letter = ASCII_LETTERS[i];
+			this.addChar(letter, letter, DynamicFontAtlasCharacterType.LETTER_RNB);
 		}
 	}
 
 	addChar(id: string, character: string, type: DynamicFontAtlasCharacterType): void {
 		const characters = this._characters;
 		if (!this.isIgnored(character)) {
-			const data = characters[id];
+			const data = characters.get(id);
 			if (data != null) {
 				if (data.ref <= 0) {
 					this._length += 1;
 				}
 				data.ref += 1;
 			} else {
-				characters[id] = new DynamicFontAtlasCharacter(type, character, 0, 0, 1, 1, 0);
+				characters.set(id, new DynamicFontAtlasCharacter(type, character, 0, 0, 1, 1, 0));
 				this._length += 1;
 				this._isDirty = true;
 			}
@@ -153,7 +152,7 @@ export class DynamicSDFFontAtlas {
 	}
 
 	get(id: string): DynamicFontAtlasCharacter | undefined {
-		return this._characters[id];
+		return this._characters.get(id);
 	}
 
 	update(): boolean {
@@ -191,9 +190,8 @@ export class DynamicSDFFontAtlas {
 					);
 					let x = 0;
 					let y = 0;
-					for (const id in characters) {
-						const data = characters[id];
-						const advance = context.measureText(data.character).width;
+					characters.forEach((character) => {
+						const advance = context.measureText(character.character).width;
 						const characterWidth = Math.ceil(offsetX + advance + offsetX);
 						const characterHeight = characterSize;
 						if (width <= x + characterWidth) {
@@ -201,16 +199,16 @@ export class DynamicSDFFontAtlas {
 							y += characterSize;
 						}
 
-						data.x = x;
-						data.y = y;
-						data.width = characterWidth;
-						data.height = characterHeight;
-						data.advance = advance;
-						data.origin.x = x + offsetX;
-						data.origin.y = y + offsetY;
+						character.x = x;
+						character.y = y;
+						character.width = characterWidth;
+						character.height = characterHeight;
+						character.advance = advance;
+						character.origin.x = x + offsetX;
+						character.origin.y = y + offsetY;
 
 						x += characterWidth;
-					}
+					});
 					const height = (this._height = y + characterSize);
 
 					// Make a input canvas
@@ -227,10 +225,13 @@ export class DynamicSDFFontAtlas {
 					context.miterLimit = 10;
 					context.fillStyle = "#FFFFFF";
 					context.clearRect(0, 0, width, height);
-					for (const id in characters) {
-						const data = characters[id];
-						context.fillText(data.character, data.origin.x, data.origin.y);
-					}
+					characters.forEach((character) => {
+						context.fillText(
+							character.character,
+							character.origin.x,
+							character.origin.y
+						);
+					});
 
 					// Convert to SDF font texture
 					generator.updateTexture(width, height, canvas);
@@ -272,10 +273,7 @@ export class DynamicSDFFontAtlas {
 			this._canvas = null;
 		}
 
-		const characters = this._characters;
-		for (const id in characters) {
-			delete characters[id];
-		}
+		this._characters.clear();
 	}
 
 	protected toPowerOf2(size: number): number {

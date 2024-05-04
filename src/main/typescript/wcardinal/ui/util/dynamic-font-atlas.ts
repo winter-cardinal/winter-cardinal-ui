@@ -4,12 +4,11 @@
  */
 
 import { MIPMAP_MODES, SCALE_MODES, Texture } from "pixi.js";
-import { ASCII_CHARACTERS } from "./ascii";
+import { ASCII_LETTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicFontAtlasFont } from "./dynamic-font-atlas-font";
-import { UtilCharacterIterator } from "./util-character-iterator";
 import { UtilFont } from "./util-font";
 
 export class DynamicFontAtlas {
@@ -18,7 +17,7 @@ export class DynamicFontAtlas {
 	protected _context: CanvasRenderingContext2D | null;
 	protected _font: DynamicFontAtlasFont;
 	protected _characters: DynamicFontAtlasCharacters;
-	protected _length: number;
+	protected _createds: DynamicFontAtlasCharacters;
 	protected _unrefCount: number;
 	protected _width: number;
 	protected _height: number;
@@ -34,12 +33,9 @@ export class DynamicFontAtlas {
 		const padding = this.toPadding(fontSize);
 		this._padding = padding;
 		this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
-		this._characters = {};
-		this._length = 0;
 		this._unrefCount = 0;
 		this._width = 1;
 		this._height = 1;
-		this._revision = 0;
 		this._revisionUpdated = 0;
 		this._texture = Texture.from(this._canvas, {
 			mipmap: MIPMAP_MODES.OFF,
@@ -47,14 +43,26 @@ export class DynamicFontAtlas {
 			scaleMode: SCALE_MODES.NEAREST
 		});
 
-		const characters = this._characters;
-		this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
-		this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
-		this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
-		for (let i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
-			const char = ASCII_CHARACTERS[i];
-			this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+		const characters = new Map<string, DynamicFontAtlasCharacter>();
+
+		const space = this.newChar(" ", DynamicFontAtlasCharacterType.SPACE_R);
+		characters.set(" ", space);
+
+		const tab = this.newChar("    ", DynamicFontAtlasCharacterType.SPACE_R);
+		characters.set("\t", tab);
+
+		const dots = this.newChar("...", DynamicFontAtlasCharacterType.LETTER_RNB);
+		characters.set("...", dots);
+
+		for (let i = 0, imax = ASCII_LETTERS.length; i < imax; ++i) {
+			const letter = ASCII_LETTERS[i];
+			const character = this.newChar(letter, DynamicFontAtlasCharacterType.LETTER_RNB);
+			characters.set(letter, character);
 		}
+
+		this._characters = characters;
+		this._createds = new Map<string, DynamicFontAtlasCharacter>();
+		this._revision = 1;
 	}
 
 	protected toPadding(fontSize: number): number {
@@ -89,105 +97,122 @@ export class DynamicFontAtlas {
 		return this._texture;
 	}
 
-	protected add_(
-		id: string,
-		character: string,
-		characters: DynamicFontAtlasCharacters,
+	protected newChar(
+		letter: string,
 		type: DynamicFontAtlasCharacterType
-	): void {
-		if (!this.isIgnored(character)) {
-			const data = characters[id];
-			if (data != null) {
-				if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
-					if (data.ref === 0) {
+	): DynamicFontAtlasCharacter {
+		const advance = this.getAdvance(letter);
+		const padding = this._padding;
+		const width = Math.ceil(padding + advance + padding);
+		const height = this.font.height;
+		return new DynamicFontAtlasCharacter(
+			type,
+			letter,
+			-width, // Setting X and Y to zeros leads to render the letter at the UV coordinate (0, 0).
+			-height,
+			width,
+			height,
+			advance
+		);
+	}
+
+	add(letters: string, type: DynamicFontAtlasCharacterType): void {
+		const characters = this._characters;
+		const createds = this._createds;
+		for (let i = 0, imax = letters.length; i < imax; ) {
+			if (letters.charCodeAt(i) <= 0xff) {
+				// Ignore ASCII characters
+				i += 1;
+				continue;
+			}
+			let j = i + 1;
+			for (; j < imax; ++j) {
+				const c = letters.charCodeAt(j);
+				if ((0xdc00 <= c && c <= 0xdfff) || (0xfe00 <= c && c <= 0xfe0f)) {
+					// Low surrogate
+					// Variation selector
+					continue;
+				}
+				break;
+			}
+			// Increment the reference count or create a new one
+			const letter = letters.substring(i, j);
+			const character = characters.get(letter);
+			if (character != null) {
+				if (!(character.type & DynamicFontAtlasCharacterType.RESERVED)) {
+					if (character.ref === 0) {
 						this._unrefCount -= 1;
 					}
-					data.ref += 1;
+					character.ref += 1;
 				}
 			} else {
-				const advance = this.getAdvance(character);
-				const padding = this._padding;
-				const width = Math.ceil(padding + advance + padding);
-				const height = this.font.height;
-				characters[id] = new DynamicFontAtlasCharacter(
-					type,
-					character,
-					-width, // Setting X and Y to zeros leads to render the letter at the UV coordinate (0, 0).
-					-height,
-					width,
-					height,
-					advance
-				);
-				this._length += 1;
+				const created = createds.get(letter);
+				if (created != null) {
+					created.ref = 1;
+					characters.set(letter, created);
+				} else {
+					const newCharacter = this.newChar(letter, type);
+					characters.set(letter, newCharacter);
+					createds.set(letter, newCharacter);
+				}
 				this._revision += 1;
 			}
+			// Go to the next
+			i = j;
 		}
 	}
 
-	protected isIgnored(character: string): boolean {
-		switch (character) {
-			case "\n": // Line feed
-				return true;
-			case "\r": // Carriage return
-				return true;
-			case "\v": // Vertical tab
-				return true;
-			case "\f": // Form feed
-				return true;
-			case "\u0085": // Next line
-				return true;
-		}
-		return false;
-	}
-
-	protected remove_(id: string, characters: DynamicFontAtlasCharacters): void {
-		const data = characters[id];
-		if (data != null) {
-			if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
-				data.ref -= 1;
-				if (data.ref === 0) {
+	remove(letters: string): void {
+		const characters = this._characters;
+		for (let i = 0, imax = letters.length; i < imax; ) {
+			if (letters.charCodeAt(i) <= 0xff) {
+				// Ignore ASCII characters
+				i += 1;
+				continue;
+			}
+			let j = i + 1;
+			for (; j < imax; ++j) {
+				const c = letters.charCodeAt(j);
+				if ((0xdc00 <= c && c <= 0xdfff) || (0xfe00 <= c && c <= 0xfe0f)) {
+					// Low surrogate
+					// Variation selector
+					continue;
+				}
+				break;
+			}
+			// Decrement the reference count
+			const letter = letters.substring(i, j);
+			const character = characters.get(letter);
+			if (
+				character != null &&
+				0 < character.ref &&
+				!(character.type & DynamicFontAtlasCharacterType.RESERVED)
+			) {
+				character.ref -= 1;
+				if (character.ref === 0) {
 					this._unrefCount += 1;
 				}
 			}
+			// Go to the next
+			i = j;
 		}
 	}
 
-	protected cleanup_(): void {
-		if (this._length >> 1 <= this._unrefCount) {
-			const characters = this._characters;
-			for (const character in characters) {
-				if (characters[character].ref <= 0) {
-					delete characters[character];
+	protected cleanup(): void {
+		const characters = this._characters;
+		if (characters.size >> 1 <= this._unrefCount) {
+			characters.forEach((char, id) => {
+				if (char.ref <= 0) {
+					characters.delete(id);
 				}
-			}
-			this._length -= this._unrefCount;
+			});
 			this._revision += 1;
 			this._unrefCount = 0;
 		}
 	}
 
-	add(
-		targets: string,
-		type: DynamicFontAtlasCharacterType = DynamicFontAtlasCharacterType.LETTER
-	): void {
-		const characters = this._characters;
-		const iterator = UtilCharacterIterator.from(targets);
-		while (iterator.hasNext()) {
-			const character = iterator.next();
-			this.add_(character, character, characters, type);
-		}
-	}
-
-	remove(targets: string): void {
-		const characters = this._characters;
-		const iterator = UtilCharacterIterator.from(targets);
-		while (iterator.hasNext()) {
-			this.remove_(iterator.next(), characters);
-		}
-	}
-
 	get(id: string): DynamicFontAtlasCharacter | undefined {
-		return this._characters[id];
+		return this._characters.get(id);
 	}
 
 	getAdvance(target: string): number {
@@ -229,7 +254,7 @@ export class DynamicFontAtlas {
 	}
 
 	update(): boolean {
-		this.cleanup_();
+		this.cleanup();
 
 		if (this._revisionUpdated < this._revision) {
 			this._revisionUpdated = this._revision;
@@ -240,14 +265,13 @@ export class DynamicFontAtlas {
 				const fontHeight = font.height;
 				const characters = this._characters;
 				const width = (this._width = this.toPowerOf2(
-					Math.ceil(Math.sqrt(this._length)) * fontHeight
+					Math.ceil(Math.sqrt(characters.size)) * fontHeight
 				));
 
 				const offsetX = this._padding;
 				let x = 0;
 				let y = 0;
-				for (const key in characters) {
-					const character = characters[key];
+				characters.forEach((character) => {
 					if (width <= x + character.width) {
 						x = 0;
 						y += fontHeight;
@@ -258,7 +282,7 @@ export class DynamicFontAtlas {
 					character.origin.x = x + offsetX;
 
 					x += character.width;
-				}
+				});
 				const height = (this._height = y + fontHeight);
 
 				// Make an input canvas
@@ -279,11 +303,14 @@ export class DynamicFontAtlas {
 					context.save();
 					context.scale(resolution, resolution);
 					context.clearRect(0, 0, width, height);
-					for (const key in characters) {
-						const character = characters[key];
+					characters.forEach((character) => {
 						character.origin.y = character.y + offsetY;
-						context.fillText(key, character.origin.x, character.origin.y);
-					}
+						context.fillText(
+							character.character,
+							character.origin.x,
+							character.origin.y
+						);
+					});
 					context.restore();
 				}
 				baseTexture.setRealSize(realWidth, realHeight);
@@ -303,7 +330,7 @@ export class DynamicFontAtlas {
 	}
 
 	get length(): number {
-		return this._length;
+		return this._characters.size;
 	}
 
 	destroy(): void {
@@ -311,11 +338,9 @@ export class DynamicFontAtlas {
 		if (canvas != null) {
 			this._canvas = null;
 		}
-
-		const characters = this._characters;
-		for (const character in characters) {
-			delete characters[character];
-		}
+		this._characters.clear();
+		this._createds.clear();
+		this._unrefCount = 0;
 	}
 
 	toPowerOf2(size: number): number {

@@ -544,7 +544,7 @@ export const buildTextVertex = (
 			if (0 < advancePrevious) {
 				lineWidth += Math.max(0, advancePrevious + textSpacingHorizontal);
 			}
-			const data = textAtlasCharacters[character];
+			const data = textAtlasCharacters.get(character);
 			if (data) {
 				advancePrevious = data.advance;
 				heightChar = data.height;
@@ -802,12 +802,12 @@ export const buildTextVertex = (
 			cx3 = bx3 + ax;
 			cy3 = by3 + ay;
 
-			const data = textAtlasCharacters[character];
+			const data = textAtlasCharacters.get(character);
 			lineCount += 1;
 			if (data) {
 				const advance = data.advance;
 				if (lineWidthMaximum < (lineWidth + advance) * scaleX) {
-					const dots = textAtlasCharacters["..."];
+					const dots = textAtlasCharacters.get("...");
 					if (dots) {
 						if (
 							1 < lineCount &&
