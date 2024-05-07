@@ -354,9 +354,9 @@ export class EShapeRenderer extends ObjectRenderer {
 
 		// Font texture atlas
 		const text = shape.text;
-		const textValue = text.value;
-		if (0 < textValue.length) {
-			fontAtlases.add(text.family, textValue);
+		const textCharacters = text.characters;
+		if (0 < textCharacters.length) {
+			fontAtlases.add(text.family, textCharacters, text.nacharacters);
 		}
 	}
 

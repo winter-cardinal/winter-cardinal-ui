@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ASCII_CHARACTERS } from "./ascii";
+import { Character } from "./character";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicSDFFontAtlasFont } from "./dynamic-sdf-font-atlas-font";
 import { DynamicSDFFontGenerator } from "./dynamic-sdf-font-generator";
-import { UtilCharacterIterator } from "./util-character-iterator";
 import { UtilFont } from "./util-font";
 
 export interface DynamicSDFFontAtlasJson {
@@ -25,7 +24,6 @@ export class DynamicSDFFontAtlas {
 	protected _canvas: HTMLCanvasElement | null;
 	protected _font: DynamicSDFFontAtlasFont;
 	protected _characters: DynamicFontAtlasCharacters;
-	protected _length: number;
 	protected _width: number;
 	protected _height: number;
 	protected _isDirty: boolean;
@@ -35,10 +33,27 @@ export class DynamicSDFFontAtlas {
 		this._generator = DynamicSDFFontGenerator.getInstance().init();
 		this._canvas = document.createElement("canvas");
 		this._font = new DynamicSDFFontAtlasFont(fontFamily);
-		this._characters = {};
-		this._length = 0;
 		this._width = 1;
 		this._height = 1;
+
+		const characters = new Map<string, DynamicFontAtlasCharacter>();
+		characters.set(
+			Character.SPACE,
+			this.newChar(Character.SPACE, DynamicFontAtlasCharacterType.SPACE_R)
+		);
+		characters.set(
+			Character.TAB,
+			this.newChar(Character.SOFT_TAB, DynamicFontAtlasCharacterType.SPACE_R)
+		);
+		characters.set(
+			Character.DOTS,
+			this.newChar(Character.DOTS, DynamicFontAtlasCharacterType.LETTER_RNB)
+		);
+		for (let i = 0, imax = Character.ASCII.length; i < imax; ++i) {
+			const ac = Character.ASCII[i];
+			characters.set(ac, this.newChar(ac, DynamicFontAtlasCharacterType.LETTER_RNB));
+		}
+		this._characters = characters;
 		this._isDirty = true;
 	}
 
@@ -77,83 +92,49 @@ export class DynamicSDFFontAtlas {
 	}
 
 	begin(): void {
-		this._length = 0;
-		const characters = this._characters;
-		for (const id in characters) {
-			characters[id].ref = 0;
-		}
+		this._characters.forEach((character) => {
+			if (!(character.type & DynamicFontAtlasCharacterType.RESERVED)) {
+				character.ref = 0;
+			}
+		});
 	}
 
 	end(): void {
 		const characters = this._characters;
-		for (const id in characters) {
-			const data = characters[id];
-			if (data.ref <= 0) {
-				data.life -= 1;
-				if (data.life <= 0) {
-					delete characters[id];
+		characters.forEach((character, id) => {
+			if (character.ref <= 0 && !(character.type & DynamicFontAtlasCharacterType.RESERVED)) {
+				character.life -= 1;
+				if (character.life <= 0) {
+					characters.delete(id);
 					this._isDirty = true;
 				}
 			}
-		}
+		});
 	}
 
-	addAscii(): void {
-		this.addChar(" ", " ", DynamicFontAtlasCharacterType.SPACE_R);
-		this.addChar("\t", "    ", DynamicFontAtlasCharacterType.SPACE_R);
-		this.addChar("...", "...", DynamicFontAtlasCharacterType.LETTER_RNB);
-		for (let i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
-			const char = ASCII_CHARACTERS[i];
-			this.addChar(char, char, DynamicFontAtlasCharacterType.LETTER_RNB);
-		}
+	protected newChar(
+		character: string,
+		type: DynamicFontAtlasCharacterType
+	): DynamicFontAtlasCharacter {
+		return new DynamicFontAtlasCharacter(type, character, 0, 0, 1, 1, 0);
 	}
 
-	addChar(id: string, character: string, type: DynamicFontAtlasCharacterType): void {
-		const characters = this._characters;
-		if (!this.isIgnored(character)) {
-			const data = characters[id];
+	add(characters: string[], nacharacters: string[]): void {
+		const cs = this._characters;
+		for (let i = 0, imax = nacharacters.length; i < imax; ++i) {
+			const nac = nacharacters[i];
+			const data = cs.get(nac);
 			if (data != null) {
-				if (data.ref <= 0) {
-					this._length += 1;
-				}
 				data.ref += 1;
 			} else {
-				characters[id] = new DynamicFontAtlasCharacter(type, character, 0, 0, 1, 1, 0);
-				this._length += 1;
+				cs.set(nac, this.newChar(nac, DynamicFontAtlasCharacterType.LETTER));
 				this._isDirty = true;
 			}
 		}
 	}
 
-	protected isIgnored(character: string): boolean {
-		switch (character) {
-			case "\n": // Line feed
-				return true;
-			case "\r": // Carriage return
-				return true;
-			case "\v": // Vertical tab
-				return true;
-			case "\f": // Form feed
-				return true;
-			case "\u0085": // Next line
-				return true;
-		}
-		return false;
-	}
-
-	add(
-		characters: string,
-		type: DynamicFontAtlasCharacterType = DynamicFontAtlasCharacterType.LETTER
-	): void {
-		const iterator = UtilCharacterIterator.from(characters);
-		while (iterator.hasNext()) {
-			const character = iterator.next();
-			this.addChar(character, character, type);
-		}
-	}
-
 	get(id: string): DynamicFontAtlasCharacter | undefined {
-		return this._characters[id];
+		return this._characters.get(id);
 	}
 
 	update(): boolean {
@@ -166,11 +147,9 @@ export class DynamicSDFFontAtlas {
 					this._isDirty = false;
 
 					const font = this._font;
+					const fontSize = font.size + 14;
 					const characters = this._characters;
-					const characterSize = font.size + 14;
-					const width = this.toPowerOf2(
-						Math.ceil(Math.sqrt(this._length)) * characterSize
-					);
+					const width = this.toPowerOf2(Math.ceil(Math.sqrt(characters.size)) * fontSize);
 					this._width = width;
 					const fontStyle =
 						(font.italic ? "italic " : "") + (font.size + "px ") + font.id;
@@ -187,31 +166,30 @@ export class DynamicSDFFontAtlas {
 
 					const offsetX = 7;
 					const offsetY = Math.round(
-						(characterSize - (font.ascent + font.descent)) * 0.5 + font.ascent
+						(fontSize - (font.ascent + font.descent)) * 0.5 + font.ascent
 					);
 					let x = 0;
 					let y = 0;
-					for (const id in characters) {
-						const data = characters[id];
-						const advance = context.measureText(data.character).width;
+					characters.forEach((character) => {
+						const advance = context.measureText(character.character).width;
 						const characterWidth = Math.ceil(offsetX + advance + offsetX);
-						const characterHeight = characterSize;
+						const characterHeight = fontSize;
 						if (width <= x + characterWidth) {
 							x = 0;
-							y += characterSize;
+							y += fontSize;
 						}
 
-						data.x = x;
-						data.y = y;
-						data.width = characterWidth;
-						data.height = characterHeight;
-						data.advance = advance;
-						data.origin.x = x + offsetX;
-						data.origin.y = y + offsetY;
+						character.x = x;
+						character.y = y;
+						character.width = characterWidth;
+						character.height = characterHeight;
+						character.advance = advance;
+						character.origin.x = x + offsetX;
+						character.origin.y = y + offsetY;
 
 						x += characterWidth;
-					}
-					const height = (this._height = y + characterSize);
+					});
+					const height = (this._height = y + fontSize);
 
 					// Make a input canvas
 					// Here, we need to reset the context because
@@ -227,10 +205,13 @@ export class DynamicSDFFontAtlas {
 					context.miterLimit = 10;
 					context.fillStyle = "#FFFFFF";
 					context.clearRect(0, 0, width, height);
-					for (const id in characters) {
-						const data = characters[id];
-						context.fillText(data.character, data.origin.x, data.origin.y);
-					}
+					characters.forEach((character) => {
+						context.fillText(
+							character.character,
+							character.origin.x,
+							character.origin.y
+						);
+					});
 
 					// Convert to SDF font texture
 					generator.updateTexture(width, height, canvas);
@@ -245,7 +226,7 @@ export class DynamicSDFFontAtlas {
 	}
 
 	get length(): number {
-		return this._length;
+		return this._characters.size;
 	}
 
 	toJson(): DynamicSDFFontAtlasJson {
@@ -272,10 +253,7 @@ export class DynamicSDFFontAtlas {
 			this._canvas = null;
 		}
 
-		const characters = this._characters;
-		for (const id in characters) {
-			delete characters[id];
-		}
+		this._characters.clear();
 	}
 
 	protected toPowerOf2(size: number): number {

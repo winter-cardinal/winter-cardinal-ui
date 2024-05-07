@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { InteractionEvent, Point, Rectangle } from "pixi.js";
-import { DApplications } from "./d-applications";
+import { Graphics, InteractionEvent, Point, Rectangle } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DContent, DContentOptions } from "./d-content";
@@ -66,7 +65,7 @@ export class DPane<
 	protected static WORK_RECTANGLE?: Rectangle;
 
 	protected _content?: DBase;
-	protected _overflowMask?: DBaseOverflowMask | null;
+	protected _overflowMask?: Graphics | null;
 	protected _scrollbar?: DPaneScrollBar;
 	protected _gestureUtil?: UtilGesture<DPane>;
 
@@ -136,21 +135,7 @@ export class DPane<
 	}
 
 	protected onScrollBarUpdate(isRegionVisible: boolean): void {
-		const overflowMask = this._overflowMask;
-		if (overflowMask != null) {
-			const content = this.content;
-			if (isRegionVisible) {
-				if (content.mask !== overflowMask) {
-					content.mask = overflowMask;
-					DApplications.update(this);
-				}
-			} else {
-				if (content.mask) {
-					(content as any).mask = null;
-					DApplications.update(this);
-				}
-			}
-		}
+		// DO NOTHING
 	}
 
 	protected initScrollBar(scrollbar: DPaneScrollBar): void {
@@ -224,14 +209,19 @@ export class DPane<
 		});
 	}
 
-	protected getOverflowMask(): DBaseOverflowMask {
+	protected getOverflowMask(): Graphics | null {
 		let result = this._overflowMask;
-		if (result == null) {
-			result = new DBaseOverflowMask(this);
+		if (result === undefined) {
+			result = this.newOverflowMask();
 			this._overflowMask = result;
-			this.reflowable.add(result);
-			this.toDirty();
 		}
+		return result;
+	}
+
+	protected newOverflowMask(): Graphics | null {
+		const result = new DBaseOverflowMask(this);
+		this.reflowable.add(result);
+		this.toDirty();
 		return result;
 	}
 
@@ -396,7 +386,7 @@ export class DPane<
 			this._overflowMask = null;
 			overflowMask.destroy();
 		}
-		(this as any).mask = null;
+		this.mask = null;
 
 		super.destroy();
 	}
