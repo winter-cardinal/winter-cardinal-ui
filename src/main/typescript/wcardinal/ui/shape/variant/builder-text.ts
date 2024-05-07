@@ -280,7 +280,7 @@ export class BuilderText implements Builder {
 				shapeSize.y,
 				textAtlas,
 				textSize,
-				textValue,
+				text.characters,
 				textStyle,
 				textAlignHorizontal,
 				textAlignVertical,

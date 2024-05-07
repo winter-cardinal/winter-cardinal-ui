@@ -4,6 +4,7 @@
  */
 
 export * from "./format-node";
+export * from "./character";
 export * from "./deep-partial";
 export * from "./dynamic-atlas-item-empty";
 export * from "./dynamic-atlas-item-font-atlas";

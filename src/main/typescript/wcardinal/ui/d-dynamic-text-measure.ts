@@ -6,6 +6,7 @@ import { LineBreak } from "css-line-break/dist/types/LineBreak";
 import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./util/dynamic-font-atlas-character-type";
+import { Character } from "./util/character";
 
 export interface DDynamicTextMeasureModifier {
 	clipping: boolean;
@@ -15,8 +16,6 @@ export interface DDynamicTextMeasureModifier {
 	height: number;
 	lineHeight: number;
 }
-
-const NEW_LINE = "\n";
 
 export class DDynamicTextMeasure {
 	protected static RESULT: DDynamicTextMeasureResult | null = null;
@@ -95,7 +94,7 @@ export class DDynamicTextMeasure {
 		while (iterator.hasNext()) {
 			const characterPosition = iterator.position;
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
 					result.newLine(lineHeight);
 				} else {
@@ -133,7 +132,7 @@ export class DDynamicTextMeasure {
 	): void {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
 					result.newLine(lineHeight);
 				} else {
@@ -169,7 +168,7 @@ export class DDynamicTextMeasure {
 	): void {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
 					result.newLine(lineHeight);
 				} else {
@@ -205,7 +204,7 @@ export class DDynamicTextMeasure {
 		while (iterator.hasNext()) {
 			const characterPosition = iterator.position;
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				result.newLine(lineHeight);
 			} else {
 				const a = atlas.get(character);
@@ -233,7 +232,7 @@ export class DDynamicTextMeasure {
 	): void {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				result.newLine(lineHeight);
 			} else {
 				const a = atlas.get(character);
@@ -260,7 +259,7 @@ export class DDynamicTextMeasure {
 	): void {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				result.newLine(lineHeight);
 			} else {
 				const a = atlas.get(character);
@@ -287,7 +286,7 @@ export class DDynamicTextMeasure {
 	): void {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
 					result.newLine(lineHeight);
 				} else {
@@ -314,7 +313,7 @@ export class DDynamicTextMeasure {
 	): void {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
-			if (character === NEW_LINE) {
+			if (character === Character.NEW_LINE) {
 				result.newLine(lineHeight);
 			} else {
 				const a = atlas.get(character);
@@ -333,7 +332,7 @@ export class DDynamicTextMeasure {
 		close: boolean
 	): void {
 		result.clipped = true;
-		const dots = atlas.get("...");
+		const dots = atlas.get(Character.DOTS);
 		if (dots != null) {
 			while (!result.isPushable(clippingWidth, dots)) {
 				if (!result.pop()) {
@@ -348,7 +347,7 @@ export class DDynamicTextMeasure {
 			iterator.close();
 		} else {
 			while (iterator.hasNext()) {
-				if (iterator.next() === NEW_LINE) {
+				if (iterator.next() === Character.NEW_LINE) {
 					result.newLine(lineHeight);
 					break;
 				}

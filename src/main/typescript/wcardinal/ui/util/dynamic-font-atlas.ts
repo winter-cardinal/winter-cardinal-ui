@@ -4,7 +4,7 @@
  */
 
 import { MIPMAP_MODES, SCALE_MODES, Texture } from "pixi.js";
-import { ASCII_LETTERS } from "./ascii";
+import { Character } from "./character";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
@@ -44,22 +44,22 @@ export class DynamicFontAtlas {
 		});
 
 		const characters = new Map<string, DynamicFontAtlasCharacter>();
-
-		const space = this.newChar(" ", DynamicFontAtlasCharacterType.SPACE_R);
-		characters.set(" ", space);
-
-		const tab = this.newChar("    ", DynamicFontAtlasCharacterType.SPACE_R);
-		characters.set("\t", tab);
-
-		const dots = this.newChar("...", DynamicFontAtlasCharacterType.LETTER_RNB);
-		characters.set("...", dots);
-
-		for (let i = 0, imax = ASCII_LETTERS.length; i < imax; ++i) {
-			const letter = ASCII_LETTERS[i];
-			const character = this.newChar(letter, DynamicFontAtlasCharacterType.LETTER_RNB);
-			characters.set(letter, character);
+		characters.set(
+			Character.SPACE,
+			this.newChar(Character.SPACE, DynamicFontAtlasCharacterType.SPACE_R)
+		);
+		characters.set(
+			Character.TAB,
+			this.newChar(Character.SOFT_TAB, DynamicFontAtlasCharacterType.SPACE_R)
+		);
+		characters.set(
+			Character.DOTS,
+			this.newChar(Character.DOTS, DynamicFontAtlasCharacterType.LETTER_RNB)
+		);
+		for (let i = 0, imax = Character.ASCII.length; i < imax; ++i) {
+			const ac = Character.ASCII[i];
+			characters.set(ac, this.newChar(ac, DynamicFontAtlasCharacterType.LETTER_RNB));
 		}
-
 		this._characters = characters;
 		this._createds = new Map<string, DynamicFontAtlasCharacter>();
 		this._revision = 1;
@@ -98,17 +98,17 @@ export class DynamicFontAtlas {
 	}
 
 	protected newChar(
-		letter: string,
+		character: string,
 		type: DynamicFontAtlasCharacterType
 	): DynamicFontAtlasCharacter {
-		const advance = this.getAdvance(letter);
+		const advance = this.getAdvance(character);
 		const padding = this._padding;
 		const width = Math.ceil(padding + advance + padding);
 		const height = this.font.height;
 		return new DynamicFontAtlasCharacter(
 			type,
-			letter,
-			-width, // Setting X and Y to zeros leads to render the letter at the UV coordinate (0, 0).
+			character,
+			-width, // Setting X and Y to zeros leads to render the character at the UV coordinate (0, 0).
 			-height,
 			width,
 			height,
@@ -116,19 +116,19 @@ export class DynamicFontAtlas {
 		);
 	}
 
-	add(letters: string, type: DynamicFontAtlasCharacterType): void {
-		const characters = this._characters;
-		const createds = this._createds;
-		for (let i = 0, imax = letters.length; i < imax; ) {
-			if (letters.charCodeAt(i) <= 0xff) {
+	add(characters: string, type: DynamicFontAtlasCharacterType): void {
+		const cs = this._characters;
+		const cds = this._createds;
+		for (let i = 0, imax = characters.length; i < imax; ) {
+			if (characters.charCodeAt(i) <= 0xff) {
 				// Ignore ASCII characters
 				i += 1;
 				continue;
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const c = letters.charCodeAt(j);
-				if ((0xdc00 <= c && c <= 0xdfff) || (0xfe00 <= c && c <= 0xfe0f)) {
+				const cc = characters.charCodeAt(j);
+				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
 					// Low surrogate
 					// Variation selector
 					continue;
@@ -136,24 +136,24 @@ export class DynamicFontAtlas {
 				break;
 			}
 			// Increment the reference count or create a new one
-			const letter = letters.substring(i, j);
-			const character = characters.get(letter);
-			if (character != null) {
-				if (!(character.type & DynamicFontAtlasCharacterType.RESERVED)) {
-					if (character.ref === 0) {
+			const nac = characters.substring(i, j);
+			const c = cs.get(nac);
+			if (c != null) {
+				if (!(c.type & DynamicFontAtlasCharacterType.RESERVED)) {
+					if (c.ref === 0) {
 						this._unrefCount -= 1;
 					}
-					character.ref += 1;
+					c.ref += 1;
 				}
 			} else {
-				const created = createds.get(letter);
-				if (created != null) {
-					created.ref = 1;
-					characters.set(letter, created);
+				const cd = cds.get(nac);
+				if (cd != null) {
+					cd.ref = 1;
+					cs.set(nac, cd);
 				} else {
-					const newCharacter = this.newChar(letter, type);
-					characters.set(letter, newCharacter);
-					createds.set(letter, newCharacter);
+					const newCharacter = this.newChar(nac, type);
+					cs.set(nac, newCharacter);
+					cds.set(nac, newCharacter);
 				}
 				this._revision += 1;
 			}
@@ -162,18 +162,18 @@ export class DynamicFontAtlas {
 		}
 	}
 
-	remove(letters: string): void {
-		const characters = this._characters;
-		for (let i = 0, imax = letters.length; i < imax; ) {
-			if (letters.charCodeAt(i) <= 0xff) {
+	remove(characters: string): void {
+		const cs = this._characters;
+		for (let i = 0, imax = characters.length; i < imax; ) {
+			if (characters.charCodeAt(i) <= 0xff) {
 				// Ignore ASCII characters
 				i += 1;
 				continue;
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const c = letters.charCodeAt(j);
-				if ((0xdc00 <= c && c <= 0xdfff) || (0xfe00 <= c && c <= 0xfe0f)) {
+				const cc = characters.charCodeAt(j);
+				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
 					// Low surrogate
 					// Variation selector
 					continue;
@@ -181,15 +181,11 @@ export class DynamicFontAtlas {
 				break;
 			}
 			// Decrement the reference count
-			const letter = letters.substring(i, j);
-			const character = characters.get(letter);
-			if (
-				character != null &&
-				0 < character.ref &&
-				!(character.type & DynamicFontAtlasCharacterType.RESERVED)
-			) {
-				character.ref -= 1;
-				if (character.ref === 0) {
+			const nac = characters.substring(i, j);
+			const c = cs.get(nac);
+			if (c != null && 0 < c.ref && !(c.type & DynamicFontAtlasCharacterType.RESERVED)) {
+				c.ref -= 1;
+				if (c.ref === 0) {
 					this._unrefCount += 1;
 				}
 			}

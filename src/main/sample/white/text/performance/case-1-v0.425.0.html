@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Case 2 (Old)</title>
+	<title>Case 1 (v0.425.0)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -47,7 +47,7 @@
 			const now = Date.now();
 			for (let i = 0, imax = texts.length; i < imax; ++i) {
 				const text = texts[i];
-				text.text = "TEXT " + String.fromCharCode(257 + (now + i) % 128);
+				text.text = "TEXT " + String.fromCharCode((now + i) % 128);
 			}
 			setTimeout(update, 64);
 		};

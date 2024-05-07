@@ -49,6 +49,8 @@ export class EShapeTextImpl implements EShapeText {
 
 	texture?: Texture; // Used for rendering and updated when rendered
 	atlas?: EShapeTextAtlas; // Used for rendering and updated when rendered
+	protected _characters: string[];
+	protected _nacharacters: string[];
 	world?: number[]; // Updated when rendered
 
 	constructor(
@@ -81,6 +83,8 @@ export class EShapeTextImpl implements EShapeText {
 		this.padding = new EShapeTextOffsetImpl(parent, 10, 10);
 		this._clipping = false;
 		this._fitting = false;
+		this._characters = [];
+		this._nacharacters = [];
 	}
 
 	get enable(): boolean {
@@ -106,7 +110,8 @@ export class EShapeTextImpl implements EShapeText {
 			if (this._plength < length) {
 				this._plength = length;
 			}
-			if (this.isCompatible(value)) {
+			this.updateCharacters(value);
+			if (this.isCompatible()) {
 				this._parent.updateUploaded();
 			} else {
 				this.atlas = undefined;
@@ -115,7 +120,70 @@ export class EShapeTextImpl implements EShapeText {
 		}
 	}
 
-	protected isCompatible(value: string): boolean {
+	get characters(): string[] {
+		return this._characters;
+	}
+
+	get nacharacters(): string[] {
+		return this._nacharacters;
+	}
+
+	protected updateCharacters(value: string): void {
+		const characters = this._characters;
+		const charactersLength = characters.length;
+		let icharacters = 0;
+		const nacharacters = this._nacharacters;
+		const nacharactersLength = nacharacters.length;
+		let inacharacters = 0;
+		for (let i = 0, imax = value.length; i < imax; ) {
+			if (value.charCodeAt(i) <= 0xff) {
+				// Add an ASCII character
+				const ac = value.substring(i, i + 1);
+				if (icharacters < charactersLength) {
+					characters[icharacters] = ac;
+				} else {
+					characters.push(ac);
+				}
+				icharacters += 1;
+				i += 1;
+				continue;
+			}
+			let j = i + 1;
+			for (; j < imax; ++j) {
+				const cc = value.charCodeAt(j);
+				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
+					// Low surrogate
+					// Variation selector
+					continue;
+				}
+				break;
+			}
+			// Add an non-ascii character
+			const nac = value.substring(i, j);
+			if (icharacters < charactersLength) {
+				characters[icharacters] = nac;
+			} else {
+				characters.push(nac);
+			}
+			icharacters += 1;
+			if (inacharacters < nacharactersLength) {
+				nacharacters[inacharacters] = nac;
+			} else {
+				nacharacters.push(nac);
+			}
+			inacharacters += 1;
+			// Go to the next
+			i = j;
+		}
+		if (icharacters < charactersLength) {
+			characters.length = icharacters;
+		}
+		if (inacharacters < nacharactersLength) {
+			nacharacters.length = inacharacters;
+		}
+	}
+
+	protected isCompatible(): boolean {
 		// Compatibility check
 		const parent = this._parent;
 		const uploaded = parent.uploaded;
@@ -125,18 +193,18 @@ export class EShapeTextImpl implements EShapeText {
 
 		// Character code check
 		const atlas = this.atlas;
-		const characters = atlas && atlas.characters;
-		if (characters != null) {
-			for (let i = 0, imax = value.length; i < imax; ++i) {
-				const char = value[i];
-				if (!characters.has(char)) {
-					return false;
-				}
-			}
-		} else {
+		if (atlas == null) {
 			return false;
 		}
+		const atlasCharacters = atlas.characters;
+		const nacharacters = this._nacharacters;
+		for (let i = 0, imax = nacharacters.length; i < imax; ++i) {
+			if (!atlasCharacters.has(nacharacters[i])) {
+				return false;
+			}
+		}
 
+		// Done
 		return true;
 	}
 
@@ -292,7 +360,8 @@ export class EShapeTextImpl implements EShapeText {
 			if (this._plength < length) {
 				this._plength = length;
 			}
-			if (this.isCompatible(value)) {
+			this.updateCharacters(value);
+			if (this.isCompatible()) {
 				isChangedUploaded = true;
 			} else {
 				this.atlas = undefined;

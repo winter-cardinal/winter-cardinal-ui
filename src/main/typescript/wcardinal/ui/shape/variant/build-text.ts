@@ -1,5 +1,4 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
-import { UtilCharacterIterator } from "../../util/util-character-iterator";
 import { EShape } from "../e-shape";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import {
@@ -14,6 +13,7 @@ import { EShapeTextDirection } from "../e-shape-text-direction";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
 import { toPackedI4x64 } from "./to-packed";
+import { Character } from "../../util/character";
 
 export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_VERTEX_COUNT_SHIFT = 2;
@@ -420,7 +420,7 @@ export const buildTextVertex = (
 	sizeY: number,
 	textAtlas: EShapeTextAtlas,
 	textSize: number,
-	textValue: string,
+	textCharacters: string[],
 	textStyle: EShapeTextStyle,
 	textAlignHorizontal: EShapeTextAlignHorizontal,
 	textAlignVertical: EShapeTextAlignVertical,
@@ -536,11 +536,10 @@ export const buildTextVertex = (
 	let lineWidth = 0;
 	let lineCount = 1;
 	const textAtlasCharacters = textAtlas.characters;
-	const iterator = UtilCharacterIterator.from(textValue);
 	let advancePrevious = 0;
-	while (iterator.hasNext()) {
-		const character = iterator.next();
-		if (character !== "\n") {
+	for (let i = 0, imax = textCharacters.length; i < imax; ++i) {
+		const character = textCharacters[i];
+		if (character !== Character.NEW_LINE) {
 			if (0 < advancePrevious) {
 				lineWidth += Math.max(0, advancePrevious + textSpacingHorizontal);
 			}
@@ -784,12 +783,11 @@ export const buildTextVertex = (
 
 	lineWidth = 0;
 	advancePrevious = 0;
-	iterator.position = 0;
 	lineCount = 0;
 	let iv = voffset * 2;
-	for (; iterator.hasNext(); iv += 8) {
-		const character = iterator.next();
-		if (character !== "\n") {
+	for (let i = 0, imax = textCharacters.length; i < imax; i += 1, iv += 8) {
+		const character = textCharacters[i];
+		if (character !== Character.NEW_LINE) {
 			const lineWidthPrevious = lineWidth;
 			if (0 < advancePrevious) {
 				lineWidth += Math.max(0, advancePrevious + textSpacingHorizontal);
@@ -807,7 +805,7 @@ export const buildTextVertex = (
 			if (data) {
 				const advance = data.advance;
 				if (lineWidthMaximum < (lineWidth + advance) * scaleX) {
-					const dots = textAtlasCharacters.get("...");
+					const dots = textAtlasCharacters.get(Character.DOTS);
 					if (dots) {
 						if (
 							1 < lineCount &&
@@ -847,7 +845,7 @@ export const buildTextVertex = (
 						);
 
 						for (iv += 8; true; iv += 8) {
-							if (iterator.hasNext() && iterator.advance()) {
+							if (i + 1 < imax && textCharacters[i + 1] !== Character.NEW_LINE) {
 								writeCharacterEmpty(
 									vertices,
 									uvs,
@@ -862,6 +860,7 @@ export const buildTextVertex = (
 									uvy3
 								);
 								lineCount += 1;
+								i += 1;
 							} else {
 								iv -= 8;
 								break;

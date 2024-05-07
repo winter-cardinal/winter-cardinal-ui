@@ -78,6 +78,8 @@ export interface EShapeText extends EShapeTextLike {
 
 	texture?: Texture; // Used for rendering and updated when rendered
 	atlas?: EShapeTextAtlas; // Used for rendering and updated when rendered
+	characters: string[];
+	nacharacters: string[];
 	world?: number[]; // Updated when rendered
 
 	readonly length: number;
