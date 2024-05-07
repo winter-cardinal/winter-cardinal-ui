@@ -85,6 +85,7 @@ export class EShapeTextImpl implements EShapeText {
 		this._fitting = false;
 		this._characters = [];
 		this._nacharacters = [];
+		this.updateCharacters(value);
 	}
 
 	get enable(): boolean {
