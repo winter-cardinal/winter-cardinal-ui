@@ -27,6 +27,8 @@ export class DynamicSDFFontAtlas {
 	protected _width: number;
 	protected _height: number;
 	protected _isDirty: boolean;
+	protected _isTouched: boolean;
+	protected _life: number;
 
 	constructor(fontFamily: string) {
 		this._id = `font-atlas:${fontFamily}`;
@@ -55,6 +57,8 @@ export class DynamicSDFFontAtlas {
 		}
 		this._characters = characters;
 		this._isDirty = true;
+		this._isTouched = false;
+		this._life = DynamicFontAtlasCharacter.LIFE;
 	}
 
 	get id(): string {
@@ -92,6 +96,7 @@ export class DynamicSDFFontAtlas {
 	}
 
 	begin(): void {
+		this._isTouched = false;
 		this._characters.forEach((character) => {
 			if (!(character.type & DynamicFontAtlasCharacterType.RESERVED)) {
 				character.ref = 0;
@@ -101,15 +106,27 @@ export class DynamicSDFFontAtlas {
 
 	end(): void {
 		const characters = this._characters;
-		characters.forEach((character, id) => {
-			if (character.ref <= 0 && !(character.type & DynamicFontAtlasCharacterType.RESERVED)) {
-				character.life -= 1;
-				if (character.life <= 0) {
-					characters.delete(id);
-					this._isDirty = true;
+		if (this._isTouched) {
+			this._life = DynamicFontAtlasCharacter.LIFE;
+			characters.forEach((character, id) => {
+				if (
+					character.ref <= 0 &&
+					!(character.type & DynamicFontAtlasCharacterType.RESERVED)
+				) {
+					character.life -= 1;
+					if (character.life <= 0) {
+						characters.delete(id);
+						this._isDirty = true;
+					}
 				}
+			});
+		} else {
+			this._life -= 1;
+			if (this._life <= 0 && 0 < characters.size) {
+				characters.clear();
+				this._isDirty = true;
 			}
-		});
+		}
 	}
 
 	protected newChar(
@@ -126,10 +143,14 @@ export class DynamicSDFFontAtlas {
 			const data = cs.get(nac);
 			if (data != null) {
 				data.ref += 1;
+				data.life = DynamicFontAtlasCharacter.LIFE;
 			} else {
 				cs.set(nac, this.newChar(nac, DynamicFontAtlasCharacterType.LETTER));
 				this._isDirty = true;
 			}
+		}
+		if (0 < characters.length) {
+			this._isTouched = true;
 		}
 	}
 
