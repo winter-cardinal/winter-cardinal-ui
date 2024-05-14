@@ -86,7 +86,7 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 		mappedPosition: IPoint,
 		series: DChartSeries<CHART>
 	): void {
-		this.update(container, position, mappedPosition);
+		this.update(container, position, mappedPosition, series);
 
 		const shape = this._shape;
 		if (shape) {
@@ -108,7 +108,8 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 	abstract update(
 		container: DChartSeriesContainer<CHART>,
 		position: IPoint,
-		mappedPosition: IPoint
+		mappedPosition: IPoint,
+		series: DChartSeries<CHART> | null
 	): boolean;
 
 	protected toTheme(options?: DChartSelectionShapeOptions<CHART>): DThemeChartSelectionShape {

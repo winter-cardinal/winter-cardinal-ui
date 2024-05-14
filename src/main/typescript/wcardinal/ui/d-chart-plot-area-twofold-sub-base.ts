@@ -20,6 +20,8 @@ import { Point, Rectangle } from "pixi.js";
 import { DChartRegion } from "./d-chart-region";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { EShapeContainer } from "./shape/e-shape-container";
+import { DView } from "./d-view";
+import { DBaseStateSet } from "./d-base-state-set";
 
 export interface DChartPlotAreaTwofoldSubParent<CHART extends DBase = DBase>
 	extends DChartPlotArea<CHART> {}
@@ -98,6 +100,14 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 
 	get axis(): DChartAxisContainer<CHART> {
 		return this._axis;
+	}
+
+	get state(): DBaseStateSet {
+		return this._plotArea.state;
+	}
+
+	get view(): DView {
+		return this._plotArea.view;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types

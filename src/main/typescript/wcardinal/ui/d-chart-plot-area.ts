@@ -8,6 +8,7 @@ import { DView, DViewOptions } from "./d-view";
 import { DApplicationTarget } from "./d-application-like";
 import { DChartRegion } from "./d-chart-region";
 import { DChartAxisPosition } from "./d-chart-axis-position";
+import { DBaseStateSet } from "./d-base-state-set";
 
 export interface DChartPlotAreaOptions<
 	CHART extends DBase = DBase,
@@ -29,6 +30,8 @@ export interface DChartPlotAreaLike<CHART extends DBase = DBase> extends DApplic
 	readonly series: DChartSeriesContainer<CHART>;
 	readonly container: DChartPlotAreaContainer;
 	readonly axis: DChartAxisContainer<CHART>;
+	readonly view: DView;
+	readonly state: DBaseStateSet;
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	on(name: string, callback: Function, context?: any): this;

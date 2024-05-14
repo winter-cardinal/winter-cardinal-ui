@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { InteractionEvent } from "pixi.js";
+import { InteractionEvent, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { UtilGestureMode } from "./util/util-gesture-mode";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
@@ -38,6 +38,7 @@ export class DViewGestureImpl implements DViewGesture {
 			UtilGestureModifier
 		);
 		if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
+			const work = new Point();
 			this._gestureUtil = new UtilGesture<DBase>({
 				touch: mode === UtilGestureMode.TOUCH,
 				modifier,
@@ -57,7 +58,7 @@ export class DViewGestureImpl implements DViewGesture {
 						y: number,
 						ds: number
 					): void => {
-						this.onGestureMove(toTarget(owner), dx, dy, x, y, ds);
+						this.onGestureMove(toTarget(owner), dx, dy, x, y, ds, work);
 					},
 					easing: {
 						end: (target): void => {
@@ -66,6 +67,9 @@ export class DViewGestureImpl implements DViewGesture {
 					},
 					stop: (target): void => {
 						this.onStop(target);
+					},
+					tap: (target, e): void => {
+						this.onTap(target, e);
 					}
 				}
 			});
@@ -88,15 +92,21 @@ export class DViewGestureImpl implements DViewGesture {
 		parent.emit("gesturestop", target, parent);
 	}
 
+	protected onTap(target: DBase, e: InteractionEvent): void {
+		const parent = this._parent;
+		parent.emit("gesturetap", target, e, parent);
+	}
+
 	protected onGestureMove(
 		target: DViewTarget | null,
 		dx: number,
 		dy: number,
 		x: number,
 		y: number,
-		ds: number
+		ds: number,
+		work: Point
 	): void {
-		if (target) {
+		if (target != null) {
 			// Scale
 			const parent = this._parent;
 			const oldScale = target.scale;
@@ -113,6 +123,12 @@ export class DViewGestureImpl implements DViewGesture {
 			newScaleY = scaleRatio * oldScaleY;
 
 			// Position
+			const targetParent = target.parent;
+			if (targetParent != null) {
+				targetParent.toLocal(work.set(x, y), undefined, work);
+				x = work.x;
+				y = work.y;
+			}
 			const cx = x - dx;
 			const cy = y - dy;
 			const position = target.position;

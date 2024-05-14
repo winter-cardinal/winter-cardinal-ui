@@ -4,18 +4,15 @@
  */
 
 import { InteractionEvent, utils } from "pixi.js";
-import { DApplicationTarget } from "../d-application-like";
 import { DApplications } from "../d-applications";
-import { DBaseStateSet } from "../d-base-state-set";
 import { UtilGestureModifier } from "./util-gesture-modifier";
 import { UtilGestureModifiers } from "./util-gesture-modifiers";
 import { UtilGestureData } from "./util-gesture-data";
 import { UtilGestureEasing, UtilGestureEasingOptions } from "./util-gesture-easing";
 import { UtilPointerEvent } from "./util-pointer-event";
+import { UtilGestureTap, UtilGestureTapOnOptions, UtilGestureTapOptions } from "./util-gesture-tap";
+import { UtilGestureTarget } from "./util-gesture-target";
 
-export interface UtilGestureTarget extends DApplicationTarget {
-	state: DBaseStateSet;
-}
 export type UtilGestureOnMove<TARGET> = (
 	target: TARGET,
 	dx: number,
@@ -45,7 +42,7 @@ export interface UtilGestureOnEasingOptions<TARGET> {
 	end?: UtilGestureOnEasingEnd<TARGET>;
 }
 
-export interface UtilGestureOnOptions<TARGET> {
+export interface UtilGestureOnOptions<TARGET> extends UtilGestureTapOnOptions<TARGET> {
 	start?: UtilGestureOnStart<TARGET>;
 	move?: UtilGestureOnMove<TARGET>;
 	end?: UtilGestureOnEnd<TARGET>;
@@ -77,6 +74,11 @@ export interface UtilGestureOptions<TARGET> {
 	/** Binds the pointerdown event of the given target. */
 	bind?: TARGET & utils.EventEmitter;
 
+	/**
+	 * Tap options
+	 */
+	tap?: UtilGestureTapOptions<TARGET>;
+
 	/** Event options */
 	on?: UtilGestureOnOptions<TARGET>;
 }
@@ -96,6 +98,8 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 	protected _unused: Array<UtilGestureData<TARGET>>;
 	protected _used: Map<TARGET, UtilGestureData<TARGET>>;
+
+	protected _tap: UtilGestureTap<TARGET>;
 
 	constructor(options: UtilGestureOptions<TARGET>) {
 		const on = options.on;
@@ -120,6 +124,8 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 		this._unused = [];
 		this._used = new Map<TARGET, UtilGestureData<TARGET>>();
+
+		this._tap = new UtilGestureTap(options.on, options.tap);
 
 		const bind = options.bind;
 		if (bind != null) {
@@ -201,10 +207,10 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 	onDown(target: TARGET, e: InteractionEvent): void {
 		if (this._touch && !this.isTouch(e)) {
-			return;
+			return this._tap.onDown(target, e);
 		}
 		if (!this._checkerStart(e, this._modifier, target)) {
-			return;
+			return this._tap.onDown(target, e);
 		}
 		const layer = DApplications.getLayer(target);
 		if (layer == null) {
@@ -223,6 +229,7 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 			const data = this.newData(target);
 			data.target = target;
+			data.distance = 0;
 			target.state.isGesturing = true;
 
 			// Interaction manager
@@ -283,6 +290,9 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 		const epsilon = 0.00001;
 		const ds = epsilon < oldScale && epsilon < newScale ? newScale / oldScale : 1;
 
+		// Distance
+		data.distance += Math.abs(dx) + Math.abs(dy);
+
 		// Easing
 		const easing = data.easing;
 		if (easing) {
@@ -332,6 +342,9 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 			onEnd(target);
 		}
 
+		// Tap
+		this._tap.end(target, data, e);
+
 		// Start the Easing
 		const onEasingStart = this._onEasingStart;
 		if (onEasingStart) {
@@ -371,28 +384,34 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 		const x = center.x + dx;
 		const y = center.y + dy;
 		center.set(x, y);
-		onMove(data.target!, dx, dy, x, y, ds);
+		onMove(target, dx, dy, x, y, ds);
 	}
 
 	protected onEasingEnd(data: UtilGestureData<TARGET>): void {
 		const target = data.target;
 		this.deleteData(data);
-		const onEasingEnd = this._onEasingEnd;
-		if (onEasingEnd && target != null) {
-			onEasingEnd(target);
+		if (target != null) {
+			const onEasingEnd = this._onEasingEnd;
+			if (onEasingEnd) {
+				onEasingEnd(target);
+			}
 		}
 	}
 
 	stop(target: TARGET): void {
+		this._tap.stop(target);
+
 		const data = this._used.get(target);
-		if (data == null) {
-			return;
-		}
-		data.easing?.stop();
-		this.deleteData(data);
-		const onStop = this._onStop;
-		if (onStop) {
-			onStop(target);
+		if (data != null) {
+			const easing = data.easing;
+			if (easing != null) {
+				easing.stop();
+			}
+			this.deleteData(data);
+			const onStop = this._onStop;
+			if (onStop) {
+				onStop(target);
+			}
 		}
 	}
 }

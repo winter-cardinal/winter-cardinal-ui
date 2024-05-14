@@ -193,8 +193,9 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 			);
 			container.plotArea.container.localTransform.apply(work, work);
 
-			const isGridlineUpdated = this._gridline.update(container, position, work);
-			const isMarkerUpdated = this._marker.update(container, position, work);
+			const series = this._series;
+			const isGridlineUpdated = this._gridline.update(container, position, work, series);
+			const isMarkerUpdated = this._marker.update(container, position, work, series);
 			return isGridlineUpdated || isMarkerUpdated;
 		}
 		return false;

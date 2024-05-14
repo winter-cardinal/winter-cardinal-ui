@@ -110,7 +110,12 @@ export class DDiagram<
 	protected onDown(e: InteractionEvent): void {
 		const canvas = this.canvas;
 		if (canvas) {
-			super.onDown(e, canvas.onShapeDown(e));
+			const target = e.target;
+			if (target === this || target === canvas) {
+				super.onDown(e, canvas.onShapeDown(e));
+			} else {
+				super.onDown(e);
+			}
 		} else {
 			super.onDown(e);
 		}
@@ -169,7 +174,10 @@ export class DDiagram<
 	protected onShapeRightDown(e: InteractionEvent): void {
 		const canvas = this.canvas;
 		if (canvas) {
-			canvas.onShapeRightDown(e);
+			const target = e.target;
+			if (target === this || target === canvas) {
+				canvas.onShapeRightDown(e);
+			}
 		}
 	}
 

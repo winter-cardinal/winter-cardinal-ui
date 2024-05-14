@@ -14,6 +14,7 @@ export class UtilGestureData<TARGET> {
 	center: Point;
 	scale: number;
 	time: number;
+	distance: number;
 	onMove?: (e: InteractionEvent) => void;
 	onEnd?: (e: InteractionEvent) => void;
 	easing?: UtilGestureEasing;
@@ -23,6 +24,7 @@ export class UtilGestureData<TARGET> {
 		this.center = new Point();
 		this.scale = 0;
 		this.time = 0;
+		this.distance = 0;
 	}
 
 	start(e: InteractionEvent): void {

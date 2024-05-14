@@ -57,10 +57,11 @@ export class DChartSelectionContainerImpl<CHART extends DBase = DBase>
 	update(
 		container: DChartSeriesContainer<CHART>,
 		position: IPoint,
-		mappedPosition: IPoint
+		mappedPosition: IPoint,
+		series: DChartSeries<CHART> | null
 	): boolean {
-		const isXUpdated = this._x.update(container, position, mappedPosition);
-		const isYUpdated = this._y.update(container, position, mappedPosition);
+		const isXUpdated = this._x.update(container, position, mappedPosition, series);
+		const isYUpdated = this._y.update(container, position, mappedPosition, series);
 		return isXUpdated || isYUpdated;
 	}
 }

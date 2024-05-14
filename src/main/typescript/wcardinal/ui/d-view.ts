@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
+import { IPoint, InteractionEvent, utils } from "pixi.js";
 import { DBase } from "./d-base";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { DThemeViewGesture, DViewGesture, DViewGestureOptions } from "./d-view-gesture";
@@ -137,6 +137,16 @@ export interface DViewEvents<EMITTER> {
 	gesturestop(target: DBase, emitter: EMITTER): void;
 
 	/**
+	 * Triggered when tapped.
+	 * Unlike the tap event of PixiJS, this event is emitted only when the gesture is not performed.
+	 *
+	 * @param target an operation target
+	 * @param target an event data
+	 * @param emitter an emitter
+	 */
+	gesturetap(target: DBase, e: InteractionEvent, emitter: EMITTER): void;
+
+	/**
 	 * Triggered when a transform starts.
 	 *
 	 * @param target an operation target
@@ -232,7 +242,7 @@ export interface DThemeView extends DThemeViewGesture {
 	getZoomKeepRatio(): boolean;
 }
 
-export interface DView {
+export interface DView extends utils.EventEmitter {
 	readonly gesture: DViewGesture;
 	scale: DViewTargetPoint;
 	position: DViewTargetPoint;

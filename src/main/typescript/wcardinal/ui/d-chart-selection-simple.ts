@@ -13,13 +13,21 @@ import { DChartSelectionSubImpl } from "./d-chart-selection-sub-impl";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { toEnum } from "./util/to-enum";
+import { UtilGestureModifiers } from "./util/util-gesture-modifiers";
+import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+
+export interface DChartSelectionSimpleDismissOptions {
+	enable?: boolean;
+	modifier?: keyof typeof UtilGestureModifier | UtilGestureModifier;
+}
 
 export interface DChartSelectionSimpleOptions<CHART extends DBase = DBase, EMITTER = any> {
 	selected?: DChartSelectionSubOptions<CHART>;
 	hovered?: DChartSelectionSubOptions<CHART>;
 	point?: DChartSelectionPoint | keyof typeof DChartSelectionPoint;
 	on?: DBaseOnOptions<EMITTER>;
+	dismiss?: DChartSelectionSimpleDismissOptions;
 }
 
 export class DChartSelectionSimple<CHART extends DBase = DBase>
@@ -31,9 +39,10 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 	protected _container: DChartSeriesContainer<CHART> | null;
 	protected _selected: DChartSelectionSub<CHART>;
 	protected _hovered: DChartSelectionSub<CHART>;
+	protected _dismiss?: UtilGestureModifier;
 
-	protected _onClickBound!: (e: InteractionEvent) => void;
-	protected _onMoveBound!: (e: InteractionEvent) => void;
+	protected _onMoveBound: (e: InteractionEvent) => void;
+	protected _onTapBound: (target: unknown, e: InteractionEvent) => void;
 
 	constructor(options?: DChartSelectionSimpleOptions<CHART>) {
 		super();
@@ -42,6 +51,7 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		const point = toEnum(options?.point ?? DChartSelectionPoint.CLOSER, DChartSelectionPoint);
 		this._selected = this.newSelected(point, options?.selected);
 		this._hovered = this.newHovered(point, options?.hovered);
+		this._dismiss = this.toDismiss(options);
 
 		// Events
 		const on = options?.on;
@@ -53,15 +63,30 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 				}
 			}
 		}
-
-		//
 		this._onMoveBound = (e: InteractionEvent): void => {
 			this.onMove(e);
 		};
-
-		this._onClickBound = (e: InteractionEvent): void => {
-			this.onClick(e);
+		this._onTapBound = (target: unknown, e: InteractionEvent): void => {
+			this.onTap(e);
 		};
+	}
+
+	protected toDismiss(
+		options?: DChartSelectionSimpleOptions<CHART>
+	): UtilGestureModifier | undefined {
+		if (options != null) {
+			const dismiss = options.dismiss;
+			if (dismiss != null) {
+				if (dismiss.enable === false) {
+					return undefined;
+				}
+				return toEnum(
+					dismiss.modifier ?? UtilGestureModifier.NOT_NONE,
+					UtilGestureModifier
+				);
+			}
+		}
+		return UtilGestureModifier.NOT_NONE;
 	}
 
 	protected newSelected(
@@ -137,14 +162,20 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		return options;
 	}
 
-	protected onClick(e: InteractionEvent): void {
+	protected onTap(e: InteractionEvent): void {
 		const container = this._container;
-		if (container && e.target === container.plotArea) {
+		if (container == null) {
+			return;
+		}
+		const dismiss = this._dismiss;
+		const selected = this._selected;
+		if (dismiss != null && UtilGestureModifiers.match(e, dismiss)) {
+			selected.unset();
+		} else {
 			const result = DChartSelectionSimple.WORK_SELECT;
 			const global = e.data.global;
 			const series = container.calcHitPoint(global.x, global.y, result);
-			const selected = this._selected;
-			if (series) {
+			if (series != null) {
 				selected.set(series, result);
 			} else {
 				selected.unset();
@@ -154,20 +185,25 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 
 	protected onMove(e: InteractionEvent): void {
 		const container = this._container;
-		if (container) {
-			const hovered = this._hovered;
-			if (e.target === container.plotArea) {
-				const result = DChartSelectionSimple.WORK_SELECT;
-				const global = e.data.global;
-				const series = container.calcHitPoint(global.x, global.y, result);
-				if (series) {
-					hovered.set(series, result);
-				} else {
-					hovered.unset();
-				}
+		if (container == null) {
+			return;
+		}
+		const plotArea = container.plotArea;
+		if (plotArea.state.isGesturing) {
+			return;
+		}
+		const hovered = this._hovered;
+		if (e.target === container.plotArea) {
+			const result = DChartSelectionSimple.WORK_SELECT;
+			const global = e.data.global;
+			const series = container.calcHitPoint(global.x, global.y, result);
+			if (series) {
+				hovered.set(series, result);
 			} else {
 				hovered.unset();
 			}
+		} else {
+			hovered.unset();
 		}
 	}
 
@@ -177,15 +213,16 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		this._hovered.bind(container);
 		const plotArea = container.plotArea;
 		plotArea.on(UtilPointerEvent.move, this._onMoveBound);
-		plotArea.on(UtilPointerEvent.tap, this._onClickBound);
+		plotArea.view.on("gesturetap", this._onTapBound);
 	}
 
 	unbind(): void {
 		const container = this._container;
 		this._container = null;
-		if (container) {
+		if (container != null) {
 			const plotArea = container.plotArea;
 			plotArea.off(UtilPointerEvent.move, this._onMoveBound);
+			plotArea.view.off("gesturetap", this._onTapBound);
 		}
 
 		this._selected.unbind();

@@ -58,6 +58,8 @@ export * from "./util-gesture-easing";
 export * from "./util-gesture-mode";
 export * from "./util-gesture-modifier";
 export * from "./util-gesture-modifiers";
+export * from "./util-gesture-tap";
+export * from "./util-gesture-target";
 export * from "./util-gesture";
 export * from "./util-extract";
 export * from "./util-extractor-pixels";

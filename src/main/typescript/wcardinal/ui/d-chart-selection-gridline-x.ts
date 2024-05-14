@@ -7,6 +7,7 @@ import { IPoint } from "pixi.js";
 import { DBase } from "./d-base";
 import { DChartSelectionShapeBase } from "./d-chart-selection-shape-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
+import { DChartSeries } from "./d-chart-series";
 
 export class DChartSelectionGridlineX<
 	CHART extends DBase = DBase
@@ -14,7 +15,8 @@ export class DChartSelectionGridlineX<
 	override update(
 		container: DChartSeriesContainer<CHART>,
 		position: IPoint,
-		mappedPosition: IPoint
+		mappedPosition: IPoint,
+		series: DChartSeries<CHART> | null
 	): boolean {
 		const shape = this._shape;
 		if (shape) {
