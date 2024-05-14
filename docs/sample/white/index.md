@@ -74,6 +74,8 @@
     * [Resizing](./chart/resize.html)
     * Selection
         * [Basics](./chart\selection/basics.html)
+        * [Dismiss (Disabled)](./chart\selection/dismiss-enable.html)
+        * [Dismiss (Modifier)](./chart\selection/dismiss-modifier.html)
         * [Gridline Shape](./chart\selection/gridline-shape.html)
         * [Gridline Style](./chart\selection/gridline-style.html)
         * [Hovering Only](./chart\selection/hovering-only.html)
