@@ -14,7 +14,18 @@ import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
-export type EShapeActionValueOpenSerializedLegacy = [
+export type EShapeActionValueOpenSerializedLegacy1 = [
+	typeof EShapeActionValueType.OPEN,
+	number,
+	(
+		| typeof EShapeActionValueOpenType.DIAGRAM_LEGACY
+		| typeof EShapeActionValueOpenType.PAGE_LEGACY
+		| typeof EShapeActionValueOpenType.PAGE_INPLACE_LEGACY
+	),
+	number
+];
+
+export type EShapeActionValueOpenSerializedLegacy2 = [
 	typeof EShapeActionValueType.OPEN,
 	number,
 	(
@@ -37,7 +48,8 @@ export type EShapeActionValueOpenSerializedNew = [
 
 export type EShapeActionValueOpenSerialized =
 	| EShapeActionValueOpenSerializedNew
-	| EShapeActionValueOpenSerializedLegacy;
+	| EShapeActionValueOpenSerializedLegacy1
+	| EShapeActionValueOpenSerializedLegacy2;
 
 export class EShapeActionValueOpen extends EShapeActionValueSubtyped<
 	typeof EShapeActionValueOpenType.DIAGRAM | typeof EShapeActionValueOpenType.PAGE
@@ -100,32 +112,33 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<
 	protected static toSubType(
 		serialized: EShapeActionValueOpenSerialized
 	): typeof EShapeActionValueOpenType.DIAGRAM | typeof EShapeActionValueOpenType.PAGE {
-		if (serialized.length === 6) {
-			switch (serialized[2]) {
-				case EShapeActionValueOpenType.DIAGRAM_LEGACY:
-					return EShapeActionValueOpenType.DIAGRAM;
-				case EShapeActionValueOpenType.PAGE_LEGACY:
-					return EShapeActionValueOpenType.PAGE;
-				case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
-					return EShapeActionValueOpenType.PAGE;
-			}
-		} else {
-			return serialized[2];
+		switch (serialized[2]) {
+			case EShapeActionValueOpenType.DIAGRAM_LEGACY:
+				return EShapeActionValueOpenType.DIAGRAM;
+			case EShapeActionValueOpenType.PAGE_LEGACY:
+				return EShapeActionValueOpenType.PAGE;
+			case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
+				return EShapeActionValueOpenType.PAGE;
+			case EShapeActionValueOpenType.DIAGRAM:
+				return EShapeActionValueOpenType.DIAGRAM;
+			case EShapeActionValueOpenType.PAGE:
+				return EShapeActionValueOpenType.PAGE;
 		}
+		return EShapeActionValueOpenType.DIAGRAM;
 	}
 
 	protected static inNewWindow(serialized: EShapeActionValueOpenSerialized): boolean {
-		if (serialized.length === 6) {
-			switch (serialized[2]) {
-				case EShapeActionValueOpenType.DIAGRAM_LEGACY:
-					return false;
-				case EShapeActionValueOpenType.PAGE_LEGACY:
-					return true;
-				case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
-					return false;
-			}
-		} else {
-			return !!serialized[4];
+		switch (serialized[2]) {
+			case EShapeActionValueOpenType.DIAGRAM_LEGACY:
+				return false;
+			case EShapeActionValueOpenType.PAGE_LEGACY:
+				return true;
+			case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
+				return false;
+			case EShapeActionValueOpenType.DIAGRAM:
+			case EShapeActionValueOpenType.PAGE:
+				return !!serialized[4];
 		}
+		return false;
 	}
 }
