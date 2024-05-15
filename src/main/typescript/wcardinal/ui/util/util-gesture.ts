@@ -207,7 +207,7 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 	onDown(target: TARGET, e: InteractionEvent): void {
 		if (this._touch && !this.isTouch(e)) {
-			return this._tap.onDown(target, e);
+			return;
 		}
 		if (!this._checkerStart(e, this._modifier, target)) {
 			return this._tap.onDown(target, e);
@@ -247,6 +247,9 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 			// Event handler
 			data.bind(e);
+
+			// Tap
+			this._tap.start(target, data, e);
 		}
 	}
 

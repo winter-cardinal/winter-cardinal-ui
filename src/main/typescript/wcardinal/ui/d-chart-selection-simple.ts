@@ -17,9 +17,19 @@ import { UtilGestureModifiers } from "./util/util-gesture-modifiers";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DChartSelectionSimpleDismissOptions {
+export interface DChartSelectionSimpleDismissTapOptions {
 	enable?: boolean;
 	modifier?: keyof typeof UtilGestureModifier | UtilGestureModifier;
+}
+
+export interface DChartSelectionSimpleDismissLongPressOptions {
+	enable?: boolean;
+}
+
+export interface DChartSelectionSimpleDismissOptions {
+	enable?: boolean;
+	tap?: DChartSelectionSimpleDismissTapOptions;
+	longPress?: DChartSelectionSimpleDismissLongPressOptions;
 }
 
 export interface DChartSelectionSimpleOptions<CHART extends DBase = DBase, EMITTER = any> {
@@ -28,6 +38,21 @@ export interface DChartSelectionSimpleOptions<CHART extends DBase = DBase, EMITT
 	point?: DChartSelectionPoint | keyof typeof DChartSelectionPoint;
 	on?: DBaseOnOptions<EMITTER>;
 	dismiss?: DChartSelectionSimpleDismissOptions;
+}
+
+export interface DChartSelectionSimpleDismiss {
+	enable: boolean;
+	tap: DChartSelectionSimpleDismissTap;
+	longPress: DChartSelectionSimpleDismissLongPress;
+}
+
+export interface DChartSelectionSimpleDismissTap {
+	enable: boolean;
+	modifier: UtilGestureModifier;
+}
+
+export interface DChartSelectionSimpleDismissLongPress {
+	enable: boolean;
 }
 
 export class DChartSelectionSimple<CHART extends DBase = DBase>
@@ -39,10 +64,11 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 	protected _container: DChartSeriesContainer<CHART> | null;
 	protected _selected: DChartSelectionSub<CHART>;
 	protected _hovered: DChartSelectionSub<CHART>;
-	protected _dismiss?: UtilGestureModifier;
+	protected _dismiss: DChartSelectionSimpleDismiss;
 
 	protected _onMoveBound: (e: InteractionEvent) => void;
 	protected _onTapBound: (target: unknown, e: InteractionEvent) => void;
+	protected _onLongPressBound: (target: unknown, e: InteractionEvent) => void;
 
 	constructor(options?: DChartSelectionSimpleOptions<CHART>) {
 		super();
@@ -69,24 +95,46 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		this._onTapBound = (target: unknown, e: InteractionEvent): void => {
 			this.onTap(e);
 		};
+		this._onLongPressBound = (target: unknown, e: InteractionEvent): void => {
+			this.onLongPress(e);
+		};
 	}
 
 	protected toDismiss(
 		options?: DChartSelectionSimpleOptions<CHART>
-	): UtilGestureModifier | undefined {
+	): DChartSelectionSimpleDismiss {
 		if (options != null) {
 			const dismiss = options.dismiss;
 			if (dismiss != null) {
-				if (dismiss.enable === false) {
-					return undefined;
-				}
-				return toEnum(
-					dismiss.modifier ?? UtilGestureModifier.NOT_NONE,
-					UtilGestureModifier
-				);
+				return {
+					enable: dismiss.enable ?? true,
+					tap: this.toDismissTap(dismiss.tap),
+					longPress: this.toDismissLongPress(dismiss.longPress)
+				};
 			}
 		}
-		return UtilGestureModifier.NOT_NONE;
+		return {
+			enable: true,
+			tap: this.toDismissTap(),
+			longPress: this.toDismissLongPress()
+		};
+	}
+
+	protected toDismissTap(
+		options?: DChartSelectionSimpleDismissTapOptions
+	): DChartSelectionSimpleDismissTap {
+		return {
+			enable: options?.enable ?? true,
+			modifier: toEnum(options?.modifier ?? UtilGestureModifier.NOT_NONE, UtilGestureModifier)
+		};
+	}
+
+	protected toDismissLongPress(
+		options?: DChartSelectionSimpleDismissLongPressOptions
+	): DChartSelectionSimpleDismissLongPress {
+		return {
+			enable: options?.enable ?? true
+		};
 	}
 
 	protected newSelected(
@@ -169,7 +217,11 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		}
 		const dismiss = this._dismiss;
 		const selected = this._selected;
-		if (dismiss != null && UtilGestureModifiers.match(e, dismiss)) {
+		if (
+			dismiss.enable &&
+			dismiss.tap.enable &&
+			UtilGestureModifiers.match(e, dismiss.tap.modifier)
+		) {
 			selected.unset();
 		} else {
 			const result = DChartSelectionSimple.WORK_SELECT;
@@ -180,6 +232,17 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 			} else {
 				selected.unset();
 			}
+		}
+	}
+
+	protected onLongPress(e: InteractionEvent): void {
+		const container = this._container;
+		if (container == null) {
+			return;
+		}
+		const dismiss = this._dismiss;
+		if (dismiss.enable && dismiss.longPress.enable) {
+			this._selected.unset();
 		}
 	}
 
@@ -212,8 +275,10 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		this._selected.bind(container);
 		this._hovered.bind(container);
 		const plotArea = container.plotArea;
+		const plotAreaView = plotArea.view;
 		plotArea.on(UtilPointerEvent.move, this._onMoveBound);
-		plotArea.view.on("gesturetap", this._onTapBound);
+		plotAreaView.on("gesturetap", this._onTapBound);
+		plotAreaView.on("gesturelongpress", this._onLongPressBound);
 	}
 
 	unbind(): void {
@@ -221,8 +286,10 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		this._container = null;
 		if (container != null) {
 			const plotArea = container.plotArea;
+			const plotAreaView = plotArea.view;
 			plotArea.off(UtilPointerEvent.move, this._onMoveBound);
-			plotArea.view.off("gesturetap", this._onTapBound);
+			plotAreaView.off("gesturetap", this._onTapBound);
+			plotAreaView.off("gesturelongpress", this._onLongPressBound);
 		}
 
 		this._selected.unbind();

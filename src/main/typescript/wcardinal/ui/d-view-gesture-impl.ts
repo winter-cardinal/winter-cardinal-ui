@@ -70,6 +70,9 @@ export class DViewGestureImpl implements DViewGesture {
 					},
 					tap: (target, e): void => {
 						this.onTap(target, e);
+					},
+					longpress: (target, e): void => {
+						this.onLongPress(target, e);
 					}
 				}
 			});
@@ -95,6 +98,11 @@ export class DViewGestureImpl implements DViewGesture {
 	protected onTap(target: DBase, e: InteractionEvent): void {
 		const parent = this._parent;
 		parent.emit("gesturetap", target, e, parent);
+	}
+
+	protected onLongPress(target: DBase, e: InteractionEvent): void {
+		const parent = this._parent;
+		parent.emit("gesturelongpress", target, e, parent);
 	}
 
 	protected onGestureMove(

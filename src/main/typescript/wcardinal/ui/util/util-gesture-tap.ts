@@ -10,26 +10,60 @@ import { UtilPointerEvent } from "./util-pointer-event";
 import { UtilGestureTarget } from "./util-gesture-target";
 
 export type UtilGestureOnTap<TARGET> = (target: TARGET, e: InteractionEvent) => void;
+export type UtilGestureOnLongPress<TARGET> = (target: TARGET, e: InteractionEvent) => void;
 
 export interface UtilGestureTapOnOptions<TARGET> {
 	tap?: UtilGestureOnTap<TARGET>;
+	longpress?: UtilGestureOnLongPress<TARGET>;
+}
+
+export interface UtilGestureTapThresholdOptions<TARGET> {
+	distance?: number;
+	long?: number;
+}
+
+export interface UtilGestureTapThreshold<TARGET> {
+	distance: number;
+	long: number;
 }
 
 export interface UtilGestureTapOptions<TARGET> {
-	threshold?: number;
+	threshold?: UtilGestureTapThresholdOptions<TARGET>;
 }
 
 export class UtilGestureTap<TARGET extends UtilGestureTarget> {
 	protected _onTap?: UtilGestureOnTap<TARGET>;
-	protected _threshold: number;
+	protected _onLongPress?: UtilGestureOnTap<TARGET>;
+	protected _threshold: UtilGestureTapThreshold<TARGET>;
 	protected _unused: Array<UtilGestureData<TARGET>>;
 	protected _used: Map<TARGET, UtilGestureData<TARGET>>;
 
 	constructor(on?: UtilGestureTapOnOptions<TARGET>, options?: UtilGestureTapOptions<TARGET>) {
-		this._onTap = on?.tap;
-		this._threshold = options?.threshold ?? 10;
+		if (on != null) {
+			this._onTap = on.tap;
+			this._onLongPress = on.longpress;
+		}
+		this._threshold = this.toThreshold(options);
 		this._unused = [];
 		this._used = new Map<TARGET, UtilGestureData<TARGET>>();
+	}
+
+	protected toThreshold(
+		options?: UtilGestureTapOptions<TARGET>
+	): UtilGestureTapThreshold<TARGET> {
+		if (options != null) {
+			const threshold = options.threshold;
+			if (threshold != null) {
+				return {
+					distance: threshold.distance ?? 10,
+					long: threshold.long ?? 500
+				};
+			}
+		}
+		return {
+			distance: 10,
+			long: 500
+		};
 	}
 
 	protected newData(target: TARGET): UtilGestureData<TARGET> {
@@ -55,6 +89,11 @@ export class UtilGestureTap<TARGET extends UtilGestureTarget> {
 		const target = data.target;
 		if (target) {
 			if (this._used.delete(target)) {
+				const timeoutId = data.timeoutId;
+				if (timeoutId != null) {
+					data.timeoutId = undefined;
+					window.clearTimeout(timeoutId);
+				}
 				data.target = undefined;
 				data.pointers.clear();
 				this._unused.push(data);
@@ -75,7 +114,7 @@ export class UtilGestureTap<TARGET extends UtilGestureTarget> {
 	}
 
 	onDown(target: TARGET, e: InteractionEvent): void {
-		if (this._onTap == null) {
+		if (this._onTap == null && this._onLongPress == null) {
 			return;
 		}
 		const layer = DApplications.getLayer(target);
@@ -100,6 +139,9 @@ export class UtilGestureTap<TARGET extends UtilGestureTarget> {
 
 			// Event handler
 			data.bind(e);
+
+			// Long press
+			this.start(target, data, e);
 		}
 	}
 
@@ -162,10 +204,42 @@ export class UtilGestureTap<TARGET extends UtilGestureTarget> {
 		this.deleteData(data);
 	}
 
+	protected onLongPress(
+		target: TARGET,
+		data: UtilGestureData<TARGET>,
+		e: InteractionEvent
+	): void {
+		data.timeoutId = undefined;
+		if (data.distance < this._threshold.distance) {
+			data.distance = this._threshold.distance;
+			const onLongPress = this._onLongPress;
+			if (onLongPress != null) {
+				onLongPress(target, e);
+			}
+		}
+	}
+
+	start(target: TARGET, data: UtilGestureData<TARGET>, e: InteractionEvent): void {
+		const thresholdLong = this._threshold.long;
+		if (0 <= thresholdLong) {
+			data.timeoutId = window.setTimeout(() => {
+				this.onLongPress(target, data, e);
+			}, thresholdLong);
+		}
+	}
+
 	end(target: TARGET, data: UtilGestureData<TARGET>, e: InteractionEvent): void {
-		const onTap = this._onTap;
-		if (onTap && data.distance < this._threshold) {
-			onTap(target, e);
+		const timeoutId = data.timeoutId;
+		if (timeoutId != null) {
+			data.timeoutId = undefined;
+			window.clearTimeout(timeoutId);
+		}
+
+		if (data.distance < this._threshold.distance) {
+			const onTap = this._onTap;
+			if (onTap) {
+				onTap(target, e);
+			}
 		}
 	}
 

@@ -15,6 +15,7 @@ export class UtilGestureData<TARGET> {
 	scale: number;
 	time: number;
 	distance: number;
+	timeoutId?: number;
 	onMove?: (e: InteractionEvent) => void;
 	onEnd?: (e: InteractionEvent) => void;
 	easing?: UtilGestureEasing;

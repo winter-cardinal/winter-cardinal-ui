@@ -147,6 +147,16 @@ export interface DViewEvents<EMITTER> {
 	gesturetap(target: DBase, e: InteractionEvent, emitter: EMITTER): void;
 
 	/**
+	 * Triggered when pressed long.
+	 * Unlike the tap event of PixiJS, this event is emitted only when the gesture is not performed.
+	 *
+	 * @param target an operation target
+	 * @param target an event data
+	 * @param emitter an emitter
+	 */
+	gesturelongpress(target: DBase, e: InteractionEvent, emitter: EMITTER): void;
+
+	/**
 	 * Triggered when a transform starts.
 	 *
 	 * @param target an operation target
