@@ -3,7 +3,7 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
 import { DChartPlotAreaContainer } from "./d-chart-plot-area-container";
 import { DChartAxisContainer } from "./d-chart-axis-container";
-import { Rectangle } from "pixi.js";
+import { DisplayObject, IPoint, Point, Rectangle } from "pixi.js";
 import { DView, DViewOptions } from "./d-view";
 import { DApplicationTarget } from "./d-application-like";
 import { DChartRegion } from "./d-chart-region";
@@ -46,6 +46,7 @@ export interface DChartPlotAreaLike<CHART extends DBase = DBase> extends DApplic
 	getSelectionBoundsX(): Rectangle;
 	getSelectionBoundsY(): Rectangle;
 	getContainerBounds(): Rectangle;
+	toLocal(position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean): Point;
 }
 
 export interface DChartPlotArea<CHART extends DBase = DBase> extends DBase {

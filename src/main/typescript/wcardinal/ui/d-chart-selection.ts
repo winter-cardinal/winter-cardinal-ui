@@ -20,7 +20,7 @@ export type DChartSelectionPoint = (typeof DChartSelectionPoint)[keyof typeof DC
 
 export type DChartSelectionStyle<CHART extends DBase = DBase> = (
 	shape: EShape,
-	series: DChartSeries<CHART>
+	series: DChartSeries<CHART> | null
 ) => void;
 
 export interface DChartSelection<CHART extends DBase = DBase> extends utils.EventEmitter {

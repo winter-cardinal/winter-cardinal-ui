@@ -16,7 +16,7 @@ import {
 	DChartPlotAreaTwofoldSub,
 	DChartPlotAreaTwofoldSubOptions
 } from "./d-chart-plot-area-twofold-sub";
-import { Point, Rectangle } from "pixi.js";
+import { DisplayObject, IPoint, Point, Rectangle } from "pixi.js";
 import { DChartRegion } from "./d-chart-region";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { EShapeContainer } from "./shape/e-shape-container";
@@ -147,6 +147,10 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 
 	toBoundsDirty(): void {
 		this._isContainerBoundsDirty = true;
+	}
+
+	toLocal(position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean): Point {
+		return this._plotArea.toLocal(position, from, result, skipUpdate);
 	}
 
 	abstract getContainerBounds(): PIXI.Rectangle;

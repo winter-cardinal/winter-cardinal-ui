@@ -31,13 +31,6 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		const style = (shape, series) => {
-			const seriesShape = series.shape;
-			if (seriesShape) {
-				shape.stroke.color = seriesShape.stroke.color;
-			}
-		};
-
 		const chart = new wcardinal.ui.DChart({
 			parent: application.stage,
 			x: 100, y: 50,

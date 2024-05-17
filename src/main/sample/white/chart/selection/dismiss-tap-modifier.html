@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dismiss (Disabled)</title>
+	<title>Dismiss (Tap, Modifier)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -48,19 +48,21 @@
 					],
 					selection: new wcardinal.ui.DChartSelectionSimple({
 						dismiss: {
-							enable: false
+							tap: {
+								modifier: "ALT"
+							}
 						},
 						selected: {
 							on: {
 								change: (selected) => {
-									console.log("selected", selected.series, selected.position);
+									console.log("selected", selected.visible, selected.series, selected.position);
 								}
 							}
 						},
 						hovered: {
 							on: {
-								change: (selected) => {
-									console.log("hovered", selected.series, selected.position);
+								change: (hovered) => {
+									console.log("hovered", hovered.visible, hovered.series, hovered.position);
 								}
 							}
 						}

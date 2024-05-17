@@ -50,14 +50,14 @@
 						selected: {
 							on: {
 								change: (selected) => {
-									console.log("selected", selected.series, selected.position);
+									console.log("selected", selected.visible, selected.series, selected.position);
 								}
 							}
 						},
 						hovered: {
 							on: {
-								change: (selected) => {
-									console.log("hovered", selected.series, selected.position);
+								change: (hovered) => {
+									console.log("hovered", hovered.visible, hovered.series, hovered.position);
 								}
 							}
 						}

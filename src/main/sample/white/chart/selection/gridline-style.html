@@ -54,19 +54,23 @@
 							gridline: {
 								x: {
 									style: (shape, series) => {
-										const seriesShape = series.shape;
-										if (seriesShape) {
-											shape.stroke.color = seriesShape.stroke.color;
-											shape.stroke.alpha = 0.75;
+										if (series) {
+											const seriesShape = series.shape;
+											if (seriesShape) {
+												shape.stroke.color = seriesShape.stroke.color;
+												shape.stroke.alpha = 0.75;
+											}
 										}
 									}
 								},
 								y: {
 									style: (shape, series) => {
-										const seriesShape = series.shape;
-										if (seriesShape) {
-											shape.stroke.color = seriesShape.stroke.color;
-											shape.stroke.alpha = 0.75;
+										if (series) {
+											const seriesShape = series.shape;
+											if (seriesShape) {
+												shape.stroke.color = seriesShape.stroke.color;
+												shape.stroke.alpha = 0.75;
+											}
 										}
 									}
 								}

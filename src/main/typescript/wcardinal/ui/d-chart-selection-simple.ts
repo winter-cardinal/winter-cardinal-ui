@@ -26,10 +26,15 @@ export interface DChartSelectionSimpleDismissLongPressOptions {
 	enable?: boolean;
 }
 
+export interface DChartSelectionSimpleDismissNoSeriesOptions {
+	enable?: boolean;
+}
+
 export interface DChartSelectionSimpleDismissOptions {
 	enable?: boolean;
 	tap?: DChartSelectionSimpleDismissTapOptions;
 	longPress?: DChartSelectionSimpleDismissLongPressOptions;
+	noSeries?: DChartSelectionSimpleDismissNoSeriesOptions;
 }
 
 export interface DChartSelectionSimpleOptions<CHART extends DBase = DBase, EMITTER = any> {
@@ -44,6 +49,7 @@ export interface DChartSelectionSimpleDismiss {
 	enable: boolean;
 	tap: DChartSelectionSimpleDismissTap;
 	longPress: DChartSelectionSimpleDismissLongPress;
+	noSeries: DChartSelectionSimpleDismissNoSeries;
 }
 
 export interface DChartSelectionSimpleDismissTap {
@@ -52,6 +58,10 @@ export interface DChartSelectionSimpleDismissTap {
 }
 
 export interface DChartSelectionSimpleDismissLongPress {
+	enable: boolean;
+}
+
+export interface DChartSelectionSimpleDismissNoSeries {
 	enable: boolean;
 }
 
@@ -109,14 +119,16 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 				return {
 					enable: dismiss.enable ?? true,
 					tap: this.toDismissTap(dismiss.tap),
-					longPress: this.toDismissLongPress(dismiss.longPress)
+					longPress: this.toDismissLongPress(dismiss.longPress),
+					noSeries: this.toDismissNoSeries(dismiss.noSeries)
 				};
 			}
 		}
 		return {
 			enable: true,
 			tap: this.toDismissTap(),
-			longPress: this.toDismissLongPress()
+			longPress: this.toDismissLongPress(),
+			noSeries: this.toDismissNoSeries()
 		};
 	}
 
@@ -132,6 +144,14 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 	protected toDismissLongPress(
 		options?: DChartSelectionSimpleDismissLongPressOptions
 	): DChartSelectionSimpleDismissLongPress {
+		return {
+			enable: options?.enable ?? true
+		};
+	}
+
+	protected toDismissNoSeries(
+		options?: DChartSelectionSimpleDismissNoSeriesOptions
+	): DChartSelectionSimpleDismissNoSeries {
 		return {
 			enable: options?.enable ?? true
 		};
@@ -230,7 +250,11 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 			if (series != null) {
 				selected.set(series, result);
 			} else {
-				selected.unset();
+				if (dismiss.enable && dismiss.noSeries.enable) {
+					selected.unset();
+				} else {
+					selected.set(global.x, global.y);
+				}
 			}
 		}
 	}
@@ -260,7 +284,7 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 			const result = DChartSelectionSimple.WORK_SELECT;
 			const global = e.data.global;
 			const series = container.calcHitPoint(global.x, global.y, result);
-			if (series) {
+			if (series != null) {
 				hovered.set(series, result);
 			} else {
 				hovered.unset();

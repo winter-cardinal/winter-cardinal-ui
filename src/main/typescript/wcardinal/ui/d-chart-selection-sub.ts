@@ -26,15 +26,32 @@ export interface DThemeChartSelectionSub {
 }
 
 export interface DChartSelectionSub<CHART extends DBase = DBase> extends utils.EventEmitter {
+	readonly visible: boolean;
 	readonly series: DChartSeries<CHART> | null;
 	readonly position: Point;
 
 	bind(container: DChartSeriesContainer<CHART>): void;
 	unbind(): void;
-	set(
-		series: DChartSeries<CHART>,
-		result: DChartSeriesHitResult | DChartSelectionSub<CHART>
-	): void;
+
+	/**
+	 * Sets a series to null and set a position to the given global position.
+	 *
+	 * @param x a global X position
+	 * @param y a global Y position
+	 */
+	set(x: number, y: number): void;
+
+	/**
+	 * Sets a series and a position.
+	 *
+	 * @param series a series to be set
+	 * @param result a hit result
+	 */
+	set(series: DChartSeries<CHART>, result: DChartSeriesHitResult): void;
+
+	/**
+	 * Clear a series and a position.
+	 */
 	unset(): void;
 	update(): boolean;
 }

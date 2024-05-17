@@ -84,17 +84,17 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 		container: DChartSeriesContainer<CHART>,
 		position: IPoint,
 		mappedPosition: IPoint,
-		series: DChartSeries<CHART>
+		series: DChartSeries<CHART> | null
 	): void {
 		this.update(container, position, mappedPosition, series);
 
 		const shape = this._shape;
-		if (shape) {
+		if (shape != null) {
 			this._style(shape, series);
 		}
 	}
 
-	protected setStyle(this: unknown, shape: EShape, series: DChartSeries<CHART>): void {
+	protected setStyle(this: unknown, shape: EShape, series: DChartSeries<CHART> | null): void {
 		// DO NOTHING
 	}
 

@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Marker Style</title>
+	<title>Dismiss (No Series, Disabled)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -47,27 +47,34 @@
 						new wcardinal.ui.DChartSeriesLine()
 					],
 					selection: new wcardinal.ui.DChartSelectionSimple({
-						selected: {
-							enable: false
+						dismiss: {
+							noSeries: {
+								enable: false
+							}
 						},
-						hovered: {
+						selected: {
+							marker: {
+								enable: false
+							},
 							gridline: {
 								x: {
-									enable: false
+									enable: true
 								},
 								y: {
-									enable: false
+									enable: true
 								}
 							},
-							marker: {
-								enable: true,
-								style: (shape, series) => {
-									if (series) {
-										const seriesShape = series.shape;
-										if (seriesShape) {
-											shape.stroke.color = seriesShape.stroke.color;
-										}
-									}
+							on: {
+								change: (selected) => {
+									console.log("selected", selected.visible, selected.series, selected.position);
+								}
+							}
+						},
+						hovered: {
+							enable: false,
+							on: {
+								change: (hovered) => {
+									console.log("hovered", hovered.visible, hovered.series, hovered.position);
 								}
 							}
 						}

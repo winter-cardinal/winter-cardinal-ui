@@ -43,7 +43,7 @@ export class DChartSelectionContainerImpl<CHART extends DBase = DBase>
 		container: DChartSeriesContainer<CHART>,
 		position: IPoint,
 		mappedPosition: IPoint,
-		series: DChartSeries<CHART>
+		series: DChartSeries<CHART> | null
 	): void {
 		this._x.set(container, position, mappedPosition, series);
 		this._y.set(container, position, mappedPosition, series);
