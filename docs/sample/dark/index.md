@@ -74,8 +74,11 @@
     * [Resizing](./chart/resize.html)
     * Selection
         * [Basics](./chart\selection/basics.html)
-        * [Dismiss (Disabled)](./chart\selection/dismiss-enable.html)
-        * [Dismiss (Modifier)](./chart\selection/dismiss-modifier.html)
+        * [Dismiss (Disabled)](./chart\selection/dismiss-disabled.html)
+        * [Dismiss (Long Press, Disabled)](./chart\selection/dismiss-long-press-disabled.html)
+        * [Dismiss (No Series, Disabled)](./chart\selection/dismiss-no-series-disabled.html)
+        * [Dismiss (Tap, Disabled)](./chart\selection/dismiss-tap-disabled.html)
+        * [Dismiss (Tap, Modifier)](./chart\selection/dismiss-tap-modifier.html)
         * [Gridline Shape](./chart\selection/gridline-shape.html)
         * [Gridline Style](./chart\selection/gridline-style.html)
         * [Hovering Only](./chart\selection/hovering-only.html)

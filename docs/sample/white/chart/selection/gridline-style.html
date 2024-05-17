@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.3.12/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.430.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.430.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.431.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.431.0/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../../resource/chart/filler.js"></script>
 	<script>
 	(() => {
@@ -54,19 +54,23 @@
 							gridline: {
 								x: {
 									style: (shape, series) => {
-										const seriesShape = series.shape;
-										if (seriesShape) {
-											shape.stroke.color = seriesShape.stroke.color;
-											shape.stroke.alpha = 0.75;
+										if (series) {
+											const seriesShape = series.shape;
+											if (seriesShape) {
+												shape.stroke.color = seriesShape.stroke.color;
+												shape.stroke.alpha = 0.75;
+											}
 										}
 									}
 								},
 								y: {
 									style: (shape, series) => {
-										const seriesShape = series.shape;
-										if (seriesShape) {
-											shape.stroke.color = seriesShape.stroke.color;
-											shape.stroke.alpha = 0.75;
+										if (series) {
+											const seriesShape = series.shape;
+											if (seriesShape) {
+												shape.stroke.color = seriesShape.stroke.color;
+												shape.stroke.alpha = 0.75;
+											}
 										}
 									}
 								}

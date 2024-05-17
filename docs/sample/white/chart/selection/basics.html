@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.3.12/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.430.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.430.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.431.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.431.0/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../../resource/chart/filler.js"></script>
 	<script>
 	(() => {
@@ -50,14 +50,14 @@
 						selected: {
 							on: {
 								change: (selected) => {
-									console.log("selected", selected.series, selected.position);
+									console.log("selected", selected.visible, selected.series, selected.position);
 								}
 							}
 						},
 						hovered: {
 							on: {
-								change: (selected) => {
-									console.log("hovered", selected.series, selected.position);
+								change: (hovered) => {
+									console.log("hovered", hovered.visible, hovered.series, hovered.position);
 								}
 							}
 						}

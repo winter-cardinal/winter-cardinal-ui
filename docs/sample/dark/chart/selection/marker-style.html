@@ -22,21 +22,14 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.3.12/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.430.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.430.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.431.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.431.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script src="../../../resource/chart/filler.js"></script>
 	<script>
 	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
-
-		const style = (shape, series) => {
-			const seriesShape = series.shape;
-			if (seriesShape) {
-				shape.stroke.color = seriesShape.stroke.color;
-			}
-		};
 
 		const chart = new wcardinal.ui.DChart({
 			parent: application.stage,
@@ -69,9 +62,11 @@
 							marker: {
 								enable: true,
 								style: (shape, series) => {
-									const seriesShape = series.shape;
-									if (seriesShape) {
-										shape.stroke.color = seriesShape.stroke.color;
+									if (series) {
+										const seriesShape = series.shape;
+										if (seriesShape) {
+											shape.stroke.color = seriesShape.stroke.color;
+										}
 									}
 								}
 							}
