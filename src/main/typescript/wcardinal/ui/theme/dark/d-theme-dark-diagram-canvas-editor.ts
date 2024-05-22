@@ -14,12 +14,14 @@ const toGridScale = (scale: number): number => {
 	if (scale <= 0 || 1 <= scale) {
 		return 1;
 	}
-	const target = 1 / scale;
-	let result = 1;
-	while (result < target && result < Number.MAX_SAFE_INTEGER) {
-		result <<= 1;
-	}
-	return result;
+	let s = 1 / scale;
+	s = s | (s >> 1);
+	s = s | (s >> 2);
+	s = s | (s >> 4);
+	s = s | (s >> 8);
+	s = s | (s >> 16);
+	s = s | (s >> 32);
+	return s - (s >> 1);
 };
 
 const toGridSize = (grid: number, width: number, height: number, scale: number): number => {
