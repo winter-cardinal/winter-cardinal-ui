@@ -39,6 +39,7 @@ export interface DDiagramCanvasEditorSnapGridOptions {
 	major?: DDiagramCanvasEditorSnapGridMajorOptions;
 	minor?: DDiagramCanvasEditorSnapGridMinorOptions;
 	size?: DDiagramCanvasEditorSnapGridSize;
+	adaptive?: boolean;
 }
 
 export interface DDiagramCanvasEditorSnapTargetOptions {
@@ -67,6 +68,7 @@ export interface DThemeDiagramCanvasEditorSnap {
 	getSnapGridMinorStyle(): EShapeStrokeStyle;
 
 	getSnapGridSize(): DDiagramCanvasEditorSnapGridSize;
+	isSnapGridAdaptive(): boolean;
 
 	getSnapTargetColor(): number;
 	getSnapTargetAlpha(): number;
@@ -99,6 +101,7 @@ export interface DDiagramCanvasEditorSnapGrid {
 	major: DDiagramCanvasEditorSnapGridMajor;
 	minor: DDiagramCanvasEditorSnapGridMinor;
 	size: DDiagramCanvasEditorSnapGridSize;
+	adaptive: boolean;
 }
 
 export interface DDiagramCanvasEditorSnapTarget {
@@ -112,7 +115,12 @@ export class DDiagramCanvasEditorSnap {
 	protected _parent: DDiagramCanvasEditorSnapParent;
 	protected _controller: ESnapper;
 	protected _container: EShapeContainer;
+
+	protected _isDirty: boolean;
+
 	protected _grid: DDiagramCanvasEditorSnapGrid;
+	protected _gridScale: number;
+
 	protected _target: DDiagramCanvasEditorSnapTarget;
 
 	constructor(
@@ -121,6 +129,7 @@ export class DDiagramCanvasEditorSnap {
 		options: DDiagramCanvasEditorSnapOptions
 	) {
 		this._parent = parent;
+		this._isDirty = true;
 
 		// Controller
 		const controller = options.controller;
@@ -139,6 +148,7 @@ export class DDiagramCanvasEditorSnap {
 
 		// Grid
 		this._grid = this.toGrid(theme, options.grid);
+		this._gridScale = this.toGridScale(parent.scale.x);
 
 		// Target
 		this._target = this.toTarget(theme, options.target);
@@ -148,10 +158,19 @@ export class DDiagramCanvasEditorSnap {
 		theme: DThemeDiagramCanvasEditorSnap,
 		options?: DDiagramCanvasEditorSnapGridOptions
 	): DDiagramCanvasEditorSnapGrid {
+		if (options != null) {
+			return {
+				major: this.toGridMajor(theme, options.major),
+				minor: this.toGridMinor(theme, options.minor),
+				size: options.size ?? theme.getSnapGridSize(),
+				adaptive: options.adaptive ?? theme.isSnapGridAdaptive()
+			};
+		}
 		return {
-			major: this.toGridMajor(theme, options?.major),
-			minor: this.toGridMinor(theme, options?.minor),
-			size: options?.size ?? theme.getSnapGridSize()
+			major: this.toGridMajor(theme),
+			minor: this.toGridMinor(theme),
+			size: theme.getSnapGridSize(),
+			adaptive: theme.isSnapGridAdaptive()
 		};
 	}
 
@@ -159,12 +178,21 @@ export class DDiagramCanvasEditorSnap {
 		theme: DThemeDiagramCanvasEditorSnap,
 		options?: DDiagramCanvasEditorSnapGridMajorOptions
 	): DDiagramCanvasEditorSnapGridMajor {
+		if (options != null) {
+			return {
+				interval: options.interval ?? theme.getSnapGridMajorInterval(),
+				color: options.color ?? theme.getSnapGridMajorColor(),
+				alpha: options.alpha ?? theme.getSnapGridMajorAlpha(),
+				width: options.width ?? theme.getSnapGridMajorWidth(),
+				style: options.style ?? theme.getSnapGridMajorStyle()
+			};
+		}
 		return {
-			interval: options?.interval ?? theme.getSnapGridMajorInterval(),
-			color: options?.color ?? theme.getSnapGridMajorColor(),
-			alpha: options?.alpha ?? theme.getSnapGridMajorAlpha(),
-			width: options?.width ?? theme.getSnapGridMajorWidth(),
-			style: options?.style ?? theme.getSnapGridMajorStyle()
+			interval: theme.getSnapGridMajorInterval(),
+			color: theme.getSnapGridMajorColor(),
+			alpha: theme.getSnapGridMajorAlpha(),
+			width: theme.getSnapGridMajorWidth(),
+			style: theme.getSnapGridMajorStyle()
 		};
 	}
 
@@ -172,11 +200,19 @@ export class DDiagramCanvasEditorSnap {
 		theme: DThemeDiagramCanvasEditorSnap,
 		options?: DDiagramCanvasEditorSnapGridMinorOptions
 	): DDiagramCanvasEditorSnapGridMinor {
+		if (options != null) {
+			return {
+				color: options.color ?? theme.getSnapGridMinorColor(),
+				alpha: options.alpha ?? theme.getSnapGridMinorAlpha(),
+				width: options.width ?? theme.getSnapGridMinorWidth(),
+				style: options.style ?? theme.getSnapGridMinorStyle()
+			};
+		}
 		return {
-			color: options?.color ?? theme.getSnapGridMinorColor(),
-			alpha: options?.alpha ?? theme.getSnapGridMinorAlpha(),
-			width: options?.width ?? theme.getSnapGridMinorWidth(),
-			style: options?.style ?? theme.getSnapGridMinorStyle()
+			color: theme.getSnapGridMinorColor(),
+			alpha: theme.getSnapGridMinorAlpha(),
+			width: theme.getSnapGridMinorWidth(),
+			style: theme.getSnapGridMinorStyle()
 		};
 	}
 
@@ -184,18 +220,25 @@ export class DDiagramCanvasEditorSnap {
 		theme: DThemeDiagramCanvasEditorSnap,
 		options?: DDiagramCanvasEditorSnapTargetOptions
 	): DDiagramCanvasEditorSnapTarget {
+		if (options != null) {
+			return {
+				color: options.color ?? theme.getSnapTargetColor(),
+				alpha: options.alpha ?? theme.getSnapTargetAlpha(),
+				width: options.width ?? theme.getSnapTargetWidth(),
+				style: options.style ?? theme.getSnapTargetStyle()
+			};
+		}
 		return {
-			color: options?.color ?? theme.getSnapTargetColor(),
-			alpha: options?.alpha ?? theme.getSnapTargetAlpha(),
-			width: options?.width ?? theme.getSnapTargetWidth(),
-			style: options?.style ?? theme.getSnapTargetStyle()
+			color: theme.getSnapTargetColor(),
+			alpha: theme.getSnapTargetAlpha(),
+			width: theme.getSnapTargetWidth(),
+			style: theme.getSnapTargetStyle()
 		};
 	}
 
 	protected onChange(): void {
-		const parent = this._parent;
-		parent.toDirty();
-		DApplications.update(parent);
+		this._isDirty = true;
+		DApplications.update(this._parent);
 	}
 
 	get container(): EShapeContainer {
@@ -206,7 +249,38 @@ export class DDiagramCanvasEditorSnap {
 		return this._controller.serialize();
 	}
 
-	onReflow(): void {
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		this._isDirty = true;
+	}
+
+	onScale(newX: number, newY: number, oldX: number, oldY: number): void {
+		const gridScale = this.toGridScale(newX);
+		if (this._gridScale !== gridScale) {
+			this._gridScale = gridScale;
+			this._isDirty = true;
+		}
+	}
+
+	protected toGridScale(sx: number): number {
+		if (!this._grid.adaptive || sx <= 0 || 1 <= sx) {
+			return 1;
+		}
+		const target = 1 / sx;
+		let result = 1;
+		while (result < target && result < Number.MAX_SAFE_INTEGER) {
+			result <<= 1;
+		}
+		return result;
+	}
+
+	onRender(): void {
+		if (this._isDirty) {
+			this._isDirty = false;
+			this.updateAll();
+		}
+	}
+
+	protected updateAll(): void {
 		const parent = this._parent;
 		const container = this._container;
 		const controller = this._controller;
@@ -230,7 +304,7 @@ export class DDiagramCanvasEditorSnap {
 				const major = grid.major;
 				const minor = grid.minor;
 				const interval = major.interval;
-				const size = grid.size(controller.grid.size, w, h);
+				const size = grid.size(controller.grid.size * this._gridScale, w, h);
 				for (let x = size, ix = 1; x < w; x += size, ix += 1, index += 1) {
 					const style = ix % interval === 0 ? major : minor;
 					this.update(container, shapes, index, x, hh, TOP, w, h, style);

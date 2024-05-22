@@ -93,7 +93,7 @@ export class ESnapperGrid extends utils.EventEmitter {
 			this.visible = !!serialized[1];
 			this.size = (serialized as any)[2];
 		} else {
-			this.visible = false;
+			this.visible = this._isVisibleDefault;
 			this.size = serialized[1];
 		}
 	}

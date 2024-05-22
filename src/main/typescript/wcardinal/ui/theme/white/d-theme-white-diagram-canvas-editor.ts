@@ -80,6 +80,10 @@ export class DThemeWhiteDiagramCanvasEditor
 		return toGridSize;
 	}
 
+	isSnapGridAdaptive(): boolean {
+		return true;
+	}
+
 	getSnapTargetColor(): number {
 		return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 	}

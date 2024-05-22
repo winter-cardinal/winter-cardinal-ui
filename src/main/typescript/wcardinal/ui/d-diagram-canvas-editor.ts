@@ -64,12 +64,7 @@ export class DDiagramCanvasEditor<
 	}
 
 	get shape(): DDiagramCanvasEditorShape {
-		let result = this._shape;
-		if (result == null) {
-			result = this.newShape();
-			this._shape = result;
-		}
-		return result;
+		return (this._shape ??= this.newShape());
 	}
 
 	protected newShape(): DDiagramCanvasEditorShape {
@@ -107,9 +102,33 @@ export class DDiagramCanvasEditor<
 		};
 	}
 
-	onReflow(): void {
-		super.onReflow();
-		this._snap?.onReflow();
+	override onResize(
+		newWidth: number,
+		newHeight: number,
+		oldWidth: number,
+		oldHeight: number
+	): void {
+		const snap = this._snap;
+		if (snap != null) {
+			snap.onResize(newWidth, newHeight, oldWidth, oldHeight);
+		}
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+	}
+
+	protected override onScale(newX: number, newY: number, oldX: number, oldY: number): void {
+		const snap = this._snap;
+		if (snap != null) {
+			snap.onScale(newX, newY, oldX, oldY);
+		}
+		super.onScale(newX, newY, oldX, oldY);
+	}
+
+	override render(renderer: PIXI.Renderer): void {
+		const snap = this._snap;
+		if (snap != null) {
+			snap.onRender();
+		}
+		super.render(renderer);
 	}
 
 	protected getType(): string {
