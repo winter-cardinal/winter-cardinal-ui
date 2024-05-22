@@ -24,7 +24,8 @@ export class DChartSelectionGridlineY<
 			const bounds = container.plotArea.getSelectionBoundsY();
 			shape.transform.position.set(bounds.x + bounds.width * 0.5, mappedY);
 			shape.size.set(bounds.width, 0);
-			shape.visible = bounds.y <= mappedY && mappedY <= bounds.y + bounds.height;
+			const hw = shape.stroke.width * 0.5;
+			shape.visible = bounds.y <= mappedY + hw && mappedY - hw <= bounds.y + bounds.height;
 			return true;
 		}
 		return false;
