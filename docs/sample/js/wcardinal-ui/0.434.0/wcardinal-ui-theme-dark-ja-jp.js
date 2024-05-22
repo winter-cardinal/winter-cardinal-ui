@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.433.0
+ Winter Cardinal UI v0.434.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -7237,12 +7237,14 @@
         if (scale <= 0 || 1 <= scale) {
             return 1;
         }
-        var target = 1 / scale;
-        var result = 1;
-        while (result < target && result < Number.MAX_SAFE_INTEGER) {
-            result <<= 1;
-        }
-        return result;
+        var s = 1 / scale;
+        s = s | (s >> 1);
+        s = s | (s >> 2);
+        s = s | (s >> 4);
+        s = s | (s >> 8);
+        s = s | (s >> 16);
+        s = s | (s >> 32);
+        return s - (s >> 1);
     };
     var toGridSize = function (grid, width, height, scale) {
         var canvas = Math.max(width, height);
