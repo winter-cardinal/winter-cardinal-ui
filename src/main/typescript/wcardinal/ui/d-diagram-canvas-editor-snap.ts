@@ -32,7 +32,8 @@ export interface DDiagramCanvasEditorSnapGridMinorOptions {
 export type DDiagramCanvasEditorSnapGridSize = (
 	given: number,
 	width: number,
-	height: number
+	height: number,
+	scale: number
 ) => number;
 
 export interface DDiagramCanvasEditorSnapGridOptions {
@@ -68,7 +69,6 @@ export interface DThemeDiagramCanvasEditorSnap {
 	getSnapGridMinorStyle(): EShapeStrokeStyle;
 
 	getSnapGridSize(): DDiagramCanvasEditorSnapGridSize;
-	isSnapGridAdaptive(): boolean;
 
 	getSnapTargetColor(): number;
 	getSnapTargetAlpha(): number;
@@ -101,7 +101,6 @@ export interface DDiagramCanvasEditorSnapGrid {
 	major: DDiagramCanvasEditorSnapGridMajor;
 	minor: DDiagramCanvasEditorSnapGridMinor;
 	size: DDiagramCanvasEditorSnapGridSize;
-	adaptive: boolean;
 }
 
 export interface DDiagramCanvasEditorSnapTarget {
@@ -119,7 +118,10 @@ export class DDiagramCanvasEditorSnap {
 	protected _isDirty: boolean;
 
 	protected _grid: DDiagramCanvasEditorSnapGrid;
-	protected _gridScale: number;
+	protected _gridParentWidth: number;
+	protected _gridParentHeight: number;
+	protected _gridParentScale: number;
+	protected _gridSize: number;
 
 	protected _target: DDiagramCanvasEditorSnapTarget;
 
@@ -148,7 +150,10 @@ export class DDiagramCanvasEditorSnap {
 
 		// Grid
 		this._grid = this.toGrid(theme, options.grid);
-		this._gridScale = this.toGridScale(parent.scale.x);
+		this._gridParentWidth = parent.width;
+		this._gridParentHeight = parent.height;
+		this._gridParentScale = parent.scale.x;
+		this._gridSize = this.newGridSize();
 
 		// Target
 		this._target = this.toTarget(theme, options.target);
@@ -162,15 +167,13 @@ export class DDiagramCanvasEditorSnap {
 			return {
 				major: this.toGridMajor(theme, options.major),
 				minor: this.toGridMinor(theme, options.minor),
-				size: options.size ?? theme.getSnapGridSize(),
-				adaptive: options.adaptive ?? theme.isSnapGridAdaptive()
+				size: options.size ?? theme.getSnapGridSize()
 			};
 		}
 		return {
 			major: this.toGridMajor(theme),
 			minor: this.toGridMinor(theme),
-			size: theme.getSnapGridSize(),
-			adaptive: theme.isSnapGridAdaptive()
+			size: theme.getSnapGridSize()
 		};
 	}
 
@@ -250,27 +253,31 @@ export class DDiagramCanvasEditorSnap {
 	}
 
 	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
-		this._isDirty = true;
+		this._gridParentWidth = newWidth;
+		this._gridParentHeight = newHeight;
+		this.updateGridSize();
 	}
 
 	onScale(newX: number, newY: number, oldX: number, oldY: number): void {
-		const gridScale = this.toGridScale(newX);
-		if (this._gridScale !== gridScale) {
-			this._gridScale = gridScale;
+		this._gridParentScale = newX;
+		this.updateGridSize();
+	}
+
+	protected updateGridSize(): void {
+		const gridSize = this.newGridSize();
+		if (this._gridSize !== gridSize) {
+			this._gridSize = gridSize;
 			this._isDirty = true;
 		}
 	}
 
-	protected toGridScale(sx: number): number {
-		if (!this._grid.adaptive || sx <= 0 || 1 <= sx) {
-			return 1;
-		}
-		const target = 1 / sx;
-		let result = 1;
-		while (result < target && result < Number.MAX_SAFE_INTEGER) {
-			result <<= 1;
-		}
-		return result;
+	protected newGridSize(): number {
+		return this._grid.size(
+			this._controller.grid.size,
+			this._gridParentWidth,
+			this._gridParentHeight,
+			this._gridParentScale
+		);
 	}
 
 	onRender(): void {
@@ -281,15 +288,14 @@ export class DDiagramCanvasEditorSnap {
 	}
 
 	protected updateAll(): void {
-		const parent = this._parent;
 		const container = this._container;
 		const controller = this._controller;
 
 		const isGridVisible = controller.grid.visible;
 		const isTargetVisible = controller.target.visible;
 		if (isGridVisible || isTargetVisible) {
-			const w = parent.width;
-			const h = parent.height;
+			const w = this._gridParentWidth;
+			const h = this._gridParentHeight;
 			const wh = 0.5 * w;
 			const hh = 0.5 * h;
 			const TOP = EShapeBarPosition.TOP;
@@ -304,7 +310,7 @@ export class DDiagramCanvasEditorSnap {
 				const major = grid.major;
 				const minor = grid.minor;
 				const interval = major.interval;
-				const size = grid.size(controller.grid.size * this._gridScale, w, h);
+				const size = this._gridSize;
 				for (let x = size, ix = 1; x < w; x += size, ix += 1, index += 1) {
 					const style = ix % interval === 0 ? major : minor;
 					this.update(container, shapes, index, x, hh, TOP, w, h, style);

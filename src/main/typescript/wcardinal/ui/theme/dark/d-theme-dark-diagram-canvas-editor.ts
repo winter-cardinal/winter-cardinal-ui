@@ -10,9 +10,22 @@ import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
 
-const toGridSize = (grid: number, width: number, height: number): number => {
+const toGridScale = (scale: number): number => {
+	if (scale <= 0 || 1 <= scale) {
+		return 1;
+	}
+	const target = 1 / scale;
+	let result = 1;
+	while (result < target && result < Number.MAX_SAFE_INTEGER) {
+		result <<= 1;
+	}
+	return result;
+};
+
+const toGridSize = (grid: number, width: number, height: number, scale: number): number => {
 	const canvas = Math.max(width, height);
 	if (0 < grid) {
+		grid *= toGridScale(scale);
 		const minimum = canvas / 1000;
 		for (let i = 0; i < 10 && grid < minimum; ++i) {
 			grid *= 10;
@@ -78,10 +91,6 @@ export class DThemeDarkDiagramCanvasEditor
 
 	getSnapGridSize(): DDiagramCanvasEditorSnapGridSize {
 		return toGridSize;
-	}
-
-	isSnapGridAdaptive(): boolean {
-		return true;
 	}
 
 	getSnapTargetColor(): number {
