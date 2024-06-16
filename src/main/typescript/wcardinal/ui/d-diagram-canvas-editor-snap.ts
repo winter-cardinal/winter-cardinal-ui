@@ -253,14 +253,19 @@ export class DDiagramCanvasEditorSnap {
 	}
 
 	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
-		this._gridParentWidth = newWidth;
-		this._gridParentHeight = newHeight;
-		this.updateGridSize();
+		if (this._gridParentWidth !== newWidth || this._gridParentHeight !== newHeight) {
+			this._gridParentWidth = newWidth;
+			this._gridParentHeight = newHeight;
+			this._isDirty = true;
+			this.updateGridSize();
+		}
 	}
 
 	onScale(newX: number, newY: number, oldX: number, oldY: number): void {
-		this._gridParentScale = newX;
-		this.updateGridSize();
+		if (this._gridParentScale !== newX) {
+			this._gridParentScale = newX;
+			this.updateGridSize();
+		}
 	}
 
 	protected updateGridSize(): void {
