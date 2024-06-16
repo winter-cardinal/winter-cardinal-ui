@@ -105,6 +105,7 @@ export * from "./d-theme-dark-input-search";
 export * from "./d-theme-dark-input-text-area";
 export * from "./d-theme-dark-input-text";
 export * from "./d-theme-dark-input";
+export * from "./d-theme-dark-layout-board";
 export * from "./d-theme-dark-layout-horizontal";
 export * from "./d-theme-dark-layout-space";
 export * from "./d-theme-dark-layout-vertical";

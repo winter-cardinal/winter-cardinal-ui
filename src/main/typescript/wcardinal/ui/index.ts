@@ -375,6 +375,7 @@ export * from "./d-input-text-area";
 export * from "./d-input-text";
 export * from "./d-input";
 export * from "./d-item-updater";
+export * from "./d-layout-board";
 export * from "./d-layout-clear-type";
 export * from "./d-layout-direction";
 export * from "./d-layout-horizontal";

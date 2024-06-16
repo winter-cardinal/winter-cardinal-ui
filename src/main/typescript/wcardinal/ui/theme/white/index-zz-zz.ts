@@ -105,6 +105,7 @@ export * from "./d-theme-white-input-search";
 export * from "./d-theme-white-input-text-area";
 export * from "./d-theme-white-input-text";
 export * from "./d-theme-white-input";
+export * from "./d-theme-white-layout-board";
 export * from "./d-theme-white-layout-horizontal";
 export * from "./d-theme-white-layout-space";
 export * from "./d-theme-white-layout-vertical";

@@ -5,6 +5,7 @@
 
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkLayout } from "../d-theme-dark-layout";
+import { DThemeDarkLayoutBoard } from "../d-theme-dark-layout-board";
 import { DThemeDarkLayoutHorizontal } from "../d-theme-dark-layout-horizontal";
 import { DThemeDarkLayoutSpace } from "../d-theme-dark-layout-space";
 import { DThemeDarkLayoutVertical } from "../d-theme-dark-layout-vertical";
@@ -14,4 +15,5 @@ export const loadThemeDarkLayout = (): void => {
 	DThemeDark.set("DLayoutHorizontal", DThemeDarkLayoutHorizontal);
 	DThemeDark.set("DLayoutSpace", DThemeDarkLayoutSpace);
 	DThemeDark.set("DLayoutVertical", DThemeDarkLayoutVertical);
+	DThemeDark.set("DLayoutBoard", DThemeDarkLayoutBoard);
 };
