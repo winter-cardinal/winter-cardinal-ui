@@ -121,6 +121,7 @@ export class DDynamicText extends Mesh {
 	// @ts-ignore
 	get width(): number {
 		this.update();
+		console.trace("width", Math.abs(this.scale.x) * this.geometry.width);
 		return Math.abs(this.scale.x) * this.geometry.width;
 	}
 
@@ -136,6 +137,7 @@ export class DDynamicText extends Mesh {
 	// @ts-ignore
 	get height(): number {
 		this.update();
+		console.trace("height", Math.abs(this.scale.y) * this.geometry.height);
 		return Math.abs(this.scale.y) * this.geometry.height;
 	}
 
@@ -186,6 +188,7 @@ export class DDynamicText extends Mesh {
 		}
 
 		if (this._isGeometryDirty) {
+			console.trace("update", "start");
 			this._isGeometryDirty = false;
 			const geometry = this.geometry;
 			geometry.update(this._text, atlas, modifier);
@@ -203,6 +206,7 @@ export class DDynamicText extends Mesh {
 					}, 0);
 				}
 			}
+			console.log("update", "end");
 		}
 	}
 
@@ -236,21 +240,16 @@ export class DDynamicText extends Mesh {
 		if (styleClipping || styleFitting || styleWordWrap) {
 			const parent = this.parent;
 			if (parent instanceof DBase) {
+				const padding = parent.padding;
 				const width =
-					parent.width -
-					parent.padding.getLeft() -
-					parent.padding.getRight() -
-					modifier.delta.width;
+					parent.width - padding.getLeft() - padding.getRight() - modifier.delta.width;
 				if (modifier.width !== width) {
 					modifier.width = width;
 					isChanged = true;
 				}
 
 				const height =
-					parent.height -
-					parent.padding.getTop() -
-					parent.padding.getBottom() -
-					modifier.delta.height;
+					parent.height - padding.getTop() - padding.getBottom() - modifier.delta.height;
 				if (modifier.height !== height) {
 					modifier.height = height;
 					isChanged = true;
@@ -263,8 +262,14 @@ export class DDynamicText extends Mesh {
 
 	setClippingDelta(width: number, height: number): void {
 		const delta = this._modifier.delta;
+		console.log(
+			"setClippingDelta",
+			"start",
+			`(${delta.width}, ${delta.height}) -> (${width}, ${height})`
+		);
 		delta.width = width;
 		delta.height = height;
+		console.log("setClippingDelta", "end");
 	}
 
 	protected _calculateBounds(): void {

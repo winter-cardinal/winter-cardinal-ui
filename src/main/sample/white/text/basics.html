@@ -29,6 +29,41 @@
 
 		const application = new wcardinal.ui.DApplication();
 
+		const layout = new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: 100, y: 100,
+			width: 200, height: "auto",
+			margin: 16,
+			children: [
+				new wcardinal.ui.DDialogProcessingMessage({
+					height: "auto",
+					text: {
+						value: "Apple Orange Pineapple Melon Strawberry " +
+							"Apple Orange Pineapple Melon Strawberry " +
+							"Apple Orange Pineapple Melon Strawberry " +
+							"Apple Orange Pineapple Melon Strawberry " +
+							"Apple Orange Pineapple Melon Strawberry",
+						style: {
+							clipping: false,
+							wordWrap: "NORMAL"
+						},
+						align: {
+							horizontal: "LEFT"
+						}
+					},
+					border: {
+						color: 0xff0000
+					}
+				})
+			]
+		});
+
+		setTimeout(() => {
+			const text = layout.children[0];
+			text.state.isSucceeded = !text.state.isSucceeded;
+		}, 4000);
+
+		/*
 		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
 			x: "center", y: "center",
@@ -46,6 +81,7 @@
 				})
 			]
 		});
+		*/
 	})();
 	</script>
 </body>

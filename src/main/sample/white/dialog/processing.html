@@ -30,7 +30,29 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		const dialog = new wcardinal.ui.DDialogProcessing();
+		const dialog = new wcardinal.ui.DDialogProcessing({
+			height: "auto",
+			message: {
+				height: "auto",
+				text: {
+					value: "Apple Orange Pineapple Melon Strawberry " +
+						"Apple Orange Pineapple Melon Strawberry " +
+						"Apple Orange Pineapple Melon Strawberry " +
+						"Apple Orange Pineapple Melon Strawberry " +
+						"Apple Orange Pineapple Melon Strawberry",
+					style: {
+						clipping: false,
+						wordWrap: "NORMAL"
+					},
+					align: {
+						horizontal: "LEFT"
+					}
+				},
+				border: {
+					color: 0xff0000
+				}
+			}
+		});
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
@@ -42,7 +64,7 @@
 			on: {
 				active: (emitter) => {
 					dialog.open(emitter);
-					if (0.5 < Math.random()) {
+					if (0.0 < Math.random()) {
 						dialog.resolve();
 					} else {
 						dialog.reject();

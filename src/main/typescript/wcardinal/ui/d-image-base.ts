@@ -90,6 +90,7 @@ export class DImageBase<
 	}
 
 	protected override onReflowTextAndImage(): void {
+		console.log("onReflowTextAndImage", "start");
 		const layouter = this.getLayouter();
 		this.getImage().update(layouter);
 		const text = this.getText();
@@ -102,6 +103,7 @@ export class DImageBase<
 			auto.height.isOn ? null : this.height
 		);
 		layouter.clear();
+		console.log("onReflowTextAndImage", "end");
 	}
 
 	protected isRefitable(target: any): target is DRefitable {

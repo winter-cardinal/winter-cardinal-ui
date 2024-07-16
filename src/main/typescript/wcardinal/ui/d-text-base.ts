@@ -97,7 +97,7 @@ export class DTextBase<
 		this.text.value = text;
 	}
 
-	protected onReflow(): void {
+	protected override onReflow(): void {
 		super.onReflow();
 		this.onReflowTextAndImage();
 	}

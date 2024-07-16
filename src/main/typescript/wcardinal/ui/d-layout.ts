@@ -263,6 +263,7 @@ export abstract class DLayout<
 	}
 
 	protected onRefit(): void {
+		console.log("onRefit", "start");
 		const children = this.children;
 		const padding = this._padding;
 		const paddingTop = padding.getTop();
@@ -656,6 +657,7 @@ export abstract class DLayout<
 		}
 
 		super.onRefit();
+		console.log("onRefit", "end");
 	}
 
 	protected hasClearTypeBefore(children: DisplayObject[], index: number): boolean {

@@ -293,6 +293,8 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	render(): void {
+		console.log("");
+		console.log("render", "start");
 		this.reflow();
 
 		// Please note why the following line is here.
@@ -308,6 +310,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 		// Render
 		super.render();
+		console.log("render", "end");
 	}
 
 	get width(): number {
