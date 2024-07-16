@@ -579,14 +579,14 @@ export interface DDiagramSerializedSimple {
 	description?: string;
 
 	/**
-	 * A stringified {@link DDiagramSerialized#data}.
+	 * A stringified {@link DDiagramSerialized.data}.
 	 *
 	 * @deprecated in favor of {@link DDiagramSerializedSimpleData}.
 	 */
 	tags?: string;
 
 	/**
-	 * A stringified {@link DDiagramSerialized#pieces}.
+	 * A stringified {@link DDiagramSerialized.pieces}.
 	 *
 	 * @deprecated in favor of {@link DDiagramSerializedSimpleData}.
 	 */

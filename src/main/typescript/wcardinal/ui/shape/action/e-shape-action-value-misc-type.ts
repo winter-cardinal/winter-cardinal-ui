@@ -23,5 +23,4 @@ export const EShapeActionValueMiscType = {
 	EXTENSION: 1000
 } as const;
 
-export type EShapeActionValueMiscType =
-	(typeof EShapeActionValueMiscType)[keyof typeof EShapeActionValueMiscType];
+export type EShapeActionValueMiscType = number;

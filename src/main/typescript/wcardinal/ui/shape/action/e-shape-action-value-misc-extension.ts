@@ -21,15 +21,15 @@ export type EShapeActionValueMiscExtensionSerialized = [
 ];
 
 export class EShapeActionValueMiscExtension extends EShapeActionValueSubtyped<EShapeActionValueMiscExtensionSubtype> {
-	readonly parameter: string;
+	readonly argument: string;
 
 	constructor(
 		subtype: EShapeActionValueMiscExtensionSubtype,
 		condition: string,
-		parameter: string
+		argument: string
 	) {
 		super(EShapeActionValueType.MISC, condition, subtype);
-		this.parameter = parameter;
+		this.argument = argument;
 	}
 
 	toRuntime(): EShapeActionRuntime {
@@ -38,8 +38,8 @@ export class EShapeActionValueMiscExtension extends EShapeActionValueSubtyped<ES
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
-		const parameterId = manager.addResource(this.parameter);
-		return manager.addResource(`[${this.type},${conditionId},${this.subtype},${parameterId}]`);
+		const argumentId = manager.addResource(this.argument);
+		return manager.addResource(`[${this.type},${conditionId},${this.subtype},${argumentId}]`);
 	}
 
 	static deserialize(
@@ -48,7 +48,7 @@ export class EShapeActionValueMiscExtension extends EShapeActionValueSubtyped<ES
 	): EShapeActionValueMiscExtension {
 		const resources = manager.resources;
 		const condition = EShapeActionValues.toResource(1, serialized, resources);
-		const parameter = EShapeActionValues.toResource(3, serialized, resources);
-		return new EShapeActionValueMiscExtension(serialized[2], condition, parameter);
+		const argument = EShapeActionValues.toResource(3, serialized, resources);
+		return new EShapeActionValueMiscExtension(serialized[2], condition, argument);
 	}
 }

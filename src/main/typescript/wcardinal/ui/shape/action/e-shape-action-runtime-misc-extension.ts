@@ -17,11 +17,11 @@ import { EShapeActions } from "./e-shape-actions";
 
 export class EShapeActionRuntimeMiscExtension extends EShapeActionRuntimeConditional {
 	protected extension?: EShapeActionMiscExtension;
-	protected parameter: EShapeActionExpression<unknown>;
+	protected argument: EShapeActionExpression<unknown>;
 
 	constructor(value: EShapeActionValueMiscExtension) {
 		super(value, EShapeRuntimeReset.NONE);
-		this.parameter = EShapeActionExpressions.ofUnknown(value.parameter);
+		this.argument = EShapeActionExpressions.ofUnknown(value.argument);
 		this.extension = EShapeActionMiscExtensions.get(value.subtype);
 	}
 
@@ -31,7 +31,7 @@ export class EShapeActionRuntimeMiscExtension extends EShapeActionRuntimeConditi
 			const diagram = EShapeActions.toDiagram(shape);
 			if (diagram != null) {
 				extension.executor(
-					this.parameter(shape, time, EShapeActionEnvironment),
+					this.argument(shape, time, EShapeActionEnvironment),
 					shape,
 					diagram
 				);

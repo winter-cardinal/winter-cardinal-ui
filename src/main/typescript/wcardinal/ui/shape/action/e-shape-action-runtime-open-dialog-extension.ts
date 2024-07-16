@@ -13,6 +13,7 @@ import { EShapeActionOpenDialogExtensions } from "./e-shape-action-open-dialog-e
 import { EShapeActionOpenDialogOpener } from "./e-shape-action-open-dialog-opener";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueOpenDialogExtension } from "./e-shape-action-value-open-dialog-extension";
+import { EShapeActions } from "./e-shape-actions";
 
 export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeConditional {
 	protected readonly target: EShapeActionExpression<string | null>;
@@ -35,10 +36,13 @@ export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeC
 			if (this.condition(shape, time, EShapeActionEnvironment)) {
 				const target = this.target(shape, time, EShapeActionEnvironment);
 				if (target != null) {
-					const argument = this.argument(shape, time, EShapeActionEnvironment);
-					setTimeout(() => {
-						opener(target, argument, shape);
-					}, 0);
+					const diagram = EShapeActions.toDiagram(shape);
+					if (diagram != null) {
+						const argument = this.argument(shape, time, EShapeActionEnvironment);
+						setTimeout(() => {
+							opener(target, argument, shape, diagram);
+						}, 0);
+					}
 				}
 			}
 		}
