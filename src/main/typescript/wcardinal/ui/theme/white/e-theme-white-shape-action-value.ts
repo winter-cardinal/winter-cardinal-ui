@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeActionMiscExtensions } from "../../shape/action/e-shape-action-misc-extensions";
 import { EShapeActionOpenDialogExtensions } from "../../shape/action/e-shape-action-open-dialog-extensions";
 import { EShapeActionOpenExtensions } from "../../shape/action/e-shape-action-open-extensions";
 import { EShapeActionValue, EThemeShapeActionValue } from "../../shape/action/e-shape-action-value";
@@ -387,6 +388,16 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				return "Gesture";
 			case EShapeActionValueMiscType.EXECUTE:
 				return "Execute";
+			default:
+				if (EShapeActionValueMiscType.EXTENSION <= type) {
+					const extension = EShapeActionMiscExtensions.get(type);
+					if (extension) {
+						return extension.label;
+					}
+					return "Extension";
+				} else {
+					return "Unknown";
+				}
 		}
 	}
 

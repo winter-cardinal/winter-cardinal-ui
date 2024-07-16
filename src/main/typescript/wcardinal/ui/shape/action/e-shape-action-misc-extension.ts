@@ -6,9 +6,14 @@
 import { DDiagram } from "../../d-diagram";
 import { EShape } from "../e-shape";
 
-export type EShapeActionOpenOpener = (
-	target: unknown,
-	inNewWindow: boolean,
+export type EShapeActionMiscExtensionExecutor = (
+	parameter: unknown,
 	shape: EShape,
 	diagram: DDiagram
 ) => void;
+
+export interface EShapeActionMiscExtension {
+	type: number;
+	label: string;
+	executor: EShapeActionMiscExtensionExecutor;
+}

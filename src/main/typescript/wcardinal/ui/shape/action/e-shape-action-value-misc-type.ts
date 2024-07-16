@@ -19,7 +19,8 @@ export const EShapeActionValueMiscType = {
 	GESTURE_LAYER: 10,
 	/** @deprecated in favor of {@link EShapeActionValueType}'s GESTURE */
 	GESTURE: 11,
-	EXECUTE: 12
+	EXECUTE: 12,
+	EXTENSION: 1000
 } as const;
 
 export type EShapeActionValueMiscType =

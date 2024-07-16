@@ -16,6 +16,7 @@ import { EShapeActionValueEmitEvent } from "./e-shape-action-value-emit-event";
 import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
 import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
 import { EShapeActionValueMiscExecute } from "./e-shape-action-value-misc-execute";
+import { EShapeActionValueMiscExtension } from "./e-shape-action-value-misc-extension";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog";
@@ -129,7 +130,14 @@ export const deserializeActionValue = (
 				case EShapeActionValueMiscType.EXECUTE:
 					return EShapeActionValueMiscExecute.deserialize(serialized as any, manager);
 				default:
-					return EShapeActionValueMisc.deserialize(serialized as any, manager);
+					if (EShapeActionValueMiscType.EXTENSION <= serialized[2]) {
+						return EShapeActionValueMiscExtension.deserialize(
+							serialized as any,
+							manager
+						);
+					} else {
+						return EShapeActionValueMisc.deserialize(serialized as any, manager);
+					}
 			}
 	}
 	return null;

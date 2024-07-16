@@ -181,8 +181,8 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 		point: Point,
 		result: Rectangle
 	): Rectangle | null {
-		const container = EShapeActions.toContainer(shape);
-		return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
+		const diagram = EShapeActions.toDiagram(shape);
+		return UtilHtmlElement.getClipperRect(diagram, shape, resolution, point, result);
 	}
 
 	protected getClipperExRects(shape: EShape, result: UtilHtmlElementClipperExRects): void {
