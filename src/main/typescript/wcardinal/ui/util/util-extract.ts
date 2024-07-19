@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Renderer, RenderTexture, utils } from "pixi.js";
+import { Matrix, Renderer, RenderTexture, SCALE_MODES, utils } from "pixi.js";
 import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DApplicationLike } from "../d-application-like";
 import { DApplications } from "../d-applications";
@@ -106,6 +106,8 @@ const toRenderer = (options: UtilExtractPixelsOptions): Renderer => {
 };
 
 export class UtilExtract {
+	protected static WORK_RENDER_TEXTURE?: RenderTexture;
+
 	static texture(options: UtilExtractTextureOptions): RenderTexture {
 		const target = options.target;
 		const resolution = toResolution(options);
@@ -113,16 +115,68 @@ export class UtilExtract {
 		return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
 	}
 
+	/**
+	 * Extracts pixels from the target.
+	 * This method internally creates one render texture and use that to extract pixels from the target.
+	 * To free the allocated render texture, please call {@link destroy()}.
+	 *
+	 * @param options an extraction options
+	 * @returns extracted pixels
+	 */
 	static pixels(options: UtilExtractPixelsOptions): UtilExtractorPixels {
 		const renderer = toRenderer(options);
-		const texture = this.texture(options);
-		try {
-			return UtilExtractor.toPixels(texture, renderer);
-		} finally {
-			if (texture) {
-				texture.destroy();
+
+		// Create a render texture
+		const target = options.target;
+		const scale = target.transform.scale;
+		const width = Math.floor(target.width * scale.x);
+		const height = Math.floor(target.height * scale.y);
+		const resolution = toResolution(options);
+		let renderTexture = UtilExtract.WORK_RENDER_TEXTURE;
+		if (renderTexture == null) {
+			renderTexture = RenderTexture.create({
+				width,
+				height,
+				scaleMode: SCALE_MODES.LINEAR,
+				resolution
+			});
+			UtilExtract.WORK_RENDER_TEXTURE = renderTexture;
+		} else {
+			const baseTexture = renderTexture.baseTexture;
+			const baseTextureWidth = baseTexture.width;
+			const baseTextureHeight = baseTexture.height;
+			const isWidthDirty = baseTextureWidth < width;
+			const isHeightDirty = baseTextureHeight < height;
+			const isResolutionDirty = renderTexture.resolution !== resolution;
+			if (isResolutionDirty || isWidthDirty || isHeightDirty) {
+				if (isResolutionDirty) {
+					baseTexture.resolution = resolution;
+				}
+				renderTexture.resize(
+					Math.max(width, baseTextureWidth),
+					Math.max(height, baseTextureHeight),
+					true
+				);
 			}
 		}
+
+		// Render to the render texture
+		const frame = renderTexture.frame;
+		if (frame.x !== 0 || frame.y !== 0 || frame.width !== width || frame.height !== height) {
+			frame.x = 0;
+			frame.y = 0;
+			frame.width = width;
+			frame.height = height;
+			renderTexture.frame = frame;
+		}
+
+		const targetPosition = target.position;
+		const matrix = new Matrix(1, 0, 0, 1, -targetPosition.x, -targetPosition.y);
+
+		renderer.render(target, renderTexture, options.clear, matrix, options.transform?.update);
+
+		// Extract pixels
+		return UtilExtractor.toPixels(renderTexture, renderer);
 	}
 
 	static canvas(options: UtilExtractCanvasOptions): utils.CanvasRenderTarget {
@@ -145,5 +199,16 @@ export class UtilExtract {
 
 	static file(options: UtilExtractFileOptions): void {
 		UtilFileDownloader.downloadUrl(options.filename, this.base64(options));
+	}
+
+	/**
+	 * Clears all the memories.
+	 */
+	static destroy(): void {
+		const texture = this.WORK_RENDER_TEXTURE;
+		if (texture != null) {
+			this.WORK_RENDER_TEXTURE = undefined;
+			texture.destroy(true);
+		}
 	}
 }
