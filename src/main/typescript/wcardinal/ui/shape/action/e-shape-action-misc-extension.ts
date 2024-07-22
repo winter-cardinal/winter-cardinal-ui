@@ -5,12 +5,14 @@
 
 import { DDiagram } from "../../d-diagram";
 import { EShape } from "../e-shape";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 
 export type EShapeActionMiscExtensionExecutor = (
 	argument: unknown,
 	shape: EShape,
-	diagram: DDiagram
+	diagram: DDiagram,
+	environment: EShapeActionEnvironment
 ) => void;
 
 export interface EShapeActionMiscExtension {

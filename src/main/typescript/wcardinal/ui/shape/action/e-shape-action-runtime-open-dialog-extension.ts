@@ -40,7 +40,7 @@ export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeC
 					if (diagram != null) {
 						const argument = this.argument(shape, time, EShapeActionEnvironment);
 						setTimeout(() => {
-							opener(target, argument, shape, diagram);
+							opener(target, argument, shape, diagram, EShapeActionEnvironment);
 						}, 0);
 					}
 				}

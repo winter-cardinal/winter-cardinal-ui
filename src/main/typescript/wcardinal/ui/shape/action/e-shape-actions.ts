@@ -12,6 +12,7 @@ import { EShapeEmbedded } from "../variant/e-shape-embedded";
 import { EShapeActionOpenOpeners } from "./e-shape-action-open-openers";
 import { isString } from "../../util/is-string";
 import { DDiagram } from "../../d-diagram";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 
 export class EShapeActions {
 	static isDiagram(target: unknown): target is DDiagram {
@@ -37,13 +38,14 @@ export class EShapeActions {
 		shape: EShape,
 		type: DDiagramBaseControllerOpenType,
 		target: unknown,
-		inNewWindow: boolean
+		inNewWindow: boolean,
+		environment: EShapeActionEnvironment
 	): void {
 		const opener = EShapeActionOpenOpeners[type];
 		if (opener != null) {
 			const diagram = this.toDiagram(shape);
 			if (diagram) {
-				opener(target, inNewWindow, shape, diagram);
+				opener(target, inNewWindow, shape, diagram, environment);
 			}
 		} else if (isString(target)) {
 			switch (type) {

@@ -5,10 +5,12 @@
 
 import { DDiagram } from "../../d-diagram";
 import { EShape } from "../e-shape";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 
 export type EShapeActionOpenOpener = (
 	target: unknown,
 	inNewWindow: boolean,
 	shape: EShape,
-	diagram: DDiagram
+	diagram: DDiagram,
+	environment: EShapeActionEnvironment
 ) => void;

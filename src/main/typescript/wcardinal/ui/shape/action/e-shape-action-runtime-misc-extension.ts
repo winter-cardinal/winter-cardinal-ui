@@ -33,7 +33,8 @@ export class EShapeActionRuntimeMiscExtension extends EShapeActionRuntimeConditi
 				extension.executor(
 					this.argument(shape, time, EShapeActionEnvironment),
 					shape,
-					diagram
+					diagram,
+					EShapeActionEnvironment
 				);
 			}
 		}

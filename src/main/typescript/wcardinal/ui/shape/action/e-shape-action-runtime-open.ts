@@ -34,7 +34,13 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 		if (this.condition(shape, time, EShapeActionEnvironment)) {
 			const target = this.target(shape, time, EShapeActionEnvironment);
 			if (target != null) {
-				EShapeActions.open(shape, this.subtype, target, this.inNewWindow);
+				EShapeActions.open(
+					shape,
+					this.subtype,
+					target,
+					this.inNewWindow,
+					EShapeActionEnvironment
+				);
 			}
 		}
 	}
