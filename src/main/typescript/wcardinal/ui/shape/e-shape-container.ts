@@ -206,6 +206,15 @@ export class EShapeContainer extends DisplayObject {
 		}
 		children.length = 0;
 
+		// Atlas
+		const atlas = this._atlas;
+		if (atlas != null) {
+			atlas.destroy();
+		}
+
+		// Font Atlas
+		this._fontAtlases.destroy();
+
 		//
 		super.destroy();
 	}

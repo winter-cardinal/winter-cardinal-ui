@@ -24,10 +24,11 @@ export class DynamicAtlas {
 		const canvas = (this._canvas = document.createElement("canvas"));
 		canvas.width = canvas.height = 256;
 
-		const baseTexture = (this._baseTexture = BaseTexture.from(canvas, {
+		const baseTexture = BaseTexture.from(canvas, {
 			mipmap: MIPMAP_MODES.OFF,
 			resolution
-		}));
+		});
+		this._baseTexture = baseTexture;
 
 		this._idToDatum = {};
 		this._sortedData = [];
@@ -196,6 +197,13 @@ export class DynamicAtlas {
 				delete idToDatum[id];
 				this._isDirty = true;
 			}
+		}
+	}
+
+	destroy(): void {
+		const baseTexture = this._baseTexture;
+		if (baseTexture != null) {
+			baseTexture.destroy();
 		}
 	}
 
