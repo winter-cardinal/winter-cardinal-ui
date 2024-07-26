@@ -236,21 +236,16 @@ export class DDynamicText extends Mesh {
 		if (styleClipping || styleFitting || styleWordWrap) {
 			const parent = this.parent;
 			if (parent instanceof DBase) {
+				const padding = parent.padding;
 				const width =
-					parent.width -
-					parent.padding.getLeft() -
-					parent.padding.getRight() -
-					modifier.delta.width;
+					parent.width - padding.getLeft() - padding.getRight() - modifier.delta.width;
 				if (modifier.width !== width) {
 					modifier.width = width;
 					isChanged = true;
 				}
 
 				const height =
-					parent.height -
-					parent.padding.getTop() -
-					parent.padding.getBottom() -
-					modifier.delta.height;
+					parent.height - padding.getTop() - padding.getBottom() - modifier.delta.height;
 				if (modifier.height !== height) {
 					modifier.height = height;
 					isChanged = true;

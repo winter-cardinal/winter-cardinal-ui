@@ -145,6 +145,7 @@ export class DImagePieceLayouterPartContainer {
 			let textWidth = 0;
 			let textHeight = 0;
 			if (text != null) {
+				text.setClippingDelta(leftSize + rightSize, topSize + bottomSize);
 				textWidth = text.width;
 				textHeight = text.height;
 			}
@@ -180,7 +181,6 @@ export class DImagePieceLayouterPartContainer {
 			}
 			if (text != null) {
 				text.position.set(textX, textY);
-				text.setClippingDelta(leftSize + rightSize, topSize + bottomSize);
 			}
 			left.execute(textX - leftSize);
 			center.execute(0, 0, textX * 2 + textWidth);
