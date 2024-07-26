@@ -434,6 +434,7 @@
     * [Custom Updater](./tree/updater.html)
 * Utility
     * [Downloading Files](./utility/download.html)
+    * [Extracting Pixels](./utility/extract.html)
     * [Number Formatter (Date)](./utility/number-formatter-date.html)
     * [Scalar Expression](./utility/scalar.html)
     * [Shortcut Expression](./utility/shortcut.html)
