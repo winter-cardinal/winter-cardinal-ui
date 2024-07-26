@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DAnimation
+[Winter Cardinal UI - v0.442.0](../index.md) / DAnimation
 
 # Interface: DAnimation\<TARGET\>
 
@@ -54,7 +54,7 @@ An animation duration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L153)
+[src/main/typescript/wcardinal/ui/d-animation.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L153)
 
 ___
 
@@ -66,7 +66,7 @@ An animation target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L148)
+[src/main/typescript/wcardinal/ui/d-animation.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L148)
 
 ## Methods
 
@@ -125,7 +125,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L196)
+[src/main/typescript/wcardinal/ui/d-animation.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L196)
 
 ▸ **emit**(`event`, `...args`): `boolean`
 
@@ -146,7 +146,7 @@ utils.EventEmitter.emit
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L200)
+[src/main/typescript/wcardinal/ui/d-animation.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L200)
 
 ___
 
@@ -162,7 +162,7 @@ Moves an animation frame to the end.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L180)
+[src/main/typescript/wcardinal/ui/d-animation.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L180)
 
 ___
 
@@ -198,7 +198,7 @@ Returns true if an animation is in a reverse mode.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L170)
+[src/main/typescript/wcardinal/ui/d-animation.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L170)
 
 ___
 
@@ -214,7 +214,7 @@ Returns true if an animation is playing.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L165)
+[src/main/typescript/wcardinal/ui/d-animation.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L165)
 
 ___
 
@@ -327,7 +327,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L182)
+[src/main/typescript/wcardinal/ui/d-animation.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L182)
 
 ▸ **on**(`event`, `handler`, `context?`): `this`
 
@@ -349,7 +349,7 @@ utils.EventEmitter.on
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L187)
+[src/main/typescript/wcardinal/ui/d-animation.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L187)
 
 ___
 
@@ -381,7 +381,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L189)
+[src/main/typescript/wcardinal/ui/d-animation.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L189)
 
 ▸ **once**(`event`, `handler`, `context?`): `this`
 
@@ -403,7 +403,7 @@ utils.EventEmitter.once
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L194)
+[src/main/typescript/wcardinal/ui/d-animation.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L194)
 
 ___
 
@@ -484,7 +484,7 @@ Starts an animation.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L160)
+[src/main/typescript/wcardinal/ui/d-animation.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L160)
 
 ___
 
@@ -500,4 +500,4 @@ Stops an animation as is.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-animation.ts#L175)
+[src/main/typescript/wcardinal/ui/d-animation.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation.ts#L175)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EShapeEmbeddedDatum
+[Winter Cardinal UI - v0.442.0](../index.md) / EShapeEmbeddedDatum
 
 # Class: EShapeEmbeddedDatum
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L9)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L6)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L6)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L7)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L4)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L4)
 
 ___
 
@@ -76,4 +76,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L5)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-datum.ts#L5)

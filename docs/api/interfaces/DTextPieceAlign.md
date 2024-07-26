@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DTextPieceAlign
+[Winter Cardinal UI - v0.442.0](../index.md) / DTextPieceAlign
 
 # Interface: DTextPieceAlign
 
@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L6)
+[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L6)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L5)
+[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L5)
 
 ## Methods
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L8)
+[src/main/typescript/wcardinal/ui/d-text-piece-align.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-text-piece-align.ts#L8)

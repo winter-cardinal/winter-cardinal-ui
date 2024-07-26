@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DColorStandard
+[Winter Cardinal UI - v0.442.0](../index.md) / DColorStandard
 
 # Class: DColorStandard
 
@@ -58,7 +58,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L15)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L15)
 
 ## Properties
 
@@ -68,7 +68,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L13)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L13)
 
 ## Methods
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L54)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L54)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L20)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L20)
 
 ___
 
@@ -406,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L28)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L28)
 
 ___
 
@@ -426,7 +426,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L39)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L39)
 
 ___
 
@@ -440,4 +440,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-standard.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L64)
+[src/main/typescript/wcardinal/ui/d-color-standard.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-color-standard.ts#L64)

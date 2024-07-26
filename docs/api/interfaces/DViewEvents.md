@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DViewEvents
+[Winter Cardinal UI - v0.442.0](../index.md) / DViewEvents
 
 # Interface: DViewEvents\<EMITTER\>
 
@@ -15,8 +15,10 @@
 ### Methods
 
 - [gestureend](DViewEvents.md#gestureend)
+- [gesturelongpress](DViewEvents.md#gesturelongpress)
 - [gesturestart](DViewEvents.md#gesturestart)
 - [gesturestop](DViewEvents.md#gesturestop)
+- [gesturetap](DViewEvents.md#gesturetap)
 - [transformend](DViewEvents.md#transformend)
 - [transformstart](DViewEvents.md#transformstart)
 - [transformstop](DViewEvents.md#transformstop)
@@ -45,7 +47,32 @@ Triggered when a gesture ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L129)
+[src/main/typescript/wcardinal/ui/d-view.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L129)
+
+___
+
+### gesturelongpress
+
+▸ **gesturelongpress**(`target`, `e`, `emitter`): `void`
+
+Triggered when pressed long.
+Unlike the tap event of PixiJS, this event is emitted only when the gesture is not performed.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> | an operation target |
+| `e` | `InteractionEvent` | - |
+| `emitter` | `EMITTER` | an emitter |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L157)
 
 ___
 
@@ -68,7 +95,7 @@ Triggered when a gesture starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L121)
+[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L121)
 
 ___
 
@@ -91,7 +118,32 @@ Triggered when a gesture stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L137)
+[src/main/typescript/wcardinal/ui/d-view.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L137)
+
+___
+
+### gesturetap
+
+▸ **gesturetap**(`target`, `e`, `emitter`): `void`
+
+Triggered when tapped.
+Unlike the tap event of PixiJS, this event is emitted only when the gesture is not performed.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | [`DBase`](../classes/DBase.md)\<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)\<[`DThemeBase`](DThemeBase.md), `any`\>\> | an operation target |
+| `e` | `InteractionEvent` | - |
+| `emitter` | `EMITTER` | an emitter |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L147)
 
 ___
 
@@ -114,7 +166,7 @@ Triggered when a transform ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L153)
+[src/main/typescript/wcardinal/ui/d-view.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L173)
 
 ___
 
@@ -137,7 +189,7 @@ Triggered when a transform starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L145)
+[src/main/typescript/wcardinal/ui/d-view.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L165)
 
 ___
 
@@ -160,7 +212,7 @@ Triggered when a transform stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L161)
+[src/main/typescript/wcardinal/ui/d-view.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L181)
 
 ___
 
@@ -183,7 +235,7 @@ Triggered when a wheel translation ends.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L177)
+[src/main/typescript/wcardinal/ui/d-view.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L197)
 
 ___
 
@@ -206,7 +258,7 @@ Triggered when a wheel translation starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L169)
+[src/main/typescript/wcardinal/ui/d-view.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L189)
 
 ___
 
@@ -229,4 +281,4 @@ Triggered when a wheel translation stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L185)
+[src/main/typescript/wcardinal/ui/d-view.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L205)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DThemeWhiteChartSelectionMarker
+[Winter Cardinal UI - v0.442.0](../index.md) / DThemeWhiteChartSelectionMarker
 
 # Class: DThemeWhiteChartSelectionMarker
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts#L12)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts#L12)
 
 ___
 
@@ -79,4 +79,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts#L16)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-selection-marker.ts#L16)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EShapeUuidMappingImpl
+[Winter Cardinal UI - v0.442.0](../index.md) / EShapeUuidMappingImpl
 
 # Class: EShapeUuidMappingImpl
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L14)
 
 ## Properties
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L11)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L12)
 
 ## Methods
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L37)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L18)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L22)
 
 ___
 
@@ -135,4 +135,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-uuid-mapping-impl.ts#L31)

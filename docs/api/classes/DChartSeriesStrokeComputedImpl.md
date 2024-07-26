@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartSeriesStrokeComputedImpl
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartSeriesStrokeComputedImpl
 
 # Class: DChartSeriesStrokeComputedImpl
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L23)
 
 ## Properties
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L19)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L17)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L16)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L15)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L20)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L21)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L18)
 
 ## Methods
 
@@ -170,4 +170,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L41)
+[src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L41)

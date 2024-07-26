@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DViewZoomOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DViewZoomOptions
 
 # Interface: DViewZoomOptions
 
@@ -24,7 +24,7 @@ Double click zoom options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L80)
+[src/main/typescript/wcardinal/ui/d-view.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L80)
 
 ___
 
@@ -36,7 +36,7 @@ True to keep size ratio
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L74)
+[src/main/typescript/wcardinal/ui/d-view.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L74)
 
 ___
 
@@ -48,7 +48,7 @@ Maximum scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L71)
+[src/main/typescript/wcardinal/ui/d-view.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L71)
 
 ___
 
@@ -60,7 +60,7 @@ Minimum scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L68)
+[src/main/typescript/wcardinal/ui/d-view.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L68)
 
 ___
 
@@ -72,4 +72,4 @@ Wheel zoom options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L77)
+[src/main/typescript/wcardinal/ui/d-view.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L77)

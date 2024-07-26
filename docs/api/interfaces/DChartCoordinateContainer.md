@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartCoordinateContainer
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartCoordinateContainer
 
 # Interface: DChartCoordinateContainer\<CHART\>
 
@@ -11,6 +11,7 @@
 ## Implemented by
 
 - [`DChartCoordinateContainerImpl`](../classes/DChartCoordinateContainerImpl.md)
+- [`DChartPlotAreaTwofoldCoorinateContainer`](../classes/DChartPlotAreaTwofoldCoorinateContainer.md)
 
 ## Table of contents
 
@@ -30,11 +31,11 @@
 
 ### plotArea
 
-• **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)\<`CHART`\>
+• **plotArea**: [`DChartPlotArea`](DChartPlotArea.md)\<`CHART`\> \| [`DChartPlotAreaLike`](DChartPlotAreaLike.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L19)
 
 ___
 
@@ -44,7 +45,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L17)
 
 ___
 
@@ -54,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L18)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L18)
 
 ## Methods
 
@@ -74,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L23)
 
 ___
 
@@ -97,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L21)
 
 ___
 
@@ -120,4 +121,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-container.ts#L22)

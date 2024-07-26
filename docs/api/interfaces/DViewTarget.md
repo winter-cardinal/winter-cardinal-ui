@@ -1,15 +1,17 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DViewTarget
+[Winter Cardinal UI - v0.442.0](../index.md) / DViewTarget
 
 # Interface: DViewTarget
 
 ## Implemented by
 
 - [`DChartPlotAreaContainer`](../classes/DChartPlotAreaContainer.md)
+- [`DChartPlotAreaTwofoldViewTarget`](../classes/DChartPlotAreaTwofoldViewTarget.md)
 
 ## Table of contents
 
 ### Properties
 
+- [parent](DViewTarget.md#parent)
 - [position](DViewTarget.md#position)
 - [scale](DViewTarget.md#scale)
 
@@ -19,13 +21,23 @@
 
 ## Properties
 
+### parent
+
+• `Optional` **parent**: ``null`` \| [`DViewTargetParent`](DViewTargetParent.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-to-target.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L21)
+
+___
+
 ### position
 
 • `Readonly` **position**: [`DViewTargetPoint`](DViewTargetPoint.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-to-target.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L13)
+[src/main/typescript/wcardinal/ui/d-view-to-target.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L23)
 
 ___
 
@@ -35,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-to-target.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L12)
+[src/main/typescript/wcardinal/ui/d-view-to-target.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L22)
 
 ## Methods
 
@@ -55,4 +67,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-to-target.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L14)
+[src/main/typescript/wcardinal/ui/d-view-to-target.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-to-target.ts#L24)

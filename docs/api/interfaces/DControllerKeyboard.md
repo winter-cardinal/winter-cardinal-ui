@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DControllerKeyboard
+[Winter Cardinal UI - v0.442.0](../index.md) / DControllerKeyboard
 
 # Interface: DControllerKeyboard
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-keyboard.ts#L10)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-controller-keyboard.ts#L10)
 
 ___
 

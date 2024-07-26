@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EShapeConnectorBodies
+[Winter Cardinal UI - v0.442.0](../index.md) / EShapeConnectorBodies
 
 # Class: EShapeConnectorBodies
 
@@ -42,4 +42,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connector-bodies.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-bodies.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connector-bodies.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-bodies.ts#L7)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DTreeDataSelectionSingle
+[Winter Cardinal UI - v0.442.0](../index.md) / DTreeDataSelectionSingle
 
 # Class: DTreeDataSelectionSingle\<NODE\>
 
@@ -92,7 +92,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L22)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L22)
 
 ## Properties
 
@@ -102,7 +102,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L20)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L20)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L19)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L19)
 
 ## Accessors
 
@@ -132,7 +132,7 @@ A first selected node or null.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L43)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L43)
 
 ___
 
@@ -152,7 +152,7 @@ A last selected node or null.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L47)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L47)
 
 ___
 
@@ -172,7 +172,7 @@ A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L39)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L39)
 
 ## Methods
 
@@ -200,7 +200,7 @@ true if succeeded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L58)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L58)
 
 ___
 
@@ -252,7 +252,7 @@ Clears all the nodes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L86)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L86)
 
 ___
 
@@ -280,7 +280,7 @@ true if the selection is changed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L95)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L95)
 
 ___
 
@@ -308,7 +308,7 @@ true if the selection is changed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L105)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L105)
 
 ___
 
@@ -336,7 +336,7 @@ true if the given node is selected
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L114)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L114)
 
 ___
 
@@ -362,7 +362,7 @@ Iterates over selected nodes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L126)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L126)
 
 ___
 
@@ -447,7 +447,7 @@ a node at the given index or null
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L51)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L51)
 
 ___
 
@@ -469,7 +469,7 @@ true if the selection is empty
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L122)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L122)
 
 ___
 
@@ -550,7 +550,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L157)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L157)
 
 ___
 
@@ -631,7 +631,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L141)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L141)
 
 ___
 
@@ -651,7 +651,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L146)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L146)
 
 ___
 
@@ -713,7 +713,7 @@ true if succeeded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L67)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L67)
 
 ___
 
@@ -802,7 +802,7 @@ the number of selected nodes
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L118)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L118)
 
 ___
 
@@ -824,7 +824,7 @@ an array of selected nodes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L133)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L133)
 
 ___
 
@@ -852,4 +852,4 @@ true if succeeded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L76)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-single.ts#L76)

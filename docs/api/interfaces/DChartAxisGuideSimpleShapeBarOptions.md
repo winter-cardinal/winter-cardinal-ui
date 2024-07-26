@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartAxisGuideSimpleShapeBarOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartAxisGuideSimpleShapeBarOptions
 
 # Interface: DChartAxisGuideSimpleShapeBarOptions
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts#L51)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts#L51)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts#L52)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts#L52)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts#L53)
+[src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-guide-simple-shape.ts#L53)

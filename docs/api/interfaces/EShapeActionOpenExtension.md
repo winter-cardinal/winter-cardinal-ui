@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EShapeActionOpenExtension
+[Winter Cardinal UI - v0.442.0](../index.md) / EShapeActionOpenExtension
 
 # Interface: EShapeActionOpenExtension
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L15)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L16)
 
 ___
 
@@ -36,6 +36,9 @@ ___
 
 • **type**: `number`
 
+An ID of the open extension action.
+This ID must be unique and greater than or equal to [EShapeActionValueOpenType.EXTENSION](../index.md#extension).
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L14)

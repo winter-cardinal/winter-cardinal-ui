@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DynamicSDFFontAtlas
+[Winter Cardinal UI - v0.442.0](../index.md) / DynamicSDFFontAtlas
 
 # Class: DynamicSDFFontAtlas
 
@@ -17,9 +17,9 @@
 - [\_height](DynamicSDFFontAtlas.md#_height)
 - [\_id](DynamicSDFFontAtlas.md#_id)
 - [\_isDirty](DynamicSDFFontAtlas.md#_isdirty)
-- [\_length](DynamicSDFFontAtlas.md#_length)
+- [\_isTouched](DynamicSDFFontAtlas.md#_istouched)
+- [\_life](DynamicSDFFontAtlas.md#_life)
 - [\_width](DynamicSDFFontAtlas.md#_width)
-- [FONT\_FAMILY\_AUTO](DynamicSDFFontAtlas.md#font_family_auto)
 
 ### Accessors
 
@@ -35,19 +35,15 @@
 ### Methods
 
 - [add](DynamicSDFFontAtlas.md#add)
-- [addAscii](DynamicSDFFontAtlas.md#addascii)
-- [addChar](DynamicSDFFontAtlas.md#addchar)
 - [begin](DynamicSDFFontAtlas.md#begin)
 - [destroy](DynamicSDFFontAtlas.md#destroy)
 - [end](DynamicSDFFontAtlas.md#end)
 - [get](DynamicSDFFontAtlas.md#get)
-- [isIgnored](DynamicSDFFontAtlas.md#isignored)
+- [newChar](DynamicSDFFontAtlas.md#newchar)
 - [toJson](DynamicSDFFontAtlas.md#tojson)
+- [toPowerOf2](DynamicSDFFontAtlas.md#topowerof2)
 - [toString](DynamicSDFFontAtlas.md#tostring)
 - [update](DynamicSDFFontAtlas.md#update)
-- [getAutoFontFamily](DynamicSDFFontAtlas.md#getautofontfamily)
-- [toFontFamily](DynamicSDFFontAtlas.md#tofontfamily)
-- [toPowerOf2](DynamicSDFFontAtlas.md#topowerof2)
 
 ## Constructors
 
@@ -67,7 +63,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L40)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L33)
 
 ## Properties
 
@@ -77,7 +73,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L32)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L24)
 
 ___
 
@@ -87,17 +83,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L34)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L26)
 
 ___
 
 ### \_font
 
-• `Protected` **\_font**: [`DynamicSDFFontAtlasFont`](../interfaces/DynamicSDFFontAtlasFont.md)
+• `Protected` **\_font**: [`DynamicSDFFontAtlasFont`](DynamicSDFFontAtlasFont.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L33)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L25)
 
 ___
 
@@ -107,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L31)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L23)
 
 ___
 
@@ -117,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L37)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L28)
 
 ___
 
@@ -127,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L30)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L22)
 
 ___
 
@@ -137,17 +133,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L38)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L29)
 
 ___
 
-### \_length
+### \_isTouched
 
-• `Protected` **\_length**: `number`
+• `Protected` **\_isTouched**: `boolean`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L35)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L30)
+
+___
+
+### \_life
+
+• `Protected` **\_life**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L31)
 
 ___
 
@@ -157,17 +163,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L36)
-
-___
-
-### FONT\_FAMILY\_AUTO
-
-▪ `Static` `Protected` **FONT\_FAMILY\_AUTO**: ``null`` \| `string` = `null`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L28)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L27)
 
 ## Accessors
 
@@ -181,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L78)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L86)
 
 ___
 
@@ -195,21 +191,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L86)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L94)
 
 ___
 
 ### font
 
-• `get` **font**(): [`DynamicSDFFontAtlasFont`](../interfaces/DynamicSDFFontAtlasFont.md)
+• `get` **font**(): [`DynamicSDFFontAtlasFont`](DynamicSDFFontAtlasFont.md)
 
 #### Returns
 
-[`DynamicSDFFontAtlasFont`](../interfaces/DynamicSDFFontAtlasFont.md)
+[`DynamicSDFFontAtlasFont`](DynamicSDFFontAtlasFont.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L60)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L68)
 
 • `set` **font**(`font`): `void`
 
@@ -217,7 +213,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `font` | [`DynamicSDFFontAtlasFont`](../interfaces/DynamicSDFFontAtlasFont.md) |
+| `font` | [`DynamicSDFFontAtlasFont`](DynamicSDFFontAtlasFont.md) |
 
 #### Returns
 
@@ -225,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L64)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L72)
 
 ___
 
@@ -239,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L82)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L90)
 
 ___
 
@@ -253,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L74)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L82)
 
 ___
 
@@ -267,7 +263,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L56)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L64)
 
 ___
 
@@ -281,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L255)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L249)
 
 ___
 
@@ -295,56 +291,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L70)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L78)
 
 ## Methods
 
 ### add
 
-▸ **add**(`characters`, `type?`): `void`
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `characters` | `string` | `undefined` |
-| `type` | `number` | `DynamicFontAtlasCharacterType.LETTER` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L155)
-
-___
-
-### addAscii
-
-▸ **addAscii**(): `void`
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L112)
-
-___
-
-### addChar
-
-▸ **addChar**(`id`, `character`, `type`): `void`
+▸ **add**(`characters`, `nacharacters`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `id` | `string` |
-| `character` | `string` |
-| `type` | `number` |
+| `characters` | `string`[] |
+| `nacharacters` | `string`[] |
 
 #### Returns
 
@@ -352,7 +312,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L122)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L139)
 
 ___
 
@@ -366,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L90)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L98)
 
 ___
 
@@ -380,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:272](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L272)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L266)
 
 ___
 
@@ -394,7 +354,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L98)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L107)
 
 ___
 
@@ -414,27 +374,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L166)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L157)
 
 ___
 
-### isIgnored
+### newChar
 
-▸ **isIgnored**(`character`): `boolean`
+▸ **newChar**(`character`, `type`): [`DynamicFontAtlasCharacter`](DynamicFontAtlasCharacter.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `character` | `string` |
+| `type` | `number` |
 
 #### Returns
 
-`boolean`
+[`DynamicFontAtlasCharacter`](DynamicFontAtlasCharacter.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L139)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L132)
 
 ___
 
@@ -448,69 +409,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L259)
-
-___
-
-### toString
-
-▸ **toString**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:268](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L268)
-
-___
-
-### update
-
-▸ **update**(): `boolean`
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L170)
-
-___
-
-### getAutoFontFamily
-
-▸ **getAutoFontFamily**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L301)
-
-___
-
-### toFontFamily
-
-▸ **toFontFamily**(`fontFamily`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `fontFamily` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:289](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L289)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L253)
 
 ___
 
@@ -530,4 +429,32 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:293](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L293)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:280](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L280)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L262)
+
+___
+
+### update
+
+▸ **update**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L161)

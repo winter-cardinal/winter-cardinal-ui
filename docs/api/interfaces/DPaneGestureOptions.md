@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DPaneGestureOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DPaneGestureOptions
 
 # Interface: DPaneGestureOptions
 
@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-pane.ts#L22)
+[src/main/typescript/wcardinal/ui/d-pane.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-pane.ts#L21)

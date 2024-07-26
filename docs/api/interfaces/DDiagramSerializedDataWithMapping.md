@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSerializedDataWithMapping
+[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramSerializedDataWithMapping
 
 # Interface: DDiagramSerializedDataWithMapping
 
@@ -63,7 +63,7 @@ The last number is a resource index number of JSON.stringify(DDiagramSerializedD
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L107)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L107)
 
 ___
 
@@ -75,7 +75,7 @@ A resource index number of JSON.stringify(DDiagramSerializedDataSystem).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L112)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L112)
 
 ___
 

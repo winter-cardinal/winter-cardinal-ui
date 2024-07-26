@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartSelectionShape
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartSelectionShape
 
 # Interface: DChartSelectionShape\<CHART\>
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L30)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 | `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
-| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
+| `series` | ``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L32)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L31)
 
 ___
 
@@ -91,13 +91,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L38)
 
 ___
 
 ### update
 
-▸ **update**(`container`, `position`, `mappedPosition`): `boolean`
+▸ **update**(`container`, `position`, `mappedPosition`, `series`): `boolean`
 
 #### Parameters
 
@@ -106,6 +106,7 @@ ___
 | `container` | [`DChartSeriesContainer`](DChartSeriesContainer.md)\<`CHART`\> |
 | `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
+| `series` | ``null`` \| [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
 
 #### Returns
 
@@ -113,4 +114,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L39)

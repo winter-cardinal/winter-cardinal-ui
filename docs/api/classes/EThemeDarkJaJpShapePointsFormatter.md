@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EThemeDarkJaJpShapePointsFormatter
+[Winter Cardinal UI - v0.442.0](../index.md) / EThemeDarkJaJpShapePointsFormatter
 
 # Class: EThemeDarkJaJpShapePointsFormatter
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts#L8)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts#L8)
 
 ___
 
@@ -67,4 +67,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts#L4)
+[src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/dark/e-theme-dark-ja-jp-shape-points-formatter.ts#L4)

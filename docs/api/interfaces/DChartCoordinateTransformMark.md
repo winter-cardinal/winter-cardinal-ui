@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartCoordinateTransformMark
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartCoordinateTransformMark
 
 # Interface: DChartCoordinateTransformMark
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L5)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L5)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L4)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L4)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L3)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:3](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L3)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L2)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:2](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L2)
 
 ## Methods
 
@@ -78,4 +78,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L6)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform-mark.ts#L6)

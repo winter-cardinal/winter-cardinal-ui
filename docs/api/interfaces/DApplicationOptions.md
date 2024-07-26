@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DApplicationOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DApplicationOptions
 
 # Interface: DApplicationOptions
 
@@ -25,7 +25,7 @@ An antialias setting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L51)
+[src/main/typescript/wcardinal/ui/d-application.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L51)
 
 ___
 
@@ -37,7 +37,7 @@ A background setting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L46)
+[src/main/typescript/wcardinal/ui/d-application.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L46)
 
 ___
 
@@ -49,7 +49,7 @@ A canvas height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L41)
+[src/main/typescript/wcardinal/ui/d-application.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L41)
 
 ___
 
@@ -67,7 +67,7 @@ The default value is false.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L68)
+[src/main/typescript/wcardinal/ui/d-application.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L68)
 
 ___
 
@@ -79,7 +79,7 @@ Padding settings.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L31)
+[src/main/typescript/wcardinal/ui/d-application.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L31)
 
 ___
 
@@ -92,7 +92,7 @@ The default value is `devicePixelRatio`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L57)
+[src/main/typescript/wcardinal/ui/d-application.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L57)
 
 ___
 
@@ -106,7 +106,7 @@ The default root element is `document.body`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L26)
+[src/main/typescript/wcardinal/ui/d-application.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L26)
 
 ___
 
@@ -118,4 +118,4 @@ A canvas width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L36)
+[src/main/typescript/wcardinal/ui/d-application.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L36)

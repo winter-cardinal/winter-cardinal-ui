@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSerializedTextAlign
+[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramSerializedTextAlign
 
 # Interface: DDiagramSerializedTextAlign
 
@@ -21,7 +21,7 @@ A horizontal align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L190)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L190)
 
 ___
 
@@ -33,4 +33,4 @@ A vertical align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L193)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L193)

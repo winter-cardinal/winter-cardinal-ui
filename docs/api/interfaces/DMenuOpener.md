@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DMenuOpener
+[Winter Cardinal UI - v0.442.0](../index.md) / DMenuOpener
 
 # Interface: DMenuOpener
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
 
 ## Methods
 
@@ -51,4 +51,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-opener.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-menu-opener.ts#L5)
+[src/main/typescript/wcardinal/ui/d-menu-opener.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-opener.ts#L5)

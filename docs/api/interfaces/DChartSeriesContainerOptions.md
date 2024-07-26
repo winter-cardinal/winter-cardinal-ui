@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartSeriesContainerOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartSeriesContainerOptions
 
 # Interface: DChartSeriesContainerOptions\<CHART\>
 
@@ -8,6 +8,12 @@
 | :------ | :------ |
 | `CHART` | extends [`DBase`](../classes/DBase.md) = [`DBase`](../classes/DBase.md) |
 
+## Hierarchy
+
+- **`DChartSeriesContainerOptions`**
+
+  ↳ [`DChartPlotAreaSingleSeriesContainerOptions`](DChartPlotAreaSingleSeriesContainerOptions.md)
+
 ## Table of contents
 
 ### Properties
@@ -16,7 +22,6 @@
 - [list](DChartSeriesContainerOptions.md#list)
 - [offset](DChartSeriesContainerOptions.md#offset)
 - [padding](DChartSeriesContainerOptions.md#padding)
-- [selection](DChartSeriesContainerOptions.md#selection)
 - [size](DChartSeriesContainerOptions.md#size)
 - [stroke](DChartSeriesContainerOptions.md#stroke)
 
@@ -28,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L36)
 
 ___
 
@@ -38,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L34)
 
 ___
 
@@ -48,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L39)
 
 ___
 
@@ -58,17 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L41)
-
-___
-
-### selection
-
-• `Optional` **selection**: [`DChartSelection`](DChartSelection.md)\<`CHART`\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L35)
+[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L40)
 
 ___
 
@@ -78,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L38)
 
 ___
 
@@ -88,4 +83,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-series-container.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container.ts#L37)

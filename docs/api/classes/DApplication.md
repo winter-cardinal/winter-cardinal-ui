@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DApplication
+[Winter Cardinal UI - v0.442.0](../index.md) / DApplication
 
 # Class: DApplication
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L80)
+[src/main/typescript/wcardinal/ui/d-application.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L80)
 
 ## Properties
 
@@ -70,7 +70,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L74)
+[src/main/typescript/wcardinal/ui/d-application.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L74)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L78)
+[src/main/typescript/wcardinal/ui/d-application.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L78)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L77)
+[src/main/typescript/wcardinal/ui/d-application.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L77)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L72)
+[src/main/typescript/wcardinal/ui/d-application.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L72)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L75)
+[src/main/typescript/wcardinal/ui/d-application.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L75)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L76)
+[src/main/typescript/wcardinal/ui/d-application.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L76)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L73)
+[src/main/typescript/wcardinal/ui/d-application.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L73)
 
 ## Accessors
 
@@ -150,7 +150,7 @@ The stage of the base layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L109)
+[src/main/typescript/wcardinal/ui/d-application.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L109)
 
 ## Methods
 
@@ -170,7 +170,7 @@ Returns a focus controller.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L158)
+[src/main/typescript/wcardinal/ui/d-application.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L158)
 
 ___
 
@@ -190,7 +190,7 @@ Returns a base layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L187)
+[src/main/typescript/wcardinal/ui/d-application.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L187)
 
 ___
 
@@ -212,7 +212,7 @@ if the overlay layer is disabled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L219)
+[src/main/typescript/wcardinal/ui/d-application.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L219)
 
 ___
 
@@ -232,7 +232,7 @@ Returns a resolution.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L117)
+[src/main/typescript/wcardinal/ui/d-application.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L117)
 
 ___
 
@@ -252,7 +252,7 @@ Returns a root element.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L113)
+[src/main/typescript/wcardinal/ui/d-application.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L113)
 
 ___
 
@@ -272,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L165)
+[src/main/typescript/wcardinal/ui/d-application.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L165)
 
 ___
 
@@ -292,7 +292,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L183)
+[src/main/typescript/wcardinal/ui/d-application.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L183)
 
 ___
 
@@ -312,7 +312,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L215)
+[src/main/typescript/wcardinal/ui/d-application.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L215)
 
 ___
 
@@ -332,7 +332,7 @@ Renders layers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L244)
+[src/main/typescript/wcardinal/ui/d-application.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L244)
 
 ___
 
@@ -352,7 +352,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L136)
+[src/main/typescript/wcardinal/ui/d-application.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L136)
 
 ___
 
@@ -372,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L191)
+[src/main/typescript/wcardinal/ui/d-application.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L191)
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L121)
+[src/main/typescript/wcardinal/ui/d-application.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L121)
 
 ___
 
@@ -412,4 +412,4 @@ Updates layers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application.ts#L230)
+[src/main/typescript/wcardinal/ui/d-application.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application.ts#L230)

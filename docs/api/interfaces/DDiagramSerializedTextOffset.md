@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSerializedTextOffset
+[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramSerializedTextOffset
 
 # Interface: DDiagramSerializedTextOffset
 
@@ -21,7 +21,7 @@ A horizontal offset.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L201)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L201)
 
 ___
 
@@ -33,4 +33,4 @@ A vertical offset.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L204)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L204)

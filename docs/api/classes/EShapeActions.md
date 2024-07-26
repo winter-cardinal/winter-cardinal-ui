@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EShapeActions
+[Winter Cardinal UI - v0.442.0](../index.md) / EShapeActions
 
 # Class: EShapeActions
 
@@ -11,10 +11,10 @@
 ### Methods
 
 - [emit](EShapeActions.md#emit)
-- [isContainer](EShapeActions.md#iscontainer)
+- [isDiagram](EShapeActions.md#isdiagram)
 - [isEmbedded](EShapeActions.md#isembedded)
 - [open](EShapeActions.md#open)
-- [toContainer](EShapeActions.md#tocontainer)
+- [toDiagram](EShapeActions.md#todiagram)
 - [writeLocal](EShapeActions.md#writelocal)
 - [writeRemote](EShapeActions.md#writeremote)
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L125)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L116)
 
 ▸ **emit**(`shape`, `name`, `value`, `time`): `void`
 
@@ -66,13 +66,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L126)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L117)
 
 ___
 
-### isContainer
+### isDiagram
 
-▸ **isContainer**(`target`): target is EShapeActionsContainer
+▸ **isDiagram**(`target`): target is DDiagram\<DThemeDiagram, DDiagramOptions\<DThemeDiagram, any\>\>
 
 #### Parameters
 
@@ -82,11 +82,11 @@ ___
 
 #### Returns
 
-target is EShapeActionsContainer
+target is DDiagram\<DThemeDiagram, DDiagramOptions\<DThemeDiagram, any\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L18)
 
 ___
 
@@ -106,13 +106,13 @@ target is EShapeEmbedded
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L22)
 
 ___
 
 ### open
 
-▸ **open**(`shape`, `type`, `target`, `inNewWindow`): `void`
+▸ **open**(`shape`, `type`, `target`, `inNewWindow`, `environment`): `void`
 
 #### Parameters
 
@@ -122,6 +122,7 @@ ___
 | `type` | `number` |
 | `target` | `unknown` |
 | `inNewWindow` | `boolean` |
+| `environment` | [`EShapeActionEnvironment`](../interfaces/EShapeActionEnvironment.md) |
 
 #### Returns
 
@@ -129,13 +130,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L37)
 
 ___
 
-### toContainer
+### toDiagram
 
-▸ **toContainer**(`shape?`): ``null`` \| [`EShapeActionsContainer`](../interfaces/EShapeActionsContainer.md)
+▸ **toDiagram**(`shape?`): ``null`` \| [`DDiagram`](DDiagram.md)\<[`DThemeDiagram`](../interfaces/DThemeDiagram.md), [`DDiagramOptions`](../interfaces/DDiagramOptions.md)\<[`DThemeDiagram`](../interfaces/DThemeDiagram.md), `any`\>\>
 
 #### Parameters
 
@@ -145,11 +146,11 @@ ___
 
 #### Returns
 
-``null`` \| [`EShapeActionsContainer`](../interfaces/EShapeActionsContainer.md)
+``null`` \| [`DDiagram`](DDiagram.md)\<[`DThemeDiagram`](../interfaces/DThemeDiagram.md), [`DDiagramOptions`](../interfaces/DDiagramOptions.md)\<[`DThemeDiagram`](../interfaces/DThemeDiagram.md), `any`\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L26)
 
 ___
 
@@ -173,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L83)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L74)
 
 ___
 
@@ -195,4 +196,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L117)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-actions.ts#L108)

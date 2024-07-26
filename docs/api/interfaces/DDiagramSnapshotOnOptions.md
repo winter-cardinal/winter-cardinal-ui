@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramSnapshotOnOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramSnapshotOnOptions
 
 # Interface: DDiagramSnapshotOnOptions\<CANVAS, EMITTER\>
 
@@ -49,7 +49,7 @@ Partial.taking
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L29)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L29)
 
 ___
 
@@ -77,4 +77,4 @@ Partial.took
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L38)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L38)

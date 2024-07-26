@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DViewGestureImpl
+[Winter Cardinal UI - v0.442.0](../index.md) / DViewGestureImpl
 
 # Class: DViewGestureImpl
 
@@ -24,8 +24,10 @@
 - [onDown](DViewGestureImpl.md#ondown)
 - [onEnd](DViewGestureImpl.md#onend)
 - [onGestureMove](DViewGestureImpl.md#ongesturemove)
+- [onLongPress](DViewGestureImpl.md#onlongpress)
 - [onStart](DViewGestureImpl.md#onstart)
 - [onStop](DViewGestureImpl.md#onstop)
+- [onTap](DViewGestureImpl.md#ontap)
 - [stop](DViewGestureImpl.md#stop)
 
 ## Constructors
@@ -51,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L23)
 
 ## Properties
 
@@ -61,7 +63,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L20)
 
 ___
 
@@ -71,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L21)
 
 ___
 
@@ -81,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L18)
 
 ___
 
@@ -91,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L19)
 
 ## Methods
 
@@ -111,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L131)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L155)
 
 ___
 
@@ -131,13 +133,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L81)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L88)
 
 ___
 
 ### onGestureMove
 
-▸ **onGestureMove**(`target`, `dx`, `dy`, `x`, `y`, `ds`): `void`
+▸ **onGestureMove**(`target`, `dx`, `dy`, `x`, `y`, `ds`, `work`): `void`
 
 #### Parameters
 
@@ -149,6 +151,7 @@ ___
 | `x` | `number` |
 | `y` | `number` |
 | `ds` | `number` |
+| `work` | `Point` |
 
 #### Returns
 
@@ -156,7 +159,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L91)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L108)
+
+___
+
+### onLongPress
+
+▸ **onLongPress**(`target`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L103)
 
 ___
 
@@ -176,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L75)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L82)
 
 ___
 
@@ -196,7 +220,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L86)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L93)
+
+___
+
+### onTap
+
+▸ **onTap**(`target`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`DBase`](DBase.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)\<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L98)
 
 ___
 
@@ -216,4 +261,4 @@ Stops an animation if sxists.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L127)
+[src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture-impl.ts#L151)

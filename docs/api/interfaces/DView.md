@@ -1,6 +1,12 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DView
+[Winter Cardinal UI - v0.442.0](../index.md) / DView
 
 # Interface: DView
+
+## Hierarchy
+
+- `EventEmitter`
+
+  ↳ **`DView`**
 
 ## Implemented by
 
@@ -16,8 +22,18 @@
 
 ### Methods
 
+- [addListener](DView.md#addlistener)
+- [emit](DView.md#emit)
+- [eventNames](DView.md#eventnames)
 - [fit](DView.md#fit)
+- [listenerCount](DView.md#listenercount)
+- [listeners](DView.md#listeners)
 - [moveTo](DView.md#moveto)
+- [off](DView.md#off)
+- [on](DView.md#on)
+- [once](DView.md#once)
+- [removeAllListeners](DView.md#removealllisteners)
+- [removeListener](DView.md#removelistener)
 - [reset](DView.md#reset)
 - [stop](DView.md#stop)
 - [toGlobal](DView.md#toglobal)
@@ -37,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L236)
+[src/main/typescript/wcardinal/ui/d-view.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L256)
 
 ___
 
@@ -47,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L238)
+[src/main/typescript/wcardinal/ui/d-view.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L258)
 
 ___
 
@@ -57,9 +73,86 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L237)
+[src/main/typescript/wcardinal/ui/d-view.ts:257](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L257)
 
 ## Methods
+
+### addListener
+
+▸ **addListener**(`event`, `fn`, `context?`): `this`
+
+Alias method for `on`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn` | `Function` |
+| `context?` | `any` |
+
+#### Returns
+
+`this`
+
+#### Inherited from
+
+utils.EventEmitter.addListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25495
+
+___
+
+### emit
+
+▸ **emit**(`event`, `...args`): `boolean`
+
+Calls each of the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `...args` | `any`[] | Arguments that are passed to registered listeners |
+
+#### Returns
+
+`boolean`
+
+`true` if the event had listeners, else `false`.
+
+#### Inherited from
+
+utils.EventEmitter.emit
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25441
+
+___
+
+### eventNames
+
+▸ **eventNames**(): (`string` \| `symbol`)[]
+
+Return an array listing the events for which the emitter has registered listeners.
+
+#### Returns
+
+(`string` \| `symbol`)[]
+
+#### Inherited from
+
+utils.EventEmitter.eventNames
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25415
+
+___
 
 ### fit
 
@@ -80,7 +173,59 @@ Fits into a screen.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L259)
+[src/main/typescript/wcardinal/ui/d-view.ts:279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L279)
+
+___
+
+### listenerCount
+
+▸ **listenerCount**(`event`): `number`
+
+Return the number of listeners listening to a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+utils.EventEmitter.listenerCount
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25432
+
+___
+
+### listeners
+
+▸ **listeners**(`event`): `Function`[]
+
+Return the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`Function`[]
+
+#### Inherited from
+
+utils.EventEmitter.listeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25424
 
 ___
 
@@ -105,7 +250,155 @@ Moves to the given position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:333](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L333)
+[src/main/typescript/wcardinal/ui/d-view.ts:353](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L353)
+
+___
+
+### off
+
+▸ **off**(`event`, `fn?`, `context?`, `once?`): `this`
+
+Alias method for `removeListener`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn?` | `Function` |
+| `context?` | `any` |
+| `once?` | `boolean` |
+
+#### Returns
+
+`this`
+
+#### Inherited from
+
+utils.EventEmitter.off
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25489
+
+___
+
+### on
+
+▸ **on**(`event`, `fn`, `context?`): `this`
+
+Add a listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.on
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25452
+
+___
+
+### once
+
+▸ **once**(`event`, `fn`, `context?`): `this`
+
+Add a one-time listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.once
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25463
+
+___
+
+### removeAllListeners
+
+▸ **removeAllListeners**(`event?`): `this`
+
+Remove all listeners, or those of the specified event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event?` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.removeAllListeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25483
+
+___
+
+### removeListener
+
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): `this`
+
+Remove the listeners of a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn?` | `Function` | Only remove the listeners that match this function. |
+| `context?` | `any` | Only remove the listeners that have this context. |
+| `once?` | `boolean` | Only remove one-time listeners. |
+
+#### Returns
+
+`this`
+
+`this`.
+
+#### Inherited from
+
+utils.EventEmitter.removeListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
@@ -128,7 +421,7 @@ Resets a position and a scale.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L251)
+[src/main/typescript/wcardinal/ui/d-view.ts:271](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L271)
 
 ___
 
@@ -144,7 +437,7 @@ Stops an animation if exits.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L243)
+[src/main/typescript/wcardinal/ui/d-view.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L263)
 
 ___
 
@@ -166,7 +459,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L355)
+[src/main/typescript/wcardinal/ui/d-view.ts:375](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L375)
 
 ___
 
@@ -188,7 +481,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L354)
+[src/main/typescript/wcardinal/ui/d-view.ts:374](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L374)
 
 ___
 
@@ -215,7 +508,7 @@ Sets to the specified position and scale.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:345](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L345)
+[src/main/typescript/wcardinal/ui/d-view.ts:365](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L365)
 
 ___
 
@@ -240,7 +533,7 @@ Zooms in / out at the current position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L323)
+[src/main/typescript/wcardinal/ui/d-view.ts:343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L343)
 
 ___
 
@@ -267,7 +560,7 @@ Zooms into the given position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L287)
+[src/main/typescript/wcardinal/ui/d-view.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L307)
 
 ___
 
@@ -294,7 +587,7 @@ Zooms into the specified global position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L306)
+[src/main/typescript/wcardinal/ui/d-view.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L326)
 
 ___
 
@@ -317,7 +610,7 @@ Zooms in at the current position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L267)
+[src/main/typescript/wcardinal/ui/d-view.ts:287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L287)
 
 ___
 
@@ -340,4 +633,4 @@ Zooms out at the current position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-view.ts#L275)
+[src/main/typescript/wcardinal/ui/d-view.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L295)

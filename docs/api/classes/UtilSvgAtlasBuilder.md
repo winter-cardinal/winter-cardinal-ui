@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / UtilSvgAtlasBuilder
+[Winter Cardinal UI - v0.442.0](../index.md) / UtilSvgAtlasBuilder
 
 # Class: UtilSvgAtlasBuilder
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L40)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L40)
 
 ## Properties
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L38)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L32)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L32)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L36)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L36)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L27)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L27)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L30)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L30)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L34)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L34)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L35)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L35)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L26)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L26)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L28)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L28)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L29)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L29)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L33)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L33)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L25)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L25)
 
 ## Accessors
 
@@ -188,7 +188,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L130)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L130)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L69)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L69)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L65)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L65)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L61)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L61)
 
 ## Methods
 
@@ -253,7 +253,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L73)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L73)
 
 ▸ **add**(`name`, `width`, `height`, `path`, `frameX`, `frameY`, `frameWidth`, `frameHeight`): `boolean`
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L74)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L74)
 
 ___
 
@@ -296,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L134)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L134)
 
 ___
 
@@ -316,4 +316,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L126)
+[src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-svg-atlas-builder.ts#L126)

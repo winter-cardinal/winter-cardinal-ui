@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartSelectionSimple
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartSelectionSimple
 
 # Class: DChartSelectionSimple\<CHART\>
 
@@ -27,9 +27,11 @@
 ### Properties
 
 - [\_container](DChartSelectionSimple.md#_container)
+- [\_dismiss](DChartSelectionSimple.md#_dismiss)
 - [\_hovered](DChartSelectionSimple.md#_hovered)
-- [\_onClickBound](DChartSelectionSimple.md#_onclickbound)
+- [\_onLongPressBound](DChartSelectionSimple.md#_onlongpressbound)
 - [\_onMoveBound](DChartSelectionSimple.md#_onmovebound)
+- [\_onTapBound](DChartSelectionSimple.md#_ontapbound)
 - [\_selected](DChartSelectionSimple.md#_selected)
 - [WORK\_SELECT](DChartSelectionSimple.md#work_select)
 
@@ -50,12 +52,17 @@
 - [newSelected](DChartSelectionSimple.md#newselected)
 - [off](DChartSelectionSimple.md#off)
 - [on](DChartSelectionSimple.md#on)
-- [onClick](DChartSelectionSimple.md#onclick)
+- [onLongPress](DChartSelectionSimple.md#onlongpress)
 - [onMove](DChartSelectionSimple.md#onmove)
 - [onRender](DChartSelectionSimple.md#onrender)
+- [onTap](DChartSelectionSimple.md#ontap)
 - [once](DChartSelectionSimple.md#once)
 - [removeAllListeners](DChartSelectionSimple.md#removealllisteners)
 - [removeListener](DChartSelectionSimple.md#removelistener)
+- [toDismiss](DChartSelectionSimple.md#todismiss)
+- [toDismissLongPress](DChartSelectionSimple.md#todismisslongpress)
+- [toDismissNoSeries](DChartSelectionSimple.md#todismissnoseries)
+- [toDismissTap](DChartSelectionSimple.md#todismisstap)
 - [toHoveredOptions](DChartSelectionSimple.md#tohoveredoptions)
 - [toSelectedOptions](DChartSelectionSimple.md#toselectedoptions)
 - [toSubOptions](DChartSelectionSimple.md#tosuboptions)
@@ -90,7 +97,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L83)
 
 ## Properties
 
@@ -100,7 +107,17 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L74)
+
+___
+
+### \_dismiss
+
+• `Protected` **\_dismiss**: [`DChartSelectionSimpleDismiss`](../interfaces/DChartSelectionSimpleDismiss.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L77)
 
 ___
 
@@ -110,22 +127,23 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L76)
 
 ___
 
-### \_onClickBound
+### \_onLongPressBound
 
-• `Protected` **\_onClickBound**: (`e`: `InteractionEvent`) => `void`
+• `Protected` **\_onLongPressBound**: (`target`: `unknown`, `e`: `InteractionEvent`) => `void`
 
 #### Type declaration
 
-▸ (`e`): `void`
+▸ (`target`, `e`): `void`
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `target` | `unknown` |
 | `e` | `InteractionEvent` |
 
 ##### Returns
@@ -134,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L35)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L81)
 
 ___
 
@@ -158,7 +176,32 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L79)
+
+___
+
+### \_onTapBound
+
+• `Protected` **\_onTapBound**: (`target`: `unknown`, `e`: `InteractionEvent`) => `void`
+
+#### Type declaration
+
+▸ (`target`, `e`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `unknown` |
+| `e` | `InteractionEvent` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L80)
 
 ___
 
@@ -168,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L75)
 
 ___
 
@@ -178,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L72)
 
 ## Accessors
 
@@ -192,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L199)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L327)
 
 ___
 
@@ -206,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L195)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L323)
 
 ## Methods
 
@@ -262,7 +305,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L174)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:297](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L297)
 
 ___
 
@@ -400,7 +443,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L74)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L167)
 
 ___
 
@@ -421,7 +464,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L67)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L160)
 
 ___
 
@@ -492,9 +535,9 @@ node_modules/pixi.js/pixi.js.d.ts:25452
 
 ___
 
-### onClick
+### onLongPress
 
-▸ **onClick**(`e`): `void`
+▸ **onLongPress**(`e`): `void`
 
 #### Parameters
 
@@ -508,7 +551,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L140)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L262)
 
 ___
 
@@ -528,7 +571,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L155)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L273)
 
 ___
 
@@ -546,7 +589,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L214)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:342](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L342)
+
+___
+
+### onTap
+
+▸ **onTap**(`e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L233)
 
 ___
 
@@ -651,6 +714,86 @@ node_modules/pixi.js/pixi.js.d.ts:25475
 
 ___
 
+### toDismiss
+
+▸ **toDismiss**(`options?`): [`DChartSelectionSimpleDismiss`](../interfaces/DChartSelectionSimpleDismiss.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`DChartSelectionSimpleOptions`](../interfaces/DChartSelectionSimpleOptions.md)\<`CHART`, `any`\> |
+
+#### Returns
+
+[`DChartSelectionSimpleDismiss`](../interfaces/DChartSelectionSimpleDismiss.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L113)
+
+___
+
+### toDismissLongPress
+
+▸ **toDismissLongPress**(`options?`): [`DChartSelectionSimpleDismissLongPress`](../interfaces/DChartSelectionSimpleDismissLongPress.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`DChartSelectionSimpleDismissLongPressOptions`](../interfaces/DChartSelectionSimpleDismissLongPressOptions.md) |
+
+#### Returns
+
+[`DChartSelectionSimpleDismissLongPress`](../interfaces/DChartSelectionSimpleDismissLongPress.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L144)
+
+___
+
+### toDismissNoSeries
+
+▸ **toDismissNoSeries**(`options?`): [`DChartSelectionSimpleDismissNoSeries`](../interfaces/DChartSelectionSimpleDismissNoSeries.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`DChartSelectionSimpleDismissNoSeriesOptions`](../interfaces/DChartSelectionSimpleDismissNoSeriesOptions.md) |
+
+#### Returns
+
+[`DChartSelectionSimpleDismissNoSeries`](../interfaces/DChartSelectionSimpleDismissNoSeries.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L152)
+
+___
+
+### toDismissTap
+
+▸ **toDismissTap**(`options?`): [`DChartSelectionSimpleDismissTap`](../interfaces/DChartSelectionSimpleDismissTap.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`DChartSelectionSimpleDismissTapOptions`](../interfaces/DChartSelectionSimpleDismissTapOptions.md) |
+
+#### Returns
+
+[`DChartSelectionSimpleDismissTap`](../interfaces/DChartSelectionSimpleDismissTap.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L135)
+
+___
+
 ### toHoveredOptions
 
 ▸ **toHoveredOptions**(`point`, `options?`): [`DChartSelectionSubOptions`](../interfaces/DChartSelectionSubOptions.md)\<`CHART`, `any`\>
@@ -668,7 +811,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L88)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L181)
 
 ___
 
@@ -689,7 +832,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L81)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L174)
 
 ___
 
@@ -711,7 +854,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L95)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L188)
 
 ___
 
@@ -729,7 +872,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L183)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:308](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L308)
 
 ___
 
@@ -747,4 +890,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L203)
+[src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts:331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-simple.ts#L331)

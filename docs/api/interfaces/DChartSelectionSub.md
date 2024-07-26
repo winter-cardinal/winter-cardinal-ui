@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartSelectionSub
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartSelectionSub
 
 # Interface: DChartSelectionSub\<CHART\>
 
@@ -24,6 +24,7 @@
 
 - [position](DChartSelectionSub.md#position)
 - [series](DChartSelectionSub.md#series)
+- [visible](DChartSelectionSub.md#visible)
 
 ### Methods
 
@@ -51,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L31)
 
 ___
 
@@ -61,7 +62,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L30)
+
+___
+
+### visible
+
+• `Readonly` **visible**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L29)
 
 ## Methods
 
@@ -109,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L33)
 
 ___
 
@@ -364,14 +375,16 @@ ___
 
 ### set
 
-▸ **set**(`series`, `result`): `void`
+▸ **set**(`x`, `y`): `void`
+
+Sets a series to null and set a position to the given global position.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> |
-| `result` | [`DChartSeriesHitResult`](../classes/DChartSeriesHitResult.md) \| [`DChartSelectionSub`](DChartSelectionSub.md)\<`CHART`\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `number` | a global X position |
+| `y` | `number` | a global Y position |
 
 #### Returns
 
@@ -379,7 +392,26 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L42)
+
+▸ **set**(`series`, `result`): `void`
+
+Sets a series and a position.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `series` | [`DChartSeries`](DChartSeries.md)\<`CHART`\> | a series to be set |
+| `result` | [`DChartSeriesHitResult`](../classes/DChartSeriesHitResult.md) | a hit result |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L50)
 
 ___
 
@@ -393,7 +425,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L34)
 
 ___
 
@@ -401,13 +433,15 @@ ___
 
 ▸ **unset**(): `void`
 
+Clear a series and a position.
+
 #### Returns
 
 `void`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L55)
 
 ___
 
@@ -421,4 +455,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L56)

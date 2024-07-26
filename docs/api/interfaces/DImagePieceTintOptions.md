@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DImagePieceTintOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DImagePieceTintOptions
 
 # Interface: DImagePieceTintOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L6)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L6)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L5)
+[src/main/typescript/wcardinal/ui/d-image-piece-tint.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-image-piece-tint.ts#L5)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DApplicationTarget
+[Winter Cardinal UI - v0.442.0](../index.md) / DApplicationTarget
 
 # Interface: DApplicationTarget
 
@@ -11,6 +11,8 @@
   ↳ [`UtilGestureTarget`](UtilGestureTarget.md)
 
   ↳ [`UtilPointerEventClickTarget`](UtilPointerEventClickTarget.md)
+
+  ↳ [`DChartPlotAreaLike`](DChartPlotAreaLike.md)
 
   ↳ [`DDiagramShapeDiagram`](DDiagramShapeDiagram.md)
 
@@ -25,6 +27,8 @@
   ↳ [`DMenuOpener`](DMenuOpener.md)
 
   ↳ [`DPaneScrollBarParent`](DPaneScrollBarParent.md)
+
+  ↳ [`DTableCellEdgeCell`](DTableCellEdgeCell.md)
 
   ↳ [`DTextPieceAlignImplParent`](DTextPieceAlignImplParent.md)
 
@@ -44,4 +48,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)

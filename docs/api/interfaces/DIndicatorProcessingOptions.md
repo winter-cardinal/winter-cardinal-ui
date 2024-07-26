@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DIndicatorProcessingOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DIndicatorProcessingOptions
 
 # Interface: DIndicatorProcessingOptions\<VALUE\>
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L25)
+[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L25)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L27)
+[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L27)
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L26)
+[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L26)

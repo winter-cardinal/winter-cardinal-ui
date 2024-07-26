@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DShadowImpl
+[Winter Cardinal UI - v0.442.0](../index.md) / DShadowImpl
 
 # Class: DShadowImpl
 
@@ -181,7 +181,7 @@ NineSlicePlane.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L16)
 
 ## Properties
 
@@ -484,7 +484,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L11)
 
 ___
 
@@ -494,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L12)
 
 ___
 
@@ -504,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L13)
 
 ___
 
@@ -514,7 +514,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L14)
 
 ___
 
@@ -3028,7 +3028,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L36)
 
 ___
 
@@ -3042,7 +3042,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L32)
 
 ___
 
@@ -3325,7 +3325,7 @@ NineSlicePlane.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/d-shadow-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-shadow-impl.ts#L45)
 
 ___
 

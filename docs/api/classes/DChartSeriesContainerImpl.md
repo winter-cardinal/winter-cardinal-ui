@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DChartSeriesContainerImpl
+[Winter Cardinal UI - v0.442.0](../index.md) / DChartSeriesContainerImpl
 
 # Class: DChartSeriesContainerImpl\<CHART\>
 
@@ -75,7 +75,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> |
+| `plotArea` | [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> \| [`DChartPlotAreaLike`](../interfaces/DChartPlotAreaLike.md)\<`CHART`\> |
 | `options?` | [`DChartSeriesContainerOptions`](../interfaces/DChartSeriesContainerOptions.md)\<`CHART`\> |
 
 #### Returns
@@ -84,7 +84,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L56)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L56)
 
 ## Properties
 
@@ -94,7 +94,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L46)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L46)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L50)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L50)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L45)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L53)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L53)
 
 ___
 
@@ -134,17 +134,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L54)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L54)
 
 ___
 
 ### \_plotArea
 
-• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
+• `Protected` **\_plotArea**: [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> \| [`DChartPlotAreaLike`](../interfaces/DChartPlotAreaLike.md)\<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L44)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L47)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L47)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L48)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L52)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L52)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L51)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L51)
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L42)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L42)
 
 ## Accessors
 
@@ -212,17 +212,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L209)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L216)
 
 ___
 
 ### plotArea
 
-• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
+• `get` **plotArea**(): [`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> \| [`DChartPlotAreaLike`](../interfaces/DChartPlotAreaLike.md)\<`CHART`\>
 
 #### Returns
 
-[`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\>
+[`DChartPlotArea`](../interfaces/DChartPlotArea.md)\<`CHART`\> \| [`DChartPlotAreaLike`](../interfaces/DChartPlotAreaLike.md)\<`CHART`\>
 
 #### Implementation of
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L110)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L113)
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L222)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:229](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L229)
 
 ___
 
@@ -266,7 +266,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L114)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L117)
+
+• `set` **selection**(`selection`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `selection` | ``null`` \| [`DChartSelection`](../interfaces/DChartSelection.md)\<`CHART`\> |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[DChartSeriesContainer](../interfaces/DChartSeriesContainer.md).[selection](../interfaces/DChartSeriesContainer.md#selection)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L121)
 
 ## Methods
 
@@ -290,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L140)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L147)
 
 ___
 
@@ -316,7 +336,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L246)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L253)
 
 ___
 
@@ -334,7 +354,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L158)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L165)
 
 ___
 
@@ -352,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L171)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L178)
 
 ___
 
@@ -376,7 +396,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L146)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L153)
 
 ___
 
@@ -401,7 +421,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L179)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L186)
 
 ___
 
@@ -426,7 +446,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L194)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L201)
 
 ___
 
@@ -451,7 +471,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L235)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L242)
 
 ___
 
@@ -475,7 +495,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L154)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L161)
 
 ___
 
@@ -500,7 +520,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L71)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L74)
 
 ___
 
@@ -527,7 +547,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L94)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L97)
 
 ___
 
@@ -552,7 +572,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L103)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L106)
 
 ___
 
@@ -579,7 +599,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L85)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L88)
 
 ___
 
@@ -604,7 +624,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L78)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L81)
 
 ___
 
@@ -618,7 +638,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L129)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L136)
 
 ___
 
@@ -636,7 +656,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L167)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L174)
 
 ___
 
@@ -654,4 +674,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L118)
+[src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-container-impl.ts#L125)

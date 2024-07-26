@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / UtilFont
+[Winter Cardinal UI - v0.442.0](../index.md) / UtilFont
 
 # Class: UtilFont
 
@@ -27,21 +27,22 @@
 
 ### measure
 
-▸ **measure**(`font`): [`UtilFontMetrics`](../interfaces/UtilFontMetrics.md)
+▸ **measure**(`context`, `font`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `font` | `string` |
+| `context` | `CanvasRenderingContext2D` |
+| `font` | [`UtilFontFont`](../interfaces/UtilFontFont.md) |
 
 #### Returns
 
-[`UtilFontMetrics`](../interfaces/UtilFontMetrics.md)
+`void`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-font.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L17)
+[src/main/typescript/wcardinal/ui/util/util-font.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L25)
 
 ___
 
@@ -61,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-font.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L44)
+[src/main/typescript/wcardinal/ui/util/util-font.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L40)

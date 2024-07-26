@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / UtilCharacterIterator
+[Winter Cardinal UI - v0.442.0](../index.md) / UtilCharacterIterator
 
 # Class: UtilCharacterIterator
 
@@ -16,7 +16,6 @@
 
 ### Methods
 
-- [advance](UtilCharacterIterator.md#advance)
 - [close](UtilCharacterIterator.md#close)
 - [findNextBreak](UtilCharacterIterator.md#findnextbreak)
 - [hasNext](UtilCharacterIterator.md#hasnext)
@@ -39,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L11)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L11)
 
 ## Properties
 
@@ -49,7 +48,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L9)
 
 ___
 
@@ -59,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L8)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L8)
 
 ___
 
@@ -69,34 +68,9 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L7)
 
 ## Methods
-
-### advance
-
-▸ **advance**(`except?`): `boolean`
-
-Advances the position if the next character is not equal to
-the given `except`.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `except?` | `string` |
-
-#### Returns
-
-`boolean`
-
-true if the position is advanced
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L64)
-
-___
 
 ### close
 
@@ -112,7 +86,7 @@ true if closed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L80)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L62)
 
 ___
 
@@ -133,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L25)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L25)
 
 ___
 
@@ -147,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L21)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L21)
 
 ___
 
@@ -167,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L16)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L16)
 
 ___
 
@@ -187,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L36)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L36)
 
 ___
 
@@ -207,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L40)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L40)
 
 ___
 
@@ -227,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L44)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L44)
 
 ___
 
@@ -241,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L48)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L48)
 
 ___
 
@@ -261,4 +235,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L89)
+[src/main/typescript/wcardinal/ui/util/util-character-iterator.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-character-iterator.ts#L71)

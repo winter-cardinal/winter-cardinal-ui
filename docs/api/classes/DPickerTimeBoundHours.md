@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DPickerTimeBoundHours
+[Winter Cardinal UI - v0.442.0](../index.md) / DPickerTimeBoundHours
 
 # Class: DPickerTimeBoundHours
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L20)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L20)
 
 ## Properties
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L18)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L18)
 
 ## Methods
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L62)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L62)
 
 ___
 
@@ -85,4 +85,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L24)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-hours.ts#L24)

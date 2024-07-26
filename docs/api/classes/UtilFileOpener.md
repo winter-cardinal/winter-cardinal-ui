@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / UtilFileOpener
+[Winter Cardinal UI - v0.442.0](../index.md) / UtilFileOpener
 
 # Class: UtilFileOpener
 
@@ -44,7 +44,7 @@ An utility class for opening files.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L72)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L72)
 
 ## Properties
 
@@ -54,7 +54,7 @@ An utility class for opening files.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L69)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L69)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L70)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L70)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L68)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L68)
 
 ## Methods
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L87)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L87)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L149)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L149)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L154)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L154)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L104)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L104)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L144)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L144)
 
 ___
 
@@ -177,4 +177,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L78)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L78)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DFocusableMightBe
+[Winter Cardinal UI - v0.442.0](../index.md) / DFocusableMightBe
 
 # Interface: DFocusableMightBe
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-focus.ts#L10)
+[src/main/typescript/wcardinal/ui/d-controller-focus.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-controller-focus.ts#L10)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-controller-focus.ts#L11)
+[src/main/typescript/wcardinal/ui/d-controller-focus.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-controller-focus.ts#L11)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / EShapeDataMapper
+[Winter Cardinal UI - v0.442.0](../index.md) / EShapeDataMapper
 
 # Interface: EShapeDataMapper
 
@@ -34,4 +34,4 @@ An EShape data mapper.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts#L12)

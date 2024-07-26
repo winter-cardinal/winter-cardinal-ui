@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / ESnapperParent
+[Winter Cardinal UI - v0.442.0](../index.md) / ESnapperParent
 
 # Interface: ESnapperParent
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L47)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L47)

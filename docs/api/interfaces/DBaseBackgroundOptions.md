@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DBaseBackgroundOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / DBaseBackgroundOptions
 
 # Interface: DBaseBackgroundOptions
 
@@ -28,7 +28,7 @@ If a computed value is undefined, falls back to an background alpha of a theme.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L276)
+[src/main/typescript/wcardinal/ui/d-base.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base.ts#L276)
 
 ___
 
@@ -42,4 +42,4 @@ If a computed value is null, a background is not rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-base.ts#L270)
+[src/main/typescript/wcardinal/ui/d-base.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base.ts#L270)

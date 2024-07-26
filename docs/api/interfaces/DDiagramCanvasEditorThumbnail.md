@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramCanvasEditorThumbnail
+[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramCanvasEditorThumbnail
 
 # Interface: DDiagramCanvasEditorThumbnail
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor.ts#L37)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor.ts#L37)

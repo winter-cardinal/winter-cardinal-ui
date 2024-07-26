@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDiagramCanvasEditorSnap
+[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramCanvasEditorSnap
 
 # Class: DDiagramCanvasEditorSnap
 
@@ -13,6 +13,11 @@
 - [\_container](DDiagramCanvasEditorSnap.md#_container)
 - [\_controller](DDiagramCanvasEditorSnap.md#_controller)
 - [\_grid](DDiagramCanvasEditorSnap.md#_grid)
+- [\_gridParentHeight](DDiagramCanvasEditorSnap.md#_gridparentheight)
+- [\_gridParentScale](DDiagramCanvasEditorSnap.md#_gridparentscale)
+- [\_gridParentWidth](DDiagramCanvasEditorSnap.md#_gridparentwidth)
+- [\_gridSize](DDiagramCanvasEditorSnap.md#_gridsize)
+- [\_isDirty](DDiagramCanvasEditorSnap.md#_isdirty)
 - [\_parent](DDiagramCanvasEditorSnap.md#_parent)
 - [\_target](DDiagramCanvasEditorSnap.md#_target)
 
@@ -22,14 +27,19 @@
 
 ### Methods
 
+- [newGridSize](DDiagramCanvasEditorSnap.md#newgridsize)
 - [onChange](DDiagramCanvasEditorSnap.md#onchange)
-- [onReflow](DDiagramCanvasEditorSnap.md#onreflow)
+- [onRender](DDiagramCanvasEditorSnap.md#onrender)
+- [onResize](DDiagramCanvasEditorSnap.md#onresize)
+- [onScale](DDiagramCanvasEditorSnap.md#onscale)
 - [serialize](DDiagramCanvasEditorSnap.md#serialize)
 - [toGrid](DDiagramCanvasEditorSnap.md#togrid)
 - [toGridMajor](DDiagramCanvasEditorSnap.md#togridmajor)
 - [toGridMinor](DDiagramCanvasEditorSnap.md#togridminor)
 - [toTarget](DDiagramCanvasEditorSnap.md#totarget)
 - [update](DDiagramCanvasEditorSnap.md#update)
+- [updateAll](DDiagramCanvasEditorSnap.md#updateall)
+- [updateGridSize](DDiagramCanvasEditorSnap.md#updategridsize)
 
 ## Constructors
 
@@ -51,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L118)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L128)
 
 ## Properties
 
@@ -61,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L114)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L116)
 
 ___
 
@@ -71,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L113)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L115)
 
 ___
 
@@ -81,7 +91,57 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L115)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L120)
+
+___
+
+### \_gridParentHeight
+
+• `Protected` **\_gridParentHeight**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L122)
+
+___
+
+### \_gridParentScale
+
+• `Protected` **\_gridParentScale**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L123)
+
+___
+
+### \_gridParentWidth
+
+• `Protected` **\_gridParentWidth**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L121)
+
+___
+
+### \_gridSize
+
+• `Protected` **\_gridSize**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L124)
+
+___
+
+### \_isDirty
+
+• `Protected` **\_isDirty**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L118)
 
 ___
 
@@ -91,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L112)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L114)
 
 ___
 
@@ -101,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L116)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L126)
 
 ## Accessors
 
@@ -115,9 +175,23 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L201)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L247)
 
 ## Methods
+
+### newGridSize
+
+▸ **newGridSize**(): `number`
+
+#### Returns
+
+`number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L279)
+
+___
 
 ### onChange
 
@@ -129,13 +203,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L195)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L242)
 
 ___
 
-### onReflow
+### onRender
 
-▸ **onReflow**(): `void`
+▸ **onRender**(): `void`
 
 #### Returns
 
@@ -143,7 +217,53 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L209)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L288)
+
+___
+
+### onResize
+
+▸ **onResize**(`newWidth`, `newHeight`, `oldWidth`, `oldHeight`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `newWidth` | `number` |
+| `newHeight` | `number` |
+| `oldWidth` | `number` |
+| `oldHeight` | `number` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L255)
+
+___
+
+### onScale
+
+▸ **onScale**(`newX`, `newY`, `oldX`, `oldY`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `newX` | `number` |
+| `newY` | `number` |
+| `oldX` | `number` |
+| `oldY` | `number` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L264)
 
 ___
 
@@ -157,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L205)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L251)
 
 ___
 
@@ -178,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L147)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L162)
 
 ___
 
@@ -199,7 +319,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L158)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L180)
 
 ___
 
@@ -220,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L171)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L202)
 
 ___
 
@@ -241,7 +361,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L183)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L222)
 
 ___
 
@@ -269,4 +389,32 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L269)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L354)
+
+___
+
+### updateAll
+
+▸ **updateAll**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L295)
+
+___
+
+### updateGridSize
+
+▸ **updateGridSize**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:271](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L271)

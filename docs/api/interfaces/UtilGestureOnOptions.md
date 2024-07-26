@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / UtilGestureOnOptions
+[Winter Cardinal UI - v0.442.0](../index.md) / UtilGestureOnOptions
 
 # Interface: UtilGestureOnOptions\<TARGET\>
 
@@ -8,15 +8,23 @@
 | :------ |
 | `TARGET` |
 
+## Hierarchy
+
+- [`UtilGestureTapOnOptions`](UtilGestureTapOnOptions.md)\<`TARGET`\>
+
+  ↳ **`UtilGestureOnOptions`**
+
 ## Table of contents
 
 ### Properties
 
 - [easing](UtilGestureOnOptions.md#easing)
 - [end](UtilGestureOnOptions.md#end)
+- [longpress](UtilGestureOnOptions.md#longpress)
 - [move](UtilGestureOnOptions.md#move)
 - [start](UtilGestureOnOptions.md#start)
 - [stop](UtilGestureOnOptions.md#stop)
+- [tap](UtilGestureOnOptions.md#tap)
 
 ## Properties
 
@@ -26,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L53)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L50)
 
 ___
 
@@ -36,7 +44,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L51)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L48)
+
+___
+
+### longpress
+
+• `Optional` **longpress**: [`UtilGestureOnLongPress`](../index.md#utilgestureonlongpress)\<`TARGET`\>
+
+#### Inherited from
+
+[UtilGestureTapOnOptions](UtilGestureTapOnOptions.md).[longpress](UtilGestureTapOnOptions.md#longpress)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts#L17)
 
 ___
 
@@ -46,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L50)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L47)
 
 ___
 
@@ -56,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L49)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L46)
 
 ___
 
@@ -66,4 +88,18 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L52)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L49)
+
+___
+
+### tap
+
+• `Optional` **tap**: [`UtilGestureOnTap`](../index.md#utilgestureontap)\<`TARGET`\>
+
+#### Inherited from
+
+[UtilGestureTapOnOptions](UtilGestureTapOnOptions.md).[tap](UtilGestureTapOnOptions.md#tap)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts#L16)

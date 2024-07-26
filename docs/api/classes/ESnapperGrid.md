@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / ESnapperGrid
+[Winter Cardinal UI - v0.442.0](../index.md) / ESnapperGrid
 
 # Class: ESnapperGrid
 
@@ -69,7 +69,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L29)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L29)
 
 ## Properties
 
@@ -79,7 +79,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L22)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L22)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L23)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L23)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L26)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L26)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L27)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L27)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L24)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L24)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L25)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L25)
 
 ## Accessors
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L50)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L50)
 
 • `set` **enable**(`enable`): `void`
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L54)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L54)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L61)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L61)
 
 • `set` **size**(`size`): `void`
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L65)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L65)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L39)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L39)
 
 • `set` **visible**(`visible`): `void`
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L43)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L43)
 
 ## Methods
 
@@ -267,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L90)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L90)
 
 ___
 
@@ -530,7 +530,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L79)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L79)
 
 ___
 
@@ -544,7 +544,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L86)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L86)
 
 ___
 
@@ -565,4 +565,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L72)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-grid.ts#L72)

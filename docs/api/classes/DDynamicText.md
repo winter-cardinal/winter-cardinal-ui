@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.414.0](../index.md) / DDynamicText
+[Winter Cardinal UI - v0.442.0](../index.md) / DDynamicText
 
 # Class: DDynamicText
 
@@ -178,7 +178,7 @@ Mesh.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L44)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L44)
 
 ## Properties
 
@@ -236,7 +236,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L36)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L36)
 
 ___
 
@@ -246,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L37)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L37)
 
 ___
 
@@ -356,7 +356,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L39)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L39)
 
 ___
 
@@ -366,7 +366,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L34)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L34)
 
 ___
 
@@ -376,7 +376,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L35)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L35)
 
 ___
 
@@ -467,7 +467,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L40)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L40)
 
 ___
 
@@ -477,7 +477,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L31)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L31)
 
 ___
 
@@ -503,7 +503,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L32)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L32)
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L33)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L33)
 
 ___
 
@@ -523,7 +523,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L38)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L38)
 
 ___
 
@@ -964,7 +964,7 @@ Mesh.geometry
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L42)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L42)
 
 ___
 
@@ -1786,7 +1786,7 @@ node_modules/pixi.js/pixi.js.d.ts:13540
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L151)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L151)
 
 ___
 
@@ -1804,7 +1804,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L137)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L137)
 
 • `set` **height**(`height`): `void`
 
@@ -1824,7 +1824,7 @@ Mesh.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L142)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L142)
 
 ___
 
@@ -1838,7 +1838,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L155)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L155)
 
 ___
 
@@ -1852,7 +1852,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L106)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L106)
 
 • `set` **text**(`text`): `void`
 
@@ -1868,7 +1868,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L110)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L110)
 
 ___
 
@@ -1886,7 +1886,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L122)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L122)
 
 • `set` **width**(`width`): `void`
 
@@ -1906,7 +1906,7 @@ Mesh.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L127)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L127)
 
 ## Methods
 
@@ -1924,7 +1924,7 @@ Mesh.\_calculateBounds
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L270)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L265)
 
 ___
 
@@ -1969,7 +1969,7 @@ Mesh.\_render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L276)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:271](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L271)
 
 ___
 
@@ -2766,7 +2766,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L73)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L73)
 
 ___
 
@@ -3097,7 +3097,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L264)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L259)
 
 ___
 
@@ -3283,7 +3283,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L159)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L159)
 
 ___
 
@@ -3304,7 +3304,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L209)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L209)
 
 ___
 
@@ -3338,7 +3338,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.414.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L80)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L80)
 
 ___
 
