@@ -60,6 +60,9 @@ export interface DThemePickerColor extends DThemeBase {
 	getInputMargin(): number;
 	getInputLabelWidth(): number;
 
+	getSampleWidth(): number;
+	getSampleHeight(): number;
+	getSampleMargin(): number;
 	getSampleCheckerboardOldTexture(): Texture;
 	getSampleCheckerboardNewTexture(): Texture;
 	getSampleOldTexture(): Texture;
@@ -474,11 +477,12 @@ export class DPickerColor<
 		this._inputAndLabelAlpha = inputAndLabelAlpha;
 
 		// Samples
-		const sampleWidth = (inputWidth - inputLabelWidth - inputMargin) * 0.5;
-		const sampleHeight = inputHeight + inputMargin + inputHeight;
+		const sampleWidth = theme.getSampleWidth();
+		const sampleHeight = theme.getSampleHeight();
 		const sampleX = paddingLeft + (mainWidth - inputMargin) * 0.5 + inputMargin;
 		const sampleY =
 			inputY + (inputHeight + inputMargin + inputAndLabelAlpha.height - sampleHeight) * 0.5;
+		const sampleMargin = theme.getSampleMargin();
 
 		const sampleCurrentCheckerboardSprite = new Sprite(theme.getSampleCheckerboardOldTexture());
 		this._sampleCurrentCheckerboardSprite = sampleCurrentCheckerboardSprite;
@@ -508,7 +512,7 @@ export class DPickerColor<
 
 		const sampleNewCheckerboardSprite = new Sprite(theme.getSampleCheckerboardNewTexture());
 		this._sampleNewCheckerboardSprite = sampleNewCheckerboardSprite;
-		sampleNewCheckerboardSprite.x = sampleX + sampleWidth;
+		sampleNewCheckerboardSprite.x = sampleX + sampleWidth + sampleMargin;
 		sampleNewCheckerboardSprite.y = sampleY;
 		sampleNewCheckerboardSprite.width = sampleWidth;
 		sampleNewCheckerboardSprite.height = sampleHeight;
@@ -517,7 +521,7 @@ export class DPickerColor<
 
 		const sampleNewSprite = new Sprite(theme.getSampleNewTexture());
 		this._sampleNewSprite = sampleNewSprite;
-		sampleNewSprite.x = sampleX + sampleWidth;
+		sampleNewSprite.x = sampleX + sampleWidth + sampleMargin;
 		sampleNewSprite.y = sampleY;
 		sampleNewSprite.tint = this._new.color;
 		sampleNewSprite.alpha = this._new.alpha;

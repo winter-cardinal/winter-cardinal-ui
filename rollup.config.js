@@ -98,10 +98,11 @@ const toBypassedName = ( name ) => {
 };
 const bypass = ( target ) => {
 	const basePath = toOsPath( '/wcardinal/ui/' );
+	const commonPath = toOsPath( '/wcardinal/ui/theme/common/' );
 	return {
 		load( id ) {
 			if( 0 <= id.indexOf( basePath ) ) {
-				if( 0 <= id.indexOf( 'wcardinal-ui-theme-' ) || 0 <= id.indexOf( target ) ) {
+				if( 0 <= id.indexOf( 'wcardinal-ui-theme-' ) || 0 <= id.indexOf(commonPath) || 0 <= id.indexOf( target ) ) {
 					return null;
 				} else {
 					const bypassed = toBypassedName( id );
