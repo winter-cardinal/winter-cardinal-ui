@@ -145,7 +145,14 @@ export class DImagePieceImpl implements DImagePiece {
 						object.alpha = alpha;
 						result = true;
 					}
+					if (!object.visible) {
+						object.visible = true;
+						result = true;
+					}
 					return result;
+				} else if (object.visible) {
+					object.visible = false;
+					return true;
 				}
 			}
 		}

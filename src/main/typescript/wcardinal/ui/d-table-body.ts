@@ -311,6 +311,7 @@ export class DTableBody<
 				// State
 				const rowState = row.state;
 				rowState.lock();
+				rowState.add(DTableState.HAS_DATA);
 				rowState.set(DTableState.SELECTABLE, isRowSelectable);
 				rowState.set(DBaseState.ACTIVE, selection.contains(unmappedIndex));
 				rowState.remove(DBaseState.DISABLED);
@@ -333,7 +334,7 @@ export class DTableBody<
 			const rowState = row.state;
 			rowState.lock();
 			rowState.add(DBaseState.DISABLED);
-			rowState.removeAll(DTableState.SELECTABLE, DBaseState.ACTIVE);
+			rowState.removeAll(DTableState.HAS_DATA, DTableState.SELECTABLE, DBaseState.ACTIVE);
 			rowState.unlock();
 
 			// Data
@@ -350,7 +351,7 @@ export class DTableBody<
 			const rowState = row.state;
 			rowState.lock();
 			rowState.add(DBaseState.DISABLED);
-			rowState.removeAll(DTableState.SELECTABLE, DBaseState.ACTIVE);
+			rowState.removeAll(DTableState.HAS_DATA, DTableState.SELECTABLE, DBaseState.ACTIVE);
 			rowState.unlock();
 
 			// Data

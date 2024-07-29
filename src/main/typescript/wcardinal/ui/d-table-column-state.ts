@@ -8,7 +8,10 @@ import { DBaseStateSet } from "./d-base-state-set";
 /**
  * {@link DTable} column state modifier.
  * This function is called on every cells of a column when the cell data is changed.
- * The state given at the third parameter is a state of a cell.
+ *
+ * @param row a cell data
+ * @param columnIndex a column index of a cell
+ * @param state a cell state
  */
 export type DTableColumnStateModifier<ROW_VALUE> = (
 	row: ROW_VALUE,

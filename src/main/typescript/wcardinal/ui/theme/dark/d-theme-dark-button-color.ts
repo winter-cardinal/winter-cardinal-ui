@@ -31,7 +31,7 @@ export class DThemeDarkButtonColor
 	implements DThemeButtonColor
 {
 	getImageTintColor(state: DBaseStateSet): number | null {
-		return null;
+		return 0xffffff;
 	}
 
 	getImageSource(state: DBaseStateSet): Texture {

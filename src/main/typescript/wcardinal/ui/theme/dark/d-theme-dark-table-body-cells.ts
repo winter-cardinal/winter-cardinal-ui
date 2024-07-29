@@ -71,8 +71,12 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getAlpha(state: DBaseStateSet): number {
-		if (state.inEnabled) {
-			return 1.0;
+		if (state.in(DTableState.HAS_DATA)) {
+			if (state.inEnabled) {
+				return 1.0;
+			} else {
+				return 0.5;
+			}
 		}
 		return 0;
 	}

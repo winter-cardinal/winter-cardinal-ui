@@ -28,6 +28,11 @@ export const DTableState = {
 	FROZEN_END: "FROZEN_END",
 
 	/**
+	 * Rows with data
+	 */
+	HAS_DATA: "HAS_DATA",
+
+	/**
 	 * Header cells of sortable columns.
 	 */
 	SORTABLE: "SORTABLE",
