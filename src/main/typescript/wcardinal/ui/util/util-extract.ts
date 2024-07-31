@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Matrix, Renderer, RenderTexture, SCALE_MODES, utils } from "pixi.js";
+import { Matrix, Renderer, RenderTexture, SCALE_MODES } from "pixi.js";
 import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DApplicationLike } from "../d-application-like";
 import { DApplications } from "../d-applications";
@@ -12,6 +12,7 @@ import { isNumber } from "./is-number";
 import { UtilExtractor } from "./util-extractor";
 import { UtilExtractorPixels } from "./util-extractor-pixels";
 import { UtilFileDownloader } from "./util-file-downloader";
+import { UtilExtractorCanvas } from "./util-extractor-canvas";
 
 export interface UtilExtractTextureResolutionOptions {
 	size: number;
@@ -107,6 +108,7 @@ const toRenderer = (options: UtilExtractPixelsOptions): Renderer => {
 
 export class UtilExtract {
 	protected static WORK_RENDER_TEXTURE?: RenderTexture;
+	protected static WORK_CANVAS?: UtilExtractorCanvas;
 
 	static texture(options: UtilExtractTextureOptions): RenderTexture {
 		const target = options.target;
@@ -129,8 +131,16 @@ export class UtilExtract {
 		// Create a render texture
 		const target = options.target;
 		const scale = target.transform.scale;
-		const width = Math.floor(target.width * scale.x);
-		const height = Math.floor(target.height * scale.y);
+		const width = Math.ceil(target.width * scale.x);
+		const height = Math.ceil(target.height * scale.y);
+		if (width <= 0 || height <= 0) {
+			return {
+				width,
+				height,
+				array: new Uint8Array(0)
+			};
+		}
+
 		const resolution = toResolution(options);
 		let renderTexture = UtilExtract.WORK_RENDER_TEXTURE;
 		if (renderTexture == null) {
@@ -179,22 +189,33 @@ export class UtilExtract {
 		return UtilExtractor.toPixels(renderTexture, renderer);
 	}
 
-	static canvas(options: UtilExtractCanvasOptions): utils.CanvasRenderTarget {
+	static canvas(options: UtilExtractCanvasOptions): UtilExtractorCanvas {
 		const pixels = this.pixels(options);
 		const ignorePremutipliedAlpha = options.alpha?.premultiplied?.ignore;
 		const scale = toScale(pixels, options);
 		return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
 	}
 
+	/**
+	 * Extracts Base64 data URL from the target.
+	 * This method internally creates a render texture and a canvas render target.
+	 * They are used to extract pixels from the target.
+	 * To free the allocated render texture and canvas render target, please call {@link destroy()}.
+	 *
+	 * @param options an extraction options
+	 * @returns extracted Base64 data URL
+	 */
 	static base64(options: UtilExtractBase64Options): string {
-		const canvas = this.canvas(options);
-		try {
-			return UtilExtractor.toBase64(canvas.canvas, options.format, options.quality);
-		} finally {
-			if (canvas) {
-				canvas.destroy();
-			}
+		const pixels = this.pixels(options);
+		const ignorePremutipliedAlpha = options.alpha?.premultiplied?.ignore;
+		const scale = toScale(pixels, options);
+		const canvas = (this.WORK_CANVAS ??= new UtilExtractorCanvas(pixels.width, pixels.height));
+		UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha, canvas);
+		const element = canvas.getElement();
+		if (element != null) {
+			return UtilExtractor.toBase64(element, options.format, options.quality);
 		}
+		return "data:,";
 	}
 
 	static file(options: UtilExtractFileOptions): void {
@@ -209,6 +230,12 @@ export class UtilExtract {
 		if (texture != null) {
 			this.WORK_RENDER_TEXTURE = undefined;
 			texture.destroy(true);
+		}
+
+		const canvas = this.WORK_CANVAS;
+		if (canvas != null) {
+			this.WORK_CANVAS = undefined;
+			canvas.destroy();
 		}
 	}
 }

@@ -62,6 +62,7 @@ export * from "./util-gesture-tap";
 export * from "./util-gesture-target";
 export * from "./util-gesture";
 export * from "./util-extract";
+export * from "./util-extractor-canvas";
 export * from "./util-extractor-pixels";
 export * from "./util-extractor";
 export * from "./util-file-downloader";
