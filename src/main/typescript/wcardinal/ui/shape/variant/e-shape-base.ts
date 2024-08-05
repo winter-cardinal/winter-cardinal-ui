@@ -896,6 +896,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		if (part & EShapeCopyPart.ACTION) {
 			this.action.clearAndAddAll(source.action.values);
 			this.interactive = source.interactive;
+			this.title = source.title;
 			this.cursor = source.cursor;
 			this.shortcut = source.shortcut;
 		}
