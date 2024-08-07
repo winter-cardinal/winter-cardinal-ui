@@ -436,14 +436,24 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
+	valueOf(state: string): number | null | undefined;
+	valueOf(state: string, def: number): number;
+	valueOf(state: string, def: number | null): number | null;
 	valueOf(state: string, def?: number | null): number | null | undefined {
 		const result = this._local.get(state);
 		if (result !== undefined) {
+			if (result == null && def !== undefined) {
+				return def;
+			}
 			return result;
 		}
 		const parent = this._parent;
 		if (parent != null) {
-			return parent.valueOf(state, def);
+			if (def !== undefined) {
+				return parent.valueOf(state, def);
+			} else {
+				return parent.valueOf(state);
+			}
 		}
 		return def;
 	}

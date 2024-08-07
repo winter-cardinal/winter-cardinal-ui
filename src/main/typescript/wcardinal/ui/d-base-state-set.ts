@@ -188,7 +188,9 @@ export interface DBaseStateSet {
 
 	clear(): this;
 
-	valueOf(state: string, def?: number | null): number | null | undefined;
+	valueOf(state: string): number | null | undefined;
+	valueOf(state: string, def: number): number;
+	valueOf(state: string, def: number | null): number | null;
 
 	each(iteratee: (state: string, value: number | null) => void): this;
 	size(): number;
