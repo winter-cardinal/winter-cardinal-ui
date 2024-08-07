@@ -103,7 +103,7 @@ export class DTable<
 	}
 
 	get category(): DTableCategoryContainer {
-		return (this._category = this.newCategory());
+		return (this._category ??= this.newCategory());
 	}
 
 	protected newCategory(): DTableCategoryContainer {
