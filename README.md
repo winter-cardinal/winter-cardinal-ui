@@ -86,6 +86,7 @@ loadThemeWhiteAll();
 * Samples
 	* [White theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/)
 	* [Dark theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/dark/)
+* [Starter](https://github.com/winter-cardinal/winter-cardinal-starter)
 
 ### Requirements
 
