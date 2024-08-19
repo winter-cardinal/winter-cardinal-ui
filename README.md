@@ -13,12 +13,12 @@ npm i @wcardinal/wcardinal-ui
 Please note that this package has no default exports.
 
 ```javascript
-import { loadAll, loadThemeWhiteAll, DApplication, DButtonCheck } from "@wcardinal/wcardinal-ui";
+import { loadAll, loadThemeWhiteEnUsAll, DApplication, DButtonCheck } from "@wcardinal/wcardinal-ui";
 
 // Loads all the optional modules and the white theme.
-// This is required for the tree shaking as explained later.
+// This is required for the tree shaking.
 loadAll();
-loadThemeWhiteAll();
+loadThemeWhiteEnUsAll();
 
 // Make a new application
 const application = new DApplication();
@@ -35,30 +35,30 @@ new DButtonCheck({
 #### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.12/dist/pixi.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui-theme-white.min.js"></script>
 <script>
-(function(){
-	'use strict';
+(() => {
+	"use strict";
 
 	// Make a new application
-	var application = new wcardinal.ui.DApplication();
+	const application = new wcardinal.ui.DApplication();
 
 	// Make a new check button
 	new wcardinal.ui.DButtonCheck({
 		parent: application.stage,
 		text: {
-			value: 'Check'
+			value: "Check"
 		}
 	});
-}());
+})();
 </script>
 ```
 
 All the classes are in `wcardinal.ui`.
-Please note that `loadAll` and `loadThemeWhiteALl` is not required in this case.
-Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call `loadAll` and `loadThemeWhiteAll` for you.
+Please note that `loadAll` and `loadThemeWhiteEnUsAll` is not required in this case.
+Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call `loadAll` and `loadThemeWhiteEnUsAll` for you.
 
 See [sample/cdn](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/other/cdn.html) for a complete example.
 
@@ -69,15 +69,15 @@ because all the UI classes and their themes are included.
 This is why the tree shaking is important for this library.
 
 `loadAll` loads all the optional modules (e.g., `DMenuItemCheck`).
-And `loadThemeWhiteAll` loads the white theme (e.g., `DThemeWhite`).
+And `loadThemeWhiteEnUsAll` loads the white theme (e.g., `DThemeWhite`).
 To remove unnecessary modules from your build, pick `load*` functions you need.
 
 ```javascript
-import { loadThemeWhiteAll } from '@wcardinal/wcardinal-ui';
+import { loadThemeWhiteEnUsAll } from "@wcardinal/wcardinal-ui";
 
 // Loads the white theme only.
 // `DMenuItemCheck` will not be in your compiled package, for instance.
-loadThemeWhiteAll();
+loadThemeWhiteEnUsAll();
 ```
 
 ### Documentation
@@ -97,17 +97,17 @@ loadThemeWhiteAll();
 	* Not required if your theme doesn't use it
 * Stencil support
 
-### How to build
+### How to Build
 
 The following commands are for building `@wcardinal/wcardinal-ui` itself.
 
-#### JS for release
+#### JS for Release
 
 ```shell
 npm run build
 ```
 
-#### JS for development
+#### JS for Development
 
 ```shell
 npm run watch:ts
@@ -119,13 +119,13 @@ and then in an another terminal
 npm run watch:rollup
 ```
 
-#### Development server
+#### Development Server
 
 ```shell
 npm start
 ```
 
-#### API document
+#### API Document
 
 Update `gitRevision` in `typedoc.json` and then do
 
@@ -133,7 +133,7 @@ Update `gitRevision` in `typedoc.json` and then do
 npm run build:api
 ```
 
-#### Sample index page
+#### Sample Index Page
 
 ```shell
 npm run build:sample:index
@@ -146,7 +146,7 @@ npm run build:sample:index
 npm run build:sample:dark
 ```
 
-#### Samples for GitHub pages
+#### Samples for GitHub Pages
 
 ```shell
 npm run build
