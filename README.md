@@ -1,6 +1,6 @@
 ### WinterCardinal UI
 
-A WebGL-based UI library.
+WebGL-based UI library
 
 ### Installation
 
