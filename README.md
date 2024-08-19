@@ -1,4 +1,4 @@
-### About
+### WinterCardinal UI
 
 A WebGL-based UI library.
 
@@ -165,11 +165,6 @@ To fix all the auto-fixable lint errors, do the following:
 ```shell
 npm run lint:fix
 ```
-
-### TODO
-
-* DTable select / action arguments.
-* Provides DText text style accessors.
 
 ### License
 
