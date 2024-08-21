@@ -39,6 +39,10 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 		return false;
 	}
 
+	isAlwaysOnTop(): boolean {
+		return false;
+	}
+
 	isGestureEnabled(mode: DDialogMode): boolean {
 		switch (mode) {
 			case DDialogMode.MODAL:

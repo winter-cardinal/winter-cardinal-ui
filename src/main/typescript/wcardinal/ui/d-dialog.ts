@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point, Rectangle } from "pixi.js";
+import { DisplayObject, Point, Rectangle } from "pixi.js";
 import { DAnimation } from "./d-animation";
 import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
@@ -66,6 +66,8 @@ export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog, EMITT
 	 */
 	mode?: DDialogMode | keyof typeof DDialogMode;
 
+	alwaysOnTop?: boolean;
+
 	sticky?: boolean;
 
 	gesture?: boolean | DDialogGestureOptions;
@@ -85,6 +87,7 @@ export interface DThemeDialog extends DThemeBase {
 	getMode(): DDialogMode;
 	closeOn(mode: DDialogMode): DDialogCloseOn;
 	isSticky(mode: DDialogMode): boolean;
+	isAlwaysOnTop(): boolean;
 	isGestureEnabled(mode: DDialogMode): boolean;
 	getGestureMode(mode: DDialogMode): DDialogGestureMode;
 	getOffsetX(mode: DDialogMode): number;
@@ -124,6 +127,8 @@ export class DDialog<
 	protected _focused?: DFocusable | null;
 	protected _overlay!: UtilOverlay;
 	protected _mode!: DDialogMode;
+	protected _alwaysOnTop!: boolean;
+	protected _onParentChildAddedBound?: () => void;
 	protected _sticky!: boolean;
 	protected _onPrerenderBound!: () => void;
 	protected _align!: DDialogAlign | null;
@@ -144,6 +149,9 @@ export class DDialog<
 		const theme = this.theme;
 		const mode = toEnum(options?.mode ?? theme.getMode(), DDialogMode);
 		this._mode = mode;
+
+		// Always On Top
+		this._alwaysOnTop = options?.alwaysOnTop ?? theme.isAlwaysOnTop();
 
 		// Sticky
 		this._sticky = options?.sticky ?? theme.isSticky(mode);
@@ -222,6 +230,14 @@ export class DDialog<
 
 	set algin(align: DDialogAlign | null) {
 		this._align = align;
+	}
+
+	get alwaysOnTop(): boolean {
+		return this._alwaysOnTop;
+	}
+
+	set alwaysOnTop(alwaysOnTop: boolean) {
+		this._alwaysOnTop = alwaysOnTop;
 	}
 
 	get gesture(): DDialogGesture<this> {
@@ -371,10 +387,41 @@ export class DDialog<
 				}
 			}
 
+			// Always On Top
+			if (this._alwaysOnTop) {
+				const parent = this.parent;
+				if (parent != null) {
+					parent.on(
+						"childAdded",
+						(this._onParentChildAddedBound ??= (): void => {
+							this.onParentChildAdded();
+						})
+					);
+					this.onParentChildAdded();
+				}
+			}
+
 			// Done
 			this.onOpen();
 		}
 		return result;
+	}
+
+	protected onParentChildAdded(): void {
+		const parent = this.parent;
+		if (parent != null) {
+			parent.children.sort(this.compareAlwaysOnTop);
+		}
+	}
+
+	protected compareAlwaysOnTop(this: unknown, a: DisplayObject, b: DisplayObject): number {
+		const at = a instanceof DDialog && a.alwaysOnTop;
+		const bt = b instanceof DDialog && b.alwaysOnTop;
+		if (at) {
+			return bt ? 0 : +1;
+		} else {
+			return bt ? -1 : 0;
+		}
 	}
 
 	protected onPrerender(): void {
@@ -487,6 +534,14 @@ export class DDialog<
 		} else {
 			this.visible = false;
 			this.onAnimationEnd(true);
+		}
+
+		// Always On Top
+		if (this._alwaysOnTop) {
+			const parent = this.parent;
+			if (parent != null) {
+				parent.off("childAdded", this._onParentChildAddedBound);
+			}
 		}
 
 		this.emit("close", this);

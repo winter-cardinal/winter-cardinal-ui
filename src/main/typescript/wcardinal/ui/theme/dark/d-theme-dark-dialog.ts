@@ -39,6 +39,10 @@ export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
 		return false;
 	}
 
+	isAlwaysOnTop(): boolean {
+		return false;
+	}
+
 	isGestureEnabled(mode: DDialogMode): boolean {
 		switch (mode) {
 			case DDialogMode.MODAL:
