@@ -166,6 +166,7 @@
     * [Align (Over)](./dialog/align-over.html)
     * [Align (Right)](./dialog/align-right.html)
     * [Align (Top)](./dialog/align-top.html)
+    * [Always on Top](./dialog/always-on-top.html)
     * [Color Dialog](./dialog/color.html)
     * [Gradient Color Dialog](./dialog/color-gradient.html)
     * [Delete Confirm Dialog](./dialog/confirm-delete.html)
