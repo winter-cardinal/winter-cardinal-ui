@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, Point, Rectangle } from "pixi.js";
+import { Point, Rectangle } from "pixi.js";
 import { DAnimation } from "./d-animation";
 import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
@@ -387,19 +387,8 @@ export class DDialog<
 				}
 			}
 
-			// Always On Top
-			if (this._alwaysOnTop) {
-				const parent = this.parent;
-				if (parent != null) {
-					parent.on(
-						"childAdded",
-						(this._onParentChildAddedBound ??= (): void => {
-							this.onParentChildAdded();
-						})
-					);
-					this.onParentChildAdded();
-				}
-			}
+			// Bring To Front
+			this.bringToFront();
 
 			// Done
 			this.onOpen();
@@ -407,21 +396,42 @@ export class DDialog<
 		return result;
 	}
 
-	protected onParentChildAdded(): void {
-		const parent = this.parent;
-		if (parent != null) {
-			parent.children.sort(this.compareAlwaysOnTop);
-		}
+	protected override onChildFocus(focused: DBase): void {
+		super.onChildFocus(focused);
+		this.bringToFront();
 	}
 
-	protected compareAlwaysOnTop(this: unknown, a: DisplayObject, b: DisplayObject): number {
-		const at = a instanceof DDialog && a.alwaysOnTop;
-		const bt = b instanceof DDialog && b.alwaysOnTop;
-		if (at) {
-			return bt ? 0 : +1;
-		} else {
-			return bt ? -1 : 0;
+	protected override onFocus(): void {
+		super.onFocus();
+		this.bringToFront();
+	}
+
+	protected bringToFront(): void {
+		const parent = this.parent;
+		if (parent == null) {
+			return;
 		}
+		const children = parent.children;
+		const childrenLength = children.length;
+		let index = childrenLength - 1;
+		for (; 0 <= index; --index) {
+			if (children[index] === this) {
+				break;
+			}
+		}
+		if (index < 0) {
+			return;
+		}
+		for (let i = index + 1; i < childrenLength; ++i) {
+			children[i - 1] = children[i];
+		}
+		children[childrenLength - 1] = this;
+		children.sort((a, b) => {
+			return (
+				(a instanceof DDialog ? (a._alwaysOnTop ? 2 : 1) : 0) -
+				(b instanceof DDialog ? (b._alwaysOnTop ? 2 : 1) : 0)
+			);
+		});
 	}
 
 	protected onPrerender(): void {
