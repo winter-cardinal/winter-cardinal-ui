@@ -15,6 +15,7 @@ import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramController } from "./d-diagram-controller";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
+import { DApplications } from "./d-applications";
 
 /**
  * {@link DDiagram} options.
@@ -45,6 +46,9 @@ export class DDiagram<
 	tag: DDiagramData;
 	data: DDiagramData;
 	shape: DDiagramShape;
+
+	protected _rendererBound?: Renderer;
+	protected _onPrerenderBound?: (renderer: Renderer) => void;
 
 	constructor(options?: OPTIONS) {
 		super(options);
@@ -210,9 +214,50 @@ export class DDiagram<
 		}
 	}
 
-	render(renderer: Renderer): void {
-		this.shape.onRender(renderer);
-		super.render(renderer);
+	protected onPrerender(renderer: Renderer): void {
+		const canvas = this._canvas;
+		if (canvas) {
+			canvas.onRender(renderer);
+		}
+	}
+
+	render(newRenderer: Renderer): void {
+		const oldRenderer = this._rendererBound;
+		if (oldRenderer !== newRenderer) {
+			const onPrerenderBound = (this._onPrerenderBound ??= (r: Renderer): void => {
+				this.onPrerender(r);
+			});
+
+			if (oldRenderer != null) {
+				oldRenderer.off("prerender", onPrerenderBound);
+			}
+
+			this._rendererBound = newRenderer;
+			if (newRenderer != null) {
+				newRenderer.on("prerender", onPrerenderBound);
+				const canvas = this._canvas;
+				if (canvas != null) {
+					// Request the update to call `canvas.onRender(Renderer)`
+					DApplications.update(this);
+				}
+			}
+		}
+		super.render(newRenderer);
+	}
+
+	override destroy(): void {
+		// Renderer
+		const renderer = this._rendererBound;
+		if (renderer != null) {
+			this._rendererBound = undefined;
+
+			const onPrerenderBound = this._onPrerenderBound;
+			if (onPrerenderBound != null) {
+				renderer.off("prerender", onPrerenderBound);
+			}
+		}
+
+		super.destroy();
 	}
 
 	protected getType(): string {

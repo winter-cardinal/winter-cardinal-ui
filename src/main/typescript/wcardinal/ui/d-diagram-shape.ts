@@ -50,13 +50,6 @@ export class DDiagramShape extends utils.EventEmitter {
 		}
 	}
 
-	onRender(renderer: Renderer): void {
-		const canvas = this._diagram.canvas;
-		if (canvas) {
-			canvas.onRender(renderer);
-		}
-	}
-
 	get(id: string): EShape | null {
 		const canvas = this._diagram.canvas;
 		if (canvas) {
