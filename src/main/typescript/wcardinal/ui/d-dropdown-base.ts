@@ -175,35 +175,39 @@ export class DDropdownBase<
 	open(): void {
 		const menu = this.menu;
 		if (menu.isHidden()) {
-			// In the case that the menu is created elsewhere,
-			// the menu might be opened by other UI elements
-			// and the `select` event might be triggered. In
-			// that case, we are not supposed to catct that
-			// `select` event. This is why the `select` event
-			// handler is registered here. Instead of the
-			// initialization time.
-			let onMenuSelectBound = this._onMenuSelectBound;
-			if (onMenuSelectBound == null) {
-				onMenuSelectBound = (
-					value: VALUE,
-					item: DMenuItem<VALUE>,
-					m: DMenu<VALUE>
-				): void => {
-					this.onMenuSelect(value, item, m);
-				};
-				this._onMenuSelectBound = onMenuSelectBound;
-			}
-			let onMenuCloseBound = this._onMenuCloseBound;
-			if (onMenuCloseBound == null) {
-				onMenuCloseBound = (): void => {
-					this.onMenuClose(this._menu);
-				};
-			}
-			menu.on("select", onMenuSelectBound);
-			menu.on("close", onMenuCloseBound);
+			this.onMenuOpening(menu);
 			menu.open(this);
-			this.emit("open", menu, this);
+			this.onMenuOpened(menu);
 		}
+	}
+
+	protected onMenuOpening(menu: DMenu<VALUE>): void {
+		// In the case that the menu is created elsewhere,
+		// the menu might be opened by other UI elements
+		// and the `select` event might be triggered. In
+		// that case, we are not supposed to catch that
+		// `select` event. This is why the `select` event
+		// handler is registered here. Instead of the
+		// initialization time.
+		let onMenuSelectBound = this._onMenuSelectBound;
+		if (onMenuSelectBound == null) {
+			onMenuSelectBound = (value: VALUE, item: DMenuItem<VALUE>, m: DMenu<VALUE>): void => {
+				this.onMenuSelect(value, item, m);
+			};
+			this._onMenuSelectBound = onMenuSelectBound;
+		}
+		let onMenuCloseBound = this._onMenuCloseBound;
+		if (onMenuCloseBound == null) {
+			onMenuCloseBound = (): void => {
+				this.onMenuClose(this._menu);
+			};
+		}
+		menu.on("select", onMenuSelectBound);
+		menu.on("close", onMenuCloseBound);
+	}
+
+	protected onMenuOpened(menu: DMenu<VALUE>): void {
+		this.emit("open", menu, this);
 	}
 
 	close(): void {

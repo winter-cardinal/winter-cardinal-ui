@@ -445,6 +445,7 @@ export * from "./d-menu-item-space-is-compatible";
 export * from "./d-menu-item-space";
 export * from "./d-menu-item-text";
 export * from "./d-menu-item";
+export * from "./d-menu-items";
 export * from "./d-menu-opener";
 export * from "./d-menu-sided-content";
 export * from "./d-menu-sided-item-check";

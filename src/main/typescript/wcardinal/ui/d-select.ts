@@ -11,7 +11,7 @@ import {
 } from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
-import { DMenuItemMenu } from "./d-menu-item-menu";
+import { DMenuItems } from "./d-menu-items";
 import { DOnOptions } from "./d-on-options";
 
 /**
@@ -100,7 +100,7 @@ export class DSelect<
 
 		// Update the value
 		const value = this._value;
-		const item = this.findMenuItem(newMenu, value);
+		const item = DMenuItems.find(newMenu, value);
 		if (item != null) {
 			this._value = value;
 			this.text = item;
@@ -118,22 +118,13 @@ export class DSelect<
 		this.emit("change", newValue, oldValue, item, this);
 	}
 
-	protected findMenuItem(menu: DMenu<VALUE>, value: VALUE | null): DMenuItem<VALUE> | null {
-		const children = menu.children;
-		for (let i = 0, imax = children.length; i < imax; ++i) {
-			const child = children[i];
-			if (child instanceof DMenuItemMenu) {
-				const result = this.findMenuItem(child.menu, value);
-				if (result != null) {
-					return result;
-				}
-			} else if (child instanceof DMenuItem) {
-				if (child.value === value) {
-					return child;
-				}
-			}
-		}
-		return null;
+	protected override onMenuOpening(menu: DMenu<VALUE>): void {
+		super.onMenuOpening(menu);
+
+		const value = this._value;
+		DMenuItems.each(menu, (item) => {
+			item.state.isActive = item.value === value;
+		});
 	}
 
 	/**
@@ -148,7 +139,7 @@ export class DSelect<
 	 */
 	set value(value: VALUE | null) {
 		if (this._value !== value) {
-			const item = this.findMenuItem(this.menu, value);
+			const item = DMenuItems.find(this.menu, value);
 			if (item != null) {
 				this._value = value;
 				this.text = item;

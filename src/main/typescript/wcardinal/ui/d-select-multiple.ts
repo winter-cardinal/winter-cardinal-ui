@@ -123,9 +123,9 @@ export class DSelectMultiple<
 		this.emit("change", newValues, oldValues, items, this);
 	}
 
-	override open(): void {
+	protected override onMenuOpening(menu: DMenu<VALUE>): void {
+		super.onMenuOpening(menu);
 		this.updateMenuItems(this.menu, this._values);
-		super.open();
 	}
 
 	/**
