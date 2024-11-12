@@ -54,8 +54,8 @@ export class DynamicSDFFontAtlases {
 	update(baseAtlas: DynamicAtlas): void {
 		const baseTexture = baseAtlas.getBaseTexture();
 		this._atlases.forEach((atlas) => {
+			const atlasId = atlas.id;
 			if (atlas.update()) {
-				const atlasId = atlas.id;
 				const item = baseAtlas.get(atlasId);
 				if (item != null) {
 					const width = atlas.width;
@@ -67,6 +67,10 @@ export class DynamicSDFFontAtlases {
 					item.height = height / resolution;
 					baseAtlas.toDirty();
 				} else {
+					baseAtlas.set(atlasId, new DynamicAtlasItemFontAtlas(atlas, baseTexture));
+				}
+			} else {
+				if (!baseAtlas.contains(atlasId)) {
 					baseAtlas.set(atlasId, new DynamicAtlasItemFontAtlas(atlas, baseTexture));
 				}
 			}

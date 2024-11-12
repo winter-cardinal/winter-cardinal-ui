@@ -164,6 +164,10 @@ export class DynamicAtlas {
 		return null;
 	}
 
+	contains(id: string): boolean {
+		return id in this._idToDatum;
+	}
+
 	set(id: string, item: DynamicAtlasItem): DynamicAtlasItem | undefined {
 		const result = this._idToDatum[id];
 		item.ref += 1;
