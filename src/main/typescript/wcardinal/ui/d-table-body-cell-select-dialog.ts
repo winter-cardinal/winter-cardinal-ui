@@ -45,6 +45,7 @@ export class DTableBodyCellSelectDialog<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE | null>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
+	protected _forcibly?: boolean;
 	protected _isSyncEnabled: boolean;
 
 	constructor(
@@ -70,7 +71,7 @@ export class DTableBodyCellSelectDialog<
 			const oldValue = this.text.computed ?? null;
 			selecting.setter(dialog, oldValue);
 			dialog.open(this).then((): void => {
-				const newValue = selecting.getter(dialog);
+				const newValue = selecting.getter(dialog, oldValue);
 				if (this._isSyncEnabled) {
 					if (newValue !== oldValue) {
 						this.text = newValue;
@@ -129,18 +130,16 @@ export class DTableBodyCellSelectDialog<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		if (forcibly) {
-			this.text.setValue(value as VALUE | null, true);
-		} else {
-			this.text = value as VALUE | null;
-		}
+		this.text.setValue(value as VALUE | null, forcibly || this._forcibly);
+		this._forcibly = undefined;
 
 		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
-	unset(): void {
+	unset(forcibly?: boolean): void {
 		this._row = undefined;
 		this._rowIndex = -1;
+		this._forcibly ||= forcibly;
 	}
 
 	protected getType(): string {

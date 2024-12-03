@@ -53,7 +53,7 @@ export interface DTableBodyCell<ROW, VALUE = unknown> extends DBase {
 		columnIndex: number,
 		forcibly?: boolean
 	): void;
-	unset(): void;
+	unset(forcibly?: boolean): void;
 
 	/**
 	 * Called when the selection type is not {@link DTableDataSelectionType}'s NONE

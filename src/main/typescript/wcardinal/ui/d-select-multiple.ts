@@ -129,23 +129,31 @@ export class DSelectMultiple<
 	}
 
 	/**
-	 * Returns a selected value or null.
+	 * Returns selected values.
 	 */
 	get values(): VALUE[] {
-		return this._values;
+		return this.getValues();
 	}
 
 	/**
-	 * Sets to the specified value.
+	 * Sets to the specified values.
 	 */
 	set values(values: VALUE[]) {
+		this.setValues(values);
+	}
+
+	getValues(): VALUE[] {
+		return this._values;
+	}
+
+	setValues(values: VALUE[], forcibly?: boolean): void {
 		const oldValues = this._values;
-		if (!this.isSameValues(values, oldValues)) {
+		if (forcibly || !this.isSameValues(values, oldValues)) {
 			const newValues: VALUE[] = [];
 			const newItems: Array<DMenuItem<VALUE>> = [];
 			this.updateMenuItems(this.menu, values, undefined, undefined, newValues, newItems);
 			this._values = newValues;
-			this.text = newItems;
+			this.text.setValue(newItems, forcibly);
 		}
 	}
 

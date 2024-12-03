@@ -35,6 +35,7 @@ export class DTableBodyCellText<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE>;
+	protected _forcibly?: boolean;
 
 	constructor(
 		columnIndex: number,
@@ -76,14 +77,16 @@ export class DTableBodyCellText<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = value as VALUE;
+		this.text.setValue(value as VALUE, forcibly || this._forcibly);
+		this._forcibly = undefined;
 
 		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
-	unset(): void {
+	unset(forcibly?: boolean): void {
 		this._row = undefined;
 		this._rowIndex = -1;
+		this._forcibly ||= forcibly;
 	}
 
 	protected getType(): string {

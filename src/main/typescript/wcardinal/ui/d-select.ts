@@ -131,21 +131,29 @@ export class DSelect<
 	 * Returns a selected value or null.
 	 */
 	get value(): VALUE | null {
-		return this._value;
+		return this.getValue();
 	}
 
 	/**
 	 * Sets to the specified value.
 	 */
 	set value(value: VALUE | null) {
-		if (this._value !== value) {
+		this.setValue(value);
+	}
+
+	getValue(): VALUE | null {
+		return this._value;
+	}
+
+	setValue(value: VALUE | null, forcibly?: boolean): void {
+		if (forcibly || this._value !== value) {
 			const item = DMenuItems.find(this.menu, value);
 			if (item != null) {
 				this._value = value;
-				this.text = item;
+				this.text.setValue(item, forcibly);
 			} else {
 				this._value = null;
-				this.text = null;
+				this.text.setValue(null, forcibly);
 			}
 		}
 	}

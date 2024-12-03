@@ -338,7 +338,7 @@ export class DTableBody<
 			rowState.unlock();
 
 			// Data
-			row.unset();
+			row.unset(forcibly);
 		}
 
 		for (let i = rowsLength - 1; dataMappedSize <= newRowIndexMappedStart + i && 0 <= i; --i) {
@@ -355,7 +355,7 @@ export class DTableBody<
 			rowState.unlock();
 
 			// Data
-			row.unset();
+			row.unset(forcibly);
 		}
 
 		this.lock();

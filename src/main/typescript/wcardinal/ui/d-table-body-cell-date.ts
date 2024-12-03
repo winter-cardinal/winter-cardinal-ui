@@ -33,6 +33,7 @@ export class DTableBodyCellDate<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, Date>;
 	protected _onChange: DTableBodyCellOnChange<ROW, Date>;
+	protected _forcibly?: boolean;
 
 	constructor(
 		columnIndex: number,
@@ -89,11 +90,7 @@ export class DTableBodyCellDate<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		if (value instanceof Date) {
-			if (forcibly) {
-				this.text.setValue(value, true);
-			} else {
-				this.text = value;
-			}
+			this.text.setValue(value, forcibly || this._forcibly);
 		} else if (isNumber(value)) {
 			const text = this.text;
 			const computed = text.computed;
@@ -104,13 +101,15 @@ export class DTableBodyCellDate<
 				text.compute(true);
 			}
 		}
+		this._forcibly = undefined;
 
 		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
-	unset(): void {
+	unset(forcibly?: boolean): void {
 		this._row = undefined;
 		this._rowIndex = -1;
+		this._forcibly ||= forcibly;
 	}
 
 	protected getType(): string {

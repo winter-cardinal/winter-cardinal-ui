@@ -44,6 +44,7 @@ export class DTableBodyCellInputTree<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, string>;
 	protected _onChange: DTableBodyCellOnChange<ROW, string>;
+	protected _forcibly?: boolean;
 
 	protected _marker: DTableBodyCellInputTreeMarker;
 	protected _input: DTableBodyCellInputTreeInput;
@@ -184,7 +185,8 @@ export class DTableBodyCellInputTree<
 		this._rowIndex = rowIndex;
 		const input = this._input;
 		input.visible = true;
-		input.text = String(value);
+		input.text.setValue(String(value), forcibly || this._forcibly);
+		this._forcibly = undefined;
 
 		const marker = this._marker;
 		if (supplimental != null) {
@@ -214,11 +216,12 @@ export class DTableBodyCellInputTree<
 		DTableBodyCells.set(this._input, row, columnIndex, this._column);
 	}
 
-	unset(): void {
+	unset(forcibly?: boolean): void {
 		this._row = undefined;
 		this._rowIndex = -1;
 		this._input.visible = false;
 		this._marker.hide();
+		this._forcibly ||= forcibly;
 	}
 
 	protected getType(): string {

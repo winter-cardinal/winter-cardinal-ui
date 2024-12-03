@@ -408,8 +408,8 @@ export class DTableBodyRow<
 		this.emit("set", value, rowIndex, this);
 	}
 
-	unset(): void {
-		if (this._value !== undefined) {
+	unset(forcibly?: boolean): void {
+		if (forcibly || this._value !== undefined) {
 			this._value = undefined;
 			this._index = -1;
 
@@ -418,7 +418,7 @@ export class DTableBodyRow<
 			for (let i = 0; i < cellsLength; ++i) {
 				const cell = cells[i];
 				if (this.isCell(cell)) {
-					cell.unset();
+					cell.unset(forcibly);
 				}
 			}
 

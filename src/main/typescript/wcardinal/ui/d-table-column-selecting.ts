@@ -7,7 +7,10 @@ import { DDialogOpener } from "./d-dialog";
 import { DDialogSelectOptions } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 
-export type DTableColumnSelectingGetter<CELL_VALUE, DIALOG> = (dialog: DIALOG) => CELL_VALUE;
+export type DTableColumnSelectingGetter<CELL_VALUE, DIALOG> = (
+	dialog: DIALOG,
+	cell: CELL_VALUE
+) => CELL_VALUE;
 export type DTableColumnSelectingSetter<CELL_VALUE, DIALOG> = (
 	dialog: DIALOG,
 	cell: CELL_VALUE

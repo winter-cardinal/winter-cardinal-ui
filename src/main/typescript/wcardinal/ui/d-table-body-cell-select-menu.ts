@@ -36,6 +36,7 @@ export class DTableBodyCellSelectMenu<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE | null>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
+	protected _forcibly?: boolean;
 
 	constructor(
 		columnIndex: number,
@@ -97,14 +98,16 @@ export class DTableBodyCellSelectMenu<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.value = value as VALUE | null;
+		this.setValue(value as VALUE | null, forcibly || this._forcibly);
+		this._forcibly = undefined;
 
 		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
-	unset(): void {
+	unset(forcibly?: boolean): void {
 		this._row = undefined;
 		this._rowIndex = -1;
+		this._forcibly ||= forcibly;
 	}
 
 	protected getType(): string {
