@@ -91,7 +91,7 @@ loadThemeWhiteEnUsAll();
 ### Requirements
 
 * WebGL 1.0 support
-* Promise support
+* ES2017 support
 * Base64-encoded SVG support for textures
 	* IE11 does not support this.
 	* Not required if your theme doesn't use it
