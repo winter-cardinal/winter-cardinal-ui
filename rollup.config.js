@@ -33,29 +33,6 @@ const TERSER_OPTIONS = {
 	},
 	output: {
 		preamble: BANNER
-	},
-	mangle: {
-		properties: {
-			regex: /(^_[\$\w]+[A-Za-z]$|^[A-Za-z]\w+_$)/,
-			reserved: [
-				'_immediateFn',
-				'__plugins',
-				'_updateUvs',
-				'_bounds',
-				'_recursivePostUpdateTransform',
-				'_refresh',
-				'_render',
-				'_calculateBounds',
-				'_uvs',
-				'_currentLocalID',
-				'_worldID',
-				'_localID',
-				'_parentID',
-				'_destroyed',
-				'_updateID',
-				'_lastBoundsID'
-			]
-		}
 	}
 };
 
