@@ -78,28 +78,33 @@ const copyUsingWindow = (window: Window, text: string): boolean => {
 };
 
 export class UtilClipboard extends utils.EventEmitter {
-	constructor() {
+	constructor(element?: HTMLElement) {
 		super();
 
-		const element = document.body;
-		element.addEventListener("copy", (e: ClipboardEvent): void => {
-			if (e.target === element) {
+		// Please note how ClipboardEvent#target is set.
+		// ClipboardEvent#target could be the one of the body or the focused node.
+		// https://w3c.github.io/clipboard-apis/#to-fire-a-clipboard-event
+		// Plus, FireFox fires the events on the document body. But not on the element.
+		// However, Chrome fires on both the document body and the element.
+		const body = document.body;
+		body.addEventListener("copy", (e: ClipboardEvent): void => {
+			if (e.target === body || e.target === element) {
 				e.preventDefault();
 				e.stopPropagation();
 				this.emit("copy", toClipboardData(e));
 			}
 		});
 
-		element.addEventListener("cut", (e: ClipboardEvent): void => {
-			if (e.target === element) {
+		body.addEventListener("cut", (e: ClipboardEvent): void => {
+			if (e.target === body || e.target === element) {
 				e.preventDefault();
 				e.stopPropagation();
 				this.emit("cut", toClipboardData(e));
 			}
 		});
 
-		element.addEventListener("paste", (e: ClipboardEvent): void => {
-			if (e.target === element) {
+		body.addEventListener("paste", (e: ClipboardEvent): void => {
+			if (e.target === body || e.target === element) {
 				e.preventDefault();
 				e.stopPropagation();
 				this.emit("paste", toClipboardData(e));
