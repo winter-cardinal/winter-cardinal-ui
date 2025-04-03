@@ -43,6 +43,14 @@ export class DChartAxisBaseTickContainer<
 		this._work = new DChartRegionImpl(0, 0);
 	}
 
+	get parser(): DChartAxisBaseOptionParser {
+		return this._parser;
+	}
+
+	get index(): number {
+		return this._index;
+	}
+
 	get major(): DChartAxisTickMajor<CHART> {
 		return this._major;
 	}

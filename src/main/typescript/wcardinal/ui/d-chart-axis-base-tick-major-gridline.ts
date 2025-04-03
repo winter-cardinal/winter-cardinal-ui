@@ -21,6 +21,14 @@ export class DChartAxisBaseTickMajorGridline<CHART extends DBase = DBase>
 		this._index = 0;
 	}
 
+	get parser(): DChartAxisBaseOptionParser {
+		return this._parser;
+	}
+
+	get index(): number {
+		return this._index;
+	}
+
 	get shapes(): EShape[] {
 		return (this._shapes ??= this.newShapes());
 	}
