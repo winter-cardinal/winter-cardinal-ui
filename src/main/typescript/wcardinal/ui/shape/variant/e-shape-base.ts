@@ -48,6 +48,7 @@ import { EShapeCapabilityContainerImpl } from "../e-shape-capability-container-i
 import { EShapeCapability } from "../e-shape-capability";
 import { EShapeLock } from "./e-shape-lock";
 import { EShapeLockPart } from "./e-shape-lock-part";
+import { EShapes } from "../action/e-shapes";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
@@ -167,7 +168,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 		const runtime = this.runtime;
 		if (runtime != null) {
+			EShapes.CURRENT = this;
 			runtime.onResize(this);
+			EShapes.CURRENT = null;
 		}
 	}
 
@@ -777,7 +780,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		const runtime = this.runtime;
 		if (runtime != null) {
+			EShapes.CURRENT = this;
 			runtime.onStateChange(this, newState, oldState);
+			EShapes.CURRENT = null;
 		}
 
 		const children = this.children;
@@ -835,7 +840,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	onKeyDown(e: KeyboardEvent): boolean {
 		const runtime = this.runtime;
 		if (runtime) {
-			return runtime.onKeyDown(this, e);
+			EShapes.CURRENT = this;
+			const result = runtime.onKeyDown(this, e);
+			EShapes.CURRENT = null;
+			return result;
 		}
 		return false;
 	}
@@ -843,7 +851,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	onKeyUp(e: KeyboardEvent): boolean {
 		const runtime = this.runtime;
 		if (runtime) {
-			return runtime.onKeyUp(this, e);
+			EShapes.CURRENT = this;
+			const result = runtime.onKeyUp(this, e);
+			EShapes.CURRENT = null;
+			return result;
 		}
 		return false;
 	}
@@ -852,14 +863,18 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	update(time: number): void {
 		const runtime = this.runtime;
 		if (runtime) {
+			EShapes.CURRENT = this;
 			runtime.update(this, time);
+			EShapes.CURRENT = null;
 		}
 	}
 
 	onRender(time: number, renderer: Renderer): void {
 		const runtime = this.runtime;
 		if (runtime) {
+			EShapes.CURRENT = this;
 			runtime.onRender(this, time, renderer);
+			EShapes.CURRENT = null;
 		}
 	}
 

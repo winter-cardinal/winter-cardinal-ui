@@ -13,8 +13,19 @@ import { EShapeActionOpenOpeners } from "./e-shape-action-open-openers";
 import { isString } from "../../util/is-string";
 import { DDiagram } from "../../d-diagram";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
+import { EShapes } from "./e-shapes";
 
 export class EShapeActions {
+	public static SHAPE: EShape | null = null;
+
+	static getShape(): EShape | null {
+		return EShapes.CURRENT;
+	}
+
+	static getDiagram(): DDiagram | null {
+		return EShapeActions.toDiagram(EShapes.CURRENT);
+	}
+
 	static isDiagram(target: unknown): target is DDiagram {
 		return target instanceof DDiagram;
 	}

@@ -19,6 +19,7 @@ import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-man
 import { EShapeRuntimeImpl } from "./shape/e-shape-runtime-impl";
 import { EShapeRectanglePivoted } from "./shape/variant/e-shape-rectangle-pivoted";
 import { isString } from "./util/is-string";
+import { EShapes } from "./shape/action/e-shapes";
 
 export class DDiagramLayer extends EShapeContainer {
 	reference: number;
@@ -92,7 +93,9 @@ export class DDiagramLayer extends EShapeContainer {
 				).toRuntime()
 			);
 			actionables.push(shape);
+			EShapes.CURRENT = shape;
 			runtime.initialize(shape);
+			EShapes.CURRENT = null;
 		}
 		if (isInteractive || isDraggable || isPinchable) {
 			shape.interactive = true;

@@ -34,6 +34,7 @@ import { EShapeDataValueExtensions } from "./shape/e-shape-data-value-extensions
 import { EShapeActionEnvironment } from "./shape/action/e-shape-action-environment";
 import { EShapeRuntimeImpl } from "./shape/e-shape-runtime-impl";
 import { EShapeActionRuntimes } from "./shape/action/e-shape-action-runtimes";
+import { EShapes } from "./shape/action/e-shapes";
 
 export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas>
 	extends DDiagramCanvasBaseOptions<THEME> {}
@@ -192,13 +193,17 @@ export class DDiagramCanvas<
 			this.initActions(shape, runtime, actionValueToRuntime);
 
 			// Init the runtime
+			EShapes.CURRENT = shape;
 			runtime.initialize(shape);
+			EShapes.CURRENT = null;
 
 			// Shortcut
 			const shortcut = shape.shortcut;
 			if (shortcut != null) {
 				UtilKeyboardEvent.on(shape, shortcut, (e: KeyboardEvent): void => {
+					EShapes.CURRENT = shape;
 					runtime.onClick(shape, e);
+					EShapes.CURRENT = null;
 				});
 			}
 
@@ -559,7 +564,9 @@ export class DDiagramCanvas<
 			if (found != null) {
 				const runtime = found.runtime;
 				if (runtime) {
+					EShapes.CURRENT = found;
 					runtime.onMove(found, e);
+					EShapes.CURRENT = null;
 				}
 			}
 		} else {
@@ -615,7 +622,9 @@ export class DDiagramCanvas<
 		while (target != null && target !== except && target instanceof EShapeBase) {
 			const runtime = target.runtime;
 			if (runtime) {
+				EShapes.CURRENT = target;
 				runtime.onOut(target, e);
+				EShapes.CURRENT = null;
 			}
 			target = target.parent;
 		}
@@ -629,7 +638,9 @@ export class DDiagramCanvas<
 		while (target != null && target !== except && target instanceof EShapeBase) {
 			const runtime = target.runtime;
 			if (runtime) {
+				EShapes.CURRENT = target;
 				runtime.onOver(target, e);
+				EShapes.CURRENT = null;
 			}
 			target = target.parent;
 		}
@@ -644,7 +655,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onDown(target, e);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -667,7 +680,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onUp(target, e);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -689,7 +704,9 @@ export class DDiagramCanvas<
 				while (true) {
 					const runtime = target.runtime;
 					if (runtime) {
+						EShapes.CURRENT = target;
 						runtime.onUpOutside(target, e);
+						EShapes.CURRENT = null;
 					}
 					const parent = target.parent;
 					if (parent instanceof EShapeBase) {
@@ -712,7 +729,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onClick(target, e);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -735,7 +754,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onDblClick(target, e, interactionManager);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -756,7 +777,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onRightClick(target, e);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -779,7 +802,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onRightDown(target, e);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -802,7 +827,9 @@ export class DDiagramCanvas<
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
+					EShapes.CURRENT = target;
 					runtime.onRightUp(target, e);
+					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
 				if (parent instanceof EShapeBase) {
@@ -824,7 +851,9 @@ export class DDiagramCanvas<
 				while (true) {
 					const runtime = target.runtime;
 					if (runtime) {
+						EShapes.CURRENT = target;
 						runtime.onRightUpOutside(target, e);
+						EShapes.CURRENT = null;
 					}
 					const parent = target.parent;
 					if (parent instanceof EShapeBase) {
