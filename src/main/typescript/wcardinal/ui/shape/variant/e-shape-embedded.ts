@@ -1,3 +1,4 @@
+import { Matrix } from "pixi.js";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeAcceptorEdge } from "../e-shape-acceptor-edge";
 import { EShapeAcceptorEdgeNormal } from "../e-shape-acceptor-edge-normal";
@@ -12,6 +13,8 @@ import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupViewer } from "./e-shape-group-viewer";
 
 export class EShapeEmbedded extends EShapeGroupViewer {
+	protected static WORK_NEW_EDGE1?: Matrix;
+	protected static WORK_NEW_EDGE2?: Matrix;
 	protected _name: string;
 	protected _edges?: Map<string, EShapeAcceptorEdge>;
 
@@ -41,24 +44,29 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 			const s = this.size;
 			const sx = s.x;
 			const sy = s.y;
-			const sxh = sx * 0.5;
-			const syh = sy * 0.5;
+			let work1: Matrix | undefined;
+			let work2: Matrix | undefined;
 			for (let i = 0, imax = layers.length; i < imax; ++i) {
 				const layer = layers[i];
-				const lp = layer.transform.position;
-				const lpx = lp.x + sxh;
-				const lpy = lp.y + syh;
 				const children = layer.children;
 				for (let j = 0, jmax = children.length; j < jmax; ++j) {
 					const child = children[j];
 					if (child instanceof EShapeEmbeddedAcceptorEdge) {
-						child.transform.updateLocalTransform();
-						const clt = child.transform.localTransform;
+						child.updateTransform();
+						if (work1 == null) {
+							work1 = (EShapeEmbedded.WORK_NEW_EDGE1 ??= new Matrix())
+								.copyFrom(this.transform.internalTransform)
+								.invert();
+						}
+						if (work2 == null) {
+							work2 = EShapeEmbedded.WORK_NEW_EDGE2 ??= new Matrix();
+						}
+						work2.copyFrom(work1).append(child.transform.internalTransform);
 						result.set(child.id, {
 							type: child.subtype,
-							x: this.toEdgePosition(lpx, clt.tx, sxh, sx),
-							y: this.toEdgePosition(lpy, clt.ty, syh, sy),
-							normal: this.toEdgeNormal(-clt.c, -clt.d),
+							x: this.toEdgePosition(work2.tx, sx),
+							y: this.toEdgePosition(work2.ty, sy),
+							normal: this.toEdgeNormal(-work2.c, -work2.d),
 							size: {
 								x: 0,
 								y: 0
@@ -72,9 +80,9 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 		return result;
 	}
 
-	protected toEdgePosition(lp: number, cp: number, sh: number, s: number): number {
+	protected toEdgePosition(cp: number, s: number): number {
 		if (0.00001 < Math.abs(s)) {
-			return (lp + cp - sh) / s;
+			return cp / s;
 		}
 		return 0;
 	}
@@ -82,7 +90,7 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 	protected toEdgeNormal(x: number, y: number): EShapeAcceptorEdgeNormal {
 		const d = x * x + y * y;
 		if (0.00001 < d) {
-			const f = 1 / d;
+			const f = 1 / Math.sqrt(d);
 			return {
 				x: x * f,
 				y: y * f

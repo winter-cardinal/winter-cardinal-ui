@@ -4,6 +4,7 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeConnectors } from "../e-shape-connectors";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeFill } from "../e-shape-fill";
 import { EShapeLayer } from "../e-shape-layer";
@@ -57,6 +58,7 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 			clone.parent = result;
 			result.children.push(clone);
 		}
+		EShapeConnectors.move(this, result);
 		result.onChildTransformChange();
 		result.toDirty();
 		const size = this.size;

@@ -208,7 +208,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 			clone.parent = result;
 			result.children.push(clone);
 		}
-		EShapeConnectors.moveAll(children, result.children, children, result.children);
+		EShapeConnectors.move(this, result);
 		result.onChildTransformChange();
 		result.toDirty();
 		return result;
