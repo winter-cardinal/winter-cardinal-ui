@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilGestureTapThresholdOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilGestureTapThresholdOptions
 
 # Interface: UtilGestureTapThresholdOptions\<TARGET\>
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts#L21)
+[src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts#L21)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts#L22)
+[src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture-tap.ts#L22)

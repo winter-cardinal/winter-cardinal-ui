@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartPlotAreaTwofoldCoorinateContainerSub
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartPlotAreaTwofoldCoorinateContainerSub
 
 # Class: DChartPlotAreaTwofoldCoorinateContainerSub\<CHART\>
 
@@ -67,7 +67,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L19)
 
 ## Properties
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L15)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L16)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L17)
 
 ## Accessors
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L29)
 
 ## Methods
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L33)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L133)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L133)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L107)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L107)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L113)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L113)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L121)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L121)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L51)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L51)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L65)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L65)
 
 ___
 
@@ -298,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L127)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L127)
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L78)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L78)
 
 ▸ **remove**(`index`): ``null`` \| [`DChartCoordinate`](../interfaces/DChartCoordinate.md)\<`CHART`\>
 
@@ -342,7 +342,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L79)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L79)
 
 ___
 
@@ -360,4 +360,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L117)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-coordinate-container-sub.ts#L117)

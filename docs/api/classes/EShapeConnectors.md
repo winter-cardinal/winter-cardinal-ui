@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / EShapeConnectors
+[Winter Cardinal UI - v0.457.0](../index.md) / EShapeConnectors
 
 # Class: EShapeConnectors
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L11)
 
 ## Methods
 
@@ -57,7 +57,7 @@ target is EShapeConnector
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L13)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L95)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L95)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L35)
 
 ___
 
@@ -124,4 +124,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/e-shape-connectors.ts#L17)

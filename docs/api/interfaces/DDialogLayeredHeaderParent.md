@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DDialogLayeredHeaderParent
+[Winter Cardinal UI - v0.457.0](../index.md) / DDialogLayeredHeaderParent
 
 # Interface: DDialogLayeredHeaderParent
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-header.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dialog-layered-header.ts#L24)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-header.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dialog-layered-header.ts#L24)

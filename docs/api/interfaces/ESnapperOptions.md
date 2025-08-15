@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / ESnapperOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / ESnapperOptions
 
 # Interface: ESnapperOptions
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L51)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L51)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L52)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L52)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L53)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L53)

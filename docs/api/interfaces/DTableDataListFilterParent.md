@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableDataListFilterParent
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableDataListFilterParent
 
 # Interface: DTableDataListFilterParent\<ROW\>
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts#L13)
+[src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts#L13)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts#L12)
+[src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts#L12)
 
 ## Methods
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts#L14)
+[src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-list-filter.ts#L14)

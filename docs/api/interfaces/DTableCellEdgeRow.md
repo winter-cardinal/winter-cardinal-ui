@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableCellEdgeRow
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableCellEdgeRow
 
 # Interface: DTableCellEdgeRow\<CELL\>
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-cell-edge.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-cell-edge.ts#L43)
+[src/main/typescript/wcardinal/ui/d-table-cell-edge.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-cell-edge.ts#L43)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-cell-edge.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-cell-edge.ts#L42)
+[src/main/typescript/wcardinal/ui/d-table-cell-edge.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-cell-edge.ts#L42)

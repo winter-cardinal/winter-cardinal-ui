@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableDataSelectionOnOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableDataSelectionOnOptions
 
 # Interface: DTableDataSelectionOnOptions\<EMITTER\>
 
@@ -48,4 +48,4 @@ Partial.change
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-selection.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-selection.ts#L31)
+[src/main/typescript/wcardinal/ui/d-table-data-selection.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-selection.ts#L31)

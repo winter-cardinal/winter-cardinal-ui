@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DListDataMappedImpl
+[Winter Cardinal UI - v0.457.0](../index.md) / DListDataMappedImpl
 
 # Class: DListDataMappedImpl\<ITEM\>
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L17)
 
 ## Properties
 
@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L15)
 
 ## Methods
 
@@ -88,7 +88,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L26)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L43)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L43)
 
 ___
 
@@ -130,4 +130,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L21)

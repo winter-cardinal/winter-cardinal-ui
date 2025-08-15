@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DImagePieceAlignOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DImagePieceAlignOptions
 
 # Interface: DImagePieceAlignOptions
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-image-piece-align.ts#L8)
+[src/main/typescript/wcardinal/ui/d-image-piece-align.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-image-piece-align.ts#L8)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-image-piece-align.ts#L7)
+[src/main/typescript/wcardinal/ui/d-image-piece-align.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-image-piece-align.ts#L7)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-align.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-image-piece-align.ts#L6)
+[src/main/typescript/wcardinal/ui/d-image-piece-align.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-image-piece-align.ts#L6)

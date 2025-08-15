@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartAxisBaseTickMinor
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartAxisBaseTickMinor
 
 # Class: DChartAxisBaseTickMinor\<CHART\>
 
@@ -27,6 +27,8 @@
 
 ### Accessors
 
+- [index](DChartAxisBaseTickMinor.md#index)
+- [parser](DChartAxisBaseTickMinor.md#parser)
 - [shapes](DChartAxisBaseTickMinor.md#shapes)
 
 ### Methods
@@ -60,7 +62,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L17)
 
 ## Properties
 
@@ -70,7 +72,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L13)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L13)
 
 ___
 
@@ -80,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L14)
 
 ___
 
@@ -90,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L12)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L12)
 
 ___
 
@@ -100,9 +102,37 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L15)
 
 ## Accessors
+
+### index
+
+• `get` **index**(): `number`
+
+#### Returns
+
+`number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L26)
+
+___
+
+### parser
+
+• `get` **parser**(): [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+
+#### Returns
+
+[`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L22)
+
+___
 
 ### shapes
 
@@ -118,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L30)
 
 ## Methods
 
@@ -143,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L50)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L58)
 
 ___
 
@@ -161,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L71)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L79)
 
 ___
 
@@ -175,7 +205,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L34)
 
 ___
 
@@ -193,4 +223,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L60)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-minor.ts#L68)

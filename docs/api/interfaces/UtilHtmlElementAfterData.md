@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilHtmlElementAfterData
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilHtmlElementAfterData
 
 # Interface: UtilHtmlElementAfterData
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L129)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L129)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L130)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L130)

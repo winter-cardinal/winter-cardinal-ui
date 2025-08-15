@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DIndicatorProcessingDelayOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DIndicatorProcessingDelayOptions
 
 # Interface: DIndicatorProcessingDelayOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L9)
+[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L9)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L8)
+[src/main/typescript/wcardinal/ui/d-indicator-processing.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-indicator-processing.ts#L8)

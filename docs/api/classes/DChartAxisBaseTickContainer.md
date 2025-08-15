@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartAxisBaseTickContainer
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartAxisBaseTickContainer
 
 # Class: DChartAxisBaseTickContainer\<CHART, OPTIONS\>
 
@@ -32,8 +32,10 @@
 
 ### Accessors
 
+- [index](DChartAxisBaseTickContainer.md#index)
 - [major](DChartAxisBaseTickContainer.md#major)
 - [minor](DChartAxisBaseTickContainer.md#minor)
+- [parser](DChartAxisBaseTickContainer.md#parser)
 
 ### Methods
 
@@ -83,7 +85,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L36)
 
 ## Properties
 
@@ -93,7 +95,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L28)
 
 ___
 
@@ -103,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L29)
 
 ___
 
@@ -113,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L30)
 
 ___
 
@@ -123,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L32)
 
 ___
 
@@ -133,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L31)
 
 ___
 
@@ -143,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L33)
 
 ___
 
@@ -153,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L27)
 
 ___
 
@@ -163,9 +165,23 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L34)
 
 ## Accessors
+
+### index
+
+• `get` **index**(): `number`
+
+#### Returns
+
+`number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L50)
+
+___
 
 ### major
 
@@ -181,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L46)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L54)
 
 ___
 
@@ -199,7 +215,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L57)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L65)
+
+___
+
+### parser
+
+• `get` **parser**(): [`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+
+#### Returns
+
+[`DChartAxisBaseOptionParser`](DChartAxisBaseOptionParser.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md), [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)\<[`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L46)
 
 ## Methods
 
@@ -224,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L68)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L76)
 
 ___
 
@@ -242,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:518](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L518)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:526](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L526)
 
 ___
 
@@ -264,7 +294,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L206)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L214)
 
 ___
 
@@ -286,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L219)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L227)
 
 ___
 
@@ -308,7 +338,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L227)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L235)
 
 ___
 
@@ -330,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L240)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L248)
 
 ___
 
@@ -350,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:467](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L467)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L475)
 
 ___
 
@@ -370,7 +400,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L471)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L479)
 
 ___
 
@@ -390,7 +420,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:483](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L483)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:491](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L491)
 
 ___
 
@@ -411,7 +441,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L50)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L58)
 
 ___
 
@@ -432,7 +462,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L61)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L69)
 
 ___
 
@@ -464,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:487](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L487)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:495](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L495)
 
 ___
 
@@ -487,7 +517,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:444](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L444)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L452)
 
 ___
 
@@ -512,7 +542,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:452](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L452)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L460)
 
 ___
 
@@ -535,7 +565,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:475](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L475)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:483](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L483)
 
 ___
 
@@ -553,7 +583,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L75)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L83)
 
 ___
 
@@ -571,7 +601,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L82)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L90)
 
 ___
 
@@ -602,7 +632,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L248)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L256)
 
 ___
 
@@ -633,4 +663,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:346](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L346)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-tick-container.ts#L354)

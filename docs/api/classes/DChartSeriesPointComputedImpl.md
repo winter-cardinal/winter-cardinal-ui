@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartSeriesPointComputedImpl
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartSeriesPointComputedImpl
 
 # Class: DChartSeriesPointComputedImpl
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L16)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L13)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L14)
 
 ## Methods
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed-impl.ts#L21)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartPlotAreaTwofoldViewTarget
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartPlotAreaTwofoldViewTarget
 
 # Class: DChartPlotAreaTwofoldViewTarget\<CHART\>
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L53)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L53)
 
 ## Properties
 
@@ -69,7 +69,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L51)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L51)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L48)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L48)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L50)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L50)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L49)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L49)
 
 ## Accessors
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L67)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L67)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L63)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L63)
 
 ## Methods
 
@@ -159,4 +159,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L71)
+[src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-plot-area-twofold-view-target.ts#L71)

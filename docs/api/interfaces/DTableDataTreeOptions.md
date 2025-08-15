@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableDataTreeOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableDataTreeOptions
 
 # Interface: DTableDataTreeOptions\<NODE, EMITTER\>
 
@@ -41,7 +41,7 @@ A comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L87)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L87)
 
 ___
 
@@ -53,7 +53,7 @@ A filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L82)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L82)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L18)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L18)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L69)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L69)
 
 ___
 
@@ -89,7 +89,7 @@ Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L97)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L97)
 
 ___
 
@@ -101,7 +101,7 @@ True to list up nodes in the given node array in the reverse order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L92)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L92)
 
 ___
 
@@ -113,7 +113,7 @@ Selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L74)
+[src/main/typescript/wcardinal/ui/d-table-data-tree.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree.ts#L74)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L17)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L17)
 
 ___
 
@@ -141,4 +141,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L16)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L16)

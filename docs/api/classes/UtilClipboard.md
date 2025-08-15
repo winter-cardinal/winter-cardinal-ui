@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilClipboard
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilClipboard
 
 # Class: UtilClipboard
 
@@ -32,7 +32,13 @@
 
 ### constructor
 
-• **new UtilClipboard**(): [`UtilClipboard`](UtilClipboard.md)
+• **new UtilClipboard**(`element?`): [`UtilClipboard`](UtilClipboard.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `element?` | `HTMLElement` |
 
 #### Returns
 
@@ -44,7 +50,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L81)
+[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L81)
 
 ## Methods
 
@@ -341,4 +347,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L110)
+[src/main/typescript/wcardinal/ui/util/util-clipboard.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-clipboard.ts#L115)

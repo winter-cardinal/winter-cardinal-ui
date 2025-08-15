@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DBaseBackgroundMeshGeometry
+[Winter Cardinal UI - v0.457.0](../index.md) / DBaseBackgroundMeshGeometry
 
 # Class: DBaseBackgroundMeshGeometry
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L11)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L11)
 
 ## Properties
 
@@ -91,7 +91,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L22)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L22)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L21)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L21)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L20)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L20)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L29)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L29)
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L26)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L26)
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L23)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L23)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L30)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L30)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L28)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L28)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L25)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L25)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L27)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L27)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L24)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L24)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L19)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L19)
 
 ___
 
@@ -323,7 +323,7 @@ Note that this must be an odd number.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L16)
 
 ___
 
@@ -337,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L17)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L17)
 
 ## Accessors
 
@@ -355,7 +355,7 @@ DBaseMeshGeometry.cornerMask
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L87)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L87)
 
 • `set` **cornerMask**(`cornerMask`): `void`
 
@@ -375,7 +375,7 @@ DBaseMeshGeometry.cornerMask
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L91)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L91)
 
 ___
 
@@ -393,7 +393,7 @@ DBaseMeshGeometry.cornerRadius
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L76)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L76)
 
 • `set` **cornerRadius**(`borderSize`): `void`
 
@@ -413,7 +413,7 @@ DBaseMeshGeometry.cornerRadius
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L80)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L80)
 
 ___
 
@@ -431,7 +431,7 @@ DBaseMeshGeometry.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L65)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L65)
 
 • `set` **height**(`height`): `void`
 
@@ -451,7 +451,7 @@ DBaseMeshGeometry.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L69)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L69)
 
 ___
 
@@ -469,7 +469,7 @@ DBaseMeshGeometry.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L54)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L54)
 
 • `set` **width**(`width`): `void`
 
@@ -489,7 +489,7 @@ DBaseMeshGeometry.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L58)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L58)
 
 ## Methods
 
@@ -639,7 +639,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L48)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L48)
 
 ___
 
@@ -662,7 +662,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L61)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L61)
 
 ___
 
@@ -691,7 +691,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L19)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L19)
 
 ___
 
@@ -787,7 +787,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L98)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L98)
 
 ___
 
@@ -836,7 +836,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L118)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L118)
 
 ___
 
@@ -860,7 +860,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L107)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L107)
 
 ___
 
@@ -880,7 +880,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L83)
+[src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-base-background-mesh-geometry.ts#L83)
 
 ___
 

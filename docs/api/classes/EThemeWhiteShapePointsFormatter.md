@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / EThemeWhiteShapePointsFormatter
+[Winter Cardinal UI - v0.457.0](../index.md) / EThemeWhiteShapePointsFormatter
 
 # Class: EThemeWhiteShapePointsFormatter
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts#L5)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts#L5)
 
 ___
 
@@ -69,4 +69,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts#L4)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-points-formatter.ts#L4)

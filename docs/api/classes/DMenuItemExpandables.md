@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DMenuItemExpandables
+[Winter Cardinal UI - v0.457.0](../index.md) / DMenuItemExpandables
 
 # Class: DMenuItemExpandables
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L11)
+[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L11)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L12)
+[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L12)
 
 ## Methods
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L14)
+[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L14)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L22)
+[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L22)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L32)
+[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L32)
 
 ___
 
@@ -143,4 +143,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L18)
+[src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-menu-item-expandables.ts#L18)

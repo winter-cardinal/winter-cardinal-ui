@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartAxisTickMajorGridline
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartAxisTickMajorGridline
 
 # Interface: DChartAxisTickMajorGridline\<CHART\>
 
@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-tick-major-gridline.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-axis-tick-major-gridline.ts#L10)
+[src/main/typescript/wcardinal/ui/d-chart-axis-tick-major-gridline.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-axis-tick-major-gridline.ts#L10)

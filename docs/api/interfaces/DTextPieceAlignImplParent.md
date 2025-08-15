@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTextPieceAlignImplParent
+[Winter Cardinal UI - v0.457.0](../index.md) / DTextPieceAlignImplParent
 
 # Interface: DTextPieceAlignImplParent
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
 
 ## Methods
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-piece-align-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-text-piece-align-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-text-piece-align-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-text-piece-align-impl.ts#L10)

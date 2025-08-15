@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DControllerKeyboardImpl
+[Winter Cardinal UI - v0.457.0](../index.md) / DControllerKeyboardImpl
 
 # Class: DControllerKeyboardImpl
 
@@ -139,7 +139,7 @@ target is Object
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L65)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L65)
 
 ___
 
@@ -159,7 +159,7 @@ target is Object
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L69)
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-controller-keyboard-impl.ts#L11)
 
 ___
 

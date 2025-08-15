@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilKeyboardEventShortcutTarget
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilKeyboardEventShortcutTarget
 
 # Interface: UtilKeyboardEventShortcutTarget
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L26)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L26)
 
 ## Methods
 
@@ -40,4 +40,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L27)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L27)

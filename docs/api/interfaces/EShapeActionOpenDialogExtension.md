@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / EShapeActionOpenDialogExtension
+[Winter Cardinal UI - v0.457.0](../index.md) / EShapeActionOpenDialogExtension
 
 # Interface: EShapeActionOpenDialogExtension
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L15)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L16)
 
 ___
 
@@ -41,4 +41,4 @@ This ID must be unique and greater than or equal to [EShapeActionValueOpenDialog
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-dialog-extension.ts#L14)

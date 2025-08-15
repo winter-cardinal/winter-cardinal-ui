@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DDiagramSerializedDataWithMapping
+[Winter Cardinal UI - v0.457.0](../index.md) / DDiagramSerializedDataWithMapping
 
 # Interface: DDiagramSerializedDataWithMapping
 
@@ -63,7 +63,7 @@ The last number is a resource index number of JSON.stringify(DDiagramSerializedD
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L107)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L107)
 
 ___
 
@@ -75,7 +75,7 @@ A resource index number of JSON.stringify(DDiagramSerializedDataSystem).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L112)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L112)
 
 ___
 
@@ -145,7 +145,7 @@ Array.length
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1318
+node_modules/typescript/lib/lib.es5.d.ts:1326
 
 ## Methods
 
@@ -192,7 +192,7 @@ Array.concat
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1342
+node_modules/typescript/lib/lib.es5.d.ts:1350
 
 ▸ **concat**(`...items`): `unknown`[]
 
@@ -215,7 +215,7 @@ Array.concat
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1348
+node_modules/typescript/lib/lib.es5.d.ts:1356
 
 ___
 
@@ -297,7 +297,7 @@ Array.every
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1425
+node_modules/typescript/lib/lib.es5.d.ts:1433
 
 ▸ **every**(`predicate`, `thisArg?`): `boolean`
 
@@ -320,7 +320,7 @@ Array.every
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1434
+node_modules/typescript/lib/lib.es5.d.ts:1442
 
 ___
 
@@ -381,7 +381,7 @@ Array.filter
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1461
+node_modules/typescript/lib/lib.es5.d.ts:1469
 
 ▸ **filter**(`predicate`, `thisArg?`): `unknown`[]
 
@@ -404,7 +404,7 @@ Array.filter
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1467
+node_modules/typescript/lib/lib.es5.d.ts:1475
 
 ___
 
@@ -514,7 +514,7 @@ Array.forEach
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1449
+node_modules/typescript/lib/lib.es5.d.ts:1457
 
 ___
 
@@ -568,7 +568,7 @@ Array.indexOf
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1410
+node_modules/typescript/lib/lib.es5.d.ts:1418
 
 ___
 
@@ -594,7 +594,7 @@ Array.join
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1353
+node_modules/typescript/lib/lib.es5.d.ts:1361
 
 ___
 
@@ -641,7 +641,7 @@ Array.lastIndexOf
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1416
+node_modules/typescript/lib/lib.es5.d.ts:1424
 
 ___
 
@@ -674,7 +674,7 @@ Array.map
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1455
+node_modules/typescript/lib/lib.es5.d.ts:1463
 
 ___
 
@@ -695,7 +695,7 @@ Array.pop
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1331
+node_modules/typescript/lib/lib.es5.d.ts:1339
 
 ___
 
@@ -721,7 +721,7 @@ Array.push
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1336
+node_modules/typescript/lib/lib.es5.d.ts:1344
 
 ___
 
@@ -747,7 +747,7 @@ Array.reduce
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1473
+node_modules/typescript/lib/lib.es5.d.ts:1481
 
 ▸ **reduce**(`callbackfn`, `initialValue`): `unknown`
 
@@ -768,7 +768,7 @@ Array.reduce
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1474
+node_modules/typescript/lib/lib.es5.d.ts:1482
 
 ▸ **reduce**\<`U`\>(`callbackfn`, `initialValue`): `U`
 
@@ -797,7 +797,7 @@ Array.reduce
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1480
+node_modules/typescript/lib/lib.es5.d.ts:1488
 
 ___
 
@@ -823,7 +823,7 @@ Array.reduceRight
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1486
+node_modules/typescript/lib/lib.es5.d.ts:1494
 
 ▸ **reduceRight**(`callbackfn`, `initialValue`): `unknown`
 
@@ -844,7 +844,7 @@ Array.reduceRight
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1487
+node_modules/typescript/lib/lib.es5.d.ts:1495
 
 ▸ **reduceRight**\<`U`\>(`callbackfn`, `initialValue`): `U`
 
@@ -873,7 +873,7 @@ Array.reduceRight
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1493
+node_modules/typescript/lib/lib.es5.d.ts:1501
 
 ___
 
@@ -894,7 +894,7 @@ Array.reverse
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1358
+node_modules/typescript/lib/lib.es5.d.ts:1366
 
 ___
 
@@ -915,7 +915,7 @@ Array.shift
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1363
+node_modules/typescript/lib/lib.es5.d.ts:1371
 
 ___
 
@@ -944,7 +944,7 @@ Array.slice
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1373
+node_modules/typescript/lib/lib.es5.d.ts:1381
 
 ___
 
@@ -971,7 +971,7 @@ Array.some
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1443
+node_modules/typescript/lib/lib.es5.d.ts:1451
 
 ___
 
@@ -998,7 +998,7 @@ Array.sort
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1384
+node_modules/typescript/lib/lib.es5.d.ts:1392
 
 ___
 
@@ -1027,7 +1027,7 @@ Array.splice
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1391
+node_modules/typescript/lib/lib.es5.d.ts:1399
 
 ▸ **splice**(`start`, `deleteCount`, `...items`): `unknown`[]
 
@@ -1053,7 +1053,7 @@ Array.splice
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1399
+node_modules/typescript/lib/lib.es5.d.ts:1407
 
 ___
 
@@ -1073,7 +1073,7 @@ Array.toLocaleString
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1326
+node_modules/typescript/lib/lib.es5.d.ts:1334
 
 ___
 
@@ -1093,7 +1093,7 @@ Array.toString
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1322
+node_modules/typescript/lib/lib.es5.d.ts:1330
 
 ___
 
@@ -1119,7 +1119,7 @@ Array.unshift
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1404
+node_modules/typescript/lib/lib.es5.d.ts:1412
 
 ___
 

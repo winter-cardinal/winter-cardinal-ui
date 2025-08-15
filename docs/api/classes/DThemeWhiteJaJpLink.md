@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DThemeWhiteJaJpLink
+[Winter Cardinal UI - v0.457.0](../index.md) / DThemeWhiteJaJpLink
 
 # Class: DThemeWhiteJaJpLink
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L18)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts#L12)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts#L12)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts#L4)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts#L4)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts#L8)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-ja-jp-link.ts#L8)
 
 ___
 
@@ -130,4 +130,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L22)

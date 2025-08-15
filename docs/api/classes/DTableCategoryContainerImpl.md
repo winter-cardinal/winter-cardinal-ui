@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableCategoryContainerImpl
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableCategoryContainerImpl
 
 # Class: DTableCategoryContainerImpl\<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L19)
 
 ## Properties
 
@@ -74,7 +74,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L17)
 
 ## Methods
 
@@ -96,7 +96,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L54)
+[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L54)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L132)
+[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L132)
 
 ___
 
@@ -138,4 +138,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-category-container-impl.ts#L40)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DViewGesture
+[Winter Cardinal UI - v0.457.0](../index.md) / DViewGesture
 
 # Interface: DViewGesture
 
@@ -26,4 +26,4 @@ Stops an animation if sxists.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L28)
+[src/main/typescript/wcardinal/ui/d-view-gesture.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L28)

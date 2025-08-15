@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilExtract
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilExtract
 
 # Class: UtilExtract
 
@@ -10,6 +10,7 @@
 
 ### Properties
 
+- [WORK\_CANVAS](UtilExtract.md#work_canvas)
 - [WORK\_RENDER\_TEXTURE](UtilExtract.md#work_render_texture)
 
 ### Methods
@@ -33,13 +34,23 @@
 
 ## Properties
 
+### WORK\_CANVAS
+
+▪ `Static` `Protected` `Optional` **WORK\_CANVAS**: [`UtilExtractorCanvas`](UtilExtractorCanvas.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L111)
+
+___
+
 ### WORK\_RENDER\_TEXTURE
 
 ▪ `Static` `Protected` `Optional` **WORK\_RENDER\_TEXTURE**: `RenderTexture`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L109)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L110)
 
 ## Methods
 
@@ -47,25 +58,32 @@
 
 ▸ **base64**(`options`): `string`
 
+Extracts Base64 data URL from the target.
+This method internally creates a render texture and a canvas render target.
+They are used to extract pixels from the target.
+To free the allocated render texture and canvas render target, please call [()](UtilExtract.md#destroy).
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options` | [`UtilExtractBase64Options`](../interfaces/UtilExtractBase64Options.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options` | [`UtilExtractBase64Options`](../interfaces/UtilExtractBase64Options.md) | an extraction options |
 
 #### Returns
 
 `string`
 
+extracted Base64 data URL
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L189)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L208)
 
 ___
 
 ### canvas
 
-▸ **canvas**(`options`): `CanvasRenderTarget`
+▸ **canvas**(`options`): [`UtilExtractorCanvas`](UtilExtractorCanvas.md)
 
 #### Parameters
 
@@ -75,11 +93,11 @@ ___
 
 #### Returns
 
-`CanvasRenderTarget`
+[`UtilExtractorCanvas`](UtilExtractorCanvas.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L182)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L192)
 
 ___
 
@@ -95,7 +113,7 @@ Clears all the memories.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L207)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L228)
 
 ___
 
@@ -115,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L200)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L221)
 
 ___
 
@@ -141,7 +159,7 @@ extracted pixels
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L126)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L128)
 
 ___
 
@@ -161,4 +179,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L111)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L113)

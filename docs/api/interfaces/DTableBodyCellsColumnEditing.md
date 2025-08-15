@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableBodyCellsColumnEditing
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableBodyCellsColumnEditing
 
 # Interface: DTableBodyCellsColumnEditing\<ROW\>
 
@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cells.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-body-cells.ts#L12)
+[src/main/typescript/wcardinal/ui/d-table-body-cells.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-body-cells.ts#L12)

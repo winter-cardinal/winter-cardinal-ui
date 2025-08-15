@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DDynamicTextMeasureResultCharacter
+[Winter Cardinal UI - v0.457.0](../index.md) / DDynamicTextMeasureResultCharacter
 
 # Class: DDynamicTextMeasureResultCharacter
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L9)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L9)
 
 ## Properties
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L6)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L6)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L7)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L7)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L4)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L4)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L5)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L5)
 
 ## Methods
 
@@ -103,4 +103,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L16)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result-character.ts#L16)

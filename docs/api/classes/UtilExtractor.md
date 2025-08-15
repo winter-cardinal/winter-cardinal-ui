@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilExtractor
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilExtractor
 
 # Class: UtilExtractor
 
@@ -45,13 +45,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L105)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L114)
 
 ___
 
 ### toCanvas
 
-▸ **toCanvas**(`pixels`, `scale?`, `ignorePremutipliedAlpha?`): `CanvasRenderTarget`
+▸ **toCanvas**(`pixels`, `scale?`, `ignorePremutipliedAlpha?`, `result?`): [`UtilExtractorCanvas`](UtilExtractorCanvas.md)
 
 #### Parameters
 
@@ -60,14 +60,15 @@ ___
 | `pixels` | [`UtilExtractorPixels`](../interfaces/UtilExtractorPixels.md) |
 | `scale?` | `number` |
 | `ignorePremutipliedAlpha?` | `boolean` |
+| `result?` | [`UtilExtractorCanvas`](UtilExtractorCanvas.md) |
 
 #### Returns
 
-`CanvasRenderTarget`
+[`UtilExtractorCanvas`](UtilExtractorCanvas.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L68)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L70)
 
 ___
 
@@ -88,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L40)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L43)
 
 ___
 
@@ -111,4 +112,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L12)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L13)

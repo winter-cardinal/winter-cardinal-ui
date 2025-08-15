@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DLinks
+[Winter Cardinal UI - v0.457.0](../index.md) / DLinks
 
 # Class: DLinks
 
@@ -47,4 +47,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-links.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-links.ts#L17)
+[src/main/typescript/wcardinal/ui/d-links.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-links.ts#L17)

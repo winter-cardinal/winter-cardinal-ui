@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / EShapeActionRuntime
+[Winter Cardinal UI - v0.457.0](../index.md) / EShapeActionRuntime
 
 # Interface: EShapeActionRuntime
 
@@ -52,7 +52,7 @@ Please note that all the action runtimes are shared across shapes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L16)
 
 ## Methods
 
@@ -76,7 +76,7 @@ Called to execute this action for the given shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L33)
 
 ___
 
@@ -99,7 +99,7 @@ Called to initialize this action runtime for the given shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L24)
 
 ___
 
@@ -122,7 +122,7 @@ Called when a shape losees a focuse.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L179)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L179)
 
 ___
 
@@ -146,7 +146,7 @@ Called when a shape is clicked.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L50)
 
 ___
 
@@ -171,7 +171,7 @@ Called when a shape is double clicked.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L59)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L59)
 
 ___
 
@@ -195,7 +195,7 @@ Called when a pointer or a key get pressed on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L82)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L82)
 
 ___
 
@@ -219,7 +219,7 @@ Called when a pointer or a key are about to be pressed on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L73)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L73)
 
 ___
 
@@ -242,7 +242,7 @@ Called when a shape get focused.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L171)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L171)
 
 ___
 
@@ -266,7 +266,7 @@ Called when a key is pressed on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L154)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L154)
 
 ___
 
@@ -290,7 +290,7 @@ Called when a key is released on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L163)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L163)
 
 ___
 
@@ -314,7 +314,7 @@ Called when a pointer is moved on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L91)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L91)
 
 ___
 
@@ -338,7 +338,7 @@ Called when a pointer gets out of a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L109)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L109)
 
 ___
 
@@ -362,7 +362,7 @@ Called when a pointer gets on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L100)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L100)
 
 ___
 
@@ -386,7 +386,7 @@ Called when a shape is pressed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L136)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L136)
 
 ___
 
@@ -411,7 +411,7 @@ Called when a shape get rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L250)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L250)
 
 ___
 
@@ -434,7 +434,7 @@ Called when the shape size is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L41)
 
 ___
 
@@ -458,7 +458,7 @@ Called when a shape is right-clicked.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L188)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L188)
 
 ___
 
@@ -482,7 +482,7 @@ Called when a secondary button gets pressed on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L206)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L206)
 
 ___
 
@@ -506,7 +506,7 @@ Called when a secondary button is about to be pressed on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L197)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L197)
 
 ___
 
@@ -530,7 +530,7 @@ Called when a secondary button is pressed on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L233)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L233)
 
 ___
 
@@ -554,7 +554,7 @@ Called when a secondary button is released on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L242)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L242)
 
 ___
 
@@ -578,7 +578,7 @@ Called when a secondary button gets released on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L215)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L215)
 
 ___
 
@@ -602,7 +602,7 @@ Called when a secondary button get released outside of a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L224)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L224)
 
 ___
 
@@ -626,7 +626,7 @@ Called when a shape is released.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L145)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L145)
 
 ___
 
@@ -650,7 +650,7 @@ Called when a pointer or a key get released on a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L118)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L118)
 
 ___
 
@@ -674,4 +674,4 @@ Called when a pointer or a key get released outside of a shape.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L127)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L127)

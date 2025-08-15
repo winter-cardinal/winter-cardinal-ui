@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilRgb
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilRgb
 
 # Class: UtilRgb
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L28)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L28)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L46)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L46)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L54)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L54)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L13)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L13)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L24)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L24)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L9)
 
 ___
 
@@ -181,7 +181,7 @@ https://en.wikipedia.org/wiki/Grayscale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L69)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L69)
 
 ___
 
@@ -209,4 +209,4 @@ https://en.wikipedia.org/wiki/Grayscale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-rgb.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L81)
+[src/main/typescript/wcardinal/ui/util/util-rgb.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-rgb.ts#L81)

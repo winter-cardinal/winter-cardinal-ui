@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DAnimationTimings
+[Winter Cardinal UI - v0.457.0](../index.md) / DAnimationTimings
 
 # Class: DAnimationTimings
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-timings.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation-timings.ts#L11)
+[src/main/typescript/wcardinal/ui/d-animation-timings.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-animation-timings.ts#L11)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-timings.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation-timings.ts#L7)
+[src/main/typescript/wcardinal/ui/d-animation-timings.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-animation-timings.ts#L7)
 
 ___
 
@@ -82,4 +82,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-timings.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-animation-timings.ts#L15)
+[src/main/typescript/wcardinal/ui/d-animation-timings.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-animation-timings.ts#L15)

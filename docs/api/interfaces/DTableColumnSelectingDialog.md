@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableColumnSelectingDialog
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableColumnSelectingDialog
 
 # Interface: DTableColumnSelectingDialog\<DIALOG_VALUE\>
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column-selecting.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-column-selecting.ts#L17)
+[src/main/typescript/wcardinal/ui/d-table-column-selecting.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-column-selecting.ts#L20)
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column-selecting.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-column-selecting.ts#L18)
+[src/main/typescript/wcardinal/ui/d-table-column-selecting.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-column-selecting.ts#L21)

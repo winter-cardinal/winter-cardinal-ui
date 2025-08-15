@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DViewOnOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DViewOnOptions
 
 # Interface: DViewOnOptions\<EMITTER\>
 
@@ -59,7 +59,7 @@ Partial.gestureend
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L129)
+[src/main/typescript/wcardinal/ui/d-view.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L129)
 
 ___
 
@@ -88,7 +88,7 @@ Partial.gesturelongpress
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L157)
+[src/main/typescript/wcardinal/ui/d-view.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L157)
 
 ___
 
@@ -115,7 +115,7 @@ Partial.gesturestart
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L121)
+[src/main/typescript/wcardinal/ui/d-view.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L121)
 
 ___
 
@@ -142,7 +142,7 @@ Partial.gesturestop
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L137)
+[src/main/typescript/wcardinal/ui/d-view.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L137)
 
 ___
 
@@ -171,7 +171,7 @@ Partial.gesturetap
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L147)
+[src/main/typescript/wcardinal/ui/d-view.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L147)
 
 ___
 
@@ -198,7 +198,7 @@ Partial.transformend
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L173)
+[src/main/typescript/wcardinal/ui/d-view.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L173)
 
 ___
 
@@ -225,7 +225,7 @@ Partial.transformstart
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L165)
+[src/main/typescript/wcardinal/ui/d-view.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L165)
 
 ___
 
@@ -252,7 +252,7 @@ Partial.transformstop
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L181)
+[src/main/typescript/wcardinal/ui/d-view.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L181)
 
 ___
 
@@ -279,7 +279,7 @@ Partial.wheeltranslationend
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L197)
+[src/main/typescript/wcardinal/ui/d-view.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L197)
 
 ___
 
@@ -306,7 +306,7 @@ Partial.wheeltranslationstart
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L189)
+[src/main/typescript/wcardinal/ui/d-view.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L189)
 
 ___
 
@@ -333,4 +333,4 @@ Partial.wheeltranslationstop
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view.ts#L205)
+[src/main/typescript/wcardinal/ui/d-view.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view.ts#L205)

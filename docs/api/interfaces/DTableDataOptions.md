@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DTableDataOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DTableDataOptions
 
 # Interface: DTableDataOptions\<ROW, EMITTER\>
 
@@ -34,7 +34,7 @@ A comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L85)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L85)
 
 ___
 
@@ -46,7 +46,7 @@ A filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L80)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L80)
 
 ___
 
@@ -58,7 +58,7 @@ Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L90)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L90)
 
 ___
 
@@ -70,4 +70,4 @@ Selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L72)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L72)

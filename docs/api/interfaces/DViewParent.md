@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DViewParent
+[Winter Cardinal UI - v0.457.0](../index.md) / DViewParent
 
 # Interface: DViewParent
 
@@ -314,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-parent.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L9)
+[src/main/typescript/wcardinal/ui/d-view-parent.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L9)
 
 ___
 
@@ -334,4 +334,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-parent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L10)
+[src/main/typescript/wcardinal/ui/d-view-parent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view-parent.ts#L10)

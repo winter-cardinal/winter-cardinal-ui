@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DViewTransform
+[Winter Cardinal UI - v0.457.0](../index.md) / DViewTransform
 
 # Interface: DViewTransform
 
@@ -39,7 +39,7 @@ Sets to the specified position and scale.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-transform.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-transform.ts#L20)
+[src/main/typescript/wcardinal/ui/d-view-transform.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view-transform.ts#L20)
 
 ___
 
@@ -55,4 +55,4 @@ Stops an animation if exits.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-transform.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-view-transform.ts#L33)
+[src/main/typescript/wcardinal/ui/d-view-transform.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-view-transform.ts#L33)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / FormatNodeSpace
+[Winter Cardinal UI - v0.457.0](../index.md) / FormatNodeSpace
 
 # Class: FormatNodeSpace
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts#L11)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts#L11)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts#L9)
 
 ## Methods
 
@@ -66,4 +66,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts#L15)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-space.ts#L15)

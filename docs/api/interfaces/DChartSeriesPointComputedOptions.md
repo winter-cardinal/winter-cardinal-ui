@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DChartSeriesPointComputedOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / DChartSeriesPointComputedOptions
 
 # Interface: DChartSeriesPointComputedOptions
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L7)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L7)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L8)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L8)

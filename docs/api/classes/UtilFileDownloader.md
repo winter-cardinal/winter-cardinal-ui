@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilFileDownloader
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilFileDownloader
 
 # Class: UtilFileDownloader
 
@@ -45,7 +45,7 @@ Downloads a file of the given name with the given contents.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-downloader.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-downloader.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-file-downloader.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-file-downloader.ts#L38)
 
 ___
 
@@ -68,4 +68,4 @@ Downloads a file of the given name and URL.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-downloader.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-file-downloader.ts#L13)
+[src/main/typescript/wcardinal/ui/util/util-file-downloader.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-file-downloader.ts#L13)

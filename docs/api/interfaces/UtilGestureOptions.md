@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / UtilGestureOptions
+[Winter Cardinal UI - v0.457.0](../index.md) / UtilGestureOptions
 
 # Interface: UtilGestureOptions\<TARGET\>
 
@@ -30,7 +30,7 @@ Binds the pointerdown event of the given target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L75)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L75)
 
 ___
 
@@ -42,7 +42,7 @@ Checker options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L67)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L67)
 
 ___
 
@@ -54,7 +54,7 @@ Easing options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L72)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L72)
 
 ___
 
@@ -66,7 +66,7 @@ Expected mouse modifiers
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L62)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L62)
 
 ___
 
@@ -78,7 +78,7 @@ Event options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L83)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L83)
 
 ___
 
@@ -90,7 +90,7 @@ Tap options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L80)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L80)
 
 ___
 
@@ -102,4 +102,4 @@ True to restrict to touch gestures only.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L57)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L57)

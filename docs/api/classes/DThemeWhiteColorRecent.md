@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.442.0](../index.md) / DThemeWhiteColorRecent
+[Winter Cardinal UI - v0.457.0](../index.md) / DThemeWhiteColorRecent
 
 # Class: DThemeWhiteColorRecent
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts#L10)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts#L10)
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.442.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts#L14)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.457.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-color-recent.ts#L14)
