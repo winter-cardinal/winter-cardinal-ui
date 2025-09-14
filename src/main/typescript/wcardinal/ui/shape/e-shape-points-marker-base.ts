@@ -182,8 +182,12 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 	}
 
 	copy(source: EShapePointsMarker): this {
+		this.lock();
+		this.type = source.type;
 		const size = source.size;
-		this.set(source.type, size.x, size.y);
+		this.size.set(size.x, size.y);
+		this.fill.copy(source.fill);
+		this.unlock();
 		return this;
 	}
 
