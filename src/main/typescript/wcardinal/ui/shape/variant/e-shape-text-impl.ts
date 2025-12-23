@@ -156,10 +156,10 @@ export class EShapeTextImpl implements EShapeText {
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const cc = value.charCodeAt(j);
+				const jcc = value.charCodeAt(j);
 				if (
-					(Character.SURROGATE.LOW.FROM <= cc && cc <= Character.SURROGATE.LOW.TO) ||
-					(Character.VARIATION.FROM <= cc && cc <= Character.VARIATION.TO)
+					(Character.SURROGATE.LOW.FROM <= jcc && jcc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= jcc && jcc <= Character.VARIATION.TO)
 				) {
 					// Low surrogate
 					// Variation selector

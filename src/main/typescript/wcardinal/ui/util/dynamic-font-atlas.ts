@@ -124,17 +124,21 @@ export class DynamicFontAtlas {
 		const cs = this._characters;
 		const cds = this._createds;
 		for (let i = 0, imax = characters.length; i < imax; ) {
-			if (characters.charCodeAt(i) <= 0xff) {
+			const icc = characters.charCodeAt(i);
+			if (
+				(Character.ASCII.LOW.FROM <= icc && icc <= Character.ASCII.LOW.TO) ||
+				(Character.ASCII.HIGH.FROM <= icc && icc <= Character.ASCII.HIGH.TO)
+			) {
 				// Ignore ASCII characters
 				i += 1;
 				continue;
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const cc = characters.charCodeAt(j);
+				const jcc = characters.charCodeAt(j);
 				if (
-					(Character.SURROGATE.LOW.FROM <= cc && cc <= Character.SURROGATE.LOW.TO) ||
-					(Character.VARIATION.FROM <= cc && cc <= Character.VARIATION.TO)
+					(Character.SURROGATE.LOW.FROM <= jcc && jcc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= jcc && jcc <= Character.VARIATION.TO)
 				) {
 					// Low surrogate
 					// Variation selector
@@ -172,17 +176,21 @@ export class DynamicFontAtlas {
 	remove(characters: string): void {
 		const cs = this._characters;
 		for (let i = 0, imax = characters.length; i < imax; ) {
-			if (characters.charCodeAt(i) <= 0xff) {
+			const icc = characters.charCodeAt(i);
+			if (
+				(Character.ASCII.LOW.FROM <= icc && icc <= Character.ASCII.LOW.TO) ||
+				(Character.ASCII.HIGH.FROM <= icc && icc <= Character.ASCII.HIGH.TO)
+			) {
 				// Ignore ASCII characters
 				i += 1;
 				continue;
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const cc = characters.charCodeAt(j);
+				const jcc = characters.charCodeAt(j);
 				if (
-					(Character.SURROGATE.LOW.FROM <= cc && cc <= Character.SURROGATE.LOW.TO) ||
-					(Character.VARIATION.FROM <= cc && cc <= Character.VARIATION.TO)
+					(Character.SURROGATE.LOW.FROM <= jcc && jcc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= jcc && jcc <= Character.VARIATION.TO)
 				) {
 					// Low surrogate
 					// Variation selector

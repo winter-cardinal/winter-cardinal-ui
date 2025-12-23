@@ -4,16 +4,24 @@
  */
 
 export const Character = {
+	/**
+	 * ASCII Character Ranges
+	 * LOW: Printable ASCII (0x21-0x7E) - '!' to '~'
+	 * HIGH: Extended ASCII (0xA1-0xFF) - '¡' to 'ÿ'
+	 */
 	ASCII: {
 		LOW: {
-			FROM: 33,
-			TO: 126
+			FROM: 0x21,
+			TO: 0x7e
 		},
 		HIGH: {
-			FROM: 161,
-			TO: 255
+			FROM: 0xa1,
+			TO: 0xff
 		}
 	},
+	/**
+	 * Surrogate Pair Ranges
+	 */
 	SURROGATE: {
 		LOW: {
 			FROM: 0xdc00,
@@ -24,6 +32,9 @@ export const Character = {
 			TO: 0xdbff
 		}
 	},
+	/**
+	 * Variation Selector Range
+	 */
 	VARIATION: {
 		FROM: 0xfe00,
 		TO: 0xfe0f
