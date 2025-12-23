@@ -21,11 +21,14 @@ import { EShapeConnectorEdge } from "../e-shape-connector-edge";
 import { EShapeLockPart } from "./e-shape-lock-part";
 import { EShapeLock } from "./e-shape-lock";
 
-export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
+export class EShapeConnectorLine
+	extends EShapeLineBase<EShapeLinePoints>
+	implements EShapeConnector
+{
 	protected static WORK_BOUNDARY: [number, number, number, number];
 	protected _edge: EShapeConnectorEdgeContainer;
 	protected _body: EShapeConnectorBody;
-	protected declare _points: EShapeLinePoints;
+	protected _points: EShapeLinePoints;
 	protected _tailLocalId: number;
 	protected _tailNormalId: number;
 	protected _tailMargin: number;

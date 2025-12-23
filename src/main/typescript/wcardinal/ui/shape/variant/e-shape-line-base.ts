@@ -18,9 +18,9 @@ import { hitTestRectangle } from "./hit-test-rectangle";
 import { hitTestTriangle } from "./hit-test-triangle";
 import { toThresholdDefault } from "./to-threshold-default";
 
-export abstract class EShapeLineBase extends EShapePrimitive {
-	protected declare _points: EShapeLineBasePoints;
-	abstract clone(): EShapeLineBase;
+export abstract class EShapeLineBase<POINTS extends EShapeLineBasePoints> extends EShapePrimitive {
+	protected abstract readonly _points: POINTS;
+	abstract clone(): EShapeLineBase<POINTS>;
 
 	protected getHitTestSize(result: EShapeBaseHitTestData): EShapeBaseHitTestData {
 		const formatted = this._points.formatted;
