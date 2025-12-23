@@ -5,6 +5,8 @@
 /doc
 /dist
 
+.github
+.claude
 .gradle
 .classpath
 .project

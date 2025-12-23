@@ -56,8 +56,12 @@ export class DynamicFontAtlas {
 			Character.DOTS,
 			this.newChar(Character.DOTS, DynamicFontAtlasCharacterType.LETTER_RNB)
 		);
-		for (let i = 0, imax = Character.ASCII.length; i < imax; ++i) {
-			const ac = Character.ASCII[i];
+		for (let i = Character.ASCII.LOW.FROM; i <= Character.ASCII.LOW.TO; ++i) {
+			const ac = String.fromCodePoint(i);
+			characters.set(ac, this.newChar(ac, DynamicFontAtlasCharacterType.LETTER_RNB));
+		}
+		for (let i = Character.ASCII.HIGH.FROM; i <= Character.ASCII.HIGH.TO; ++i) {
+			const ac = String.fromCodePoint(i);
 			characters.set(ac, this.newChar(ac, DynamicFontAtlasCharacterType.LETTER_RNB));
 		}
 		this._characters = characters;
@@ -120,15 +124,22 @@ export class DynamicFontAtlas {
 		const cs = this._characters;
 		const cds = this._createds;
 		for (let i = 0, imax = characters.length; i < imax; ) {
-			if (characters.charCodeAt(i) <= 0xff) {
+			const icc = characters.charCodeAt(i);
+			if (
+				(Character.ASCII.LOW.FROM <= icc && icc <= Character.ASCII.LOW.TO) ||
+				(Character.ASCII.HIGH.FROM <= icc && icc <= Character.ASCII.HIGH.TO)
+			) {
 				// Ignore ASCII characters
 				i += 1;
 				continue;
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const cc = characters.charCodeAt(j);
-				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
+				const jcc = characters.charCodeAt(j);
+				if (
+					(Character.SURROGATE.LOW.FROM <= jcc && jcc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= jcc && jcc <= Character.VARIATION.TO)
+				) {
 					// Low surrogate
 					// Variation selector
 					continue;
@@ -165,15 +176,22 @@ export class DynamicFontAtlas {
 	remove(characters: string): void {
 		const cs = this._characters;
 		for (let i = 0, imax = characters.length; i < imax; ) {
-			if (characters.charCodeAt(i) <= 0xff) {
+			const icc = characters.charCodeAt(i);
+			if (
+				(Character.ASCII.LOW.FROM <= icc && icc <= Character.ASCII.LOW.TO) ||
+				(Character.ASCII.HIGH.FROM <= icc && icc <= Character.ASCII.HIGH.TO)
+			) {
 				// Ignore ASCII characters
 				i += 1;
 				continue;
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const cc = characters.charCodeAt(j);
-				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
+				const jcc = characters.charCodeAt(j);
+				if (
+					(Character.SURROGATE.LOW.FROM <= jcc && jcc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= jcc && jcc <= Character.VARIATION.TO)
+				) {
 					// Low surrogate
 					// Variation selector
 					continue;

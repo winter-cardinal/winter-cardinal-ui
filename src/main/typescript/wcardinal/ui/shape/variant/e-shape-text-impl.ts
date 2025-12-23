@@ -25,6 +25,7 @@ import { EShapeTextAlignImpl } from "./e-shape-text-align-impl";
 import { EShapeTextImplParent } from "./e-shape-text-impl-parent";
 import { EShapeTextOffsetImpl } from "./e-shape-text-offset-impl";
 import { EShapeTextOutlineImpl } from "./e-shape-text-outline-impl";
+import { Character } from "../../util/character";
 
 export class EShapeTextImpl implements EShapeText {
 	protected _parent: EShapeTextImplParent;
@@ -137,7 +138,11 @@ export class EShapeTextImpl implements EShapeText {
 		const nacharactersLength = nacharacters.length;
 		let inacharacters = 0;
 		for (let i = 0, imax = value.length; i < imax; ) {
-			if (value.charCodeAt(i) <= 0xff) {
+			const icc = value.charCodeAt(i);
+			if (
+				(Character.ASCII.LOW.FROM <= icc && icc <= Character.ASCII.LOW.TO) ||
+				(Character.ASCII.HIGH.FROM <= icc && icc <= Character.ASCII.HIGH.TO)
+			) {
 				// Add an ASCII character
 				const ac = value.substring(i, i + 1);
 				if (icharacters < charactersLength) {
@@ -151,8 +156,11 @@ export class EShapeTextImpl implements EShapeText {
 			}
 			let j = i + 1;
 			for (; j < imax; ++j) {
-				const cc = value.charCodeAt(j);
-				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
+				const jcc = value.charCodeAt(j);
+				if (
+					(Character.SURROGATE.LOW.FROM <= jcc && jcc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= jcc && jcc <= Character.VARIATION.TO)
+				) {
 					// Low surrogate
 					// Variation selector
 					continue;
