@@ -7,10 +7,7 @@ import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartPlotAreaOnefold, DChartPlotAreaSingleOptions } from "./d-chart-plot-area-onefold";
-import {
-	DChartPlotAreaTwofold,
-	DChartPlotAreaTwofoldOptions
-} from "./d-chart-plot-area-twofold";
+import { DChartPlotAreaTwofold, DChartPlotAreaTwofoldOptions } from "./d-chart-plot-area-twofold";
 
 export interface DChartOptions<THEME extends DThemeChart> extends DBaseOptions<THEME> {
 	plotArea: DChartPlotAreaSingleOptions<DChart> | DChartPlotAreaTwofoldOptions<DChart>;
