@@ -4,7 +4,30 @@
  */
 
 export const Character = {
-	ASCII: "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+	ASCII: {
+		LOW: {
+			FROM: 33,
+			TO: 126
+		},
+		HIGH: {
+			FROM: 161,
+			TO: 255
+		}
+	},
+	SURROGATE: {
+		LOW: {
+			FROM: 0xdc00,
+			TO: 0xdfff
+		},
+		HIGH: {
+			FROM: 0xd800,
+			TO: 0xdbff
+		}
+	},
+	VARIATION: {
+		FROM: 0xfe00,
+		TO: 0xfe0f
+	},
 	SPACE: " ",
 	TAB: "\t",
 	SOFT_TAB: "    ",

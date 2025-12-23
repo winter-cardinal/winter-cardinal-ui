@@ -56,8 +56,12 @@ export class DynamicFontAtlas {
 			Character.DOTS,
 			this.newChar(Character.DOTS, DynamicFontAtlasCharacterType.LETTER_RNB)
 		);
-		for (let i = 0, imax = Character.ASCII.length; i < imax; ++i) {
-			const ac = Character.ASCII[i];
+		for (let i = Character.ASCII.LOW.FROM; i <= Character.ASCII.LOW.TO; ++i) {
+			const ac = String.fromCodePoint(i);
+			characters.set(ac, this.newChar(ac, DynamicFontAtlasCharacterType.LETTER_RNB));
+		}
+		for (let i = Character.ASCII.HIGH.FROM; i <= Character.ASCII.HIGH.TO; ++i) {
+			const ac = String.fromCodePoint(i);
 			characters.set(ac, this.newChar(ac, DynamicFontAtlasCharacterType.LETTER_RNB));
 		}
 		this._characters = characters;
@@ -128,7 +132,10 @@ export class DynamicFontAtlas {
 			let j = i + 1;
 			for (; j < imax; ++j) {
 				const cc = characters.charCodeAt(j);
-				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
+				if (
+					(Character.SURROGATE.LOW.FROM <= cc && cc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= cc && cc <= Character.VARIATION.TO)
+				) {
 					// Low surrogate
 					// Variation selector
 					continue;
@@ -173,7 +180,10 @@ export class DynamicFontAtlas {
 			let j = i + 1;
 			for (; j < imax; ++j) {
 				const cc = characters.charCodeAt(j);
-				if ((0xdc00 <= cc && cc <= 0xdfff) || (0xfe00 <= cc && cc <= 0xfe0f)) {
+				if (
+					(Character.SURROGATE.LOW.FROM <= cc && cc <= Character.SURROGATE.LOW.TO) ||
+					(Character.VARIATION.FROM <= cc && cc <= Character.VARIATION.TO)
+				) {
 					// Low surrogate
 					// Variation selector
 					continue;

@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Character } from "./character";
+
 export class UtilCharacterIterator {
 	protected static _instance: UtilCharacterIterator | null = null;
 	target: string;
@@ -26,23 +28,14 @@ export class UtilCharacterIterator {
 		const iend = target.length;
 		for (let i = istart; i < iend; ++i) {
 			const code = target.charCodeAt(i);
-			if (!this.isLowSurrogate(code) && !this.isVariationSelector(code)) {
+			if (
+				!(Character.SURROGATE.LOW.FROM <= code && code <= Character.SURROGATE.LOW.TO) &&
+				!(Character.VARIATION.FROM <= code && code <= Character.VARIATION.TO)
+			) {
 				return i;
 			}
 		}
 		return iend;
-	}
-
-	protected isHighSurrogate(code: number): boolean {
-		return 0xd800 <= code && code <= 0xdbff;
-	}
-
-	protected isLowSurrogate(code: number): boolean {
-		return 0xdc00 <= code && code <= 0xdfff;
-	}
-
-	protected isVariationSelector(code: number): boolean {
-		return 0xfe00 <= code && code <= 0xfe0f;
 	}
 
 	next(): string {
