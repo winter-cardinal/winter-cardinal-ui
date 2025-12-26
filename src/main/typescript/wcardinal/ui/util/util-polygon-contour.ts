@@ -48,8 +48,8 @@ export class Contour {
 		// Calculate dr[i]
 		// dr[i] = dot(n[i], p[i]-p[i-1]) / (1 - dot(n[i],t[i-1])) or
 		// dr[i] = dot(m[i], p[i]-p[i-1]) / dot(m[i],t[i] - t[i-1])
-		let mdr: number = Number.MAX_VALUE;
-		let mdri: number = -1;
+		let mdr = 0;
+		let mdri = -1;
 		let ptx = t[pl - 2];
 		let pty = t[pl - 1];
 		let ppx = p[pl - 2];
@@ -66,7 +66,7 @@ export class Contour {
 			const dnpt = 1 - (nx * ptx + ny * pty);
 			if (CONTOUR_EPSILON < Math.abs(dnpt)) {
 				const dr = (nx * dpx + ny * dpy) / dnpt;
-				if (dr < mdr) {
+				if (mdri < 0 || dr < mdr) {
 					mdr = dr;
 					mdri = i;
 				}
@@ -76,7 +76,7 @@ export class Contour {
 				const dmpt = mx * (tx - ptx) + my * (ty - pty);
 				if (CONTOUR_EPSILON < Math.abs(dmpt)) {
 					const dr = (mx * dpx + my * dpy) / dmpt;
-					if (dr < mdr) {
+					if (mdri < 0 || dr < mdr) {
 						mdr = dr;
 						mdri = i;
 					}
@@ -138,7 +138,7 @@ export class Contour {
 					const c3 = mkx * (tkx - ntkx) + mky * (tky - ntky);
 					if (CONTOUR_EPSILON < Math.abs(c2)) {
 						const dr = c0 / c2;
-						if (dr < mdr) {
+						if (mdri < 0 || dr < mdr) {
 							mdr = dr;
 							mdri = i;
 						}
@@ -146,7 +146,7 @@ export class Contour {
 					const c23 = c2 + c3;
 					if (CONTOUR_EPSILON < Math.abs(c23)) {
 						const dr = (c0 + c1) / c23;
-						if (dr < mdr) {
+						if (mdri < 0 || dr < mdr) {
 							mdr = dr;
 							mdri = i;
 						}
@@ -264,9 +264,9 @@ export class Contour {
 				continue;
 			}
 			const f = 1 / Math.sqrt(d);
-			const mx = -dx * f;
-			const my = -dy * f;
-			n.unshift(my, -mx);
+			const mx = dx * f;
+			const my = dy * f;
+			n.unshift(-my, mx);
 			p.unshift(px, py);
 			npx = px;
 			npy = py;
