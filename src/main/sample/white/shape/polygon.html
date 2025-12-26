@@ -55,17 +55,20 @@
 		const contour = UtilPolygonContour.from(newPoints());
 		const points = [];
 		const addContour = (c) => {
-			c.p.forEach((p) => {
+			console.log("c.points", c.points);
+			console.log("c.parents", c.parents);
+			c.points.forEach((p) => {
 				points.push(p);
 			});
-			if (0 < c.p.length) {
-				points.push(c.p[0], c.p[1]);
+			if (4 < c.points.length) {
+				points.push(c.points[0], c.points[1]);
 			}
 			c.next.forEach((n) => {
 				addContour(n);
 			});
 		};
 		addContour(contour);
+		console.log("points", points);
 		newLine(500, 500, points, [], container);
 
 		application.stage.addChild(container);

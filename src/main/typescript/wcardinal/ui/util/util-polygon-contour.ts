@@ -1,13 +1,22 @@
 export const CONTOUR_EPSILON = 1e-5;
 
 export class Contour {
-	p: number[];
-	n: number[];
+	points: number[];
+	normals: number[];
+	/**
+	 * The range of parent point indices that each point connects to.
+	 * For instance, i-th values `(parents[i], parents[i + 1])` represents
+	 * i-th point `(p[i], p[i + 1])` connects to the parent points at `parents[i]` and `parents[i + 1] - 2`.
+	 *
+	 * Please note that `parents[i + 1]` is **not** inclusive.
+	 */
+	parents: number[];
 	protected _next?: Contour[];
 
 	constructor() {
-		this.p = [];
-		this.n = [];
+		this.points = [];
+		this.normals = [];
+		this.parents = [];
 	}
 
 	get next(): Contour[] {
@@ -16,8 +25,8 @@ export class Contour {
 
 	protected newNext(): Contour[] {
 		// Calculate p[i], n[i], m[i]
-		const p = this.p;
-		const pl = this.p.length;
+		const p = this.points;
+		const pl = this.points.length;
 		if (pl <= 4) {
 			return [];
 		}
@@ -27,7 +36,7 @@ export class Contour {
 		// t[i]=n[i] + s[i] m[i]
 		// s[i]=(1 - dot(n[i],n[i-1])) / dot(m[i],n[i-1])
 		const t: number[] = [];
-		const n = this.n;
+		const n = this.normals;
 		let pnx = n[pl - 2];
 		let pny = n[pl - 1];
 		for (let i = 0; i < pl; i += 2) {
@@ -170,8 +179,9 @@ export class Contour {
 	}
 
 	cut(): Contour[] {
-		const p = this.p;
-		const n = this.n;
+		const p = this.points;
+		const n = this.normals;
+		const r = this.parents;
 		const pl = p.length;
 		for (let i = 0; i < pl; i += 2) {
 			const pix = p[i];
@@ -196,22 +206,31 @@ export class Contour {
 						// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
 						// So, cut out the polygons of (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
 						const cutted1 = new Contour();
+						const p1 = cutted1.points;
+						const n1 = cutted1.normals;
+						const r1 = cutted1.parents;
 						for (let l = i; l <= k; l += 2) {
-							cutted1.p.push(p[l], p[l + 1]);
-							cutted1.n.push(n[l], n[l + 1]);
+							p1.push(p[l], p[l + 1]);
+							n1.push(n[l], n[l + 1]);
+							r1.push(r[l], r[l + 1]);
 						}
 						cutted1.cut().forEach((cutted) => {
 							result.push(cutted);
 						});
 
 						const cutted2 = new Contour();
+						const p2 = cutted2.points;
+						const n2 = cutted2.normals;
+						const r2 = cutted2.parents;
 						for (let l = 0; l <= i; l += 2) {
-							cutted2.p.push(p[l], p[l + 1]);
-							cutted2.n.push(n[l], n[l + 1]);
+							p2.push(p[l], p[l + 1]);
+							n2.push(n[l], n[l + 1]);
+							r2.push(r[l], r[l + 1]);
 						}
 						for (let l = k + 2; l < pl; l += 2) {
-							cutted2.p.push(p[l], p[l + 1]);
-							cutted2.n.push(n[l], n[l + 1]);
+							p2.push(p[l], p[l + 1]);
+							n2.push(n[l], n[l + 1]);
+							r2.push(r[l], r[l + 1]);
 						}
 						cutted2.cut().forEach((cutted) => {
 							result.push(cutted);
@@ -220,20 +239,29 @@ export class Contour {
 						// On the other hand, in this case, points are arranged like (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
 						// Cut out the polygons of (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
 						const cutted1 = new Contour();
+						const p1 = cutted1.points;
+						const n1 = cutted1.normals;
+						const r1 = cutted1.parents;
 						for (let l = k + 2; l <= i; l += 2) {
-							cutted1.p.push(p[l], p[l + 1]);
-							cutted1.n.push(n[l], n[l + 1]);
+							p1.push(p[l], p[l + 1]);
+							n1.push(n[l], n[l + 1]);
+							r1.push(r[l], r[l + 1]);
 						}
 						result.push(cutted1);
 
 						const cutted2 = new Contour();
+						const p2 = cutted2.points;
+						const n2 = cutted2.normals;
+						const r2 = cutted2.parents;
 						for (let l = 0; l <= k; l += 2) {
-							cutted2.p.push(p[l], p[l + 1]);
-							cutted2.n.push(n[l], n[l + 1]);
+							p2.push(p[l], p[l + 1]);
+							n2.push(n[l], n[l + 1]);
+							r2.push(r[l], r[l + 1]);
 						}
 						for (let l = i; l < pl; l += 2) {
-							cutted2.p.push(p[l], p[l + 1]);
-							cutted2.n.push(n[l], n[l + 1]);
+							p2.push(p[l], p[l + 1]);
+							n2.push(n[l], n[l + 1]);
+							r2.push(r[l], r[l + 1]);
 						}
 						cutted2.cut().forEach((cutted) => {
 							result.push(cutted);
@@ -252,10 +280,12 @@ export class Contour {
 		if (pointsLength <= 0) {
 			return result;
 		}
-		const p = result.p;
-		const n = result.n;
+		const p = result.points;
+		const n = result.normals;
+		const r = result.parents;
 		let npx = points[0];
 		let npy = points[1];
+		let npi = pointsLength;
 		for (let i = pointsLength - 2; 0 <= i; i -= 2) {
 			const px = points[i];
 			const py = points[i + 1];
@@ -263,7 +293,11 @@ export class Contour {
 			const dy = npy - py;
 			const d = dx * dx + dy * dy;
 			if (d <= CONTOUR_EPSILON) {
-				// Skip this point
+				// Merge this point to the last point (p[0], p[1])
+				if (0 < r.length) {
+					r[0] = i;
+					npi = i;
+				}
 				continue;
 			}
 			const f = 1 / Math.sqrt(d);
@@ -271,12 +305,15 @@ export class Contour {
 			const my = dy * f;
 			n.unshift(-my, mx);
 			p.unshift(px, py);
+			r.unshift(i, npi);
 			npx = px;
 			npy = py;
+			npi = i;
 		}
 		if (p.length <= 0) {
 			p.push(npx, npy);
 			n.push(0, 1);
+			r.push(0, pointsLength);
 		}
 		return result;
 	}
