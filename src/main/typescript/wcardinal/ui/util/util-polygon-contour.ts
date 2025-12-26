@@ -33,8 +33,8 @@ export class Contour {
 		for (let i = 0; i < pl; i += 2) {
 			const nx = n[i];
 			const ny = n[i + 1];
-			const mx = -ny;
-			const my = nx;
+			const mx = ny;
+			const my = -nx;
 			const dmn = mx * pnx + my * pny;
 			const s =
 				CONTOUR_EPSILON <= Math.abs(dmn) ? (1 - (nx * pnx + ny * pny)) / dmn : -0.5 * dmn;
@@ -71,8 +71,8 @@ export class Contour {
 					mdri = i;
 				}
 			} else {
-				const mx = -ny;
-				const my = nx;
+				const mx = ny;
+				const my = -nx;
 				const dmpt = mx * (tx - ptx) + my * (ty - pty);
 				if (CONTOUR_EPSILON < Math.abs(dmpt)) {
 					const dr = (mx * dpx + my * dpy) / dmpt;
@@ -126,8 +126,8 @@ export class Contour {
 					const nk = (k + 2) % pl;
 					const npkx = p[nk];
 					const npky = p[nk + 1];
-					const mkx = -nky;
-					const mky = nkx;
+					const mkx = nky;
+					const mky = -nkx;
 					const tkx = t[nk];
 					const tky = t[nk + 1];
 					const ntkx = t[nk];
@@ -184,14 +184,17 @@ export class Contour {
 				const pky = p[k + 1];
 				const nkx = n[k];
 				const nky = n[k + 1];
+				const mkx = nky;
+				const mky = -nkx;
 				const dx = pix - pkx;
 				const dy = piy - pky;
-				const d = nkx * dx + nky * dy;
-				if (Math.abs(d) < CONTOUR_EPSILON) {
+				const dn = nkx * dx + nky * dy;
+				const dm = mkx * dx + mky * dy;
+				if (Math.abs(dn) < CONTOUR_EPSILON && 0 <= dm && dm <= 1) {
 					const result = [];
 					if (i < k) {
 						// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-						// So, cut out the polygon of (p[i], ..., p[k], p[k+1]) and the polygon of (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
+						// So, cut out the polygons of (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
 						const cutted1 = new Contour();
 						for (let l = i; l <= k; l += 2) {
 							cutted1.p.push(p[l], p[l + 1]);
@@ -215,7 +218,7 @@ export class Contour {
 						});
 					} else {
 						// On the other hand, in this case, points are arranged like (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-						// Cut out the polygon of (p[k+2], ..., p[i]) and the polygon of (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
+						// Cut out the polygons of (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
 						const cutted1 = new Contour();
 						for (let l = k + 2; l <= i; l += 2) {
 							cutted1.p.push(p[l], p[l + 1]);
