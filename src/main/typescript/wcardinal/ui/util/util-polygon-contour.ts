@@ -3,13 +3,6 @@ export const CONTOUR_EPSILON = 1e-5;
 export class Contour {
 	points: number[];
 	normals: number[];
-	/**
-	 * The range of parent point indices that each point connects to.
-	 * For instance, i-th values `(parents[i], parents[i + 1])` represents
-	 * i-th point `(p[i], p[i + 1])` connects to the parent points at `parents[i]` and `parents[i + 1] - 2`.
-	 *
-	 * Please note that `parents[i + 1]` is **not** inclusive.
-	 */
 	parents: number[];
 	protected _next?: Contour[];
 
@@ -75,7 +68,7 @@ export class Contour {
 			const dnpt = 1 - (nx * ptx + ny * pty);
 			if (CONTOUR_EPSILON < Math.abs(dnpt)) {
 				const dr = (nx * dpx + ny * dpy) / dnpt;
-				if (mdri < 0 || dr < mdr) {
+				if (0 < dr && (mdri < 0 || dr < mdr)) {
 					mdr = dr;
 					mdri = i;
 				}
@@ -85,7 +78,7 @@ export class Contour {
 				const dmpt = mx * (tx - ptx) + my * (ty - pty);
 				if (CONTOUR_EPSILON < Math.abs(dmpt)) {
 					const dr = (mx * dpx + my * dpy) / dmpt;
-					if (mdri < 0 || dr < mdr) {
+					if (0 < dr && (mdri < 0 || dr < mdr)) {
 						mdr = dr;
 						mdri = i;
 					}
@@ -127,7 +120,7 @@ export class Contour {
 					const dpx = pkx - pix;
 					const dpy = pky - piy;
 					const dr = (nkx * dpx + nky * dpy) / dnt;
-					if (dr < mdr) {
+					if (0 < dr && dr < mdr) {
 						mdr = dr;
 						mdri = i;
 					}
@@ -147,7 +140,7 @@ export class Contour {
 					const c3 = mkx * (tkx - ntkx) + mky * (tky - ntky);
 					if (CONTOUR_EPSILON < Math.abs(c2)) {
 						const dr = c0 / c2;
-						if (mdri < 0 || dr < mdr) {
+						if (0 < dr && (mdri < 0 || dr < mdr)) {
 							mdr = dr;
 							mdri = i;
 						}
@@ -155,7 +148,7 @@ export class Contour {
 					const c23 = c2 + c3;
 					if (CONTOUR_EPSILON < Math.abs(c23)) {
 						const dr = (c0 + c1) / c23;
-						if (mdri < 0 || dr < mdr) {
+						if (0 < dr && (mdri < 0 || dr < mdr)) {
 							mdr = dr;
 							mdri = i;
 						}
@@ -167,15 +160,92 @@ export class Contour {
 		//
 		if (0 <= mdri) {
 			// Calculate the next contour
-			const q = [];
+			console.log("mdr", mdr);
+			const r = this.parents;
+			const c = new Contour();
+			const cp = c.points;
+			const cn = c.normals;
+			const cr = c.parents;
 			for (let i = 0; i < pl; i += 2) {
-				q.push(p[i] - mdr * t[i], p[i + 1] - mdr * t[i + 1]);
+				cp.push(p[i] - mdr * t[i], p[i + 1] - mdr * t[i + 1]);
+				cn.push(n[i], n[i + 1]);
+				cr.push(r[i], r[i + 1]);
 			}
-			return Contour.from(q).cut();
+			return c.merge().cut();
 		}
 
 		// No dr has found
 		return [];
+	}
+
+	merge(): this {
+		const p = this.points;
+		const pl = p.length;
+		if (pl <= 2) {
+			// No need to merge
+			return this;
+		}
+
+		const n = this.normals;
+		const r = this.parents;
+		let nr = 0;
+		let ppx = p[0];
+		let ppy = p[1];
+		let ppi = 0;
+		for (let i = 2; i < pl; i += 2) {
+			const px = p[i];
+			const py = p[i + 1];
+			const dx = px - ppx;
+			const dy = py - ppy;
+			if (Math.abs(dx) <= CONTOUR_EPSILON || Math.abs(dy) <= CONTOUR_EPSILON) {
+				// Merge this point to the previous point
+				r[ppi + 1] = r[i + 1];
+				r[i] = -1;
+				n[ppi] = n[i];
+				n[ppi + 1] = n[i + 1];
+				nr += 1;
+				continue;
+			}
+			ppx = px;
+			ppy = py;
+			ppi = i;
+		}
+
+		// Merge the last one and the first one
+		if (ppi !== 0) {
+			const dx = p[ppi] - p[0];
+			const dy = p[ppi + 1] - p[1];
+			if (Math.abs(dx) < CONTOUR_EPSILON || Math.abs(dy) < CONTOUR_EPSILON) {
+				r[0] = r[ppi];
+				r[ppi] = -1;
+				nr += 1;
+			}
+		}
+
+		// Remove merged points
+		if (0 < nr) {
+			let k = 0;
+			for (let i = 0; i < pl; i += 2, k += 2) {
+				if (r[i] < 0) {
+					k -= 2;
+				} else if (i !== k) {
+					p[k] = p[i];
+					p[k + 1] = p[i + 1];
+					n[k] = n[i];
+					n[k + 1] = n[i + 1];
+					r[k] = r[i];
+					r[k + 1] = r[i + 1];
+				}
+			}
+			if (k < pl) {
+				p.length = k;
+				n.length = k;
+				r.length = k;
+			}
+		}
+
+		// Done
+		return this;
 	}
 
 	cut(): Contour[] {
@@ -190,88 +260,167 @@ export class Contour {
 				if (k === i || (0 < i && k === i - 2) || (i === 0 && k === pl - 2)) {
 					continue;
 				}
-				const pkx = p[k];
-				const pky = p[k + 1];
-				const nkx = n[k];
-				const nky = n[k + 1];
-				const mkx = nky;
-				const mky = -nkx;
-				const dx = pix - pkx;
-				const dy = piy - pky;
-				const dn = nkx * dx + nky * dy;
-				const dm = mkx * dx + mky * dy;
-				if (Math.abs(dn) < CONTOUR_EPSILON && 0 <= dm && dm <= 1) {
-					const result = [];
-					if (i < k) {
-						// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-						// So, cut out the polygons of (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
-						const cutted1 = new Contour();
-						const p1 = cutted1.points;
-						const n1 = cutted1.normals;
-						const r1 = cutted1.parents;
-						for (let l = i; l <= k; l += 2) {
-							p1.push(p[l], p[l + 1]);
-							n1.push(n[l], n[l + 1]);
-							r1.push(r[l], r[l + 1]);
-						}
-						cutted1.cut().forEach((cutted) => {
-							result.push(cutted);
-						});
-
-						const cutted2 = new Contour();
-						const p2 = cutted2.points;
-						const n2 = cutted2.normals;
-						const r2 = cutted2.parents;
-						for (let l = 0; l <= i; l += 2) {
-							p2.push(p[l], p[l + 1]);
-							n2.push(n[l], n[l + 1]);
-							r2.push(r[l], r[l + 1]);
-						}
-						for (let l = k + 2; l < pl; l += 2) {
-							p2.push(p[l], p[l + 1]);
-							n2.push(n[l], n[l + 1]);
-							r2.push(r[l], r[l + 1]);
-						}
-						cutted2.cut().forEach((cutted) => {
-							result.push(cutted);
-						});
-					} else {
-						// On the other hand, in this case, points are arranged like (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-						// Cut out the polygons of (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
-						const cutted1 = new Contour();
-						const p1 = cutted1.points;
-						const n1 = cutted1.normals;
-						const r1 = cutted1.parents;
-						for (let l = k + 2; l <= i; l += 2) {
-							p1.push(p[l], p[l + 1]);
-							n1.push(n[l], n[l + 1]);
-							r1.push(r[l], r[l + 1]);
-						}
-						result.push(cutted1);
-
-						const cutted2 = new Contour();
-						const p2 = cutted2.points;
-						const n2 = cutted2.normals;
-						const r2 = cutted2.parents;
-						for (let l = 0; l <= k; l += 2) {
-							p2.push(p[l], p[l + 1]);
-							n2.push(n[l], n[l + 1]);
-							r2.push(r[l], r[l + 1]);
-						}
-						for (let l = i; l < pl; l += 2) {
-							p2.push(p[l], p[l + 1]);
-							n2.push(n[l], n[l + 1]);
-							r2.push(r[l], r[l + 1]);
-						}
-						cutted2.cut().forEach((cutted) => {
-							result.push(cutted);
-						});
-					}
+				const result = this.cut0(i, k, p, n, r, pl, pix, piy);
+				if (result != null && 0 < result.length) {
 					return result;
 				}
 			}
 		}
 		return [this];
+	}
+
+	protected cut0(
+		i: number,
+		k: number,
+		p: number[],
+		n: number[],
+		r: number[],
+		pl: number,
+		pix: number,
+		piy: number
+	): Contour[] | null {
+		const pkx = p[k];
+		const pky = p[k + 1];
+		const nkx = n[k];
+		const nky = n[k + 1];
+		const dx = pix - pkx;
+		const dy = piy - pky;
+		const dn = nkx * dx + nky * dy;
+		if (Math.abs(dn) < CONTOUR_EPSILON) {
+			const mkx = nky;
+			const mky = -nkx;
+			const dm = mkx * dx + mky * dy;
+			const c0 = Math.abs(dm) < CONTOUR_EPSILON;
+			const c1 = Math.abs(dm - 1) < CONTOUR_EPSILON;
+			const c2 = 0 <= dm && dm <= 1;
+			if (c0 || c1 || c2) {
+				const result: Contour[] = [];
+				if (i < k) {
+					// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
+					// So, cut out the polygons of (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
+					this.cut1(i, k, p, n, r, result);
+					this.cut2(0, i, k + 2, pl - 2, p, n, r, result);
+				} else {
+					// On the other hand, in this case, points are arranged like (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
+					// Cut out the polygons of (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
+					this.cut1(k + 2, i, p, n, r, result);
+					this.cut2(0, k, i, pl - 2, p, n, r, result);
+				}
+				return result;
+			}
+		}
+		return null;
+	}
+
+	protected cut1(
+		from: number,
+		to: number,
+		p: number[],
+		n: number[],
+		r: number[],
+		result: Contour[]
+	): void {
+		if (2 < to - from + 2) {
+			// Copy
+			const tmp = new Contour();
+			const tp = tmp.points;
+			const tn = tmp.normals;
+			const tr = tmp.parents;
+			for (let i = from; i <= to; i += 2) {
+				tp.push(p[i], p[i + 1]);
+				tn.push(n[i], n[i + 1]);
+				tr.push(r[i], r[i + 1]);
+			}
+
+			// Recalculate a normal of the 'to'-th point.
+			const tpl = tp.length;
+			if (2 < tpl) {
+				const tpx = tp[tpl - 2];
+				const tpy = tp[tpl - 1];
+				const ntpx = tp[0];
+				const ntpy = tp[1];
+				const dx = ntpx - tpx;
+				const dy = ntpy - tpy;
+				const d = dx * dx + dy * dy;
+				if (d <= CONTOUR_EPSILON) {
+					tn[tpl - 2] = tn[0];
+					tn[tpl - 1] = tn[1];
+				} else {
+					const f = 1 / Math.sqrt(d);
+					const mx = dx * f;
+					const my = dy * f;
+					tn[tpl - 2] = -my;
+					tn[tpl - 1] = mx;
+				}
+			}
+
+			// Merge and cut again
+			tmp.merge()
+				.cut()
+				.forEach((cutted) => {
+					result.push(cutted);
+				});
+		}
+	}
+
+	protected cut2(
+		from1: number,
+		to1: number,
+		from2: number,
+		to2: number,
+		p: number[],
+		n: number[],
+		r: number[],
+		result: Contour[]
+	): void {
+		if (2 < Math.max(0, to1 - from1 + 2) + Math.max(0, to2 - from2 + 2)) {
+			// Copy
+			const tmp = new Contour();
+			const tp = tmp.points;
+			const tn = tmp.normals;
+			const tr = tmp.parents;
+			for (let l = from1; l <= to1; l += 2) {
+				tp.push(p[l], p[l + 1]);
+				tn.push(n[l], n[l + 1]);
+				tr.push(r[l], r[l + 1]);
+			}
+			for (let l = from2; l <= to2; l += 2) {
+				tp.push(p[l], p[l + 1]);
+				tn.push(n[l], n[l + 1]);
+				tr.push(r[l], r[l + 1]);
+			}
+
+			// Recalculate a normal of the 'to1 - from1'-th point.
+			const tpl = tp.length;
+			if (2 < tpl) {
+				const itp = to1 - from1;
+				const nitp = itp + 2 < tpl ? itp + 2 : 0;
+				const tpx = tp[itp];
+				const tpy = tp[itp + 1];
+				const ntpx = tp[nitp];
+				const ntpy = tp[nitp + 1];
+				const dx = ntpx - tpx;
+				const dy = ntpy - tpy;
+				const d = dx * dx + dy * dy;
+				if (d <= CONTOUR_EPSILON) {
+					tn[itp] = tn[nitp];
+					tn[itp + 1] = tn[nitp + 1];
+				} else {
+					const f = 1 / Math.sqrt(d);
+					const mx = dx * f;
+					const my = dy * f;
+					tn[itp] = -my;
+					tn[itp + 1] = mx;
+				}
+			}
+
+			// Merge and cut again
+			tmp.merge()
+				.cut()
+				.forEach((cutted) => {
+					result.push(cutted);
+				});
+		}
 	}
 
 	public static from(points: number[]): Contour {
@@ -321,6 +470,33 @@ export class Contour {
 
 export class UtilPolygonContour {
 	public static from(points: number[]): Contour {
-		return Contour.from(points);
+		const pointsLength = points.length;
+		if (4 < pointsLength) {
+			// Check if the polygon is CW or CCW using signed area
+			let area = 0;
+			let ppx = points[pointsLength - 2];
+			let ppy = points[pointsLength - 1];
+			for (let i = 0; i < pointsLength; i += 2) {
+				const px = points[i];
+				const py = points[i + 1];
+				area += ppx * py - px * ppy;
+				ppx = px;
+				ppy = py;
+			}
+
+			// If CW (0 < area), reverse the point order to make it CCW.
+			// Please note that in the screen coordinate (Y-axis pointing down), 0 < area means CW.
+			if (0 < area) {
+				const newPoints = [];
+				for (let i = pointsLength - 2; 0 <= i; i -= 2) {
+					newPoints.push(points[i], points[i + 1]);
+				}
+				return Contour.from(newPoints);
+			} else {
+				return Contour.from(points);
+			}
+		} else {
+			return Contour.from(points);
+		}
 	}
 }
