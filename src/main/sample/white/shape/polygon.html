@@ -71,18 +71,18 @@
 		const contour = UtilPolygonContour.from(newPoints2());
 		const points = [];
 		const addContour = (c, level) => {
-			console.log(`${level} c.dr`, c.dr);
+			console.log(`${level} c.distance`, c.distance);
 			console.log(`${level} c.points`, c.points);
 			console.log(`${level} c.normals`, c.normals);
-			console.log(`${level} c.parents`, JSON.stringify(c.parents));
+			console.log(`${level} c.mappings`, JSON.stringify(c.mappings));
 			c.points.forEach((p) => {
 				points.push(p);
 			});
 			if (4 < c.points.length) {
 				points.push(c.points[0], c.points[1]);
 			}
-			c.next.forEach((n) => {
-				addContour(n, level + 1);
+			c.children.forEach((child) => {
+				addContour(child, level + 1);
 			});
 		};
 		addContour(contour, 0);

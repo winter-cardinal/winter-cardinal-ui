@@ -1,30 +1,29 @@
 export const CONTOUR_EPSILON = 1e-5;
-export const CONTOUR_MAPPINGS_EMPTY = [];
+export const CONTOUR_ARRAY_EMPTY = [];
 
 export class Contour {
-	dr: number;
-	points: number[];
-	normals: number[];
-	mappings: number[][];
-	protected _next?: Contour[];
+	readonly parent: Contour | null;
+	distance: number;
+	readonly points: number[];
+	readonly normals: number[];
+	readonly mappings: number[][];
+	children: Contour[];
 
-	constructor() {
-		this.dr = 0;
+	constructor(parent: Contour | null, distance: number) {
+		this.parent = parent;
+		this.distance = distance;
 		this.points = [];
 		this.normals = [];
 		this.mappings = [];
+		this.children = CONTOUR_ARRAY_EMPTY;
 	}
 
-	get next(): Contour[] {
-		return (this._next ??= this.newNext());
-	}
-
-	protected newNext(): Contour[] {
+	newChildren(): Contour[] {
 		// Calculate p[i], n[i], m[i]
 		const p = this.points;
 		const pl = this.points.length;
 		if (pl <= 4) {
-			return [];
+			return CONTOUR_ARRAY_EMPTY;
 		}
 
 		// Calculate s[i], t[i]
@@ -162,9 +161,10 @@ export class Contour {
 
 		//
 		if (0 <= mdri) {
+			this.distance = mdr;
+
 			// Calculate the next contour
-			const c = new Contour();
-			c.dr = this.dr + mdr;
+			const c = new Contour(this, 0);
 			const cp = c.points;
 			const cn = c.normals;
 			const cm = c.mappings;
@@ -178,7 +178,7 @@ export class Contour {
 		}
 
 		// No dr has found
-		return [];
+		return CONTOUR_ARRAY_EMPTY;
 	}
 
 	merge(): this {
@@ -203,7 +203,7 @@ export class Contour {
 			if (Math.abs(dx) <= CONTOUR_EPSILON || Math.abs(dy) <= CONTOUR_EPSILON) {
 				// Merge this point to the previous point
 				m[ppi] = m[ppi + 1] = m[ppi].concat(m[i]);
-				m[i] = m[i + 1] = CONTOUR_MAPPINGS_EMPTY;
+				m[i] = m[i + 1] = CONTOUR_ARRAY_EMPTY;
 				n[ppi] = n[i];
 				n[ppi + 1] = n[i + 1];
 				nr += 1;
@@ -220,7 +220,7 @@ export class Contour {
 			const dy = p[ppi + 1] - p[1];
 			if (Math.abs(dx) < CONTOUR_EPSILON || Math.abs(dy) < CONTOUR_EPSILON) {
 				m[0] = m[1] = m[0].concat(m[ppi]);
-				m[ppi] = m[ppi + 1] = CONTOUR_MAPPINGS_EMPTY;
+				m[ppi] = m[ppi + 1] = CONTOUR_ARRAY_EMPTY;
 				nr += 1;
 			}
 		}
@@ -325,8 +325,7 @@ export class Contour {
 	): void {
 		if (2 < to - from + 2) {
 			// Copy
-			const tmp = new Contour();
-			tmp.dr = this.dr;
+			const tmp = new Contour(this.parent, this.distance);
 			const tp = tmp.points;
 			const tn = tmp.normals;
 			const tm = tmp.mappings;
@@ -379,8 +378,7 @@ export class Contour {
 	): void {
 		if (2 < Math.max(0, to1 - from1 + 2) + Math.max(0, to2 - from2 + 2)) {
 			// Copy
-			const tmp = new Contour();
-			tmp.dr = this.dr;
+			const tmp = new Contour(this.parent, this.distance);
 			const tp = tmp.points;
 			const tn = tmp.normals;
 			const tm = tmp.mappings;
@@ -429,7 +427,7 @@ export class Contour {
 	}
 
 	public static from(points: number[]): Contour {
-		const result = new Contour();
+		const result = new Contour(null, 0);
 		const pointsLength = points.length;
 		if (pointsLength <= 0) {
 			return result;
@@ -453,14 +451,14 @@ export class Contour {
 			const my = dy * f;
 			n.unshift(-my, mx);
 			p.unshift(px, py);
-			m.unshift(CONTOUR_MAPPINGS_EMPTY, CONTOUR_MAPPINGS_EMPTY);
+			m.unshift(CONTOUR_ARRAY_EMPTY, CONTOUR_ARRAY_EMPTY);
 			npx = px;
 			npy = py;
 		}
 		if (p.length <= 0) {
 			p.push(npx, npy);
 			n.push(0, 1);
-			m.push(CONTOUR_MAPPINGS_EMPTY, CONTOUR_MAPPINGS_EMPTY);
+			m.push(CONTOUR_ARRAY_EMPTY, CONTOUR_ARRAY_EMPTY);
 		}
 		return result;
 	}
@@ -468,6 +466,12 @@ export class Contour {
 
 export class UtilPolygonContour {
 	public static from(points: number[]): Contour {
+		const result = this.build(points);
+		this.newChildren(result);
+		return result;
+	}
+
+	protected static build(points: number[]): Contour {
 		const pointsLength = points.length;
 		if (4 < pointsLength) {
 			// Check if the polygon is CW or CCW using signed area
@@ -495,6 +499,18 @@ export class UtilPolygonContour {
 			}
 		} else {
 			return Contour.from(points);
+		}
+	}
+
+	protected static newChildren(contour: Contour): void {
+		const children = contour.newChildren();
+		contour.children = children;
+		const childrenLength = children.length;
+		if (0 < childrenLength) {
+			for (let i = 0; i < childrenLength; ++i) {
+				this.newChildren(children[i]);
+			}
+			contour.distance += children[0].distance;
 		}
 	}
 }
