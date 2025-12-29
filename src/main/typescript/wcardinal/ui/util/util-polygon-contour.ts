@@ -1,15 +1,18 @@
 export const CONTOUR_EPSILON = 1e-5;
+export const CONTOUR_MAPPINGS_EMPTY = [];
 
 export class Contour {
+	dr: number;
 	points: number[];
 	normals: number[];
-	parents: number[];
+	mappings: number[][];
 	protected _next?: Contour[];
 
 	constructor() {
+		this.dr = 0;
 		this.points = [];
 		this.normals = [];
-		this.parents = [];
+		this.mappings = [];
 	}
 
 	get next(): Contour[] {
@@ -160,16 +163,16 @@ export class Contour {
 		//
 		if (0 <= mdri) {
 			// Calculate the next contour
-			console.log("mdr", mdr);
-			const r = this.parents;
 			const c = new Contour();
+			c.dr = this.dr + mdr;
 			const cp = c.points;
 			const cn = c.normals;
-			const cr = c.parents;
+			const cm = c.mappings;
 			for (let i = 0; i < pl; i += 2) {
 				cp.push(p[i] - mdr * t[i], p[i + 1] - mdr * t[i + 1]);
 				cn.push(n[i], n[i + 1]);
-				cr.push(r[i], r[i + 1]);
+				const ncm = [i];
+				cm.push(ncm, ncm);
 			}
 			return c.merge().cut();
 		}
@@ -187,7 +190,7 @@ export class Contour {
 		}
 
 		const n = this.normals;
-		const r = this.parents;
+		const m = this.mappings;
 		let nr = 0;
 		let ppx = p[0];
 		let ppy = p[1];
@@ -199,8 +202,8 @@ export class Contour {
 			const dy = py - ppy;
 			if (Math.abs(dx) <= CONTOUR_EPSILON || Math.abs(dy) <= CONTOUR_EPSILON) {
 				// Merge this point to the previous point
-				r[ppi + 1] = r[i + 1];
-				r[i] = -1;
+				m[ppi] = m[ppi + 1] = m[ppi].concat(m[i]);
+				m[i] = m[i + 1] = CONTOUR_MAPPINGS_EMPTY;
 				n[ppi] = n[i];
 				n[ppi + 1] = n[i + 1];
 				nr += 1;
@@ -211,13 +214,13 @@ export class Contour {
 			ppi = i;
 		}
 
-		// Merge the last one and the first one
+		// Merge the last one into the first one if necessary
 		if (ppi !== 0) {
 			const dx = p[ppi] - p[0];
 			const dy = p[ppi + 1] - p[1];
 			if (Math.abs(dx) < CONTOUR_EPSILON || Math.abs(dy) < CONTOUR_EPSILON) {
-				r[0] = r[ppi];
-				r[ppi] = -1;
+				m[0] = m[1] = m[0].concat(m[ppi]);
+				m[ppi] = m[ppi + 1] = CONTOUR_MAPPINGS_EMPTY;
 				nr += 1;
 			}
 		}
@@ -226,21 +229,21 @@ export class Contour {
 		if (0 < nr) {
 			let k = 0;
 			for (let i = 0; i < pl; i += 2, k += 2) {
-				if (r[i] < 0) {
+				if (m[i].length <= 0) {
 					k -= 2;
 				} else if (i !== k) {
 					p[k] = p[i];
 					p[k + 1] = p[i + 1];
 					n[k] = n[i];
 					n[k + 1] = n[i + 1];
-					r[k] = r[i];
-					r[k + 1] = r[i + 1];
+					m[k] = m[i];
+					m[k + 1] = m[i + 1];
 				}
 			}
 			if (k < pl) {
 				p.length = k;
 				n.length = k;
-				r.length = k;
+				m.length = k;
 			}
 		}
 
@@ -251,7 +254,7 @@ export class Contour {
 	cut(): Contour[] {
 		const p = this.points;
 		const n = this.normals;
-		const r = this.parents;
+		const m = this.mappings;
 		const pl = p.length;
 		for (let i = 0; i < pl; i += 2) {
 			const pix = p[i];
@@ -260,7 +263,7 @@ export class Contour {
 				if (k === i || (0 < i && k === i - 2) || (i === 0 && k === pl - 2)) {
 					continue;
 				}
-				const result = this.cut0(i, k, p, n, r, pl, pix, piy);
+				const result = this.cut0(i, k, p, n, m, pl, pix, piy);
 				if (result != null && 0 < result.length) {
 					return result;
 				}
@@ -274,7 +277,7 @@ export class Contour {
 		k: number,
 		p: number[],
 		n: number[],
-		r: number[],
+		r: number[][],
 		pl: number,
 		pix: number,
 		piy: number
@@ -317,19 +320,20 @@ export class Contour {
 		to: number,
 		p: number[],
 		n: number[],
-		r: number[],
+		m: number[][],
 		result: Contour[]
 	): void {
 		if (2 < to - from + 2) {
 			// Copy
 			const tmp = new Contour();
+			tmp.dr = this.dr;
 			const tp = tmp.points;
 			const tn = tmp.normals;
-			const tr = tmp.parents;
+			const tm = tmp.mappings;
 			for (let i = from; i <= to; i += 2) {
 				tp.push(p[i], p[i + 1]);
 				tn.push(n[i], n[i + 1]);
-				tr.push(r[i], r[i + 1]);
+				tm.push(m[i], m[i + 1]);
 			}
 
 			// Recalculate a normal of the 'to'-th point.
@@ -370,24 +374,25 @@ export class Contour {
 		to2: number,
 		p: number[],
 		n: number[],
-		r: number[],
+		m: number[][],
 		result: Contour[]
 	): void {
 		if (2 < Math.max(0, to1 - from1 + 2) + Math.max(0, to2 - from2 + 2)) {
 			// Copy
 			const tmp = new Contour();
+			tmp.dr = this.dr;
 			const tp = tmp.points;
 			const tn = tmp.normals;
-			const tr = tmp.parents;
+			const tm = tmp.mappings;
 			for (let l = from1; l <= to1; l += 2) {
 				tp.push(p[l], p[l + 1]);
 				tn.push(n[l], n[l + 1]);
-				tr.push(r[l], r[l + 1]);
+				tm.push(m[l], m[l + 1]);
 			}
 			for (let l = from2; l <= to2; l += 2) {
 				tp.push(p[l], p[l + 1]);
 				tn.push(n[l], n[l + 1]);
-				tr.push(r[l], r[l + 1]);
+				tm.push(m[l], m[l + 1]);
 			}
 
 			// Recalculate a normal of the 'to1 - from1'-th point.
@@ -431,10 +436,9 @@ export class Contour {
 		}
 		const p = result.points;
 		const n = result.normals;
-		const r = result.parents;
+		const m = result.mappings;
 		let npx = points[0];
 		let npy = points[1];
-		let npi = pointsLength;
 		for (let i = pointsLength - 2; 0 <= i; i -= 2) {
 			const px = points[i];
 			const py = points[i + 1];
@@ -442,11 +446,6 @@ export class Contour {
 			const dy = npy - py;
 			const d = dx * dx + dy * dy;
 			if (d <= CONTOUR_EPSILON) {
-				// Merge this point to the last point (p[0], p[1])
-				if (0 < r.length) {
-					r[0] = i;
-					npi = i;
-				}
 				continue;
 			}
 			const f = 1 / Math.sqrt(d);
@@ -454,15 +453,14 @@ export class Contour {
 			const my = dy * f;
 			n.unshift(-my, mx);
 			p.unshift(px, py);
-			r.unshift(i, npi);
+			m.unshift(CONTOUR_MAPPINGS_EMPTY, CONTOUR_MAPPINGS_EMPTY);
 			npx = px;
 			npy = py;
-			npi = i;
 		}
 		if (p.length <= 0) {
 			p.push(npx, npy);
 			n.push(0, 1);
-			r.push(0, pointsLength);
+			m.push(CONTOUR_MAPPINGS_EMPTY, CONTOUR_MAPPINGS_EMPTY);
 		}
 		return result;
 	}

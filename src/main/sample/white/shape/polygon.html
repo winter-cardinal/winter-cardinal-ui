@@ -36,7 +36,7 @@
 			return result;
 		};
 
-		const newPoints = () => {
+		const newPoints1 = () => {
 			const result = [];
 			for (let i = 0; i <= 4; ++i) {
 				const angle = (2 - i) * Math.PI / 4;
@@ -48,15 +48,33 @@
 			return result;
 		};
 
+		const newPoints2 = () => {
+			return [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 100, -50];
+		};
+
+		const newPoints3 = () => {
+			return [0, 0, 10, 0, 10, 10, 0, 10];
+		};
+
+		const newPoints4 = () => {
+			return [-40.314352831930165, 40.314352831930165, -7.850462293418876e-15, 60.471529247895255, 40.314352831930165, 40.31435283193018, 0, -3.925231146709438e-15];
+		};
+
+		const newPoints5 = () => {
+			return [7.850462293418876e-15, -60.471529247895255, -40.314352831930165, -40.31435283193018, 0, 3.925231146709438e-15, 40.314352831930165, -40.314352831930165];
+		};
+
 		const application = new wcardinal.ui.DApplication();
 		const container = new wcardinal.ui.EShapeContainer();
 
 		const UtilPolygonContour = wcardinal.ui.UtilPolygonContour;
-		const contour = UtilPolygonContour.from(newPoints());
+		const contour = UtilPolygonContour.from(newPoints2());
 		const points = [];
-		const addContour = (c) => {
-			console.log("c.points", c.points);
-			console.log("c.parents", c.parents);
+		const addContour = (c, level) => {
+			console.log(`${level} c.dr`, c.dr);
+			console.log(`${level} c.points`, c.points);
+			console.log(`${level} c.normals`, c.normals);
+			console.log(`${level} c.parents`, JSON.stringify(c.parents));
 			c.points.forEach((p) => {
 				points.push(p);
 			});
@@ -64,10 +82,10 @@
 				points.push(c.points[0], c.points[1]);
 			}
 			c.next.forEach((n) => {
-				addContour(n);
+				addContour(n, level + 1);
 			});
 		};
-		addContour(contour);
+		addContour(contour, 0);
 		console.log("points", points);
 		newLine(500, 500, points, [], container);
 
