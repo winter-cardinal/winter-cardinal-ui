@@ -71,6 +71,7 @@
 		const contour = UtilPolygonContour.from(newPoints2());
 		const points = [];
 		const addContour = (c, level) => {
+			console.log("");
 			console.log(`${level} c.distance`, c.distance);
 			console.log(`${level} c.points`, c.points);
 			console.log(`${level} c.normals`, c.normals);
@@ -86,7 +87,6 @@
 			});
 		};
 		addContour(contour, 0);
-		console.log("points", points);
 		newLine(500, 500, points, [], container);
 
 		application.stage.addChild(container);
