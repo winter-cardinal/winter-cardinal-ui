@@ -18,19 +18,12 @@ export class UtilStraightSkeletonWavefront {
 		this.children = [];
 	}
 
-	/**
-	 * Calculate the next wavefront and update `this.children`.
-	 * Please do not call this method more than one time.
-	 *
-	 * @returns next wavefronts
-	 */
-	next(): UtilStraightSkeletonWavefront[] {
+	protected advance(): boolean {
 		// Calculate p[i], n[i], m[i]
 		const p = this.points;
 		const pl = this.points.length;
-		const children = this.children;
 		if (pl <= 4) {
-			return children;
+			return false;
 		}
 
 		// Calculate s[i], t[i]
@@ -166,22 +159,47 @@ export class UtilStraightSkeletonWavefront {
 		}
 
 		//
-		children.length = 0;
 		if (0 <= mdri) {
-			this.distance = mdr;
-
-			// Calculate the next wavefront
-			const nwf = new UtilStraightSkeletonWavefront(this, 0);
-			const nwfp = nwf.points;
-			const nwfn = nwf.normals;
-			const nwfm = nwf.mappings;
+			this.distance += mdr;
 			for (let i = 0; i < pl; i += 2) {
-				nwfp.push(p[i] - mdr * t[i], p[i + 1] - mdr * t[i + 1]);
-				nwfn.push(n[i], n[i + 1]);
-				const m = [i];
-				nwfm.push(m, m);
+				p[i] -= mdr * t[i];
+				p[i + 1] -= mdr * t[i + 1];
 			}
-			nwf.merge().cut(children);
+			this.merge();
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Calculate the next wavefront and update `this.children`.
+	 * Please do not call this method more than one time.
+	 *
+	 * @returns next wavefronts
+	 */
+	next(): UtilStraightSkeletonWavefront[] {
+		const p = this.points;
+		const pl = this.points.length;
+		const children = this.children;
+		if (pl <= 4) {
+			return children;
+		}
+
+		const n = this.normals;
+		const next = new UtilStraightSkeletonWavefront(this, this.distance);
+		const np = next.points;
+		const nn = next.normals;
+		const nm = next.mappings;
+		for (let i = 0; i < pl; i += 2) {
+			np.push(p[i], p[i + 1]);
+			nn.push(n[i], n[i + 1]);
+			const m = [i];
+			nm.push(m, m);
+		}
+		children.length = 0;
+		next.cut(children);
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].advance();
 		}
 		return children;
 	}
@@ -224,7 +242,7 @@ export class UtilStraightSkeletonWavefront {
 			const dx = p[ppi] - p[0];
 			const dy = p[ppi + 1] - p[1];
 			if (Math.abs(dx) < EPSILON || Math.abs(dy) < EPSILON) {
-				m[0] = m[1] = m[0].concat(m[ppi]);
+				m[0] = m[1] = m[ppi].concat(m[0]);
 				m[ppi] = m[ppi + 1] = EMPTY_ARRAY;
 				nr += 1;
 			}
@@ -299,30 +317,41 @@ export class UtilStraightSkeletonWavefront {
 			const mkx = nky;
 			const mky = -nkx;
 			const dim = mkx * dix + mky * diy;
-
-			const l = (k + 2) % pl;
-			const plx = p[l];
-			const ply = p[l + 1];
-			const dlx = plx - pkx;
-			const dly = ply - pky;
-			const dlm = mkx * dlx + mky * dly;
-
-			const c0 = Math.abs(dim) < EPSILON;
-			const c1 = Math.abs(dim - dlm) < EPSILON;
-			const c2 = 0 <= dim && dim <= dlm;
-			if (c0 || c1 || c2) {
+			if (Math.abs(dim) < EPSILON) {
+				// (p[i],p[i+1]) = (p[k], p[k+1])
 				if (i < k) {
-					// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-					// So, cut out the polygons of (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
+					// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
+					// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k], p[k+1], p[k+2], ..., p[pl-1]).
 					this.cut1(i, k, p, n, r, result);
-					this.cut2(0, i, k + 2, pl - 2, p, n, r, result);
+					this.cut2(0, i, k, pl - 2, p, n, r, result);
 				} else {
-					// On the other hand, in this case, points are arranged like (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-					// Cut out the polygons of (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
-					this.cut1(k + 2, i, p, n, r, result);
+					// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
+					// -> (p[k], p[k+1], p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
+					this.cut1(k, i, p, n, r, result);
 					this.cut2(0, k, i, pl - 2, p, n, r, result);
 				}
 				return true;
+			} else {
+				const l = (k + 2) % pl;
+				const plx = p[l];
+				const ply = p[l + 1];
+				const dlx = plx - pkx;
+				const dly = ply - pky;
+				const dlm = mkx * dlx + mky * dly;
+				if (0 <= dim && dim <= dlm && EPSILON <= Math.abs(dim - dlm)) {
+					if (i < k) {
+						// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
+						// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
+						this.cut1(i, k, p, n, r, result);
+						this.cut2(0, i, k + 2, pl - 2, p, n, r, result);
+					} else {
+						// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
+						// -> (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
+						this.cut1(k + 2, i, p, n, r, result);
+						this.cut2(0, k, i, pl - 2, p, n, r, result);
+					}
+					return true;
+				}
 			}
 		}
 		return false;
@@ -514,7 +543,6 @@ export class UtilStraightSkeleton {
 			for (let i = 0; i < childrenLength; ++i) {
 				this.next(children[i]);
 			}
-			wavefront.distance += children[0].distance;
 		}
 	}
 }
