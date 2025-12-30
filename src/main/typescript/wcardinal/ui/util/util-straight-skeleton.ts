@@ -1,29 +1,36 @@
-export const CONTOUR_EPSILON = 1e-5;
-export const CONTOUR_ARRAY_EMPTY = [];
+const EPSILON = 1e-5;
+const EMPTY_ARRAY: any[] = [];
 
-export class Contour {
-	readonly parent: Contour | null;
+export class UtilStraightSkeletonWavefront {
+	readonly parent: UtilStraightSkeletonWavefront | null;
 	distance: number;
 	readonly points: number[];
 	readonly normals: number[];
 	readonly mappings: number[][];
-	children: Contour[];
+	readonly children: UtilStraightSkeletonWavefront[];
 
-	constructor(parent: Contour | null, distance: number) {
+	constructor(parent: UtilStraightSkeletonWavefront | null, distance: number) {
 		this.parent = parent;
 		this.distance = distance;
 		this.points = [];
 		this.normals = [];
 		this.mappings = [];
-		this.children = CONTOUR_ARRAY_EMPTY;
+		this.children = [];
 	}
 
-	newChildren(): Contour[] {
+	/**
+	 * Calculate the next wavefront and update `this.children`.
+	 * Please do not call this method more than one time.
+	 *
+	 * @returns next wavefronts
+	 */
+	next(): UtilStraightSkeletonWavefront[] {
 		// Calculate p[i], n[i], m[i]
 		const p = this.points;
 		const pl = this.points.length;
+		const children = this.children;
 		if (pl <= 4) {
-			return CONTOUR_ARRAY_EMPTY;
+			return children;
 		}
 
 		// Calculate s[i], t[i]
@@ -40,8 +47,7 @@ export class Contour {
 			const mx = ny;
 			const my = -nx;
 			const dmn = mx * pnx + my * pny;
-			const s =
-				CONTOUR_EPSILON <= Math.abs(dmn) ? (1 - (nx * pnx + ny * pny)) / dmn : -0.5 * dmn;
+			const s = EPSILON <= Math.abs(dmn) ? (1 - (nx * pnx + ny * pny)) / dmn : -0.5 * dmn;
 			const tx = nx + s * mx;
 			const ty = ny + s * my;
 			t.push(tx, ty);
@@ -68,7 +74,7 @@ export class Contour {
 			const dpx = px - ppx;
 			const dpy = py - ppy;
 			const dnpt = 1 - (nx * ptx + ny * pty);
-			if (CONTOUR_EPSILON < Math.abs(dnpt)) {
+			if (EPSILON < Math.abs(dnpt)) {
 				const dr = (nx * dpx + ny * dpy) / dnpt;
 				if (0 < dr && (mdri < 0 || dr < mdr)) {
 					mdr = dr;
@@ -78,7 +84,7 @@ export class Contour {
 				const mx = ny;
 				const my = -nx;
 				const dmpt = mx * (tx - ptx) + my * (ty - pty);
-				if (CONTOUR_EPSILON < Math.abs(dmpt)) {
+				if (EPSILON < Math.abs(dmpt)) {
 					const dr = (mx * dpx + my * dpy) / dmpt;
 					if (0 < dr && (mdri < 0 || dr < mdr)) {
 						mdr = dr;
@@ -118,7 +124,7 @@ export class Contour {
 				const nkx = n[k];
 				const nky = n[k + 1];
 				const dnt = 1 - (nkx * tix + nky * tiy);
-				if (CONTOUR_EPSILON < Math.abs(dnt)) {
+				if (EPSILON < Math.abs(dnt)) {
 					const dpx = pkx - pix;
 					const dpy = pky - piy;
 					const dr = (nkx * dpx + nky * dpy) / dnt;
@@ -140,7 +146,7 @@ export class Contour {
 					const c1 = mkx * (pkx - npkx) + mky * (pky - npky);
 					const c2 = mkx * (tkx - tix) + mky * (tky - tiy);
 					const c3 = mkx * (tkx - ntkx) + mky * (tky - ntky);
-					if (CONTOUR_EPSILON < Math.abs(c2)) {
+					if (EPSILON < Math.abs(c2)) {
 						const dr = c0 / c2;
 						if (0 < dr && (mdri < 0 || dr < mdr)) {
 							mdr = dr;
@@ -148,7 +154,7 @@ export class Contour {
 						}
 					}
 					const c23 = c2 + c3;
-					if (CONTOUR_EPSILON < Math.abs(c23)) {
+					if (EPSILON < Math.abs(c23)) {
 						const dr = (c0 + c1) / c23;
 						if (0 < dr && (mdri < 0 || dr < mdr)) {
 							mdr = dr;
@@ -160,25 +166,24 @@ export class Contour {
 		}
 
 		//
+		children.length = 0;
 		if (0 <= mdri) {
 			this.distance = mdr;
 
-			// Calculate the next contour
-			const c = new Contour(this, 0);
-			const cp = c.points;
-			const cn = c.normals;
-			const cm = c.mappings;
+			// Calculate the next wavefront
+			const nwf = new UtilStraightSkeletonWavefront(this, 0);
+			const nwfp = nwf.points;
+			const nwfn = nwf.normals;
+			const nwfm = nwf.mappings;
 			for (let i = 0; i < pl; i += 2) {
-				cp.push(p[i] - mdr * t[i], p[i + 1] - mdr * t[i + 1]);
-				cn.push(n[i], n[i + 1]);
-				const ncm = [i];
-				cm.push(ncm, ncm);
+				nwfp.push(p[i] - mdr * t[i], p[i + 1] - mdr * t[i + 1]);
+				nwfn.push(n[i], n[i + 1]);
+				const m = [i];
+				nwfm.push(m, m);
 			}
-			return c.merge().cut();
+			nwf.merge().cut(children);
 		}
-
-		// No dr has found
-		return CONTOUR_ARRAY_EMPTY;
+		return children;
 	}
 
 	merge(): this {
@@ -200,10 +205,10 @@ export class Contour {
 			const py = p[i + 1];
 			const dx = px - ppx;
 			const dy = py - ppy;
-			if (Math.abs(dx) <= CONTOUR_EPSILON || Math.abs(dy) <= CONTOUR_EPSILON) {
+			if (Math.abs(dx) <= EPSILON || Math.abs(dy) <= EPSILON) {
 				// Merge this point to the previous point
 				m[ppi] = m[ppi + 1] = m[ppi].concat(m[i]);
-				m[i] = m[i + 1] = CONTOUR_ARRAY_EMPTY;
+				m[i] = m[i + 1] = EMPTY_ARRAY;
 				n[ppi] = n[i];
 				n[ppi + 1] = n[i + 1];
 				nr += 1;
@@ -218,9 +223,9 @@ export class Contour {
 		if (ppi !== 0) {
 			const dx = p[ppi] - p[0];
 			const dy = p[ppi + 1] - p[1];
-			if (Math.abs(dx) < CONTOUR_EPSILON || Math.abs(dy) < CONTOUR_EPSILON) {
+			if (Math.abs(dx) < EPSILON || Math.abs(dy) < EPSILON) {
 				m[0] = m[1] = m[0].concat(m[ppi]);
-				m[ppi] = m[ppi + 1] = CONTOUR_ARRAY_EMPTY;
+				m[ppi] = m[ppi + 1] = EMPTY_ARRAY;
 				nr += 1;
 			}
 		}
@@ -251,7 +256,7 @@ export class Contour {
 		return this;
 	}
 
-	cut(): Contour[] {
+	cut(result: UtilStraightSkeletonWavefront[]): boolean {
 		const p = this.points;
 		const n = this.normals;
 		const m = this.mappings;
@@ -263,13 +268,13 @@ export class Contour {
 				if (k === i || (0 < i && k === i - 2) || (i === 0 && k === pl - 2)) {
 					continue;
 				}
-				const result = this.cut0(i, k, p, n, m, pl, pix, piy);
-				if (result != null && 0 < result.length) {
-					return result;
+				if (this.cut0(i, k, p, n, m, pl, pix, piy, result)) {
+					return true;
 				}
 			}
 		}
-		return [this];
+		result.push(this);
+		return false;
 	}
 
 	protected cut0(
@@ -280,8 +285,9 @@ export class Contour {
 		r: number[][],
 		pl: number,
 		pix: number,
-		piy: number
-	): Contour[] | null {
+		piy: number,
+		result: UtilStraightSkeletonWavefront[]
+	): boolean {
 		const pkx = p[k];
 		const pky = p[k + 1];
 		const nkx = n[k];
@@ -289,15 +295,14 @@ export class Contour {
 		const dx = pix - pkx;
 		const dy = piy - pky;
 		const dn = nkx * dx + nky * dy;
-		if (Math.abs(dn) < CONTOUR_EPSILON) {
+		if (Math.abs(dn) < EPSILON) {
 			const mkx = nky;
 			const mky = -nkx;
 			const dm = mkx * dx + mky * dy;
-			const c0 = Math.abs(dm) < CONTOUR_EPSILON;
-			const c1 = Math.abs(dm - 1) < CONTOUR_EPSILON;
+			const c0 = Math.abs(dm) < EPSILON;
+			const c1 = Math.abs(dm - 1) < EPSILON;
 			const c2 = 0 <= dm && dm <= 1;
 			if (c0 || c1 || c2) {
-				const result: Contour[] = [];
 				if (i < k) {
 					// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
 					// So, cut out the polygons of (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
@@ -309,10 +314,10 @@ export class Contour {
 					this.cut1(k + 2, i, p, n, r, result);
 					this.cut2(0, k, i, pl - 2, p, n, r, result);
 				}
-				return result;
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 
 	protected cut1(
@@ -321,11 +326,11 @@ export class Contour {
 		p: number[],
 		n: number[],
 		m: number[][],
-		result: Contour[]
+		result: UtilStraightSkeletonWavefront[]
 	): void {
 		if (2 < to - from + 2) {
 			// Copy
-			const tmp = new Contour(this.parent, this.distance);
+			const tmp = new UtilStraightSkeletonWavefront(this.parent, this.distance);
 			const tp = tmp.points;
 			const tn = tmp.normals;
 			const tm = tmp.mappings;
@@ -345,7 +350,7 @@ export class Contour {
 				const dx = ntpx - tpx;
 				const dy = ntpy - tpy;
 				const d = dx * dx + dy * dy;
-				if (d <= CONTOUR_EPSILON) {
+				if (d <= EPSILON) {
 					tn[tpl - 2] = tn[0];
 					tn[tpl - 1] = tn[1];
 				} else {
@@ -358,11 +363,7 @@ export class Contour {
 			}
 
 			// Merge and cut again
-			tmp.merge()
-				.cut()
-				.forEach((cutted) => {
-					result.push(cutted);
-				});
+			tmp.merge().cut(result);
 		}
 	}
 
@@ -374,11 +375,11 @@ export class Contour {
 		p: number[],
 		n: number[],
 		m: number[][],
-		result: Contour[]
+		result: UtilStraightSkeletonWavefront[]
 	): void {
 		if (2 < Math.max(0, to1 - from1 + 2) + Math.max(0, to2 - from2 + 2)) {
 			// Copy
-			const tmp = new Contour(this.parent, this.distance);
+			const tmp = new UtilStraightSkeletonWavefront(this.parent, this.distance);
 			const tp = tmp.points;
 			const tn = tmp.normals;
 			const tm = tmp.mappings;
@@ -405,7 +406,7 @@ export class Contour {
 				const dx = ntpx - tpx;
 				const dy = ntpy - tpy;
 				const d = dx * dx + dy * dy;
-				if (d <= CONTOUR_EPSILON) {
+				if (d <= EPSILON) {
 					tn[itp] = tn[nitp];
 					tn[itp + 1] = tn[nitp + 1];
 				} else {
@@ -418,16 +419,12 @@ export class Contour {
 			}
 
 			// Merge and cut again
-			tmp.merge()
-				.cut()
-				.forEach((cutted) => {
-					result.push(cutted);
-				});
+			tmp.merge().cut(result);
 		}
 	}
 
-	public static from(points: number[]): Contour {
-		const result = new Contour(null, 0);
+	public static from(points: number[]): UtilStraightSkeletonWavefront {
+		const result = new UtilStraightSkeletonWavefront(null, 0);
 		const pointsLength = points.length;
 		if (pointsLength <= 0) {
 			return result;
@@ -443,7 +440,7 @@ export class Contour {
 			const dx = npx - px;
 			const dy = npy - py;
 			const d = dx * dx + dy * dy;
-			if (d <= CONTOUR_EPSILON) {
+			if (d <= EPSILON) {
 				continue;
 			}
 			const f = 1 / Math.sqrt(d);
@@ -451,27 +448,27 @@ export class Contour {
 			const my = dy * f;
 			n.unshift(-my, mx);
 			p.unshift(px, py);
-			m.unshift(CONTOUR_ARRAY_EMPTY, CONTOUR_ARRAY_EMPTY);
+			m.unshift(EMPTY_ARRAY, EMPTY_ARRAY);
 			npx = px;
 			npy = py;
 		}
 		if (p.length <= 0) {
 			p.push(npx, npy);
 			n.push(0, 1);
-			m.push(CONTOUR_ARRAY_EMPTY, CONTOUR_ARRAY_EMPTY);
+			m.push(EMPTY_ARRAY, EMPTY_ARRAY);
 		}
 		return result;
 	}
 }
 
-export class UtilPolygonContour {
-	public static from(points: number[]): Contour {
+export class UtilStraightSkeleton {
+	public static from(points: number[]): UtilStraightSkeletonWavefront {
 		const result = this.build(points);
-		this.newChildren(result);
+		this.next(result);
 		return result;
 	}
 
-	protected static build(points: number[]): Contour {
+	protected static build(points: number[]): UtilStraightSkeletonWavefront {
 		const pointsLength = points.length;
 		if (4 < pointsLength) {
 			// Check if the polygon is CW or CCW using signed area
@@ -493,24 +490,23 @@ export class UtilPolygonContour {
 				for (let i = pointsLength - 2; 0 <= i; i -= 2) {
 					newPoints.push(points[i], points[i + 1]);
 				}
-				return Contour.from(newPoints);
+				return UtilStraightSkeletonWavefront.from(newPoints);
 			} else {
-				return Contour.from(points);
+				return UtilStraightSkeletonWavefront.from(points);
 			}
 		} else {
-			return Contour.from(points);
+			return UtilStraightSkeletonWavefront.from(points);
 		}
 	}
 
-	protected static newChildren(contour: Contour): void {
-		const children = contour.newChildren();
-		contour.children = children;
+	protected static next(wavefront: UtilStraightSkeletonWavefront): void {
+		const children = wavefront.next();
 		const childrenLength = children.length;
 		if (0 < childrenLength) {
 			for (let i = 0; i < childrenLength; ++i) {
-				this.newChildren(children[i]);
+				this.next(children[i]);
 			}
-			contour.distance += children[0].distance;
+			wavefront.distance += children[0].distance;
 		}
 	}
 }

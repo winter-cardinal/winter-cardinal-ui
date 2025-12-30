@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contour Polygon</title>
+	<title>Straight Skeleton</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -67,26 +67,26 @@
 		const application = new wcardinal.ui.DApplication();
 		const container = new wcardinal.ui.EShapeContainer();
 
-		const UtilPolygonContour = wcardinal.ui.UtilPolygonContour;
-		const contour = UtilPolygonContour.from(newPoints2());
+		const UtilStraightSkeleton = wcardinal.ui.UtilStraightSkeleton;
+		const wavefront = UtilStraightSkeleton.from(newPoints2());
 		const points = [];
-		const addContour = (c, level) => {
+		const addPoints = (wf, level) => {
 			console.log("");
-			console.log(`${level} c.distance`, c.distance);
-			console.log(`${level} c.points`, c.points);
-			console.log(`${level} c.normals`, c.normals);
-			console.log(`${level} c.mappings`, JSON.stringify(c.mappings));
-			c.points.forEach((p) => {
+			console.log(`${level} distance`, wf.distance);
+			console.log(`${level} points`, wf.points);
+			console.log(`${level} normals`, wf.normals);
+			console.log(`${level} mappings`, JSON.stringify(wf.mappings));
+			wf.points.forEach((p) => {
 				points.push(p);
 			});
-			if (4 < c.points.length) {
-				points.push(c.points[0], c.points[1]);
+			if (4 < wf.points.length) {
+				points.push(wf.points[0], wf.points[1]);
 			}
-			c.children.forEach((child) => {
-				addContour(child, level + 1);
+			wf.children.forEach((child) => {
+				addPoints(child, level + 1);
 			});
 		};
-		addContour(contour, 0);
+		addPoints(wavefront, 0);
 		newLine(500, 500, points, [], container);
 
 		application.stage.addChild(container);
