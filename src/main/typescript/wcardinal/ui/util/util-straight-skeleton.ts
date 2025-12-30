@@ -292,16 +292,24 @@ export class UtilStraightSkeletonWavefront {
 		const pky = p[k + 1];
 		const nkx = n[k];
 		const nky = n[k + 1];
-		const dx = pix - pkx;
-		const dy = piy - pky;
-		const dn = nkx * dx + nky * dy;
-		if (Math.abs(dn) < EPSILON) {
+		const dix = pix - pkx;
+		const diy = piy - pky;
+		const din = nkx * dix + nky * diy;
+		if (Math.abs(din) < EPSILON) {
 			const mkx = nky;
 			const mky = -nkx;
-			const dm = mkx * dx + mky * dy;
-			const c0 = Math.abs(dm) < EPSILON;
-			const c1 = Math.abs(dm - 1) < EPSILON;
-			const c2 = 0 <= dm && dm <= 1;
+			const dim = mkx * dix + mky * diy;
+
+			const l = (k + 2) % pl;
+			const plx = p[l];
+			const ply = p[l + 1];
+			const dlx = plx - pkx;
+			const dly = ply - pky;
+			const dlm = mkx * dlx + mky * dly;
+
+			const c0 = Math.abs(dim) < EPSILON;
+			const c1 = Math.abs(dim - dlm) < EPSILON;
+			const c2 = 0 <= dim && dim <= dlm;
 			if (c0 || c1 || c2) {
 				if (i < k) {
 					// In this case, points are arranged like (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
