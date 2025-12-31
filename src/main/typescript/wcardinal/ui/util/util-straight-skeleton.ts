@@ -1,3 +1,5 @@
+import { UtilPolygon } from "./util-polygon";
+
 const EPSILON = 1e-5;
 const EMPTY_ARRAY: any[] = [];
 
@@ -21,7 +23,7 @@ export class UtilStraightSkeletonWavefront {
 	protected advance(): boolean {
 		// Calculate p[i], n[i], m[i]
 		const p = this.points;
-		const pl = this.points.length;
+		const pl = p.length;
 		if (pl <= 4) {
 			return false;
 		}
@@ -179,7 +181,7 @@ export class UtilStraightSkeletonWavefront {
 	 */
 	next(): UtilStraightSkeletonWavefront[] {
 		const p = this.points;
-		const pl = this.points.length;
+		const pl = p.length;
 		const children = this.children;
 		if (pl <= 4) {
 			return children;
@@ -223,7 +225,7 @@ export class UtilStraightSkeletonWavefront {
 			const py = p[i + 1];
 			const dx = px - ppx;
 			const dy = py - ppy;
-			if (Math.abs(dx) <= EPSILON || Math.abs(dy) <= EPSILON) {
+			if (Math.abs(dx) <= EPSILON && Math.abs(dy) <= EPSILON) {
 				// Merge this point to the previous point
 				m[ppi] = m[ppi + 1] = m[ppi].concat(m[i]);
 				m[i] = m[i + 1] = EMPTY_ARRAY;
@@ -241,7 +243,7 @@ export class UtilStraightSkeletonWavefront {
 		if (ppi !== 0) {
 			const dx = p[ppi] - p[0];
 			const dy = p[ppi + 1] - p[1];
-			if (Math.abs(dx) < EPSILON || Math.abs(dy) < EPSILON) {
+			if (Math.abs(dx) < EPSILON && Math.abs(dy) < EPSILON) {
 				m[0] = m[1] = m[ppi].concat(m[0]);
 				m[ppi] = m[ppi + 1] = EMPTY_ARRAY;
 				nr += 1;
@@ -280,15 +282,8 @@ export class UtilStraightSkeletonWavefront {
 		const m = this.mappings;
 		const pl = p.length;
 		for (let i = 0; i < pl; i += 2) {
-			const pix = p[i];
-			const piy = p[i + 1];
-			for (let k = 0; k < pl; k += 2) {
-				if (k === i || (0 < i && k === i - 2) || (i === 0 && k === pl - 2)) {
-					continue;
-				}
-				if (this.cut0(i, k, p, n, m, pl, pix, piy, result)) {
-					return true;
-				}
+			if (this.cut0(i, p, n, m, pl, result)) {
+				return true;
 			}
 		}
 		result.push(this);
@@ -297,60 +292,64 @@ export class UtilStraightSkeletonWavefront {
 
 	protected cut0(
 		i: number,
-		k: number,
 		p: number[],
 		n: number[],
 		r: number[][],
 		pl: number,
-		pix: number,
-		piy: number,
 		result: UtilStraightSkeletonWavefront[]
 	): boolean {
-		const pkx = p[k];
-		const pky = p[k + 1];
-		const nkx = n[k];
-		const nky = n[k + 1];
-		const dix = pix - pkx;
-		const diy = piy - pky;
-		const din = nkx * dix + nky * diy;
-		if (Math.abs(din) < EPSILON) {
-			const mkx = nky;
-			const mky = -nkx;
-			const dim = mkx * dix + mky * diy;
-			if (Math.abs(dim) < EPSILON) {
-				// (p[i],p[i+1]) = (p[k], p[k+1])
-				if (i < k) {
-					// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-					// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k], p[k+1], p[k+2], ..., p[pl-1]).
-					this.cut1(i, k, p, n, r, result);
-					this.cut2(0, i, k, pl - 2, p, n, r, result);
-				} else {
-					// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-					// -> (p[k], p[k+1], p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
-					this.cut1(k, i, p, n, r, result);
-					this.cut2(0, k, i, pl - 2, p, n, r, result);
-				}
-				return true;
-			} else {
-				const l = (k + 2) % pl;
-				const plx = p[l];
-				const ply = p[l + 1];
-				const dlx = plx - pkx;
-				const dly = ply - pky;
-				const dlm = mkx * dlx + mky * dly;
-				if (0 <= dim && dim <= dlm && EPSILON <= Math.abs(dim - dlm)) {
+		const pix = p[i];
+		const piy = p[i + 1];
+		for (let k = 0; k < pl; k += 2) {
+			if (k === i || k === (pl + i - 2) % pl) {
+				continue;
+			}
+			const pkx = p[k];
+			const pky = p[k + 1];
+			const nkx = n[k];
+			const nky = n[k + 1];
+			const dix = pix - pkx;
+			const diy = piy - pky;
+			const din = nkx * dix + nky * diy;
+			if (Math.abs(din) < EPSILON) {
+				const mkx = nky;
+				const mky = -nkx;
+				const dim = mkx * dix + mky * diy;
+				if (Math.abs(dim) < EPSILON) {
+					// (p[i],p[i+1]) = (p[k], p[k+1])
 					if (i < k) {
 						// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-						// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
+						// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k], p[k+1], p[k+2], ..., p[pl-1]).
 						this.cut1(i, k, p, n, r, result);
-						this.cut2(0, i, k + 2, pl - 2, p, n, r, result);
+						this.cut2(0, i, k, pl - 2, p, n, r, result);
 					} else {
 						// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-						// -> (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
-						this.cut1(k + 2, i, p, n, r, result);
+						// -> (p[k], p[k+1], p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
+						this.cut1(k, i, p, n, r, result);
 						this.cut2(0, k, i, pl - 2, p, n, r, result);
 					}
 					return true;
+				} else {
+					const l = (k + 2) % pl;
+					const plx = p[l];
+					const ply = p[l + 1];
+					const dlx = plx - pkx;
+					const dly = ply - pky;
+					const dlm = mkx * dlx + mky * dly;
+					if (0 <= dim && dim <= dlm && EPSILON <= Math.abs(dim - dlm)) {
+						if (i < k) {
+							// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
+							// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
+							this.cut1(i, k, p, n, r, result);
+							this.cut2(0, i, k + 2, pl - 2, p, n, r, result);
+						} else {
+							// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
+							// -> (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
+							this.cut1(k + 2, i, p, n, r, result);
+							this.cut2(0, k, i, pl - 2, p, n, r, result);
+						}
+						return true;
+					}
 				}
 			}
 		}
@@ -380,12 +379,8 @@ export class UtilStraightSkeletonWavefront {
 			// Recalculate a normal of the 'to'-th point.
 			const tpl = tp.length;
 			if (2 < tpl) {
-				const tpx = tp[tpl - 2];
-				const tpy = tp[tpl - 1];
-				const ntpx = tp[0];
-				const ntpy = tp[1];
-				const dx = ntpx - tpx;
-				const dy = ntpy - tpy;
+				const dx = tp[0] - tp[tpl - 2];
+				const dy = tp[1] - tp[tpl - 1];
 				const d = dx * dx + dy * dy;
 				if (d <= EPSILON) {
 					tn[tpl - 2] = tn[0];
@@ -435,13 +430,9 @@ export class UtilStraightSkeletonWavefront {
 			const tpl = tp.length;
 			if (2 < tpl) {
 				const itp = to1 - from1;
-				const nitp = itp + 2 < tpl ? itp + 2 : 0;
-				const tpx = tp[itp];
-				const tpy = tp[itp + 1];
-				const ntpx = tp[nitp];
-				const ntpy = tp[nitp + 1];
-				const dx = ntpx - tpx;
-				const dy = ntpy - tpy;
+				const nitp = (itp + 2) % tpl;
+				const dx = tp[nitp] - tp[itp];
+				const dy = tp[nitp + 1] - tp[itp + 1];
 				const d = dx * dx + dy * dy;
 				if (d <= EPSILON) {
 					tn[itp] = tn[nitp];
@@ -460,80 +451,45 @@ export class UtilStraightSkeletonWavefront {
 		}
 	}
 
-	public static from(points: number[]): UtilStraightSkeletonWavefront {
+	public static from(polygon: UtilPolygon): UtilStraightSkeletonWavefront {
 		const result = new UtilStraightSkeletonWavefront(null, 0);
+		const points = polygon.points;
 		const pointsLength = points.length;
 		if (pointsLength <= 0) {
 			return result;
 		}
+		const normals = polygon.normals;
 		const p = result.points;
 		const n = result.normals;
 		const m = result.mappings;
-		let npx = points[0];
-		let npy = points[1];
-		for (let i = pointsLength - 2; 0 <= i; i -= 2) {
-			const px = points[i];
-			const py = points[i + 1];
-			const dx = npx - px;
-			const dy = npy - py;
-			const d = dx * dx + dy * dy;
-			if (d <= EPSILON) {
-				continue;
+		if (polygon.isCw()) {
+			for (let i = pointsLength - 2; 0 <= i; i -= 2) {
+				const k = (pointsLength + i - 2) % pointsLength;
+				n.push(-normals[k], -normals[k + 1]);
+				p.push(points[i], points[i + 1]);
+				m.push(EMPTY_ARRAY, EMPTY_ARRAY);
 			}
-			const f = 1 / Math.sqrt(d);
-			const mx = dx * f;
-			const my = dy * f;
-			n.unshift(-my, mx);
-			p.unshift(px, py);
-			m.unshift(EMPTY_ARRAY, EMPTY_ARRAY);
-			npx = px;
-			npy = py;
-		}
-		if (p.length <= 0) {
-			p.push(npx, npy);
-			n.push(0, 1);
-			m.push(EMPTY_ARRAY, EMPTY_ARRAY);
+		} else {
+			for (let i = 0; i < pointsLength; i += 2) {
+				n.push(normals[i], normals[i + 1]);
+				p.push(points[i], points[i + 1]);
+				m.push(EMPTY_ARRAY, EMPTY_ARRAY);
+			}
 		}
 		return result;
 	}
 }
 
 export class UtilStraightSkeleton {
-	public static from(points: number[]): UtilStraightSkeletonWavefront {
-		const result = this.build(points);
-		this.next(result);
-		return result;
-	}
-
-	protected static build(points: number[]): UtilStraightSkeletonWavefront {
-		const pointsLength = points.length;
-		if (4 < pointsLength) {
-			// Check if the polygon is CW or CCW using signed area
-			let area = 0;
-			let ppx = points[pointsLength - 2];
-			let ppy = points[pointsLength - 1];
-			for (let i = 0; i < pointsLength; i += 2) {
-				const px = points[i];
-				const py = points[i + 1];
-				area += ppx * py - px * ppy;
-				ppx = px;
-				ppy = py;
-			}
-
-			// If CW (0 < area), reverse the point order to make it CCW.
-			// Please note that in the screen coordinate (Y-axis pointing down), 0 < area means CW.
-			if (0 < area) {
-				const newPoints = [];
-				for (let i = pointsLength - 2; 0 <= i; i -= 2) {
-					newPoints.push(points[i], points[i + 1]);
-				}
-				return UtilStraightSkeletonWavefront.from(newPoints);
-			} else {
-				return UtilStraightSkeletonWavefront.from(points);
-			}
-		} else {
-			return UtilStraightSkeletonWavefront.from(points);
+	public static from(points: number[]): UtilStraightSkeletonWavefront[] {
+		const result: UtilStraightSkeletonWavefront[] = [];
+		const polygons = UtilPolygon.from(points);
+		for (let i = 0, imax = polygons.length; i < imax; ++i) {
+			const wavefront = UtilStraightSkeletonWavefront.from(polygons[i]);
+			this.next(wavefront);
+			result.push(wavefront);
 		}
+		return result;
 	}
 
 	protected static next(wavefront: UtilStraightSkeletonWavefront): void {

@@ -53,7 +53,7 @@
 		};
 
 		const newPoints3 = () => {
-			return [0, 0, 10, 0, 10, 10, 0, 10];
+			return [0, 0, 200, 0, 200, 200, 0, 200];
 		};
 
 		const newPoints4 = () => {
@@ -64,11 +64,15 @@
 			return [7.850462293418876e-15, -60.471529247895255, -40.314352831930165, -40.31435283193018, 0, 3.925231146709438e-15, 40.314352831930165, -40.314352831930165];
 		};
 
+		const newPoints6 = () => {
+			return [0, -100, -100, -50, +100, 50, 0, 100, -100, 50, 100, -50];
+		};
+
 		const application = new wcardinal.ui.DApplication();
 		const container = new wcardinal.ui.EShapeContainer();
 
 		const UtilStraightSkeleton = wcardinal.ui.UtilStraightSkeleton;
-		const wavefront = UtilStraightSkeleton.from(newPoints2());
+		const wavefronts = UtilStraightSkeleton.from(newPoints6());
 		const points = [];
 		const addPoints = (wf, level) => {
 			console.log("");
@@ -86,7 +90,9 @@
 				addPoints(child, level + 1);
 			});
 		};
-		addPoints(wavefront, 0);
+		wavefronts.forEach((wavefront) => {
+			addPoints(wavefront, 0);
+		});
 		newLine(500, 500, points, [], container);
 
 		application.stage.addChild(container);
