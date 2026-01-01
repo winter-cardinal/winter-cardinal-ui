@@ -12,15 +12,46 @@
 	<title>Straight Skeleton</title>
 	<style>
 	html, body {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
 		background-color: #eeeeee;
 	}
+
+	canvas {
+		display: block;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	hit-point {
+		display: block;
+		position: absolute;
+		x: 0;
+		y: 0;
+		width: 24px;
+		height: 24px;
+		background: #3388ff99;
+		border: none;
+		padding: 0;
+		margin: 0;
+		border-radius: 50%;
+		cursor: pointer;
+	}
+
+	hit-point.hidden {
+		display: none;
+	}
 	</style>
 </head>
 <body>
+	<canvas></canvas>
+	<hit-point class="hidden"></hit-point>
 	<script src="../../js/pixi/latest/pixi.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
@@ -28,75 +59,220 @@
 	(() => {
 		"use strict";
 
-		const newLine = (x, y, points, segments, container) => {
-			const style = wcardinal.ui.EShapePointsStyle.CLOSED;
-			const result = wcardinal.ui.createLine(points, segments, 3, style);
-			result.transform.position.set(x, y);
-			result.attach(container);
+		const EDGE_COLOR = "#666";
+		const EDGE_STROKE_WIDTH = 3;
+		const VERTEX_COLOR = "#666";
+		const VERTEX_SIZE = 3;
+		const VERTEX_HIT_AREA = 12 * 12;
+		const NORMAL_COLOR = "#3388ff99";
+		const NORMAL_LENGTH = 20;
+		const NORMAL_STROKE_WIDTH = 1.5;
+
+		const renderWavefront = (settings, wavefront) => {
+			const ctx = settings.ctx;
+			ctx.save();
+			ctx.translate(settings.cx, settings.cy);
+			ctx.scale(settings.dpr, settings.dpr);
+			const p = wavefront.points;
+			const pl = p.length;
+			if (2 < pl) {
+				// Points
+				ctx.lineWidth = EDGE_STROKE_WIDTH;
+				ctx.strokeStyle = EDGE_COLOR;
+				ctx.beginPath();
+				ctx.moveTo(p[0], p[1]);
+				for (let i = 2; i < pl; i += 2) {
+					ctx.lineTo(p[i], p[i + 1]);
+				}
+				ctx.closePath();
+				ctx.stroke();
+
+				// Normals
+				const n = wavefront.normals;
+				ctx.lineWidth = NORMAL_STROKE_WIDTH;
+				ctx.strokeStyle = NORMAL_COLOR;
+				for (let i = 0; i < pl; i += 2) {
+					const k = (i + 2) % pl;
+					const x0  = (p[i] + p[k]) * 0.5;
+					const y0  = (p[i + 1] + p[k + 1]) * 0.5;
+					ctx.beginPath();
+					ctx.moveTo(x0, y0);
+					ctx.lineTo(x0 + n[i] * NORMAL_LENGTH, y0 + n[i + 1] * NORMAL_LENGTH);
+					ctx.stroke();
+				}
+			} else if (pl === 2) {
+				ctx.fillStyle = VERTEX_COLOR;
+				ctx.beginPath();
+				ctx.ellipse(p[0], p[1], VERTEX_SIZE, VERTEX_SIZE, 0, 0, 2 * Math.PI);
+				ctx.fill();
+			}
+			ctx.restore();
+		};
+
+		const renderWavefrontAll = (settings, wavefronts) => {
+			wavefronts.forEach((wavefront) => {
+				renderWavefront(settings, wavefront);
+				renderWavefrontAll(settings, wavefront.children);
+			});
+		};
+
+		const render = (settings, wavefronts) => {
+			const canvas = settings.canvas;
+			const bbox = canvas.getBoundingClientRect();
+			const dpr = window.devicePixelRatio;
+			settings.dpr = dpr;
+			const w = bbox.width * dpr;
+			const h = bbox.height * dpr;
+			settings.x = bbox.x;
+			settings.y = bbox.y;
+			settings.w = w;
+			settings.h = h;
+			settings.cx = w * 0.5;
+			settings.cy = h * 0.5;
+			canvas.setAttribute("width", `${w}px`);
+			canvas.setAttribute("height", `${h}px`);
+			settings.ctx.clearRect(0, 0, w, h);
+			renderWavefrontAll(settings, wavefronts);
+		};
+
+		const hitTest = (x, y, wavefront, result) => {
+			const p = wavefront.points;
+			const pl = p.length;
+			for (let i = 0; i < pl; i += 2) {
+				const dx = x - p[i];
+				const dy = y - p[i + 1];
+				const d = dx * dx + dy * dy;
+				if (d <= VERTEX_HIT_AREA) {
+					if (result.wavefront == null || d < result.d) {
+						result.d = d;
+						result.wavefront = wavefront;
+						result.i = i;
+						result.x = p[i];
+						result.y = p[i + 1];
+					}
+				}
+			}
+		};
+
+		const hitTestAll = (x, y, wavefronts, result) => {
+			wavefronts.forEach((wavefront) => {
+				hitTest(x, y, wavefront, result);
+				hitTestAll(x, y, wavefront.children, result);
+			});
 			return result;
 		};
 
-		const newPoints1 = () => {
-			const result = [];
-			for (let i = 0; i <= 4; ++i) {
-				const angle = (2 - i) * Math.PI / 4;
-				result.push(
-					Math.cos(angle) * 200,
-					Math.sin(angle) * 200
-				);
+		const canvas = document.querySelector("canvas");
+		const hitPoint = document.querySelector("hit-point");
+		const ctx = canvas.getContext("2d");
+		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 155.333, -52];
+		let wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points);
+		const hitTestResult = {
+			d: 0,
+			wavefront: null,
+			i: -1,
+			x: 0,
+			y: 0,
+			tx: 0,
+			ty: 0
+		};
+
+		const settings = {
+			canvas: canvas,
+			ctx: ctx,
+			x: 0,
+			y: 0,
+			w: 0,
+			h: 0,
+			cx: 0,
+			cy: 0,
+			dpr: 1
+		};
+
+		canvas.addEventListener("mousemove", (e) => {
+			const s = settings.dpr;
+			const x = ((e.clientX - settings.x) * s - settings.cx) / s;
+			const y = ((e.clientY - settings.y) * s - settings.cy) / s;
+			hitTestResult.wavefront = null;
+			hitTestAll(x, y, wavefronts, hitTestResult);
+			if (hitTestResult.wavefront != null) {
+				const tx = (settings.cx + hitTestResult.x * s) / s + settings.x;
+				const ty = (settings.cy + hitTestResult.y * s) / s + settings.y;
+				hitTestResult.tx = tx;
+				hitTestResult.ty = ty;
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				hitPoint.classList.remove("hidden");
+			} else {
+				hitPoint.classList.add("hidden");
 			}
-			return result;
-		};
-
-		const newPoints2 = () => {
-			return [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 100, -50];
-		};
-
-		const newPoints3 = () => {
-			return [0, 0, 200, 0, 200, 200, 0, 200];
-		};
-
-		const newPoints4 = () => {
-			return [-40.314352831930165, 40.314352831930165, -7.850462293418876e-15, 60.471529247895255, 40.314352831930165, 40.31435283193018, 0, -3.925231146709438e-15];
-		};
-
-		const newPoints5 = () => {
-			return [7.850462293418876e-15, -60.471529247895255, -40.314352831930165, -40.31435283193018, 0, 3.925231146709438e-15, 40.314352831930165, -40.314352831930165];
-		};
-
-		const newPoints6 = () => {
-			return [0, -100, -100, -50, +100, 50, 0, 100, -100, 50, 100, -50];
-		};
-
-		const application = new wcardinal.ui.DApplication();
-		const container = new wcardinal.ui.EShapeContainer();
-
-		const UtilStraightSkeleton = wcardinal.ui.UtilStraightSkeleton;
-		const wavefronts = UtilStraightSkeleton.from(newPoints6());
-		const points = [];
-		const addPoints = (wf, level) => {
-			console.log("");
-			console.log(`${level} distance`, wf.distance);
-			console.log(`${level} points`, wf.points);
-			console.log(`${level} normals`, wf.normals);
-			console.log(`${level} mappings`, JSON.stringify(wf.mappings));
-			wf.points.forEach((p) => {
-				points.push(p);
-			});
-			if (4 < wf.points.length) {
-				points.push(wf.points[0], wf.points[1]);
-			}
-			wf.children.forEach((child) => {
-				addPoints(child, level + 1);
-			});
-		};
-		wavefronts.forEach((wavefront) => {
-			addPoints(wavefront, 0);
 		});
-		newLine(500, 500, points, [], container);
 
-		application.stage.addChild(container);
-		application.update();
+		const dragging = {
+			isExecuting: false,
+			pointerId: null,
+			x: 0,
+			y: 0
+		};
+		const move = (tx, ty) => {
+			const i = hitTestResult.i;
+			const s = settings.dpr;
+			const x = ((tx - settings.x) * s - settings.cx) / s;
+			const y = ((ty - settings.y) * s - settings.cy) / s;
+			points[i] = x;
+			points[i + 1] = y;
+			console.log("points", points);
+			wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points);
+			render(settings, wavefronts);
+		};
+		const onPointerMove = (e) => {
+			if (dragging.isExecuting) {
+				const tx = hitTestResult.tx + (e.clientX - dragging.x);
+				const ty = hitTestResult.ty + (e.clientY - dragging.y);
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				setTimeout(() => {
+					move(tx, ty);
+				}, 0);
+			}
+		};
+		const onPointerUp = (e) => {
+			if (dragging.isExecuting) {
+				dragging.isExecuting = false;
+				const tx = hitTestResult.tx + (e.clientX - dragging.x);
+				const ty = hitTestResult.ty + (e.clientY - dragging.y);
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				hitPoint.classList.add("hidden");
+				hitPoint.releasePointerCapture(dragging.pointerId);
+				hitPoint.removeEventListener("pointermove", onPointerMove);
+				hitPoint.removeEventListener("pointerup", onPointerUp);
+				hitPoint.removeEventListener("pointercancel", onPointerUp);
+				setTimeout(() => {
+					move(tx, ty);
+				}, 0);
+			}
+		};
+		hitPoint.addEventListener("pointerdown", (e) => {
+			if (!dragging.isExecuting && hitTestResult.wavefront != null && hitTestResult.wavefront.parent == null) {
+				dragging.isExecuting = true;
+				dragging.pointerId = e.pointerId;
+				dragging.x = e.clientX;
+				dragging.y = e.clientY;
+				const tx = hitTestResult.tx;
+				const ty = hitTestResult.ty;
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				hitPoint.classList.remove("hidden");
+				hitPoint.setPointerCapture(e.pointerId);
+				hitPoint.addEventListener("pointermove", onPointerMove);
+				hitPoint.addEventListener("pointerup", onPointerUp);
+				hitPoint.addEventListener("pointercancel", onPointerUp);
+			}
+		});
+
+		render(settings, wavefronts);
+		new ResizeObserver(() => {
+			setTimeout(() => {
+				render(settings, wavefronts);
+			}, 0);
+		}).observe(canvas);
 	})();
 	</script>
 </body>
