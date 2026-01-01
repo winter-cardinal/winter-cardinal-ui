@@ -50,56 +50,59 @@ export class UtilStraightSkeletonWavefront {
 			pny = ny;
 		}
 
-		// Calculate dr where the i-th and (i-1)-th points collide.
-		// dr = dot(n[i], p[i] - p[i - 1]) / dot(n[i], t[i] - t[i - 1])
-		// dr = dot(m[i], p[i] - p[i - 1]) / dot(m[i], t[i] - t[i - 1])
+		// Find the smallest dr
 		let mdr = 0;
 		let mdri = -1;
-		let ppx = p[pl - 2];
-		let ppy = p[pl - 1];
-		let ptx = t[pl - 2];
-		let pty = t[pl - 1];
+		let ppix = p[pl - 2];
+		let ppiy = p[pl - 1];
+		let ptix = t[pl - 2];
+		let ptiy = t[pl - 1];
+		let pnix = n[pl - 2];
+		let pniy = n[pl - 1];
 		for (let i = 0; i < pl; i += 2) {
-			const nx = n[i];
-			const ny = n[i + 1];
-			const mx = ny;
-			const my = -nx;
-			const tx = t[i];
-			const ty = t[i + 1];
-			const px = p[i];
-			const py = p[i + 1];
-			const dpx = px - ppx;
-			const dpy = py - ppy;
-			const dtx = tx - ptx;
-			const dty = ty - pty;
-			const dtn = nx * dtx + ny * dty;
-			if (EPSILON < Math.abs(dtn)) {
-				const dpn = nx * dpx + ny * dpy;
-				const dr = dpn / dtn;
+			// Calculate dr where the i-th and (i-1)-th points collide.
+			// dr = dot(n[i], p[i] - p[i - 1]) / dot(n[i], t[i] - t[i - 1])
+			// dr = dot(m[i], p[i] - p[i - 1]) / dot(m[i], t[i] - t[i - 1])
+			const nix = n[i];
+			const niy = n[i + 1];
+			const mix = niy;
+			const miy = -nix;
+			const tix = t[i];
+			const tiy = t[i + 1];
+			const pix = p[i];
+			const piy = p[i + 1];
+			const dpix = pix - ppix;
+			const dpiy = piy - ppiy;
+			const dtix = tix - ptix;
+			const dtiy = tiy - ptiy;
+			const dtin = nix * dtix + niy * dtiy;
+			if (EPSILON < Math.abs(dtin)) {
+				const dpin = nix * dpix + niy * dpiy;
+				const dr = dpin / dtin;
 				if (0 <= dr && (mdri < 0 || dr < mdr)) {
-					const dpm = mx * dpx + my * dpy;
-					const dtm = mx * dtx + my * dty;
-					if (Math.abs(dpm - dr * dtm) < EPSILON) {
+					const dpim = mix * dpix + miy * dpiy;
+					const dtim = mix * dtix + miy * dtiy;
+					if (Math.abs(dpim - dr * dtim) < EPSILON) {
 						mdr = dr;
 						mdri = i;
 					}
 				}
 			} else {
-				const dpm = mx * dpx + my * dpy;
-				const dtm = mx * dtx + my * dty;
-				if (EPSILON < Math.abs(dtm)) {
-					const dr = dpm / dtm;
+				const dpim = mix * dpix + miy * dpiy;
+				const dtim = mix * dtix + miy * dtiy;
+				if (EPSILON < Math.abs(dtim)) {
+					const dr = dpim / dtim;
 					if (0 <= dr && (mdri < 0 || dr < mdr)) {
-						const dpn = nx * dpx + ny * dpy;
-						if (Math.abs(dpn - dr * dtn) < EPSILON) {
+						const dpin = nix * dpix + niy * dpiy;
+						if (Math.abs(dpin - dr * dtin) < EPSILON) {
 							mdr = dr;
 							mdri = i;
 						}
 					}
 				} else {
-					if (dpm < EPSILON) {
-						const dpn = nx * dpx + ny * dpy;
-						if (dpn < EPSILON) {
+					if (dpim < EPSILON) {
+						const dpin = nix * dpix + niy * dpiy;
+						if (dpin < EPSILON) {
 							const dr = 0;
 							if (0 <= dr && (mdri < 0 || dr < mdr)) {
 								mdr = dr;
@@ -113,134 +116,134 @@ export class UtilStraightSkeletonWavefront {
 					}
 				}
 			}
-			ptx = tx;
-			pty = ty;
-			ppx = px;
-			ppy = py;
-		}
 
-		// Calculate dr where the i-th point and k-th edge collide.
-		// dr = dot(n[k], p[i] - p[k]) / dot(n[k], t[i] - t[k])
-		// dr = dot(m[k], p[i] - p[k]) / dot(m[k], t[i] - t[k])
-		// dr = (dot(m[k], p[i] - p[k]) - dot(m[k], p[k+1] - p[k])) / (dot(m[k], t[i] - t[k]) - dot(m[k], t[k+1] - t[k]))
-		for (let i = 0; i < pl; i += 2) {
-			const pix = p[i];
-			const piy = p[i + 1];
-			const tix = t[i];
-			const tiy = t[i + 1];
-			for (let k = 0; k < pl; k += 2) {
-				if (k === i || k === (pl + i - 2) % pl) {
-					continue;
-				}
-				const pkx = p[k];
-				const pky = p[k + 1];
-				const nkx = n[k];
-				const nky = n[k + 1];
-				const mkx = nky;
-				const mky = -nkx;
-				const tkx = t[k];
-				const tky = t[k + 1];
-				const dpx = pix - pkx;
-				const dpy = piy - pky;
-				const dtx = tix - tkx;
-				const dty = tiy - tky;
-				const dtn = nkx * dtx + nky * dty;
-				if (EPSILON < Math.abs(dtn)) {
-					const dpn = nkx * dpx + nky * dpy;
-					const dr = dpn / dtn;
-					if (0 <= dr && (mdri < 0 || dr < mdr)) {
+			// Check if this i-th point is a flex point.
+			if (0 <= mix * pnix + pniy * miy) {
+				// Calculate dr where the i-th point and k-th edge collide.
+				// dr = dot(n[k], p[i] - p[k]) / dot(n[k], t[i] - t[k])
+				// dr = dot(m[k], p[i] - p[k]) / dot(m[k], t[i] - t[k])
+				// dr = (dot(m[k], p[i] - p[k]) - dot(m[k], p[k+1] - p[k])) / (dot(m[k], t[i] - t[k]) - dot(m[k], t[k+1] - t[k]))
+				for (let k = 0; k < pl; k += 2) {
+					if (k === i || k === (pl + i - 2) % pl) {
+						continue;
+					}
+					const pkx = p[k];
+					const pky = p[k + 1];
+					const nkx = n[k];
+					const nky = n[k + 1];
+					const mkx = nky;
+					const mky = -nkx;
+					const tkx = t[k];
+					const tky = t[k + 1];
+					const dpx = pix - pkx;
+					const dpy = piy - pky;
+					const dtx = tix - tkx;
+					const dty = tiy - tky;
+					const dtn = nkx * dtx + nky * dty;
+					if (EPSILON < Math.abs(dtn)) {
+						const dpn = nkx * dpx + nky * dpy;
+						const dr = dpn / dtn;
+						if (0 <= dr && (mdri < 0 || dr < mdr)) {
+							const dpm = mkx * dpx + mky * dpy;
+							const dtm = mkx * dtx + mky * dty;
+							const a = dpm - dr * dtm;
+							if (EPSILON <= a) {
+								const nk = (k + 2) % pl;
+								const npkx = p[nk];
+								const npky = p[nk + 1];
+								const ntkx = t[nk];
+								const ntky = t[nk + 1];
+								const dpkx = npkx - pkx;
+								const dpky = npky - pky;
+								const dtkx = ntkx - tkx;
+								const dtky = ntky - tky;
+								const dpkm = mkx * dpkx + mky * dpky;
+								const dtkm = mkx * dtkx + mky * dtky;
+								if (a - (dpkm - dr * dtkm) < EPSILON) {
+									mdr = dr;
+									mdri = i;
+								}
+							}
+						}
+					} else {
+						const nk = (k + 2) % pl;
+						const npkx = p[nk];
+						const npky = p[nk + 1];
+						const ntkx = t[nk];
+						const ntky = t[nk + 1];
+						const dpkx = npkx - pkx;
+						const dpky = npky - pky;
+						const dtkx = ntkx - tkx;
+						const dtky = ntky - tky;
 						const dpm = mkx * dpx + mky * dpy;
+						const dpkm = mkx * dpkx + mky * dpky;
 						const dtm = mkx * dtx + mky * dty;
-						const a = dpm - dr * dtm;
-						if (EPSILON <= a) {
-							const nk = (k + 2) % pl;
-							const npkx = p[nk];
-							const npky = p[nk + 1];
-							const ntkx = t[nk];
-							const ntky = t[nk + 1];
-							const dpkx = npkx - pkx;
-							const dpky = npky - pky;
-							const dtkx = ntkx - tkx;
-							const dtky = ntky - tky;
-							const dpkm = mkx * dpkx + mky * dpky;
-							const dtkm = mkx * dtkx + mky * dtky;
-							if (a - (dpkm - dr * dtkm) < EPSILON) {
-								mdr = dr;
-								mdri = i;
-							}
-						}
-					}
-				} else {
-					const nk = (k + 2) % pl;
-					const npkx = p[nk];
-					const npky = p[nk + 1];
-					const ntkx = t[nk];
-					const ntky = t[nk + 1];
-					const dpkx = npkx - pkx;
-					const dpky = npky - pky;
-					const dtkx = ntkx - tkx;
-					const dtky = ntky - tky;
-					const dpm = mkx * dpx + mky * dpy;
-					const dpkm = mkx * dpkx + mky * dpky;
-					const dtm = mkx * dtx + mky * dty;
-					const dtkm = mkx * dtkx + mky * dtky;
+						const dtkm = mkx * dtkx + mky * dtky;
 
-					// b = 0
-					if (EPSILON < Math.abs(dtm)) {
-						const dr = dpm / dtm;
-						if (0 <= dr && (mdri < 0 || dr < mdr)) {
-							const dpn = nkx * dpx + nky * dpy;
-							if (Math.abs(dpn - dr * dtn)) {
-								mdr = dr;
-								mdri = i;
-							}
-						}
-					} else {
-						if (Math.abs(dpm) < EPSILON) {
-							const dpn = nkx * dpx + nky * dpy;
-							if (Math.abs(dpn) < EPSILON) {
-								const dr = 0;
-								if (0 <= dr && (mdri < 0 || dr < mdr)) {
+						// b = 0
+						if (EPSILON < Math.abs(dtm)) {
+							const dr = dpm / dtm;
+							if (0 <= dr && (mdri < 0 || dr < mdr)) {
+								const dpn = nkx * dpx + nky * dpy;
+								if (Math.abs(dpn - dr * dtn)) {
 									mdr = dr;
 									mdri = i;
+								}
+							}
+						} else {
+							if (Math.abs(dpm) < EPSILON) {
+								const dpn = nkx * dpx + nky * dpy;
+								if (Math.abs(dpn) < EPSILON) {
+									const dr = 0;
+									if (0 <= dr && (mdri < 0 || dr < mdr)) {
+										mdr = dr;
+										mdri = i;
+									}
+								} else {
+									// NO SOLUTION
 								}
 							} else {
 								// NO SOLUTION
 							}
-						} else {
-							// NO SOLUTION
 						}
-					}
 
-					// b = 1
-					const dtma = dtm + dtkm;
-					if (EPSILON < Math.abs(dtma)) {
-						const dr = (dpm + dpkm) / dtma;
-						if (0 <= dr && (mdri < 0 || dr < mdr)) {
-							const dpn = nkx * dpx + nky * dpy;
-							if (Math.abs(dpn - dr * dtn)) {
-								mdr = dr;
-								mdri = i;
-							}
-						}
-					} else {
-						if (Math.abs(dpm + dpkm) < EPSILON) {
-							const dpn = nkx * dpx + nky * dpy;
-							if (Math.abs(dpn) < EPSILON) {
-								const dr = 0;
-								if (0 <= dr && (mdri < 0 || dr < mdr)) {
+						// b = 1
+						const dtma = dtm + dtkm;
+						if (EPSILON < Math.abs(dtma)) {
+							const dr = (dpm + dpkm) / dtma;
+							if (0 <= dr && (mdri < 0 || dr < mdr)) {
+								const dpn = nkx * dpx + nky * dpy;
+								if (Math.abs(dpn - dr * dtn)) {
 									mdr = dr;
 									mdri = i;
+								}
+							}
+						} else {
+							if (Math.abs(dpm + dpkm) < EPSILON) {
+								const dpn = nkx * dpx + nky * dpy;
+								if (Math.abs(dpn) < EPSILON) {
+									const dr = 0;
+									if (0 <= dr && (mdri < 0 || dr < mdr)) {
+										mdr = dr;
+										mdri = i;
+									}
+								} else {
+									// NO SOLUTION
 								}
 							} else {
 								// NO SOLUTION
 							}
-						} else {
-							// NO SOLUTION
 						}
 					}
 				}
 			}
+
+			ptix = tix;
+			ptiy = tiy;
+			ppix = pix;
+			ppiy = piy;
+			pnix = nix;
+			pniy = niy;
 		}
 
 		//
@@ -283,7 +286,7 @@ export class UtilStraightSkeletonWavefront {
 		}
 		children.length = 0;
 		next.cut(children);
-		for (let i = 0, imax = children.length; i < imax; ++i) {
+		for (let i = children.length - 1; 0 <= i; --i) {
 			if (!children[i].advance()) {
 				// Failed to advance this wavefront
 				children.splice(i, 1);
@@ -568,12 +571,12 @@ export class UtilStraightSkeletonWavefront {
 }
 
 export class UtilStraightSkeleton {
-	public static from(points: number[], level: number = 1): UtilStraightSkeletonWavefront[] {
+	public static from(points: number[], level: number = -1): UtilStraightSkeletonWavefront[] {
 		const result: UtilStraightSkeletonWavefront[] = [];
 		const polygons = UtilPolygon.from(points);
 		for (let i = 0, imax = polygons.length; i < imax; ++i) {
 			const wavefront = UtilStraightSkeletonWavefront.from(polygons[i]);
-			if (0 < level) {
+			if (level < 0 || 0 < level) {
 				this.next(wavefront, level);
 			}
 			result.push(wavefront);
@@ -584,7 +587,7 @@ export class UtilStraightSkeleton {
 	protected static next(wavefront: UtilStraightSkeletonWavefront, level: number): void {
 		const children = wavefront.next();
 		level -= 1;
-		if (0 < level) {
+		if (level < 0 || 0 < level) {
 			const childrenLength = children.length;
 			if (0 < childrenLength) {
 				for (let i = 0; i < childrenLength; ++i) {
