@@ -25,12 +25,12 @@ export class UtilPolygon {
 		return 0 < area;
 	}
 
-	protected merge(): this {
+	protected merge(): boolean {
 		const p = this.points;
 		const pl = p.length;
 		if (pl <= 2) {
 			// No need to merge
-			return this;
+			return false;
 		}
 
 		const n = this.normals;
@@ -81,10 +81,9 @@ export class UtilPolygon {
 				p.length = k;
 				n.length = k;
 			}
+			return true;
 		}
-
-		// Done
-		return this;
+		return false;
 	}
 
 	protected cut(result: UtilPolygon[]): boolean {
@@ -137,61 +136,36 @@ export class UtilPolygon {
 			nnkx = n[nk];
 			nnky = n[nk + 1];
 			if (!(k === i || k === (i + 2) % pl || k === (pl + i - 2) % pl)) {
-				const dx0 = pix - pkx;
-				const dy0 = piy - pky;
-				const dx1 = npix - pkx;
-				const dy1 = npiy - pky;
-				const dn0 = nkx * dx0 + nky * dy0;
-				const dn1 = nkx * dx1 + nky * dy1;
-				if (Math.sign(dn0) !== Math.sign(dn1)) {
-					const dn01 = dn0 - dn1;
-					if (EPSILON < Math.abs(dn01)) {
-						const t = dn0 / dn01;
-						if (0 <= t && t <= 1) {
-							const mkx = nky;
-							const mky = -nkx;
-							const dm0 = mkx * dx0 + mky * dy0;
-							const dm1 = mkx * dx1 + mky * dy1;
-							const dm = dm0 + t * (dm1 - dm0);
-							if (Math.abs(dm) < EPSILON) {
-								if (i < k) {
-									// (0, 2, ..., i, [t], i + 2, ..., [k], k + 2, ..., pl - 2)
-									// -> (i + 2, ..., [k])
-									// -> (0, 2, ..., i, [k], k + 2, ..., pl - 2)
-									this.cut1a(i + 2, k, p, n, result);
-									this.cut2a(0, i, k, pl - 2, p, n, result);
-								} else {
-									// (0, 2, ..., [k], k + 2, ..., i, [t], i + 2, ..., pl - 2)
-									// -> ([k], k + 2, ..., i)
-									// -> (0, 2, ..., [k], i + 2, ..., pl - 2)
-									this.cut1a(k, i, p, n, result);
-									this.cut2a(0, k, i + 2, pl - 2, p, n, result);
-								}
-								return true;
-							} else {
-								const dx2 = npkx - pkx;
-								const dy2 = npky - pky;
-								const dm2 = mkx * dx2 + mky * dy2;
-								if (0 <= dm && dm <= dm2 && EPSILON <= Math.abs(dm - dm2)) {
-									const tpx = pix + t * (npix - pix);
-									const tpy = piy + t * (npiy - piy);
-									if (i < k) {
-										// (0, 2, ..., i, [t], i + 2, ..., k, [t], k + 2, ..., pl - 2)
-										// -> ([t], i + 2, ..., k)
-										// -> (0, 2, ..., i, [t], k + 2, ..., pl - 2)
-										this.cut1b(i + 2, k, tpx, tpy, p, n, result);
-										this.cut2b(0, i, k + 2, pl - 2, tpx, tpy, p, n, result);
-									} else {
-										// (0, 2, ..., k, [t], k + 2, ..., i, [t], i + 2, ..., pl - 2)
-										// -> ([t], k + 2, ..., i)
-										// -> (0, 2, ..., k, [t], i + 2, ..., pl - 2)
-										this.cut1b(k + 2, i, tpx, tpy, p, n, result);
-										this.cut2b(0, k, i + 2, pl - 2, tpx, tpy, p, n, result);
-									}
-									return true;
-								}
-							}
+				const ts = this.check0(pix, piy, npix, npiy, pkx, pky, npkx, npky, nkx, nky);
+				if (ts != null) {
+					const dpx0 = pix - pkx;
+					const dpy0 = piy - pky;
+					const dpx1 = npix - pkx;
+					const dpy1 = npiy - pky;
+					const mkx = nky;
+					const mky = -nkx;
+					const dpm0 = mkx * dpx0 + mky * dpy0;
+					const dpm1 = mkx * dpx1 + mky * dpy1;
+					const dpm10 = dpm1 - dpm0;
+					const dpkx = npkx - pkx;
+					const dpky = npky - pky;
+					const dpkm = mkx * dpkx + mky * dpky;
+					const tpoints = this.check1(ts, dpm0, dpm10, dpkm, pix, piy, npix, npiy);
+					if (tpoints != null) {
+						if (i < k) {
+							// (0, 2, ..., i, [t0], [t1], i + 2, ..., k, k + 2, ...)
+							// -> ([t1], i + 2, ..., k)
+							// -> (0, 2, ..., i, [t0], k+2, ....)
+							this.cut1(i + 2, k, tpoints[2], tpoints[3], p, n, result);
+							this.cut2(0, i, k + 2, pl - 2, tpoints[0], tpoints[1], p, n, result);
+						} else {
+							// (0, 2, ..., k, k + 2, ..., i, [t0], [t1], i + 2, ..., pl - 2)
+							// -> ([t0], k + 2, ..., i)
+							// -> (0, 2, ..., k, [t1], i + 2, ..., pl - 2)
+							this.cut1(k + 2, i, tpoints[0], tpoints[1], p, n, result);
+							this.cut2(0, k, i + 2, pl - 2, tpoints[2], tpoints[3], p, n, result);
 						}
+						return true;
 					}
 				}
 			}
@@ -204,46 +178,101 @@ export class UtilPolygon {
 		return false;
 	}
 
-	protected cut1a(
-		from: number,
-		to: number,
-		p: number[],
-		n: number[],
-		result: UtilPolygon[]
-	): void {
-		if (2 < to - from + 2) {
-			const tmp = new UtilPolygon();
-			const tp = tmp.points;
-			const tn = tmp.normals;
-			for (let i = from; i <= to; i += 2) {
-				tp.push(p[i], p[i + 1]);
-				tn.push(n[i], n[i + 1]);
+	protected check1(
+		ts: [number] | [number, number],
+		dpm0: number,
+		dpm10: number,
+		dpkm: number,
+		pix: number,
+		piy: number,
+		npix: number,
+		npiy: number
+	): [number, number, number, number] | null {
+		if (ts.length === 1) {
+			const t = ts[0];
+			if (this.check2(dpm0 + t * dpm10, dpkm)) {
+				const dpix = npix - pix;
+				const dpiy = npiy - piy;
+				const tpx = pix + t * dpix;
+				const tpy = piy + t * dpiy;
+				return [tpx, tpy, tpx, tpy];
 			}
-
-			// Recalculate a normal of the last point.
-			const tpl = tp.length;
-			if (2 < tpl) {
-				const dx = tp[0] - tp[tpl - 2];
-				const dy = tp[1] - tp[tpl - 1];
-				const d = dx * dx + dy * dy;
-				if (d <= EPSILON) {
-					tn[tpl - 2] = tn[0];
-					tn[tpl - 1] = tn[1];
-				} else {
-					const f = 1 / Math.sqrt(d);
-					const mx = dx * f;
-					const my = dy * f;
-					tn[tpl - 2] = -my;
-					tn[tpl - 1] = mx;
-				}
+		} else {
+			const t0 = ts[0];
+			const t1 = ts[1];
+			if (this.check2(dpm0 + t0 * dpm10, dpkm) || this.check2(dpm0 + t1 * dpm10, dpkm)) {
+				const dpix = npix - pix;
+				const dpiy = npiy - piy;
+				const t0px = pix + t0 * dpix;
+				const t0py = piy + t0 * dpiy;
+				const t1px = pix + t1 * dpix;
+				const t1py = piy + t1 * dpiy;
+				return [t0px, t0py, t1px, t1py];
 			}
-
-			// Done
-			tmp.merge().cut(result);
 		}
+		return null;
 	}
 
-	protected cut1b(
+	protected check2(dpm: number, dpkm: number): boolean {
+		return (
+			Math.abs(dpm) < EPSILON || Math.abs(dpm - dpkm) < EPSILON || (0 <= dpm && dpm <= dpkm)
+		);
+	}
+
+	protected check0(
+		pix: number,
+		piy: number,
+		npix: number,
+		npiy: number,
+		pkx: number,
+		pky: number,
+		npkx: number,
+		npky: number,
+		nkx: number,
+		nky: number
+	): [number] | [number, number] | null {
+		const dpx0 = pix - pkx;
+		const dpy0 = piy - pky;
+		const dpx1 = npix - pkx;
+		const dpy1 = npiy - pky;
+		const dpn0 = nkx * dpx0 + nky * dpy0;
+		const dpn1 = nkx * dpx1 + nky * dpy1;
+		const dpn01 = dpn0 - dpn1;
+		if (EPSILON < Math.abs(dpn01)) {
+			const t = dpn0 / dpn01;
+			if (0 <= t && t <= 1) {
+				return [t];
+			}
+		} else {
+			const c0 = 0 <= dpn0 && 0 <= dpn1;
+			const c1 = dpn0 <= 0 && dpn1 <= 0;
+			const c2 = (c0 || c1) && (Math.abs(dpn0) < EPSILON || Math.abs(dpn1) < EPSILON);
+			const c3 = 0 <= dpn0 && dpn1 <= 0;
+			const c4 = dpn0 <= 0 && dpn1 <= 0;
+			if (c2 || c3 || c4) {
+				const mkx = nky;
+				const mky = -nkx;
+				const dpm0 = mkx * dpx0 + mky * dpy0;
+				const dpm1 = mkx * dpx1 + mky * dpy1;
+				const dpm01 = dpm0 - dpm1;
+				if (EPSILON < Math.abs(dpm01)) {
+					const dpkx = npkx - pkx;
+					const dpky = npky - pky;
+					const dpkm = mkx * dpkx + mky * dpky;
+					const t0 = Math.max(0, dpm0 / dpm01);
+					const t1 = Math.min(1, (dpm0 - dpkm) / dpm01);
+					if (t0 <= t1) {
+						return [t0, t1];
+					}
+				} else {
+					return [0, 1];
+				}
+			}
+		}
+		return null;
+	}
+
+	protected cut1(
 		from: number,
 		to: number,
 		tpx: number,
@@ -296,58 +325,12 @@ export class UtilPolygon {
 			}
 
 			// Done
-			tmp.merge().cut(result);
+			tmp.merge();
+			tmp.cut(result);
 		}
 	}
 
-	protected cut2a(
-		from1: number,
-		to1: number,
-		from2: number,
-		to2: number,
-		p: number[],
-		n: number[],
-		result: UtilPolygon[]
-	): void {
-		if (2 < Math.max(0, to1 - from1 + 2) + Math.max(0, to2 - from2 + 2)) {
-			const tmp = new UtilPolygon();
-			const tp = tmp.points;
-			const tn = tmp.normals;
-			for (let i = from1; i <= to1; i += 2) {
-				tp.push(p[i], p[i + 1]);
-				tn.push(n[i], n[i + 1]);
-			}
-			for (let i = from2; i <= to2; i += 2) {
-				tp.push(p[i], p[i + 1]);
-				tn.push(n[i], n[i + 1]);
-			}
-
-			// Recalculate a normal of the 'to1 - from1'-th point.
-			const tpl = tp.length;
-			if (2 < tpl) {
-				const itp = to1 - from1;
-				const nitp = (itp + 2) % tpl;
-				const dx = tp[nitp] - tp[itp];
-				const dy = tp[nitp + 1] - tp[itp + 1];
-				const d = dx * dx + dy * dy;
-				if (d <= EPSILON) {
-					tn[itp] = tn[nitp];
-					tn[itp + 1] = tn[nitp + 1];
-				} else {
-					const f = 1 / Math.sqrt(d);
-					const mx = dx * f;
-					const my = dy * f;
-					tn[itp] = -my;
-					tn[itp + 1] = mx;
-				}
-			}
-
-			// Done
-			tmp.merge().cut(result);
-		}
-	}
-
-	protected cut2b(
+	protected cut2(
 		from1: number,
 		to1: number,
 		from2: number,
@@ -409,7 +392,8 @@ export class UtilPolygon {
 			}
 
 			// Done
-			tmp.merge().cut(result);
+			tmp.merge();
+			tmp.cut(result);
 		}
 	}
 
