@@ -61,13 +61,14 @@
 
 		const EDGE_COLOR = "#666";
 		const EDGE_STROKE_WIDTH = 3;
+		const EDGE_STROKE_JOIN = "round";
 		const VERTEX_COLOR = "#666";
 		const VERTEX_SIZE = 3;
 		const VERTEX_HIT_AREA = 12 * 12;
 		const NORMAL_COLOR = "#3388ff99";
 		const NORMAL_LENGTH = 20;
 		const NORMAL_STROKE_WIDTH = 1.5;
-		const LEVEL = 1;
+		const LEVEL = -1;
 
 		const renderWavefront = (settings, wavefront) => {
 			const ctx = settings.ctx;
@@ -79,6 +80,7 @@
 			if (2 < pl) {
 				// Points
 				ctx.lineWidth = EDGE_STROKE_WIDTH;
+				ctx.lineJoin = EDGE_STROKE_JOIN;
 				ctx.strokeStyle = EDGE_COLOR;
 				ctx.beginPath();
 				ctx.moveTo(p[0], p[1]);
@@ -136,31 +138,23 @@
 			renderWavefrontAll(settings, wavefronts);
 		};
 
-		const hitTest = (x, y, wavefront, result) => {
-			const p = wavefront.points;
+		const hitTest = (x, y, points, result) => {
+			const p = points;
 			const pl = p.length;
 			for (let i = 0; i < pl; i += 2) {
 				const dx = x - p[i];
 				const dy = y - p[i + 1];
 				const d = dx * dx + dy * dy;
 				if (d <= VERTEX_HIT_AREA) {
-					if (result.wavefront == null || d < result.d) {
+					if (result.points == null || d < result.d) {
 						result.d = d;
-						result.wavefront = wavefront;
+						result.points = points;
 						result.i = i;
 						result.x = p[i];
 						result.y = p[i + 1];
 					}
 				}
 			}
-		};
-
-		const hitTestAll = (x, y, wavefronts, result) => {
-			wavefronts.forEach((wavefront) => {
-				hitTest(x, y, wavefront, result);
-				// hitTestAll(x, y, wavefront.children, result);
-			});
-			return result;
 		};
 
 		const canvas = document.querySelector("canvas");
@@ -170,7 +164,7 @@
 		let wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL);
 		const hitTestResult = {
 			d: 0,
-			wavefront: null,
+			points: null,
 			i: -1,
 			x: 0,
 			y: 0,
@@ -194,9 +188,9 @@
 			const s = settings.dpr;
 			const x = ((e.clientX - settings.x) * s - settings.cx) / s;
 			const y = ((e.clientY - settings.y) * s - settings.cy) / s;
-			hitTestResult.wavefront = null;
-			hitTestAll(x, y, wavefronts, hitTestResult);
-			if (hitTestResult.wavefront != null) {
+			hitTestResult.points = null;
+			hitTest(x, y, points, hitTestResult);
+			if (hitTestResult.points != null) {
 				const tx = (settings.cx + hitTestResult.x * s) / s + settings.x;
 				const ty = (settings.cy + hitTestResult.y * s) / s + settings.y;
 				hitTestResult.tx = tx;
@@ -252,7 +246,7 @@
 			}
 		};
 		hitPoint.addEventListener("pointerdown", (e) => {
-			if (!dragging.isExecuting && hitTestResult.wavefront != null && hitTestResult.wavefront.parent == null) {
+			if (!dragging.isExecuting && hitTestResult.points != null) {
 				dragging.isExecuting = true;
 				dragging.pointerId = e.pointerId;
 				dragging.x = e.clientX;
