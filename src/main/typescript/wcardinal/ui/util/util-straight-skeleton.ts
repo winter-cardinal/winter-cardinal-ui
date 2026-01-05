@@ -417,9 +417,7 @@ export class UtilStraightSkeletonWavefront {
 				const result: number[] = [];
 				for (let k = 0; k < ml; ++k) {
 					const mv = m[k];
-					if (index < mv) {
-						m[k] = mv + 2;
-					}
+					result.push(index < mv ? mv + 2 : mv);
 				}
 				return result;
 			}

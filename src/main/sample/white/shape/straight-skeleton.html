@@ -62,26 +62,92 @@
 		const EDGE_COLOR = "#666";
 		const EDGE_STROKE_WIDTH = 1;
 		const EDGE_STROKE_JOIN = "round";
+		const EDGE_STROKE_DASH = [];
 		const VERTEX_COLOR = "#666";
 		const VERTEX_SIZE = 1.5;
 		const VERTEX_HIT_AREA = 12 * 12;
+		const VERTEX_BRIDGE_COLOR = "#3388ff99";
+		const VERTEX_BRIDGE_SIZE = 4;
+		const VERTEX_MERGED_COLOR = "#ff883399";
+		const VERTEX_MERGED_SIZE = 4;
+		const VERTEX_OUTER_COLOR = "#666";
+		const VERTEX_OUTER_SIZE = 1;
+		const VERTEX_INNER_COLOR = "#666";
+		const VERTEX_INNER_SIZE = 1;
 		const NORMAL_COLOR = "#3388ff99";
 		const NORMAL_LENGTH = 20;
 		const NORMAL_STROKE_WIDTH = 1.5;
+		const NORMAL_STROKE_DASH = [];
+		const MAPPING_COLOR = "#3388ff99";
+		const MAPPING_STROKE_WIDTH = 1;
+		const MAPPING_STROKE_DASH = [3, 3];
 		const LEVEL = -1;
+
+		const toVertexColor = (wavefront, index) => {
+			if (0 <= wavefront.bridges[index]) {
+				return VERTEX_BRIDGE_COLOR;
+			} else if (1 < wavefront.mappings[index].length) {
+				return VERTEX_MERGED_COLOR;
+			} else if (wavefront.parent == null) {
+				return VERTEX_OUTER_COLOR;
+			} else if (wavefront.children.length <= 0) {
+				return VERTEX_INNER_COLOR;
+			} else {
+				return VERTEX_COLOR;
+			}
+		};
+
+		const toVertexSize = (wavefront, index) => {
+			if (0 <= wavefront.bridges[index]) {
+				return VERTEX_BRIDGE_SIZE;
+			} else if (1 < wavefront.mappings[index].length) {
+				return VERTEX_MERGED_SIZE;
+			} else if (wavefront.parent == null) {
+				return VERTEX_OUTER_SIZE;
+			} else if (wavefront.children.length <= 0) {
+				return VERTEX_INNER_SIZE;
+			} else {
+				return VERTEX_SIZE;
+			}
+		};
 
 		const renderWavefront = (settings, wavefront) => {
 			const ctx = settings.ctx;
 			ctx.save();
 			ctx.translate(settings.cx, settings.cy);
 			ctx.scale(settings.dpr, settings.dpr);
+
+			// Mappings
 			const p = wavefront.points;
 			const pl = p.length;
+			const parent = wavefront.parent;
+			if (parent != null) {
+				const m = wavefront.mappings;
+				ctx.lineWidth = MAPPING_STROKE_WIDTH;
+				ctx.strokeStyle = MAPPING_COLOR;
+				ctx.setLineDash(MAPPING_STROKE_DASH);
+				for (let i = 0; i < pl; i += 2) {
+					const mx = m[i];
+					const x0  = p[i];
+					const y0  = p[i + 1];
+					for (let k = 0, kmax = mx.length; k < kmax; ++k) {
+						const pi = mx[k];
+						const x1  = parent.points[pi];
+						const y1  = parent.points[pi + 1];
+						ctx.beginPath();
+						ctx.moveTo(x0, y0);
+						ctx.lineTo(x1, y1);
+						ctx.stroke();
+					}
+				}
+			}
+
 			if (2 < pl) {
-				// Points
+				// Edges
 				ctx.lineWidth = EDGE_STROKE_WIDTH;
 				ctx.lineJoin = EDGE_STROKE_JOIN;
 				ctx.strokeStyle = EDGE_COLOR;
+				ctx.setLineDash(EDGE_STROKE_DASH);
 				ctx.beginPath();
 				ctx.moveTo(p[0], p[1]);
 				for (let i = 2; i < pl; i += 2) {
@@ -90,11 +156,12 @@
 				ctx.closePath();
 				ctx.stroke();
 
-				// Points
-				ctx.fillStyle = VERTEX_COLOR;
+				// Vertices
 				for (let i = 0; i < pl; i += 2) {
+					const size = toVertexSize(wavefront, i);
+					ctx.fillStyle = toVertexColor(wavefront, i);
 					ctx.beginPath();
-					ctx.ellipse(p[i], p[i + 1], VERTEX_SIZE, VERTEX_SIZE, 0, 0, 2 * Math.PI);
+					ctx.ellipse(p[i], p[i + 1], size, size, 0, 0, 2 * Math.PI);
 					ctx.fill();
 				}
 
@@ -102,6 +169,7 @@
 				const n = wavefront.normals;
 				ctx.lineWidth = NORMAL_STROKE_WIDTH;
 				ctx.strokeStyle = NORMAL_COLOR;
+				ctx.setLineDash(NORMAL_STROKE_DASH);
 				for (let i = 0; i < pl; i += 2) {
 					const k = (i + 2) % pl;
 					const x0  = (p[i] + p[k]) * 0.5;
@@ -112,11 +180,14 @@
 					ctx.stroke();
 				}
 			} else if (pl === 2) {
-				ctx.fillStyle = VERTEX_COLOR;
+				const size = toVertexSize(wavefront, 0);
+				ctx.fillStyle = toVertexColor(wavefront, 0);
 				ctx.beginPath();
-				ctx.ellipse(p[0], p[1], VERTEX_SIZE, VERTEX_SIZE, 0, 0, 2 * Math.PI);
+				ctx.ellipse(p[0], p[1], size, size, 0, 0, 2 * Math.PI);
 				ctx.fill();
 			}
+
+			// Done
 			ctx.restore();
 		};
 
