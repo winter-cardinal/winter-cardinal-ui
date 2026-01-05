@@ -410,50 +410,21 @@ export class UtilStraightSkeletonWavefront {
 		}
 	}
 
-	protected toBridgesShifted(index: number, b: Map<number, number>): Map<number, number> {
-		if (this.checkIfNeedToShiftBridges(index, b)) {
-			const result = new Map<number, number>();
-			b.forEach((from, to) => {
-				result.set(index < from ? from + 2 : from, index < to ? to + 2 : to);
-			});
-			return result;
-		}
-		return b;
-	}
-
-	protected checkIfNeedToShiftBridges(index: number, b: Map<number, number>): boolean {
-		let result = false;
-		b.forEach((from, to) => {
-			if (index < from || index < to) {
-				result = true;
-			}
-		});
-		return result;
-	}
-
 	protected toMappingShifted(index: number, m: number[]): number[] {
-		if (this.checkIfNeedToShiftMapping(index, m)) {
-			const result: number[] = [];
-			const ml = m.length;
-			for (let i = 0; i < ml; ++i) {
-				const mv = m[i];
-				if (index < mv) {
-					m[i] = mv + 2;
-				}
-			}
-			return result;
-		}
-		return m;
-	}
-
-	protected checkIfNeedToShiftMapping(index: number, m: number[]): boolean {
 		const ml = m.length;
 		for (let i = 0; i < ml; ++i) {
 			if (index < m[i]) {
-				return true;
+				const result: number[] = [];
+				for (let k = 0; k < ml; ++k) {
+					const mv = m[k];
+					if (index < mv) {
+						m[k] = mv + 2;
+					}
+				}
+				return result;
 			}
 		}
-		return false;
+		return m;
 	}
 
 	cut(result: UtilStraightSkeletonWavefront[]): boolean {
