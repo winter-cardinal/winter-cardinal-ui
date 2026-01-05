@@ -268,7 +268,7 @@ export class UtilPolygon {
 			const c1 = dpn0 <= 0 && dpn1 <= 0;
 			const c2 = (c0 || c1) && (Math.abs(dpn0) < epsilon || Math.abs(dpn1) < epsilon);
 			const c3 = 0 <= dpn0 && dpn1 <= 0;
-			const c4 = dpn0 <= 0 && dpn1 <= 0;
+			const c4 = dpn0 <= 0 && 0 <= dpn1;
 			if (c2 || c3 || c4) {
 				const mkx = nky;
 				const mky = -nkx;

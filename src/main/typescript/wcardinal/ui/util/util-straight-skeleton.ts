@@ -7,7 +7,7 @@ export class UtilStraightSkeletonWavefront {
 	readonly points: number[];
 	readonly normals: number[];
 	readonly mappings: number[][];
-	bridges: Map<number, number>;
+	readonly bridges: number[];
 	readonly children: UtilStraightSkeletonWavefront[];
 	protected readonly epsilon: number;
 
@@ -17,7 +17,7 @@ export class UtilStraightSkeletonWavefront {
 		this.points = [];
 		this.normals = [];
 		this.mappings = [];
-		this.bridges = new Map<number, number>();
+		this.bridges = [];
 		this.children = [];
 		this.epsilon = epsilon;
 	}
@@ -298,6 +298,7 @@ export class UtilStraightSkeletonWavefront {
 		const empty = UtilStraightSkeletonWavefront.EMPTY_ARRAY;
 		const n = this.normals;
 		const m = this.mappings;
+		const b = this.bridges;
 		let nr = 0;
 		let ppx = p[0];
 		let ppy = p[1];
@@ -351,6 +352,7 @@ export class UtilStraightSkeletonWavefront {
 				p.length = k;
 				n.length = k;
 				m.length = k;
+				b.length = k;
 			}
 			return true;
 		}
@@ -375,7 +377,14 @@ export class UtilStraightSkeletonWavefront {
 		n.splice(index + 2, 0, nx, ny);
 
 		// Shift indices in bridges.
-		this.bridges = this.toBridgesShifted(index, this.bridges);
+		const b = this.bridges;
+		for (let i = 0; i < pl; i += 2) {
+			const bx = b[i];
+			if (index < bx) {
+				b[i] = bx + 2;
+			}
+		}
+		b.splice(index + 2, 0, -1, -1);
 
 		// Insert a mapping and shift indices in mappings
 		const m = this.mappings;
@@ -451,6 +460,7 @@ export class UtilStraightSkeletonWavefront {
 		const p = this.points;
 		let pl = p.length;
 		const n = this.normals;
+		const b = this.bridges;
 		const epsilon = this.epsilon;
 		for (let i = 0; i < pl; i += 2) {
 			const pix = p[i];
@@ -471,7 +481,8 @@ export class UtilStraightSkeletonWavefront {
 					const mky = -nkx;
 					const dim = mkx * dix + mky * diy;
 					if (Math.abs(dim) < epsilon) {
-						this.bridges.set(i, k).set(k, i);
+						b[i] = k;
+						b[k] = i;
 						break;
 					} else {
 						const l = (k + 2) % pl;
@@ -481,13 +492,16 @@ export class UtilStraightSkeletonWavefront {
 						const dly = ply - pky;
 						const dlm = mkx * dlx + mky * dly;
 						if (Math.abs(dim - dlm) < epsilon) {
-							this.bridges.set(i, k + 2).set(k + 2, i);
+							b[i] = k + 2;
+							b[k + 2] = i;
 						} else if (0 <= dim && dim <= dlm) {
 							if (Math.abs(dlm) < epsilon) {
 								if (dim <= 0.5 * dlm) {
-									this.bridges.set(i, k).set(k, i);
+									b[i] = k;
+									b[k] = i;
 								} else {
-									this.bridges.set(i, k + 2).set(k + 2, i);
+									b[i] = k + 2;
+									b[k + 2] = i;
 								}
 							} else {
 								// Insert a vertex
@@ -495,9 +509,11 @@ export class UtilStraightSkeletonWavefront {
 
 								// Add this bridge
 								if (k < i) {
-									this.bridges.set(i + 2, k + 2).set(k + 2, i + 2);
+									b[i + 2] = k + 2;
+									b[k + 2] = i + 2;
 								} else {
-									this.bridges.set(i, k + 2).set(k + 2, i);
+									b[i] = k + 2;
+									b[k + 2] = i;
 								}
 
 								// Adjust i and pl
@@ -512,25 +528,29 @@ export class UtilStraightSkeletonWavefront {
 				}
 			}
 		}
-		this.bridges.forEach((ifrom, ito) => {
-			if (ifrom < ito) {
+		for (let ifrom = 0; ifrom < pl; ifrom += 2) {
+			const ito = b[ifrom];
+			if (0 <= ito && ifrom < ito) {
 				const child = new UtilStraightSkeletonWavefront(this, this.distance, epsilon);
 				const cp = child.points;
 				const cn = child.normals;
 				const cm = child.mappings;
+				const cb = child.bridges;
 				for (let i = ifrom; i < pl; i += 2) {
 					cp.push(p[i], p[i + 1]);
 					cn.push(n[i], n[i + 1]);
 					const mix = [i];
 					cm.push(mix, mix);
+					cb.push(-1, -1);
 					if (ifrom < i) {
-						const k = this.bridges.get(i);
-						if (k != null) {
+						const k = b[i];
+						if (0 <= k) {
 							if (i < k) {
 								cp.push(p[k], p[k + 1]);
 								cn.push(n[k], n[k + 1]);
 								const mkx = [k];
 								cm.push(mkx, mkx);
+								cb.push(-1, -1);
 								i = k;
 							} else {
 								break;
@@ -541,23 +561,26 @@ export class UtilStraightSkeletonWavefront {
 				child.merge();
 				result.push(child);
 			}
-		});
+		}
 		const child = new UtilStraightSkeletonWavefront(this, this.distance, epsilon);
 		const cp = child.points;
 		const cn = child.normals;
 		const cm = child.mappings;
+		const cb = child.bridges;
 		for (let i = 0; i < pl; i += 2) {
 			cp.push(p[i], p[i + 1]);
 			cn.push(n[i], n[i + 1]);
 			const mix = [i];
 			cm.push(mix, mix);
-			const k = this.bridges.get(i);
-			if (k != null) {
+			cb.push(-1, -1);
+			const k = b[i];
+			if (0 <= k) {
 				if (i < k) {
 					cp.push(p[k], p[k + 1]);
 					cn.push(n[k], n[k + 1]);
 					const mkx = [k];
 					cm.push(mkx, mkx);
+					cb.push(-1, -1);
 					i = k;
 				} else {
 					break;
@@ -580,6 +603,7 @@ export class UtilStraightSkeletonWavefront {
 		const p = result.points;
 		const n = result.normals;
 		const m = result.mappings;
+		const b = result.bridges;
 		const empty = UtilStraightSkeletonWavefront.EMPTY_ARRAY;
 		if (polygon.isCw()) {
 			for (let i = pointsLength - 2; 0 <= i; i -= 2) {
@@ -587,12 +611,14 @@ export class UtilStraightSkeletonWavefront {
 				n.push(-normals[k], -normals[k + 1]);
 				p.push(points[i], points[i + 1]);
 				m.push(empty, empty);
+				b.push(-1, -1);
 			}
 		} else {
 			for (let i = 0; i < pointsLength; i += 2) {
 				n.push(normals[i], normals[i + 1]);
 				p.push(points[i], points[i + 1]);
 				m.push(empty, empty);
+				b.push(-1, -1);
 			}
 		}
 		return result;

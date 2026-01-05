@@ -60,10 +60,10 @@
 		"use strict";
 
 		const EDGE_COLOR = "#666";
-		const EDGE_STROKE_WIDTH = 3;
+		const EDGE_STROKE_WIDTH = 1;
 		const EDGE_STROKE_JOIN = "round";
 		const VERTEX_COLOR = "#666";
-		const VERTEX_SIZE = 3;
+		const VERTEX_SIZE = 1.5;
 		const VERTEX_HIT_AREA = 12 * 12;
 		const NORMAL_COLOR = "#3388ff99";
 		const NORMAL_LENGTH = 20;
@@ -89,6 +89,14 @@
 				}
 				ctx.closePath();
 				ctx.stroke();
+
+				// Points
+				ctx.fillStyle = VERTEX_COLOR;
+				for (let i = 0; i < pl; i += 2) {
+					ctx.beginPath();
+					ctx.ellipse(p[i], p[i + 1], VERTEX_SIZE, VERTEX_SIZE, 0, 0, 2 * Math.PI);
+					ctx.fill();
+				}
 
 				// Normals
 				const n = wavefront.normals;
