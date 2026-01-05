@@ -7,6 +7,7 @@ export class UtilStraightSkeletonWavefront {
 	readonly points: number[];
 	readonly normals: number[];
 	readonly mappings: number[][];
+	bridges: Map<number, number>;
 	readonly children: UtilStraightSkeletonWavefront[];
 	protected readonly epsilon: number;
 
@@ -16,6 +17,7 @@ export class UtilStraightSkeletonWavefront {
 		this.points = [];
 		this.normals = [];
 		this.mappings = [];
+		this.bridges = new Map<number, number>();
 		this.children = [];
 		this.epsilon = epsilon;
 	}
@@ -101,9 +103,9 @@ export class UtilStraightSkeletonWavefront {
 						}
 					}
 				} else {
-					if (dpim < epsilon) {
+					if (Math.abs(dpim) < epsilon) {
 						const dpin = nix * dpix + niy * dpiy;
-						if (dpin < epsilon) {
+						if (Math.abs(dpin) < epsilon) {
 							const dr = 0;
 							if (0 <= dr && (mdri < 0 || dr < mdr)) {
 								mdr = dr;
@@ -209,9 +211,9 @@ export class UtilStraightSkeletonWavefront {
 						}
 
 						// b = 1
-						const dtma = dtm + dtkm;
+						const dtma = dtm - dtkm;
 						if (epsilon < Math.abs(dtma)) {
-							const dr = (dpm + dpkm) / dtma;
+							const dr = (dpm - dpkm) / dtma;
 							if (0 <= dr && (mdri < 0 || dr < mdr)) {
 								const dpn = nkx * dpx + nky * dpy;
 								if (Math.abs(dpn - dr * dtn)) {
@@ -220,7 +222,7 @@ export class UtilStraightSkeletonWavefront {
 								}
 							}
 						} else {
-							if (Math.abs(dpm + dpkm) < epsilon) {
+							if (Math.abs(dpm - dpkm) < epsilon) {
 								const dpn = nkx * dpx + nky * dpy;
 								if (Math.abs(dpn) < epsilon) {
 									const dr = 0;
@@ -273,20 +275,8 @@ export class UtilStraightSkeletonWavefront {
 		if (pl <= 4) {
 			return children;
 		}
-
-		const n = this.normals;
-		const next = new UtilStraightSkeletonWavefront(this, this.distance, this.epsilon);
-		const np = next.points;
-		const nn = next.normals;
-		const nm = next.mappings;
-		for (let i = 0; i < pl; i += 2) {
-			np.push(p[i], p[i + 1]);
-			nn.push(n[i], n[i + 1]);
-			const m = [i];
-			nm.push(m, m);
-		}
 		children.length = 0;
-		next.cut(children);
+		this.cut(children);
 		for (let i = children.length - 1; 0 <= i; --i) {
 			if (!children[i].advance()) {
 				// Failed to advance this wavefront
@@ -367,182 +357,216 @@ export class UtilStraightSkeletonWavefront {
 		return false;
 	}
 
-	cut(result: UtilStraightSkeletonWavefront[]): boolean {
+	insert(index: number, r: number): void {
+		// Insert a position
 		const p = this.points;
-		const n = this.normals;
-		const m = this.mappings;
 		const pl = p.length;
-		for (let i = 0; i < pl; i += 2) {
-			if (this.cut0(i, p, n, m, pl, result)) {
+		const nindex = (index + 2) % pl;
+		const px = p[index];
+		const py = p[index + 1];
+		const npx = p[nindex];
+		const npy = p[nindex + 1];
+		p.splice(index + 2, 0, px + r * (npx - px), py + r * (npy - py));
+
+		// Insert a normal
+		const n = this.normals;
+		const nx = n[index];
+		const ny = n[index + 1];
+		n.splice(index + 2, 0, nx, ny);
+
+		// Shift indices in bridges.
+		this.bridges = this.toBridgesShifted(index, this.bridges);
+
+		// Insert a mapping and shift indices in mappings
+		const m = this.mappings;
+		const mx = m[index];
+		const mxl = mx.length;
+		const parent = this.parent;
+		if (parent && 0 < mxl) {
+			// Shift indices in mappings
+			const pindex = mx[mxl - 1];
+			for (let i = 0; i < pl; i += 2) {
+				m[i] = m[i + 1] = this.toMappingShifted(pindex, m[i]);
+			}
+
+			// Insert a mapping
+			const nmx = [pindex + 2];
+			m.splice(index + 2, 0, nmx, nmx);
+
+			// Insert a vertex to parent vertices
+			parent.insert(pindex, r);
+		} else {
+			const empty = UtilStraightSkeletonWavefront.EMPTY_ARRAY;
+			m.splice(index + 2, 0, empty, empty);
+		}
+	}
+
+	protected toBridgesShifted(index: number, b: Map<number, number>): Map<number, number> {
+		if (this.checkIfNeedToShiftBridges(index, b)) {
+			const result = new Map<number, number>();
+			b.forEach((from, to) => {
+				result.set(index < from ? from + 2 : from, index < to ? to + 2 : to);
+			});
+			return result;
+		}
+		return b;
+	}
+
+	protected checkIfNeedToShiftBridges(index: number, b: Map<number, number>): boolean {
+		let result = false;
+		b.forEach((from, to) => {
+			if (index < from || index < to) {
+				result = true;
+			}
+		});
+		return result;
+	}
+
+	protected toMappingShifted(index: number, m: number[]): number[] {
+		if (this.checkIfNeedToShiftMapping(index, m)) {
+			const result: number[] = [];
+			const ml = m.length;
+			for (let i = 0; i < ml; ++i) {
+				const mv = m[i];
+				if (index < mv) {
+					m[i] = mv + 2;
+				}
+			}
+			return result;
+		}
+		return m;
+	}
+
+	protected checkIfNeedToShiftMapping(index: number, m: number[]): boolean {
+		const ml = m.length;
+		for (let i = 0; i < ml; ++i) {
+			if (index < m[i]) {
 				return true;
 			}
 		}
-		result.push(this);
 		return false;
 	}
 
-	protected cut0(
-		i: number,
-		p: number[],
-		n: number[],
-		r: number[][],
-		pl: number,
-		result: UtilStraightSkeletonWavefront[]
-	): boolean {
+	cut(result: UtilStraightSkeletonWavefront[]): boolean {
+		const p = this.points;
+		let pl = p.length;
+		const n = this.normals;
 		const epsilon = this.epsilon;
-		const pix = p[i];
-		const piy = p[i + 1];
-		for (let k = 0; k < pl; k += 2) {
-			if (k === i || k === (pl + i - 2) % pl) {
-				continue;
-			}
-			const pkx = p[k];
-			const pky = p[k + 1];
-			const nkx = n[k];
-			const nky = n[k + 1];
-			const dix = pix - pkx;
-			const diy = piy - pky;
-			const din = nkx * dix + nky * diy;
-			if (Math.abs(din) < epsilon) {
-				const mkx = nky;
-				const mky = -nkx;
-				const dim = mkx * dix + mky * diy;
-				if (Math.abs(dim) < epsilon) {
-					// (p[i],p[i+1]) = (p[k], p[k+1])
-					if (i < k) {
-						// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-						// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k], p[k+1], p[k+2], ..., p[pl-1]).
-						this.cut1(i, k, p, n, r, result);
-						this.cut2(0, i, k, pl - 2, p, n, r, result);
+		for (let i = 0; i < pl; i += 2) {
+			const pix = p[i];
+			const piy = p[i + 1];
+			for (let k = 0; k < pl; k += 2) {
+				if (k === i || k === (pl + i - 2) % pl) {
+					continue;
+				}
+				const pkx = p[k];
+				const pky = p[k + 1];
+				const nkx = n[k];
+				const nky = n[k + 1];
+				const dix = pix - pkx;
+				const diy = piy - pky;
+				const din = nkx * dix + nky * diy;
+				if (Math.abs(din) < epsilon) {
+					const mkx = nky;
+					const mky = -nkx;
+					const dim = mkx * dix + mky * diy;
+					if (Math.abs(dim) < epsilon) {
+						this.bridges.set(i, k).set(k, i);
+						break;
 					} else {
-						// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-						// -> (p[k], p[k+1], p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
-						this.cut1(k, i, p, n, r, result);
-						this.cut2(0, k, i, pl - 2, p, n, r, result);
-					}
-					return true;
-				} else {
-					const l = (k + 2) % pl;
-					const plx = p[l];
-					const ply = p[l + 1];
-					const dlx = plx - pkx;
-					const dly = ply - pky;
-					const dlm = mkx * dlx + mky * dly;
-					if (0 <= dim && dim <= dlm && epsilon <= Math.abs(dim - dlm)) {
-						if (i < k) {
-							// (p[0], ..., p[i], ...., p[k], p[k+1], p[k+2], ..., p[pl-1]).
-							// -> (p[i], ..., p[k], p[k+1]) and (p[0], ..., p[i], p[k+2], ..., p[pl-1]).
-							this.cut1(i, k, p, n, r, result);
-							this.cut2(0, i, k + 2, pl - 2, p, n, r, result);
-						} else {
-							// (p[0], ..., p[k], p[k+1], p[k+2], ..., p[i], ...., p[pl-1]).
-							// -> (p[k+2], ..., p[i]) and (p[0], ..., p[k], p[k+1], p[i], ..., p[pl-1]).
-							this.cut1(k + 2, i, p, n, r, result);
-							this.cut2(0, k, i, pl - 2, p, n, r, result);
+						const l = (k + 2) % pl;
+						const plx = p[l];
+						const ply = p[l + 1];
+						const dlx = plx - pkx;
+						const dly = ply - pky;
+						const dlm = mkx * dlx + mky * dly;
+						if (Math.abs(dim - dlm) < epsilon) {
+							this.bridges.set(i, k + 2).set(k + 2, i);
+						} else if (0 <= dim && dim <= dlm) {
+							if (Math.abs(dlm) < epsilon) {
+								if (dim <= 0.5 * dlm) {
+									this.bridges.set(i, k).set(k, i);
+								} else {
+									this.bridges.set(i, k + 2).set(k + 2, i);
+								}
+							} else {
+								// Insert a vertex
+								this.insert(k, dim / dlm);
+
+								// Add this bridge
+								if (k < i) {
+									this.bridges.set(i + 2, k + 2).set(k + 2, i + 2);
+								} else {
+									this.bridges.set(i, k + 2).set(k + 2, i);
+								}
+
+								// Adjust i and pl
+								if (k + 2 <= i) {
+									i += 2;
+								}
+								pl += 2;
+							}
+							break;
 						}
-						return true;
 					}
 				}
 			}
 		}
-		return false;
-	}
-
-	protected cut1(
-		from: number,
-		to: number,
-		p: number[],
-		n: number[],
-		m: number[][],
-		result: UtilStraightSkeletonWavefront[]
-	): void {
-		if (2 < to - from + 2) {
-			// Copy
-			const tmp = new UtilStraightSkeletonWavefront(this.parent, this.distance, this.epsilon);
-			const tp = tmp.points;
-			const tn = tmp.normals;
-			const tm = tmp.mappings;
-			for (let i = from; i <= to; i += 2) {
-				tp.push(p[i], p[i + 1]);
-				tn.push(n[i], n[i + 1]);
-				tm.push(m[i], m[i + 1]);
+		this.bridges.forEach((ifrom, ito) => {
+			if (ifrom < ito) {
+				const child = new UtilStraightSkeletonWavefront(this, this.distance, epsilon);
+				const cp = child.points;
+				const cn = child.normals;
+				const cm = child.mappings;
+				for (let i = ifrom; i < pl; i += 2) {
+					cp.push(p[i], p[i + 1]);
+					cn.push(n[i], n[i + 1]);
+					const mix = [i];
+					cm.push(mix, mix);
+					if (ifrom < i) {
+						const k = this.bridges.get(i);
+						if (k != null) {
+							if (i < k) {
+								cp.push(p[k], p[k + 1]);
+								cn.push(n[k], n[k + 1]);
+								const mkx = [k];
+								cm.push(mkx, mkx);
+								i = k;
+							} else {
+								break;
+							}
+						}
+					}
+				}
+				child.merge();
+				result.push(child);
 			}
-
-			// Recalculate a normal of the 'to'-th point.
-			const tpl = tp.length;
-			if (2 < tpl) {
-				const dx = tp[0] - tp[tpl - 2];
-				const dy = tp[1] - tp[tpl - 1];
-				const d = dx * dx + dy * dy;
-				if (d <= this.epsilon) {
-					tn[tpl - 2] = tn[0];
-					tn[tpl - 1] = tn[1];
+		});
+		const child = new UtilStraightSkeletonWavefront(this, this.distance, epsilon);
+		const cp = child.points;
+		const cn = child.normals;
+		const cm = child.mappings;
+		for (let i = 0; i < pl; i += 2) {
+			cp.push(p[i], p[i + 1]);
+			cn.push(n[i], n[i + 1]);
+			const mix = [i];
+			cm.push(mix, mix);
+			const k = this.bridges.get(i);
+			if (k != null) {
+				if (i < k) {
+					cp.push(p[k], p[k + 1]);
+					cn.push(n[k], n[k + 1]);
+					const mkx = [k];
+					cm.push(mkx, mkx);
+					i = k;
 				} else {
-					const f = 1 / Math.sqrt(d);
-					const mx = dx * f;
-					const my = dy * f;
-					tn[tpl - 2] = -my;
-					tn[tpl - 1] = mx;
+					break;
 				}
 			}
-
-			// Merge and cut again
-			tmp.merge();
-			tmp.cut(result);
 		}
-	}
-
-	protected cut2(
-		from1: number,
-		to1: number,
-		from2: number,
-		to2: number,
-		p: number[],
-		n: number[],
-		m: number[][],
-		result: UtilStraightSkeletonWavefront[]
-	): void {
-		if (2 < Math.max(0, to1 - from1 + 2) + Math.max(0, to2 - from2 + 2)) {
-			// Copy
-			const tmp = new UtilStraightSkeletonWavefront(this.parent, this.distance, this.epsilon);
-			const tp = tmp.points;
-			const tn = tmp.normals;
-			const tm = tmp.mappings;
-			for (let l = from1; l <= to1; l += 2) {
-				tp.push(p[l], p[l + 1]);
-				tn.push(n[l], n[l + 1]);
-				tm.push(m[l], m[l + 1]);
-			}
-			for (let l = from2; l <= to2; l += 2) {
-				tp.push(p[l], p[l + 1]);
-				tn.push(n[l], n[l + 1]);
-				tm.push(m[l], m[l + 1]);
-			}
-
-			// Recalculate a normal of the 'to1 - from1'-th point.
-			const tpl = tp.length;
-			if (2 < tpl) {
-				const itp = to1 - from1;
-				const nitp = (itp + 2) % tpl;
-				const dx = tp[nitp] - tp[itp];
-				const dy = tp[nitp + 1] - tp[itp + 1];
-				const d = dx * dx + dy * dy;
-				if (d <= this.epsilon) {
-					tn[itp] = tn[nitp];
-					tn[itp + 1] = tn[nitp + 1];
-				} else {
-					const f = 1 / Math.sqrt(d);
-					const mx = dx * f;
-					const my = dy * f;
-					tn[itp] = -my;
-					tn[itp + 1] = mx;
-				}
-			}
-
-			// Merge and cut again
-			tmp.merge();
-			tmp.cut(result);
-		}
+		child.merge();
+		result.push(child);
+		return true;
 	}
 
 	public static from(polygon: UtilPolygon, epsilon: number): UtilStraightSkeletonWavefront {
