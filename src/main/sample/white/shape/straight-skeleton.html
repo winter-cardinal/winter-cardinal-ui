@@ -19,6 +19,8 @@
 		margin: 0;
 		padding: 0;
 		background-color: #eeeeee;
+		overflow: hidden;
+		overflow: clip;
 	}
 
 	canvas {
@@ -239,7 +241,7 @@
 		const canvas = document.querySelector("canvas");
 		const hitPoint = document.querySelector("hit-point");
 		const ctx = canvas.getContext("2d");
-		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 155.333, -52];
+		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
 		let wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL);
 		const hitTestResult = {
 			d: 0,
