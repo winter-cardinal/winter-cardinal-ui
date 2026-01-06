@@ -7,6 +7,7 @@ export class UtilStraightSkeletonWavefront {
 	readonly points: number[];
 	readonly normals: number[];
 	readonly mappings: number[][];
+	readonly rmappings: number[][];
 	readonly bridges: number[];
 	readonly children: UtilStraightSkeletonWavefront[];
 	protected readonly epsilon: number;
@@ -17,6 +18,7 @@ export class UtilStraightSkeletonWavefront {
 		this.points = [];
 		this.normals = [];
 		this.mappings = [];
+		this.rmappings = [];
 		this.bridges = [];
 		this.children = [];
 		this.epsilon = epsilon;
@@ -359,7 +361,7 @@ export class UtilStraightSkeletonWavefront {
 		return false;
 	}
 
-	insert(index: number, r: number): void {
+	insert(index: number, r: number, child: UtilStraightSkeletonWavefront | null): void {
 		// Insert a position
 		const p = this.points;
 		const pl = p.length;
@@ -403,10 +405,24 @@ export class UtilStraightSkeletonWavefront {
 			m.splice(index + 2, 0, nmx, nmx);
 
 			// Insert a vertex to parent vertices
-			parent.insert(pindex, r);
+			parent.insert(pindex, r, this);
 		} else {
 			const empty = UtilStraightSkeletonWavefront.EMPTY_ARRAY;
 			m.splice(index + 2, 0, empty, empty);
+		}
+
+		// Shift mappings of children
+		const children = this.children;
+		const childrenLength = children.length;
+		for (let i = 0; i < childrenLength; ++i) {
+			const c = children[i];
+			if (c !== child) {
+				const cm = c.mappings;
+				const cml = cm.length;
+				for (let k = 0; k < cml; k += 2) {
+					cm[k] = cm[k + 1] = this.toMappingShifted(index, cm[k]);
+				}
+			}
 		}
 	}
 
@@ -461,35 +477,30 @@ export class UtilStraightSkeletonWavefront {
 						const dly = ply - pky;
 						const dlm = mkx * dlx + mky * dly;
 						if (Math.abs(dim - dlm) < epsilon) {
-							b[i] = k + 2;
-							b[k + 2] = i;
+							b[i] = l;
+							b[l] = i;
 						} else if (0 <= dim && dim <= dlm) {
 							if (Math.abs(dlm) < epsilon) {
 								if (dim <= 0.5 * dlm) {
 									b[i] = k;
 									b[k] = i;
 								} else {
-									b[i] = k + 2;
-									b[k + 2] = i;
+									b[i] = l;
+									b[l] = i;
 								}
 							} else {
 								// Insert a vertex
-								this.insert(k, dim / dlm);
-
-								// Add this bridge
-								if (k < i) {
-									b[i + 2] = k + 2;
-									b[k + 2] = i + 2;
-								} else {
-									b[i] = k + 2;
-									b[k + 2] = i;
-								}
+								this.insert(k, dim / dlm, null);
 
 								// Adjust i and pl
 								if (k + 2 <= i) {
 									i += 2;
 								}
 								pl += 2;
+
+								// Add this bridge
+								b[i] = k + 2;
+								b[k + 2] = i;
 							}
 							break;
 						}
@@ -607,6 +618,7 @@ export class UtilStraightSkeleton {
 			if (level < 0 || 0 < level) {
 				this.next(wavefront, level);
 			}
+			this.map(wavefront);
 			result.push(wavefront);
 		}
 		return result;
@@ -622,6 +634,34 @@ export class UtilStraightSkeleton {
 					this.next(children[i], level);
 				}
 			}
+		}
+	}
+
+	protected static map(wavefront: UtilStraightSkeletonWavefront): void {
+		const p = wavefront.points;
+		const pl = p.length;
+		const r = wavefront.rmappings;
+		for (let i = 0; i < pl; i += 2) {
+			r.push([], []);
+		}
+
+		const children = wavefront.children;
+		const childrenLength = children.length;
+		for (let i = 0; i < childrenLength; ++i) {
+			const child = children[i];
+			const m = child.mappings;
+			const ml = m.length;
+			for (let k = 0; k < ml; k += 2) {
+				const mx = m[k];
+				const mxl = mx.length;
+				for (let l = 0; l < mxl; ++l) {
+					const mv = mx[l];
+					r[mv].push(i);
+					r[mv + 1].push(k);
+				}
+			}
+
+			this.map(child);
 		}
 	}
 }

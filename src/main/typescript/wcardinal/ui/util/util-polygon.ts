@@ -316,9 +316,9 @@ export class UtilPolygon {
 			tp.push(tpx, tpy);
 			const tdx = p[from] - tpx;
 			const tdy = p[from + 1] - tpy;
-			const td = tdx * tdx + tdy * tdy;
-			if (this.epsilon < Math.abs(td)) {
-				const f = 1 / Math.sqrt(td);
+			const td = Math.sqrt(tdx * tdx + tdy * tdy);
+			if (0 < td) {
+				const f = 1 / td;
 				const mx = tdx * f;
 				const my = tdy * f;
 				tn.push(-my, mx);
@@ -337,16 +337,16 @@ export class UtilPolygon {
 			if (2 < tpl) {
 				const dx = tp[0] - tp[tpl - 2];
 				const dy = tp[1] - tp[tpl - 1];
-				const d = dx * dx + dy * dy;
-				if (d <= this.epsilon) {
-					tn[tpl - 2] = tn[0];
-					tn[tpl - 1] = tn[1];
-				} else {
-					const f = 1 / Math.sqrt(d);
+				const d = Math.sqrt(dx * dx + dy * dy);
+				if (0 < d) {
+					const f = 1 / d;
 					const mx = dx * f;
 					const my = dy * f;
 					tn[tpl - 2] = -my;
 					tn[tpl - 1] = mx;
+				} else {
+					tn[tpl - 2] = tn[0];
+					tn[tpl - 1] = tn[1];
 				}
 			}
 
@@ -381,9 +381,9 @@ export class UtilPolygon {
 			const itp0 = from2 <= to2 ? from2 : from1;
 			const tdx = p[itp0] - tpx;
 			const tdy = p[itp0 + 1] - tpy;
-			const td = tdx * tdx + tdy * tdy;
-			if (this.epsilon < Math.abs(td)) {
-				const f = 1 / Math.sqrt(td);
+			const td = Math.sqrt(tdx * tdx + tdy * tdy);
+			if (0 < td) {
+				const f = 1 / td;
 				const mx = tdx * f;
 				const my = tdy * f;
 				tn.push(-my, mx);
@@ -404,16 +404,16 @@ export class UtilPolygon {
 				const nitp = (itp1 + 2) % tpl;
 				const dx = tp[nitp] - tp[itp1];
 				const dy = tp[nitp + 1] - tp[itp1 + 1];
-				const d = dx * dx + dy * dy;
-				if (d <= this.epsilon) {
-					tn[itp1] = tn[nitp];
-					tn[itp1 + 1] = tn[nitp + 1];
-				} else {
-					const f = 1 / Math.sqrt(d);
+				const d = Math.sqrt(dx * dx + dy * dy);
+				if (0 < d) {
+					const f = 1 / d;
 					const mx = dx * f;
 					const my = dy * f;
 					tn[itp1] = -my;
 					tn[itp1 + 1] = mx;
+				} else {
+					tn[itp1] = tn[nitp];
+					tn[itp1 + 1] = tn[nitp + 1];
 				}
 			}
 
@@ -438,11 +438,11 @@ export class UtilPolygon {
 			const py = points[i + 1];
 			const dx = npx - px;
 			const dy = npy - py;
-			const d = dx * dx + dy * dy;
-			if (d <= epsilon) {
+			if (Math.abs(dx) <= epsilon && Math.abs(dy) < epsilon) {
 				continue;
 			}
-			const f = 1 / Math.sqrt(d);
+			const d = Math.sqrt(dx * dx + dy * dy);
+			const f = 1 / d;
 			const mx = dx * f;
 			const my = dy * f;
 			n.unshift(-my, mx);
