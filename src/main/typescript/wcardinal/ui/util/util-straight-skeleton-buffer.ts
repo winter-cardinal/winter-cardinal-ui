@@ -143,7 +143,13 @@ export class UtilStraightSkeletonBufferBuilder {
 
 	protected triangulate(wavefronts: UtilStraightSkeletonWavefront[], indices: number[]): void {
 		const wavefrontsLength = wavefronts.length;
-		if (3 <= wavefrontsLength) {
+		if (wavefrontsLength === 3) {
+			this._indices.push(
+				this.addVertex(wavefronts[0], indices[0]),
+				this.addVertex(wavefronts[1], indices[1]),
+				this.addVertex(wavefronts[2], indices[2])
+			);
+		} else if (3 < wavefrontsLength) {
 			// Add all vertices
 			const ivs: number[] = [];
 			const vs: number[] = [];
