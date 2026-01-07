@@ -1,3 +1,4 @@
+import { utils } from "pixi.js";
 import { UtilStraightSkeletonWavefront } from "./util-straight-skeleton";
 
 export class UtilStraightSkeletonBufferBuilder {
@@ -23,7 +24,7 @@ export class UtilStraightSkeletonBufferBuilder {
 			this._wavefrontToIndexToIv.set(wavefront, indexToIv);
 			const points = wavefront.points;
 			vertices.push(points[index], points[index + 1]);
-			this._distances.push(wavefront.distance, wavefront.distance);
+			this._distances.push(wavefront.distance);
 			return result;
 		} else {
 			let result = indexToIv.get(index);
@@ -35,7 +36,7 @@ export class UtilStraightSkeletonBufferBuilder {
 			indexToIv.set(index, result);
 			const points = wavefront.points;
 			vertices.push(points[index], points[index + 1]);
-			this._distances.push(wavefront.distance, wavefront.distance);
+			this._distances.push(wavefront.distance);
 			return result;
 		}
 	}
@@ -145,18 +146,43 @@ export class UtilStraightSkeletonBufferBuilder {
 		if (3 <= wavefrontsLength) {
 			// Add all vertices
 			const ivs: number[] = [];
+			const vs: number[] = [];
+			const vertices = this._vertices;
 			for (let i = 0; i < wavefrontsLength; ++i) {
-				ivs.push(this.addVertex(wavefronts[i], indices[i]));
+				const iv1 = this.addVertex(wavefronts[i], indices[i]);
+				ivs.push(iv1);
+				const iv2 = iv1 << 1;
+				vs.push(vertices[iv2], vertices[iv2 + 1]);
 			}
+
 			// Add all indices
-			const iv0 = ivs[0];
-			for (let i = 1; i + 1 < wavefrontsLength; ++i) {
-				this._indices.push(iv0, ivs[i], ivs[i + 1]);
+			const iis = utils.earcut(vs);
+			const iisl = iis.length;
+			for (let i = 0; i < iisl; i += 3) {
+				this._indices.push(ivs[iis[i]], ivs[iis[i + 1]], ivs[iis[i + 2]]);
 			}
 		}
 	}
 
+	/**
+	 * Returns {@link UtilStraightSkeletonBuffer} instance.
+	 * Must not call any methods after calling this methods.
+	 *
+	 * @returns a new {@link UtilStraightSkeletonBuffer} instance
+	 */
 	build(): UtilStraightSkeletonBuffer {
+		const d = this._distances;
+		const dl = d.length;
+		let md = 0;
+		for (let i = 0; i < dl; ++i) {
+			md = Math.max(md, d[i]);
+		}
+		if (0 < md) {
+			for (let i = 0; i < dl; ++i) {
+				d[i] = md - d[i];
+			}
+		}
+		this._wavefrontToIndexToIv.clear();
 		return new UtilStraightSkeletonBuffer(this._vertices, this._distances, this._indices);
 	}
 }

@@ -46,8 +46,10 @@ export class UtilStraightSkeletonWavefront {
 			const ny = n[i + 1];
 			const mx = ny;
 			const my = -nx;
-			const dmn = mx * pnx + my * pny;
-			const s = epsilon <= Math.abs(dmn) ? (1 - (nx * pnx + ny * pny)) / dmn : -0.5 * dmn;
+			const dnm = mx * pnx + my * pny;
+			const dnn = nx * pnx + ny * pny;
+			// TODO: ADD HANDLING FOR THE CASE DNM === 0 &&  DNN < 0
+			const s = 0 < Math.abs(dnm) ? (1 - dnn) / dnm : 0 <= dnn ? -0.5 * dnm : 0;
 			const tx = nx + s * mx;
 			const ty = ny + s * my;
 			t.push(tx, ty);
@@ -190,7 +192,7 @@ export class UtilStraightSkeletonWavefront {
 							const dr = dpm / dtm;
 							if (0 <= dr && (mdri < 0 || dr < mdr)) {
 								const dpn = nkx * dpx + nky * dpy;
-								if (Math.abs(dpn - dr * dtn)) {
+								if (Math.abs(dpn - dr * dtn) < epsilon) {
 									mdr = dr;
 									mdri = i;
 								}
@@ -218,7 +220,7 @@ export class UtilStraightSkeletonWavefront {
 							const dr = (dpm - dpkm) / dtma;
 							if (0 <= dr && (mdri < 0 || dr < mdr)) {
 								const dpn = nkx * dpx + nky * dpy;
-								if (Math.abs(dpn - dr * dtn)) {
+								if (Math.abs(dpn - dr * dtn) < epsilon) {
 									mdr = dr;
 									mdri = i;
 								}

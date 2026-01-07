@@ -103,14 +103,14 @@
 
 			// Vertices
 			const distances = buffer.distances;
-			let mdistance = 0;
-			for (let i = 0; i < verticesLength; i += 2) {
-				mdistance = Math.max(mdistance, distances[i]);
+			const distancesLength = distances.length;
+			let md = 0;
+			for (let i = 0; i < distancesLength; ++i) {
+				md = Math.max(md, distances[i]);
 			}
-			let fdistance = 0 < mdistance ? 1 / mdistance : 1;
+			let fd = 0 < md ? 1 / md : 1;
 			for (let i = 0; i < verticesLength; i += 2) {
-				const rdistance = distances[i] * fdistance;
-				const size = VERTEX_SIZE * rdistance;
+				const size = VERTEX_SIZE * (distances[i >> 1] * fd);
 				ctx.fillStyle = VERTEX_COLOR;
 				ctx.beginPath();
 				ctx.ellipse(vertices[i], vertices[i + 1], size, size, 0, 0, 2 * Math.PI);
