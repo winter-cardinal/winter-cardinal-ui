@@ -33,11 +33,10 @@
 		const container = new wcardinal.ui.EShapeContainer();
 		container.position.set(300, 300);
 
-		const points = [-100, -100, 100, -200, 100, 100, -100, 100];
+		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
 		const shape = wcardinal.ui.createPolygon(points);
 		shape.stroke.enable = true;
 		shape.stroke.width = 10;
-		shape.stroke.align = 0;
 		shape.attach(container);
 
 		application.stage.on("pointermove", (e) => {
@@ -53,7 +52,7 @@
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				child.transform.rotation += 0.01;
-				if (child.stroke.width < 100) {
+				if (child.stroke.width < 40) {
 					child.stroke.width += 0.1;
 				} else {
 					child.stroke.width = 0;
