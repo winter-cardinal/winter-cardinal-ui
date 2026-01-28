@@ -37,7 +37,7 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 	 * Toggles the given node,
 	 *
 	 * @param target a node
-	 * @retrn true if succeeded
+	 * @return true if succeeded
 	 */
 	toggle(target: NODE): boolean;
 

@@ -84,6 +84,7 @@ export * from "./util-keyboard-event";
 export * from "./util-name";
 export * from "./util-overlay";
 export * from "./util-pointer-event";
+export * from "./util-polygon";
 export * from "./util-rgb";
 export * from "./util-rgba";
 export * from "./util-state-blinker";

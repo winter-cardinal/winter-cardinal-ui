@@ -9,6 +9,7 @@ import { EShapeDataValue } from "./shape/e-shape-data-value";
 /**
  * A data mapper.
  *
- * @param dataValue a data value
+ * @param value a data value
+ * @param shape a shape
  */
 export type DDiagramDataMapper = (value: EShapeDataValue, shape: EShape) => void;
