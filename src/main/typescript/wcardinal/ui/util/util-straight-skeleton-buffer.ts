@@ -4,12 +4,14 @@ import { UtilStraightSkeletonWavefront } from "./util-straight-skeleton";
 export class UtilStraightSkeletonBufferBuilder {
 	protected _vertices: number[];
 	protected _distances: number[];
+	protected _clippings: number[];
 	protected _indices: number[];
 	protected _wavefrontToIndexToIv: Map<UtilStraightSkeletonWavefront, Map<number, number>>;
 
 	constructor() {
 		this._vertices = [];
 		this._distances = [];
+		this._clippings = [];
 		this._indices = [];
 		this._wavefrontToIndexToIv = new Map<UtilStraightSkeletonWavefront, Map<number, number>>();
 	}
@@ -42,13 +44,41 @@ export class UtilStraightSkeletonBufferBuilder {
 	}
 
 	addWavefront(wavefront: UtilStraightSkeletonWavefront): void {
-		if (wavefront.parent == null) {
-			const p = wavefront.points;
-			const pl = p.length;
-			if (4 < pl) {
-				for (let i = 0; i < pl; i += 2) {
-					this.addEdge(wavefront, i, (i + 2) % pl);
-				}
+		if (wavefront.parent != null) {
+			return;
+		}
+
+		// Add all edges
+		const distances = this._distances;
+		const oldDistancesLength = distances.length;
+		const p = wavefront.points;
+		const pl = p.length;
+		if (4 < pl) {
+			for (let i = 0; i < pl; i += 2) {
+				this.addEdge(wavefront, i, (i + 2) % pl);
+			}
+		}
+
+		// Make clippings and adjust distances
+		const newDistancesLength = distances.length;
+		if (newDistancesLength <= oldDistancesLength) {
+			return;
+		}
+		let mdistance = distances[oldDistancesLength];
+		for (let i = oldDistancesLength + 1; i < newDistancesLength; ++i) {
+			mdistance = Math.max(mdistance, distances[i]);
+		}
+		const clippings = this._clippings;
+		if (0 < mdistance) {
+			const fdistance = 1 / mdistance;
+			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
+				clippings.push(1 - distances[i] * fdistance);
+				distances[i] = mdistance;
+			}
+		} else {
+			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
+				clippings.push(1);
+				distances[i] = mdistance;
 			}
 		}
 	}
@@ -177,30 +207,26 @@ export class UtilStraightSkeletonBufferBuilder {
 	 * @returns a new {@link UtilStraightSkeletonBuffer} instance
 	 */
 	build(): UtilStraightSkeletonBuffer {
-		const d = this._distances;
-		const dl = d.length;
-		let md = 0;
-		for (let i = 0; i < dl; ++i) {
-			md = Math.max(md, d[i]);
-		}
-		if (0 < md) {
-			for (let i = 0; i < dl; ++i) {
-				d[i] = md - d[i];
-			}
-		}
 		this._wavefrontToIndexToIv.clear();
-		return new UtilStraightSkeletonBuffer(this._vertices, this._distances, this._indices);
+		return new UtilStraightSkeletonBuffer(
+			this._vertices,
+			this._distances,
+			this._clippings,
+			this._indices
+		);
 	}
 }
 
 export class UtilStraightSkeletonBuffer {
 	vertices: number[];
-	indices: number[];
 	distances: number[];
+	clippings: number[];
+	indices: number[];
 
-	constructor(vertices: number[], distances: number[], indices: number[]) {
+	constructor(vertices: number[], distances: number[], clippings: number[], indices: number[]) {
 		this.vertices = vertices;
 		this.distances = distances;
+		this.clippings = clippings;
 		this.indices = indices;
 	}
 

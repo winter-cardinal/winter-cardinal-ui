@@ -6,5 +6,5 @@
 import { isString } from "./is-string";
 
 export const toEnum = <T, TE>(target: T, te: TE): Exclude<T, keyof TE> => {
-	return isString(target) ? (te as any)[target] : target;
+	return isString(target) ? (te as any)[target] : (target as Exclude<T, keyof TE>);
 };

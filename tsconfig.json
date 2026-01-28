@@ -7,7 +7,7 @@
 		"inlineSources": true,
 		"module": "es6",
 		"moduleResolution": "Node",
-		"skipLibCheck": false,
+		"skipLibCheck": true,
 		"importHelpers": true,
 		"declaration": true,
 		"declarationDir": "dist/types",

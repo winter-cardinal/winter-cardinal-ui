@@ -1,0 +1,67 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Polygon</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(() => {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set(300, 300);
+
+		const points = [-100, -100, 100, -200, 100, 100, -100, 100];
+		const shape = wcardinal.ui.createPolygon(points);
+		shape.stroke.enable = true;
+		shape.stroke.width = 10;
+		shape.stroke.align = 0;
+		shape.attach(container);
+
+		application.stage.on("pointermove", (e) => {
+			container.hitTest(e.data.global, (shape) => {
+				console.log(shape);
+			});
+		});
+
+		application.stage.addChild(container);
+		application.update();
+		setInterval(() => {
+			const children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				child.transform.rotation += 0.01;
+				if (child.stroke.width < 100) {
+					child.stroke.width += 0.1;
+				} else {
+					child.stroke.width = 0;
+				}
+			}
+			application.render();
+		}, 32);
+	})();
+	</script>
+</body>
+</html>

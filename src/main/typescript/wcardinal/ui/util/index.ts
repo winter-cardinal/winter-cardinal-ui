@@ -87,6 +87,7 @@ export * from "./util-pointer-event";
 export * from "./util-rgb";
 export * from "./util-rgba";
 export * from "./util-state-blinker";
+export * from "./util-straight-skeleton-buffer";
 export * from "./util-straight-skeleton";
 export * from "./util-transition";
 export * from "./util-wheel-event";
