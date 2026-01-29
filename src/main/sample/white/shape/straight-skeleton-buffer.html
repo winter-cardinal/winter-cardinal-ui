@@ -65,10 +65,17 @@
 		const EDGE_STROKE_WIDTH = 1;
 		const EDGE_STROKE_JOIN = "round";
 		const EDGE_STROKE_DASH = [];
-		const VERTEX_COLOR = "#3388ff99";
 		const VERTEX_SIZE = 4;
 		const VERTEX_HIT_AREA = 12 * 12;
 		const LEVEL = -1;
+
+		const toColorCode = (a, b, t) => {
+			return Math.round(t * a + (1-t) * b).toString(16).padStart(2, "0");
+		};
+
+		const toVertexColor = (c) => {
+			return "#" + toColorCode(0x33, 0xff, c) + "88" + toColorCode(0xff, 0x33, c);
+		}
 
 		const renderBuffer = (settings, buffer) => {
 			const ctx = settings.ctx;
@@ -102,18 +109,11 @@
 			}
 
 			// Vertices
-			const distances = buffer.distances;
-			const distancesLength = distances.length;
-			let md = 0;
-			for (let i = 0; i < distancesLength; ++i) {
-				md = Math.max(md, distances[i]);
-			}
-			let fd = 0 < md ? 1 / md : 1;
+			const clippings = buffer.clippings;
 			for (let i = 0; i < verticesLength; i += 2) {
-				const size = VERTEX_SIZE * (distances[i >> 1] * fd);
-				ctx.fillStyle = VERTEX_COLOR;
+				ctx.fillStyle = toVertexColor(clippings[i >> 1]);
 				ctx.beginPath();
-				ctx.ellipse(vertices[i], vertices[i + 1], size, size, 0, 0, 2 * Math.PI);
+				ctx.ellipse(vertices[i], vertices[i + 1], VERTEX_SIZE, VERTEX_SIZE, 0, 0, 2 * Math.PI);
 				ctx.fill();
 			}
 
@@ -163,7 +163,7 @@
 		const hitPoint = document.querySelector("hit-point");
 		const ctx = canvas.getContext("2d");
 		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
-		let buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL));
+		let buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, 1, 1, LEVEL));
 		const hitTestResult = {
 			d: 0,
 			points: null,
@@ -218,7 +218,7 @@
 			points[i] = x;
 			points[i + 1] = y;
 			console.log("points", points);
-			buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL));
+			buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, 1, 1, LEVEL));
 			render(settings, buffer);
 		};
 		const onPointerMove = (e) => {

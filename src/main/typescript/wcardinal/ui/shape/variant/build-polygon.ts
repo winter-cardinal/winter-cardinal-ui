@@ -8,22 +8,6 @@ import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 import { toScaleInvariant } from "./to-scale-invariant";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
-import { EShape } from "../e-shape";
-import { EShapePolygon } from "./e-shape-polygon";
-
-export const toPolygonVertexCount = (shape: EShape): number => {
-	if (shape instanceof EShapePolygon) {
-		return shape.nvertices;
-	}
-	return 0;
-};
-
-export const toPolygonIndexCount = (shape: EShape): number => {
-	if (shape instanceof EShapePolygon) {
-		return shape.nindices;
-	}
-	return 0;
-};
 
 /**
  * Build index buffer for polygons.
@@ -118,8 +102,8 @@ export const buildPolygonUv = (
 	const dx = x1 - x0;
 	const dy = y3 - y0;
 	let iuv = (voffset << 1) - 1;
-	for (let i = 0, imax = polygonVertices.length; i < imax; i += 2) {
-		uvs[++iuv] = x0 + (0.5 + polygonVertices[i + 0]) * dx;
+	for (let i = 0, n = polygonVertices.length; i < n; i += 2) {
+		uvs[++iuv] = x0 + (0.5 + polygonVertices[i]) * dx;
 		uvs[++iuv] = y0 + (0.5 + polygonVertices[i + 1]) * dy;
 	}
 };

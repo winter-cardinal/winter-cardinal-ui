@@ -6,10 +6,10 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeUploaded, EShapeUploadedImpl } from "../e-shape-uploaded";
-import { toPolygonIndexCount, toPolygonVertexCount } from "./build-polygon";
 import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
 import { BuilderPolygon } from "./builder-polygon";
 import { BuilderText } from "./builder-text";
+import { EShapePolygon } from "./e-shape-polygon";
 
 export const createPolygonUploaded = (
 	buffer: EShapeBuffer,
@@ -21,8 +21,13 @@ export const createPolygonUploaded = (
 	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
 	const ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-	const vcount = toPolygonVertexCount(shape) + tvcount;
-	const icount = toPolygonIndexCount(shape) + ticount;
+	let vcount = tvcount;
+	let icount = ticount;
+	if (shape instanceof EShapePolygon) {
+		const triangulated = shape.triangulated;
+		vcount += triangulated.nvertices;
+		icount += triangulated.nindices;
+	}
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
 			new BuilderPolygon(buffer, voffset, ioffset, vcount, icount),

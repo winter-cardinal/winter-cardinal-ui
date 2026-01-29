@@ -242,7 +242,7 @@
 		const hitPoint = document.querySelector("hit-point");
 		const ctx = canvas.getContext("2d");
 		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
-		let wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL);
+		let wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, 1, 1, LEVEL);
 		const hitTestResult = {
 			d: 0,
 			points: null,
@@ -297,7 +297,7 @@
 			points[i] = x;
 			points[i + 1] = y;
 			console.log("points", points);
-			wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL);
+			wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, 1, 1, LEVEL);
 			render(settings, wavefronts);
 		};
 		const onPointerMove = (e) => {

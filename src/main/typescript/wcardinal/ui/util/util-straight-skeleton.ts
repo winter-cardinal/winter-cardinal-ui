@@ -610,11 +610,13 @@ export class UtilStraightSkeletonWavefront {
 export class UtilStraightSkeleton {
 	public static from(
 		points: number[],
+		sx: number = 1,
+		sy: number = 1,
 		level: number = -1,
 		epsilon: number = 1e-5
 	): UtilStraightSkeletonWavefront[] {
 		const result: UtilStraightSkeletonWavefront[] = [];
-		const polygons = UtilPolygon.from(points, epsilon);
+		const polygons = UtilPolygon.from(points, sx, sy, epsilon);
 		for (let i = 0, imax = polygons.length; i < imax; ++i) {
 			const wavefront = UtilStraightSkeletonWavefront.from(polygons[i], epsilon);
 			if (level < 0 || 0 < level) {

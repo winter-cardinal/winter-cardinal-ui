@@ -16,10 +16,7 @@ import { EShapePolygon } from "./e-shape-polygon";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
 export class BuilderPolygon extends BuilderBase {
-	protected vertexId: number;
-	protected distanceId: number;
-	protected clippingId: number;
-	protected indexId: number;
+	protected triangulatedId: number;
 
 	constructor(
 		buffer: BuilderBuffer,
@@ -29,10 +26,7 @@ export class BuilderPolygon extends BuilderBase {
 		indexCount: number
 	) {
 		super(buffer, vertexOffset, indexOffset, vertexCount, indexCount);
-		this.vertexId = -1;
-		this.distanceId = -1;
-		this.clippingId = -1;
-		this.indexId = -1;
+		this.triangulatedId = -1;
 	}
 
 	override init(): void {
@@ -49,8 +43,9 @@ export class BuilderPolygon extends BuilderBase {
 			return false;
 		}
 
-		const vertexCount = shape.nvertices;
-		const indexCount = shape.nindices;
+		const triangulated = shape.triangulated;
+		const vertexCount = triangulated.nvertices;
+		const indexCount = triangulated.nindices;
 		if (
 			this.buffer !== buffer ||
 			this.vertexOffset !== vertexOffset ||
@@ -65,10 +60,7 @@ export class BuilderPolygon extends BuilderBase {
 				this.indexOffset = indexOffset;
 				this.vertexCount = vertexCount;
 				this.indexCount = indexCount;
-				this.vertexId = -1;
-				this.distanceId = -1;
-				this.clippingId = -1;
-				this.indexId = -1;
+				this.triangulatedId = -1;
 				this.init();
 				return true;
 			} else {
@@ -83,8 +75,9 @@ export class BuilderPolygon extends BuilderBase {
 		if (!(shape instanceof EShapePolygon)) {
 			return false;
 		}
-		const vertexCount = shape.nvertices;
-		const indexCount = shape.nindices;
+		const triangulated = shape.triangulated;
+		const vertexCount = triangulated.nvertices;
+		const indexCount = triangulated.nindices;
 		return vertexCount === this.vertexCount && indexCount === this.indexCount;
 	}
 
@@ -108,10 +101,9 @@ export class BuilderPolygon extends BuilderBase {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		// Check if vertices/distances/clippings/indices changed
-		const isVertexIdChanged = this.vertexId !== shape.vertexId;
-		const isDistanceIdChanged = this.distanceId !== shape.distanceId;
-		const isClippingIdChanged = this.clippingId !== shape.clippingId;
-		const isIndexIdChanged = this.indexId !== shape.indexId;
+		const triangulated = shape.triangulated;
+		const triangulatedId = triangulated.id;
+		const isTriangulatedIdChanged = this.triangulatedId !== triangulatedId;
 
 		const stroke = shape.stroke;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
@@ -127,12 +119,7 @@ export class BuilderPolygon extends BuilderBase {
 		const isTextureChanged =
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
-		const isVertexChanged =
-			isSizeChanged ||
-			isVertexIdChanged ||
-			isDistanceIdChanged ||
-			isClippingIdChanged ||
-			isIndexIdChanged;
+		const isVertexChanged = isSizeChanged || isTriangulatedIdChanged;
 
 		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_UV_AND_INDEX);
 
@@ -152,17 +139,14 @@ export class BuilderPolygon extends BuilderBase {
 			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
-			this.vertexId = shape.vertexId;
-			this.distanceId = shape.distanceId;
-			this.clippingId = shape.clippingId;
-			this.indexId = shape.indexId;
+			this.triangulatedId = triangulatedId;
 
 			// Update indices if data changed
-			if (isNotInited || isIndexIdChanged) {
+			if (isNotInited || isTriangulatedIdChanged) {
 				buffer.updateIndices();
 				buildPolygonIndex(
 					buffer.indices,
-					shape.indices,
+					triangulated.indices,
 					this.vertexOffset,
 					this.indexOffset
 				);
@@ -171,7 +155,7 @@ export class BuilderPolygon extends BuilderBase {
 			// Vertices
 			const voffset = this.vertexOffset;
 			buffer.updateVertices();
-			const vertices = shape.vertices;
+			const vertices = triangulated.vertices;
 			buildPolygonVertex(
 				buffer.vertices,
 				vertices,
@@ -192,8 +176,8 @@ export class BuilderPolygon extends BuilderBase {
 				buffer.updateSteps();
 				buildPolygonStep(
 					buffer.steps,
-					shape.distances,
-					shape.clippings,
+					triangulated.distances,
+					triangulated.clippings,
 					voffset,
 					this.vertexCount,
 					sizeX,

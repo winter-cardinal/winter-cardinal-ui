@@ -26,7 +26,8 @@ export class UtilStraightSkeletonBufferBuilder {
 			this._wavefrontToIndexToIv.set(wavefront, indexToIv);
 			const points = wavefront.points;
 			vertices.push(points[index], points[index + 1]);
-			this._distances.push(wavefront.distance);
+			const distance = wavefront.distance;
+			this._distances.push(distance, distance);
 			return result;
 		} else {
 			let result = indexToIv.get(index);
@@ -38,7 +39,8 @@ export class UtilStraightSkeletonBufferBuilder {
 			indexToIv.set(index, result);
 			const points = wavefront.points;
 			vertices.push(points[index], points[index + 1]);
-			this._distances.push(wavefront.distance);
+			const distance = wavefront.distance;
+			this._distances.push(distance, distance);
 			return result;
 		}
 	}
@@ -65,20 +67,22 @@ export class UtilStraightSkeletonBufferBuilder {
 			return;
 		}
 		let mdistance = distances[oldDistancesLength];
-		for (let i = oldDistancesLength + 1; i < newDistancesLength; ++i) {
+		for (let i = oldDistancesLength + 1; i < newDistancesLength; i += 2) {
 			mdistance = Math.max(mdistance, distances[i]);
 		}
 		const clippings = this._clippings;
 		if (0 < mdistance) {
 			const fdistance = 1 / mdistance;
-			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
+			for (let i = oldDistancesLength; i < newDistancesLength; i += 2) {
 				clippings.push(1 - distances[i] * fdistance);
 				distances[i] = mdistance;
+				distances[i + 1] = mdistance;
 			}
 		} else {
-			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
+			for (let i = oldDistancesLength; i < newDistancesLength; i += 2) {
 				clippings.push(1);
 				distances[i] = mdistance;
+				distances[i + 1] = mdistance;
 			}
 		}
 	}
