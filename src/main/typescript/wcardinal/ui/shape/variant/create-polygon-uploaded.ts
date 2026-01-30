@@ -33,7 +33,7 @@ export const createPolygonUploaded = (
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
 			new BuilderPolygon(buffer, voffset, ioffset, pvcount, picount),
-			new BuilderText(buffer, voffset + vcount, ioffset + icount, tvcount, ticount)
+			new BuilderText(buffer, voffset + pvcount, ioffset + picount, tvcount, ticount)
 		]).init(shape);
 	}
 	return null;
