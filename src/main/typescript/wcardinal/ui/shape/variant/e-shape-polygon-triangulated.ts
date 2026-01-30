@@ -242,39 +242,47 @@ export class EShapePolygonTriangulated {
 			// Vertices
 			const vertexId = parsed[0];
 			if (0 <= vertexId && vertexId < resourcesLength) {
-				const verticesLike = manager.getExtension<number[]>(vertexId);
-				if (verticesLike != null) {
-					this._vertices = verticesLike;
-					this._nvertices = verticesLike.length >> 1;
+				let vertices = manager.getExtension<number[]>(vertexId);
+				if (vertices == null) {
+					vertices = JSON.parse(resources[vertexId]) as number[];
+					manager.setExtension(vertexId, vertices);
 				}
+				this._vertices = vertices;
+				this._nvertices = vertices.length >> 1;
 			}
 
 			// Distances
 			const distanceId = parsed[1];
 			if (0 <= distanceId && distanceId < resourcesLength) {
-				const distancesLike = manager.getExtension<number[]>(distanceId);
-				if (distancesLike != null) {
-					this._distances = distancesLike;
+				let distances = manager.getExtension<number[]>(distanceId);
+				if (distances == null) {
+					distances = JSON.parse(resources[distanceId]) as number[];
+					manager.setExtension(distanceId, distances);
 				}
+				this._distances = distances;
 			}
 
 			// Clippings
 			const clippingId = parsed[2];
 			if (0 <= clippingId && clippingId < resourcesLength) {
-				const clippingsLike = manager.getExtension<number[]>(clippingId);
-				if (clippingsLike != null) {
-					this._clippings = clippingsLike;
+				let clippings = manager.getExtension<number[]>(clippingId);
+				if (clippings == null) {
+					clippings = JSON.parse(resources[clippingId]) as number[];
+					manager.setExtension(clippingId, clippings);
 				}
+				this._clippings = clippings;
 			}
 
 			// Indices
 			const indexId = parsed[3];
 			if (0 <= indexId && indexId < resourcesLength) {
-				const indicesLike = manager.getExtension<number[]>(indexId);
-				if (indicesLike != null) {
-					this._indices = indicesLike;
-					this._nindices = indicesLike.length / 3;
+				let indices = manager.getExtension<number[]>(indexId);
+				if (indices == null) {
+					indices = JSON.parse(resources[indexId]) as number[];
+					manager.setExtension(indexId, indices);
 				}
+				this._indices = indices;
+				this._nindices = indices.length / 3;
 			}
 
 			this._id += 1;

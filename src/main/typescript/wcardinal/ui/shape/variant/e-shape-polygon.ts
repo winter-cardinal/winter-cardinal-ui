@@ -151,11 +151,13 @@ export class EShapePolygon extends EShapePrimitive {
 			// Vertices
 			const verticesId = parsed[0];
 			if (0 <= verticesId && verticesId < resourcesLength) {
-				const vertices = manager.getExtension<number[]>(verticesId);
-				if (vertices != null) {
-					this._vertices = vertices;
-					this._nvertices = vertices.length >> 1;
+				let vertices = manager.getExtension<number[]>(verticesId);
+				if (vertices == null) {
+					vertices = JSON.parse(resources[verticesId]) as number[];
+					manager.setExtension(verticesId, vertices);
 				}
+				this._vertices = vertices;
+				this._nvertices = vertices.length >> 1;
 			}
 
 			// Triangulated
