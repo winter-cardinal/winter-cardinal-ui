@@ -168,28 +168,29 @@ export class EShapePolygonTriangulated {
 			this._parentVertexId = parentVertexId;
 			this._parentWidth = parentWidth;
 			this._parentHeight = parentHeight;
-
-			const buffer = UtilStraightSkeletonBuffer.from(
-				UtilStraightSkeleton.from(this._parent.vertices, parentWidth, parentHeight)
-			);
-			const vertices = buffer.vertices;
-			const verticesLength = vertices.length;
-			const distances = buffer.distances;
-			const fx = 1 / parentWidth;
-			const fy = 1 / parentHeight;
-			for (let i = 0; i < verticesLength; i += 2) {
-				vertices[i] *= fx;
-				vertices[i + 1] *= fy;
-				distances[i] *= fx;
-				distances[i + 1] *= fy;
+			if (0 < Math.abs(parentWidth) && 0 < Math.abs(parentHeight)) {
+				const buffer = UtilStraightSkeletonBuffer.from(
+					UtilStraightSkeleton.from(this._parent.vertices, parentWidth, parentHeight)
+				);
+				const vertices = buffer.vertices;
+				const verticesLength = vertices.length;
+				const distances = buffer.distances;
+				const fx = 1 / parentWidth;
+				const fy = 1 / parentHeight;
+				for (let i = 0; i < verticesLength; i += 2) {
+					vertices[i] *= fx;
+					vertices[i + 1] *= fy;
+					distances[i] *= fx;
+					distances[i + 1] *= fy;
+				}
+				this._id += 1;
+				this._vertices = vertices;
+				this._nvertices = vertices.length >> 1;
+				this._distances = distances;
+				this._clippings = buffer.clippings;
+				this._indices = buffer.indices;
+				this._nindices = buffer.indices.length / 3;
 			}
-			this._id += 1;
-			this._vertices = vertices;
-			this._nvertices = vertices.length >> 1;
-			this._distances = distances;
-			this._clippings = buffer.clippings;
-			this._indices = buffer.indices;
-			this._nindices = buffer.indices.length / 3;
 		}
 	}
 
