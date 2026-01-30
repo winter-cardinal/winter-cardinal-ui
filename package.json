@@ -14,7 +14,7 @@
 	"module": "dist/wcardinal-ui.esm.js",
 	"sideEffects": false,
 	"engines": {
-		"node": ">=22"
+		"node": "20 || >=22"
 	},
 	"files": [
 		"dist/types",
