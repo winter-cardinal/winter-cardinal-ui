@@ -22,19 +22,25 @@ export const createPolygon = (points: number[]): EShapePolygon => {
 		const sy = ymax - ymin;
 		const px = xmin + 0.5 * sx;
 		const py = ymin + 0.5 * sy;
-		const fx = 1 / sx;
-		const fy = 1 / sy;
-		const vertices: number[] = [];
-		for (let i = 0; i < pointsLength; i += 2) {
-			vertices.push((points[i] - xmin) * fx - 0.5, (points[i + 1] - ymin) * fy - 0.5);
+		if (0 < Math.abs(sx) && 0 < Math.abs(sy)) {
+			const fx = 1 / sx;
+			const fy = 1 / sy;
+			const vertices: number[] = [];
+			for (let i = 0; i < pointsLength; i += 2) {
+				vertices.push((points[i] - xmin) * fx - 0.5, (points[i + 1] - ymin) * fy - 0.5);
+			}
+			const result = new EShapePolygon();
+			result.lock(EShapeLockPart.ALL);
+			result.transform.position.set(px, py);
+			result.size.set(sx, sy);
+			result.vertices = vertices;
+			result.unlock(EShapeLockPart.ALL, true);
+			return result;
+		} else {
+			const result = new EShapePolygon();
+			result.transform.position.set(px, py);
+			return result;
 		}
-		const result = new EShapePolygon();
-		result.lock(EShapeLockPart.ALL);
-		result.transform.position.set(px, py);
-		result.size.set(sx, sy);
-		result.vertices = vertices;
-		result.unlock(EShapeLockPart.ALL, true);
-		return result;
 	} else {
 		return new EShapePolygon();
 	}
