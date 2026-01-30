@@ -10,7 +10,7 @@ import { EShapeLineBase } from "./e-shape-line-base";
 import { EShapeLinePoints } from "./e-shape-line-points";
 
 export class EShapeLine extends EShapeLineBase<EShapeLinePoints> {
-	protected _points: EShapeLinePoints;
+	protected readonly _points: EShapeLinePoints;
 
 	constructor(type: EShapeType = EShapeType.LINE) {
 		super(type);

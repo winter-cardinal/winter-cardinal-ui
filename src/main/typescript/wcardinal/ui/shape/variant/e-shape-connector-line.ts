@@ -26,9 +26,9 @@ export class EShapeConnectorLine
 	implements EShapeConnector
 {
 	protected static WORK_BOUNDARY: [number, number, number, number];
-	protected _edge: EShapeConnectorEdgeContainer;
-	protected _body: EShapeConnectorBody;
-	protected _points: EShapeLinePoints;
+	protected readonly _edge: EShapeConnectorEdgeContainer;
+	protected readonly _body: EShapeConnectorBody;
+	protected readonly _points: EShapeLinePoints;
 	protected _tailLocalId: number;
 	protected _tailNormalId: number;
 	protected _tailMargin: number;
@@ -36,7 +36,7 @@ export class EShapeConnectorLine
 	protected _headNormalId: number;
 	protected _headMargin: number;
 	protected _bodyId: number;
-	protected _lockConnector: EShapeLock;
+	protected readonly _lockConnector: EShapeLock;
 
 	constructor(type: EShapeType = EShapeType.CONNECTOR_LINE) {
 		super(type);
