@@ -21,16 +21,18 @@ export const createPolygonUploaded = (
 	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
 	const ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-	let vcount = tvcount;
-	let icount = ticount;
+	let pvcount = 0;
+	let picount = 0;
 	if (shape instanceof EShapePolygon) {
 		const triangulated = shape.triangulated;
-		vcount += triangulated.nvertices;
-		icount += triangulated.nindices;
+		pvcount = triangulated.nvertices;
+		picount = triangulated.nindices;
 	}
+	const vcount = pvcount + tvcount;
+	const icount = picount + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderPolygon(buffer, voffset, ioffset, vcount, icount),
+			new BuilderPolygon(buffer, voffset, ioffset, pvcount, picount),
 			new BuilderText(buffer, voffset + vcount, ioffset + icount, tvcount, ticount)
 		]).init(shape);
 	}
