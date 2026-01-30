@@ -4,15 +4,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import type { EShapePolygon } from "./e-shape-polygon";
 
-export type EShapePolygonTriangulatedExtensionSerialized = [
-	number,
-	number,
-	number,
-	number,
-	number,
-	number,
-	number
-];
+export type EShapePolygonTriangulatedExtensionSerialized = [number, number, number, number];
 
 export class EShapePolygonTriangulated {
 	protected _id: number;
@@ -168,11 +160,11 @@ export class EShapePolygonTriangulated {
 		const parentSize = parent.size;
 		const parentWidth = parentSize.x;
 		const parentHeight = parentSize.y;
-		const isSizeRatioChanged =
-			0.01 < Math.abs(this._parentWidth - parentWidth) ||
-			0.01 < Math.abs(this._parentHeight - parentHeight);
+		const threshold = 0.00001;
+		const isWidthChanged = threshold < Math.abs(this._parentWidth - parentWidth);
+		const isHeightChanged = threshold < Math.abs(this._parentHeight - parentHeight);
 
-		if (isVertexIdChanged || isSizeRatioChanged) {
+		if (isVertexIdChanged || isWidthChanged || isHeightChanged) {
 			this._parentVertexId = parentVertexId;
 			this._parentWidth = parentWidth;
 			this._parentHeight = parentHeight;
@@ -203,7 +195,7 @@ export class EShapePolygonTriangulated {
 
 	copy(source: EShapePolygonTriangulated): this {
 		this.set(
-			source._parentVertexId,
+			this._parent.vertexId,
 			source._parentWidth,
 			source._parentHeight,
 			source._vertices,
@@ -215,20 +207,17 @@ export class EShapePolygonTriangulated {
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
-		const extension: EShapePolygonTriangulatedExtensionSerialized = [
-			this._parentVertexId,
-			this._parentWidth,
-			this._parentHeight,
+		this.triangulate();
+		const serialized: EShapePolygonTriangulatedExtensionSerialized = [
 			manager.addResource(JSON.stringify(this._vertices)),
 			manager.addResource(JSON.stringify(this._distances)),
 			manager.addResource(JSON.stringify(this._clippings)),
 			manager.addResource(JSON.stringify(this._indices))
 		];
-		return manager.addResource(JSON.stringify(extension));
+		return manager.addResource(JSON.stringify(serialized));
 	}
 
 	deserialize(resourceId: number, manager: EShapeResourceManagerDeserialization): void {
-		let isChanged = false;
 		const resources = manager.resources;
 		const resourcesLength = resources.length;
 		if (0 <= resourceId && resourceId < resourcesLength) {
@@ -242,67 +231,52 @@ export class EShapePolygonTriangulated {
 			}
 
 			// Parent Vertex Id
-			const parentVertexId = parsed[0];
-			if (this._parentVertexId !== parentVertexId) {
-				this._parentVertexId = parentVertexId;
-				isChanged = true;
-			}
+			const parent = this._parent;
+			this._parentVertexId = parent.vertexId;
 
 			// Parent Size
-			const parentWidth = parsed[1];
-			if (this._parentWidth !== parentWidth) {
-				this._parentWidth = parentWidth;
-				isChanged = true;
-			}
-			const parentHeight = parsed[2];
-			if (this._parentHeight !== parentHeight) {
-				this._parentHeight = parentHeight;
-				isChanged = true;
-			}
+			const parentSize = parent.size;
+			this._parentWidth = parentSize.x;
+			this._parentHeight = parentSize.y;
 
 			// Vertices
-			const vertexId = parsed[3];
+			const vertexId = parsed[0];
 			if (0 <= vertexId && vertexId < resourcesLength) {
 				const verticesLike = manager.getExtension<number[]>(vertexId);
 				if (verticesLike != null) {
 					this._vertices = verticesLike;
 					this._nvertices = verticesLike.length >> 1;
-					isChanged = true;
 				}
 			}
 
 			// Distances
-			const distanceId = parsed[4];
+			const distanceId = parsed[1];
 			if (0 <= distanceId && distanceId < resourcesLength) {
 				const distancesLike = manager.getExtension<number[]>(distanceId);
 				if (distancesLike != null) {
 					this._distances = distancesLike;
-					isChanged = true;
 				}
 			}
 
 			// Clippings
-			const clippingId = parsed[5];
+			const clippingId = parsed[2];
 			if (0 <= clippingId && clippingId < resourcesLength) {
 				const clippingsLike = manager.getExtension<number[]>(clippingId);
 				if (clippingsLike != null) {
 					this._clippings = clippingsLike;
-					isChanged = true;
 				}
 			}
 
 			// Indices
-			const indexId = parsed[6];
+			const indexId = parsed[3];
 			if (0 <= indexId && indexId < resourcesLength) {
 				const indicesLike = manager.getExtension<number[]>(indexId);
 				if (indicesLike != null) {
 					this._indices = indicesLike;
 					this._nindices = indicesLike.length / 3;
-					isChanged = true;
 				}
 			}
-		}
-		if (isChanged) {
+
 			this._id += 1;
 		}
 	}

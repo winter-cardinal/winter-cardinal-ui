@@ -12,7 +12,7 @@ import { EShapeLockPart } from "./e-shape-lock-part";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
 import { EShapePrimitive } from "./e-shape-primitive";
 
-export type EShapePolygonExtensionSerialized = [number, number, number];
+export type EShapePolygonExtensionSerialized = [number, number];
 
 export class EShapePolygon extends EShapePrimitive {
 	protected _vertices: number[];
@@ -99,6 +99,10 @@ export class EShapePolygon extends EShapePrimitive {
 		this.lock(EShapeLockPart.ALL);
 		const result = super.copy(source);
 		if (source instanceof EShapePolygon) {
+			// Vertex ID
+			this._vertexId += 1;
+
+			// Vertices
 			const sourceVertices = source._vertices;
 			const sourceVerticesLength = sourceVertices.length;
 			const vertices = this._vertices;
@@ -108,8 +112,14 @@ export class EShapePolygon extends EShapePrimitive {
 			if (vertices.length !== sourceVerticesLength) {
 				vertices.length = sourceVerticesLength;
 			}
+
+			// Number of Vertices
 			this._nvertices = sourceVerticesLength >> 1;
+
+			// Triangulated
 			this._triangulated.copy(source._triangulated);
+
+			// Update
 			this.updateUploaded();
 		}
 		this.unlock(EShapeLockPart.ALL, true);
@@ -120,9 +130,8 @@ export class EShapePolygon extends EShapePrimitive {
 		const result = super.serialize(manager);
 		const verticesId = manager.addResource(JSON.stringify(this._vertices));
 		const triangulatedId = this._triangulated.serialize(manager);
-		result[15] = manager.addResource(
-			JSON.stringify([this._vertexId, verticesId, triangulatedId])
-		);
+		const serialized: EShapePolygonExtensionSerialized = [verticesId, triangulatedId];
+		result[15] = manager.addResource(JSON.stringify(serialized));
 		return result;
 	}
 
@@ -136,32 +145,24 @@ export class EShapePolygon extends EShapePrimitive {
 				manager.setExtension(resourceId, parsed);
 			}
 
-			// Vertex Id
-			let isChanged = false;
-			const vertexId = parsed[0];
-			if (this._vertexId !== vertexId) {
-				this._vertexId = vertexId;
-				isChanged = true;
-			}
+			// Vertex ID
+			this._vertexId += 1;
 
 			// Vertices
-			const verticesId = parsed[1];
+			const verticesId = parsed[0];
 			if (0 <= verticesId && verticesId < resourcesLength) {
 				const vertices = manager.getExtension<number[]>(verticesId);
 				if (vertices != null) {
 					this._vertices = vertices;
 					this._nvertices = vertices.length >> 1;
-					isChanged = true;
 				}
 			}
 
 			// Triangulated
-			this._triangulated.deserialize(parsed[2], manager);
+			this._triangulated.deserialize(parsed[1], manager);
 
-			// Update if required
-			if (isChanged) {
-				this.updateUploaded();
-			}
+			// Update
+			this.updateUploaded();
 		}
 	}
 
