@@ -5,12 +5,17 @@
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
+import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeType } from "../e-shape-type";
 import { EShapeLockPart } from "./e-shape-lock-part";
+import { EShapePolygonStroke } from "./e-shape-polygon-stroke";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
+import { EShapePolygonTriangulatedImpl } from "./e-shape-polygon-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { hitTestPolygon } from "./hit-test-polygon";
 
 export type EShapePolygonExtensionSerialized = [number, number];
 
@@ -29,7 +34,24 @@ export class EShapePolygon extends EShapePrimitive {
 		this._vertices = [];
 		this._nvertices = 0;
 		this._vertexId = 0;
-		this._triangulated = new EShapePolygonTriangulated(this);
+		this._triangulated = this.newTriangulated();
+	}
+
+	protected newTriangulated(): EShapePolygonTriangulated {
+		return new EShapePolygonTriangulatedImpl(this);
+	}
+
+	protected override newStroke(): EShapeStroke {
+		return new EShapePolygonStroke(
+			this,
+			true,
+			EShapeDefaults.STROKE_COLOR,
+			EShapeDefaults.STROKE_ALPHA,
+			EShapeDefaults.STROKE_WIDTH,
+			EShapeDefaults.STROKE_ALIGN,
+			EShapeDefaults.STROKE_SIDE,
+			EShapeDefaults.STROKE_STYLE
+		);
 	}
 
 	/**
@@ -120,7 +142,16 @@ export class EShapePolygon extends EShapePrimitive {
 			this._triangulated.copy(source._triangulated);
 
 			// Update
-			this.updateUploaded();
+			const uploaded = this.uploaded;
+			if (uploaded) {
+				if (uploaded.isCompatible(this)) {
+					this.updateUploaded();
+				} else {
+					this.toDirty();
+				}
+			} else {
+				this.updateUploaded();
+			}
 		}
 		this.unlock(EShapeLockPart.ALL, true);
 		return result;
@@ -164,7 +195,16 @@ export class EShapePolygon extends EShapePrimitive {
 			this._triangulated.deserialize(parsed[1], manager);
 
 			// Update
-			this.updateUploaded();
+			const uploaded = this.uploaded;
+			if (uploaded) {
+				if (uploaded.isCompatible(this)) {
+					this.updateUploaded();
+				} else {
+					this.toDirty();
+				}
+			} else {
+				this.updateUploaded();
+			}
 		}
 	}
 
@@ -177,6 +217,9 @@ export class EShapePolygon extends EShapePrimitive {
 		ss: number,
 		sa: number
 	): boolean {
-		return super.containsAbsBBox(x, y, ax, ay);
+		if (super.containsAbsBBox(x, y, ax, ay)) {
+			return hitTestPolygon(this, x, y, ax, ay, sw, ss);
+		}
+		return false;
 	}
 }

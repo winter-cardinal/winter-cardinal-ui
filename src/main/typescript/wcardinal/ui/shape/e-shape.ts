@@ -123,8 +123,28 @@ export interface EShape extends utils.EventEmitter {
 	updateUuid(manager: EShapeResourceManagerSerialization): void;
 
 	// Hit test
+	/**
+	 * Returns a shape if a local position (x, y) is on this shape or child shapes.
+	 * Otherwise, returns null.
+	 *
+	 * @param x a local X-coordinate position
+	 * @param y a local Y-coordinate position
+	 * @returns a shape that the given local position is on, or null
+	 */
 	contains(x: number, y: number): EShape | null;
 	containsBBox(x: number, y: number): boolean;
+
+	/**
+	 * Returns true if the given adjusted local position (x, y) is on this shape.
+	 *
+	 * @param x an adjusted local X-coordinate position
+	 * @param y an adjusted local Y-coordinate position
+	 * @param ax an adjusted absolute width
+	 * @param ay an adjusted absolute height
+	 * @param sw an effective stroke width
+	 * @param ss a stroke scale
+	 * @param sa a stroke align
+	 */
 	containsAbs(
 		x: number,
 		y: number,

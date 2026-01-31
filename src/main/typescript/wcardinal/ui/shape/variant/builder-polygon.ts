@@ -141,8 +141,8 @@ export class BuilderPolygon extends BuilderBase {
 			this.textureTransformId = textureTransformId;
 			this.triangulatedId = triangulatedId;
 
-			// Update indices if data changed
-			if (isNotInited || isTriangulatedIdChanged) {
+			// Indices
+			if (isNotInited || isVertexChanged) {
 				buffer.updateIndices();
 				buildPolygonIndex(
 					buffer.indices,
@@ -154,25 +154,20 @@ export class BuilderPolygon extends BuilderBase {
 
 			// Vertices
 			const voffset = this.vertexOffset;
-			buffer.updateVertices();
-			const vertices = triangulated.vertices;
-			buildPolygonVertex(
-				buffer.vertices,
-				vertices,
-				voffset,
-				sizeX,
-				sizeY,
-				shape.transform.internalTransform
-			);
+			if (isNotInited || isVertexChanged || isTransformChanged) {
+				buffer.updateVertices();
+				buildPolygonVertex(
+					buffer.vertices,
+					triangulated.vertices,
+					voffset,
+					sizeX,
+					sizeY,
+					shape.transform.internalTransform
+				);
+			}
 
 			// Steps
-			if (
-				isNotInited ||
-				isSizeChanged ||
-				isVertexChanged ||
-				isTransformChanged ||
-				isStrokeChanged
-			) {
+			if (isNotInited || isVertexChanged || isStrokeChanged) {
 				buffer.updateSteps();
 				buildPolygonStep(
 					buffer.steps,
@@ -191,7 +186,7 @@ export class BuilderPolygon extends BuilderBase {
 			// UVs
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildPolygonUv(buffer.uvs, vertices, voffset, toTextureUvs(texture));
+				buildPolygonUv(buffer.uvs, triangulated.vertices, voffset, toTextureUvs(texture));
 			}
 		}
 	}
