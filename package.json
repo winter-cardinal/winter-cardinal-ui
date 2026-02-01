@@ -13,9 +13,6 @@
 	"types": "dist/types/wcardinal-ui.esm.d.ts",
 	"module": "dist/wcardinal-ui.esm.js",
 	"sideEffects": false,
-	"engines": {
-		"node": "20 || >=22"
-	},
 	"files": [
 		"dist/types",
 		"dist/wcardinal",
