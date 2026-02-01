@@ -15,6 +15,7 @@ const INDEX = 16;
 
 const VERTEX_AND_STEP = VERTEX | STEP;
 const VERTEX_STEP_AND_UV = VERTEX_AND_STEP | UV;
+const VERTEX_STEP_UV_AND_INDEX = VERTEX_STEP_AND_UV | INDEX;
 
 const ALL = VERTEX | STEP | COLOR | UV | INDEX;
 
@@ -28,6 +29,7 @@ export const BuilderFlag = {
 
 	VERTEX_AND_STEP,
 	VERTEX_STEP_AND_UV,
+	VERTEX_STEP_UV_AND_INDEX,
 
 	ALL
 } as const;

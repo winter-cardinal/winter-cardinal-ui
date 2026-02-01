@@ -30,6 +30,7 @@ export const EShapeType = {
 	CONNECTOR_ELBOW: 23,
 	SEMICIRCLE: 24,
 	EMBEDDED_ACCEPTOR_EDGE: 25,
+	POLYGON: 26,
 	EXTENSION: 1000
 } as const;
 
