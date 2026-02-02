@@ -44,6 +44,10 @@ export class EShapePolygon extends EShapePrimitive {
 		return this._triangulated;
 	}
 
+	/**
+	 * EShapePolygon does not support stroke alignment,
+	 * so always return 0 for hit test stroke shift.
+	 */
 	protected override toHitTestStrokeShift(
 		strokeWidth: number,
 		strokeScale: number,

@@ -562,6 +562,14 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		);
 	}
 
+	/**
+	 * Returns the stroke shift amount for hit testings.
+	 *
+	 * @param strokeWidth - The stroke width
+	 * @param strokeScale - The stroke scale factor
+	 * @param strokeAlign - The stroke alignment
+	 * @returns The calculated shift amount
+	 */
 	protected toHitTestStrokeShift(
 		strokeWidth: number,
 		strokeScale: number,
