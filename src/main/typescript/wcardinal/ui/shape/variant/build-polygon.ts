@@ -82,7 +82,6 @@ export const buildPolygonStep = (
 
 /**
  * Build UV buffer for polygons.
- * Transforms vertices from relative coordinates [-0.5, +0.5] to UV coordinates.
  */
 export const buildPolygonUv = (
 	uvs: Float32Array,
