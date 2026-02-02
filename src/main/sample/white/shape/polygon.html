@@ -35,8 +35,6 @@
 
 		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
 		const shape = wcardinal.ui.createPolygon(points);
-		shape.stroke.enable = true;
-		shape.stroke.width = 10;
 		shape.attach(container);
 
 		application.stage.on("pointermove", (e) => {

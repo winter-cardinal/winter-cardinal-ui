@@ -10,6 +10,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeType } from "../e-shape-type";
+import { EShapeLinePoints } from "./e-shape-line-points";
 import { EShapeLockPart } from "./e-shape-lock-part";
 import { EShapePolygonStroke } from "./e-shape-polygon-stroke";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
@@ -20,10 +21,8 @@ import { hitTestPolygon } from "./hit-test-polygon";
 export type EShapePolygonExtensionSerialized = [number, number];
 
 export class EShapePolygon extends EShapePrimitive {
-	protected _vertices: number[];
-	protected _vertexId: number;
-	protected _nvertices: number;
-	protected _triangulated: EShapePolygonTriangulated;
+	protected readonly _points: EShapeLinePoints;
+	protected readonly _triangulated: EShapePolygonTriangulated;
 
 	/**
 	 * Please note that the given arrays `vertices`, `distances`, `clippings` and `indices` are used internally.
@@ -31,10 +30,16 @@ export class EShapePolygon extends EShapePrimitive {
 	 */
 	constructor(type: EShapeType = EShapeType.POLYGON) {
 		super(type);
-		this._vertices = [];
-		this._nvertices = 0;
-		this._vertexId = 0;
+		this._points = this.newPoints();
 		this._triangulated = this.newTriangulated();
+	}
+
+	get points(): EShapeLinePoints {
+		return this._points;
+	}
+
+	protected newPoints(): EShapeLinePoints {
+		return new EShapeLinePoints(this);
 	}
 
 	protected newTriangulated(): EShapePolygonTriangulated {
@@ -54,63 +59,8 @@ export class EShapePolygon extends EShapePrimitive {
 		);
 	}
 
-	/**
-	 * Vertex positions are in [-0.5, +0.5] and relative to the shape position and size.
-	 * Therefore, transformed actual vertex positions are calculated as follows:
-	 *
-	 * ```
-	 *     const imx = this.transform.internalTransform;
-	 *     const size = this.size;
-	 *     const vertices = this._vertices;
-	 *     const transformedVertices = [];
-	 *     for (let i = 0; i < vertices.length; i += 2) {
-	 *         const transformedVertex = imx.apply(
-	 *             new Point(size.x * vertices[i + 0], size.y * vertices[i + 1])
-	 *         );
-	 *         transformedVertices.push(transformedVertex.x, transformedVertex.y);
-	 *     }
-	 * ```
-	 */
-	get vertices(): number[] {
-		return this._vertices;
-	}
-
-	set vertices(vertices: number[]) {
-		this.set(vertices);
-	}
-
-	get nvertices(): number {
-		return this._nvertices;
-	}
-
-	get vertexId(): number {
-		return this._vertexId;
-	}
-
 	get triangulated(): EShapePolygonTriangulated {
 		return this._triangulated;
-	}
-
-	set(vertices?: number[]): this {
-		let isChanged = false;
-
-		if (vertices != null) {
-			const verticesLength = vertices.length;
-			for (let i = 0; i < verticesLength; ++i) {
-				this._vertices[i] = vertices[i];
-			}
-			if (this._vertices.length !== verticesLength) {
-				this._vertices.length = verticesLength;
-			}
-			this._nvertices = verticesLength >> 1;
-			isChanged = true;
-		}
-
-		if (isChanged) {
-			this._vertexId += 1;
-			this.updateUploaded();
-		}
-		return this;
 	}
 
 	clone(): EShapePolygon {
@@ -121,37 +71,7 @@ export class EShapePolygon extends EShapePrimitive {
 		this.lock(EShapeLockPart.ALL);
 		const result = super.copy(source);
 		if (source instanceof EShapePolygon) {
-			// Vertex ID
-			this._vertexId += 1;
-
-			// Vertices
-			const sourceVertices = source._vertices;
-			const sourceVerticesLength = sourceVertices.length;
-			const vertices = this._vertices;
-			for (let i = 0; i < sourceVerticesLength; ++i) {
-				vertices[i] = sourceVertices[i];
-			}
-			if (vertices.length !== sourceVerticesLength) {
-				vertices.length = sourceVerticesLength;
-			}
-
-			// Number of Vertices
-			this._nvertices = sourceVerticesLength >> 1;
-
-			// Triangulated
 			this._triangulated.copy(source._triangulated);
-
-			// Update
-			const uploaded = this.uploaded;
-			if (uploaded) {
-				if (uploaded.isCompatible(this)) {
-					this.updateUploaded();
-				} else {
-					this.toDirty();
-				}
-			} else {
-				this.updateUploaded();
-			}
 		}
 		this.unlock(EShapeLockPart.ALL, true);
 		return result;
@@ -159,9 +79,9 @@ export class EShapePolygon extends EShapePrimitive {
 
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
-		const verticesId = manager.addResource(JSON.stringify(this._vertices));
+		const pointsId = this._points.serialize(manager);
 		const triangulatedId = this._triangulated.serialize(manager);
-		const serialized: EShapePolygonExtensionSerialized = [verticesId, triangulatedId];
+		const serialized: EShapePolygonExtensionSerialized = [pointsId, triangulatedId];
 		result[15] = manager.addResource(JSON.stringify(serialized));
 		return result;
 	}
@@ -175,36 +95,10 @@ export class EShapePolygon extends EShapePrimitive {
 				parsed = JSON.parse(resources[resourceId]) as EShapePolygonExtensionSerialized;
 				manager.setExtension(resourceId, parsed);
 			}
-
-			// Vertex ID
-			this._vertexId += 1;
-
-			// Vertices
-			const verticesId = parsed[0];
-			if (0 <= verticesId && verticesId < resourcesLength) {
-				let vertices = manager.getExtension<number[]>(verticesId);
-				if (vertices == null) {
-					vertices = JSON.parse(resources[verticesId]) as number[];
-					manager.setExtension(verticesId, vertices);
-				}
-				this._vertices = vertices;
-				this._nvertices = vertices.length >> 1;
-			}
-
-			// Triangulated
+			this.lock(EShapeLockPart.ALL);
+			this._points.deserialize(parsed[0], manager);
 			this._triangulated.deserialize(parsed[1], manager);
-
-			// Update
-			const uploaded = this.uploaded;
-			if (uploaded) {
-				if (uploaded.isCompatible(this)) {
-					this.updateUploaded();
-				} else {
-					this.toDirty();
-				}
-			} else {
-				this.updateUploaded();
-			}
+			this.unlock(EShapeLockPart.ALL, true);
 		}
 	}
 

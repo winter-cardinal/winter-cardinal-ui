@@ -16,25 +16,20 @@ import { EShapePolygon } from "./e-shape-polygon";
  * @returns the minimum squared distance between the given point (x, y) and the polygon edges
  */
 export const calcPolygonSquaredDistance = (
-	shape: EShapePolygon,
+	values: number[],
+	valuesLength: number,
 	x: number,
-	y: number,
-	ax: number,
-	ay: number
+	y: number
 ): number => {
-	const vertices = shape.vertices;
-	const verticesLength = vertices.length;
-	if (verticesLength < 4) {
+	if (valuesLength < 4) {
 		return Infinity;
 	}
 	let result = Infinity;
-	const sx = 2 * ax;
-	const sy = 2 * ay;
-	let pvx = vertices[verticesLength - 2] * sx;
-	let pvy = vertices[verticesLength - 1] * sy;
-	for (let i = 0; i < verticesLength; i += 2) {
-		const vx = vertices[i] * sx;
-		const vy = vertices[i + 1] * sy;
+	let pvx = values[valuesLength - 2];
+	let pvy = values[valuesLength - 1];
+	for (let i = 0; i < valuesLength; i += 2) {
+		const vx = values[i];
+		const vy = values[i + 1];
 		const dvx = vx - pvx;
 		const dvy = vy - pvy;
 		const dv = dvx * dvx + dvy * dvy;
@@ -72,31 +67,29 @@ export const hitTestPolygon = (
 	if (!filled && sw <= 0) {
 		return false;
 	}
-	const vertices = shape.vertices;
-	const verticesLength = vertices.length;
-	if (6 <= verticesLength) {
+	const values = shape.points.values;
+	const valuesLength = values.length;
+	if (6 <= valuesLength) {
 		if (0 < ax && 0 < ay) {
 			let count = 0;
-			const nx = 0.5 * (x / ax);
-			const ny = 0.5 * (y / ay);
-			let ppvy = vertices[verticesLength - 3];
-			let pvx = vertices[verticesLength - 2];
-			let pvy = vertices[verticesLength - 1];
-			for (let i = 0; i < verticesLength; i += 2) {
-				const vx = vertices[i];
-				const vy = vertices[i + 1];
-				if ((pvy <= ny && ny < vy) || (ny <= pvy && vy < ny)) {
+			let ppvy = values[valuesLength - 3];
+			let pvx = values[valuesLength - 2];
+			let pvy = values[valuesLength - 1];
+			for (let i = 0; i < valuesLength; i += 2) {
+				const vx = values[i];
+				const vy = values[i + 1];
+				if ((pvy <= y && y < vy) || (y <= pvy && vy < y)) {
 					const dy = vy - pvy;
 					let t = 0;
 					if (0 < Math.abs(dy)) {
-						t = (ny - pvy) / dy;
+						t = (y - pvy) / dy;
 					}
 					const cx = pvx + t * (vx - pvx);
-					if (nx <= cx) {
+					if (x <= cx) {
 						if (t <= 0) {
 							// Since we could be just grazing vertices,
 							// we need to check if the second-previous vertex is on the opposite side.
-							if ((ppvy <= ny && ny < vy) || (ny <= ppvy && vy < ny)) {
+							if ((ppvy <= y && y < vy) || (y <= ppvy && vy < y)) {
 								count += 1;
 							}
 						} else {
@@ -112,7 +105,7 @@ export const hitTestPolygon = (
 				if (filled) {
 					return true;
 				} else {
-					return calcPolygonSquaredDistance(shape, x, y, ax, ay) <= sw * sw;
+					return calcPolygonSquaredDistance(values, valuesLength, x, y) <= sw * sw;
 				}
 			}
 		}

@@ -167,12 +167,7 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	get marker(): EShapePointsMarkerContainer {
-		let result = this._marker;
-		if (result == null) {
-			result = this.newMarker();
-			this._marker = result;
-		}
-		return result;
+		return (this._marker ??= this.newMarker());
 	}
 
 	getMarker(): EShapePointsMarkerContainer | undefined {

@@ -7,13 +7,12 @@ export interface EShapePolygonTriangulated {
 	get nvertices(): number;
 	get distances(): number[];
 	get clippings(): number[];
+	get uvs(): number[];
 	get indices(): number[];
 	get nindices(): number;
 
 	set(
-		parentVertexId?: number,
-		parentWidth?: number,
-		parentHeight?: number,
+		parentId?: number,
 		vertices?: number[],
 		distances?: number[],
 		clippings?: number[],
