@@ -74,7 +74,7 @@ export const buildPolygonStep = (
 		steps[++is] = strokeWidth;
 		steps[++is] = e;
 		steps[++is] = d;
-		steps[++is] = 0;
+		steps[++is] = d;
 		steps[++is] = toPackedF2x1024(c, c);
 		steps[++is] = 0;
 	}
