@@ -427,17 +427,10 @@ export class UtilPolygon {
 	 * Creates an UtilPolygon instance.
 	 *
 	 * @param points points
-	 * @param sx the scale along X axis
-	 * @param sy the scale along Y axis
 	 * @param epsilon threshold
 	 * @returns a created UtilPolygon instance
 	 */
-	public static from(
-		points: number[],
-		sx: number = 1,
-		sy: number = 1,
-		epsilon: number = 1e-5
-	): UtilPolygon[] {
+	public static from(points: number[], epsilon: number = 1e-5): UtilPolygon[] {
 		const pointsLength = points.length;
 		if (pointsLength <= 0) {
 			return [];
@@ -445,11 +438,11 @@ export class UtilPolygon {
 		const tmp = new UtilPolygon(epsilon);
 		const p = tmp.points;
 		const n = tmp.normals;
-		let npx = sx * points[0];
-		let npy = sy * points[1];
+		let npx = points[0];
+		let npy = points[1];
 		for (let i = pointsLength - 2; 0 <= i; i -= 2) {
-			const px = sx * points[i];
-			const py = sy * points[i + 1];
+			const px = points[i];
+			const py = points[i + 1];
 			const dx = npx - px;
 			const dy = npy - py;
 			if (Math.abs(dx) <= epsilon && Math.abs(dy) < epsilon) {

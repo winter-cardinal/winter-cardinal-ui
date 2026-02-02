@@ -163,7 +163,7 @@
 		const hitPoint = document.querySelector("hit-point");
 		const ctx = canvas.getContext("2d");
 		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
-		let buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, 1, 1, LEVEL));
+		let buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL));
 		const hitTestResult = {
 			d: 0,
 			points: null,
@@ -218,7 +218,7 @@
 			points[i] = x;
 			points[i + 1] = y;
 			console.log("points", points);
-			buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, 1, 1, LEVEL));
+			buffer = wcardinal.ui.UtilStraightSkeletonBuffer.from(wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL));
 			render(settings, buffer);
 		};
 		const onPointerMove = (e) => {

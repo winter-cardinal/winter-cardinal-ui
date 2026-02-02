@@ -33,8 +33,6 @@ export const buildPolygonVertex = (
 	vertices: Float32Array,
 	polygonVertices: number[],
 	voffset: number,
-	sizeX: number,
-	sizeY: number,
 	internalTransform: Matrix
 ): void => {
 	const a = internalTransform.a;
@@ -45,8 +43,8 @@ export const buildPolygonVertex = (
 	const ty = internalTransform.ty;
 	let iv = (voffset << 1) - 1;
 	for (let i = 0, n = polygonVertices.length; i < n; i += 2) {
-		const x = sizeX * polygonVertices[i];
-		const y = sizeY * polygonVertices[i + 1];
+		const x = polygonVertices[i];
+		const y = polygonVertices[i + 1];
 		vertices[++iv] = a * x + c * y + tx;
 		vertices[++iv] = b * x + d * y + ty;
 	}
@@ -62,8 +60,6 @@ export const buildPolygonStep = (
 	polygonClippings: number[],
 	voffset: number,
 	vertexCount: number,
-	sizeX: number,
-	sizeY: number,
 	strokeWidth: number,
 	strokeSide: EShapeStrokeSide,
 	strokeStyle: EShapeStrokeStyle
@@ -72,14 +68,13 @@ export const buildPolygonStep = (
 	const w = (strokeSide & EShapeStrokeSide.ALL) === EShapeStrokeSide.ALL ? 1 : 0;
 	const e = toPackedI4x64(0, scaleInvariant, w, w);
 	let is = voffset * 6 - 1;
-	for (let i = 0, j = 0; i < vertexCount; i += 1, j += 2) {
-		const dx = sizeX * polygonDistances[j];
-		const dy = sizeY * polygonDistances[j + 1];
+	for (let i = 0; i < vertexCount; i += 1) {
+		const d = polygonDistances[i];
 		const c = polygonClippings[i];
 		steps[++is] = strokeWidth;
 		steps[++is] = e;
-		steps[++is] = dx;
-		steps[++is] = dy;
+		steps[++is] = d;
+		steps[++is] = d;
 		steps[++is] = toPackedF2x1024(c, c);
 		steps[++is] = 0;
 	}
@@ -87,11 +82,10 @@ export const buildPolygonStep = (
 
 /**
  * Build UV buffer for polygons.
- * Transforms vertices from relative coordinates [-0.5, +0.5] to UV coordinates.
  */
 export const buildPolygonUv = (
 	uvs: Float32Array,
-	polygonVertices: number[],
+	polygonUvs: number[],
 	voffset: number,
 	textureUvs: TextureUvs
 ): void => {
@@ -102,8 +96,8 @@ export const buildPolygonUv = (
 	const dx = x1 - x0;
 	const dy = y3 - y0;
 	let iuv = (voffset << 1) - 1;
-	for (let i = 0, n = polygonVertices.length; i < n; i += 2) {
-		uvs[++iuv] = x0 + (0.5 + polygonVertices[i]) * dx;
-		uvs[++iuv] = y0 + (0.5 + polygonVertices[i + 1]) * dy;
+	for (let i = 0, n = polygonUvs.length; i < n; i += 2) {
+		uvs[++iuv] = x0 + polygonUvs[i] * dx;
+		uvs[++iuv] = y0 + polygonUvs[i + 1] * dy;
 	}
 };

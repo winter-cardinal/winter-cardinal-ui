@@ -5,31 +5,29 @@ import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-
 import type { EShapePolygon } from "./e-shape-polygon";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
 
-export type EShapePolygonTriangulatedExtensionSerialized = [number, number, number, number];
+export type EShapePolygonTriangulatedExtensionSerialized = [number, number, number, number, number];
 
 export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated {
 	protected _id: number;
 	protected _parent: EShapePolygon;
-	protected _parentVertexId: number;
-	protected _parentWidth: number;
-	protected _parentHeight: number;
+	protected _parentPointsId: number;
 	protected _vertices: number[];
 	protected _nvertices: number;
 	protected _distances: number[];
 	protected _clippings: number[];
+	protected _uvs: number[];
 	protected _indices: number[];
 	protected _nindices: number;
 
 	constructor(parent: EShapePolygon) {
 		this._id = 0;
 		this._parent = parent;
-		this._parentVertexId = -1;
-		this._parentWidth = -1;
-		this._parentHeight = -1;
+		this._parentPointsId = -1;
 		this._vertices = [];
 		this._nvertices = 0;
 		this._distances = [];
 		this._clippings = [];
+		this._uvs = [];
 		this._indices = [];
 		this._nindices = 0;
 	}
@@ -59,6 +57,11 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		return this._clippings;
 	}
 
+	get uvs(): number[] {
+		this.triangulate();
+		return this._uvs;
+	}
+
 	get indices(): number[] {
 		this.triangulate();
 		return this._indices;
@@ -70,29 +73,18 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 	}
 
 	set(
-		parentVertexId?: number,
-		parentWidth?: number,
-		parentHeight?: number,
+		parentPointsId?: number,
 		vertices?: number[],
 		distances?: number[],
 		clippings?: number[],
+		uvs?: number[],
 		indices?: number[]
 	): this {
 		let isChanged = false;
 
 		// Parent Vertex ID
-		if (parentVertexId != null) {
-			this._parentVertexId = parentVertexId;
-			isChanged = true;
-		}
-
-		// Parent Size
-		if (parentWidth != null) {
-			this._parentWidth = parentWidth;
-			isChanged = true;
-		}
-		if (parentHeight != null) {
-			this._parentHeight = parentHeight;
+		if (parentPointsId != null) {
+			this._parentPointsId = parentPointsId;
 			isChanged = true;
 		}
 
@@ -133,6 +125,18 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			isChanged = true;
 		}
 
+		// UVs
+		if (uvs != null) {
+			const uvsLength = uvs.length;
+			for (let i = 0; i < uvsLength; ++i) {
+				this._uvs[i] = uvs[i];
+			}
+			if (this._uvs.length !== uvsLength) {
+				this._uvs.length = uvsLength;
+			}
+			isChanged = true;
+		}
+
 		// Indices
 		if (indices != null) {
 			const indicesLength = indices.length;
@@ -155,56 +159,46 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 
 	protected triangulate(): void {
 		const parent = this._parent;
-		const parentVertexId = parent.vertexId;
-		const isVertexIdChanged = this._parentVertexId !== parentVertexId;
-
-		const parentSize = parent.size;
-		const parentWidth = parentSize.x;
-		const parentHeight = parentSize.y;
-		const threshold = 0.00001;
-		const isWidthChanged = threshold < Math.abs(this._parentWidth - parentWidth);
-		const isHeightChanged = threshold < Math.abs(this._parentHeight - parentHeight);
-
-		if (isVertexIdChanged || isWidthChanged || isHeightChanged) {
-			this._parentVertexId = parentVertexId;
-			this._parentWidth = parentWidth;
-			this._parentHeight = parentHeight;
-			if (0 < Math.abs(parentWidth) && 0 < Math.abs(parentHeight)) {
-				const buffer = UtilStraightSkeletonBuffer.from(
-					UtilStraightSkeleton.from(this._parent.vertices, parentWidth, parentHeight)
-				);
-				const vertices = buffer.vertices;
-				const verticesLength = vertices.length;
-				const distances = buffer.distances;
-				const fx = 1 / parentWidth;
-				const fy = 1 / parentHeight;
-				for (let i = 0; i < verticesLength; i += 2) {
-					vertices[i] *= fx;
-					vertices[i + 1] *= fy;
-					distances[i] *= fx;
-					distances[i + 1] *= fy;
-				}
-				this._id += 1;
-				this._vertices = vertices;
-				this._nvertices = vertices.length >> 1;
-				this._distances = distances;
-				this._clippings = buffer.clippings;
-				this._indices = buffer.indices;
-				this._nindices = buffer.indices.length / 3;
-			}
+		const parentPoints = parent.points;
+		const parentPointsId = parentPoints.id;
+		const isParentIdChanged = this._parentPointsId !== parentPointsId;
+		if (isParentIdChanged) {
+			this._parentPointsId = parentPointsId;
+			const buffer = UtilStraightSkeletonBuffer.from(
+				UtilStraightSkeleton.from(parentPoints.values)
+			);
+			this._id += 1;
+			this._vertices = buffer.vertices;
+			this._nvertices = buffer.vertices.length >> 1;
+			this._distances = buffer.distances;
+			this._clippings = buffer.clippings;
+			this._uvs = this.toUvs(buffer.vertices);
+			this._indices = buffer.indices;
+			this._nindices = buffer.indices.length / 3;
 		}
 	}
 
+	protected toUvs(vertices: number[]): number[] {
+		const result: number[] = [];
+		const size = this._parent.size;
+		const ax = Math.abs(size.x);
+		const ay = Math.abs(size.y);
+		const fx = 0 < ax ? 1 / ax : 0;
+		const fy = 0 < ay ? 1 / ay : 0;
+		const verticesLength = vertices.length;
+		for (let i = 0; i < verticesLength; i += 2) {
+			result.push(0.5 + vertices[i] * fx, 0.5 + vertices[i + 1] * fy);
+		}
+		return result;
+	}
+
 	copy(source: EShapePolygonTriangulated): this {
-		const parent = this._parent;
-		const parentSize = parent.size;
 		this.set(
-			parent.vertexId,
-			parentSize.x,
-			parentSize.y,
+			this._parent.points.id,
 			source.vertices,
 			source.distances,
 			source.clippings,
+			source.uvs,
 			source.indices
 		);
 		return this;
@@ -216,6 +210,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			manager.addResource(JSON.stringify(this._vertices)),
 			manager.addResource(JSON.stringify(this._distances)),
 			manager.addResource(JSON.stringify(this._clippings)),
+			manager.addResource(JSON.stringify(this._uvs)),
 			manager.addResource(JSON.stringify(this._indices))
 		];
 		return manager.addResource(JSON.stringify(serialized));
@@ -234,14 +229,8 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 				manager.setExtension(resourceId, parsed);
 			}
 
-			// Parent Vertex Id
-			const parent = this._parent;
-			this._parentVertexId = parent.vertexId;
-
-			// Parent Size
-			const parentSize = parent.size;
-			this._parentWidth = parentSize.x;
-			this._parentHeight = parentSize.y;
+			// Parent Points Id
+			this._parentPointsId = this._parent.points.id;
 
 			// Vertices
 			const vertexId = parsed[0];
@@ -277,8 +266,19 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 				this._clippings = clippings;
 			}
 
+			// UVs
+			const uvId = parsed[3];
+			if (0 <= uvId && uvId < resourcesLength) {
+				let uvs = manager.getExtension<number[]>(uvId);
+				if (uvs == null) {
+					uvs = JSON.parse(resources[uvId]) as number[];
+					manager.setExtension(uvId, uvs);
+				}
+				this._uvs = uvs;
+			}
+
 			// Indices
-			const indexId = parsed[3];
+			const indexId = parsed[4];
 			if (0 <= indexId && indexId < resourcesLength) {
 				let indices = manager.getExtension<number[]>(indexId);
 				if (indices == null) {
