@@ -25,10 +25,6 @@ export class EShapePolygon extends EShapePrimitive {
 	protected readonly _points: EShapeLinePoints;
 	protected readonly _triangulated: EShapePolygonTriangulated;
 
-	/**
-	 * Please note that the given arrays `vertices`, `distances`, `clippings` and `indices` are used internally.
-	 * Because of this, these arrays must not be modified outside of this class after calling this constructor.
-	 */
 	constructor(type: EShapeType = EShapeType.POLYGON) {
 		super(type);
 		this._points = this.newPoints();
