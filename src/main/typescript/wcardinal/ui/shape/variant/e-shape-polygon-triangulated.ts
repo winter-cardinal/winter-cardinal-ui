@@ -16,6 +16,7 @@ export interface EShapePolygonTriangulated {
 		vertices?: number[],
 		distances?: number[],
 		clippings?: number[],
+		uvs?: number[],
 		indices?: number[]
 	): this;
 	copy(source: EShapePolygonTriangulated): this;
