@@ -5,6 +5,7 @@
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
+import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
@@ -67,10 +68,10 @@ export class EShapePolygon extends EShapePrimitive {
 		return new EShapePolygon(this.type).copy(this);
 	}
 
-	override copy(source: EShape): this {
+	override copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
 		this.lock(EShapeLockPart.ALL);
-		const result = super.copy(source);
-		if (source instanceof EShapePolygon) {
+		const result = super.copy(source, part);
+		if (part & EShapeCopyPart.POINTS && source instanceof EShapePolygon) {
 			this._triangulated.copy(source._triangulated);
 		}
 		this.unlock(EShapeLockPart.ALL, true);

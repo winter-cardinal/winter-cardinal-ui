@@ -5,6 +5,7 @@ export const createPolygon = (points: number[], result?: EShapePolygon): EShapeP
 	result ??= new EShapePolygon();
 	const pointsLength = points.length;
 	if (pointsLength < 2) {
+		result.points.values = [];
 		return result;
 	}
 	let xmin = 0;
