@@ -105,7 +105,9 @@ export const hitTestPolygon = (
 				if (filled) {
 					return true;
 				} else {
-					return calcPolygonSquaredDistance(values, valuesLength, x, y) <= sw * sw;
+					const sd = calcPolygonSquaredDistance(values, valuesLength, x, y);
+					const s = sw * ss;
+					return sd <= s * s;
 				}
 			}
 		}
