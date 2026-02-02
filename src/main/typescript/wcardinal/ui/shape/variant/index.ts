@@ -178,6 +178,8 @@ export * from "./e-shape-line";
 export * from "./e-shape-lock-part";
 export * from "./e-shape-lock";
 export * from "./e-shape-null";
+export * from "./e-shape-polygon-triangulated-impl";
+export * from "./e-shape-polygon-triangulated";
 export * from "./e-shape-polygon";
 export * from "./e-shape-primitive";
 export * from "./e-shape-rectangle-pivoted";

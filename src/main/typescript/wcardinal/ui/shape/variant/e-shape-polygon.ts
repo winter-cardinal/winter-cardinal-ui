@@ -6,14 +6,11 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
 import { EShapeCopyPart } from "../e-shape-copy-part";
-import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeType } from "../e-shape-type";
 import { EShapeLinePoints } from "./e-shape-line-points";
 import { EShapeLockPart } from "./e-shape-lock-part";
-import { EShapePolygonStroke } from "./e-shape-polygon-stroke";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
 import { EShapePolygonTriangulatedImpl } from "./e-shape-polygon-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
@@ -43,21 +40,20 @@ export class EShapePolygon extends EShapePrimitive {
 		return new EShapePolygonTriangulatedImpl(this);
 	}
 
-	protected override newStroke(): EShapeStroke {
-		return new EShapePolygonStroke(
-			this,
-			true,
-			EShapeDefaults.STROKE_COLOR,
-			EShapeDefaults.STROKE_ALPHA,
-			EShapeDefaults.STROKE_WIDTH,
-			EShapeDefaults.STROKE_ALIGN,
-			EShapeDefaults.STROKE_SIDE,
-			EShapeDefaults.STROKE_STYLE
-		);
-	}
-
 	get triangulated(): EShapePolygonTriangulated {
 		return this._triangulated;
+	}
+
+	/**
+	 * EShapePolygon does not support stroke alignment,
+	 * so always return 0 for hit test stroke shift.
+	 */
+	protected override toHitTestStrokeShift(
+		strokeWidth: number,
+		strokeScale: number,
+		strokeAlign: number
+	): number {
+		return 0;
 	}
 
 	clone(): EShapePolygon {

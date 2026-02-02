@@ -550,7 +550,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeScale = this.getStrokeWidthScale(stroke.style);
 		const strokeAlign = stroke.align;
-		const s = strokeWidth * strokeScale * strokeAlign;
+		const s = this.toHitTestStrokeShift(strokeWidth, strokeScale, strokeAlign);
 		return result.set(
 			0 <= sx ? +dx : -dx,
 			0 <= sy ? +dy : -dy,
@@ -560,6 +560,22 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			strokeScale,
 			strokeAlign
 		);
+	}
+
+	/**
+	 * Returns the stroke shift amount for hit testings.
+	 *
+	 * @param strokeWidth - The stroke width
+	 * @param strokeScale - The stroke scale factor
+	 * @param strokeAlign - The stroke alignment
+	 * @returns The calculated shift amount
+	 */
+	protected toHitTestStrokeShift(
+		strokeWidth: number,
+		strokeScale: number,
+		strokeAlign: number
+	): number {
+		return strokeWidth * strokeScale * strokeAlign;
 	}
 
 	contains(x: number, y: number): EShape | null {
