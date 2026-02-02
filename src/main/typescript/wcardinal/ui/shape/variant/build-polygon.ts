@@ -66,15 +66,16 @@ export const buildPolygonStep = (
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const w = (strokeSide & EShapeStrokeSide.ALL) === EShapeStrokeSide.ALL ? 1 : 0;
-	const e = toPackedI4x64(0, scaleInvariant, w, 0);
+	const e = toPackedI4x64(0, scaleInvariant, w, w);
 	let is = voffset * 6 - 1;
 	for (let i = 0; i < vertexCount; i += 1) {
+		const d = polygonDistances[i];
 		const c = polygonClippings[i];
 		steps[++is] = strokeWidth;
 		steps[++is] = e;
-		steps[++is] = polygonDistances[i];
+		steps[++is] = d;
 		steps[++is] = 0;
-		steps[++is] = toPackedF2x1024(c, 0);
+		steps[++is] = toPackedF2x1024(c, c);
 		steps[++is] = 0;
 	}
 };
