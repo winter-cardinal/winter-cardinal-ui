@@ -144,52 +144,46 @@ vec2 toStepA3(in float type, in float strokeWidth) {
 	return vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);
 }
 
-vec4 toStepB3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {
-	float l = aStepB.y + shift;
-	float s = aStepA.x * (
+float toDotWidth(in float strokeScaling, in float strokeWidthScale) {
+	return aStepA.x * (
 		strokeScaling == 4.0 || strokeScaling == 5.0 ||
 		strokeScaling == 6.0 || strokeScaling == 7.0 ?
 		strokeWidthScale : 1.0
 	);
-	float lt = aStepB.z;
+}
+
+vec2 toDotPattern(in float dash) {
 	return (dash < 0.5 ?
-		vec4(l, 2.0 * abs(lt), 0.0, lt) :
+		vec2(0.0, 0.0) :
 		(dash < 3.5 ?
 			(dash < 1.5 ?
-				vec4(l, s, s, lt) :
+				vec2(1.0, 1.0) :
 				(2.5 < dash ?
-					vec4(l, s, 2.0 * s, lt) :
-					vec4(l, s, 0.5 * s, lt)
+					vec2(1.0, 2.0) :
+					vec2(1.0, 0.5)
 				)
 			) :
 			(dash < 4.5 ?
-				vec4(l, 2.0 * s, s, lt) :
+				vec2(2.0, 1.0) :
 				(5.5 < dash ?
-					vec4(l, 2.0 * s, 2.0 * s, lt) :
-					vec4(l, 2.0 * s, 0.5 * s, lt)
+					vec2(2.0, 2.0) :
+					vec2(2.0, 0.5)
 				)
 			)
 		)
 	);
 }
 
-vec4 toLength7(in float type, in float strokeWidth) {
-	float dash = type - 7.0;
-	if (dash < 0.5) {
-		return vec4(aStepB.w, 0.0, 0.0, -1.0);
-	} else if (dash < 1.5) {
-		return vec4(aStepB.w, strokeWidth, strokeWidth, -1.0);
-	} else if (dash < 2.5) {
-		return vec4(aStepB.w, strokeWidth, 0.5 * strokeWidth, -1.0);
-	} else if (dash < 3.5) {
-		return vec4(aStepB.w, strokeWidth, 2.0 * strokeWidth, -1.0);
-	} else if (dash < 4.5) {
-		return vec4(aStepB.w, 2.0 * strokeWidth, strokeWidth, -1.0);
-	} else if (dash < 5.5) {
-		return vec4(aStepB.w, 2.0 * strokeWidth, 0.5 * strokeWidth, -1.0);
-	} else {
-		return vec4(aStepB.w, 2.0 * strokeWidth, 2.0 * strokeWidth, -1.0);
-	}
+vec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {
+	float width = toDotWidth(strokeScaling, strokeWidthScale);
+	vec2 pattern = toDotPattern(dash);
+	return vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);
+}
+
+vec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {
+	float width = toDotWidth(strokeScaling, strokeWidthScale);
+	vec2 pattern = toDotPattern(type - 7.0);
+	return vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);
 }
 
 void toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {
@@ -219,14 +213,14 @@ void main(void) {
 			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
 		} else {
 			vStepB = toStepB01(aStepB);
-			vLength = toLength7(type, strokeWidth);
+			vLength = toLength7(type, strokeScaling, strokeWidthScale);
 		}
 	} else {
 		float shift3 = 0.0;
 		gl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);
 		vStepA = toStepA3(type, strokeWidth);
 		vStepB = vec4(0.0);
-		vLength = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
+		vLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);
 	}
 	toColors(aColor, vColorFill, vColorStroke);
 	vUv = aUv;
