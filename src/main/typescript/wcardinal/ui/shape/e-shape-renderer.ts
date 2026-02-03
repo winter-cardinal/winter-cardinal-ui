@@ -208,29 +208,25 @@ void main(void) {
 	float strokeWidth = strokeWidthScale * aStepA.x;
 
 	vType = type;
-	if (type < 2.5) {
+	if (type < 2.5 || 6.5 < type) {
 		gl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);
 		vStepA = strokeWidth * general.zw;
-		if (1.5 < type) {
+		if (type < 1.5) {
+			vStepB = toStepB01(aStepB);
+			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
+		} else if (type < 2.5) {
 			vStepB = toStepB2(aStepB, strokeWidth);
+			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
 		} else {
 			vStepB = toStepB01(aStepB);
+			vLength = toLength7(type, strokeWidth);
 		}
-		vLength = vec4(-1.0, 0.0, 0.0, -1.0);
-	} else if (type < 6.5) {
-		float shift3 = 0.0;
-		vec2 p3 = toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3);
-		vec2 sa3 = toStepA3(type, strokeWidth);
-		vec4 sb3 = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
-		gl_Position = vec4(p3, 0.0, 1.0);
-		vStepA = sa3;
-		vStepB = vec4(0.0);
-		vLength = sb3;
 	} else {
-		gl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);
-		vStepA = strokeWidth * general.zw;
-		vStepB = toStepB01(aStepB);
-		vLength = toLength7(type, strokeWidth);
+		float shift3 = 0.0;
+		gl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);
+		vStepA = toStepA3(type, strokeWidth);
+		vStepB = vec4(0.0);
+		vLength = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
 	}
 	toColors(aColor, vColorFill, vColorStroke);
 	vUv = aUv;
