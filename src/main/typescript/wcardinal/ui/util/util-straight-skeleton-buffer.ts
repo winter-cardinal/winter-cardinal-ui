@@ -7,10 +7,7 @@ export class UtilStraightSkeletonBufferBuilder {
 	protected _lengths: number[];
 	protected _clippings: number[];
 	protected _indices: number[];
-	protected _wavefrontToIndexToIv: Map<
-		UtilStraightSkeletonWavefront,
-		Map<number, Map<number, number>>
-	>;
+	protected _ivs: Map<UtilStraightSkeletonWavefront, Map<number, Map<number, number>>>;
 
 	constructor() {
 		this._vertices = [];
@@ -18,21 +15,18 @@ export class UtilStraightSkeletonBufferBuilder {
 		this._lengths = [];
 		this._clippings = [];
 		this._indices = [];
-		this._wavefrontToIndexToIv = new Map<
-			UtilStraightSkeletonWavefront,
-			Map<number, Map<number, number>>
-		>();
+		this._ivs = new Map();
 	}
 
 	addVertex(wavefront: UtilStraightSkeletonWavefront, index: number, length: number): number {
-		const indexToLengthToIv = this._wavefrontToIndexToIv.get(wavefront);
+		const indexToLengthToIv = this._ivs.get(wavefront);
 		if (indexToLengthToIv == null) {
 			const iv = this.addVertexAt(wavefront, index, length);
 			const newLengthToIv = new Map<number, number>();
 			newLengthToIv.set(length, iv);
 			const newIndexToLengthToIv = new Map<number, Map<number, number>>();
 			newIndexToLengthToIv.set(index, newLengthToIv);
-			this._wavefrontToIndexToIv.set(wavefront, newIndexToLengthToIv);
+			this._ivs.set(wavefront, newIndexToLengthToIv);
 			return iv;
 		} else {
 			const lengthToIv = indexToLengthToIv.get(index);
@@ -293,7 +287,7 @@ export class UtilStraightSkeletonBufferBuilder {
 	 * @returns a new {@link UtilStraightSkeletonBuffer} instance
 	 */
 	build(): UtilStraightSkeletonBuffer {
-		this._wavefrontToIndexToIv.clear();
+		this._ivs.clear();
 		return new UtilStraightSkeletonBuffer(
 			this._vertices,
 			this._distances,
