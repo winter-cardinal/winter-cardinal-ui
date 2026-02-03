@@ -154,7 +154,7 @@ float toDotWidth(in float strokeScaling, in float strokeWidthScale) {
 
 vec2 toDotPattern(in float dash) {
 	return (dash < 0.5 ?
-		vec2(0.0, 0.0) :
+		vec2(1.0, 0.0) :
 		(dash < 3.5 ?
 			(dash < 1.5 ?
 				vec2(1.0, 1.0) :
