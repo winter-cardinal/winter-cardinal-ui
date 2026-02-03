@@ -12,7 +12,6 @@ import { toDash } from "./to-dash";
 
 /**
  * Build index buffer for polygons.
- * Copies indices directly from the polygon's index array.
  */
 export const buildPolygonIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -27,8 +26,7 @@ export const buildPolygonIndex = (
 };
 
 /**
- * Build vertex buffer for polygons.
- * Transforms vertices from relative coordinates [-0.5, +0.5] to world coordinates.
+ * Build vertices buffer for polygons.
  */
 export const buildPolygonVertex = (
 	vertices: Float32Array,
@@ -53,7 +51,6 @@ export const buildPolygonVertex = (
 
 /**
  * Build step buffer for polygons.
- * Since this is fill-only, step information is minimal.
  */
 export const buildPolygonStep = (
 	steps: Float32Array,
