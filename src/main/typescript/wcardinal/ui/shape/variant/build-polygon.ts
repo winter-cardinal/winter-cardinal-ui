@@ -8,10 +8,10 @@ import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 import { toScaleInvariant } from "./to-scale-invariant";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { toDash } from "./to-dash";
 
 /**
  * Build index buffer for polygons.
- * Copies indices directly from the polygon's index array.
  */
 export const buildPolygonIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -26,8 +26,7 @@ export const buildPolygonIndex = (
 };
 
 /**
- * Build vertex buffer for polygons.
- * Transforms vertices from relative coordinates [-0.5, +0.5] to world coordinates.
+ * Build vertices buffer for polygons.
  */
 export const buildPolygonVertex = (
 	vertices: Float32Array,
@@ -52,11 +51,11 @@ export const buildPolygonVertex = (
 
 /**
  * Build step buffer for polygons.
- * Since this is fill-only, step information is minimal.
  */
 export const buildPolygonStep = (
 	steps: Float32Array,
 	polygonDistances: number[],
+	polygonLengths: number[],
 	polygonClippings: number[],
 	voffset: number,
 	vertexCount: number,
@@ -65,18 +64,20 @@ export const buildPolygonStep = (
 	strokeStyle: EShapeStrokeStyle
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const dash = toDash(strokeStyle);
 	const w = (strokeSide & EShapeStrokeSide.ALL) === EShapeStrokeSide.ALL ? 1 : 0;
-	const e = toPackedI4x64(0, scaleInvariant, w, w);
+	const e = toPackedI4x64(7 + dash, scaleInvariant, w, w);
 	let is = voffset * 6 - 1;
 	for (let i = 0; i < vertexCount; i += 1) {
 		const d = polygonDistances[i];
+		const l = polygonLengths[i];
 		const c = polygonClippings[i];
 		steps[++is] = strokeWidth;
 		steps[++is] = e;
 		steps[++is] = d;
 		steps[++is] = d;
 		steps[++is] = toPackedF2x1024(c, c);
-		steps[++is] = 0;
+		steps[++is] = l;
 	}
 };
 

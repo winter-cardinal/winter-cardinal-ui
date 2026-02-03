@@ -5,7 +5,14 @@ import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-
 import type { EShapePolygon } from "./e-shape-polygon";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
 
-export type EShapePolygonTriangulatedExtensionSerialized = [number, number, number, number, number];
+export type EShapePolygonTriangulatedExtensionSerialized = [
+	number,
+	number,
+	number,
+	number,
+	number,
+	number
+];
 
 export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated {
 	protected _id: number;
@@ -14,6 +21,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 	protected _vertices: number[];
 	protected _nvertices: number;
 	protected _distances: number[];
+	protected _lengths: number[];
 	protected _clippings: number[];
 	protected _uvs: number[];
 	protected _indices: number[];
@@ -26,6 +34,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		this._vertices = [];
 		this._nvertices = 0;
 		this._distances = [];
+		this._lengths = [];
 		this._clippings = [];
 		this._uvs = [];
 		this._indices = [];
@@ -52,6 +61,11 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		return this._distances;
 	}
 
+	get lengths(): number[] {
+		this.triangulate();
+		return this._lengths;
+	}
+
 	get clippings(): number[] {
 		this.triangulate();
 		return this._clippings;
@@ -76,6 +90,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		parentPointsId?: number,
 		vertices?: number[],
 		distances?: number[],
+		lengths?: number[],
 		clippings?: number[],
 		uvs?: number[],
 		indices?: number[]
@@ -109,6 +124,18 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			}
 			if (this._distances.length !== distancesLength) {
 				this._distances.length = distancesLength;
+			}
+			isChanged = true;
+		}
+
+		// Lengths
+		if (lengths != null) {
+			const lengthsLength = lengths.length;
+			for (let i = 0; i < lengthsLength; ++i) {
+				this._lengths[i] = lengths[i];
+			}
+			if (this._lengths.length !== lengthsLength) {
+				this._lengths.length = lengthsLength;
 			}
 			isChanged = true;
 		}
@@ -171,6 +198,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			this._vertices = buffer.vertices;
 			this._nvertices = buffer.vertices.length >> 1;
 			this._distances = buffer.distances;
+			this._lengths = buffer.lengths;
 			this._clippings = buffer.clippings;
 			this._uvs = this.toUvs(buffer.vertices);
 			this._indices = buffer.indices;
@@ -197,6 +225,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			this._parent.points.id,
 			source.vertices,
 			source.distances,
+			source.lengths,
 			source.clippings,
 			source.uvs,
 			source.indices
@@ -209,6 +238,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		const serialized: EShapePolygonTriangulatedExtensionSerialized = [
 			manager.addResource(JSON.stringify(this._vertices)),
 			manager.addResource(JSON.stringify(this._distances)),
+			manager.addResource(JSON.stringify(this._lengths)),
 			manager.addResource(JSON.stringify(this._clippings)),
 			manager.addResource(JSON.stringify(this._uvs)),
 			manager.addResource(JSON.stringify(this._indices))
@@ -255,8 +285,19 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 				this._distances = distances;
 			}
 
+			// Lengths
+			const lengthId = parsed[2];
+			if (0 <= lengthId && lengthId < resourcesLength) {
+				let lengths = manager.getExtension<number[]>(lengthId);
+				if (lengths == null) {
+					lengths = JSON.parse(resources[lengthId]) as number[];
+					manager.setExtension(lengthId, lengths);
+				}
+				this._lengths = lengths;
+			}
+
 			// Clippings
-			const clippingId = parsed[2];
+			const clippingId = parsed[3];
 			if (0 <= clippingId && clippingId < resourcesLength) {
 				let clippings = manager.getExtension<number[]>(clippingId);
 				if (clippings == null) {
@@ -267,7 +308,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			}
 
 			// UVs
-			const uvId = parsed[3];
+			const uvId = parsed[4];
 			if (0 <= uvId && uvId < resourcesLength) {
 				let uvs = manager.getExtension<number[]>(uvId);
 				if (uvs == null) {
@@ -278,7 +319,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			}
 
 			// Indices
-			const indexId = parsed[4];
+			const indexId = parsed[5];
 			if (0 <= indexId && indexId < resourcesLength) {
 				let indices = manager.getExtension<number[]>(indexId);
 				if (indices == null) {

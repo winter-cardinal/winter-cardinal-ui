@@ -6,6 +6,7 @@ export interface EShapePolygonTriangulated {
 	get vertices(): number[];
 	get nvertices(): number;
 	get distances(): number[];
+	get lengths(): number[];
 	get clippings(): number[];
 	get uvs(): number[];
 	get indices(): number[];
@@ -15,6 +16,7 @@ export interface EShapePolygonTriangulated {
 		parentId?: number,
 		vertices?: number[],
 		distances?: number[],
+		lengths?: number[],
 		clippings?: number[],
 		uvs?: number[],
 		indices?: number[]

@@ -4,45 +4,60 @@ import { UtilStraightSkeletonWavefront } from "./util-straight-skeleton";
 export class UtilStraightSkeletonBufferBuilder {
 	protected _vertices: number[];
 	protected _distances: number[];
+	protected _lengths: number[];
 	protected _clippings: number[];
 	protected _indices: number[];
-	protected _wavefrontToIndexToIv: Map<UtilStraightSkeletonWavefront, Map<number, number>>;
+	protected _ivs: Map<UtilStraightSkeletonWavefront, Map<number, Map<number, number>>>;
 
 	constructor() {
 		this._vertices = [];
 		this._distances = [];
+		this._lengths = [];
 		this._clippings = [];
 		this._indices = [];
-		this._wavefrontToIndexToIv = new Map<UtilStraightSkeletonWavefront, Map<number, number>>();
+		this._ivs = new Map();
 	}
 
-	addVertex(wavefront: UtilStraightSkeletonWavefront, index: number): number {
-		let indexToIv = this._wavefrontToIndexToIv.get(wavefront);
-		if (indexToIv == null) {
-			indexToIv = new Map<number, number>();
-			const vertices = this._vertices;
-			const result = vertices.length >> 1;
-			indexToIv.set(index, result);
-			this._wavefrontToIndexToIv.set(wavefront, indexToIv);
-			const points = wavefront.points;
-			vertices.push(points[index], points[index + 1]);
-			const distance = wavefront.distance;
-			this._distances.push(distance);
-			return result;
+	addVertex(wavefront: UtilStraightSkeletonWavefront, index: number, length: number): number {
+		const indexToLengthToIv = this._ivs.get(wavefront);
+		if (indexToLengthToIv == null) {
+			const iv = this.addVertexAt(wavefront, index, length);
+			const newLengthToIv = new Map<number, number>();
+			newLengthToIv.set(length, iv);
+			const newIndexToLengthToIv = new Map<number, Map<number, number>>();
+			newIndexToLengthToIv.set(index, newLengthToIv);
+			this._ivs.set(wavefront, newIndexToLengthToIv);
+			return iv;
 		} else {
-			let result = indexToIv.get(index);
-			if (result != null) {
-				return result;
+			const lengthToIv = indexToLengthToIv.get(index);
+			if (lengthToIv == null) {
+				const iv = this.addVertexAt(wavefront, index, length);
+				const newLengthToIv = new Map<number, number>();
+				newLengthToIv.set(length, iv);
+				indexToLengthToIv.set(index, newLengthToIv);
+				return iv;
+			} else {
+				const iv = lengthToIv.get(length);
+				if (iv == null) {
+					const newIv = this.addVertexAt(wavefront, index, length);
+					lengthToIv.set(length, newIv);
+					return newIv;
+				} else {
+					return iv;
+				}
 			}
-			const vertices = this._vertices;
-			result = vertices.length >> 1;
-			indexToIv.set(index, result);
-			const points = wavefront.points;
-			vertices.push(points[index], points[index + 1]);
-			const distance = wavefront.distance;
-			this._distances.push(distance);
-			return result;
 		}
+	}
+
+	addVertexAt(wavefront: UtilStraightSkeletonWavefront, index: number, length: number): number {
+		const vertices = this._vertices;
+		const result = vertices.length >> 1;
+		const points = wavefront.points;
+		vertices.push(points[index], points[index + 1]);
+		const distance = wavefront.distance;
+		this._distances.push(distance);
+		this._lengths.push(length);
+		return result;
 	}
 
 	addWavefront(wavefront: UtilStraightSkeletonWavefront): void {
@@ -56,8 +71,32 @@ export class UtilStraightSkeletonBufferBuilder {
 		const p = wavefront.points;
 		const pl = p.length;
 		if (4 < pl) {
-			for (let i = 0; i < pl; i += 2) {
-				this.addEdge(wavefront, i, (i + 2) % pl);
+			const n = wavefront.normals;
+			let la = 0;
+			for (let ia = 0; ia < pl; ia += 2) {
+				const ib = (ia + 2) % pl;
+				const xa = p[ia];
+				const ya = p[ia + 1];
+				const xb = p[ib];
+				const yb = p[ib + 1];
+				const dx = xb - xa;
+				const dy = yb - ya;
+				const dd = dx * dx + dy * dy;
+				const nx = n[ia];
+				const ny = n[ia + 1];
+				const mx = ny;
+				const my = -nx;
+				const l = dx * mx + dy * my;
+				const lb = la + l;
+				let fx = 0;
+				let fy = 0;
+				if (0 < dd) {
+					const f = 1 / dd;
+					fx = dx * f;
+					fy = dy * f;
+				}
+				this.addEdge(wavefront, ia, ib, la, lb, xa, ya, fx, fy);
+				la = lb;
 			}
 		}
 
@@ -75,7 +114,7 @@ export class UtilStraightSkeletonBufferBuilder {
 			const fdistance = 1 / mdistance;
 			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
 				clippings.push(1 - distances[i] * fdistance);
-				distances[i] = mdistance;
+				distances[i] = fdistance;
 			}
 		} else {
 			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
@@ -93,11 +132,38 @@ export class UtilStraightSkeletonBufferBuilder {
 		return this;
 	}
 
-	protected addEdge(wavefront: UtilStraightSkeletonWavefront, ia: number, ib: number): void {
+	protected calcLength(
+		wavefront: UtilStraightSkeletonWavefront,
+		i: number,
+		la: number,
+		lb: number,
+		xa: number,
+		ya: number,
+		fx: number,
+		fy: number
+	): number {
+		const points = wavefront.points;
+		const t = (points[i] - xa) * fx + (points[i + 1] - ya) * fy;
+		return (1 - t) * la + t * lb;
+	}
+
+	protected addEdge(
+		wavefront: UtilStraightSkeletonWavefront,
+		ia: number,
+		ib: number,
+		la: number,
+		lb: number,
+		xa: number,
+		ya: number,
+		fx: number,
+		fy: number
+	): void {
 		const awavefronts: UtilStraightSkeletonWavefront[] = [];
 		const bwavefronts: UtilStraightSkeletonWavefront[] = [wavefront, wavefront];
 		const aindices: number[] = [];
 		const bindices: number[] = [ia, ib];
+		const alengths: number[] = [];
+		const blengths: number[] = [la, lb];
 		const work: [number, number, number] = [0, 0, 0];
 		while (true) {
 			const next = this.findEdgeNext(wavefront, ia, ib, work);
@@ -115,6 +181,7 @@ export class UtilStraightSkeletonBufferBuilder {
 				) {
 					bwavefronts.push(wavefront);
 					bindices.push(ib);
+					blengths.push(this.calcLength(wavefront, ib, la, lb, xa, ya, fx, fy));
 				}
 				break;
 			} else {
@@ -125,6 +192,7 @@ export class UtilStraightSkeletonBufferBuilder {
 				) {
 					awavefronts.push(wavefront);
 					aindices.push(ia);
+					alengths.push(this.calcLength(wavefront, ia, la, lb, xa, ya, fx, fy));
 				}
 				if (
 					wavefront.children.length <= 0 ||
@@ -133,15 +201,21 @@ export class UtilStraightSkeletonBufferBuilder {
 				) {
 					bwavefronts.push(wavefront);
 					bindices.push(ib);
+					blengths.push(this.calcLength(wavefront, ib, la, lb, xa, ya, fx, fy));
 				}
 			}
 		}
+
+		// Merge awavefronts / aindices into bwavefronts / bindices
 		const awavefrontsLength = awavefronts.length;
 		for (let i = awavefrontsLength - 1; 0 <= i; --i) {
 			bwavefronts.push(awavefronts[i]);
 			bindices.push(aindices[i]);
+			blengths.push(alengths[i]);
 		}
-		this.triangulate(bwavefronts, bindices);
+
+		// Triangulate
+		this.triangulate(bwavefronts, bindices, blengths);
 	}
 
 	protected findEdgeNext(
@@ -173,13 +247,17 @@ export class UtilStraightSkeletonBufferBuilder {
 		return result;
 	}
 
-	protected triangulate(wavefronts: UtilStraightSkeletonWavefront[], indices: number[]): void {
+	protected triangulate(
+		wavefronts: UtilStraightSkeletonWavefront[],
+		indices: number[],
+		lengths: number[]
+	): void {
 		const wavefrontsLength = wavefronts.length;
 		if (wavefrontsLength === 3) {
 			this._indices.push(
-				this.addVertex(wavefronts[0], indices[0]),
-				this.addVertex(wavefronts[1], indices[1]),
-				this.addVertex(wavefronts[2], indices[2])
+				this.addVertex(wavefronts[0], indices[0], lengths[0]),
+				this.addVertex(wavefronts[1], indices[1], lengths[1]),
+				this.addVertex(wavefronts[2], indices[2], lengths[2])
 			);
 		} else if (3 < wavefrontsLength) {
 			// Add all vertices
@@ -187,7 +265,7 @@ export class UtilStraightSkeletonBufferBuilder {
 			const vs: number[] = [];
 			const vertices = this._vertices;
 			for (let i = 0; i < wavefrontsLength; ++i) {
-				const iv1 = this.addVertex(wavefronts[i], indices[i]);
+				const iv1 = this.addVertex(wavefronts[i], indices[i], lengths[i]);
 				ivs.push(iv1);
 				const iv2 = iv1 << 1;
 				vs.push(vertices[iv2], vertices[iv2 + 1]);
@@ -209,10 +287,11 @@ export class UtilStraightSkeletonBufferBuilder {
 	 * @returns a new {@link UtilStraightSkeletonBuffer} instance
 	 */
 	build(): UtilStraightSkeletonBuffer {
-		this._wavefrontToIndexToIv.clear();
+		this._ivs.clear();
 		return new UtilStraightSkeletonBuffer(
 			this._vertices,
 			this._distances,
+			this._lengths,
 			this._clippings,
 			this._indices
 		);
@@ -222,12 +301,20 @@ export class UtilStraightSkeletonBufferBuilder {
 export class UtilStraightSkeletonBuffer {
 	vertices: number[];
 	distances: number[];
+	lengths: number[];
 	clippings: number[];
 	indices: number[];
 
-	constructor(vertices: number[], distances: number[], clippings: number[], indices: number[]) {
+	constructor(
+		vertices: number[],
+		distances: number[],
+		lengths: number[],
+		clippings: number[],
+		indices: number[]
+	) {
 		this.vertices = vertices;
 		this.distances = distances;
+		this.lengths = lengths;
 		this.clippings = clippings;
 		this.indices = indices;
 	}

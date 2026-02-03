@@ -35,6 +35,7 @@ uniform mediump float antialiasWeight;
 varying mediump float vType;
 varying mediump vec2 vStepA;
 varying mediump vec4 vStepB;
+varying mediump vec4 vLength;
 varying mediump vec4 vColorFill;
 varying mediump vec4 vColorStroke;
 varying mediump vec2 vUv;
@@ -172,6 +173,25 @@ vec4 toStepB3(in float shift, in float dash, in float strokeScaling, in float st
 	);
 }
 
+vec4 toLength7(in float type, in float strokeWidth) {
+	float dash = type - 7.0;
+	if (dash < 0.5) {
+		return vec4(aStepB.w, 0.0, 0.0, -1.0);
+	} else if (dash < 1.5) {
+		return vec4(aStepB.w, strokeWidth, strokeWidth, -1.0);
+	} else if (dash < 2.5) {
+		return vec4(aStepB.w, strokeWidth, 0.5 * strokeWidth, -1.0);
+	} else if (dash < 3.5) {
+		return vec4(aStepB.w, strokeWidth, 2.0 * strokeWidth, -1.0);
+	} else if (dash < 4.5) {
+		return vec4(aStepB.w, 2.0 * strokeWidth, strokeWidth, -1.0);
+	} else if (dash < 5.5) {
+		return vec4(aStepB.w, 2.0 * strokeWidth, 0.5 * strokeWidth, -1.0);
+	} else {
+		return vec4(aStepB.w, 2.0 * strokeWidth, 2.0 * strokeWidth, -1.0);
+	}
+}
+
 void toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {
 	vec2 a = toUnpackedF2x1024(source.z);
 	fillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;
@@ -187,25 +207,27 @@ void main(void) {
 	float strokeWidthScale = toStrokeWidthScale(strokeScaling);
 	float strokeWidth = strokeWidthScale * aStepA.x;
 
-	// Type 0, 1
-	vec2 p012 = toPosition012(aPosition);
-	vec2 sa012 = strokeWidth * general.zw;
-	vec4 sb01 = toStepB01(aStepB);
-
-	// Type 2
-	vec4 sb2 = toStepB2(aStepB, strokeWidth);
-
-	// Type 3 ~ 6
-	float shift3 = 0.0;
-	vec2 p3 = toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3);
-	vec2 sa3 = toStepA3(type, strokeWidth);
-	vec4 sb3 = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
-
-	//
-	gl_Position = vec4((2.5 < type ? p3 : p012), 0.0, 1.0);
 	vType = type;
-	vStepA = (2.5 < type ? sa3 : sa012);
-	vStepB = (1.5 < type ? (2.5 < type ? sb3 : sb2) : sb01);
+	if (type < 2.5 || 6.5 < type) {
+		gl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);
+		vStepA = strokeWidth * general.zw;
+		if (type < 1.5) {
+			vStepB = toStepB01(aStepB);
+			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
+		} else if (type < 2.5) {
+			vStepB = toStepB2(aStepB, strokeWidth);
+			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
+		} else {
+			vStepB = toStepB01(aStepB);
+			vLength = toLength7(type, strokeWidth);
+		}
+	} else {
+		float shift3 = 0.0;
+		gl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);
+		vStepA = toStepA3(type, strokeWidth);
+		vStepB = vec4(0.0);
+		vLength = toStepB3(shift3, general.z, strokeScaling, strokeWidthScale);
+	}
 	toColors(aColor, vColorFill, vColorStroke);
 	vUv = aUv;
 }`;
@@ -214,6 +236,7 @@ const FRAGMENT_SHADER = `
 varying mediump float vType;
 varying mediump vec2 vStepA;
 varying mediump vec4 vStepB;
+varying mediump vec4 vLength;
 varying mediump vec4 vColorFill;
 varying mediump vec4 vColorStroke;
 varying mediump vec2 vUv;
@@ -222,10 +245,10 @@ uniform sampler2D sampler;
 uniform mediump float antialiasWeight;
 
 vec4 toColor0(in vec4 texture) {
-	vec2 d = vStepB.xy;
+	vec2 f = vec2(1.0) / vStepB.xy;
 	vec2 c = vStepB.zw;
-	vec2 awd = antialiasWeight / d;
-	vec2 swd = vStepA / d;
+	vec2 awd = antialiasWeight * f;
+	vec2 swd = vStepA * f;
 	vec2 one = vec2(1.0);
 	vec2 zero = vec2(0.0);
 	vec2 p0 = clamp(one - awd, zero, one);
@@ -235,6 +258,7 @@ vec4 toColor0(in vec4 texture) {
 	vec2 s1 = smoothstep(p2, p1, c);
 	float s2 = max(s0.x, s0.y);
 	float s3 = max(s1.x, s1.y);
+
 	return texture * (
 		vColorStroke * (s3 - s2) +
 		vColorFill * (1.0 - s3)
@@ -264,37 +288,55 @@ vec4 toColor2(in vec4 texture) {
 	return vColorStroke * (s.y - s.x) + vColorFill * s.x;
 }
 
-vec4 toColor3(in vec4 texture) {
-	float l = vStepB.x;
-	float lp0 = vStepB.y;
-	float lp1 = vStepB.z;
-	float lt = vStepB.w;
+float toLineStep(in vec4 parameters) {
+	float l = parameters.x;
+	float lp0 = parameters.y;
+	float lp1 = parameters.z;
+	float lt = parameters.w;
 	float ld = antialiasWeight;
 	float lm = mod(l, lp0 + lp1);
-	float ls0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
-	float ls1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
+	float s0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
+	float s1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
+	return s0 * s1;
+}
 
+vec4 toColor3(in vec4 texture) {
 	float c = vStepA.x;
 	float awd = antialiasWeight / vStepA.y;
 	float p0 = clamp(awd, 0.0, 1.0);
 	float p1 = clamp(1.0 - awd, 0.0, 1.0);
 	float s0 = smoothstep(0.0, p0, c);
 	float s1 = smoothstep(p1, 1.0, c);
-	return texture * vColorStroke * (s0 - s1) * ls0 * ls1;
+	return texture * vColorStroke * (s0 - s1) * toLineStep(vLength);
+}
+
+vec4 toColor7(in vec4 texture) {
+	float awd = antialiasWeight * vStepB.x;
+	float swd = vStepA.x * vStepB.x;
+	float p0 = clamp(1.0 - awd, 0.0, 1.0);
+	float p1 = clamp(1.0 - swd, 0.0, 1.0);
+	float p2 = clamp(1.0 - swd - awd, 0.0, 1.0);
+	float s0 = smoothstep(p0, 1.0, vStepB.z);
+	float s1 = smoothstep(p2, p1, vStepB.z) * toLineStep(vLength);
+	return texture * (
+		vColorStroke * (s1 - s0) +
+		vColorFill * (1.0 - s1)
+	);
 }
 
 void main(void) {
 	vec4 texture = texture2D(sampler, vUv);
-	gl_FragColor = (vType < 1.5 ?
-		(vType < 0.5 ?
-			toColor0(texture) :
-			toColor1(texture)
-		) :
-		(vType < 2.5 ?
-			toColor2(texture) :
-			toColor3(texture)
-		)
-	);
+	if (vType < 0.5) {
+		gl_FragColor = toColor0(texture);
+	} else if (vType < 1.5) {
+		gl_FragColor = toColor1(texture);
+	} else if (vType < 2.5) {
+		gl_FragColor = toColor2(texture);
+	} else if (vType < 6.5) {
+		gl_FragColor = toColor3(texture);
+	} else {
+		gl_FragColor = toColor7(texture);
+	}
 }`;
 
 export class EShapeRenderer extends ObjectRenderer {
