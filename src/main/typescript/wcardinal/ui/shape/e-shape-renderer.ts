@@ -288,45 +288,36 @@ vec4 toColor2(in vec4 texture) {
 	return vColorStroke * (s.y - s.x) + vColorFill * s.x;
 }
 
-vec4 toColor3(in vec4 texture) {
-	float l = vLength.x;
-	float lp0 = vLength.y;
-	float lp1 = vLength.z;
-	float lt = vLength.w;
+float toLineStep(in vec4 parameters) {
+	float l = parameters.x;
+	float lp0 = parameters.y;
+	float lp1 = parameters.z;
+	float lt = parameters.w;
 	float ld = antialiasWeight;
 	float lm = mod(l, lp0 + lp1);
-	float ls0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
-	float ls1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
+	float s0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
+	float s1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
+	return s0 * s1;
+}
 
+vec4 toColor3(in vec4 texture) {
 	float c = vStepA.x;
 	float awd = antialiasWeight / vStepA.y;
 	float p0 = clamp(awd, 0.0, 1.0);
 	float p1 = clamp(1.0 - awd, 0.0, 1.0);
 	float s0 = smoothstep(0.0, p0, c);
 	float s1 = smoothstep(p1, 1.0, c);
-	return texture * vColorStroke * (s0 - s1) * ls0 * ls1;
+	return texture * vColorStroke * (s0 - s1) * toLineStep(vLength);
 }
 
 vec4 toColor7(in vec4 texture) {
-	float f = 1.0 / vStepB.x;
-	float c = vStepB.z;
-	float awd = antialiasWeight * f;
-	float swd = vStepA.x * f;
+	float awd = antialiasWeight * vStepB.x;
+	float swd = vStepA.x * vStepB.x;
 	float p0 = clamp(1.0 - awd, 0.0, 1.0);
 	float p1 = clamp(1.0 - swd, 0.0, 1.0);
 	float p2 = clamp(1.0 - swd - awd, 0.0, 1.0);
-	float s0 = smoothstep(p0, 1.0, c);
-	float s1 = smoothstep(p2, p1, c);
-
-	float l = vLength.x;
-	float lp0 = vLength.y;
-	float lp1 = vLength.z;
-	float lt = vLength.w;
-	float ld = antialiasWeight;
-	float lm = mod(l, lp0 + lp1);
-	float ls0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
-	s1 *= ls0;
-
+	float s0 = smoothstep(p0, 1.0, vStepB.z);
+	float s1 = smoothstep(p2, p1, vStepB.z) * toLineStep(vLength);
 	return texture * (
 		vColorStroke * (s1 - s0) +
 		vColorFill * (1.0 - s1)

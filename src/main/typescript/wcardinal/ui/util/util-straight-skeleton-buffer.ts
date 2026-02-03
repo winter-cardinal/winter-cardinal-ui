@@ -120,7 +120,7 @@ export class UtilStraightSkeletonBufferBuilder {
 			const fdistance = 1 / mdistance;
 			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
 				clippings.push(1 - distances[i] * fdistance);
-				distances[i] = mdistance;
+				distances[i] = fdistance;
 			}
 		} else {
 			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
