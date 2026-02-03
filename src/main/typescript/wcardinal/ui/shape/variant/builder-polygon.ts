@@ -161,6 +161,7 @@ export class BuilderPolygon extends BuilderBase {
 				buildPolygonStep(
 					buffer.steps,
 					triangulated.distances,
+					triangulated.lengths,
 					triangulated.clippings,
 					voffset,
 					this.vertexCount,
