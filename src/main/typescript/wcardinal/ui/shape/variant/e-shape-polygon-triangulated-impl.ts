@@ -192,7 +192,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		if (isParentIdChanged) {
 			this._parentPointsId = parentPointsId;
 			const buffer = UtilStraightSkeletonBuffer.from(
-				UtilStraightSkeleton.from(parentPoints.values)
+				UtilStraightSkeleton.from(parentPoints.formatted.values)
 			);
 			this._id += 1;
 			this._vertices = buffer.vertices;
