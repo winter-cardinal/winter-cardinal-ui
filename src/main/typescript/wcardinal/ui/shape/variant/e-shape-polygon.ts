@@ -9,8 +9,8 @@ import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
-import { EShapeLinePoints } from "./e-shape-line-points";
 import { EShapeLockPart } from "./e-shape-lock-part";
+import { EShapePolygonPoints } from "./e-shape-polygon-points";
 import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
 import { EShapePolygonTriangulatedImpl } from "./e-shape-polygon-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
@@ -19,7 +19,7 @@ import { hitTestPolygon } from "./hit-test-polygon";
 export type EShapePolygonExtensionSerialized = [number, number];
 
 export class EShapePolygon extends EShapePrimitive {
-	protected readonly _points: EShapeLinePoints;
+	protected readonly _points: EShapePolygonPoints;
 	protected readonly _triangulated: EShapePolygonTriangulated;
 
 	constructor(type: EShapeType = EShapeType.POLYGON) {
@@ -28,12 +28,12 @@ export class EShapePolygon extends EShapePrimitive {
 		this._triangulated = this.newTriangulated();
 	}
 
-	get points(): EShapeLinePoints {
+	get points(): EShapePolygonPoints {
 		return this._points;
 	}
 
-	protected newPoints(): EShapeLinePoints {
-		return new EShapeLinePoints(this);
+	protected newPoints(): EShapePolygonPoints {
+		return new EShapePolygonPoints(this);
 	}
 
 	protected newTriangulated(): EShapePolygonTriangulated {

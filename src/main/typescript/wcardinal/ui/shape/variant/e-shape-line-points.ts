@@ -58,8 +58,12 @@ export class EShapeLinePoints implements EShapePoints {
 		this._parentSizeBase = new Point(parentSizeX, parentSizeY);
 		this._parentSizeFitted = new Point(parentSizeX, parentSizeY);
 		this._id = 0;
-		this._style = EShapePointsStyle.NONE;
+		this._style = this.newStyle();
 		this._formattedId = -1;
+	}
+
+	protected newStyle(): EShapePointsStyle {
+		return EShapePointsStyle.NONE;
 	}
 
 	get length(): number {
