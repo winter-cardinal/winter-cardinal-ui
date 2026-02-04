@@ -5,7 +5,7 @@
 
 const path = require( "path" );
 const fs = require( "fs" ).promises;
-const rimraf = require( "rimraf" );
+const { rimraf } = require("rimraf");
 const PIXI_VERSION = require( "pixi.js/package" ).version;
 const WCUI_VERSION = require( '../../../package.json' ).version;
 
@@ -57,7 +57,7 @@ const logger = {
 const cleanupDirectory = ( path ) => {
 	return new Promise(( resolve ) => {
 		logger.log( path );
-		rimraf( path, () => {
+		rimraf( path ).then(() => {
 			fs.mkdir( path, { recursive: true } ).then(() => {
 				resolve();
 			});

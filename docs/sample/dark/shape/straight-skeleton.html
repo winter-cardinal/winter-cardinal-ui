@@ -1,0 +1,355 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Straight Skeleton</title>
+	<style>
+	html, body {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+		overflow: hidden;
+		overflow: clip;
+	}
+
+	canvas {
+		display: block;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	hit-point {
+		display: block;
+		position: absolute;
+		x: 0;
+		y: 0;
+		width: 24px;
+		height: 24px;
+		background: #3388ff99;
+		border: none;
+		padding: 0;
+		margin: 0;
+		border-radius: 50%;
+		cursor: pointer;
+	}
+
+	hit-point.hidden {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<canvas></canvas>
+	<hit-point class="hidden"></hit-point>
+	<script src="../../js/pixi/5.3.12/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.458.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.458.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(() => {
+		"use strict";
+
+		const EDGE_COLOR = "#666";
+		const EDGE_STROKE_WIDTH = 1;
+		const EDGE_STROKE_JOIN = "round";
+		const EDGE_STROKE_DASH = [];
+		const VERTEX_COLOR = "#666";
+		const VERTEX_SIZE = 1.5;
+		const VERTEX_HIT_AREA = 12 * 12;
+		const VERTEX_BRIDGE_COLOR = "#3388ff99";
+		const VERTEX_BRIDGE_SIZE = 4;
+		const VERTEX_MERGED_COLOR = "#ff883399";
+		const VERTEX_MERGED_SIZE = 4;
+		const VERTEX_OUTER_COLOR = "#666";
+		const VERTEX_OUTER_SIZE = 1;
+		const VERTEX_INNER_COLOR = "#666";
+		const VERTEX_INNER_SIZE = 1;
+		const NORMAL_COLOR = "#3388ff99";
+		const NORMAL_LENGTH = 20;
+		const NORMAL_STROKE_WIDTH = 1.5;
+		const NORMAL_STROKE_DASH = [];
+		const MAPPING_COLOR = "#3388ff99";
+		const MAPPING_STROKE_WIDTH = 1;
+		const MAPPING_STROKE_DASH = [3, 3];
+		const LEVEL = -1;
+
+		const toVertexColor = (wavefront, index) => {
+			if (0 <= wavefront.bridges[index]) {
+				return VERTEX_BRIDGE_COLOR;
+			} else if (1 < wavefront.mappings[index].length) {
+				return VERTEX_MERGED_COLOR;
+			} else if (wavefront.parent == null) {
+				return VERTEX_OUTER_COLOR;
+			} else if (wavefront.children.length <= 0) {
+				return VERTEX_INNER_COLOR;
+			} else {
+				return VERTEX_COLOR;
+			}
+		};
+
+		const toVertexSize = (wavefront, index) => {
+			if (0 <= wavefront.bridges[index]) {
+				return VERTEX_BRIDGE_SIZE;
+			} else if (1 < wavefront.mappings[index].length) {
+				return VERTEX_MERGED_SIZE;
+			} else if (wavefront.parent == null) {
+				return VERTEX_OUTER_SIZE;
+			} else if (wavefront.children.length <= 0) {
+				return VERTEX_INNER_SIZE;
+			} else {
+				return VERTEX_SIZE;
+			}
+		};
+
+		const renderWavefront = (settings, wavefront) => {
+			const ctx = settings.ctx;
+			ctx.save();
+			ctx.translate(settings.cx, settings.cy);
+			ctx.scale(settings.dpr, settings.dpr);
+
+			// Mappings
+			const p = wavefront.points;
+			const pl = p.length;
+			const parent = wavefront.parent;
+			if (parent != null) {
+				const m = wavefront.mappings;
+				ctx.lineWidth = MAPPING_STROKE_WIDTH;
+				ctx.strokeStyle = MAPPING_COLOR;
+				ctx.setLineDash(MAPPING_STROKE_DASH);
+				for (let i = 0; i < pl; i += 2) {
+					const mx = m[i];
+					const x0  = p[i];
+					const y0  = p[i + 1];
+					for (let k = 0, kmax = mx.length; k < kmax; ++k) {
+						const pi = mx[k];
+						const x1  = parent.points[pi];
+						const y1  = parent.points[pi + 1];
+						ctx.beginPath();
+						ctx.moveTo(x0, y0);
+						ctx.lineTo(x1, y1);
+						ctx.stroke();
+					}
+				}
+			}
+
+			if (2 < pl) {
+				// Edges
+				ctx.lineWidth = EDGE_STROKE_WIDTH;
+				ctx.lineJoin = EDGE_STROKE_JOIN;
+				ctx.strokeStyle = EDGE_COLOR;
+				ctx.setLineDash(EDGE_STROKE_DASH);
+				ctx.beginPath();
+				ctx.moveTo(p[0], p[1]);
+				for (let i = 2; i < pl; i += 2) {
+					ctx.lineTo(p[i], p[i + 1]);
+				}
+				ctx.closePath();
+				ctx.stroke();
+
+				// Vertices
+				for (let i = 0; i < pl; i += 2) {
+					const size = toVertexSize(wavefront, i);
+					ctx.fillStyle = toVertexColor(wavefront, i);
+					ctx.beginPath();
+					ctx.ellipse(p[i], p[i + 1], size, size, 0, 0, 2 * Math.PI);
+					ctx.fill();
+				}
+
+				// Normals
+				const n = wavefront.normals;
+				ctx.lineWidth = NORMAL_STROKE_WIDTH;
+				ctx.strokeStyle = NORMAL_COLOR;
+				ctx.setLineDash(NORMAL_STROKE_DASH);
+				for (let i = 0; i < pl; i += 2) {
+					const k = (i + 2) % pl;
+					const x0  = (p[i] + p[k]) * 0.5;
+					const y0  = (p[i + 1] + p[k + 1]) * 0.5;
+					ctx.beginPath();
+					ctx.moveTo(x0, y0);
+					ctx.lineTo(x0 + n[i] * NORMAL_LENGTH, y0 + n[i + 1] * NORMAL_LENGTH);
+					ctx.stroke();
+				}
+			} else if (pl === 2) {
+				const size = toVertexSize(wavefront, 0);
+				ctx.fillStyle = toVertexColor(wavefront, 0);
+				ctx.beginPath();
+				ctx.ellipse(p[0], p[1], size, size, 0, 0, 2 * Math.PI);
+				ctx.fill();
+			}
+
+			// Done
+			ctx.restore();
+		};
+
+		const renderWavefrontAll = (settings, wavefronts) => {
+			wavefronts.forEach((wavefront) => {
+				renderWavefront(settings, wavefront);
+				renderWavefrontAll(settings, wavefront.children);
+			});
+		};
+
+		const render = (settings, wavefronts) => {
+			const canvas = settings.canvas;
+			const bbox = canvas.getBoundingClientRect();
+			const dpr = window.devicePixelRatio;
+			settings.dpr = dpr;
+			const w = bbox.width * dpr;
+			const h = bbox.height * dpr;
+			settings.x = bbox.x;
+			settings.y = bbox.y;
+			settings.w = w;
+			settings.h = h;
+			settings.cx = w * 0.5;
+			settings.cy = h * 0.5;
+			canvas.setAttribute("width", `${w}px`);
+			canvas.setAttribute("height", `${h}px`);
+			settings.ctx.clearRect(0, 0, w, h);
+			renderWavefrontAll(settings, wavefronts);
+		};
+
+		const hitTest = (x, y, points, result) => {
+			const p = points;
+			const pl = p.length;
+			for (let i = 0; i < pl; i += 2) {
+				const dx = x - p[i];
+				const dy = y - p[i + 1];
+				const d = dx * dx + dy * dy;
+				if (d <= VERTEX_HIT_AREA) {
+					if (result.points == null || d < result.d) {
+						result.d = d;
+						result.points = points;
+						result.i = i;
+						result.x = p[i];
+						result.y = p[i + 1];
+					}
+				}
+			}
+		};
+
+		const canvas = document.querySelector("canvas");
+		const hitPoint = document.querySelector("hit-point");
+		const ctx = canvas.getContext("2d");
+		const points = [0, -100, -100, -50, -50, 0, -100, 50, 0, 100, 100, 50, 50, 0, 21.33299999999993, 180];
+		let wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL);
+		const hitTestResult = {
+			d: 0,
+			points: null,
+			i: -1,
+			x: 0,
+			y: 0,
+			tx: 0,
+			ty: 0
+		};
+
+		const settings = {
+			canvas: canvas,
+			ctx: ctx,
+			x: 0,
+			y: 0,
+			w: 0,
+			h: 0,
+			cx: 0,
+			cy: 0,
+			dpr: 1
+		};
+
+		canvas.addEventListener("mousemove", (e) => {
+			const s = settings.dpr;
+			const x = ((e.clientX - settings.x) * s - settings.cx) / s;
+			const y = ((e.clientY - settings.y) * s - settings.cy) / s;
+			hitTestResult.points = null;
+			hitTest(x, y, points, hitTestResult);
+			if (hitTestResult.points != null) {
+				const tx = (settings.cx + hitTestResult.x * s) / s + settings.x;
+				const ty = (settings.cy + hitTestResult.y * s) / s + settings.y;
+				hitTestResult.tx = tx;
+				hitTestResult.ty = ty;
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				hitPoint.classList.remove("hidden");
+			} else {
+				hitPoint.classList.add("hidden");
+			}
+		});
+
+		const dragging = {
+			isExecuting: false,
+			pointerId: null,
+			x: 0,
+			y: 0
+		};
+		const move = (tx, ty) => {
+			const i = hitTestResult.i;
+			const s = settings.dpr;
+			const x = ((tx - settings.x) * s - settings.cx) / s;
+			const y = ((ty - settings.y) * s - settings.cy) / s;
+			points[i] = x;
+			points[i + 1] = y;
+			console.log("points", points);
+			wavefronts = wcardinal.ui.UtilStraightSkeleton.from(points, LEVEL);
+			render(settings, wavefronts);
+		};
+		const onPointerMove = (e) => {
+			if (dragging.isExecuting) {
+				const tx = hitTestResult.tx + (e.clientX - dragging.x);
+				const ty = hitTestResult.ty + (e.clientY - dragging.y);
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				setTimeout(() => {
+					move(tx, ty);
+				}, 0);
+			}
+		};
+		const onPointerUp = (e) => {
+			if (dragging.isExecuting) {
+				dragging.isExecuting = false;
+				const tx = hitTestResult.tx + (e.clientX - dragging.x);
+				const ty = hitTestResult.ty + (e.clientY - dragging.y);
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				hitPoint.classList.add("hidden");
+				hitPoint.releasePointerCapture(dragging.pointerId);
+				hitPoint.removeEventListener("pointermove", onPointerMove);
+				hitPoint.removeEventListener("pointerup", onPointerUp);
+				hitPoint.removeEventListener("pointercancel", onPointerUp);
+				setTimeout(() => {
+					move(tx, ty);
+				}, 0);
+			}
+		};
+		hitPoint.addEventListener("pointerdown", (e) => {
+			if (!dragging.isExecuting && hitTestResult.points != null) {
+				dragging.isExecuting = true;
+				dragging.pointerId = e.pointerId;
+				dragging.x = e.clientX;
+				dragging.y = e.clientY;
+				const tx = hitTestResult.tx;
+				const ty = hitTestResult.ty;
+				hitPoint.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+				hitPoint.classList.remove("hidden");
+				hitPoint.setPointerCapture(e.pointerId);
+				hitPoint.addEventListener("pointermove", onPointerMove);
+				hitPoint.addEventListener("pointerup", onPointerUp);
+				hitPoint.addEventListener("pointercancel", onPointerUp);
+			}
+		});
+
+		render(settings, wavefronts);
+		new ResizeObserver(() => {
+			setTimeout(() => {
+				render(settings, wavefronts);
+			}, 0);
+		}).observe(canvas);
+	})();
+	</script>
+</body>
+</html>

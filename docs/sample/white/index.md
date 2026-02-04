@@ -313,6 +313,9 @@
     * [Line (Formatter Extension)](./shape/line-formatter-extension.html)
     * [Line (Formatter Function)](./shape/line-formatter-function.html)
     * [Line (Marker)](./shape/line-marker.html)
+    * [Polygon](./shape/polygon.html)
+    * [Straight Skeleton](./shape/straight-skeleton.html)
+    * [Straight Skeleton Buffer](./shape/straight-skeleton-buffer.html)
     * Text
         * [Align](./shape\text/align.html)
         * [Clipping](./shape\text/clipping.html)
