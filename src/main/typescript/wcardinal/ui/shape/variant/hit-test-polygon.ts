@@ -9,11 +9,10 @@ import { EShapePolygon } from "./e-shape-polygon";
 /**
  * Returns the minimum squared distance between the given point (x, y) and the polygon edges.
  *
- * @param shape a polygon
+ * @param values vertices
+ * @param valuesLength the length of values
  * @param x a X-coordinate position
  * @param y a Y-coordinate position
- * @param ax a polygon width
- * @param ay a polygon height
  * @returns the minimum squared distance between the given point (x, y) and the polygon edges
  */
 export const calcPolygonSquaredDistance = (

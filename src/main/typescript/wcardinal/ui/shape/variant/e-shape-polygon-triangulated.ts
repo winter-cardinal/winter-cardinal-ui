@@ -21,7 +21,8 @@ export interface EShapePolygonTriangulated {
 		lengths?: number[],
 		clippings?: number[],
 		uvs?: number[],
-		indices?: number[]
+		indices?: number[],
+		boundary?: EShapeBoundary
 	): this;
 	copy(source: EShapePolygonTriangulated): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
