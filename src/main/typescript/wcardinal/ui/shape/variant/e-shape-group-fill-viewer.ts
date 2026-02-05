@@ -49,7 +49,7 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		return 1.0;
 	}
 
-	set percent(alpha: number) {
+	set percent(percent: number) {
 		// DO NOTHING
 	}
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EThemeShape } from "../../shape/e-shape-defaults";
 import { EShapeFillDirection } from "../../shape/e-shape-fill-direction";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";

@@ -133,16 +133,16 @@ export interface DDiagramSerializedFill {
 	/** 0: Disabled, 1: Enabled */
 	[0]: number;
 
-	/** A color */
+	/** A color. */
 	[1]: number;
 
-	/** An alpha */
+	/** An alpha. */
 	[2]: number;
 
-	/** A direction */
+	/** A direction. */
 	[3]?: EShapeFillDirection;
 
-	/** A percent */
+	/** A percent. */
 	[4]?: number;
 }
 

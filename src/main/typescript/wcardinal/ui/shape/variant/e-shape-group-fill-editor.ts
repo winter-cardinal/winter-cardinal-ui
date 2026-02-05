@@ -66,7 +66,7 @@ export class EShapeGroupFillEditor implements EShapeFill {
 		if (0 < children.length) {
 			return children[children.length - 1].fill.direction;
 		}
-		return 1.0;
+		return EShapeFillDirection.BOTTOM;
 	}
 
 	set direction(direction: EShapeFillDirection) {
