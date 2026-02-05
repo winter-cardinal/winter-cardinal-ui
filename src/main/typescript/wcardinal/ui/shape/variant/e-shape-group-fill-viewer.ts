@@ -57,7 +57,13 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		// DO NOTHING
 	}
 
-	set(enable: boolean, color: number, alpha: number): void {
+	set(
+		enable?: boolean,
+		color?: number,
+		alpha?: number,
+		direction?: EShapeFillDirection,
+		percent?: number
+	): void {
 		// DO NOTHING
 	}
 

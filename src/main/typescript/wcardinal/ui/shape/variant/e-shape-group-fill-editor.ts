@@ -98,10 +98,16 @@ export class EShapeGroupFillEditor implements EShapeFill {
 		}
 	}
 
-	set(enable: boolean, color: number, alpha: number): void {
+	set(
+		enable?: boolean,
+		color?: number,
+		alpha?: number,
+		direction?: EShapeFillDirection,
+		percent?: number
+	): void {
 		const children = this._parent.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
-			children[i].fill.set(enable, color, alpha);
+			children[i].fill.set(enable, color, alpha, direction, percent);
 		}
 	}
 
