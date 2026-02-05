@@ -291,86 +291,100 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			this._parentPointsId = this._parent.points.id;
 
 			// Vertices
-			const vertexId = parsed[0];
-			if (0 <= vertexId && vertexId < resourcesLength) {
-				let vertices = manager.getExtension<number[]>(vertexId);
-				if (vertices == null) {
-					vertices = JSON.parse(resources[vertexId]) as number[];
-					manager.setExtension(vertexId, vertices);
+			{
+				const vertexId = parsed[0];
+				if (0 <= vertexId && vertexId < resourcesLength) {
+					let vertices = manager.getExtension<number[]>(vertexId);
+					if (vertices == null) {
+						vertices = JSON.parse(resources[vertexId]) as number[];
+						manager.setExtension(vertexId, vertices);
+					}
+					this._vertices = vertices;
+					this._nvertices = vertices.length >> 1;
 				}
-				this._vertices = vertices;
-				this._nvertices = vertices.length >> 1;
 			}
 
 			// Distances
-			const distanceId = parsed[1];
-			if (0 <= distanceId && distanceId < resourcesLength) {
-				let distances = manager.getExtension<number[]>(distanceId);
-				if (distances == null) {
-					distances = JSON.parse(resources[distanceId]) as number[];
-					manager.setExtension(distanceId, distances);
+			{
+				const distanceId = parsed[1];
+				if (0 <= distanceId && distanceId < resourcesLength) {
+					let distances = manager.getExtension<number[]>(distanceId);
+					if (distances == null) {
+						distances = JSON.parse(resources[distanceId]) as number[];
+						manager.setExtension(distanceId, distances);
+					}
+					this._distances = distances;
 				}
-				this._distances = distances;
 			}
 
 			// Lengths
-			const lengthId = parsed[2];
-			if (0 <= lengthId && lengthId < resourcesLength) {
-				let lengths = manager.getExtension<number[]>(lengthId);
-				if (lengths == null) {
-					lengths = JSON.parse(resources[lengthId]) as number[];
-					manager.setExtension(lengthId, lengths);
+			{
+				const lengthId = parsed[2];
+				if (0 <= lengthId && lengthId < resourcesLength) {
+					let lengths = manager.getExtension<number[]>(lengthId);
+					if (lengths == null) {
+						lengths = JSON.parse(resources[lengthId]) as number[];
+						manager.setExtension(lengthId, lengths);
+					}
+					this._lengths = lengths;
 				}
-				this._lengths = lengths;
 			}
 
 			// Clippings
-			const clippingId = parsed[3];
-			if (0 <= clippingId && clippingId < resourcesLength) {
-				let clippings = manager.getExtension<number[]>(clippingId);
-				if (clippings == null) {
-					clippings = JSON.parse(resources[clippingId]) as number[];
-					manager.setExtension(clippingId, clippings);
+			{
+				const clippingId = parsed[3];
+				if (0 <= clippingId && clippingId < resourcesLength) {
+					let clippings = manager.getExtension<number[]>(clippingId);
+					if (clippings == null) {
+						clippings = JSON.parse(resources[clippingId]) as number[];
+						manager.setExtension(clippingId, clippings);
+					}
+					this._clippings = clippings;
 				}
-				this._clippings = clippings;
 			}
 
 			// UVs
-			const uvId = parsed[4];
-			if (0 <= uvId && uvId < resourcesLength) {
-				let uvs = manager.getExtension<number[]>(uvId);
-				if (uvs == null) {
-					uvs = JSON.parse(resources[uvId]) as number[];
-					manager.setExtension(uvId, uvs);
+			{
+				const uvId = parsed[4];
+				if (0 <= uvId && uvId < resourcesLength) {
+					let uvs = manager.getExtension<number[]>(uvId);
+					if (uvs == null) {
+						uvs = JSON.parse(resources[uvId]) as number[];
+						manager.setExtension(uvId, uvs);
+					}
+					this._uvs = uvs;
 				}
-				this._uvs = uvs;
 			}
 
 			// Indices
-			const indexId = parsed[5];
-			if (0 <= indexId && indexId < resourcesLength) {
-				let indices = manager.getExtension<number[]>(indexId);
-				if (indices == null) {
-					indices = JSON.parse(resources[indexId]) as number[];
-					manager.setExtension(indexId, indices);
+			{
+				const indexId = parsed[5];
+				if (0 <= indexId && indexId < resourcesLength) {
+					let indices = manager.getExtension<number[]>(indexId);
+					if (indices == null) {
+						indices = JSON.parse(resources[indexId]) as number[];
+						manager.setExtension(indexId, indices);
+					}
+					this._indices = indices;
+					this._nindices = indices.length / 3;
 				}
-				this._indices = indices;
-				this._nindices = indices.length / 3;
 			}
 
 			// Boundary
-			const boundaryId = parsed[6];
-			if (boundaryId != null) {
-				if (0 <= boundaryId && boundaryId < resourcesLength) {
-					let boundary = manager.getExtension<EShapeBoundary>(boundaryId);
-					if (boundary == null) {
-						boundary = JSON.parse(resources[indexId]) as EShapeBoundary;
-						manager.setExtension(indexId, boundary);
+			{
+				const boundaryId = parsed[6];
+				if (boundaryId != null) {
+					if (0 <= boundaryId && boundaryId < resourcesLength) {
+						let boundary = manager.getExtension<EShapeBoundary>(boundaryId);
+						if (boundary == null) {
+							boundary = JSON.parse(resources[boundaryId]) as EShapeBoundary;
+							manager.setExtension(boundaryId, boundary);
+						}
+						this._boundary = boundary;
 					}
-					this._boundary = boundary;
+				} else {
+					toPointsBoundary(this._vertices, this._boundary);
 				}
-			} else {
-				toPointsBoundary(this._vertices, this._boundary);
 			}
 
 			this._id += 1;

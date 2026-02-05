@@ -69,7 +69,7 @@ export const hitTestPolygon = (
 	if (!filled && sw <= 0) {
 		return false;
 	}
-	const values = shape.points.values;
+	const values = shape.points.formatted.values;
 	const valuesLength = values.length;
 	if (6 <= valuesLength) {
 		let count = 0;
