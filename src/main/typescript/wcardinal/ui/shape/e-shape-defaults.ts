@@ -4,12 +4,15 @@
  */
 
 import { DThemes } from "../theme/d-themes";
+import { EShapeFillDirection } from "./e-shape-fill-direction";
 import { EShapeStrokeSide } from "./e-shape-stroke-side";
 import { EShapeStrokeStyle } from "./e-shape-stroke-style";
 
 export interface EThemeShape {
 	getFillColor(): number;
 	getFillAlpha(): number;
+	getFillDirection(): EShapeFillDirection;
+	getFillPercent(): number;
 	getStrokeColor(): number;
 	getStrokeAlpha(): number;
 	getStrokeWidth(): number;
@@ -47,6 +50,14 @@ export class EShapeDefaults {
 
 	static get FILL_ALPHA(): number {
 		return this.THEME.getFillAlpha();
+	}
+
+	static get FILL_DIRECTION(): EShapeFillDirection {
+		return this.THEME.getFillDirection();
+	}
+
+	static get FILL_PERCENT(): number {
+		return this.THEME.getFillPercent();
 	}
 
 	static get STROKE_COLOR(): number {

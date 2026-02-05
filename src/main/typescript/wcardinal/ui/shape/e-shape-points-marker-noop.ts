@@ -11,6 +11,7 @@ import { EShapePointsMarkerType } from "./e-shape-points-marker-type";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeFillImpl } from "./variant/e-shape-fill-impl";
+import { EShapeFillDirection } from "./e-shape-fill-direction";
 
 export class EShapePointsMarkerNoop implements EShapePointsMarker {
 	protected _size?: IPoint;
@@ -54,7 +55,14 @@ export class EShapePointsMarkerNoop implements EShapePointsMarker {
 	get fill(): EShapeFill {
 		let result = this._fill;
 		if (result == null) {
-			result = new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+			result = new EShapeFillImpl(
+				this,
+				true,
+				EShapeDefaults.FILL_COLOR,
+				1,
+				EShapeFillDirection.BOTTOM,
+				1.0
+			);
 			this._fill = result;
 		}
 		return result;

@@ -100,6 +100,12 @@ export class BuilderPolygon extends BuilderBase {
 		const triangulatedId = triangulated.id;
 		const isTriangulatedIdChanged = this.triangulatedId !== triangulatedId;
 
+		const fill = shape.fill;
+		const fillDirection = fill.direction;
+		const fillPercent = fill.percent;
+		const isFillChanged =
+			this.fillDirection !== fillDirection || this.fillPercent !== fillPercent;
+
 		const stroke = shape.stroke;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeSide = stroke.side;
@@ -120,11 +126,14 @@ export class BuilderPolygon extends BuilderBase {
 			isNotInited ||
 			isTriangulatedIdChanged ||
 			isTransformChanged ||
+			isFillChanged ||
 			isStrokeChanged ||
 			isTextureChanged
 		) {
 			this.inited |= BuilderFlag.VERTEX_STEP_UV_AND_INDEX;
 			this.transformLocalId = transformLocalId;
+			this.fillDirection = fillDirection;
+			this.fillPercent = fillPercent;
 			this.strokeWidth = strokeWidth;
 			this.strokeSide = strokeSide;
 			this.strokeStyle = strokeStyle;
@@ -158,13 +167,19 @@ export class BuilderPolygon extends BuilderBase {
 			// Steps
 			if (isNotInited || isTriangulatedIdChanged || isStrokeChanged) {
 				buffer.updateSteps();
+				const size = shape.size;
 				buildPolygonStep(
 					buffer.steps,
 					triangulated.distances,
 					triangulated.lengths,
 					triangulated.clippings,
+					triangulated.uvs,
 					voffset,
 					this.vertexCount,
+					size.x,
+					size.y,
+					fillDirection,
+					fillPercent,
 					strokeWidth,
 					strokeSide,
 					strokeStyle

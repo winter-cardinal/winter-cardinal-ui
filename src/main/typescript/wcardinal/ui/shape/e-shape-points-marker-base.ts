@@ -12,6 +12,7 @@ import { EShapePointsMarkerType } from "./e-shape-points-marker-type";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeFillImpl } from "./variant/e-shape-fill-impl";
+import { EShapeFillDirection } from "./e-shape-fill-direction";
 
 export interface EShapePointsMarkerBaseParentParent {
 	readonly id: number;
@@ -57,7 +58,14 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 	}
 
 	protected newFill(): EShapeFill {
-		return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+		return new EShapeFillImpl(
+			this,
+			true,
+			EShapeDefaults.FILL_COLOR,
+			1,
+			EShapeFillDirection.BOTTOM,
+			1.0
+		);
 	}
 
 	lock(): this {

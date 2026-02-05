@@ -10,6 +10,7 @@ const HEIGHT = 256;
 const WIDTH = 512;
 const TEXT = 1024;
 const CURSOR = 2048;
+const FILL_PERCENT = 4096;
 
 export const EShapeRuntimeReset = {
 	NONE: 0,
@@ -28,7 +29,8 @@ export const EShapeRuntimeReset = {
 	WIDTH,
 	SIZE: HEIGHT | WIDTH,
 	TEXT,
-	CURSOR
+	CURSOR,
+	FILL_PERCENT
 } as const;
 
 export type EShapeRuntimeReset = (typeof EShapeRuntimeReset)[keyof typeof EShapeRuntimeReset];
