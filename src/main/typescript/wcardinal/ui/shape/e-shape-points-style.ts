@@ -78,9 +78,12 @@ export const EShapePointsStyle = {
 	/** @deprecated in favor of EShapeStrokeStyle. */
 	DASHED_MASK: DASHED | DASHED_DENSELY | DASHED_LOOSELY,
 
-	/** @deprecated in favor of CURVE_SPLINE. */
+	/** @deprecated in favor of {@link CURVE_BEZIER_QUADRATIC}. */
 	CURVE: CURVE_SPLINE,
+
+	/** @deprecated in favor of {@link CURVE_BEZIER_QUADRATIC}. */
 	CURVE_SPLINE: CURVE_SPLINE,
+
 	CURVE_BEZIER_QUADRATIC: CURVE_BEZIER_QUADRATIC,
 
 	FORMATTER_SHIFT,
@@ -91,9 +94,12 @@ export const EShapePointsStyle = {
 
 	FORMATTER_EXTENSION_HIGHEST,
 
-	/** @deprecated in favor of FORMATTER_CURVE_SPLINE. */
+	/** @deprecated in favor of {@link FORMATTER_CURVE_BEZIER_QUADRATIC}. */
 	FORMATTER_CURVE: FORMATTER_CURVE_SPLINE,
+
+	/** @deprecated in favor of {@link FORMATTER_CURVE_BEZIER_QUADRATIC}. */
 	FORMATTER_CURVE_SPLINE,
+
 	FORMATTER_CURVE_BEZIER_QUADRATIC
 } as const;
 

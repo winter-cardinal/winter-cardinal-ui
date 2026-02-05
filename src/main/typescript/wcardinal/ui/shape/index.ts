@@ -15,6 +15,7 @@ export * from "./e-shape-acceptor-impl";
 export * from "./e-shape-acceptor-type";
 export * from "./e-shape-acceptor";
 export * from "./e-shape-acceptors";
+export * from "./e-shape-boundary";
 export * from "./e-shape-buffer-unit-builder";
 export * from "./e-shape-buffer-unit";
 export * from "./e-shape-buffer";

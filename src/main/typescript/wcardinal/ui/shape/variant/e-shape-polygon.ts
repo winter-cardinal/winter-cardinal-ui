@@ -105,7 +105,7 @@ export class EShapePolygon extends EShapePrimitive {
 		sa: number
 	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			return hitTestPolygon(this, x, y, ax, ay, sw, ss);
+			return hitTestPolygon(this, x, y, sw, ss);
 		}
 		return false;
 	}

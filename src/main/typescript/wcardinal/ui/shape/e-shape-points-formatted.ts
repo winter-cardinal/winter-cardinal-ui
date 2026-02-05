@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeBoundary } from "./e-shape-boundary";
 import { EShapePointsStyle } from "./e-shape-points-style";
 
 export type EShapePointsFormatted =
 	| EShapePointsFormattedWithBoundary
 	| EShapePointsFormattedWithoutBoundary;
-
-export type EShapePointsFormattedBoundary = [number, number, number, number];
 
 export interface EShapePointsFormattedWithoutBoundary {
 	length: number;
@@ -21,13 +20,10 @@ export interface EShapePointsFormattedWithoutBoundary {
 }
 
 export interface EShapePointsFormattedWithBoundary extends EShapePointsFormattedWithoutBoundary {
-	boundary: EShapePointsFormattedBoundary;
+	boundary: EShapeBoundary;
 }
 
-export const toPointsBoundary = (
-	values: number[],
-	result: EShapePointsFormattedBoundary
-): EShapePointsFormattedBoundary => {
+export const toPointsBoundary = (values: number[], result: EShapeBoundary): EShapeBoundary => {
 	const valuesLength = values.length;
 	if (2 <= valuesLength) {
 		let xmin = values[0];

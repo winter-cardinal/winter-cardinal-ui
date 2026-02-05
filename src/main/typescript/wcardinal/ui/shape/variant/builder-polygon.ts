@@ -167,17 +167,15 @@ export class BuilderPolygon extends BuilderBase {
 			// Steps
 			if (isNotInited || isTriangulatedIdChanged || isFillChanged || isStrokeChanged) {
 				buffer.updateSteps();
-				const size = shape.size;
 				buildPolygonStep(
 					buffer.steps,
 					triangulated.distances,
 					triangulated.lengths,
 					triangulated.clippings,
 					triangulated.uvs,
+					triangulated.boundary,
 					voffset,
 					this.vertexCount,
-					size.x,
-					size.y,
 					fillDirection,
 					fillPercent,
 					strokeWidth,
