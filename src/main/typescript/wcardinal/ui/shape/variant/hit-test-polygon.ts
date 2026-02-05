@@ -59,8 +59,6 @@ export const hitTestPolygon = (
 	shape: EShapePolygon,
 	x: number,
 	y: number,
-	ax: number,
-	ay: number,
 	sw: number,
 	ss: number
 ): boolean => {
