@@ -10,6 +10,7 @@ import { buildColor } from "./build-color";
 import { Builder, BuilderBuffer, BuilderFlag } from "./builder";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
+import { EShapeFillDirection } from "../e-shape-fill-direction";
 
 export abstract class BuilderBase implements Builder {
 	buffer: BuilderBuffer;
@@ -24,6 +25,9 @@ export abstract class BuilderBase implements Builder {
 	protected sizeY: number;
 
 	protected transformLocalId: number;
+
+	protected fillDirection: EShapeFillDirection;
+	protected fillPercent: number;
 
 	protected strokeAlign: number;
 	protected strokeWidth: number;
@@ -57,6 +61,9 @@ export abstract class BuilderBase implements Builder {
 		this.sizeY = 0;
 
 		this.transformLocalId = -1;
+
+		this.fillDirection = EShapeFillDirection.BOTTOM;
+		this.fillPercent = 1;
 
 		this.strokeAlign = 0;
 		this.strokeWidth = 0;

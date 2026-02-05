@@ -60,7 +60,14 @@ export abstract class EShapePrimitive extends EShapeBase {
 	}
 
 	protected newFill(): EShapeFill {
-		return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, EShapeDefaults.FILL_ALPHA);
+		return new EShapeFillImpl(
+			this,
+			true,
+			EShapeDefaults.FILL_COLOR,
+			EShapeDefaults.FILL_ALPHA,
+			EShapeDefaults.FILL_DIRECTION,
+			EShapeDefaults.FILL_PERCENT
+		);
 	}
 
 	protected newStroke(): EShapeStroke {

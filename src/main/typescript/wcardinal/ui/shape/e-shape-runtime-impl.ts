@@ -501,6 +501,10 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 				const stroke = this.stroke;
 				shape.stroke.set(undefined, stroke.color, stroke.alpha);
 			}
+			if (target & EShapeRuntimeReset.FILL_PERCENT) {
+				const fill = this.fill;
+				shape.fill.set(undefined, undefined, undefined, undefined, fill.percent);
+			}
 			if (target & EShapeRuntimeReset.COLOR_TEXT) {
 				const text = this.text;
 				shape.text.set(undefined, text.color, text.alpha);

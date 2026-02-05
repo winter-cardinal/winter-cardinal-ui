@@ -11,6 +11,7 @@ import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-c
 import { EShapeActionValueChangeColorCode } from "./e-shape-action-value-change-color-code";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeCursor } from "./e-shape-action-value-change-cursor";
+import { EShapeActionValueChangeFillPercent } from "./e-shape-action-value-change-fill-percent";
 import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text";
 import { EShapeActionValueEmitEvent } from "./e-shape-action-value-emit-event";
 import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
@@ -68,6 +69,8 @@ export const deserializeActionValue = (
 					);
 			}
 			break;
+		case EShapeActionValueType.CHANGE_FILL_PERCENT:
+			return EShapeActionValueChangeFillPercent.deserialize(serialized as any, manager);
 		case EShapeActionValueType.CHANGE_TEXT:
 			return EShapeActionValueChangeText.deserialize(serialized as any, manager);
 		case EShapeActionValueType.CHANGE_CURSOR:

@@ -4,6 +4,7 @@
  */
 
 import { EShapeFill, EShapeFillLike } from "../e-shape-fill";
+import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 
@@ -36,11 +37,33 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		// DO NOTHING
 	}
 
+	get direction(): EShapeFillDirection {
+		return EShapeFillDirection.BOTTOM;
+	}
+
+	set direction(direction: EShapeFillDirection) {
+		// DO NOTHING
+	}
+
+	get percent(): number {
+		return 1.0;
+	}
+
+	set percent(percent: number) {
+		// DO NOTHING
+	}
+
 	copy(target?: Partial<EShapeFillLike>): void {
 		// DO NOTHING
 	}
 
-	set(enable: boolean, color: number, alpha: number): void {
+	set(
+		enable?: boolean,
+		color?: number,
+		alpha?: number,
+		direction?: EShapeFillDirection,
+		percent?: number
+	): void {
 		// DO NOTHING
 	}
 
@@ -52,7 +75,9 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		return {
 			enable: true,
 			color: 0xffffff,
-			alpha: 1.0
+			alpha: 1.0,
+			direction: EShapeFillDirection.BOTTOM,
+			percent: 1.0
 		};
 	}
 

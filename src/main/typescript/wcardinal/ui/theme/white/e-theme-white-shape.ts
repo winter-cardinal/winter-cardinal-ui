@@ -1,4 +1,10 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EThemeShape } from "../../shape/e-shape-defaults";
+import { EShapeFillDirection } from "../../shape/e-shape-fill-direction";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
 
@@ -9,6 +15,14 @@ export class EThemeWhiteShape implements EThemeShape {
 
 	getFillAlpha(): number {
 		return 0.5;
+	}
+
+	getFillDirection(): EShapeFillDirection {
+		return EShapeFillDirection.BOTTOM;
+	}
+
+	getFillPercent(): number {
+		return 1;
 	}
 
 	getStrokeColor(): number {

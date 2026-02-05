@@ -54,7 +54,14 @@ export class EShapePointsMarkerNoop implements EShapePointsMarker {
 	get fill(): EShapeFill {
 		let result = this._fill;
 		if (result == null) {
-			result = new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+			result = new EShapeFillImpl(
+				this,
+				true,
+				EShapeDefaults.FILL_COLOR,
+				1,
+				EShapeDefaults.FILL_DIRECTION,
+				EShapeDefaults.FILL_PERCENT
+			);
 			this._fill = result;
 		}
 		return result;

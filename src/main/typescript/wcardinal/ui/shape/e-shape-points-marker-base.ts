@@ -57,7 +57,14 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 	}
 
 	protected newFill(): EShapeFill {
-		return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+		return new EShapeFillImpl(
+			this,
+			true,
+			EShapeDefaults.FILL_COLOR,
+			1,
+			EShapeDefaults.FILL_DIRECTION,
+			EShapeDefaults.FILL_PERCENT
+		);
 	}
 
 	lock(): this {

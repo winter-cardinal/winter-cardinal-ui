@@ -7,6 +7,7 @@ import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeConnectors } from "../e-shape-connectors";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeFill } from "../e-shape-fill";
+import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeLayer } from "../e-shape-layer";
 import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
@@ -34,7 +35,7 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 	}
 
 	protected newGroupFill(): EShapeFill {
-		return new EShapeFillImpl(this, false, 0xffffff, 1);
+		return new EShapeFillImpl(this, false, 0xffffff, 1, EShapeFillDirection.BOTTOM, 1);
 	}
 
 	protected isGroupSizeFittable(): boolean {

@@ -111,6 +111,8 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueType.CHANGE_COLOR:
 			case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 				return "Change color";
+			case EShapeActionValueType.CHANGE_FILL_PERCENT:
+				return "Change fill percent";
 			case EShapeActionValueType.CHANGE_TEXT:
 				return "Change text";
 			case EShapeActionValueType.CHANGE_CURSOR:

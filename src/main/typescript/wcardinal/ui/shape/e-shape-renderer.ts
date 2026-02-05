@@ -312,9 +312,10 @@ vec4 toColor7(in vec4 texture) {
 	float p2 = clamp(1.0 - swd - awd, 0.0, 1.0);
 	float s0 = smoothstep(p0, 1.0, vStepB.z);
 	float s1 = smoothstep(p2, p1, vStepB.z) * toLineStep(vLength);
+	float s2 = smoothstep(-antialiasWeight, 0.0, vStepB.y);
 	return texture * (
 		vColorStroke * (s1 - s0) +
-		vColorFill * (1.0 - s1)
+		vColorFill * (1.0 - s1) * s2
 	);
 }
 

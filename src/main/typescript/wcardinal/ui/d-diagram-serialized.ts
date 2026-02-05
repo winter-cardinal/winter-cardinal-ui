@@ -17,6 +17,7 @@ import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
 import { EShapeDataValueRangeType } from "./shape/e-shape-data-value-range";
 import { EShapeDataValueType } from "./shape/e-shape-data-value-type";
 import { EShapeDataValueScope } from "./shape/e-shape-data-value-scope";
+import { EShapeFillDirection } from "./shape/e-shape-fill-direction";
 
 export const DDiagramSerializedVersion: number = 1;
 
@@ -137,6 +138,12 @@ export interface DDiagramSerializedFill {
 
 	/** An alpha. */
 	[2]: number;
+
+	/** A direction. */
+	[3]?: EShapeFillDirection;
+
+	/** A percent. */
+	[4]?: number;
 }
 
 /**
