@@ -10,6 +10,7 @@ import { EShapePointsFormatterDatum } from "./e-shape-points-formatter-datum";
 import { EShapePointsStyle } from "./e-shape-points-style";
 
 export interface EThemeShapePointsFormatter {
+	/** @deprecated in favor of {@link getCurveBezierQuadraticLabel}. */
 	getCurveSplineLabel(): string;
 	getCurveBezierQuadraticLabel(): string;
 }
@@ -24,11 +25,11 @@ export class EShapePointsFormatters {
 		this.data.set(id, datum);
 	}
 
-	static get(index: number): EShapePointsFormatterDatum | undefined {
+	static get(id: number): EShapePointsFormatterDatum | undefined {
 		if (this.data == null) {
 			this.data = this.newData();
 		}
-		return this.data.get(index);
+		return this.data.get(id);
 	}
 
 	static each(iteratee: (id: number, datum: EShapePointsFormatterDatum) => void): void {

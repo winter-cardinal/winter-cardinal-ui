@@ -1,9 +1,11 @@
 import { UtilStraightSkeleton } from "../../util/util-straight-skeleton";
 import { UtilStraightSkeletonBuffer } from "../../util/util-straight-skeleton-buffer";
+import { EShapeBoundary } from "../e-shape-boundary";
+import { toPointsBoundary } from "../e-shape-points-formatted";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import type { EShapePolygon } from "./e-shape-polygon";
-import { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
+import type { EShapePolygonTriangulated } from "./e-shape-polygon-triangulated";
 
 export type EShapePolygonTriangulatedExtensionSerialized = [
 	number,
@@ -26,6 +28,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 	protected _uvs: number[];
 	protected _indices: number[];
 	protected _nindices: number;
+	protected _boundary: EShapeBoundary;
 
 	constructor(parent: EShapePolygon) {
 		this._id = 0;
@@ -39,6 +42,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		this._uvs = [];
 		this._indices = [];
 		this._nindices = 0;
+		this._boundary = [0, 0, 0, 0];
 	}
 
 	get id(): number {
@@ -84,6 +88,11 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 	get nindices(): number {
 		this.triangulate();
 		return this._nindices;
+	}
+
+	get boundary(): EShapeBoundary {
+		this.triangulate();
+		return this._boundary;
 	}
 
 	set(
@@ -195,27 +204,33 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 				UtilStraightSkeleton.from(parentPoints.formatted.values)
 			);
 			this._id += 1;
-			this._vertices = buffer.vertices;
+			const vertices = buffer.vertices;
+			this._vertices = vertices;
 			this._nvertices = buffer.vertices.length >> 1;
 			this._distances = buffer.distances;
 			this._lengths = buffer.lengths;
 			this._clippings = buffer.clippings;
-			this._uvs = this.toUvs(buffer.vertices);
+			const boundary = this._boundary;
+			toPointsBoundary(vertices, boundary);
+			this._uvs = this.toUvs(vertices, boundary);
 			this._indices = buffer.indices;
 			this._nindices = buffer.indices.length / 3;
 		}
 	}
 
-	protected toUvs(vertices: number[]): number[] {
+	protected toUvs(vertices: number[], boundary: EShapeBoundary): number[] {
 		const result: number[] = [];
-		const size = this._parent.size;
-		const ax = Math.abs(size.x);
-		const ay = Math.abs(size.y);
-		const fx = 0 < ax ? 1 / ax : 0;
-		const fy = 0 < ay ? 1 / ay : 0;
+		const xmin = boundary[0];
+		const ymin = boundary[1];
+		const xmax = boundary[2];
+		const ymax = boundary[3];
+		const sx = xmax - xmin;
+		const sy = ymax - ymin;
+		const fx = 0 < sx ? 1 / sx : 0;
+		const fy = 0 < sy ? 1 / sy : 0;
 		const verticesLength = vertices.length;
 		for (let i = 0; i < verticesLength; i += 2) {
-			result.push(0.5 + vertices[i] * fx, 0.5 + vertices[i + 1] * fy);
+			result.push((vertices[i] - xmin) * fx, (vertices[i + 1] - ymin) * fy);
 		}
 		return result;
 	}

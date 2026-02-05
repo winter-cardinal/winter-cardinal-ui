@@ -104,24 +104,29 @@ export const hitTestPolygon = (
 		}
 		if (count % 2 === 1) {
 			if (filled) {
+				const percent = fill.percent;
+				if (1 <= percent) {
+					return true;
+				}
+				const boundary = shape.triangulated.boundary;
 				switch (fill.direction) {
 					case EShapeFillDirection.TOP:
-						if (y <= (fill.percent * 2 - 1) * ay) {
+						if (y - boundary[1] <= percent * (boundary[3] - boundary[1])) {
 							return true;
 						}
 						break;
 					case EShapeFillDirection.RIGHT:
-						if ((1 - 2 * fill.percent) * ax <= x) {
+						if ((1 - percent) * (boundary[2] - boundary[0]) <= x - boundary[0]) {
 							return true;
 						}
 						break;
 					case EShapeFillDirection.BOTTOM:
-						if ((1 - 2 * fill.percent) * ay <= y) {
+						if ((1 - percent) * (boundary[3] - boundary[1]) <= y - boundary[1]) {
 							return true;
 						}
 						break;
 					case EShapeFillDirection.LEFT:
-						if (x <= (fill.percent * 2 - 1) * ax) {
+						if (x - boundary[0] <= percent * (boundary[2] - boundary[0])) {
 							return true;
 						}
 						break;

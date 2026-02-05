@@ -12,7 +12,6 @@ import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import {
 	EShapePointsFormatted,
-	EShapePointsFormattedBoundary,
 	EShapePointsFormattedWithBoundary,
 	toPointsBoundary
 } from "../e-shape-points-formatted";
@@ -22,6 +21,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
 import { EShapePointsMarkerContainerImpl } from "../e-shape-points-marker-container-impl";
 import { EShapePointsFormatters } from "../e-shape-points-formatters";
+import { EShapeBoundary } from "../e-shape-boundary";
 
 export type EShapeLinePointsSerialized = [number[], number[], number, number?];
 
@@ -247,8 +247,8 @@ export class EShapeLinePoints implements EShapePoints {
 	protected toScaled(
 		values: number[],
 		valuesBase: number[],
-		boundary: EShapePointsFormattedBoundary,
-		boundaryBase: EShapePointsFormattedBoundary
+		boundary: EShapeBoundary,
+		boundaryBase: EShapeBoundary
 	): void {
 		const size = this._parentSizeFitted;
 		const sizeBase = this._parentSizeBase;

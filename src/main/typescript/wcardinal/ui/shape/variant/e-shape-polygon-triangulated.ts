@@ -1,16 +1,18 @@
+import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 
 export interface EShapePolygonTriangulated {
-	get id(): number;
-	get vertices(): number[];
-	get nvertices(): number;
-	get distances(): number[];
-	get lengths(): number[];
-	get clippings(): number[];
-	get uvs(): number[];
-	get indices(): number[];
-	get nindices(): number;
+	readonly id: number;
+	readonly vertices: number[];
+	readonly nvertices: number;
+	readonly distances: number[];
+	readonly lengths: number[];
+	readonly clippings: number[];
+	readonly uvs: number[];
+	readonly indices: number[];
+	readonly nindices: number;
+	readonly boundary: EShapeBoundary;
 
 	set(
 		parentId?: number,
