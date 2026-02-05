@@ -76,7 +76,7 @@ export const buildPolygonStep = (
 	const fp = Math.max(0, Math.min(1, fillPercent));
 	switch (fillDirection) {
 		case EShapeFillDirection.TOP:
-			buildPolygonStepOf(
+			buildPolygonStepY(
 				steps,
 				polygonDistances,
 				polygonLengths,
@@ -85,14 +85,13 @@ export const buildPolygonStep = (
 				voffset,
 				vertexCount,
 				strokeWidth,
-				polygonBoundary[3] - polygonBoundary[1],
 				e,
-				fp,
-				1
+				polygonBoundary[3] - polygonBoundary[1],
+				fp
 			);
 			break;
 		case EShapeFillDirection.RIGHT:
-			buildPolygonStepOf(
+			buildPolygonStepX(
 				steps,
 				polygonDistances,
 				polygonLengths,
@@ -101,14 +100,13 @@ export const buildPolygonStep = (
 				voffset,
 				vertexCount,
 				strokeWidth,
-				polygonBoundary[0] - polygonBoundary[2],
 				e,
-				1 - fp,
-				0
+				polygonBoundary[0] - polygonBoundary[2],
+				1 - fp
 			);
 			break;
 		case EShapeFillDirection.BOTTOM:
-			buildPolygonStepOf(
+			buildPolygonStepY(
 				steps,
 				polygonDistances,
 				polygonLengths,
@@ -117,14 +115,13 @@ export const buildPolygonStep = (
 				voffset,
 				vertexCount,
 				strokeWidth,
-				polygonBoundary[1] - polygonBoundary[3],
 				e,
-				1 - fp,
-				1
+				polygonBoundary[1] - polygonBoundary[3],
+				1 - fp
 			);
 			break;
 		case EShapeFillDirection.LEFT:
-			buildPolygonStepOf(
+			buildPolygonStepX(
 				steps,
 				polygonDistances,
 				polygonLengths,
@@ -133,16 +130,15 @@ export const buildPolygonStep = (
 				voffset,
 				vertexCount,
 				strokeWidth,
-				polygonBoundary[2] - polygonBoundary[0],
 				e,
-				fp,
-				0
+				polygonBoundary[2] - polygonBoundary[0],
+				fp
 			);
 			break;
 	}
 };
 
-export const buildPolygonStepOf = (
+export const buildPolygonStepX = (
 	steps: Float32Array,
 	polygonDistances: number[],
 	polygonLengths: number[],
@@ -151,17 +147,40 @@ export const buildPolygonStepOf = (
 	voffset: number,
 	vertexCount: number,
 	strokeWidth: number,
-	a: number,
 	e: number,
-	fp: number,
-	joffset: number
+	afp: number,
+	fp: number
 ): void => {
 	let is = voffset * 6 - 1;
-	for (let i = 0, j = joffset; i < vertexCount; i += 1, j += 2) {
+	for (let i = 0, j = 0; i < vertexCount; i += 1, j += 2) {
 		steps[++is] = strokeWidth;
 		steps[++is] = e;
 		steps[++is] = polygonDistances[i];
-		steps[++is] = a * (fp - polygonUvs[j]);
+		steps[++is] = afp * (fp - polygonUvs[j]);
+		steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
+		steps[++is] = polygonLengths[i];
+	}
+};
+
+export const buildPolygonStepY = (
+	steps: Float32Array,
+	polygonDistances: number[],
+	polygonLengths: number[],
+	polygonClippings: number[],
+	polygonUvs: number[],
+	voffset: number,
+	vertexCount: number,
+	strokeWidth: number,
+	e: number,
+	afp: number,
+	fp: number
+): void => {
+	let is = voffset * 6 - 1;
+	for (let i = 0, j = 1; i < vertexCount; i += 1, j += 2) {
+		steps[++is] = strokeWidth;
+		steps[++is] = e;
+		steps[++is] = polygonDistances[i];
+		steps[++is] = afp * (fp - polygonUvs[j]);
 		steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
 		steps[++is] = polygonLengths[i];
 	}
