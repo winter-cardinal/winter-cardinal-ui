@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapePolygon } from "./e-shape-polygon";
 
 /**
@@ -63,53 +64,72 @@ export const hitTestPolygon = (
 	sw: number,
 	ss: number
 ): boolean => {
-	const filled = shape.fill.enable;
+	const fill = shape.fill;
+	const filled = fill.enable;
 	if (!filled && sw <= 0) {
 		return false;
 	}
 	const values = shape.points.values;
 	const valuesLength = values.length;
 	if (6 <= valuesLength) {
-		if (0 < ax && 0 < ay) {
-			let count = 0;
-			let ppvy = values[valuesLength - 3];
-			let pvx = values[valuesLength - 2];
-			let pvy = values[valuesLength - 1];
-			for (let i = 0; i < valuesLength; i += 2) {
-				const vx = values[i];
-				const vy = values[i + 1];
-				if ((pvy <= y && y < vy) || (y <= pvy && vy < y)) {
-					const dy = vy - pvy;
-					let t = 0;
-					if (0 < Math.abs(dy)) {
-						t = (y - pvy) / dy;
-					}
-					const cx = pvx + t * (vx - pvx);
-					if (x <= cx) {
-						if (t <= 0) {
-							// Since we could be just grazing vertices,
-							// we need to check if the second-previous vertex is on the opposite side.
-							if ((ppvy <= y && y < vy) || (y <= ppvy && vy < y)) {
-								count += 1;
-							}
-						} else {
+		let count = 0;
+		let ppvy = values[valuesLength - 3];
+		let pvx = values[valuesLength - 2];
+		let pvy = values[valuesLength - 1];
+		for (let i = 0; i < valuesLength; i += 2) {
+			const vx = values[i];
+			const vy = values[i + 1];
+			if ((pvy <= y && y < vy) || (y <= pvy && vy < y)) {
+				const dy = vy - pvy;
+				let t = 0;
+				if (0 < Math.abs(dy)) {
+					t = (y - pvy) / dy;
+				}
+				const cx = pvx + t * (vx - pvx);
+				if (x <= cx) {
+					if (t <= 0) {
+						// Since we could be just grazing vertices,
+						// we need to check if the second-previous vertex is on the opposite side.
+						if ((ppvy <= y && y < vy) || (y <= ppvy && vy < y)) {
 							count += 1;
 						}
+					} else {
+						count += 1;
 					}
 				}
-				ppvy = pvy;
-				pvx = vx;
-				pvy = vy;
 			}
-			if (count % 2 === 1) {
-				if (filled) {
-					return true;
-				} else {
-					const sd = calcPolygonSquaredDistance(values, valuesLength, x, y);
-					const s = sw * ss;
-					return sd <= s * s;
+			ppvy = pvy;
+			pvx = vx;
+			pvy = vy;
+		}
+		if (count % 2 === 1) {
+			if (filled) {
+				switch (fill.direction) {
+					case EShapeFillDirection.TOP:
+						if (y <= (fill.percent * 2 - 1) * ay) {
+							return true;
+						}
+						break;
+					case EShapeFillDirection.RIGHT:
+						if ((1 - 2 * fill.percent) * ax <= x) {
+							return true;
+						}
+						break;
+					case EShapeFillDirection.BOTTOM:
+						if ((1 - 2 * fill.percent) * ay <= y) {
+							return true;
+						}
+						break;
+					case EShapeFillDirection.LEFT:
+						if (x <= (fill.percent * 2 - 1) * ax) {
+							return true;
+						}
+						break;
 				}
 			}
+			const sd = calcPolygonSquaredDistance(values, valuesLength, x, y);
+			const s = sw * ss;
+			return sd <= s * s;
 		}
 	}
 	return false;
