@@ -381,6 +381,8 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 							manager.setExtension(boundaryId, boundary);
 						}
 						this._boundary = boundary;
+					} else {
+						toPointsBoundary(this._vertices, this._boundary);
 					}
 				} else {
 					toPointsBoundary(this._vertices, this._boundary);
