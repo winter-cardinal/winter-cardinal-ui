@@ -39,10 +39,7 @@ export class EShapeFillImpl implements EShapeFill {
 	}
 
 	set enable(enable: boolean) {
-		if (this._enable !== enable) {
-			this._enable = enable;
-			this._parent.updateUploaded();
-		}
+		this.set(enable);
 	}
 
 	get color(): number {
@@ -50,10 +47,7 @@ export class EShapeFillImpl implements EShapeFill {
 	}
 
 	set color(color: number) {
-		if (this._color !== color) {
-			this._color = color;
-			this._parent.updateUploaded();
-		}
+		this.set(undefined, color);
 	}
 
 	get alpha(): number {
@@ -61,10 +55,7 @@ export class EShapeFillImpl implements EShapeFill {
 	}
 
 	set alpha(alpha: number) {
-		if (this._alpha !== alpha) {
-			this._alpha = alpha;
-			this._parent.updateUploaded();
-		}
+		this.set(undefined, undefined, alpha);
 	}
 
 	get direction(): EShapeFillDirection {
@@ -72,10 +63,7 @@ export class EShapeFillImpl implements EShapeFill {
 	}
 
 	set direction(direction: EShapeFillDirection) {
-		if (this._direction !== direction) {
-			this._direction = direction;
-			this._parent.updateUploaded();
-		}
+		this.set(undefined, undefined, undefined, direction);
 	}
 
 	get percent(): number {
@@ -83,10 +71,7 @@ export class EShapeFillImpl implements EShapeFill {
 	}
 
 	set percent(percent: number) {
-		if (this._percent !== percent) {
-			this._percent = percent;
-			this._parent.updateUploaded();
-		}
+		this.set(undefined, undefined, undefined, undefined, percent);
 	}
 
 	copy(target?: Partial<EShapeFillLike>): void {
@@ -124,9 +109,12 @@ export class EShapeFillImpl implements EShapeFill {
 			isChanged = true;
 		}
 
-		if (percent !== undefined && this._percent !== percent) {
-			this._percent = percent;
-			isChanged = true;
+		if (percent !== undefined) {
+			percent = Math.max(0, Math.min(1, percent));
+			if (this._percent !== percent) {
+				this._percent = percent;
+				isChanged = true;
+			}
 		}
 
 		if (isChanged) {
