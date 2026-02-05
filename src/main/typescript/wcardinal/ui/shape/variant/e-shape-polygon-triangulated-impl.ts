@@ -13,7 +13,8 @@ export type EShapePolygonTriangulatedExtensionSerialized = [
 	number,
 	number,
 	number,
-	number
+	number,
+	number?
 ];
 
 export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated {
@@ -102,7 +103,8 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		lengths?: number[],
 		clippings?: number[],
 		uvs?: number[],
-		indices?: number[]
+		indices?: number[],
+		boundary?: EShapeBoundary
 	): this {
 		let isChanged = false;
 
@@ -186,6 +188,15 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			isChanged = true;
 		}
 
+		// Boundary
+		if (boundary != null) {
+			this._boundary[0] = boundary[0];
+			this._boundary[1] = boundary[1];
+			this._boundary[2] = boundary[2];
+			this._boundary[3] = boundary[3];
+			isChanged = true;
+		}
+
 		// Done
 		if (isChanged) {
 			this._id += 1;
@@ -243,7 +254,8 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			source.lengths,
 			source.clippings,
 			source.uvs,
-			source.indices
+			source.indices,
+			source.boundary
 		);
 		return this;
 	}
@@ -256,7 +268,8 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			manager.addResource(JSON.stringify(this._lengths)),
 			manager.addResource(JSON.stringify(this._clippings)),
 			manager.addResource(JSON.stringify(this._uvs)),
-			manager.addResource(JSON.stringify(this._indices))
+			manager.addResource(JSON.stringify(this._indices)),
+			manager.addResource(JSON.stringify(this._boundary))
 		];
 		return manager.addResource(JSON.stringify(serialized));
 	}
@@ -343,6 +356,21 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 				}
 				this._indices = indices;
 				this._nindices = indices.length / 3;
+			}
+
+			// Boundary
+			const boundaryId = parsed[6];
+			if (boundaryId != null) {
+				if (0 <= boundaryId && boundaryId < resourcesLength) {
+					let boundary = manager.getExtension<EShapeBoundary>(boundaryId);
+					if (boundary == null) {
+						boundary = JSON.parse(resources[indexId]) as EShapeBoundary;
+						manager.setExtension(indexId, boundary);
+					}
+					this._boundary = boundary;
+				}
+			} else {
+				toPointsBoundary(this._vertices, this._boundary);
 			}
 
 			this._id += 1;
