@@ -93,7 +93,7 @@ export const buildPolygonStep = (
 				steps[++is] = strokeWidth;
 				steps[++is] = e;
 				steps[++is] = polygonDistances[i];
-				steps[++is] = ax * (fp - polygonUvs[j]);
+				steps[++is] = ax * (fp - (1 - polygonUvs[j]));
 				steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
 				steps[++is] = polygonLengths[i];
 			}
@@ -113,7 +113,7 @@ export const buildPolygonStep = (
 				steps[++is] = strokeWidth;
 				steps[++is] = e;
 				steps[++is] = polygonDistances[i];
-				steps[++is] = ax * (fp - (1 - polygonUvs[j]));
+				steps[++is] = ax * (fp - polygonUvs[j]);
 				steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
 				steps[++is] = polygonLengths[i];
 			}
