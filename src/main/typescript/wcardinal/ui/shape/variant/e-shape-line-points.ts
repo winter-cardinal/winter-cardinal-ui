@@ -129,12 +129,16 @@ export class EShapeLinePoints implements EShapePoints {
 
 		// Invalidate
 		this._id += 1;
-		if (this._formatter || this._style & EShapePointsStyle.FORMATTER_MASK) {
+		if (this.doNeedCompatibilityCheck()) {
 			const uploaded = parent.uploaded;
 			if (uploaded && !uploaded.isCompatible(parent)) {
 				parent.toDirty();
 			}
 		}
+	}
+
+	protected doNeedCompatibilityCheck(): boolean {
+		return this._formatter != null || (this._style & EShapePointsStyle.FORMATTER_MASK) !== 0;
 	}
 
 	get id(): number {
@@ -284,11 +288,6 @@ export class EShapeLinePoints implements EShapePoints {
 		let isDirty = false;
 		let isUpdated = false;
 
-		// Formatter
-		const style = this._style;
-		const styleFormatter = style & EShapePointsStyle.FORMATTER_MASK;
-		const formatter = this._formatter;
-
 		// Values
 		if (newValues != null) {
 			const values = this._values;
@@ -311,7 +310,7 @@ export class EShapeLinePoints implements EShapePoints {
 					this._valuesBaseLength = newValuesLength;
 					isDirty = true;
 				} else {
-					if (formatter != null || styleFormatter) {
+					if (this.doNeedCompatibilityCheck()) {
 						isDirty = true;
 					} else {
 						isUpdated = true;
@@ -322,7 +321,7 @@ export class EShapeLinePoints implements EShapePoints {
 					this._valuesBaseLength = newValuesLength;
 					isDirty = true;
 				} else {
-					if (formatter != null || styleFormatter) {
+					if (this.doNeedCompatibilityCheck()) {
 						isDirty = true;
 					} else {
 						isUpdated = true;
@@ -354,7 +353,7 @@ export class EShapeLinePoints implements EShapePoints {
 					segments.length = newSegmentsLength;
 				}
 			}
-			if (formatter != null || styleFormatter) {
+			if (this.doNeedCompatibilityCheck()) {
 				isDirty = true;
 			} else {
 				isUpdated = true;
@@ -363,12 +362,14 @@ export class EShapeLinePoints implements EShapePoints {
 
 		// Style
 		if (newStyle != null) {
+			const style = this._style;
 			if (style !== newStyle) {
+				const styleFormatter = style & EShapePointsStyle.FORMATTER_MASK;
 				const newStyleFormatter = newStyle & EShapePointsStyle.FORMATTER_MASK;
 				if (styleFormatter !== newStyleFormatter) {
 					isDirty = true;
 				} else {
-					if (formatter != null || styleFormatter) {
+					if (this._formatter != null || styleFormatter) {
 						const styleClosed = style & EShapePointsStyle.CLOSED;
 						const newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
 						if (styleClosed !== newStyleClosed) {
