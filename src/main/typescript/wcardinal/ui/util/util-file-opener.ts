@@ -10,7 +10,9 @@ export const UtilFileAs = {
 	TEXT: 0,
 	DATA_URL: 1,
 	BINARY_STRING: 2,
+	/** @deprecated in favor of {@link ARRAY_BUFFER} */
 	ARRAY_BUTTER: 3,
+	ARRAY_BUFFER: 3,
 	FILE: 4
 } as const;
 
@@ -116,7 +118,7 @@ export class UtilFileOpener {
 					}
 				};
 				fileReader.onabort = (e: ProgressEvent) => {
-					this.onAboart(e);
+					this.onAbort(e);
 				};
 				switch (this._as) {
 					case UtilFileAs.TEXT:
@@ -128,7 +130,7 @@ export class UtilFileOpener {
 					case UtilFileAs.BINARY_STRING:
 						fileReader.readAsBinaryString(file);
 						break;
-					case UtilFileAs.ARRAY_BUTTER:
+					case UtilFileAs.ARRAY_BUFFER:
 						fileReader.readAsArrayBuffer(file);
 						break;
 					default:
@@ -146,7 +148,7 @@ export class UtilFileOpener {
 		facade.emit("open", result, file, facade);
 	}
 
-	protected onAboart(e: ProgressEvent): void {
+	protected onAbort(e: ProgressEvent): void {
 		const facade = this._facade;
 		facade.emit("abort", e, facade);
 	}

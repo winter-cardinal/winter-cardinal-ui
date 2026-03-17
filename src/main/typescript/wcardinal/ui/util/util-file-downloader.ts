@@ -44,7 +44,26 @@ export class UtilFileDownloader {
 			// IE10 and 11
 			(navigator as any).msSaveBlob(blob, filename);
 		} else {
-			this.downloadUrl(filename, URL.createObjectURL(blob));
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			if ("download" in a) {
+				a.href = url;
+				a.setAttribute("download", filename);
+				a.style.display = "none";
+				document.body.appendChild(a);
+				a.click();
+				setTimeout((): void => {
+					document.body.removeChild(a);
+					URL.revokeObjectURL(url);
+				}, 66);
+			} else {
+				if (!window.open(url)) {
+					location.href = url;
+				}
+				setTimeout((): void => {
+					URL.revokeObjectURL(url);
+				}, 66);
+			}
 		}
 	}
 }
