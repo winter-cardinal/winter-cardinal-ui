@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Guide Position</title>
+	<title>Guide Position Updating</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.3.12/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.459.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.459.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.460.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.460.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
 	(() => {
@@ -90,7 +90,9 @@
 		new ChartUpdater(application, chart).start();
 
 		setInterval(() => {
-			chart.plotArea.axis.get("LEFT", 0).guide.get(0).position = Math.cos(Date.now() / 1000);
+			const axis = chart.plotArea.axis.get("LEFT", 0);
+			const guide = axis.guide.get(0);
+			guide.position = Math.cos(Date.now() / 1000);
 			chart.plotArea.axis.update();
 			application.update();
 		}, 1000);
