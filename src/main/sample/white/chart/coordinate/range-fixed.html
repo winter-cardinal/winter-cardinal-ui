@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Domain</title>
+	<title>Fixed Range</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -42,7 +42,10 @@
 			plotArea: {
 				coordinate: {
 					x: new wcardinal.ui.DChartCoordinateLinear(),
-					y: new wcardinal.ui.DChartCoordinateLinear()
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						from: -0.5,
+						to: 1.5
+					})
 				},
 				series: {
 					list: [
@@ -59,27 +62,67 @@
 						new wcardinal.ui.DChartAxisY({
 							label: {
 								value: "Y Axis"
+							},
+							guide: {
+								list: [
+									new wcardinal.ui.DChartAxisGuideSimple({
+										position: -0.5,
+										bar: {
+											enable: false
+										},
+										tick: {
+											enable: true,
+											stroke: {
+												enable: true
+											},
+											text: {
+												value: "-0.5",
+												align: {
+													horizontal: "OUTSIDE_LEFT"
+												}
+											}
+										}
+									}),
+									new wcardinal.ui.DChartAxisGuideSimple({
+										position: 1.5,
+										bar: {
+											enable: false
+										},
+										tick: {
+											enable: true,
+											stroke: {
+												enable: true
+											},
+											text: {
+												value: "1.5",
+												align: {
+													horizontal: "OUTSIDE_LEFT"
+												}
+											}
+										}
+									})
+								]
 							}
 						})
 					]
-				}
-			}
-		});
-
-		new wcardinal.ui.DButton({
-			parent: application.stage,
-			x: 80, y: 520,
-			width: 300,
-			text: {
-				value: "Calculate domain"
-			},
-			on: {
-				active: () => {
-					const bounds = chart.plotArea.getContainerBounds();
-					const coordinate = chart.plotArea.coordinate.x.get(0);
-					const from = coordinate.unmap(coordinate.transform.unmap(bounds.x));
-					const to = coordinate.unmap(coordinate.transform.unmap(bounds.x + bounds.width));
-					console.log("domain", from, to);
+				},
+				view: {
+					gesture: {
+						mode: "OFF"
+					},
+					zoom: {
+						wheel: {
+							enable: false
+						},
+						dblclick: {
+							enable: false
+						}
+					},
+					translation: {
+						wheel: {
+							enable: false
+						}
+					}
 				}
 			}
 		});

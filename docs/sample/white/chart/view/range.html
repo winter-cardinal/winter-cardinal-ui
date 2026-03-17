@@ -75,7 +75,7 @@
 			},
 			on: {
 				active: () => {
-					const bounds = chart.plotArea.getBoundsInContainer();
+					const bounds = chart.plotArea.getContainerBounds();
 					const coordinate = chart.plotArea.coordinate.y.get(0);
 					const from = coordinate.unmap(coordinate.transform.unmap(bounds.y + bounds.height));
 					const to = coordinate.unmap(coordinate.transform.unmap(bounds.y));
