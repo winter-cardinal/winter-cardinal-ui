@@ -26,6 +26,5 @@ export const newShapeDragImage = (color: string): HTMLCanvasElement => {
 	result.style.zIndex = "-1";
 	result.style.pointerEvents = "none";
 	result.style.userSelect = "none";
-	document.body.appendChild(result);
 	return result;
 };

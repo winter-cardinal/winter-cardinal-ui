@@ -63,11 +63,15 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 		dataTransfer.effectAllowed = theme.getDragEffectAllowed();
 		const dragImage = theme.getDragImage();
 		if (dragImage != null) {
+			document.body.appendChild(dragImage);
 			dataTransfer.setDragImage(
 				dragImage,
 				theme.getDragImageOffsetX(),
 				theme.getDragImageOffsetY()
 			);
+			requestAnimationFrame(() => {
+				document.body.removeChild(dragImage);
+			});
 		}
 		return true;
 	}
