@@ -85,6 +85,7 @@ export class DDiagramCanvas<
 	protected _overed?: EShape | null;
 	protected _downed?: EShape | null;
 	protected _downeds: Set<EShape>;
+	protected _dragging?: HTMLCanvasElement | null;
 
 	protected _updateBound: () => void;
 
@@ -652,11 +653,15 @@ export class DDiagramCanvas<
 		if (found) {
 			this._downeds.add(found);
 			let target = found;
+			let isDraggable = false;
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
 					EShapes.CURRENT = target;
 					runtime.onDown(target, e);
+					if (runtime.isDraggable(target)) {
+						isDraggable = true;
+					}
 					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
@@ -664,6 +669,13 @@ export class DDiagramCanvas<
 					target = parent;
 				} else {
 					break;
+				}
+			}
+			if (this._dragging == null && isDraggable) {
+				const element = e.data.originalEvent.target;
+				if (element instanceof HTMLCanvasElement) {
+					this._dragging = element;
+					element.setAttribute("draggable", "true");
 				}
 			}
 			return true;
@@ -717,6 +729,12 @@ export class DDiagramCanvas<
 				}
 			});
 			downeds.clear();
+
+			const dragging = this._dragging;
+			if (dragging != null) {
+				this._dragging = null;
+				dragging.removeAttribute("draggable");
+			}
 			return true;
 		}
 		return false;
@@ -756,6 +774,31 @@ export class DDiagramCanvas<
 				if (runtime) {
 					EShapes.CURRENT = target;
 					runtime.onDblClick(target, e, interactionManager);
+					EShapes.CURRENT = null;
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	onShapeDragStart(e: DragEvent, interactionManager: InteractionManager): boolean {
+		const global = (DDiagramCanvas.WORK_DBLCLICK ??= new Point());
+		UtilPointerEvent.toGlobal(e, interactionManager, global);
+		const found = this.hitTestInteractives(global);
+		if (found) {
+			let target = found;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					EShapes.CURRENT = target;
+					runtime.onDragStart(target, e, interactionManager);
 					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;

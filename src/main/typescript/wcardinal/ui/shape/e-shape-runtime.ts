@@ -46,6 +46,10 @@ export interface EShapeRuntime {
 		interactionManager: InteractionManager
 	): boolean;
 
+	isDraggable(shape: EShape): boolean;
+
+	onDragStart(shape: EShape, e: DragEvent, interactionManager: InteractionManager): void;
+
 	onOver(shape: EShape, e: InteractionEvent): void;
 
 	onOut(shape: EShape, e: InteractionEvent): void;

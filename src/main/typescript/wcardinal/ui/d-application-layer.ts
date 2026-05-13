@@ -23,6 +23,14 @@ const isDblClickable = (target: any): target is DblClickable => {
 	return target != null && target.onDblClick != null;
 };
 
+interface DragStartable {
+	onDragStart(e: DragEvent, interactionManager: InteractionManager): boolean;
+}
+
+const isDragStartable = (target: any): target is DragStartable => {
+	return target != null && target.onDragStart != null;
+};
+
 interface Wheelable {
 	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean;
 }
@@ -69,10 +77,11 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		this.initStage();
 		this.initView();
 		this.initRootElement();
-		this.initFocusHandling();
-		this.initResizeHandling();
-		this.initWheelHandling();
-		this.initDoubleClickHandling();
+		this.initFocus();
+		this.initResize();
+		this.initWheel();
+		this.initDblClick();
+		this.initDragStart();
 	}
 
 	protected newElementContainer(): HTMLElement {
@@ -150,7 +159,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		rootElementStyle.overflow = "hidden";
 	}
 
-	protected initFocusHandling(): void {
+	protected initFocus(): void {
 		const view = this.view;
 		const stage = this.stage;
 		const focusController = this.getFocusController();
@@ -167,7 +176,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		});
 	}
 
-	protected initResizeHandling(): void {
+	protected initResize(): void {
 		const options = this._options;
 		const isWidthFixed = options.isWidthFixed();
 		const isHeightFixed = options.isHeightFixed();
@@ -215,7 +224,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		}
 	}
 
-	protected initWheelHandling(): void {
+	protected initWheel(): void {
 		const global = new Point();
 		const util = UtilWheelEvent.getInstance();
 		const interactionManager = this.renderer.plugins.interaction;
@@ -238,7 +247,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		});
 	}
 
-	protected initDoubleClickHandling(): void {
+	protected initDblClick(): void {
 		const focusController = this.getFocusController();
 		const interactionManager = this.renderer.plugins.interaction;
 		UtilPointerEvent.onDblClick(this.view, (e: MouseEvent | TouchEvent): void => {
@@ -248,6 +257,25 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 				while (current != null) {
 					if (isDblClickable(current)) {
 						if (current.onDblClick(e, interactionManager)) {
+							break;
+						}
+					}
+					current = current.parent;
+				}
+			}
+		});
+	}
+
+	protected initDragStart(): void {
+		const focusController = this.getFocusController();
+		const interactionManager = this.renderer.plugins.interaction;
+		this.view.addEventListener("dragstart", (e: DragEvent) => {
+			const focused = focusController.get();
+			if (focused != null) {
+				let current: DFocusable | DFocusableContainer | null = focused;
+				while (current != null) {
+					if (isDragStartable(current)) {
+						if (current.onDragStart(e, interactionManager)) {
 							break;
 						}
 					}

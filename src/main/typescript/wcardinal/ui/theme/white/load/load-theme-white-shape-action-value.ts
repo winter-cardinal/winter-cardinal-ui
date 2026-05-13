@@ -5,7 +5,9 @@
 
 import { DThemeWhite } from "../d-theme-white";
 import { EThemeWhiteShapeActionValue } from "../e-theme-white-shape-action-value";
+import { EThemeWhiteShapeActionValueOpen } from "../e-theme-white-shape-action-value-open";
 
 export const loadThemeWhiteShapeActionValue = (): void => {
 	DThemeWhite.set("EShapeActionValue", EThemeWhiteShapeActionValue);
+	DThemeWhite.set("EShapeActionValueOpen", EThemeWhiteShapeActionValueOpen);
 };

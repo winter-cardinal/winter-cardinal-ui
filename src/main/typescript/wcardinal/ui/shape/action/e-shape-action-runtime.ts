@@ -64,6 +64,29 @@ export interface EShapeActionRuntime {
 	): void;
 
 	/**
+	 * Returns true if a shape supports the dragging.
+	 *
+	 * @param shape a shape
+	 * @param runtime a runtime
+	 */
+	isDraggable(shape: EShape, runtime: EShapeRuntime): boolean;
+
+	/**
+	 * Called when users start dragging a shape.
+	 *
+	 * @param shape a shape
+	 * @param runtime a runtime
+	 * @param e an event object
+	 * @param manager the interaction manager
+	 */
+	onDragStart(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: DragEvent,
+		manager: InteractionManager
+	): void;
+
+	/**
 	 * Called when a pointer or a key are about to be pressed on a shape.
 	 *
 	 * @param shape a shape

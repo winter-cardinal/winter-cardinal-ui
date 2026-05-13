@@ -129,6 +129,23 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 		return false;
 	}
 
+	isDraggable(shape: EShape): boolean {
+		const actions = this.actions;
+		for (let i = 0, imax = actions.length; i < imax; ++i) {
+			if (actions[i].isDraggable(shape, this)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	onDragStart(shape: EShape, e: DragEvent, interactionManager: InteractionManager): void {
+		const actions = this.actions;
+		for (let i = 0, imax = actions.length; i < imax; ++i) {
+			actions[i].onDragStart(shape, this, e, interactionManager);
+		}
+	}
+
 	onOver(shape: EShape, e: InteractionEvent): void {
 		const state = shape.state;
 		if (!state.isHovered) {
