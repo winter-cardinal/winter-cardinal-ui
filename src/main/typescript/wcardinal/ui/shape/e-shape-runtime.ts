@@ -58,7 +58,7 @@ export interface EShapeRuntime {
 
 	onUp(shape: EShape, e: InteractionEvent | KeyboardEvent): void;
 
-	onUpOutside(shape: EShape, e: InteractionEvent): void;
+	onUpOutside(shape: EShape, e: InteractionEvent | DragEvent): void;
 
 	onMove(shape: EShape, e: InteractionEvent): void;
 

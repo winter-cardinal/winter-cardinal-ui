@@ -247,7 +247,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 		}
 	}
 
-	onUpOutside(shape: EShape, e: InteractionEvent): void {
+	onUpOutside(shape: EShape, e: InteractionEvent | DragEvent): void {
 		const state = shape.state;
 		if (state.isPressed) {
 			// State

@@ -147,7 +147,11 @@ export interface EShapeActionRuntime {
 	 * @param runtime a runtime
 	 * @param e an event object
 	 */
-	onUpOutside(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void;
+	onUpOutside(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void;
 
 	/**
 	 * Called when a shape is pressed.
@@ -156,7 +160,11 @@ export interface EShapeActionRuntime {
 	 * @param runtime a runtime
 	 * @param e an event object
 	 */
-	onPressed(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void;
+	onPressed(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void;
 
 	/**
 	 * Called when a shape is released.
@@ -165,7 +173,11 @@ export interface EShapeActionRuntime {
 	 * @param runtime a runtime
 	 * @param e an event object
 	 */
-	onUnpressed(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void;
+	onUnpressed(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void;
 
 	/**
 	 * Called when a key is pressed on a shape.

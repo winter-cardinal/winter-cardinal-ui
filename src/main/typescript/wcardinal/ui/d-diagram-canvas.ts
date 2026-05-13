@@ -708,7 +708,7 @@ export class DDiagramCanvas<
 		return found != null;
 	}
 
-	onShapeCancel(e: InteractionEvent): boolean {
+	onShapeCancel(e: InteractionEvent | DragEvent): boolean {
 		const downeds = this._downeds;
 		if (0 < downeds.size) {
 			downeds.forEach((downed: EShape): void => {
@@ -789,11 +789,10 @@ export class DDiagramCanvas<
 	}
 
 	onShapeDragStart(e: DragEvent, interactionManager: InteractionManager): boolean {
-		const global = (DDiagramCanvas.WORK_DBLCLICK ??= new Point());
-		UtilPointerEvent.toGlobal(e, interactionManager, global);
-		const found = this.hitTestInteractives(global);
-		if (found) {
-			let target = found;
+		const downed = this._downed;
+		this.onShapeCancel(e);
+		if (downed) {
+			let target = downed;
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {

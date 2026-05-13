@@ -89,15 +89,27 @@ export class EShapeActionRuntimeBase implements EShapeActionRuntime {
 		// DO NOTHING
 	}
 
-	onUpOutside(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+	onUpOutside(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
-	onPressed(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+	onPressed(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
-	onUnpressed(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+	onUnpressed(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
