@@ -68,8 +68,10 @@ export interface EShapeActionRuntime {
 	 *
 	 * @param shape a shape
 	 * @param runtime a runtime
+	 * @param e an event object
+	 * @returns true if a shape is draggable
 	 */
-	isDraggable(shape: EShape, runtime: EShapeRuntime): boolean;
+	isDraggable(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent): boolean;
 
 	/**
 	 * Called when users start dragging a shape.
@@ -78,13 +80,14 @@ export interface EShapeActionRuntime {
 	 * @param runtime a runtime
 	 * @param e an event object
 	 * @param manager the interaction manager
+	 * @return true if dragstart event is handled successfully
 	 */
 	onDragStart(
 		shape: EShape,
 		runtime: EShapeRuntime,
 		e: DragEvent,
 		manager: InteractionManager
-	): void;
+	): boolean;
 
 	/**
 	 * Called when a pointer or a key are about to be pressed on a shape.

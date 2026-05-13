@@ -15,18 +15,11 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export interface EThemeShapeActionValueOpen {
-	isDraggable(): boolean;
-	setDraggable(isDraggable: boolean): this;
 	getDragDataFormat(): string;
-	setDragDataFormat(format: string): this;
 	getDragEffectAllowed(): DataTransfer["effectAllowed"];
-	setDragEffectAllowed(effectAllowed: DataTransfer["effectAllowed"]): this;
 	getDragImage(): HTMLImageElement | HTMLCanvasElement | null;
-	setDragImage(dragImage: HTMLImageElement | HTMLCanvasElement | null): this;
 	getDragImageOffsetX(): number;
-	setDragImageOffsetX(x: number): this;
 	getDragImageOffsetY(): number;
-	setDragImageOffsetY(y: number): this;
 }
 
 export type EShapeActionValueOpenSerializedLegacy1 = [

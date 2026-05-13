@@ -52,7 +52,7 @@ export class EShapeActionRuntimeBase implements EShapeActionRuntime {
 		// DO NOTHING
 	}
 
-	isDraggable(shape: EShape, runtime: EShapeRuntime): boolean {
+	isDraggable(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent): boolean {
 		return false;
 	}
 
@@ -61,8 +61,8 @@ export class EShapeActionRuntimeBase implements EShapeActionRuntime {
 		runtime: EShapeRuntime,
 		e: DragEvent,
 		manager: InteractionManager
-	): void {
-		// DO NOTHING
+	): boolean {
+		return false;
 	}
 
 	onDowning(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {

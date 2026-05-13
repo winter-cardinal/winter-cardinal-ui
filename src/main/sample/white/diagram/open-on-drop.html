@@ -44,10 +44,6 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		// Enable Drag Feature of Open Actions
-		const theme = wcardinal.ui.DThemes.get("EShapeActionValueOpen");
-		theme.setDraggable(true);
-
 		const diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
@@ -64,12 +60,17 @@
 		// Drop Point Event Handling
 		const dropPoint = document.querySelector("#drop-point");
 		if (dropPoint != null) {
+			const theme = wcardinal.ui.DThemes.get("EShapeActionValueOpen");
 			dropPoint.addEventListener("dragover", (e) => {
 				e.dataTransfer.dropEffect = theme.getDragEffectAllowed();
 				e.preventDefault();
 			});
 			dropPoint.addEventListener("drop", (e) => {
+				const textContent = dropPoint.textContent;
 				dropPoint.textContent = "Dropped Data: " + e.dataTransfer.getData(theme.getDragDataFormat());
+				setTimeout(() => {
+					dropPoint.textContent = textContent;
+				}, 10000);
 				e.preventDefault();
 			});
 		}

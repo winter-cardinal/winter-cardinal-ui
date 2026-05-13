@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
 import {
 	DDiagramCanvasBase,
 	DDiagramCanvasBaseOptions,
@@ -123,7 +124,7 @@ export class DDiagramCanvasEditor<
 		super.onScale(newX, newY, oldX, oldY);
 	}
 
-	override render(renderer: PIXI.Renderer): void {
+	override render(renderer: Renderer): void {
 		const snap = this._snap;
 		if (snap != null) {
 			snap.onRender();

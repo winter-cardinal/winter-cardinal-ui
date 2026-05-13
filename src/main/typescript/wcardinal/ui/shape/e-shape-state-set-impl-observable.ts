@@ -65,6 +65,26 @@ export class EShapeStateSetImplObservable
 		return this.under(EShapeState.DBL_CLICKED);
 	}
 
+	get isDragged(): boolean {
+		return this.is(EShapeState.DRAGGED);
+	}
+
+	set isDragged(isDragged: boolean) {
+		this.set(EShapeState.DRAGGED, isDragged);
+	}
+
+	get inDragged(): boolean {
+		return this.in(EShapeState.DRAGGED);
+	}
+
+	get onDragged(): boolean {
+		return this.on(EShapeState.DRAGGED);
+	}
+
+	get underDragged(): boolean {
+		return this.under(EShapeState.DRAGGED);
+	}
+
 	get isDown(): boolean {
 		return this.is(EShapeState.DOWN);
 	}

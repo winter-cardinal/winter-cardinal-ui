@@ -9,6 +9,10 @@ export interface EShapeStateSet extends DBaseStateSet {
 	readonly inDblClicked: boolean;
 	readonly onDblClicked: boolean;
 	readonly underDblClicked: boolean;
+	isDragged: boolean;
+	readonly inDragged: boolean;
+	readonly onDragged: boolean;
+	readonly underDragged: boolean;
 	isDown: boolean;
 	readonly inDown: boolean;
 	readonly onDown: boolean;

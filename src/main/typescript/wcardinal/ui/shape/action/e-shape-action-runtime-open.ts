@@ -15,15 +15,13 @@ import { EShapeActions } from "./e-shape-actions";
 import { EShapeActionValueOpen, EThemeShapeActionValueOpen } from "./e-shape-action-value-open";
 import { EShapeActionValueOpenExtension } from "./e-shape-action-value-open-extension";
 import { DThemes } from "../../theme";
+import { InteractionEvent, InteractionManager } from "pixi.js";
+import { EShapeActionRuntimeOpenDropped } from "./e-shape-action-runtime-open-dropped";
 
 export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 	protected subtype: number;
 	protected readonly target: EShapeActionExpression<unknown>;
 	protected inNewWindow: boolean;
-
-	protected _theme: EThemeShapeActionValueOpen;
-	protected _isDraggable: boolean;
-	protected _dragImage: HTMLImageElement | HTMLCanvasElement | null;
 
 	constructor(
 		value: EShapeActionValueOpen | EShapeActionValueOpenExtension,
@@ -33,47 +31,37 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 		this.subtype = subtype;
 		this.target = EShapeActionExpressions.ofUnknown(value.target);
 		this.inNewWindow = value.inNewWindow;
-
-		this._theme = DThemes.getInstance().get("EShapeActionValueOpen");
-		const theme = this._theme;
-		this._isDraggable = theme.isDraggable();
-		if (this._isDraggable) {
-			const dragImage = theme.getDragImage();
-			if (dragImage != null) {
-				document.body.appendChild(dragImage);
-			}
-			this._dragImage = dragImage;
-		} else {
-			this._dragImage = null;
-		}
 	}
 
-	override isDraggable(shape: EShape, runtime: EShapeRuntime): boolean {
-		return this._isDraggable;
+	override isDraggable(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent): boolean {
+		return this.condition(shape, e.data.originalEvent.timeStamp, EShapeActionEnvironment);
 	}
 
 	override onDragStart(
 		shape: EShape,
 		runtime: EShapeRuntime,
 		e: DragEvent,
-		manager: PIXI.InteractionManager
-	): void {
+		manager: InteractionManager
+	): boolean {
 		const dataTransfer = e.dataTransfer;
 		if (dataTransfer == null) {
-			return;
+			return false;
 		}
 		const target = this.target(shape, e.timeStamp, EShapeActionEnvironment);
 		if (target == null) {
-			return;
+			return false;
 		}
-		const data = this.toDragData(target);
+		const data = this.toDragData(
+			new EShapeActionRuntimeOpenDropped(shape, this.subtype, target)
+		);
 		if (data == null) {
-			return;
+			return false;
 		}
-		const theme = this._theme;
-		dataTransfer.setData(theme.getDragDataFormat(), JSON.stringify(target));
+		const theme =
+			DThemes.getInstance().get<EThemeShapeActionValueOpen>("EShapeActionValueOpen");
+		dataTransfer.setData(theme.getDragDataFormat(), data);
 		dataTransfer.effectAllowed = theme.getDragEffectAllowed();
-		const dragImage = this._dragImage;
+		const dragImage = theme.getDragImage();
 		if (dragImage != null) {
 			dataTransfer.setDragImage(
 				dragImage,
@@ -81,6 +69,7 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 				theme.getDragImageOffsetY()
 			);
 		}
+		return true;
 	}
 
 	protected toDragData(target: unknown): string | null {
