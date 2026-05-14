@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.460.0
+ Winter Cardinal UI v0.461.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4082,6 +4082,7 @@
     var EShapeState = {
         CLICKED: "CLICKED",
         DBL_CLICKED: "DBL_CLICKED",
+        DRAGGED: "DRAGGED",
         DOWN: "DOWN",
         UP: "UP",
         UP_OUTSIDE: "UP_OUTSIDE",
@@ -4174,6 +4175,37 @@
         Object.defineProperty(EShapeStateSetImplObservable.prototype, "underDblClicked", {
             get: function () {
                 return this.under(EShapeState.DBL_CLICKED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "isDragged", {
+            get: function () {
+                return this.is(EShapeState.DRAGGED);
+            },
+            set: function (isDragged) {
+                this.set(EShapeState.DRAGGED, isDragged);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "inDragged", {
+            get: function () {
+                return this.in(EShapeState.DRAGGED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "onDragged", {
+            get: function () {
+                return this.on(EShapeState.DRAGGED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "underDragged", {
+            get: function () {
+                return this.under(EShapeState.DRAGGED);
             },
             enumerable: false,
             configurable: true
@@ -9348,6 +9380,12 @@
         };
         EShapeActionRuntimeBase.prototype.onDblClick = function (shape, runtime, e, manager) {
             // DO NOTHING
+        };
+        EShapeActionRuntimeBase.prototype.isDraggable = function (shape, runtime, e) {
+            return false;
+        };
+        EShapeActionRuntimeBase.prototype.onDragStart = function (shape, runtime, e, manager) {
+            return false;
         };
         EShapeActionRuntimeBase.prototype.onDowning = function (shape, runtime, e) {
             // DO NOTHING
@@ -24950,6 +24988,38 @@
             // Done
             return false;
         };
+        EShapeRuntimeImpl.prototype.isDraggable = function (shape, e) {
+            var state = shape.state;
+            var wasDragged = state.isDragged;
+            try {
+                // State
+                if (state.isActionable) {
+                    state.isDragged = true;
+                }
+                // Actions
+                var actions = this.actions;
+                for (var i = 0, imax = actions.length; i < imax; ++i) {
+                    if (actions[i].isDraggable(shape, this, e)) {
+                        return true;
+                    }
+                }
+                // Done
+                return false;
+            }
+            finally {
+                state.isDragged = wasDragged;
+            }
+        };
+        EShapeRuntimeImpl.prototype.onDragStart = function (shape, e, interactionManager) {
+            var result = false;
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                if (actions[i].onDragStart(shape, this, e, interactionManager)) {
+                    result = true;
+                }
+            }
+            return result;
+        };
         EShapeRuntimeImpl.prototype.onOver = function (shape, e) {
             var state = shape.state;
             if (!state.isHovered) {
@@ -26597,6 +26667,7 @@
             _this._updateBound = function () {
                 DApplications.update(_this);
             };
+            _this._dragging = null;
             return _this;
         }
         Object.defineProperty(DDiagramCanvas.prototype, "data", {
@@ -27054,11 +27125,15 @@
             if (found) {
                 this._downeds.add(found);
                 var target = found;
+                var isDraggable = false;
                 while (true) {
                     var runtime = target.runtime;
                     if (runtime) {
                         EShapes.CURRENT = target;
                         runtime.onDown(target, e);
+                        if (!isDraggable && runtime.isDraggable(target, e)) {
+                            isDraggable = true;
+                        }
                         EShapes.CURRENT = null;
                     }
                     var parent_3 = target.parent;
@@ -27067,6 +27142,13 @@
                     }
                     else {
                         break;
+                    }
+                }
+                if (isDraggable && this._dragging == null) {
+                    var element = e.data.originalEvent.target;
+                    if (element instanceof HTMLCanvasElement) {
+                        this._dragging = element;
+                        element.setAttribute("draggable", "true");
                     }
                 }
                 return true;
@@ -27120,9 +27202,12 @@
                     }
                 });
                 downeds.clear();
-                return true;
             }
-            return false;
+            var dragging = this._dragging;
+            if (dragging != null) {
+                this._dragging = null;
+                dragging.removeAttribute("draggable");
+            }
         };
         DDiagramCanvas.prototype.onShapeClick = function (e) {
             var found = this.hitTestInteractives(e.data.global);
@@ -27173,6 +27258,43 @@
             }
             return false;
         };
+        DDiagramCanvas.prototype.onShapeDragStart = function (e, interactionManager) {
+            var dragging = this._dragging;
+            if (dragging != null) {
+                this._dragging = null;
+                dragging.removeAttribute("draggable");
+            }
+            var downed = this._downed;
+            if (downed) {
+                var result = false;
+                var target = downed;
+                while (true) {
+                    var runtime = target.runtime;
+                    if (runtime) {
+                        EShapes.CURRENT = target;
+                        if (runtime.onDragStart(target, e, interactionManager)) {
+                            result = true;
+                        }
+                        EShapes.CURRENT = null;
+                    }
+                    var parent_8 = target.parent;
+                    if (parent_8 instanceof EShapeBase) {
+                        target = parent_8;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                if (result) {
+                    this.onShapeCancel(e);
+                }
+                else {
+                    e.preventDefault();
+                }
+                return result;
+            }
+            return false;
+        };
         DDiagramCanvas.prototype.onShapeRightClick = function (e) {
             var found = this.hitTestInteractives(e.data.global);
             if (found && this._downed === found) {
@@ -27184,9 +27306,9 @@
                         runtime.onRightClick(target, e);
                         EShapes.CURRENT = null;
                     }
-                    var parent_8 = target.parent;
-                    if (parent_8 instanceof EShapeBase) {
-                        target = parent_8;
+                    var parent_9 = target.parent;
+                    if (parent_9 instanceof EShapeBase) {
+                        target = parent_9;
                     }
                     else {
                         break;
@@ -27209,9 +27331,9 @@
                         runtime.onRightDown(target, e);
                         EShapes.CURRENT = null;
                     }
-                    var parent_9 = target.parent;
-                    if (parent_9 instanceof EShapeBase) {
-                        target = parent_9;
+                    var parent_10 = target.parent;
+                    if (parent_10 instanceof EShapeBase) {
+                        target = parent_10;
                     }
                     else {
                         break;
@@ -27234,9 +27356,9 @@
                         runtime.onRightUp(target, e);
                         EShapes.CURRENT = null;
                     }
-                    var parent_10 = target.parent;
-                    if (parent_10 instanceof EShapeBase) {
-                        target = parent_10;
+                    var parent_11 = target.parent;
+                    if (parent_11 instanceof EShapeBase) {
+                        target = parent_11;
                     }
                     else {
                         break;
@@ -27258,9 +27380,9 @@
                             runtime.onRightUpOutside(target, e);
                             EShapes.CURRENT = null;
                         }
-                        var parent_11 = target.parent;
-                        if (parent_11 instanceof EShapeBase) {
-                            target = parent_11;
+                        var parent_12 = target.parent;
+                        if (parent_12 instanceof EShapeBase) {
+                            target = parent_12;
                         }
                         else {
                             break;
@@ -27853,6 +27975,13 @@
             else {
                 return _super.prototype.onDblClick.call(this, e, manager);
             }
+        };
+        DDiagram.prototype.onDragStart = function (e, manager) {
+            var canvas = this.canvas;
+            if (canvas) {
+                return canvas.onShapeDragStart(e, manager);
+            }
+            return false;
         };
         DDiagram.prototype.onPrerender = function (renderer) {
             var canvas = this._canvas;
@@ -30215,6 +30344,22 @@
     }(EShapeActionValueSubtyped));
 
     /*
+     * Copyright (C) 2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Data that open actions set to {@link DataTransfer.setData} when users drag and drop shapes.
+     */
+    var EShapeActionRuntimeOpenDropped = /** @class */ (function () {
+        function EShapeActionRuntimeOpenDropped(shape, type, target) {
+            this.shape = shape.id;
+            this.type = type;
+            this.target = target;
+        }
+        return EShapeActionRuntimeOpenDropped;
+    }());
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -30227,6 +30372,43 @@
             _this.inNewWindow = value.inNewWindow;
             return _this;
         }
+        EShapeActionRuntimeOpen.prototype.isDraggable = function (shape, runtime, e) {
+            return this.condition(shape, e.data.originalEvent.timeStamp, EShapeActionEnvironment);
+        };
+        EShapeActionRuntimeOpen.prototype.onDragStart = function (shape, runtime, e, manager) {
+            var dataTransfer = e.dataTransfer;
+            if (dataTransfer == null) {
+                return false;
+            }
+            var target = this.target(shape, e.timeStamp, EShapeActionEnvironment);
+            if (target == null) {
+                return false;
+            }
+            var data = this.toDragData(new EShapeActionRuntimeOpenDropped(shape, this.subtype, target));
+            if (data == null) {
+                return false;
+            }
+            var theme = DThemes.getInstance().get("EShapeActionValueOpen");
+            dataTransfer.setData(theme.getDragDataFormat(), data);
+            dataTransfer.effectAllowed = theme.getDragEffectAllowed();
+            var dragImage = theme.getDragImage();
+            if (dragImage != null) {
+                document.body.appendChild(dragImage);
+                dataTransfer.setDragImage(dragImage, theme.getDragImageOffsetX(), theme.getDragImageOffsetY());
+                requestAnimationFrame(function () {
+                    document.body.removeChild(dragImage);
+                });
+            }
+            return true;
+        };
+        EShapeActionRuntimeOpen.prototype.toDragData = function (target) {
+            try {
+                return JSON.stringify(target);
+            }
+            catch (_a) {
+                return null;
+            }
+        };
         EShapeActionRuntimeOpen.prototype.execute = function (shape, runtime, time) {
             if (this.condition(shape, time, EShapeActionEnvironment)) {
                 var target = this.target(shape, time, EShapeActionEnvironment);
@@ -56484,6 +56666,9 @@
     var isDblClickable = function (target) {
         return target != null && target.onDblClick != null;
     };
+    var isDragStartable = function (target) {
+        return target != null && target.onDragStart != null;
+    };
     var isWheelable = function (target) {
         return target != null && target.onWheel != null;
     };
@@ -56510,10 +56695,11 @@
             _this.initStage();
             _this.initView();
             _this.initRootElement();
-            _this.initFocusHandling();
-            _this.initResizeHandling();
-            _this.initWheelHandling();
-            _this.initDoubleClickHandling();
+            _this.initFocus();
+            _this.initResize();
+            _this.initWheel();
+            _this.initDblClick();
+            _this.initDragStart();
             return _this;
         }
         DApplicationLayer.prototype.newElementContainer = function () {
@@ -56583,7 +56769,7 @@
             rootElementStyle.padding = "0";
             rootElementStyle.overflow = "hidden";
         };
-        DApplicationLayer.prototype.initFocusHandling = function () {
+        DApplicationLayer.prototype.initFocus = function () {
             var view = this.view;
             var stage = this.stage;
             var focusController = this.getFocusController();
@@ -56596,7 +56782,7 @@
                 }
             });
         };
-        DApplicationLayer.prototype.initResizeHandling = function () {
+        DApplicationLayer.prototype.initResize = function () {
             var _this = this;
             var options = this._options;
             var isWidthFixed = options.isWidthFixed();
@@ -56641,7 +56827,7 @@
                 this.render();
             }
         };
-        DApplicationLayer.prototype.initWheelHandling = function () {
+        DApplicationLayer.prototype.initWheel = function () {
             var global = new pixi_js.Point();
             var util = UtilWheelEvent.getInstance();
             var interactionManager = this.renderer.plugins.interaction;
@@ -56663,7 +56849,7 @@
                 }
             });
         };
-        DApplicationLayer.prototype.initDoubleClickHandling = function () {
+        DApplicationLayer.prototype.initDblClick = function () {
             var focusController = this.getFocusController();
             var interactionManager = this.renderer.plugins.interaction;
             UtilPointerEvent.onDblClick(this.view, function (e) {
@@ -56673,6 +56859,24 @@
                     while (current != null) {
                         if (isDblClickable(current)) {
                             if (current.onDblClick(e, interactionManager)) {
+                                break;
+                            }
+                        }
+                        current = current.parent;
+                    }
+                }
+            });
+        };
+        DApplicationLayer.prototype.initDragStart = function () {
+            var focusController = this.getFocusController();
+            var interactionManager = this.renderer.plugins.interaction;
+            this.view.addEventListener("dragstart", function (e) {
+                var focused = focusController.get();
+                if (focused != null) {
+                    var current = focused;
+                    while (current != null) {
+                        if (isDragStartable(current)) {
+                            if (current.onDragStart(e, interactionManager)) {
                                 break;
                             }
                         }
@@ -83298,6 +83502,7 @@
         EShapeActionRuntimeOpenDialogText: EShapeActionRuntimeOpenDialogText,
         EShapeActionRuntimeOpenDialogTime: EShapeActionRuntimeOpenDialogTime,
         EShapeActionRuntimeOpenDialog: EShapeActionRuntimeOpenDialog,
+        EShapeActionRuntimeOpenDropped: EShapeActionRuntimeOpenDropped,
         EShapeActionRuntimeOpen: EShapeActionRuntimeOpen,
         EShapeActionRuntimeShowHideLayer: EShapeActionRuntimeShowHideLayer,
         EShapeActionRuntimeShowHideShape: EShapeActionRuntimeShowHideShape,

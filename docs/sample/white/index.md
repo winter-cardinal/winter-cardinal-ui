@@ -160,6 +160,7 @@
     * [Opening Datetime Dialog](./diagram/open-datetime.html)
     * [Opening Integer Input Dialog](./diagram/open-integer.html)
     * [Opening Integer Input Dialog (Step, Min, Max)](./diagram/open-integer-step-min-max.html)
+    * [Opening On Drop](./diagram/open-on-drop.html)
     * [Opening Time Dialog](./diagram/open-time.html)
     * [Shape Gesture](./diagram/shape-gesture.html)
     * [Shape Gesture (No Drag)](./diagram/shape-gesture-no-drag.html)
