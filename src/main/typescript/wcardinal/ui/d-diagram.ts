@@ -214,6 +214,14 @@ export class DDiagram<
 		}
 	}
 
+	onDragStart(e: DragEvent, manager: InteractionManager): boolean {
+		const canvas = this.canvas;
+		if (canvas) {
+			return canvas.onShapeDragStart(e, manager);
+		}
+		return false;
+	}
+
 	protected onPrerender(renderer: Renderer): void {
 		const canvas = this._canvas;
 		if (canvas) {

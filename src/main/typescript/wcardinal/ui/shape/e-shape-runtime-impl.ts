@@ -129,6 +129,41 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 		return false;
 	}
 
+	isDraggable(shape: EShape, e: InteractionEvent): boolean {
+		const state = shape.state;
+		const wasDragged = state.isDragged;
+		try {
+			// State
+			if (state.isActionable) {
+				state.isDragged = true;
+			}
+
+			// Actions
+			const actions = this.actions;
+			for (let i = 0, imax = actions.length; i < imax; ++i) {
+				if (actions[i].isDraggable(shape, this, e)) {
+					return true;
+				}
+			}
+
+			// Done
+			return false;
+		} finally {
+			state.isDragged = wasDragged;
+		}
+	}
+
+	onDragStart(shape: EShape, e: DragEvent, interactionManager: InteractionManager): boolean {
+		let result = false;
+		const actions = this.actions;
+		for (let i = 0, imax = actions.length; i < imax; ++i) {
+			if (actions[i].onDragStart(shape, this, e, interactionManager)) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
 	onOver(shape: EShape, e: InteractionEvent): void {
 		const state = shape.state;
 		if (!state.isHovered) {
@@ -230,7 +265,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 		}
 	}
 
-	onUpOutside(shape: EShape, e: InteractionEvent): void {
+	onUpOutside(shape: EShape, e: InteractionEvent | DragEvent): void {
 		const state = shape.state;
 		if (state.isPressed) {
 			// State

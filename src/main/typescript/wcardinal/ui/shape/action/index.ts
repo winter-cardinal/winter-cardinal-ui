@@ -60,6 +60,7 @@ export * from "./e-shape-action-runtime-open-dialog-real";
 export * from "./e-shape-action-runtime-open-dialog-text";
 export * from "./e-shape-action-runtime-open-dialog-time";
 export * from "./e-shape-action-runtime-open-dialog";
+export * from "./e-shape-action-runtime-open-dropped";
 export * from "./e-shape-action-runtime-open";
 export * from "./e-shape-action-runtime-show-hide-layer";
 export * from "./e-shape-action-runtime-show-hide-shape";

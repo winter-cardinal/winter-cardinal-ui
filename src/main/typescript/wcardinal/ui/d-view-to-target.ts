@@ -9,12 +9,7 @@ export interface DViewTargetPoint {
 }
 
 export interface DViewTargetParent {
-	toLocal(
-		position: IPointData,
-		from?: DisplayObject,
-		point?: Point,
-		skipUpdate?: boolean
-	): PIXI.Point;
+	toLocal(position: IPointData, from?: DisplayObject, point?: Point, skipUpdate?: boolean): Point;
 }
 
 export interface DViewTarget {

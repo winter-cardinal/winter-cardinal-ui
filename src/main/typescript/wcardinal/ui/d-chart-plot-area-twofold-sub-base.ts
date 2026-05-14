@@ -153,7 +153,7 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 		return this._plotArea.toLocal(position, from, result, skipUpdate);
 	}
 
-	abstract getContainerBounds(): PIXI.Rectangle;
+	abstract getContainerBounds(): Rectangle;
 
 	destroy(): void {
 		this._container.destroy();

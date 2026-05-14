@@ -14,6 +14,14 @@ import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
+export interface EThemeShapeActionValueOpen {
+	getDragDataFormat(): string;
+	getDragEffectAllowed(): DataTransfer["effectAllowed"];
+	getDragImage(): HTMLImageElement | HTMLCanvasElement | null;
+	getDragImageOffsetX(): number;
+	getDragImageOffsetY(): number;
+}
+
 export type EShapeActionValueOpenSerializedLegacy1 = [
 	typeof EShapeActionValueType.OPEN,
 	number,

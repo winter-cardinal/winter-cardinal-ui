@@ -1,0 +1,81 @@
+<!--
+ Copyright (C) 2026 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Opening On Drop</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+
+	#drop-point {
+		position: absolute;
+		top: 100px;
+		left: 50%;
+		width: 50%;
+		height: 100px;
+		transform: translate(-50%, -50%);
+		background: #efefef;
+		border-radius: 8px;
+		text-align: center;
+		line-height: 100px;
+	}
+	</style>
+</head>
+<body>
+	<div id="drop-point">Drop Point</div>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(() => {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const diagram = new wcardinal.ui.DDiagram({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%"
+		});
+
+		fetch("../../resource/diagram/open-on-drop.json").then((response) => {
+			response.json().then((json) => {
+				diagram.set(json);
+				diagram.view.fit();
+			});
+		});
+
+		// Drop Point Event Handling
+		const dropPoint = document.querySelector("#drop-point");
+		if (dropPoint != null) {
+			const theme = wcardinal.ui.DThemes.get("EShapeActionValueOpen");
+			dropPoint.addEventListener("dragover", (e) => {
+				e.dataTransfer.dropEffect = theme.getDragEffectAllowed();
+				e.preventDefault();
+			});
+			dropPoint.addEventListener("drop", (e) => {
+				const textContent = dropPoint.textContent;
+				// For details on the data structure, please refer to EShapeActionRuntimeOpenDropped.
+				dropPoint.textContent = "Dropped Data: " + e.dataTransfer.getData(theme.getDragDataFormat());
+				setTimeout(() => {
+					dropPoint.textContent = textContent;
+				}, 10000);
+				e.preventDefault();
+			});
+		}
+	})();
+	</script>
+</body>
+</html>

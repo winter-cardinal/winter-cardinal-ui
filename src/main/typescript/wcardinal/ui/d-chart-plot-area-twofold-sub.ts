@@ -13,6 +13,7 @@ import {
 	DChartCoordinateContainerOptions
 } from "./d-chart-coordinate-container";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
+import { Rectangle } from "pixi.js";
 
 export interface DChartPlotAreaTwofoldSubOptions<CHART extends DBase = DBase> {
 	series?: DChartSeriesContainerOptions<CHART>;
@@ -29,6 +30,6 @@ export interface DChartPlotAreaTwofoldSub<CHART extends DBase = DBase>
 	readonly coordinate: DChartCoordinateContainer<CHART>;
 	readonly axis: DChartAxisContainer<CHART>;
 
-	getContainerBounds(): PIXI.Rectangle;
+	getContainerBounds(): Rectangle;
 	destroy(): void;
 }

@@ -86,6 +86,8 @@ export class DDiagramCanvas<
 	protected _downed?: EShape | null;
 	protected _downeds: Set<EShape>;
 
+	protected _dragging: HTMLCanvasElement | null;
+
 	protected _updateBound: () => void;
 
 	constructor(options: OPTIONS) {
@@ -98,6 +100,7 @@ export class DDiagramCanvas<
 		this._updateBound = (): void => {
 			DApplications.update(this);
 		};
+		this._dragging = null;
 	}
 
 	get data(): DDiagramCanvasData {
@@ -652,11 +655,15 @@ export class DDiagramCanvas<
 		if (found) {
 			this._downeds.add(found);
 			let target = found;
+			let isDraggable = false;
 			while (true) {
 				const runtime = target.runtime;
 				if (runtime) {
 					EShapes.CURRENT = target;
 					runtime.onDown(target, e);
+					if (!isDraggable && runtime.isDraggable(target, e)) {
+						isDraggable = true;
+					}
 					EShapes.CURRENT = null;
 				}
 				const parent = target.parent;
@@ -664,6 +671,13 @@ export class DDiagramCanvas<
 					target = parent;
 				} else {
 					break;
+				}
+			}
+			if (isDraggable && this._dragging == null) {
+				const element = e.data.originalEvent.target;
+				if (element instanceof HTMLCanvasElement) {
+					this._dragging = element;
+					element.setAttribute("draggable", "true");
 				}
 			}
 			return true;
@@ -696,7 +710,7 @@ export class DDiagramCanvas<
 		return found != null;
 	}
 
-	onShapeCancel(e: InteractionEvent): boolean {
+	onShapeCancel(e: InteractionEvent | DragEvent): void {
 		const downeds = this._downeds;
 		if (0 < downeds.size) {
 			downeds.forEach((downed: EShape): void => {
@@ -717,9 +731,13 @@ export class DDiagramCanvas<
 				}
 			});
 			downeds.clear();
-			return true;
 		}
-		return false;
+
+		const dragging = this._dragging;
+		if (dragging != null) {
+			this._dragging = null;
+			dragging.removeAttribute("draggable");
+		}
 	}
 
 	onShapeClick(e: InteractionEvent): boolean {
@@ -766,6 +784,43 @@ export class DDiagramCanvas<
 				}
 			}
 			return true;
+		}
+		return false;
+	}
+
+	onShapeDragStart(e: DragEvent, interactionManager: InteractionManager): boolean {
+		const dragging = this._dragging;
+		if (dragging != null) {
+			this._dragging = null;
+			dragging.removeAttribute("draggable");
+		}
+
+		const downed = this._downed;
+		if (downed) {
+			let result = false;
+			let target = downed;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					EShapes.CURRENT = target;
+					if (runtime.onDragStart(target, e, interactionManager)) {
+						result = true;
+					}
+					EShapes.CURRENT = null;
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
+			}
+			if (result) {
+				this.onShapeCancel(e);
+			} else {
+				e.preventDefault();
+			}
+			return result;
 		}
 		return false;
 	}

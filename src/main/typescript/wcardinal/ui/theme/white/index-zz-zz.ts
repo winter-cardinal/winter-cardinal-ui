@@ -235,6 +235,7 @@ export * from "./d-theme-white-tree-items";
 export * from "./d-theme-white-tree";
 export * from "./d-theme-white-view";
 export * from "./d-theme-white";
+export * from "./e-theme-white-shape-action-value-open";
 export * from "./e-theme-white-shape-action-value";
 export * from "./e-theme-white-shape-points-formatter";
 export * from "./e-theme-white-shape";

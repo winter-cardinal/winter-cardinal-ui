@@ -235,6 +235,7 @@ export * from "./d-theme-dark-tree-items";
 export * from "./d-theme-dark-tree";
 export * from "./d-theme-dark-view";
 export * from "./d-theme-dark";
+export * from "./e-theme-dark-shape-action-value-open";
 export * from "./e-theme-dark-shape-action-value";
 export * from "./e-theme-dark-shape-points-formatter";
 export * from "./e-theme-dark-shape";

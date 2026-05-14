@@ -38,7 +38,7 @@ export class DChartPlotAreaTwofoldSubSecondary<
 		return result;
 	}
 
-	override getContainerBounds(): PIXI.Rectangle {
+	override getContainerBounds(): Rectangle {
 		const result = this._containerBounds;
 		if (this._isContainerBoundsDirty) {
 			this._isContainerBoundsDirty = false;

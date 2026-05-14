@@ -52,6 +52,19 @@ export class EShapeActionRuntimeBase implements EShapeActionRuntime {
 		// DO NOTHING
 	}
 
+	isDraggable(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent): boolean {
+		return false;
+	}
+
+	onDragStart(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: DragEvent,
+		manager: InteractionManager
+	): boolean {
+		return false;
+	}
+
 	onDowning(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
 		// DO NOTHING
 	}
@@ -76,15 +89,27 @@ export class EShapeActionRuntimeBase implements EShapeActionRuntime {
 		// DO NOTHING
 	}
 
-	onUpOutside(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+	onUpOutside(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
-	onPressed(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+	onPressed(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
-	onUnpressed(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+	onUnpressed(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: InteractionEvent | DragEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
