@@ -67,6 +67,7 @@
 			});
 			dropPoint.addEventListener("drop", (e) => {
 				const textContent = dropPoint.textContent;
+				// For details on the data structure, please refer to EShapeActionRuntimeOpenDropped.
 				dropPoint.textContent = "Dropped Data: " + e.dataTransfer.getData(theme.getDragDataFormat());
 				setTimeout(() => {
 					dropPoint.textContent = textContent;
