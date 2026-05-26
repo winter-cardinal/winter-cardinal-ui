@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.461.0
+ Winter Cardinal UI v0.462.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -24920,6 +24920,23 @@
     }());
 
     /*
+     * Copyright (C) 2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRuntimeDragStates = /** @class */ (function () {
+        function EShapeRuntimeDragStates() {
+        }
+        EShapeRuntimeDragStates.get = function () {
+            return this._STATE;
+        };
+        EShapeRuntimeDragStates.set = function (state) {
+            this._STATE = state;
+        };
+        EShapeRuntimeDragStates._STATE = EShapeState.DRAGGED;
+        return EShapeRuntimeDragStates;
+    }());
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -24990,11 +25007,12 @@
         };
         EShapeRuntimeImpl.prototype.isDraggable = function (shape, e) {
             var state = shape.state;
-            var wasDragged = state.isDragged;
+            var dragState = EShapeRuntimeDragStates.get();
+            var wasDragged = state.is(dragState);
             try {
                 // State
                 if (state.isActionable) {
-                    state.isDragged = true;
+                    state.add(dragState);
                 }
                 // Actions
                 var actions = this.actions;
@@ -25007,7 +25025,7 @@
                 return false;
             }
             finally {
-                state.isDragged = wasDragged;
+                state.set(dragState, wasDragged);
             }
         };
         EShapeRuntimeImpl.prototype.onDragStart = function (shape, e, interactionManager) {
@@ -83927,6 +83945,7 @@
         EShapeResourceManagerDeserializationMode: EShapeResourceManagerDeserializationMode,
         EShapeResourceManagerDeserialization: EShapeResourceManagerDeserialization,
         EShapeResourceManagerSerialization: EShapeResourceManagerSerialization,
+        EShapeRuntimeDragStates: EShapeRuntimeDragStates,
         EShapeRuntimeImpl: EShapeRuntimeImpl,
         EShapeRuntimeReset: EShapeRuntimeReset,
         EShapeRuntimes: EShapeRuntimes,
