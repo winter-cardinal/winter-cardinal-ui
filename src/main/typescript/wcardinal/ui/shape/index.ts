@@ -95,6 +95,7 @@ export * from "./e-shape-renderer";
 export * from "./e-shape-resource-manager-deserialization-mode";
 export * from "./e-shape-resource-manager-deserialization";
 export * from "./e-shape-resource-manager-serialization";
+export * from "./e-shape-runtime-drag-state";
 export * from "./e-shape-runtime-impl";
 export * from "./e-shape-runtime-reset";
 export * from "./e-shape-runtime";
