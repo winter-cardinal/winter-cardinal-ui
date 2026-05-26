@@ -57,6 +57,14 @@
 			});
 		});
 
+		// By default, EShapeSatate.DRAGGED is used to check if shapes are draggable.
+		// The drag state can be optionally customized to any desired state by EShapeRuntimeDragState.set(string).
+		//
+		// For instance, to make open actions with the condition `isClicked` draggable, do as follows:
+		//
+		//     wcardinal.ui.EShapeRuntimeDragStates.set(wcardinal.ui.EShapeState.CLICKED);
+		//
+
 		// Drop Point Event Handling
 		const dropPoint = document.querySelector("#drop-point");
 		if (dropPoint != null) {
