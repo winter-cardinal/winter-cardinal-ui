@@ -17,6 +17,7 @@ import { DBaseStateSet } from "../d-base-state-set";
 import { EShapeRuntime } from "./e-shape-runtime";
 import { EShapeRuntimeReset } from "./e-shape-runtime-reset";
 import { EShapeLockPart } from "./variant/e-shape-lock-part";
+import { EShapeRuntimeDragStates } from "./e-shape-runtime-drag-state";
 
 export class EShapeRuntimeImpl implements EShapeRuntime {
 	static readonly TRANSIENT_STATES = [
@@ -131,11 +132,12 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 
 	isDraggable(shape: EShape, e: InteractionEvent): boolean {
 		const state = shape.state;
-		const wasDragged = state.isDragged;
+		const dragState = EShapeRuntimeDragStates.get();
+		const wasDragged = state.is(dragState);
 		try {
 			// State
 			if (state.isActionable) {
-				state.isDragged = true;
+				state.add(dragState);
 			}
 
 			// Actions
@@ -149,7 +151,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 			// Done
 			return false;
 		} finally {
-			state.isDragged = wasDragged;
+			state.set(dragState, wasDragged);
 		}
 	}
 

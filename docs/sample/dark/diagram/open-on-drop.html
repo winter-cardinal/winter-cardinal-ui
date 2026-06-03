@@ -36,8 +36,8 @@
 <body>
 	<div id="drop-point">Drop Point</div>
 	<script src="../../js/pixi/5.3.12/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.461.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.461.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.462.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.462.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(() => {
 		"use strict";
@@ -56,6 +56,14 @@
 				diagram.view.fit();
 			});
 		});
+
+		// By default, EShapeSatate.DRAGGED is used to check if shapes are draggable.
+		// The drag state can be optionally customized to any desired state by EShapeRuntimeDragState.set(string).
+		//
+		// For instance, to make open actions with the condition `isClicked` draggable, do as follows:
+		//
+		//     wcardinal.ui.EShapeRuntimeDragStates.set(wcardinal.ui.EShapeState.CLICKED);
+		//
 
 		// Drop Point Event Handling
 		const dropPoint = document.querySelector("#drop-point");
