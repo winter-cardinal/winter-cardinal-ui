@@ -108,12 +108,9 @@ export class BuilderPolygon extends BuilderBase {
 
 		const stroke = shape.stroke;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
-		const strokeSide = stroke.side;
 		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeWidth !== strokeWidth ||
-			this.strokeSide !== strokeSide ||
-			this.strokeStyle !== strokeStyle;
+			this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
 
 		const texture = toTexture(shape);
 		const textureTransformId = toTextureTransformId(texture);
@@ -135,7 +132,6 @@ export class BuilderPolygon extends BuilderBase {
 			this.fillDirection = fillDirection;
 			this.fillPercent = fillPercent;
 			this.strokeWidth = strokeWidth;
-			this.strokeSide = strokeSide;
 			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -179,7 +175,6 @@ export class BuilderPolygon extends BuilderBase {
 					fillDirection,
 					fillPercent,
 					strokeWidth,
-					strokeSide,
 					strokeStyle
 				);
 			}
@@ -187,7 +182,7 @@ export class BuilderPolygon extends BuilderBase {
 			// UVs
 			if (isNotInited || isTriangulatedIdChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildPolygonUv(buffer.uvs, triangulated.uvs, voffset, toTextureUvs(texture));
+				buildPolygonUv(buffer.uvs, triangulated.uvs, 0, 0, voffset, toTextureUvs(texture));
 			}
 		}
 	}

@@ -10,8 +10,7 @@ import {
 	buildCircleUv,
 	buildCircleVertex,
 	CIRCLE_INDEX_COUNT,
-	CIRCLE_VERTEX_COUNT,
-	CIRCLE_WORLD_SIZE
+	CIRCLE_VERTEX_COUNT
 } from "./build-circle";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
@@ -32,12 +31,11 @@ export class BuilderCircle extends BuilderBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexAndStep(buffer, shape);
+		this.updateVertexStepAndUv(buffer, shape);
 		this.updateColor(buffer, shape);
-		this.updateUv(buffer, shape);
 	}
 
-	protected updateVertexAndStep(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -45,6 +43,12 @@ export class BuilderCircle extends BuilderBase {
 
 		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
+
+		const fill = shape.fill;
+		const fillDirection = fill.direction;
+		const fillPercent = fill.percent;
+		const isFillChanged =
+			this.fillDirection !== fillDirection || this.fillPercent !== fillPercent;
 
 		const stroke = shape.stroke;
 		const strokeAlign = stroke.align;
@@ -55,20 +59,37 @@ export class BuilderCircle extends BuilderBase {
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
-		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
+		const isTextureChanged =
+			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
-		if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
-			this.inited |= BuilderFlag.VERTEX_AND_STEP;
+		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+
+		if (
+			isNotInited ||
+			isSizeChanged ||
+			isTransformChanged ||
+			isFillChanged ||
+			isStrokeChanged ||
+			isTextureChanged
+		) {
+			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
+			this.fillDirection = fillDirection;
+			this.fillPercent = fillPercent;
 			this.strokeAlign = strokeAlign;
 			this.strokeWidth = strokeWidth;
 			this.strokeStyle = strokeStyle;
+			this.texture = texture;
+			this.textureTransformId = textureTransformId;
 
 			// Buffer
 			buffer.updateVertices();
 			buffer.updateSteps();
+			buffer.updateUvs();
 			buildCircleVertex(
 				buffer.vertices,
 				this.vertexOffset,
@@ -78,35 +99,17 @@ export class BuilderCircle extends BuilderBase {
 				sizeY,
 				strokeAlign,
 				strokeWidth,
-				shape.transform.internalTransform,
-				CIRCLE_WORLD_SIZE
+				shape.transform.internalTransform
 			);
 			buildCircleStep(
 				buffer.steps,
 				this.vertexOffset,
+				fillDirection,
+				fillPercent,
 				strokeWidth,
-				strokeStyle,
-				CIRCLE_WORLD_SIZE
+				strokeStyle
 			);
-		}
-	}
-
-	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
-		const texture = toTexture(shape);
-		const textureTransformId = toTextureTransformId(texture);
-		const isNotInited = !(this.inited & BuilderFlag.UV);
-		if (
-			isNotInited ||
-			texture !== this.texture ||
-			textureTransformId !== this.textureTransformId
-		) {
-			this.inited |= BuilderFlag.UV;
-			this.texture = texture;
-			this.textureTransformId = textureTransformId;
-
-			buffer.updateUvs();
-			const textureUvs = toTextureUvs(texture);
-			buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
+			buildCircleUv(buffer.uvs, this.vertexOffset, toTextureUvs(texture));
 		}
 	}
 }

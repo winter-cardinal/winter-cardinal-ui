@@ -1,7 +1,6 @@
 import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
-import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeBoundary } from "../e-shape-boundary";
 import { buildPolygonStep, buildPolygonUv } from "./build-polygon";
@@ -11,6 +10,7 @@ export const CIRCLE_N_VERTICES = 32;
 export const CIRCLE_VERTEX_COUNT = CIRCLE_N_VERTICES * 2;
 export const CIRCLE_INDEX_COUNT = CIRCLE_N_VERTICES * 2;
 export const CIRCLE_WORLD_SIZE: [number, number] = [0, 0];
+export const CIRCLE_ANGLE_DELTA = 2 * (Math.PI / CIRCLE_N_VERTICES);
 
 export const CIRCLE_DISTANCES: number[] = [];
 export const CIRCLE_LENGTHS: number[] = [];
@@ -25,14 +25,16 @@ export const buildCircleIndex = (
 ): void => {
 	let ii = ioffset * 3 - 1;
 	const n = CIRCLE_N_VERTICES;
-	for (let i = 0, iv1 = voffset; i < n; i += 1, iv1 += 1) {
+	for (let i = 0; i < n; i += 1) {
+		const iv0 = voffset + i;
+		const iv1 = voffset + ((i + 1) % n);
+		indices[++ii] = iv0;
 		indices[++ii] = iv1;
-		indices[++ii] = iv1 + 1;
-		indices[++ii] = iv1 + n;
+		indices[++ii] = iv0 + n;
 
-		indices[++ii] = iv1 + 1;
-		indices[++ii] = iv1 + n + 1;
+		indices[++ii] = iv1;
 		indices[++ii] = iv1 + n;
+		indices[++ii] = iv0 + n;
 	}
 };
 
@@ -97,112 +99,176 @@ export const buildCircleVertex = (
 
 	const n = CIRCLE_N_VERTICES;
 	if (CIRCLE_UVS.length <= 0) {
-		const dangle = Math.PI / n;
+		// Ounter Vertices
 		let angle = 0;
-		for (let i = 0, j = 0; i < n; i += 1, j += 2, angle += dangle) {
+		let j = 0;
+		for (let i = 0; i < n; ++i) {
 			CIRCLE_UVS[j + 0] = Math.cos(angle);
 			CIRCLE_UVS[j + 1] = Math.sin(angle);
+			angle += CIRCLE_ANGLE_DELTA;
+			j += 2;
 		}
-		for (let i = 0, j = 0; i < n; i += 1, j += 2) {
-			CIRCLE_UVS[j + n] = 0;
-			CIRCLE_UVS[j + n + 1] = Math.sin(angle);
+
+		// Innver Vertices
+		j = n << 1;
+		for (let i = 0; i < n; ++i) {
+			CIRCLE_UVS[j] = 0;
+			CIRCLE_UVS[j + 1] = 0;
+			j += 2;
 		}
 	}
 
-	let iv0 = voffset * 2;
-	let iv1 = iv0 + n * 2;
-	let iuv = 0;
-	let f = 1;
-	let l = 0;
-	let px = 0;
-	let py = 0;
 	if (ry <= rx) {
+		let f = 1;
 		if (0 < rx) {
 			const t = ry / rx;
 			f = 1 - t * t;
 		}
+
+		// Outer Vertices
+		let iv2 = voffset << 1;
+		let iuv = 0;
+		let l = 0;
+		let px = 0;
+		let py = 0;
 		for (let i = 0; i < n; ++i) {
 			// Vertices
 			const u = CIRCLE_UVS[iuv];
 			const v = CIRCLE_UVS[iuv + 1];
-			const w = u * f;
 			const x = x4 + u * mx + v * nx;
 			const y = y4 + u * my + v * ny;
-			vertices[iv0] = x;
-			vertices[iv0 + 1] = y;
-			vertices[iv1] = x4 + w * mx;
-			vertices[iv1 + 1] = y4 + w * my;
+			vertices[iv2] = x;
+			vertices[iv2 + 1] = y;
 
 			// Clipping
 			CIRCLE_CLIPPINGS[i] = 1;
-			CIRCLE_CLIPPINGS[i + n] = 0;
 
 			// Distance
 			CIRCLE_DISTANCES[i] = r;
-			CIRCLE_DISTANCES[i + n] = 0;
 
 			// Length
 			if (i === 0) {
 				CIRCLE_LENGTHS[i] = 0;
-				CIRCLE_LENGTHS[i + n] = 0;
 			} else {
 				const dx = x - px;
 				const dy = y - py;
 				l += Math.sqrt(dx * dx + dy * dy);
 				CIRCLE_LENGTHS[i] = l;
-				CIRCLE_LENGTHS[i + n] = l;
 			}
 
 			// Next
 			px = x;
 			py = y;
-			iv0 += 2;
-			iv1 += 2;
+			iv2 += 2;
 			iuv += 2;
+		}
+
+		// Inner Vertices
+		iuv = 0;
+		iv2 = (voffset + n) << 1;
+		let juv = n << 1;
+		let j = n;
+		for (let i = 0; i < n; ++i) {
+			// Vertices
+			const u = CIRCLE_UVS[iuv];
+			const uf = u * f;
+			vertices[iv2] = x4 + uf * mx;
+			vertices[iv2 + 1] = y4 + uf * my;
+
+			// UVs
+			CIRCLE_UVS[juv] = 0;
+			CIRCLE_UVS[juv + 1] = uf;
+
+			// Clipping
+			CIRCLE_CLIPPINGS[j] = 0;
+
+			// Distance
+			CIRCLE_DISTANCES[j] = 0;
+
+			// Length
+			CIRCLE_LENGTHS[j] = CIRCLE_LENGTHS[i];
+
+			// Next
+			iv2 += 2;
+			iuv += 2;
+			juv += 2;
+			j += 1;
 		}
 	} else {
+		let f = 1;
 		if (0 < rx) {
 			const t = ry / rx;
 			f = 1 - t * t;
 		}
+
+		// Outer Vertices
+		let iv2 = voffset << 1;
+		let iuv = 0;
+		let l = 0;
+		let px = 0;
+		let py = 0;
 		for (let i = 0; i < n; ++i) {
 			// Vertices
 			const u = CIRCLE_UVS[iuv];
 			const v = CIRCLE_UVS[iuv + 1];
-			const w = v * f;
 			const x = x4 + u * mx + v * nx;
 			const y = y4 + u * my + v * ny;
-			vertices[iv0] = x;
-			vertices[iv0 + 1] = y;
-			vertices[iv1] = x4 + w * nx;
-			vertices[iv1 + 1] = y4 + w * ny;
+			vertices[iv2] = x;
+			vertices[iv2 + 1] = y;
 
 			// Clipping
 			CIRCLE_CLIPPINGS[i] = 1;
-			CIRCLE_CLIPPINGS[i + n] = 0;
 
 			// Distance
 			CIRCLE_DISTANCES[i] = r;
-			CIRCLE_DISTANCES[i + n] = 0;
 
 			// Length
 			if (i === 0) {
 				CIRCLE_LENGTHS[i] = 0;
-				CIRCLE_LENGTHS[i + n] = 0;
 			} else {
 				const dx = x - px;
 				const dy = y - py;
 				l += Math.sqrt(dx * dx + dy * dy);
 				CIRCLE_LENGTHS[i] = l;
-				CIRCLE_LENGTHS[i + n] = l;
 			}
 
 			// Next
 			px = x;
 			py = y;
-			iv0 += 2;
-			iv1 += 2;
+			iv2 += 2;
 			iuv += 2;
+		}
+
+		// Inner Vertices
+		iuv = 0;
+		iv2 = (voffset + n) << 1;
+		let juv = n << 1;
+		let j = n;
+		for (let i = 0; i < n; ++i) {
+			// Vertices
+			const v = CIRCLE_UVS[iuv + 1];
+			const vf = v * f;
+			vertices[iv2] = x4 + vf * nx;
+			vertices[iv2 + 1] = y4 + vf * ny;
+
+			// UVs
+			CIRCLE_UVS[juv] = vf;
+			CIRCLE_UVS[juv + 1] = 0;
+
+			// Clipping
+			CIRCLE_CLIPPINGS[j] = 0;
+
+			// Distance
+			CIRCLE_DISTANCES[j] = 0;
+
+			// Length
+			CIRCLE_LENGTHS[j] = CIRCLE_LENGTHS[i];
+
+			// Next
+			iv2 += 2;
+			iuv += 2;
+			juv += 2;
+			j += 1;
 		}
 	}
 };
@@ -213,7 +279,6 @@ export const buildCircleStep = (
 	fillDirection: EShapeFillDirection,
 	fillPercent: number,
 	strokeWidth: number,
-	strokeSide: EShapeStrokeSide,
 	strokeStyle: EShapeStrokeStyle
 ): void => {
 	buildPolygonStep(
@@ -224,15 +289,14 @@ export const buildCircleStep = (
 		CIRCLE_UVS,
 		CIRCLE_BOUNDARY,
 		voffset,
-		CIRCLE_N_VERTICES,
+		CIRCLE_VERTEX_COUNT,
 		fillDirection,
 		fillPercent,
 		strokeWidth,
-		strokeSide,
 		strokeStyle
 	);
 };
 
 export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {
-	buildPolygonUv(uvs, CIRCLE_UVS, voffset, textureUvs);
+	buildPolygonUv(uvs, CIRCLE_UVS, 0.5, 0.5, voffset, textureUvs);
 };

@@ -10,10 +10,9 @@ import {
 	buildCircleUv,
 	buildCircleVertex,
 	CIRCLE_INDEX_COUNT,
-	CIRCLE_VERTEX_COUNT,
-	CIRCLE_WORLD_SIZE
+	CIRCLE_VERTEX_COUNT
 } from "./build-circle";
-import { buildNullStep, buildNullVertex } from "./build-null";
+import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
@@ -49,13 +48,12 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
-			this.updateVertexAndStep(buffer, shape, points);
+			this.updateVertexStepAndUv(buffer, shape, points);
 			this.updateLineOfAnyColor(buffer, shape, points, CIRCLE_VERTEX_COUNT);
-			this.updateUv(buffer, shape);
 		}
 	}
 
-	protected updateVertexAndStep(
+	protected updateVertexStepAndUv(
 		buffer: BuilderBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
@@ -77,6 +75,12 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
+		const fill = shape.fill;
+		const fillDirection = fill.direction;
+		const fillPercent = fill.percent;
+		const isFillChanged =
+			this.fillDirection !== fillDirection || this.fillPercent !== fillPercent;
+
 		const stroke = shape.stroke;
 		const strokeAlign = stroke.align;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
@@ -86,6 +90,11 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
+		const isTextureChanged =
+			texture !== this.texture || textureTransformId !== this.textureTransformId;
+
 		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
 
 		if (
@@ -94,7 +103,9 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			isPointSizeChanged ||
 			isSizeChanged ||
 			isTransformChanged ||
-			isStrokeChanged
+			isFillChanged ||
+			isStrokeChanged ||
+			isTextureChanged
 		) {
 			this.inited |= BuilderFlag.VERTEX_AND_STEP;
 			this.pointId = pointId;
@@ -105,18 +116,24 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
+			this.fillDirection = fillDirection;
+			this.fillPercent = fillPercent;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 			this.strokeStyle = strokeStyle;
+			this.texture = texture;
+			this.textureTransformId = textureTransformId;
 
 			// Buffer
 			buffer.updateVertices();
 			buffer.updateSteps();
+			buffer.updateUvs();
 			const pointCount = this.pointCount;
 			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
+			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
@@ -131,8 +148,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 					pointSizeY,
 					strokeAlign,
 					strokeWidth,
-					internalTransform,
-					CIRCLE_WORLD_SIZE
+					internalTransform
 				);
 				copyVertex(
 					vertices,
@@ -143,8 +159,17 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 					pointsValues,
 					pointOffset
 				);
-				buildCircleStep(steps, voffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
+				buildCircleStep(
+					steps,
+					voffset,
+					fillDirection,
+					fillPercent,
+					strokeWidth,
+					strokeStyle
+				);
 				copyStep(steps, voffset, CIRCLE_VERTEX_COUNT, pointCount);
+				buildCircleUv(uvs, voffset, toTextureUvs(texture));
+				copyUvs(uvs, voffset, CIRCLE_VERTEX_COUNT, pointCount);
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
 					const ip = i << 1;
@@ -162,10 +187,17 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 						pointSizeY,
 						strokeAlign,
 						strokeWidth,
-						internalTransform,
-						CIRCLE_WORLD_SIZE
+						internalTransform
 					);
-					buildCircleStep(steps, iv, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
+					buildCircleStep(
+						steps,
+						iv,
+						fillDirection,
+						fillPercent,
+						strokeWidth,
+						strokeStyle
+					);
+					buildCircleUv(uvs, iv, toTextureUvs(texture));
 				}
 			}
 
@@ -175,31 +207,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			const vcountReserved = CIRCLE_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
-		}
-	}
-
-	protected updateUv(buffer: BuilderBuffer, shape: EShape): void {
-		const texture = toTexture(shape);
-		const textureTransformId = toTextureTransformId(texture);
-		const isNotInited = !(this.inited & BuilderFlag.UV);
-		if (
-			isNotInited ||
-			texture !== this.texture ||
-			textureTransformId !== this.textureTransformId
-		) {
-			this.inited |= BuilderFlag.UV;
-			this.texture = texture;
-			this.textureTransformId = textureTransformId;
-
-			buffer.updateUvs();
-			const uvs = buffer.uvs;
-			const voffset = this.vertexOffset;
-			const textureUvs = toTextureUvs(texture);
-			const pointCountReserved = this.pointCountReserved;
-			if (0 < pointCountReserved) {
-				buildCircleUv(uvs, voffset, textureUvs);
-				copyUvs(uvs, voffset, CIRCLE_VERTEX_COUNT, pointCountReserved);
-			}
+			buildNullUv(uvs, voffsetReserved, vcountReserved);
 		}
 	}
 }

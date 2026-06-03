@@ -7,7 +7,6 @@ import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { toDash } from "./to-dash";
 import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeBoundary } from "../e-shape-boundary";
@@ -66,13 +65,11 @@ export const buildPolygonStep = (
 	fillDirection: EShapeFillDirection,
 	fillPercent: number,
 	strokeWidth: number,
-	strokeSide: EShapeStrokeSide,
 	strokeStyle: EShapeStrokeStyle
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const dash = toDash(strokeStyle);
-	const w = (strokeSide & EShapeStrokeSide.ALL) === EShapeStrokeSide.ALL ? 1 : 0;
-	const e = toPackedI4x64(7 + dash, scaleInvariant, w, 0);
+	const e = toPackedI4x64(7 + dash, scaleInvariant, 1, 0);
 	const fp = Math.max(0, Math.min(1, fillPercent));
 	switch (fillDirection) {
 		case EShapeFillDirection.TOP:
@@ -192,6 +189,8 @@ export const buildPolygonStepY = (
 export const buildPolygonUv = (
 	uvs: Float32Array,
 	polygonUvs: number[],
+	polygonOffsetU: number,
+	polygonOffsetV: number,
 	voffset: number,
 	textureUvs: TextureUvs
 ): void => {
@@ -203,7 +202,7 @@ export const buildPolygonUv = (
 	const dy = y3 - y0;
 	let iuv = (voffset << 1) - 1;
 	for (let i = 0, n = polygonUvs.length; i < n; i += 2) {
-		uvs[++iuv] = x0 + polygonUvs[i] * dx;
-		uvs[++iuv] = y0 + polygonUvs[i + 1] * dy;
+		uvs[++iuv] = x0 + (polygonOffsetU + polygonUvs[i]) * dx;
+		uvs[++iuv] = y0 + (polygonOffsetV + polygonUvs[i + 1]) * dy;
 	}
 };
