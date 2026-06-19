@@ -182,7 +182,7 @@ export class BuilderPolygon extends BuilderBase {
 			// UVs
 			if (isNotInited || isTriangulatedIdChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildPolygonUv(buffer.uvs, triangulated.uvs, 0, 0, voffset, toTextureUvs(texture));
+				buildPolygonUv(buffer.uvs, triangulated.uvs, voffset, toTextureUvs(texture));
 			}
 		}
 	}

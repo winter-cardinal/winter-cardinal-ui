@@ -5,7 +5,10 @@ import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeBoundary } from "../e-shape-boundary";
 import { buildPolygonStep, buildPolygonUv } from "./build-polygon";
 
-export const CIRCLE_N_VERTICES = 32;
+/**
+ * @note Must be a multiple of four
+ */
+export const CIRCLE_N_VERTICES = 64;
 
 export const CIRCLE_VERTEX_COUNT = CIRCLE_N_VERTICES * 2;
 export const CIRCLE_INDEX_COUNT = CIRCLE_N_VERTICES * 2;
@@ -23,11 +26,55 @@ export const buildCircleIndex = (
 	voffset: number,
 	ioffset: number
 ): void => {
-	let ii = ioffset * 3 - 1;
 	const n = CIRCLE_N_VERTICES;
-	for (let i = 0; i < n; i += 1) {
-		const iv0 = voffset + i;
-		const iv1 = voffset + ((i + 1) % n);
+	const qn = n >> 2;
+
+	// Right Top
+	let iv = 0;
+	let ii = ioffset * 3 - 1;
+	for (let i = 0; i < qn; ++i, ++iv) {
+		const iv0 = voffset + iv;
+		const iv1 = voffset + ((iv + 1) % n);
+		indices[++ii] = iv0;
+		indices[++ii] = iv1;
+		indices[++ii] = iv1 + n;
+
+		indices[++ii] = iv0;
+		indices[++ii] = iv1 + n;
+		indices[++ii] = iv0 + n;
+	}
+
+	// Right Bottom
+	for (let i = 0; i < qn; i += 1, ++iv) {
+		const iv0 = voffset + iv;
+		const iv1 = voffset + ((iv + 1) % n);
+		indices[++ii] = iv0;
+		indices[++ii] = iv1;
+		indices[++ii] = iv0 + n;
+
+		indices[++ii] = iv1;
+		indices[++ii] = iv1 + n;
+		indices[++ii] = iv0 + n;
+	}
+
+	// Left Bottom
+	for (let i = 0; i < qn; i += 1, ++iv) {
+		const iv0 = voffset + iv;
+		const iv1 = voffset + ((iv + 1) % n);
+
+		indices[++ii] = iv0;
+		indices[++ii] = iv1;
+		indices[++ii] = iv1 + n;
+
+		indices[++ii] = iv0;
+		indices[++ii] = iv1 + n;
+		indices[++ii] = iv0 + n;
+	}
+
+	// Left Top
+	for (let i = 0; i < qn; i += 1, ++iv) {
+		const iv0 = voffset + iv;
+		const iv1 = voffset + ((iv + 1) % n);
 		indices[++ii] = iv0;
 		indices[++ii] = iv1;
 		indices[++ii] = iv0 + n;
@@ -103,8 +150,8 @@ export const buildCircleVertex = (
 		let angle = 0;
 		let j = 0;
 		for (let i = 0; i < n; ++i) {
-			CIRCLE_UVS[j + 0] = Math.cos(angle);
-			CIRCLE_UVS[j + 1] = Math.sin(angle);
+			CIRCLE_UVS[j + 0] = 0.5 * (1 + Math.cos(angle));
+			CIRCLE_UVS[j + 1] = 0.5 * (1 + Math.sin(angle));
 			angle += CIRCLE_ANGLE_DELTA;
 			j += 2;
 		}
@@ -118,23 +165,19 @@ export const buildCircleVertex = (
 		}
 	}
 
+	const distance = 0 < r ? 1 / r : r;
 	if (ry <= rx) {
-		let f = 1;
-		if (0 < rx) {
-			const t = ry / rx;
-			f = 1 - t * t;
-		}
-
 		// Outer Vertices
 		let iv2 = voffset << 1;
 		let iuv = 0;
 		let l = 0;
 		let px = 0;
 		let py = 0;
+		const f = 0 < rx ? 1 - ry / rx : 1;
 		for (let i = 0; i < n; ++i) {
 			// Vertices
-			const u = CIRCLE_UVS[iuv];
-			const v = CIRCLE_UVS[iuv + 1];
+			const u = 2 * CIRCLE_UVS[iuv] - 1;
+			const v = 2 * CIRCLE_UVS[iuv + 1] - 1;
 			const x = x4 + u * mx + v * nx;
 			const y = y4 + u * my + v * ny;
 			vertices[iv2] = x;
@@ -144,7 +187,7 @@ export const buildCircleVertex = (
 			CIRCLE_CLIPPINGS[i] = 1;
 
 			// Distance
-			CIRCLE_DISTANCES[i] = r;
+			CIRCLE_DISTANCES[i] = distance;
 
 			// Length
 			if (i === 0) {
@@ -170,20 +213,20 @@ export const buildCircleVertex = (
 		let j = n;
 		for (let i = 0; i < n; ++i) {
 			// Vertices
-			const u = CIRCLE_UVS[iuv];
+			const u = 2 * CIRCLE_UVS[iuv] - 1;
 			const uf = u * f;
 			vertices[iv2] = x4 + uf * mx;
 			vertices[iv2 + 1] = y4 + uf * my;
 
 			// UVs
-			CIRCLE_UVS[juv] = 0;
-			CIRCLE_UVS[juv + 1] = uf;
+			CIRCLE_UVS[juv] = 0.5 + f * (CIRCLE_UVS[iuv] - 0.5);
+			CIRCLE_UVS[juv + 1] = 0.5;
 
 			// Clipping
 			CIRCLE_CLIPPINGS[j] = 0;
 
 			// Distance
-			CIRCLE_DISTANCES[j] = 0;
+			CIRCLE_DISTANCES[j] = distance;
 
 			// Length
 			CIRCLE_LENGTHS[j] = CIRCLE_LENGTHS[i];
@@ -195,22 +238,17 @@ export const buildCircleVertex = (
 			j += 1;
 		}
 	} else {
-		let f = 1;
-		if (0 < rx) {
-			const t = ry / rx;
-			f = 1 - t * t;
-		}
-
 		// Outer Vertices
 		let iv2 = voffset << 1;
 		let iuv = 0;
 		let l = 0;
 		let px = 0;
 		let py = 0;
+		const f = 0 < ry ? 1 - rx / ry : 1;
 		for (let i = 0; i < n; ++i) {
 			// Vertices
-			const u = CIRCLE_UVS[iuv];
-			const v = CIRCLE_UVS[iuv + 1];
+			const u = 2 * CIRCLE_UVS[iuv] - 1;
+			const v = 2 * CIRCLE_UVS[iuv + 1] - 1;
 			const x = x4 + u * mx + v * nx;
 			const y = y4 + u * my + v * ny;
 			vertices[iv2] = x;
@@ -220,7 +258,7 @@ export const buildCircleVertex = (
 			CIRCLE_CLIPPINGS[i] = 1;
 
 			// Distance
-			CIRCLE_DISTANCES[i] = r;
+			CIRCLE_DISTANCES[i] = distance;
 
 			// Length
 			if (i === 0) {
@@ -246,20 +284,20 @@ export const buildCircleVertex = (
 		let j = n;
 		for (let i = 0; i < n; ++i) {
 			// Vertices
-			const v = CIRCLE_UVS[iuv + 1];
+			const v = 2 * CIRCLE_UVS[iuv + 1] - 1;
 			const vf = v * f;
 			vertices[iv2] = x4 + vf * nx;
 			vertices[iv2 + 1] = y4 + vf * ny;
 
 			// UVs
-			CIRCLE_UVS[juv] = vf;
-			CIRCLE_UVS[juv + 1] = 0;
+			CIRCLE_UVS[juv] = 0.5;
+			CIRCLE_UVS[juv + 1] = 0.5 + f * (CIRCLE_UVS[iuv + 1] - 0.5);
 
 			// Clipping
 			CIRCLE_CLIPPINGS[j] = 0;
 
 			// Distance
-			CIRCLE_DISTANCES[j] = 0;
+			CIRCLE_DISTANCES[j] = distance;
 
 			// Length
 			CIRCLE_LENGTHS[j] = CIRCLE_LENGTHS[i];
@@ -298,5 +336,5 @@ export const buildCircleStep = (
 };
 
 export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {
-	buildPolygonUv(uvs, CIRCLE_UVS, 0.5, 0.5, voffset, textureUvs);
+	buildPolygonUv(uvs, CIRCLE_UVS, voffset, textureUvs);
 };

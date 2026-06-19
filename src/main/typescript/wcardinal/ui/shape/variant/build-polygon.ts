@@ -189,8 +189,6 @@ export const buildPolygonStepY = (
 export const buildPolygonUv = (
 	uvs: Float32Array,
 	polygonUvs: number[],
-	polygonOffsetU: number,
-	polygonOffsetV: number,
 	voffset: number,
 	textureUvs: TextureUvs
 ): void => {
@@ -202,7 +200,7 @@ export const buildPolygonUv = (
 	const dy = y3 - y0;
 	let iuv = (voffset << 1) - 1;
 	for (let i = 0, n = polygonUvs.length; i < n; i += 2) {
-		uvs[++iuv] = x0 + (polygonOffsetU + polygonUvs[i]) * dx;
-		uvs[++iuv] = y0 + (polygonOffsetV + polygonUvs[i + 1]) * dy;
+		uvs[++iuv] = x0 + polygonUvs[i] * dx;
+		uvs[++iuv] = y0 + polygonUvs[i + 1] * dy;
 	}
 };
