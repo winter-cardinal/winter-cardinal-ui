@@ -15,12 +15,14 @@ export class DDiagramLayerContainer extends Container {
 	protected _active: DDiagramLayer | null;
 	protected _width: number;
 	protected _height: number;
+	protected _antialiasWeight: number;
 
-	constructor(width: number, height: number) {
+	constructor(width: number, height: number, antialiasWeight: number) {
 		super();
 		this._active = null;
 		this._width = width;
 		this._height = height;
+		this._antialiasWeight = antialiasWeight;
 		this.interactive = false;
 		this.interactiveChildren = false;
 	}
@@ -47,7 +49,7 @@ export class DDiagramLayerContainer extends Container {
 	}
 
 	create(name: string, activate?: boolean): DDiagramLayer {
-		const result = new DDiagramLayer(name);
+		const result = new DDiagramLayer(name, this._antialiasWeight);
 		this.attach(result, activate);
 		return result;
 	}
@@ -195,7 +197,13 @@ export class DDiagramLayerContainer extends Container {
 			const height = this._height;
 			for (let i = 0; i < serializedLayersLength; ++i) {
 				this.addChild(
-					DDiagramLayer.deserialize(serializedLayers[i], manager, width, height)
+					DDiagramLayer.deserialize(
+						serializedLayers[i],
+						manager,
+						width,
+						height,
+						this._antialiasWeight
+					)
 				);
 			}
 			this.onLayerChange();

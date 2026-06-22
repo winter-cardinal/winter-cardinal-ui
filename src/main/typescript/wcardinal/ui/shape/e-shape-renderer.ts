@@ -241,15 +241,11 @@ uniform mediump float antialiasWeight;
 vec4 toColor0(in vec4 texture) {
 	vec2 f = vec2(1.0) / vStepB.xy;
 	vec2 c = vStepB.zw;
-	vec2 awd = antialiasWeight * f;
+	vec2 awd = 0.5 * antialiasWeight * f;
 	vec2 swd = vStepA * f;
 	vec2 one = vec2(1.0);
-	vec2 zero = vec2(0.0);
-	vec2 p0 = clamp(one - awd, zero, one);
-	vec2 p1 = clamp(one - swd, zero, one);
-	vec2 p2 = clamp(one - swd - awd, zero, one);
-	vec2 s0 = smoothstep(p0, one, c);
-	vec2 s1 = smoothstep(p2, p1, c);
+	vec2 s0 = smoothstep(one - awd, one + awd, c);
+	vec2 s1 = smoothstep(one - swd - awd, one - swd + awd, c);
 	float s2 = max(s0.x, s0.y);
 	float s3 = max(s1.x, s1.y);
 
@@ -262,12 +258,11 @@ vec4 toColor0(in vec4 texture) {
 vec4 toColor1(in vec4 texture) {
 	vec2 d = vStepB.xy;
 	vec2 c = vStepB.zw;
-	vec2 awd = antialiasWeight / d;
+	vec2 awd = 0.5 * antialiasWeight / d;
 	vec2 swd = vStepA / d;
 	vec2 one = vec2(1.0);
-	vec2 zero = vec2(0.0);
-	float s0 = smoothstep(length(c), length(c/clamp(one - awd, zero, one)), 1.0);
-	float s1 = smoothstep(length(c/clamp(one - swd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);
+	float s0 = smoothstep(length(c/(one + awd)), length(c/(one - awd)), 1.0);
+	float s1 = smoothstep(length(c/(one - swd + awd)), length(c/(one - swd - awd)), 1.0);
 	return texture * (
 		vColorStroke * (s0 - s1) +
 		vColorFill * s1
@@ -287,32 +282,28 @@ float toLineStep(in vec4 parameters) {
 	float lp0 = parameters.y;
 	float lp1 = parameters.z;
 	float lt = parameters.w;
-	float ld = antialiasWeight;
+	float ld = 0.5 * antialiasWeight;
 	float lm = mod(l, lp0 + lp1);
-	float s0 = (0.0 < lp1 ? smoothstep(0.0, ld, lm) - smoothstep(lp0, lp0 + ld, lm) : 1.0);
-	float s1 = (0.0 <= lt ? smoothstep(0.0, ld, l) - smoothstep(lt - ld, lt, l) : 1.0);
+	float s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);
+	float s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);
 	return s0 * s1;
 }
 
 vec4 toColor3(in vec4 texture) {
 	float c = vStepA.x;
-	float awd = antialiasWeight / vStepA.y;
-	float p0 = clamp(awd, 0.0, 1.0);
-	float p1 = clamp(1.0 - awd, 0.0, 1.0);
-	float s0 = smoothstep(0.0, p0, c);
-	float s1 = smoothstep(p1, 1.0, c);
+	float awd = 0.5 * antialiasWeight / vStepA.y;
+	float s0 = smoothstep(-awd, awd, c);
+	float s1 = smoothstep(1.0 - awd, 1.0 + awd, c);
 	return texture * vColorStroke * (s0 - s1) * toLineStep(vLength);
 }
 
 vec4 toColor7(in vec4 texture) {
-	float awd = antialiasWeight * vStepB.x;
+	float aw = 0.5 * antialiasWeight;
+	float awd = aw * vStepB.x;
 	float swd = vStepA.x * vStepB.x;
-	float p0 = clamp(1.0 - awd, 0.0, 1.0);
-	float p1 = clamp(1.0 - swd, 0.0, 1.0);
-	float p2 = clamp(1.0 - swd - awd, 0.0, 1.0);
-	float s0 = smoothstep(p0, 1.0, vStepB.z);
-	float s1 = smoothstep(p2, p1, vStepB.z) * toLineStep(vLength);
-	float s2 = smoothstep(-antialiasWeight, 0.0, vStepB.y);
+	float s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);
+	float s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);
+	float s2 = smoothstep(-aw, +aw, vStepB.y);
 	return texture * (
 		vColorStroke * (s1 - s0) +
 		vColorFill * (1.0 - s1) * s2
@@ -469,7 +460,7 @@ export class EShapeRenderer extends ObjectRenderer {
 		if (shader != null && (shape != null || 0 < shapes.length)) {
 			const resolution = renderer.resolution;
 			const buffers = container.getBuffers();
-			const antialiasWeight = container.toAntialiasWeight(resolution);
+			const antialiasWeight = container.getAntialiasWeight();
 
 			// Update textures
 			if (isDirty) {

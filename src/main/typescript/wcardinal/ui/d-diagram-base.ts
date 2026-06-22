@@ -15,6 +15,7 @@ import { DDiagramBaseController } from "./d-diagram-base-controller";
 import {
 	DDiagramCanvasBackgroundOptions,
 	DDiagramCanvasBase,
+	DDiagramCanvasBaseAntialiasOptions,
 	DDiagramCanvasBaseOptions
 } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
@@ -69,6 +70,11 @@ export interface DDiagramBaseOptions<
 	ambient?: boolean;
 
 	/**
+	 * Antialias options.
+	 */
+	antialias?: DDiagramCanvasBaseAntialiasOptions;
+
+	/**
 	 * Snapshot options.
 	 */
 	snapshot?: DDiagramSnapshotOptions<CANVAS>;
@@ -102,16 +108,27 @@ export abstract class DDiagramBase<
 	protected _tileFactory?: DDiagramCanvasTilePyramidFactory;
 	protected _controller?: CONTROLLER;
 	protected _isAmbient: boolean;
+	protected _antialias?: DDiagramCanvasBaseAntialiasOptions;
 	protected _snapshot: DDiagramSnapshot;
 	protected _mode: EShapeResourceManagerDeserializationMode;
 
 	constructor(options?: OPTIONS) {
 		super(options);
 		this._serialized = null;
-		this._tileFactory = options?.tile;
-		this._controller = options?.controller;
-		this._isAmbient = options?.ambient ?? this.theme.isAmbient();
-		this._snapshot = new DDiagramSnapshot(this, options?.snapshot);
+		const theme = this.theme;
+		if (options != null) {
+			this._tileFactory = options.tile;
+			this._controller = options.controller;
+			this._isAmbient = options.ambient ?? theme.isAmbient();
+			this._antialias = options.antialias;
+			this._snapshot = new DDiagramSnapshot(this, options.snapshot);
+		} else {
+			this._tileFactory = undefined;
+			this._controller = undefined;
+			this._isAmbient = theme.isAmbient();
+			this._antialias = undefined;
+			this._snapshot = new DDiagramSnapshot(this);
+		}
 		this._mode = this.toMode(options);
 	}
 
@@ -223,7 +240,8 @@ export abstract class DDiagramBase<
 				factory: this._tileFactory,
 				mapping: serialized.tile?.mapping
 			},
-			ambient: isAmbient
+			ambient: isAmbient,
+			antialias: this._antialias
 		};
 	}
 

@@ -23,8 +23,10 @@ export class EShapeContainer extends DisplayObject {
 
 	protected _pixelScale: number;
 	protected _pixelScaleId: number;
+	protected _pixelScaleResolution: number;
 	protected _shapeScale: number;
 	protected _shapeScaleId: number;
+	protected _antialiasWeight: number;
 
 	protected _work: Point;
 
@@ -43,8 +45,10 @@ export class EShapeContainer extends DisplayObject {
 
 		this._pixelScale = 1;
 		this._pixelScaleId = -2; // Since this._shapeScaleId starts from -1.
+		this._pixelScaleResolution = 1;
 		this._shapeScale = 1;
 		this._shapeScaleId = -1; // Since Transform._worldID starts from zero.
+		this._antialiasWeight = 1;
 
 		this._work = new Point();
 
@@ -137,8 +141,9 @@ export class EShapeContainer extends DisplayObject {
 	toPixelScale(resolution: number): number {
 		const shapeScale = this.toShapeScale();
 		const shapeScaleId = this._shapeScaleId;
-		if (this._pixelScaleId !== shapeScaleId) {
+		if (this._pixelScaleId !== shapeScaleId || this._pixelScaleResolution !== resolution) {
 			this._pixelScaleId = shapeScaleId;
+			this._pixelScaleResolution = resolution;
 			this._pixelScale = (1 / resolution) * shapeScale;
 		}
 		return this._pixelScale;
@@ -148,8 +153,8 @@ export class EShapeContainer extends DisplayObject {
 		return this._pixelScale;
 	}
 
-	toAntialiasWeight(resolution: number): number {
-		return 1.25 / resolution;
+	getAntialiasWeight(): number {
+		return this._antialiasWeight;
 	}
 
 	hitTest(global: IPoint, onHit?: (shape: EShape) => boolean): EShape | null {

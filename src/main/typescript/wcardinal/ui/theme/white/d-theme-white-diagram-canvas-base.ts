@@ -21,4 +21,8 @@ export class DThemeWhiteDiagramCanvasBase
 	getLocalBoundsLimit(): number {
 		return 0;
 	}
+
+	getAntialiasWeight(): number {
+		return 1;
+	}
 }

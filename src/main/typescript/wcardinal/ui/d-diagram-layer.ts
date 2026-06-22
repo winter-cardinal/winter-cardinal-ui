@@ -26,7 +26,7 @@ export class DDiagramLayer extends EShapeContainer {
 	interactives: EShape[];
 	protected declare _shape: EShape;
 
-	constructor(name: string) {
+	constructor(name: string, antialiasWeight: number) {
 		super();
 		this.name = name;
 		this.interactive = false;
@@ -35,6 +35,7 @@ export class DDiagramLayer extends EShapeContainer {
 		shape.parent = this;
 		this._shape = shape;
 		this.interactives = [];
+		this._antialiasWeight = antialiasWeight;
 	}
 
 	get width(): number {
@@ -226,9 +227,13 @@ export class DDiagramLayer extends EShapeContainer {
 		serialized: DDiagramSerializedLayer,
 		manager: EShapeResourceManagerDeserialization,
 		width: number,
-		height: number
+		height: number,
+		antialiasWeight: number
 	): DDiagramLayer {
-		const result = new DDiagramLayer(this.deserializeName(serialized[0], manager));
+		const result = new DDiagramLayer(
+			this.deserializeName(serialized[0], manager),
+			antialiasWeight
+		);
 		const shape = result._shape;
 
 		const visibility = serialized[1];
