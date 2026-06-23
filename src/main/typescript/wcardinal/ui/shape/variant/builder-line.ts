@@ -6,9 +6,8 @@
 import { EShape } from "../e-shape";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import {
-	buildLineIndex,
 	buildLineUv,
-	buildLineVertexStep,
+	buildLineVertexStepAndIndex,
 	toLineIndexCount,
 	toLinePointCount,
 	toLineVertexCount
@@ -37,12 +36,7 @@ export class BuilderLine extends BuilderBase {
 		this.length = 1;
 	}
 
-	override init(): void {
-		const buffer = this.buffer;
-		buffer.updateIndices();
-		buildLineIndex(buffer.indices, this.vertexOffset, this.indexOffset, this.indexCount);
-		this.inited |= BuilderFlag.INDEX;
-	}
+	override init(): void {}
 
 	override reinit(
 		buffer: BuilderBuffer,
@@ -84,12 +78,12 @@ export class BuilderLine extends BuilderBase {
 
 	override update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateLineVertexStep(buffer, shape);
+		this.updateLineVertexStepAndIndex(buffer, shape);
 		this.updateColor(buffer, shape);
 		this.updateLineUv(buffer, shape);
 	}
 
-	protected updateLineVertexStep(buffer: BuilderBuffer, shape: EShape): void {
+	protected updateLineVertexStepAndIndex(buffer: BuilderBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points) {
 			const pointId = points.id;
@@ -110,10 +104,10 @@ export class BuilderLine extends BuilderBase {
 			const transformLocalId = toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
 
-			const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+			const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_INDEX);
 
 			if (isNotInited || isPointChanged || isTransformChanged || isStrokeWidthChanged) {
-				this.inited |= BuilderFlag.VERTEX_AND_STEP;
+				this.inited |= BuilderFlag.VERTEX_STEP_AND_INDEX;
 				this.pointId = pointId;
 				this.pointCount = pointCount;
 				this.pointsClosed = pointsClosed;
@@ -128,9 +122,13 @@ export class BuilderLine extends BuilderBase {
 
 				buffer.updateVertices();
 				buffer.updateSteps();
-				this.length = buildLineVertexStep(
+				buffer.updateIndices();
+				this.length = buildLineVertexStepAndIndex(
 					buffer.vertices,
 					buffer.steps,
+					buffer.indices,
+					this.indexOffset,
+					this.indexCount,
 					this.vertexOffset,
 					this.vertexCount,
 					this.pointCount,

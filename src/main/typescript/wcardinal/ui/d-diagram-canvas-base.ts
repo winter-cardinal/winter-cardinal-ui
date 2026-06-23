@@ -16,6 +16,10 @@ export interface DDiagramCanvasBackgroundOptions extends DBaseBackgroundOptions 
 	base?: number | null;
 }
 
+export interface DDiagramCanvasBaseAntialiasOptions {
+	weight?: number;
+}
+
 export interface DDiagramCanvasBaseOptions<
 	THEME extends DThemeDiagramCanvasBase = DThemeDiagramCanvasBase
 > extends DCanvasOptions<THEME> {
@@ -26,11 +30,14 @@ export interface DDiagramCanvasBaseOptions<
 	tile?: DDiagramCanvasTileOptions;
 	background?: DDiagramCanvasBackgroundOptions;
 	ambient?: boolean;
+	antialias?: DDiagramCanvasBaseAntialiasOptions;
 }
 
 export interface DThemeDiagramCanvasBase extends DThemeCanvas {
 	isAmbient(): boolean;
 	getBackgroundBase(): number | null;
+	getAntialiasWeight(): number;
+	getAntialiasWeightLowerBound(): number;
 	getLocalBoundsLimit(): number;
 }
 
@@ -61,7 +68,14 @@ export class DDiagramCanvasBase<
 		}
 
 		// Layer
-		const layer = new DDiagramLayerContainer(this.width, this.height);
+		const layer = new DDiagramLayerContainer(
+			this.width,
+			this.height,
+			Math.max(
+				theme.getAntialiasWeightLowerBound(),
+				options?.antialias?.weight ?? theme.getAntialiasWeight()
+			)
+		);
 		this._layer = layer;
 		this.addChild(layer);
 

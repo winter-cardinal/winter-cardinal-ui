@@ -13,6 +13,12 @@ const LINE_FMIN: number = 0.00001;
 const LINE_NPREV = [0, 1];
 const LINE_NNEXT = [0, 1];
 
+/**
+ * Extends line segments at the start and the end a little bit
+ * to apply the antialiasing at the start and the end.
+ */
+const LINE_EXTRA_LENGTH = 5;
+
 export const toPointCount = (points?: EShapePoints): number => {
 	if (points) {
 		return points.formatted.plength;
@@ -47,7 +53,7 @@ export const buildLineIndex = (
 	const iimax = (ioffset + icount) * 3 - 1;
 	let io = voffset;
 	for (; ii < iimax; ) {
-		indices[++ii] = io + 0;
+		indices[++ii] = io;
 		indices[++ii] = io + 2;
 		indices[++ii] = io + 1;
 
@@ -56,6 +62,54 @@ export const buildLineIndex = (
 		indices[++ii] = io + 3;
 		io += 2;
 	}
+};
+
+/**
+ * Builds normal (non-degenerate) triangle indices for a contiguous vertex range.
+ * vcount is the number of vertices in the segment.
+ * Returns the updated index write position.
+ */
+const buildLineSegmentIndex = (
+	indices: Uint16Array | Uint32Array,
+	ii: number,
+	vstart: number,
+	vcount: number
+): number => {
+	let io = vstart;
+	const iomax = vstart + vcount - 2;
+	for (; io < iomax; io += 2) {
+		indices[++ii] = io;
+		indices[++ii] = io + 2;
+		indices[++ii] = io + 1;
+
+		indices[++ii] = io + 1;
+		indices[++ii] = io + 2;
+		indices[++ii] = io + 3;
+	}
+	return ii;
+};
+
+/**
+ * Fills degenerate triangles for a given number of index pairs.
+ * qcount is the number of quads (each produces 2 triangles = 6 indices).
+ * Returns the updated index write position.
+ */
+const buildLineDegenerateIndex = (
+	indices: Uint16Array | Uint32Array,
+	ii: number,
+	vertex: number,
+	qcount: number
+): number => {
+	for (let i = 0; i < qcount; ++i) {
+		indices[++ii] = vertex;
+		indices[++ii] = vertex;
+		indices[++ii] = vertex;
+
+		indices[++ii] = vertex;
+		indices[++ii] = vertex;
+		indices[++ii] = vertex;
+	}
+	return ii;
 };
 
 export const buildLineUv = (
@@ -96,9 +150,12 @@ export const buildLineUv = (
 
 let TRANSFORMED_POINT_VALUES: number[] | undefined;
 
-export const buildLineVertexStep = (
+export const buildLineVertexStepAndIndex = (
 	vertices: Float32Array,
 	steps: Float32Array,
+	indices: Uint16Array | Uint32Array,
+	ioffset: number,
+	icount: number,
 	voffset: number,
 	vcount: number,
 	pointCount: number,
@@ -127,9 +184,12 @@ export const buildLineVertexStep = (
 		transformedPointValues[iv] = a * x + c * y + tx;
 		transformedPointValues[iv + 1] = b * x + d * y + ty;
 	}
-	return buildTransformedLineVertexStep(
+	return buildTransformedLineVertexStepAndIndex(
 		vertices,
 		steps,
+		indices,
+		ioffset,
+		icount,
 		voffset,
 		vcount,
 		pointCount,
@@ -179,9 +239,12 @@ const fillTransformedLineVertexStep = (
 	steps[++is] = l;
 };
 
-const buildTransformedLineVertexStep = (
+const buildTransformedLineVertexStepAndIndex = (
 	vertices: Float32Array,
 	steps: Float32Array,
+	indices: Uint16Array | Uint32Array,
+	ioffset: number,
+	icount: number,
 	voffset: number,
 	vcount: number,
 	lineVertexCount: number,
@@ -197,6 +260,7 @@ const buildTransformedLineVertexStep = (
 			let lmax = 0;
 			let lprev = 0;
 			let ivoffset = voffset;
+			let ii = ioffset * 3 - 1;
 
 			let iseg = 0;
 			let iprevseg = lineSegments[0];
@@ -217,7 +281,9 @@ const buildTransformedLineVertexStep = (
 						lprev
 					);
 					lmax = Math.max(lmax, lprev);
-					ivoffset += toLineVertexCount(iseg - iprevseg, false);
+					const lvcount = toLineVertexCount(iseg - iprevseg, false);
+					ii = buildLineSegmentIndex(indices, ii, ivoffset, lvcount);
+					ivoffset += lvcount;
 				}
 				iprevseg = iseg;
 			}
@@ -239,7 +305,9 @@ const buildTransformedLineVertexStep = (
 					lprev
 				);
 				lmax = Math.max(lmax, lprev);
-				ivoffset += toLineVertexCount(iseg - iprevseg, false);
+				const lvcount = toLineVertexCount(iseg - iprevseg, false);
+				ii = buildLineSegmentIndex(indices, ii, ivoffset, lvcount);
+				ivoffset += lvcount;
 			} else {
 				buildTransformedLineEmptyVertexStep(
 					vertices,
@@ -256,11 +324,23 @@ const buildTransformedLineVertexStep = (
 				);
 			}
 
+			// Fill remaining indices with degenerate triangles
+			const rvcount = ((ioffset + icount) * 3 - 1 - ii) / 6;
+			if (0 < rvcount) {
+				ii = buildLineDegenerateIndex(
+					indices,
+					ii,
+					Math.max(ivoffset - 1, voffset),
+					rvcount
+				);
+			}
+
 			return lmax;
 		} else {
 			let lmax = 0;
 			let lprev = 0;
 			let ivoffset = voffset;
+			let ii = ioffset * 3 - 1;
 
 			// First
 			let iseg = lineSegments[0];
@@ -279,7 +359,9 @@ const buildTransformedLineVertexStep = (
 					lprev
 				);
 				lmax = Math.max(lmax, lprev);
-				ivoffset += toLineVertexCount(iseg, false);
+				const lvcount = toLineVertexCount(iseg, false);
+				ii = buildLineSegmentIndex(indices, ii, ivoffset, lvcount);
+				ivoffset += lvcount;
 			}
 
 			// Middle
@@ -301,7 +383,9 @@ const buildTransformedLineVertexStep = (
 						lprev
 					);
 					lmax = Math.max(lmax, lprev);
-					ivoffset += toLineVertexCount(iseg - iprevseg, false);
+					const lvcount = toLineVertexCount(iseg - iprevseg, false);
+					ii = buildLineSegmentIndex(indices, ii, ivoffset, lvcount);
+					ivoffset += lvcount;
 				}
 				iprevseg = iseg;
 			}
@@ -323,7 +407,9 @@ const buildTransformedLineVertexStep = (
 					lprev
 				);
 				lmax = Math.max(lmax, lprev);
-				ivoffset += toLineVertexCount(iseg - iprevseg, false);
+				const lvcount = toLineVertexCount(iseg - iprevseg, false);
+				ii = buildLineSegmentIndex(indices, ii, ivoffset, lvcount);
+				ivoffset += lvcount;
 			} else {
 				buildTransformedLineEmptyVertexStep(
 					vertices,
@@ -339,9 +425,22 @@ const buildTransformedLineVertexStep = (
 					lprev
 				);
 			}
+
+			// Fill remaining indices with degenerate triangles
+			const rvcount = ((ioffset + icount) * 3 - 1 - ii) / 6;
+			if (0 < rvcount) {
+				ii = buildLineDegenerateIndex(
+					indices,
+					ii,
+					Math.max(ivoffset - 1, voffset),
+					rvcount
+				);
+			}
+
 			return lmax;
 		}
 	} else {
+		buildLineIndex(indices, voffset, ioffset, icount);
 		if (lineIsClosed) {
 			return buildTransformedLineClosedSegmentVertexStep(
 				vertices,
@@ -462,19 +561,22 @@ const buildTransformedLineOpenSegmentVertexStep = (
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
 	let l = 0;
+	const headx = px - nprev[1] * LINE_EXTRA_LENGTH;
+	const heady = py + nprev[0] * LINE_EXTRA_LENGTH;
+	const lhead = -LINE_EXTRA_LENGTH;
 	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		px,
-		py,
+		headx,
+		heady,
 		strokeWidth,
 		nprev,
 		nnext,
 		lprev,
 		lnext,
-		length,
+		lhead,
 		e3,
 		e5
 	);
@@ -486,14 +588,14 @@ const buildTransformedLineOpenSegmentVertexStep = (
 		vertices,
 		is,
 		steps,
-		px,
-		py,
+		headx,
+		heady,
 		strokeWidth,
 		nprev,
 		nnext,
 		lprev,
 		lnext,
-		l,
+		lhead,
 		e4,
 		e6
 	);
@@ -573,19 +675,23 @@ const buildTransformedLineOpenSegmentVertexStep = (
 	toNormal(nnext, lnext);
 	l += lprev;
 
+	const tailx = px + nnext[1] * LINE_EXTRA_LENGTH;
+	const taily = py - nnext[0] * LINE_EXTRA_LENGTH;
+	const ltrail = l + LINE_EXTRA_LENGTH;
+
 	fillTransformedLineVertexStep(
 		iv,
 		vertices,
 		is,
 		steps,
-		px,
-		py,
+		tailx,
+		taily,
 		strokeWidth,
 		nprev,
 		nnext,
 		lprev,
 		lnext,
-		l,
+		ltrail,
 		e3,
 		e5
 	);
@@ -597,14 +703,14 @@ const buildTransformedLineOpenSegmentVertexStep = (
 		vertices,
 		is,
 		steps,
-		px,
-		py,
+		tailx,
+		taily,
 		strokeWidth,
 		nprev,
 		nnext,
 		lprev,
 		lnext,
-		l,
+		ltrail,
 		e4,
 		e6
 	);
@@ -613,10 +719,7 @@ const buildTransformedLineOpenSegmentVertexStep = (
 
 	// Total length
 	const is0 = voffset * 6 - 1;
-	for (let i = is0, imax = is0 + 12; i < imax; i += 6) {
-		steps[i + 5] = length;
-	}
-	for (let i = is0 + 12; i < is; i += 6) {
+	for (let i = is0; i < is; i += 6) {
 		steps[i + 5] = l;
 	}
 
