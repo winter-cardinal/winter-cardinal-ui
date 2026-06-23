@@ -117,6 +117,9 @@
         * [Event](./chart\view/event.html)
         * [Range](./chart\view/range.html)
 * Diagram
+    * [Antialias Weight](./diagram/antialias-weight.html)
+    * [Antialias Weight With MSAA](./diagram/antialias-weight-with-msaa.html)
+    * [Antialiasing in v0.462.0](./diagram/antialiasing-in-v0.461.0.html)
     * [Button](./diagram/button.html)
     * [Button (Group)](./diagram/button-group.html)
     * [Button (Toggle)](./diagram/button-toggle.html)

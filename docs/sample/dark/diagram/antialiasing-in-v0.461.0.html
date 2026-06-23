@@ -1,0 +1,195 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Antialiasing in v0.462.0</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+
+	#left {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	#right {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 50%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	</style>
+</head>
+<body>
+	<div id="left"></div>
+	<div id="right"></div>
+	<script src="../../js/pixi/5.3.12/pixi.min.js"></script>
+	<script src="../../resource/diagram/antialias-weight/0.461.0/wcardinal-ui.min.js"></script>
+	<script src="../../resource/diagram/antialias-weight/0.461.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(() => {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication({
+			root: "#left"
+		});
+
+		const diagram = new wcardinal.ui.DDiagramEditor({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%",
+			on: {
+				ready: () => {
+					const rectangle0 = new wcardinal.ui.EShapeRectangle();
+					rectangle0.transform.position.set(200, 120);
+					rectangle0.transform.rotation = Math.PI * 0.25;
+					rectangle0.attach(diagram.layer);
+
+					const rectangle1 = new wcardinal.ui.EShapeRectangle();
+					rectangle1.transform.position.set(200, 120);
+					rectangle1.attach(diagram.layer);
+
+					const rectangle2 = new wcardinal.ui.EShapeRectangle();
+					rectangle2.transform.position.set(300, 120);
+					rectangle2.attach(diagram.layer);
+
+					const circle1 = new wcardinal.ui.EShapeCircle();
+					circle1.transform.position.set(200, 220);
+					circle1.attach(diagram.layer);
+
+					const circle2 = new wcardinal.ui.EShapeCircle();
+					circle2.transform.position.set(300, 220);
+					circle2.attach(diagram.layer);
+
+					const line = new wcardinal.ui.createLine([-50, -50, 50, 50], [], 2, wcardinal.ui.EShapePointsStyle.NONE);
+					line.stroke.style = wcardinal.ui.EShapeStrokeStyle.DASHED;
+					line.transform.position.set(300, 220);
+					line.attach(diagram.layer);
+
+					const triangle1 = new wcardinal.ui.EShapeTriangle();
+					triangle1.transform.position.set(200, 320);
+					triangle1.attach(diagram.layer);
+
+					const triangle2 = new wcardinal.ui.EShapeTriangleRounded();
+					triangle2.transform.position.set(300, 320);
+					triangle2.attach(diagram.layer);
+
+					const points = [0, -50, -50, -25, -25, 0, -50, 25, 0, 50, 50, 25, 25, 0, 10.666, 90];
+					const polygon = wcardinal.ui.createPolygon(points);
+					polygon.transform.position.set(100, 250);
+					polygon.attach(diagram.layer);
+
+					const circle3 = new wcardinal.ui.EShapeCircle();
+					circle3.transform.position.set(250, 385);
+					circle3.stroke.enable = false;
+					circle3.fill.enable = false;
+					circle3.text.value = "Antialias Weight: Default\nMSAA: Off";
+					circle3.attach(diagram.layer);
+
+					diagram.view.zoom(3, 3);
+				}
+			}
+		});
+
+		diagram.create({
+			name: "Line Marker",
+			width: 500,
+			height: 500
+		});
+	})();
+	</script>
+	<script>
+	(() => {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication({
+			root: "#right",
+			antialias: true
+		});
+
+		const diagram = new wcardinal.ui.DDiagramEditor({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%",
+			on: {
+				ready: () => {
+					const rectangle0 = new wcardinal.ui.EShapeRectangle();
+					rectangle0.transform.position.set(200, 120);
+					rectangle0.transform.rotation = Math.PI * 0.25;
+					rectangle0.attach(diagram.layer);
+
+					const rectangle1 = new wcardinal.ui.EShapeRectangle();
+					rectangle1.transform.position.set(200, 120);
+					rectangle1.attach(diagram.layer);
+
+					const rectangle2 = new wcardinal.ui.EShapeRectangle();
+					rectangle2.transform.position.set(300, 120);
+					rectangle2.attach(diagram.layer);
+
+					const circle1 = new wcardinal.ui.EShapeCircle();
+					circle1.transform.position.set(200, 220);
+					circle1.attach(diagram.layer);
+
+					const circle2 = new wcardinal.ui.EShapeCircle();
+					circle2.transform.position.set(300, 220);
+					circle2.attach(diagram.layer);
+
+					const line = new wcardinal.ui.createLine([-50, -50, 50, 50], [], 2, wcardinal.ui.EShapePointsStyle.NONE);
+					line.stroke.style = wcardinal.ui.EShapeStrokeStyle.DASHED;
+					line.transform.position.set(300, 220);
+					line.attach(diagram.layer);
+
+					const triangle1 = new wcardinal.ui.EShapeTriangle();
+					triangle1.transform.position.set(200, 320);
+					triangle1.attach(diagram.layer);
+
+					const triangle2 = new wcardinal.ui.EShapeTriangleRounded();
+					triangle2.transform.position.set(300, 320);
+					triangle2.attach(diagram.layer);
+
+					const points = [0, -50, -50, -25, -25, 0, -50, 25, 0, 50, 50, 25, 25, 0, 10.666, 90];
+					const polygon = wcardinal.ui.createPolygon(points);
+					polygon.transform.position.set(100, 250);
+					polygon.attach(diagram.layer);
+
+					const circle3 = new wcardinal.ui.EShapeCircle();
+					circle3.transform.position.set(250, 385);
+					circle3.stroke.enable = false;
+					circle3.fill.enable = false;
+					circle3.text.value = "Antialias Weight: Default\nMSAA: On";
+					circle3.attach(diagram.layer);
+
+					diagram.view.zoom(3, 3);
+				}
+			}
+		});
+
+		diagram.create({
+			name: "Line Marker",
+			width: 500,
+			height: 500
+		});
+	})();
+	</script>
+</body>
+</html>
