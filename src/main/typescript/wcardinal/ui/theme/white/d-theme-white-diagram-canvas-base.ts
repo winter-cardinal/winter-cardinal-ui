@@ -25,4 +25,8 @@ export class DThemeWhiteDiagramCanvasBase
 	getAntialiasWeight(): number {
 		return 1;
 	}
+
+	getAntialiasWeightLowerBound(): number {
+		return 1e-5;
+	}
 }

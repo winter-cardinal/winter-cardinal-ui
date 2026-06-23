@@ -53,7 +53,7 @@ export const buildLineIndex = (
 	const iimax = (ioffset + icount) * 3 - 1;
 	let io = voffset;
 	for (; ii < iimax; ) {
-		indices[++ii] = io + 0;
+		indices[++ii] = io;
 		indices[++ii] = io + 2;
 		indices[++ii] = io + 1;
 
@@ -78,7 +78,7 @@ const buildLineSegmentIndex = (
 	let io = vstart;
 	const iomax = vstart + vcount - 2;
 	for (; io < iomax; io += 2) {
-		indices[++ii] = io + 0;
+		indices[++ii] = io;
 		indices[++ii] = io + 2;
 		indices[++ii] = io + 1;
 

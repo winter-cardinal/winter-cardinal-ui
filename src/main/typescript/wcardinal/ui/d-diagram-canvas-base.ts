@@ -37,6 +37,7 @@ export interface DThemeDiagramCanvasBase extends DThemeCanvas {
 	isAmbient(): boolean;
 	getBackgroundBase(): number | null;
 	getAntialiasWeight(): number;
+	getAntialiasWeightLowerBound(): number;
 	getLocalBoundsLimit(): number;
 }
 
@@ -70,7 +71,10 @@ export class DDiagramCanvasBase<
 		const layer = new DDiagramLayerContainer(
 			this.width,
 			this.height,
-			options?.antialias?.weight ?? theme.getAntialiasWeight()
+			Math.max(
+				theme.getAntialiasWeightLowerBound(),
+				options?.antialias?.weight ?? theme.getAntialiasWeight()
+			)
 		);
 		this._layer = layer;
 		this.addChild(layer);
