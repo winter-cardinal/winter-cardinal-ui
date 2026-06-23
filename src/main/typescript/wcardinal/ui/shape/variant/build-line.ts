@@ -12,6 +12,11 @@ import { toPackedI4x64 } from "./to-packed";
 const LINE_FMIN: number = 0.00001;
 const LINE_NPREV = [0, 1];
 const LINE_NNEXT = [0, 1];
+
+/**
+ * Extends line segments at the start and the end a little bit
+ * to apply the antialiasing at the start and the end.
+ */
 const LINE_EXTRA_LENGTH = 5;
 
 export const toPointCount = (points?: EShapePoints): number => {
