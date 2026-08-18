@@ -72,7 +72,7 @@ export const buildPolygonStep = (
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const dash = toDash(strokeStyle);
 	const w = (strokeSide & EShapeStrokeSide.ALL) === EShapeStrokeSide.ALL ? 1 : 0;
-	const e = toPackedI4x64(7 + dash, scaleInvariant, w, 0);
+	const e = toPackedI4x64(7, scaleInvariant, w, dash);
 	const fp = Math.max(0, Math.min(1, fillPercent));
 	switch (fillDirection) {
 		case EShapeFillDirection.TOP:

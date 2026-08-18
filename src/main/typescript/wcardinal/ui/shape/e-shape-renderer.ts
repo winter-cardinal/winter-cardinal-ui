@@ -180,9 +180,9 @@ vec4 toLength3(in float shift, in float dash, in float strokeScaling, in float s
 	return vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);
 }
 
-vec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {
+vec4 toLength1or7(in float dash, in float strokeScaling, in float strokeWidthScale) {
 	float width = toDotWidth(strokeScaling, strokeWidthScale);
-	vec2 pattern = toDotPattern(type - 7.0);
+	vec2 pattern = toDotPattern(dash);
 	return vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);
 }
 
@@ -204,16 +204,22 @@ void main(void) {
 	vType = type;
 	if (type < 2.5 || 6.5 < type) {
 		gl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);
-		vStepA = strokeWidth * general.zw;
-		if (type < 1.5) {
+		if (type < 0.5) {
+			vStepA = strokeWidth * general.zw;
 			vStepB = toStepB01(aStepB);
 			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
+		} else if (type < 1.5) {
+			vStepA = vec2(strokeWidth, strokeWidth);
+			vStepB = toStepB01(aStepB);
+			vLength = toLength1or7(general.w, strokeScaling, strokeWidthScale);
 		} else if (type < 2.5) {
+			vStepA = strokeWidth * general.zw;
 			vStepB = toStepB2(aStepB, strokeWidth);
 			vLength = vec4(-1.0, 0.0, 0.0, -1.0);
 		} else {
+			vStepA = vec2(strokeWidth * general.z, 0.0);
 			vStepB = toStepB01(aStepB);
-			vLength = toLength7(type, strokeScaling, strokeWidthScale);
+			vLength = toLength1or7(general.w, strokeScaling, strokeWidthScale);
 		}
 	} else {
 		float shift3 = 0.0;
@@ -238,6 +244,18 @@ varying mediump vec2 vUv;
 uniform sampler2D sampler;
 uniform mediump float antialiasWeight;
 
+float toLineStep(in vec4 parameters) {
+	float l = parameters.x;
+	float lp0 = parameters.y;
+	float lp1 = parameters.z;
+	float lt = parameters.w;
+	float ld = 0.5 * antialiasWeight;
+	float lm = mod(l, lp0 + lp1);
+	float s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);
+	float s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);
+	return s0 * s1;
+}
+
 vec4 toColor0(in vec4 texture) {
 	vec2 f = vec2(1.0) / vStepB.xy;
 	vec2 c = vStepB.zw;
@@ -261,11 +279,11 @@ vec4 toColor1(in vec4 texture) {
 	vec2 awd = 0.5 * antialiasWeight / d;
 	vec2 swd = vStepA / d;
 	vec2 one = vec2(1.0);
-	float s0 = smoothstep(length(c/(one + awd)), length(c/(one - awd)), 1.0);
-	float s1 = smoothstep(length(c/(one - swd + awd)), length(c/(one - swd - awd)), 1.0);
+	float s0 = 1.0 - smoothstep(length(c/(one + awd)), length(c/(one - awd)), 1.0);
+	float s1 = (1.0 - smoothstep(length(c/(one - swd + awd)), length(c/(one - swd - awd)), 1.0)) * toLineStep(vLength);
 	return texture * (
-		vColorStroke * (s0 - s1) +
-		vColorFill * s1
+		vColorStroke * (s1 - s0) +
+		vColorFill * (1.0 - max(s1, s0))
 	);
 }
 
@@ -275,18 +293,6 @@ vec4 toColor2(in vec4 texture) {
 	vec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));
 	vec2 s = smoothstep(p0 - p1, p0 + p1, d);
 	return vColorStroke * (s.y - s.x) + vColorFill * s.x;
-}
-
-float toLineStep(in vec4 parameters) {
-	float l = parameters.x;
-	float lp0 = parameters.y;
-	float lp1 = parameters.z;
-	float lt = parameters.w;
-	float ld = 0.5 * antialiasWeight;
-	float lm = mod(l, lp0 + lp1);
-	float s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);
-	float s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);
-	return s0 * s1;
 }
 
 vec4 toColor3(in vec4 texture) {
