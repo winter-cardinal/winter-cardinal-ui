@@ -4,7 +4,7 @@ import { UtilStraightSkeletonBuffer } from "../../util/util-straight-skeleton-bu
 import { EShapeBoundary } from "../e-shape-boundary";
 import { toPointsBoundary } from "../e-shape-points-formatted";
 import { toTransformLocalId } from "./builders";
-import { EShapeCircle } from "./e-shape-circle";
+import type { EShapeCircle } from "./e-shape-circle";
 import { EShapeCircleTriangulated } from "./e-shape-circle-triangulated";
 
 export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
