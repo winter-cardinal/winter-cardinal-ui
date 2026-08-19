@@ -10,11 +10,13 @@ import { EShapeCircleTriangulated } from "./e-shape-circle-triangulated";
 export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	protected _id: number;
 	protected _parent: EShapeCircle;
+	protected _width: number;
+	protected _height: number;
+	protected _strokeAlign: number;
+	protected _strokeWidth: number;
 	protected _sizeX: number;
 	protected _sizeY: number;
 	protected _transformLocalId: number;
-	protected _strokeAlign: number;
-	protected _strokeWidth: number;
 	protected _vertices: number[];
 	protected _nvertices: number;
 	protected _distances: number[];
@@ -28,11 +30,13 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	constructor(parent: EShapeCircle) {
 		this._id = 0;
 		this._parent = parent;
+		this._width = 0;
+		this._height = 0;
+		this._strokeAlign = 0;
+		this._strokeWidth = 0;
 		this._sizeX = 0;
 		this._sizeY = 0;
 		this._transformLocalId = -1;
-		this._strokeAlign = 0;
-		this._strokeWidth = 0;
 		this._vertices = [];
 		this._nvertices = 0;
 		this._distances = [];
@@ -97,12 +101,9 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	protected triangulate(): void {
 		const parent = this._parent;
 		const size = parent.size;
-		const sizeX = size.x;
-		const sizeY = size.y;
-		const isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
-
-		const transformLocalId = toTransformLocalId(parent);
-		const isTransformChanged = this._transformLocalId !== transformLocalId;
+		const width = size.x;
+		const height = size.y;
+		const isRectChanged = this._width !== width || this._height !== height;
 
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
@@ -110,22 +111,32 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const isStrokeChanged =
 			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
 
-		if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-			this._sizeX = sizeX;
-			this._sizeY = sizeY;
-			this._transformLocalId = transformLocalId;
+		let isSizeChanged = false;
+		let sizeX = this._sizeX;
+		let sizeY = this._sizeY;
+		if (isRectChanged || isStrokeChanged) {
+			this._width = width;
+			this._height = height;
 			this._strokeAlign = strokeAlign;
 			this._strokeWidth = strokeWidth;
 
+			const s = strokeAlign * strokeWidth;
+			sizeX = width * 0.5 + (0 <= width ? +s : -s);
+			sizeY = height * 0.5 + (0 <= height ? +s : -s);
+			isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
+		}
+
+		const transformLocalId = toTransformLocalId(parent);
+		const isTransformChanged = this._transformLocalId !== transformLocalId;
+
+		if (isSizeChanged || isTransformChanged) {
+			this._sizeX = sizeX;
+			this._sizeY = sizeY;
+			this._transformLocalId = transformLocalId;
+
 			const buffer = UtilStraightSkeletonBuffer.from(
 				UtilStraightSkeleton.from(
-					this.newPoints(
-						sizeX,
-						sizeY,
-						strokeAlign,
-						strokeWidth,
-						parent.transform.internalTransform
-					)
+					this.newPoints(sizeX, sizeY, parent.transform.internalTransform)
 				)
 			);
 			this._id += 1;
@@ -143,17 +154,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		}
 	}
 
-	protected newPoints(
-		sizeX: number,
-		sizeY: number,
-		strokeAlign: number,
-		strokeWidth: number,
-		internalTransform: Matrix
-	): number[] {
-		const s = strokeAlign * strokeWidth;
-		const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-		const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-
+	protected newPoints(sizeX: number, sizeY: number, internalTransform: Matrix): number[] {
 		const a = internalTransform.a;
 		const b = internalTransform.b;
 		const c = internalTransform.c;
@@ -162,11 +163,11 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const ty = internalTransform.ty;
 
 		// (0, 0) -> (0, -sy)
-		const vx = -c * sy;
-		const vy = -d * sy;
+		const vx = -c * sizeY;
+		const vy = -d * sizeY;
 		// (0, 0) -> (sx, 0)
-		const hx = a * sx;
-		const hy = b * sx;
+		const hx = a * sizeX;
+		const hy = b * sizeX;
 
 		const n = 32;
 		const dangle = (2 * Math.PI) / n;
