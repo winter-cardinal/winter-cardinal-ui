@@ -110,13 +110,7 @@ npm run build
 #### JS for Development
 
 ```shell
-npm run watch:ts
-```
-
-and then in an another terminal
-
-```shell
-npm run watch:rollup
+npm run watch:rolldown
 ```
 
 #### Development Server

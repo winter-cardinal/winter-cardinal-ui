@@ -1,15 +1,11 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { version } from './package.json';
-import { terser } from "rollup-plugin-terser";
+import packageJson from './package.json' with { type: "json" };
 import path from 'path';
 import copy from 'rollup-plugin-copy';
-import sourcemaps from 'rollup-plugin-sourcemaps';
 
 // In/out directories
 const name = 'wcardinal-ui';
-const SOURCE_DIR = 'dist';
-const OUTPUT_FILE = `${SOURCE_DIR}/${name}`;
+const SOURCE_DIR = 'src/main/typescript';
+const OUTPUT_FILE = `dist/${name}`;
 const SAMPLE_DIR = `src/main/sample`;
 const SAMPLE_JS_PIXI_DIR = `${SAMPLE_DIR}/js/pixi/latest`;
 const SAMPLE_JS_CSS_LINE_BREAK_DIR = `${SAMPLE_DIR}/js/css-line-break/latest`;
@@ -18,23 +14,13 @@ const SAMPLE_JS_WCUI_DIR = `${SAMPLE_DIR}/js/wcardinal-ui/latest`;
 // Banner
 const BANNER =
 `/*!
- Winter Cardinal UI v${version}
- Copyright (C) 2019 Toshiba Corporation
+ Winter Cardinal UI v${packageJson.version}
+ Copyright (C) 2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
  Material Design icons by Google
  Apache license version 2.0.
 */`
-
-// Terser options
-const TERSER_OPTIONS = {
-	compress: {
-		passes: 3
-	},
-	output: {
-		preamble: BANNER
-	}
-};
 
 // Replace theme-related modules
 const toOsPath = ( target ) => {
@@ -99,243 +85,210 @@ const BYPASS_TARGET_DARK = toOsPath( '/wcardinal/ui/theme/dark/' );
 // Rollup settings
 export default ( !process.env.ROLLUP_WATCH ?
 	[{
-		input: `${SOURCE_DIR}/${name}.browser.js`,
+		input: `${SOURCE_DIR}/${name}.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			remove(),
-			resolve(),
-			commonjs()
+			remove()
 		],
 		external: [
 			"css-line-break",
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white-ja-jp.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
-			resolve(),
-			commonjs()
+			bypass( BYPASS_TARGET_WHITE )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white-en-us.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
-			resolve(),
-			commonjs()
+			bypass( BYPASS_TARGET_WHITE )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark-ja-jp.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_DARK ),
-			resolve(),
-			commonjs()
+			bypass( BYPASS_TARGET_DARK )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark-en-us.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_DARK ),
-			resolve(),
-			commonjs()
+			bypass( BYPASS_TARGET_DARK )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}.esm.js`,
+		input: `${SOURCE_DIR}/${name}.esm.ts`,
 		output: [{
 			file: `${OUTPUT_FILE}.cjs.js`,
 			format: 'cjs',
 			banner: BANNER
 		}],
-		plugins: [
-			resolve(),
-			commonjs()
-		],
+		plugins: [],
 		external: [
 			"css-line-break",
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}.browser.js`,
+		input: `${SOURCE_DIR}/${name}.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}.min.js`,
 			format: 'iife',
+			banner: BANNER,
+			minify: true,
 			sourcemap: true,
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			remove(),
-			sourcemaps(),
-			resolve(),
-			commonjs(),
-			terser( TERSER_OPTIONS )
+			remove()
 		],
 		external: [
 			"css-line-break",
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white-ja-jp.min.js`,
 			format: 'iife',
+			banner: BANNER,
+			minify: true,
 			sourcemap: true,
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
-			sourcemaps(),
-			resolve(),
-			commonjs(),
-			terser( TERSER_OPTIONS )
+			bypass( BYPASS_TARGET_WHITE )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white-en-us.min.js`,
 			format: 'iife',
+			banner: BANNER,
+			minify: true,
 			sourcemap: true,
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
-			sourcemaps(),
-			resolve(),
-			commonjs(),
-			terser( TERSER_OPTIONS )
+			bypass( BYPASS_TARGET_WHITE )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark-ja-jp.min.js`,
 			format: 'iife',
+			banner: BANNER,
+			minify: true,
 			sourcemap: true,
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_DARK ),
-			sourcemaps(),
-			resolve(),
-			commonjs(),
-			terser( TERSER_OPTIONS )
+			bypass( BYPASS_TARGET_DARK )
 		],
 		external: [
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark-en-us.min.js`,
 			format: 'iife',
+			banner: BANNER,
+			minify: true,
 			sourcemap: true,
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
 			bypass( BYPASS_TARGET_DARK ),
-			sourcemaps(),
-			resolve(),
-			commonjs(),
-			terser( TERSER_OPTIONS ),
 			copy({
 				targets: [
 					{ src: `dist/${name}-theme-white-en-us.js`, dest: `dist/`, rename: `${name}-theme-white.js` },
@@ -363,21 +316,18 @@ export default ( !process.env.ROLLUP_WATCH ?
 		]
 	}] :
 	[{
-		input: `${SOURCE_DIR}/${name}.browser.js`,
+		input: `${SOURCE_DIR}/${name}.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
 			remove(),
-			resolve(),
-			commonjs(),
 			copy({
 				targets: [
 					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
@@ -394,21 +344,18 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white-en-us.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
 			bypass( BYPASS_TARGET_WHITE ),
-			resolve(),
-			commonjs(),
 			copy({
 				targets: [
 					{ src: `dist/${name}-theme-white-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
@@ -423,21 +370,18 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white-ja-jp.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
 			bypass( BYPASS_TARGET_WHITE ),
-			resolve(),
-			commonjs(),
 			copy({
 				targets: [
 					{ src: `dist/${name}-theme-white-ja-jp.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
@@ -450,21 +394,18 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark-en-us.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
 			bypass( BYPASS_TARGET_DARK ),
-			resolve(),
-			commonjs(),
 			copy({
 				targets: [
 					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
@@ -479,21 +420,18 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.ts`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark-ja-jp.js`,
 			format: 'iife',
 			banner: BANNER,
-			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
 			bypass( BYPASS_TARGET_DARK ),
-			resolve(),
-			commonjs(),
 			copy({
 				targets: [
 					{ src: `dist/${name}-theme-dark-ja-jp.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
