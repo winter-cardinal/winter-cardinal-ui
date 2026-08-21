@@ -90,6 +90,6 @@ export class EThemeDarkShape implements EThemeShape {
 	}
 
 	getCircleSegmentCount(): number {
-		return 48;
+		return 32;
 	}
 }
