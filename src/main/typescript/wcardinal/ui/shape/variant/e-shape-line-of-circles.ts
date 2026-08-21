@@ -76,7 +76,7 @@ export class EShapeLineOfCircles extends EShapePrimitive implements EShapeLineOf
 	): boolean {
 		const ex = x - px - ox;
 		const ey = y - py - oy;
-		if (super.containsAbsBBox(ex, ey, ax, ay)) {
+		if (this.containsAbsBBox(ex, ey, ax, ay)) {
 			return hitTestCircle(this, ex, ey, ax, ay, sw, ss);
 		}
 		return false;

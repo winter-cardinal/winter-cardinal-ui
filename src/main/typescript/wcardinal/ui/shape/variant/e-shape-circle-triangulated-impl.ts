@@ -104,7 +104,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const size = parent.size;
 		const width = size.x;
 		const height = size.y;
-		const isRectChanged = this._width !== width || this._height !== height;
+		const isRectChanged = this._id === 0 || this._width !== width || this._height !== height;
 
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
