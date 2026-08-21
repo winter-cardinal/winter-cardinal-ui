@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019-2026 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeDefaults } from "../e-shape-defaults";
 import type { EShapeCircle } from "./e-shape-circle";
@@ -391,7 +396,10 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			sx = nsx;
 		}
 
-		const fdistance = 1 / maxDistance;
+		let fdistance = 0;
+		if (0 < maxDistance) {
+			fdistance = 1 / maxDistance;
+		}
 		for (let i = 0; i < iv; ++i) {
 			distances[i] = fdistance;
 			clippings[i] = 1 - clippings[i] * fdistance;
@@ -528,7 +536,10 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			sy = nsy;
 		}
 
-		const fdistance = 1 / maxDistance;
+		let fdistance = 0;
+		if (0 < maxDistance) {
+			fdistance = 1 / maxDistance;
+		}
 		for (let i = 0; i < iv; ++i) {
 			distances[i] = fdistance;
 			clippings[i] = 1 - clippings[i] * fdistance;

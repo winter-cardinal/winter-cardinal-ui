@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019-2026 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EShapeBoundary } from "../e-shape-boundary";
 
 export interface EShapePolygonTriangulatedLike {
