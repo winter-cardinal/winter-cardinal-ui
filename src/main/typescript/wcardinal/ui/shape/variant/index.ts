@@ -55,7 +55,6 @@ export * from "./copy-uv";
 export * from "./copy-vertex";
 export * from "./create-bar-uploaded";
 export * from "./create-button-uploaded";
-export * from "./create-circle-uploaded";
 export * from "./create-rectangle-pivoted-uploaded";
 export * from "./create-group-uploaded";
 export * from "./create-image-sdf-uploaded";

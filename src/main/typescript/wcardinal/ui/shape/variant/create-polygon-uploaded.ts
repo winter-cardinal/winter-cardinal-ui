@@ -9,7 +9,7 @@ import { EShapeUploaded, EShapeUploadedImpl } from "../e-shape-uploaded";
 import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
 import { BuilderPolygon } from "./builder-polygon";
 import { BuilderText } from "./builder-text";
-import { EShapePolygon } from "./e-shape-polygon";
+import { isShapePolygonLike } from "./is-shape-polygon-like";
 
 export const createPolygonUploaded = (
 	buffer: EShapeBuffer,
@@ -23,7 +23,7 @@ export const createPolygonUploaded = (
 	const ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
 	let pvcount = 0;
 	let picount = 0;
-	if (shape instanceof EShapePolygon) {
+	if (isShapePolygonLike(shape)) {
 		const triangulated = shape.triangulated;
 		pvcount = triangulated.nvertices;
 		picount = triangulated.nindices;
