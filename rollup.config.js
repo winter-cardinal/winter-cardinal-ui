@@ -19,7 +19,7 @@ const SAMPLE_JS_WCUI_DIR = `${SAMPLE_DIR}/js/wcardinal-ui/latest`;
 const BANNER =
 `/*!
  Winter Cardinal UI v${version}
- Copyright (C) 2026 Toshiba Corporation
+ Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
  Material Design icons by Google

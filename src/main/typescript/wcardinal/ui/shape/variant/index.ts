@@ -118,6 +118,7 @@ export * from "./e-shape-button-runtime-action-toggle";
 export * from "./e-shape-button-runtime-action";
 export * from "./e-shape-button-runtime";
 export * from "./e-shape-button";
+export * from "./e-shape-circle-legacy";
 export * from "./e-shape-circle-triangulated-impl";
 export * from "./e-shape-circle-triangulated";
 export * from "./e-shape-circle";

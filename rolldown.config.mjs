@@ -15,7 +15,7 @@ const SAMPLE_JS_WCUI_DIR = `${SAMPLE_DIR}/js/wcardinal-ui/latest`;
 const BANNER =
 `/*!
  Winter Cardinal UI v${packageJson.version}
- Copyright (C) 2026 Toshiba Corporation
+ Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
  Material Design icons by Google
@@ -83,7 +83,7 @@ const BYPASS_TARGET_WHITE = toOsPath( '/wcardinal/ui/theme/white/' );
 const BYPASS_TARGET_DARK = toOsPath( '/wcardinal/ui/theme/dark/' );
 
 // Rollup settings
-export default ( !process.env.ROLLUP_WATCH ?
+export default (
 	[{
 		input: `${SOURCE_DIR}/${name}.browser.ts`,
 		output: [{
@@ -307,135 +307,6 @@ export default ( !process.env.ROLLUP_WATCH ?
 					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` },
 					{ src: 'node_modules/css-line-break/dist/*.js', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` },
 					{ src: 'node_modules/css-line-break/dist/*.js.map', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` }
-				],
-				hook: 'writeBundle'
-			})
-		],
-		external: [
-			"pixi.js"
-		]
-	}] :
-	[{
-		input: `${SOURCE_DIR}/${name}.browser.ts`,
-		output: [{
-			name: 'none',
-			file: `${OUTPUT_FILE}.js`,
-			format: 'iife',
-			banner: BANNER,
-			globals: {
-				"pixi.js": "PIXI"
-			}
-		}],
-		plugins: [
-			remove(),
-			copy({
-				targets: [
-					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
-					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}.min.js` },
-					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` },
-					{ src: 'node_modules/css-line-break/dist/*.js', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` },
-					{ src: 'node_modules/css-line-break/dist/*.js.map', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` }
-				],
-				hook: 'writeBundle'
-			})
-		],
-		external: [
-			"css-line-break",
-			"pixi.js"
-		]
-	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-en-us.browser.ts`,
-		output: [{
-			name: 'none',
-			file: `${OUTPUT_FILE}-theme-white-en-us.js`,
-			format: 'iife',
-			banner: BANNER,
-			globals: {
-				"pixi.js": "PIXI"
-			}
-		}],
-		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
-			copy({
-				targets: [
-					{ src: `dist/${name}-theme-white-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
-					{ src: `dist/${name}-theme-white-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white.js` },
-					{ src: `dist/${name}-theme-white-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white.min.js` },
-					{ src: `dist/${name}-theme-white-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white-en-us.min.js` }
-				],
-				hook: 'writeBundle'
-			})
-		],
-		external: [
-			"pixi.js"
-		]
-	},{
-		input: `${SOURCE_DIR}/${name}-theme-white-ja-jp.browser.ts`,
-		output: [{
-			name: 'none',
-			file: `${OUTPUT_FILE}-theme-white-ja-jp.js`,
-			format: 'iife',
-			banner: BANNER,
-			globals: {
-				"pixi.js": "PIXI"
-			}
-		}],
-		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
-			copy({
-				targets: [
-					{ src: `dist/${name}-theme-white-ja-jp.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
-					{ src: `dist/${name}-theme-white-ja-jp.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white-ja-jp.min.js` }
-				],
-				hook: 'writeBundle'
-			})
-		],
-		external: [
-			"pixi.js"
-		]
-	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-en-us.browser.ts`,
-		output: [{
-			name: 'none',
-			file: `${OUTPUT_FILE}-theme-dark-en-us.js`,
-			format: 'iife',
-			banner: BANNER,
-			globals: {
-				"pixi.js": "PIXI"
-			}
-		}],
-		plugins: [
-			bypass( BYPASS_TARGET_DARK ),
-			copy({
-				targets: [
-					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
-					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark.js` },
-					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark.min.js` },
-					{ src: `dist/${name}-theme-dark-en-us.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark-en-us.min.js` }
-				],
-				hook: 'writeBundle'
-			})
-		],
-		external: [
-			"pixi.js"
-		]
-	},{
-		input: `${SOURCE_DIR}/${name}-theme-dark-ja-jp.browser.ts`,
-		output: [{
-			name: 'none',
-			file: `${OUTPUT_FILE}-theme-dark-ja-jp.js`,
-			format: 'iife',
-			banner: BANNER,
-			globals: {
-				"pixi.js": "PIXI"
-			}
-		}],
-		plugins: [
-			bypass( BYPASS_TARGET_DARK ),
-			copy({
-				targets: [
-					{ src: `dist/${name}-theme-dark-ja-jp.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
-					{ src: `dist/${name}-theme-dark-ja-jp.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark-ja-jp.min.js` },
 				],
 				hook: 'writeBundle'
 			})

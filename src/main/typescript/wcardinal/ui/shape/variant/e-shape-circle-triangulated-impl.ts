@@ -183,6 +183,14 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		for (let i = ii, imax = ni * 3; i < imax; ++i) {
 			indices[i] = 0;
 		}
+
+		const nv2 = nv << 1;
+		vertices.length = nv2;
+		distances.length = nv;
+		lengths.length = nv;
+		clippings.length = nv2;
+		uvs.length = nv2;
+		indices.length = ni * 3;
 	}
 
 	/**
