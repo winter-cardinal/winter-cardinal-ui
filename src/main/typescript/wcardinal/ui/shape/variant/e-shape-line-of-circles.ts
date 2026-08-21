@@ -4,16 +4,16 @@
  */
 
 import { EShapeType } from "../e-shape-type";
+import { EShapeCircleLegacy } from "./e-shape-circle-legacy";
 import { EShapeLineOfAny } from "./e-shape-line-of-any";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
 import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
 import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
-import { EShapePrimitive } from "./e-shape-primitive";
 import { toThresholdDefault } from "./to-threshold-default";
 
-export class EShapeLineOfCircles extends EShapePrimitive implements EShapeLineOfAny {
+export class EShapeLineOfCircles extends EShapeCircleLegacy implements EShapeLineOfAny {
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
