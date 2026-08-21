@@ -129,6 +129,6 @@ export class EShapeDefaults {
 	}
 
 	static get CIRCLE_SEGMENT_COUNT(): number {
-		return this.THEME.getCircleSegmentCount();
+		return Math.max(4, this.THEME.getCircleSegmentCount()) & ~3;
 	}
 }

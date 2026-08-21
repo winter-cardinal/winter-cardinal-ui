@@ -17,6 +17,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	protected _strokeWidth: number;
 	protected _sizeX: number;
 	protected _sizeY: number;
+	protected _n: number;
 	protected _vertices: number[];
 	protected _nvertices: number;
 	protected _distances: number[];
@@ -36,6 +37,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		this._strokeWidth = 0;
 		this._sizeX = 0;
 		this._sizeY = 0;
+		this._n = EShapeDefaults.CIRCLE_SEGMENT_COUNT;
 		this._vertices = [];
 		this._nvertices = 0;
 		this._distances = [];
@@ -128,7 +130,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		if (isSizeChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this.update(sizeX, sizeY, EShapeDefaults.CIRCLE_SEGMENT_COUNT);
+			this.update(sizeX, sizeY, this._n);
 		}
 	}
 
@@ -165,7 +167,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 	/**
 	 * Fills the unused tail with degenerated triangles and trims the arrays
-	 * so that the buffers always hold exactly `nvertices` vertices and `nindices` triangles.
+	 * so that the buffers always hold exactly `nv` vertices and `ni` triangles.
 	 */
 	protected pad(iv: number, ii: number, nv: number, ni: number, fd: number): void {
 		const vertices = this._vertices;
@@ -193,7 +195,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		vertices.length = nv2;
 		distances.length = nv;
 		lengths.length = nv;
-		clippings.length = nv2;
+		clippings.length = nv;
 		uvs.length = nv2;
 		indices.length = ni * 3;
 	}

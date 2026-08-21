@@ -211,6 +211,7 @@ export * from "./hit-test-rectangle-rounded";
 export * from "./hit-test-rectangle";
 export * from "./hit-test-triangle-rounded";
 export * from "./hit-test-triangle";
+export * from "./is-shape-polygon-like";
 export * from "./is-static";
 export * from "./to-computed";
 export * from "./to-dash";
