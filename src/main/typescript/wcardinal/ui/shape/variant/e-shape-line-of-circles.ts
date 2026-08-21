@@ -4,16 +4,17 @@
  */
 
 import { EShapeType } from "../e-shape-type";
-import { EShapeCircleLegacy } from "./e-shape-circle-legacy";
 import { EShapeLineOfAny } from "./e-shape-line-of-any";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
 import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
 import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
+import { EShapePrimitive } from "./e-shape-primitive";
+import { hitTestCircle } from "./hit-test-circle";
 import { toThresholdDefault } from "./to-threshold-default";
 
-export class EShapeLineOfCircles extends EShapeCircleLegacy implements EShapeLineOfAny {
+export class EShapeLineOfCircles extends EShapePrimitive implements EShapeLineOfAny {
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
@@ -73,7 +74,12 @@ export class EShapeLineOfCircles extends EShapeCircleLegacy implements EShapeLin
 		ss: number,
 		sa: number
 	): boolean {
-		return super.containsAbs(x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
+		const ex = x - px - ox;
+		const ey = y - py - oy;
+		if (super.containsAbsBBox(ex, ey, ax, ay)) {
+			return hitTestCircle(this, ex, ey, ax, ay, sw, ss);
+		}
+		return false;
 	}
 
 	calcHitPoint<RESULT>(
