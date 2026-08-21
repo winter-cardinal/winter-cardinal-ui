@@ -5,9 +5,9 @@ import { EShapeAcceptorEdgeType } from "../e-shape-acceptor-edge-type";
 import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
-import { EShapeCircle } from "./e-shape-circle";
+import { EShapeCircleLegacy } from "./e-shape-circle-legacy";
 
-export class EShapeEmbeddedAcceptorEdge extends EShapeCircle {
+export class EShapeEmbeddedAcceptorEdge extends EShapeCircleLegacy {
 	protected _subtype: EShapeAcceptorEdgeType;
 	protected _side: EShapeAcceptorEdgeSide;
 
