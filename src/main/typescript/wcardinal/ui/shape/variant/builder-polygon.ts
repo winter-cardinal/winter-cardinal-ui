@@ -41,7 +41,7 @@ export class BuilderPolygon extends BuilderBase {
 		indexOffset: number
 	): boolean {
 		if (!isShapePolygonLike(shape)) {
-			return false;
+			return true;
 		}
 
 		const triangulated = shape.triangulated;
@@ -74,7 +74,7 @@ export class BuilderPolygon extends BuilderBase {
 
 	override isCompatible(shape: EShape): boolean {
 		if (!isShapePolygonLike(shape)) {
-			return false;
+			return true;
 		}
 		const triangulated = shape.triangulated;
 		const vertexCount = triangulated.nvertices;
