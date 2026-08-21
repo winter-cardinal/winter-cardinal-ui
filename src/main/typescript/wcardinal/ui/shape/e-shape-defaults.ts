@@ -29,6 +29,9 @@ export interface EThemeShape {
 	getSizeY(): number;
 	getHighlightColor(): number;
 	getCurveSegmentCount(): number;
+	/**
+	 * The circle segment count must be a multiple of 4 and greater than or equal to 4.
+	 */
 	getCircleSegmentCount(): number;
 }
 
