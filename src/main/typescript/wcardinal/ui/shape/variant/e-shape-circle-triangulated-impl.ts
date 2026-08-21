@@ -128,19 +128,9 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	}
 
 	protected update(sizeX: number, sizeY: number, n: number): void {
+		// Boundary
 		const ax = Math.abs(sizeX);
 		const ay = Math.abs(sizeY);
-		if (sizeX === 0 || sizeY === 0) {
-			this.update3(sizeX, sizeY, n);
-		} else if (ax === ay) {
-			this.update0(sizeX, sizeY, n);
-		} else if (ay < ax) {
-			this.update1(sizeX, sizeY, n);
-		} else {
-			this.update2(sizeX, sizeY, n);
-		}
-
-		// Boundary
 		const boundary = this._boundary;
 		boundary[0] = -ax;
 		boundary[1] = -ay;
@@ -148,11 +138,24 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		boundary[3] = +ay;
 
 		// # of vertices and # of indices
-		this._nvertices = 3 * n - 3;
-		this._nindices = 2 * n - 4;
+		const nvertices = 3 * n - 3;
+		const nindices = 2 * n - 4;
+		this._nvertices = nvertices;
+		this._nindices = nindices;
 
 		// ID
 		this._id += 1;
+
+		//
+		if (sizeX === 0 || sizeY === 0) {
+			this.update3(nvertices, nindices);
+		} else if (ax === ay) {
+			this.update0(sizeX, sizeY, n);
+		} else if (ay < ax) {
+			this.update1(sizeX, sizeY, n);
+		} else {
+			this.update2(sizeX, sizeY, n);
+		}
 	}
 
 	/**
@@ -530,9 +533,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	/**
 	 * Precondition: sizeX === 0 || sizeY === 0
 	 */
-	protected update3(sizeX: number, sizeY: number, n: number): void {
-		const nvertices = 3 * n - 3;
-		const nindices = 2 * n - 4;
+	protected update3(nv: number, ni: number): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
@@ -541,7 +542,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const indices = this._indices;
 
 		// Fill with degenerated triangles
-		for (let i = 0, iv = 0; i < nvertices; i += 1, iv += 2) {
+		for (let i = 0, iv = 0; i < nv; i += 1, iv += 2) {
 			vertices[iv] = 0;
 			vertices[iv + 1] = 0;
 			distances[i] = 0;
@@ -550,8 +551,10 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			uvs[iv] = 0.5;
 			uvs[iv + 1] = 0.5;
 		}
-		for (let i = 0, ni = nindices * 3; i < ni; ++i) {
-			indices[i] = 0;
+		for (let i = 0, ii = 0; i < ni; i += 1, ii += 3) {
+			indices[ii + 0] = 0;
+			indices[ii + 1] = 0;
+			indices[ii + 2] = 0;
 		}
 	}
 }
