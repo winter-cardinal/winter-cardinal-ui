@@ -128,26 +128,41 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	}
 
 	protected update(sizeX: number, sizeY: number, n: number): void {
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
 		if (sizeX === 0 || sizeY === 0) {
 			this.update3(sizeX, sizeY, n);
-		} else if (sizeX === sizeY) {
+		} else if (ax === ay) {
 			this.update0(sizeX, sizeY, n);
-		} else if (sizeY < sizeX) {
+		} else if (ay < ax) {
 			this.update1(sizeX, sizeY, n);
 		} else {
 			this.update2(sizeX, sizeY, n);
 		}
+
+		// Boundary
+		const boundary = this._boundary;
+		boundary[0] = -ax;
+		boundary[1] = -ay;
+		boundary[2] = +ax;
+		boundary[3] = +ay;
+
+		// # of vertices and # of indices
+		this._nvertices = 3 * n - 3;
+		this._nindices = 2 * n - 4;
+
+		// ID
+		this._id += 1;
 	}
 
 	/**
-	 * Precondition: sizeX !== 0 && sizeY !== 0 & sizeX === sizeY
+	 * Precondition: sizeX !== 0 && sizeY !== 0 & abs(sizeX) === abs(sizeY)
 	 */
 	protected update0(sizeX: number, sizeY: number, n: number): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
 		const clippings = this._clippings;
-		const boundary = this._boundary;
 		const uvs = this._uvs;
 		const indices = this._indices;
 
@@ -244,30 +259,16 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			iv2 += 2;
 			ii += 3;
 		}
-
-		// Boundary
-		boundary[0] = -sizeX;
-		boundary[1] = -sizeY;
-		boundary[2] = +sizeX;
-		boundary[3] = +sizeY;
-
-		//
-		this._nvertices = 3 * n - 3;
-		this._nindices = 2 * n - 4;
-
-		// ID
-		this._id += 1;
 	}
 
 	/**
-	 * Precondition: sizeX !== 0 && sizeY !== 0 && sizeY < sizeX
+	 * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeY) < abs(sizeX)
 	 */
 	protected update1(sizeX: number, sizeY: number, n: number): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
 		const clippings = this._clippings;
-		const boundary = this._boundary;
 		const uvs = this._uvs;
 		const indices = this._indices;
 
@@ -371,19 +372,6 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			distances[i] = fdistance;
 			clippings[i] = 1 - clippings[i] * fdistance;
 		}
-
-		// Boundary
-		boundary[0] = -sizeX;
-		boundary[1] = -sizeY;
-		boundary[2] = +sizeX;
-		boundary[3] = +sizeY;
-
-		//
-		this._nvertices = 3 * n - 3;
-		this._nindices = 2 * n - 4;
-
-		// ID
-		this._id += 1;
 	}
 
 	protected toSkeletonX(
@@ -406,14 +394,13 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	}
 
 	/**
-	 * Precondition: sizeX !== 0 && sizeY !== 0 && sizeX < sizeY
+	 * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeX) < abs(sizeY)
 	 */
 	protected update2(sizeX: number, sizeY: number, n: number): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
 		const clippings = this._clippings;
-		const boundary = this._boundary;
 		const uvs = this._uvs;
 		const indices = this._indices;
 
@@ -519,19 +506,6 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			distances[i] = fdistance;
 			clippings[i] = 1 - clippings[i] * fdistance;
 		}
-
-		// Boundary
-		boundary[0] = -sizeX;
-		boundary[1] = -sizeY;
-		boundary[2] = +sizeX;
-		boundary[3] = +sizeY;
-
-		//
-		this._nvertices = 3 * n - 3;
-		this._nindices = 2 * n - 4;
-
-		// ID
-		this._id += 1;
 	}
 
 	protected toSkeletonY(
@@ -579,19 +553,5 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		for (let i = 0, ni = nindices * 3; i < ni; ++i) {
 			indices[i] = 0;
 		}
-
-		// Boundary
-		const boundary = this._boundary;
-		boundary[0] = -sizeX;
-		boundary[1] = -sizeY;
-		boundary[2] = +sizeX;
-		boundary[3] = +sizeY;
-
-		//
-		this._nvertices = nvertices;
-		this._nindices = nindices;
-
-		// ID
-		this._id += 1;
 	}
 }
