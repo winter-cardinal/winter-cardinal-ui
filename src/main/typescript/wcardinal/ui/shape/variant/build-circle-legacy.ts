@@ -1,15 +1,14 @@
-import { Matrix, Point, TextureUvs } from "pixi.js";
+import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
 import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
 
-export const CIRCLE_VERTEX_COUNT = 9;
-export const CIRCLE_INDEX_COUNT = 8;
-export const CIRCLE_WORLD_SIZE: [number, number] = [0, 0];
-const CIRCLE_WORK_POINT: Point = new Point();
+export const CIRCLE_LEGACY_VERTEX_COUNT = 9;
+export const CIRCLE_LEGACY_INDEX_COUNT = 8;
+export const CIRCLE_LEGACY_WORLD_SIZE: [number, number] = [0, 0];
 
-export const buildCircleIndex = (
+export const buildCircleLegacyIndex = (
 	indices: Uint16Array | Uint32Array,
 	voffset: number,
 	ioffset: number
@@ -48,7 +47,7 @@ export const buildCircleIndex = (
 	indices[++ii] = voffset + 7;
 };
 
-export const buildCircleVertex = (
+export const buildCircleLegacyVertex = (
 	vertices: Float32Array,
 	voffset: number,
 	originX: number,
@@ -58,7 +57,7 @@ export const buildCircleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: typeof CIRCLE_WORLD_SIZE
+	worldSize: typeof CIRCLE_LEGACY_WORLD_SIZE
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -69,24 +68,23 @@ export const buildCircleVertex = (
 	// |6      |7      |8
 	// |-------|-------|
 	//
-	const work = CIRCLE_WORK_POINT;
+	const a = internalTransform.a;
+	const b = internalTransform.b;
+	const c = internalTransform.c;
+	const d = internalTransform.d;
+	const tx = internalTransform.tx;
+	const ty = internalTransform.ty;
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-	work.set(-sx + originX, -sy + originY);
-	internalTransform.apply(work, work);
-	const x0 = work.x;
-	const y0 = work.y;
-	work.set(0 + originX, -sy + originY);
-	internalTransform.apply(work, work);
-	const x1 = work.x;
-	const y1 = work.y;
+	const x0 = a * (-sx + originX) + c * (-sy + originY) + tx;
+	const y0 = b * (-sx + originX) + d * (-sy + originY) + ty;
+	const x1 = a * originX + c * (-sy + originY) + tx;
+	const y1 = b * originX + d * (-sy + originY) + ty;
 	const dx = x1 - x0;
 	const dy = y1 - y0;
-	work.set(originX, originY);
-	internalTransform.apply(work, work);
-	const x4 = work.x;
-	const y4 = work.y;
+	const x4 = a * originX + c * originY + tx;
+	const y4 = b * originX + d * originY + ty;
 	const x7 = x4 + (x4 - x1);
 	const y7 = y4 + (y4 - y1);
 	const x3 = x4 - dx;
@@ -119,12 +117,12 @@ export const buildCircleVertex = (
 	worldSize[1] = toLength(x0, y0, x3, y3);
 };
 
-export const buildCircleStep = (
+export const buildCircleLegacyStep = (
 	steps: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
-	worldSize: typeof CIRCLE_WORLD_SIZE
+	worldSize: typeof CIRCLE_LEGACY_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const ax = worldSize[0];
@@ -202,7 +200,11 @@ export const buildCircleStep = (
 	steps[++is] = 0;
 };
 
-export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {
+export const buildCircleLegacyUv = (
+	uvs: Float32Array,
+	voffset: number,
+	textureUvs: TextureUvs
+): void => {
 	const x0 = textureUvs.x0;
 	const x1 = textureUvs.x1;
 	const x2 = textureUvs.x2;

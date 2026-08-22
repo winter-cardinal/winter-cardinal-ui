@@ -31,6 +31,7 @@ export const EShapeType = {
 	SEMICIRCLE: 24,
 	EMBEDDED_ACCEPTOR_EDGE: 25,
 	POLYGON: 26,
+	CIRCLE_LEGACY: 27,
 	EXTENSION: 1000
 } as const;
 

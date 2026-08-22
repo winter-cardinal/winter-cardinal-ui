@@ -6,6 +6,7 @@
 import { loadShapeBar } from "./load-shape-bar";
 import { loadShapeButton } from "./load-shape-button";
 import { loadShapeCircle } from "./load-shape-circle";
+import { loadShapeCircleLegacy } from "./load-shape-circle-legacy";
 import { loadShapeConnectorElbow } from "./load-shape-connector-elbow";
 import { loadShapeConnectorLine } from "./load-shape-connector-line";
 import { loadShapeEmbedded } from "./load-shape-embedded";
@@ -32,6 +33,7 @@ import { loadShapeTriangleRounded } from "./load-shape-triangle-rounded";
 export const loadShapeAll = (): void => {
 	loadShapeBar();
 	loadShapeButton();
+	loadShapeCircleLegacy();
 	loadShapeCircle();
 	loadShapeConnectorElbow();
 	loadShapeConnectorLine();

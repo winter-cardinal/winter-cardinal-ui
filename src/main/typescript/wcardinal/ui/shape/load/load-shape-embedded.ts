@@ -12,7 +12,7 @@ import { createRectanglePivotedUploaded } from "../variant/create-rectangle-pivo
 import { createGroupUploaded } from "../variant/create-group-uploaded";
 import { deserializeEmbedded } from "../variant/deserialize-embedded";
 import { deserializeEmbeddedAcceptorEdge } from "../variant/deserialize-embedded-acceptor-edge";
-import { createPolygonUploaded } from "../variant/create-polygon-uploaded";
+import { createCircleLegacyUploaded } from "../variant/create-circle-legacy-uploaded";
 
 export const loadShapeEmbedded = (): void => {
 	// Embedded
@@ -24,7 +24,7 @@ export const loadShapeEmbedded = (): void => {
 	EShapeUploadeds[EShapeType.EMBEDDED_LAYER] = createRectanglePivotedUploaded;
 
 	// Embedded acceptor edge
-	EShapeUploadeds[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = createPolygonUploaded;
+	EShapeUploadeds[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = createCircleLegacyUploaded;
 	EShapeDeserializers[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = deserializeEmbeddedAcceptorEdge;
 	EShapeCapabilities.set(
 		EShapeType.EMBEDDED_ACCEPTOR_EDGE,

@@ -6,14 +6,14 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
-	buildCircleIndex,
-	buildCircleStep,
-	buildCircleUv,
-	buildCircleVertex,
-	CIRCLE_INDEX_COUNT,
-	CIRCLE_VERTEX_COUNT,
-	CIRCLE_WORLD_SIZE
-} from "./build-circle";
+	buildCircleLegacyIndex,
+	buildCircleLegacyStep,
+	buildCircleLegacyUv,
+	buildCircleLegacyVertex,
+	CIRCLE_LEGACY_INDEX_COUNT,
+	CIRCLE_LEGACY_VERTEX_COUNT,
+	CIRCLE_LEGACY_WORLD_SIZE
+} from "./build-circle-legacy";
 import { BuilderMarkerBase } from "./builder-marker-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { BuilderBuffer, BuilderFlag } from "./builder";
@@ -23,7 +23,13 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 	protected pointId: number;
 
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
-		super(buffer, vertexOffset, indexOffset, CIRCLE_VERTEX_COUNT, CIRCLE_INDEX_COUNT);
+		super(
+			buffer,
+			vertexOffset,
+			indexOffset,
+			CIRCLE_LEGACY_VERTEX_COUNT,
+			CIRCLE_LEGACY_INDEX_COUNT
+		);
 		this.pointId = -1;
 	}
 
@@ -31,7 +37,7 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 		const buffer = this.buffer;
 		buffer.updateIndices();
 		const vertexOffset = this.vertexOffset;
-		buildCircleIndex(buffer.indices, vertexOffset, this.indexOffset);
+		buildCircleLegacyIndex(buffer.indices, vertexOffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
@@ -95,7 +101,7 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 			internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
 			buffer.updateVertices();
 			buffer.updateSteps();
-			buildCircleVertex(
+			buildCircleLegacyVertex(
 				buffer.vertices,
 				this.vertexOffset,
 				0,
@@ -105,14 +111,14 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 				strokeAlign,
 				strokeWidth,
 				internalTransform,
-				CIRCLE_WORLD_SIZE
+				CIRCLE_LEGACY_WORLD_SIZE
 			);
-			buildCircleStep(
+			buildCircleLegacyStep(
 				buffer.steps,
 				this.vertexOffset,
 				strokeWidth,
 				strokeStyle,
-				CIRCLE_WORLD_SIZE
+				CIRCLE_LEGACY_WORLD_SIZE
 			);
 		}
 	}
@@ -132,7 +138,7 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 
 			buffer.updateUvs();
 			const textureUvs = toTextureUvs(texture);
-			buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
+			buildCircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
 		}
 	}
 }

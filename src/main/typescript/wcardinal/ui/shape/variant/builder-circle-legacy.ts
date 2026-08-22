@@ -5,28 +5,34 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildCircleIndex,
-	buildCircleStep,
-	buildCircleUv,
-	buildCircleVertex,
-	CIRCLE_INDEX_COUNT,
-	CIRCLE_VERTEX_COUNT,
-	CIRCLE_WORLD_SIZE
-} from "./build-circle";
+	buildCircleLegacyIndex,
+	buildCircleLegacyStep,
+	buildCircleLegacyUv,
+	buildCircleLegacyVertex,
+	CIRCLE_LEGACY_INDEX_COUNT,
+	CIRCLE_LEGACY_VERTEX_COUNT,
+	CIRCLE_LEGACY_WORLD_SIZE
+} from "./build-circle-legacy";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export class BuilderCircle extends BuilderBase {
+export class BuilderCircleLegacy extends BuilderBase {
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
-		super(buffer, vertexOffset, indexOffset, CIRCLE_VERTEX_COUNT, CIRCLE_INDEX_COUNT);
+		super(
+			buffer,
+			vertexOffset,
+			indexOffset,
+			CIRCLE_LEGACY_VERTEX_COUNT,
+			CIRCLE_LEGACY_INDEX_COUNT
+		);
 	}
 
 	override init(): void {
 		const buffer = this.buffer;
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
-		buildCircleIndex(buffer.indices, voffset, this.indexOffset);
+		buildCircleLegacyIndex(buffer.indices, voffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
@@ -69,7 +75,7 @@ export class BuilderCircle extends BuilderBase {
 			// Buffer
 			buffer.updateVertices();
 			buffer.updateSteps();
-			buildCircleVertex(
+			buildCircleLegacyVertex(
 				buffer.vertices,
 				this.vertexOffset,
 				0,
@@ -79,14 +85,14 @@ export class BuilderCircle extends BuilderBase {
 				strokeAlign,
 				strokeWidth,
 				shape.transform.internalTransform,
-				CIRCLE_WORLD_SIZE
+				CIRCLE_LEGACY_WORLD_SIZE
 			);
-			buildCircleStep(
+			buildCircleLegacyStep(
 				buffer.steps,
 				this.vertexOffset,
 				strokeWidth,
 				strokeStyle,
-				CIRCLE_WORLD_SIZE
+				CIRCLE_LEGACY_WORLD_SIZE
 			);
 		}
 	}
@@ -106,7 +112,7 @@ export class BuilderCircle extends BuilderBase {
 
 			buffer.updateUvs();
 			const textureUvs = toTextureUvs(texture);
-			buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
+			buildCircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
 		}
 	}
 }

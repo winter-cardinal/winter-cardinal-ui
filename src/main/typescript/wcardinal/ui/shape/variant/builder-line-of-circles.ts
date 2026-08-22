@@ -5,14 +5,14 @@
 
 import { EShape } from "../e-shape";
 import {
-	buildCircleIndex,
-	buildCircleStep,
-	buildCircleUv,
-	buildCircleVertex,
-	CIRCLE_INDEX_COUNT,
-	CIRCLE_VERTEX_COUNT,
-	CIRCLE_WORLD_SIZE
-} from "./build-circle";
+	buildCircleLegacyIndex,
+	buildCircleLegacyStep,
+	buildCircleLegacyUv,
+	buildCircleLegacyVertex,
+	CIRCLE_LEGACY_INDEX_COUNT,
+	CIRCLE_LEGACY_VERTEX_COUNT,
+	CIRCLE_LEGACY_WORLD_SIZE
+} from "./build-circle-legacy";
 import { buildNullStep, buildNullVertex } from "./build-null";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
@@ -33,12 +33,12 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildCircleIndex(indices, voffset, ioffset);
+			buildCircleLegacyIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
-				CIRCLE_VERTEX_COUNT,
+				CIRCLE_LEGACY_VERTEX_COUNT,
 				ioffset,
-				CIRCLE_INDEX_COUNT,
+				CIRCLE_LEGACY_INDEX_COUNT,
 				pointCountReserved
 			);
 		}
@@ -50,7 +50,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexAndStep(buffer, shape, points);
-			this.updateLineOfAnyColor(buffer, shape, points, CIRCLE_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, CIRCLE_LEGACY_VERTEX_COUNT);
 			this.updateUv(buffer, shape);
 		}
 	}
@@ -122,7 +122,7 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
 
-				buildCircleVertex(
+				buildCircleLegacyVertex(
 					vertices,
 					voffset,
 					0,
@@ -132,19 +132,25 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 					strokeAlign,
 					strokeWidth,
 					internalTransform,
-					CIRCLE_WORLD_SIZE
+					CIRCLE_LEGACY_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
 					voffset,
-					CIRCLE_VERTEX_COUNT,
+					CIRCLE_LEGACY_VERTEX_COUNT,
 					pointCount,
 					pointsValues,
 					pointOffset
 				);
-				buildCircleStep(steps, voffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
-				copyStep(steps, voffset, CIRCLE_VERTEX_COUNT, pointCount);
+				buildCircleLegacyStep(
+					steps,
+					voffset,
+					strokeWidth,
+					strokeStyle,
+					CIRCLE_LEGACY_WORLD_SIZE
+				);
+				copyStep(steps, voffset, CIRCLE_LEGACY_VERTEX_COUNT, pointCount);
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
 					const ip = i << 1;
@@ -152,8 +158,8 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 					const py = pointsValues[ip + 1] + pointOffset.getY(i);
 					const pointSizeX = pointSize.getX(i);
 					const pointSizeY = pointSize.getY(i);
-					const iv = voffset + i * CIRCLE_VERTEX_COUNT;
-					buildCircleVertex(
+					const iv = voffset + i * CIRCLE_LEGACY_VERTEX_COUNT;
+					buildCircleLegacyVertex(
 						vertices,
 						iv,
 						px,
@@ -163,16 +169,22 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 						strokeAlign,
 						strokeWidth,
 						internalTransform,
-						CIRCLE_WORLD_SIZE
+						CIRCLE_LEGACY_WORLD_SIZE
 					);
-					buildCircleStep(steps, iv, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
+					buildCircleLegacyStep(
+						steps,
+						iv,
+						strokeWidth,
+						strokeStyle,
+						CIRCLE_LEGACY_WORLD_SIZE
+					);
 				}
 			}
 
 			// Fill the rest
 			const pointCountReserved = this.pointCountReserved;
-			const voffsetReserved = voffset + pointCount * CIRCLE_VERTEX_COUNT;
-			const vcountReserved = CIRCLE_VERTEX_COUNT * (pointCountReserved - pointCount);
+			const voffsetReserved = voffset + pointCount * CIRCLE_LEGACY_VERTEX_COUNT;
+			const vcountReserved = CIRCLE_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
 		}
@@ -197,8 +209,8 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			const textureUvs = toTextureUvs(texture);
 			const pointCountReserved = this.pointCountReserved;
 			if (0 < pointCountReserved) {
-				buildCircleUv(uvs, voffset, textureUvs);
-				copyUvs(uvs, voffset, CIRCLE_VERTEX_COUNT, pointCountReserved);
+				buildCircleLegacyUv(uvs, voffset, textureUvs);
+				copyUvs(uvs, voffset, CIRCLE_LEGACY_VERTEX_COUNT, pointCountReserved);
 			}
 		}
 	}
