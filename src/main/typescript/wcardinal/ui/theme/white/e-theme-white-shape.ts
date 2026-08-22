@@ -90,6 +90,6 @@ export class EThemeWhiteShape implements EThemeShape {
 	}
 
 	getCircleSegmentCount(): number {
-		return 32;
+		return 48;
 	}
 }
