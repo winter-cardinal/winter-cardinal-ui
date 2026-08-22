@@ -5,6 +5,7 @@
 
 export * from "./build-bar";
 export * from "./build-circle-legacy";
+export * from "./build-circle";
 export * from "./build-color";
 export * from "./build-image-sdf";
 export * from "./build-line-of-any";
@@ -20,6 +21,7 @@ export * from "./build-triangle";
 export * from "./builder-bar";
 export * from "./builder-base";
 export * from "./builder-circle-legacy";
+export * from "./builder-circle";
 export * from "./builder-image-sdf";
 export * from "./builder-label";
 export * from "./builder-line-of-any";
@@ -56,6 +58,7 @@ export * from "./copy-vertex";
 export * from "./create-bar-uploaded";
 export * from "./create-button-uploaded";
 export * from "./create-circle-legacy-uploaded";
+export * from "./create-circle-uploaded";
 export * from "./create-group-uploaded";
 export * from "./create-image-sdf-uploaded";
 export * from "./create-image-sdf";
