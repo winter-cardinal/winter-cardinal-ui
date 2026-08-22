@@ -21,30 +21,33 @@ const UNGROUPING	= 0x100;
 const FILL			= 0x200;
 const STROKE		= 0x400;
 const STROKE_SIDE	= 0x800;
-const BORDER_RADIUS	= 0x1000;
+const STROKE_STYLE_SCALING = 0x1000;
+const STROKE_STYLE_COSMETIC = 0x2000;
+const STROKE_STYLE = STROKE_STYLE_SCALING | STROKE_STYLE_COSMETIC;
+const BORDER_RADIUS	= 0x4000;
 
-const TEXT			= 0x2000;
-const TEXTURE		= 0x4000;
-const DATA			= 0x8000;
-const ACTION		= 0x10000;
-const CURSOR		= 0x20000;
-const ORDER_IN_LAYER= 0x40000;
+const TEXT			= 0x8000;
+const TEXTURE		= 0x10000;
+const DATA			= 0x20000;
+const ACTION		= 0x40000;
+const CURSOR		= 0x80000;
+const ORDER_IN_LAYER= 0x100000;
 
-const CHILDREN		= 0x80000;
+const CHILDREN		= 0x200000;
 
-const DATA_MAPPING	= 0x100000;
+const DATA_MAPPING	= 0x400000;
 
-const LINE			= 0x200000;
-const LINE_TAIL		= 0x400000;
-const LINE_HEAD		= 0x800000;
+const LINE			= 0x800000;
+const LINE_TAIL		= 0x1000000;
+const LINE_HEAD		= 0x2000000;
 
 const COORDINATE	= POSITION | WIDTH | HEIGHT | ROTATION | SKEW;
-const SHAPE			= REPLACING | GROUPING | FILL | STROKE | LINE | LINE_TAIL | LINE_HEAD;
+const SHAPE			= REPLACING | GROUPING | FILL | STROKE | STROKE_STYLE | LINE | LINE_TAIL | LINE_HEAD;
 const LAYER			= ORDER_IN_LAYER;
 const PRIMITIVE		= ID | COORDINATE | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
 const GROUP			= PRIMITIVE | UNGROUPING;
 const EMBEDDED		= ID | COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER | DATA_MAPPING;
-const EMBEDDED_ACCEPTOR_EDGE = ID | COORDINATE | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER;
+const EMBEDDED_ACCEPTOR_EDGE = ID | COORDINATE | REPLACING | FILL | STROKE | STROKE_STYLE_SCALING | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER;
 const CONNECTOR		= ID | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
 const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING | UNGROUPING;
 
@@ -113,6 +116,21 @@ export const EShapeCapability = {
 	 * Allows shape stroke sides to be modified.
 	 */
 	STROKE_SIDE,
+
+	/**
+	 * Allows shape stroke scaling style to be modified.
+	 */
+	STROKE_STYLE_SCALING,
+
+	/**
+	 * Allows shape stroke cosmetic style to be modified.
+	 */
+	STROKE_STYLE_COSMETIC,
+
+	/**
+	 * Allows shape stroke style to be modified.
+	 */
+	STROKE_STYLE,
 
 	/**
 	 * Allows shape border radiuses to be modified.
