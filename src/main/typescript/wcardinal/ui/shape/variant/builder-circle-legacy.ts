@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
 	buildCircleLegacyIndex,
@@ -14,14 +13,11 @@ import {
 	CIRCLE_LEGACY_VERTEX_COUNT,
 	CIRCLE_LEGACY_WORLD_SIZE
 } from "./build-circle-legacy";
-import { BuilderMarkerBase } from "./builder-marker-base";
-import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { BuilderBuffer, BuilderFlag } from "./builder";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
-	protected static WORK?: Matrix;
-	protected pointId: number;
-
+export class BuilderCircleLegacy extends BuilderBase {
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
 		super(
 			buffer,
@@ -30,14 +26,13 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 			CIRCLE_LEGACY_VERTEX_COUNT,
 			CIRCLE_LEGACY_INDEX_COUNT
 		);
-		this.pointId = -1;
 	}
 
 	override init(): void {
 		const buffer = this.buffer;
 		buffer.updateIndices();
-		const vertexOffset = this.vertexOffset;
-		buildCircleLegacyIndex(buffer.indices, vertexOffset, this.indexOffset);
+		const voffset = this.vertexOffset;
+		buildCircleLegacyIndex(buffer.indices, voffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
@@ -49,16 +44,7 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 	}
 
 	protected updateVertexAndStep(buffer: BuilderBuffer, shape: EShape): void {
-		const points = shape.points;
-		if (points == null) {
-			return;
-		}
-		const container = points.getMarker();
-		if (container == null) {
-			return;
-		}
-		const marker = this.toMarker(container);
-		const size = marker.size;
+		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
@@ -75,18 +61,9 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
-		const pointId = points.id;
-		const isPointChanged = pointId !== this.pointId;
-
 		const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
 
-		if (
-			isNotInited ||
-			isSizeChanged ||
-			isTransformChanged ||
-			isStrokeChanged ||
-			isPointChanged
-		) {
+		if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
 			this.inited |= BuilderFlag.VERTEX_AND_STEP;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
@@ -94,11 +71,8 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 			this.strokeAlign = strokeAlign;
 			this.strokeWidth = strokeWidth;
 			this.strokeStyle = strokeStyle;
-			this.pointId = pointId;
 
 			// Buffer
-			const internalTransform = (BuilderMarkerCircle.WORK ??= new Matrix());
-			internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
 			buffer.updateVertices();
 			buffer.updateSteps();
 			buildCircleLegacyVertex(
@@ -110,7 +84,7 @@ export abstract class BuilderMarkerCircle extends BuilderMarkerBase {
 				sizeY,
 				strokeAlign,
 				strokeWidth,
-				internalTransform,
+				shape.transform.internalTransform,
 				CIRCLE_LEGACY_WORLD_SIZE
 			);
 			buildCircleLegacyStep(

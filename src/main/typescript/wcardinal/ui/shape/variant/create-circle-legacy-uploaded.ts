@@ -6,12 +6,12 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeUploaded, EShapeUploadedImpl } from "../e-shape-uploaded";
+import { CIRCLE_LEGACY_INDEX_COUNT, CIRCLE_LEGACY_VERTEX_COUNT } from "./build-circle-legacy";
 import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
-import { BuilderPolygon } from "./builder-polygon";
+import { BuilderCircleLegacy } from "./builder-circle-legacy";
 import { BuilderText } from "./builder-text";
-import { isShapePolygonLike } from "./is-shape-polygon-like";
 
-export const createPolygonUploaded = (
+export const createCircleLegacyUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
@@ -21,19 +21,18 @@ export const createPolygonUploaded = (
 	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
 	const ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-	let pvcount = 0;
-	let picount = 0;
-	if (isShapePolygonLike(shape)) {
-		const triangulated = shape.triangulated;
-		pvcount = triangulated.nvertices;
-		picount = triangulated.nindices;
-	}
-	const vcount = pvcount + tvcount;
-	const icount = picount + ticount;
+	const vcount = CIRCLE_LEGACY_VERTEX_COUNT + tvcount;
+	const icount = CIRCLE_LEGACY_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderPolygon(buffer, voffset, ioffset, pvcount, picount),
-			new BuilderText(buffer, voffset + pvcount, ioffset + picount, tvcount, ticount)
+			new BuilderCircleLegacy(buffer, voffset, ioffset),
+			new BuilderText(
+				buffer,
+				voffset + CIRCLE_LEGACY_VERTEX_COUNT,
+				ioffset + CIRCLE_LEGACY_INDEX_COUNT,
+				tvcount,
+				ticount
+			)
 		]).init(shape);
 	}
 	return null;

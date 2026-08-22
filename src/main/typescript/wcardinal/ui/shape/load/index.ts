@@ -6,6 +6,7 @@
 export * from "./load-shape-all";
 export * from "./load-shape-bar";
 export * from "./load-shape-button";
+export * from "./load-shape-circle-legacy";
 export * from "./load-shape-circle";
 export * from "./load-shape-clipper-ex";
 export * from "./load-shape-connector-elbow";

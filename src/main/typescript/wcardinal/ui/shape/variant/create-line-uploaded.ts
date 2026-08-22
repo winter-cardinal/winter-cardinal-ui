@@ -19,7 +19,7 @@ import { BuilderNull } from "./builder-null";
 import { BuilderText } from "./builder-text";
 import { EShapeLinePoints } from "./e-shape-line-points";
 import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
-import { CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT } from "./build-circle";
+import { CIRCLE_LEGACY_INDEX_COUNT, CIRCLE_LEGACY_VERTEX_COUNT } from "./build-circle-legacy";
 import { BuilderMarkerRectangleTail } from "./builder-marker-rectangle-tail";
 import { BuilderMarkerRectangleHead } from "./builder-marker-rectangle-head";
 import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle";
@@ -29,7 +29,7 @@ const toMarkerVertexCount = (type: EShapePointsMarkerType): number => {
 		case EShapePointsMarkerType.NONE:
 			return 0;
 		case EShapePointsMarkerType.CIRCLE:
-			return CIRCLE_VERTEX_COUNT;
+			return CIRCLE_LEGACY_VERTEX_COUNT;
 		case EShapePointsMarkerType.TRIANGLE:
 			return TRIANGLE_VERTEX_COUNT;
 		case EShapePointsMarkerType.RECTANGLE:
@@ -43,7 +43,7 @@ const toMarkerIndexCount = (type: EShapePointsMarkerType): number => {
 		case EShapePointsMarkerType.NONE:
 			return 0;
 		case EShapePointsMarkerType.CIRCLE:
-			return CIRCLE_INDEX_COUNT;
+			return CIRCLE_LEGACY_INDEX_COUNT;
 		case EShapePointsMarkerType.TRIANGLE:
 			return TRIANGLE_INDEX_COUNT;
 		case EShapePointsMarkerType.RECTANGLE:

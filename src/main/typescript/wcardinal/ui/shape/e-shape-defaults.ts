@@ -29,6 +29,10 @@ export interface EThemeShape {
 	getSizeY(): number;
 	getHighlightColor(): number;
 	getCurveSegmentCount(): number;
+	/**
+	 * The circle segment count must be a multiple of 4 and greater than or equal to 4.
+	 */
+	getCircleSegmentCount(): number;
 }
 
 export class EShapeDefaults {
@@ -122,5 +126,9 @@ export class EShapeDefaults {
 
 	static get CURVE_SEGMENT_COUNT(): number {
 		return this.THEME.getCurveSegmentCount();
+	}
+
+	static get CIRCLE_SEGMENT_COUNT(): number {
+		return Math.max(4, this.THEME.getCircleSegmentCount()) & ~3;
 	}
 }

@@ -46,6 +46,7 @@
 		"build": "rimraf --glob dist/* && rimraf src/main/sample/js && tsc && rollup -c",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
+		"build:rolldown": "rolldown -c",
 		"build:api": "rimraf docs/api && typedoc --options typedoc.json --out docs/api",
 		"build:sample": "node src/main/sample/build.js docs",
 		"build:sample:dark": "node src/main/sample/build.js dark",
@@ -53,32 +54,38 @@
 		"build:cheatsheet": "node src/main/cheatsheet/build.js",
 		"watch:ts": "tsc -w",
 		"watch:rollup": "rollup -c -w",
+		"watch:rolldown": "rolldown -c -w",
 		"lint": "eslint src/main/typescript",
 		"lint:fix": "eslint src/main/typescript --fix",
-		"prepublishOnly": "npm run build"
+		"prepublishOnly": "npm run build",
+		"clean": "rimraf --glob dist/* && rimraf src/main/sample/js"
 	},
 	"peerDependencies": {
-		"pixi.js": "~5.3.12",
-		"css-line-break": "2.0.1"
+		"css-line-break": "2.0.1",
+		"pixi.js": "~5.3.12"
 	},
 	"peerDependenciesMeta": {
 		"css-line-break": {
 			"optional": true
 		}
 	},
+	"engines": {
+		"node": "^20.19.0 || >=22.12.0"
+	},
 	"devDependencies": {
-		"pixi.js": "~5.3.12",
-		"css-line-break": "2.1.0",
 		"@types/node": "^25.1.0",
 		"@typescript-eslint/eslint-plugin": "^6.11.0",
 		"@typescript-eslint/parser": "^6.11.0",
 		"@web/dev-server": "^0.4.6",
+		"css-line-break": "2.1.0",
 		"eslint": "^8.53.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.1",
 		"eslint-plugin-unused-imports": "^3.0.0",
+		"pixi.js": "~5.3.12",
 		"prettier": "^3.1.0",
 		"rimraf": "^6.1.2",
+		"rolldown": "^1.2.5",
 		"rollup": "^2.70.1",
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-copy": "^3.4.0",

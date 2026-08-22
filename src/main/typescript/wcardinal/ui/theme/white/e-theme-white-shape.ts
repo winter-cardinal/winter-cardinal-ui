@@ -88,4 +88,8 @@ export class EThemeWhiteShape implements EThemeShape {
 	getCurveSegmentCount(): number {
 		return 24;
 	}
+
+	getCircleSegmentCount(): number {
+		return 32;
+	}
 }

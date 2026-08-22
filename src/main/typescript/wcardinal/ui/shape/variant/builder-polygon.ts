@@ -12,8 +12,9 @@ import {
 } from "./build-polygon";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
-import { EShapePolygon } from "./e-shape-polygon";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
+import { EShapePolygonLike } from "./e-shape-polygon-like";
+import { isShapePolygonLike } from "./is-shape-polygon-like";
 
 export class BuilderPolygon extends BuilderBase {
 	protected triangulatedId: number;
@@ -39,8 +40,8 @@ export class BuilderPolygon extends BuilderBase {
 		vertexOffset: number,
 		indexOffset: number
 	): boolean {
-		if (!(shape instanceof EShapePolygon)) {
-			return false;
+		if (!isShapePolygonLike(shape)) {
+			return true;
 		}
 
 		const triangulated = shape.triangulated;
@@ -72,8 +73,8 @@ export class BuilderPolygon extends BuilderBase {
 	}
 
 	override isCompatible(shape: EShape): boolean {
-		if (!(shape instanceof EShapePolygon)) {
-			return false;
+		if (!isShapePolygonLike(shape)) {
+			return true;
 		}
 		const triangulated = shape.triangulated;
 		const vertexCount = triangulated.nvertices;
@@ -82,7 +83,7 @@ export class BuilderPolygon extends BuilderBase {
 	}
 
 	override update(shape: EShape): void {
-		if (!(shape instanceof EShapePolygon)) {
+		if (!isShapePolygonLike(shape)) {
 			return;
 		}
 
@@ -91,7 +92,10 @@ export class BuilderPolygon extends BuilderBase {
 		this.updateColor(buffer, shape);
 	}
 
-	protected updateVertexStepUvAndIndex(buffer: BuilderBuffer, shape: EShapePolygon): void {
+	protected updateVertexStepUvAndIndex(
+		buffer: BuilderBuffer,
+		shape: EShape & EShapePolygonLike
+	): void {
 		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 

@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createCircleUploaded } from "../variant/create-circle-uploaded";
+import { createPolygonUploaded } from "../variant/create-polygon-uploaded";
 import { deserializeCircle } from "../variant/deserialize-circle";
 
 export const loadShapeCircle = (): void => {
-	EShapeUploadeds[EShapeType.CIRCLE] = createCircleUploaded;
+	EShapeUploadeds[EShapeType.CIRCLE] = createPolygonUploaded;
 	EShapeDeserializers[EShapeType.CIRCLE] = deserializeCircle;
 };
