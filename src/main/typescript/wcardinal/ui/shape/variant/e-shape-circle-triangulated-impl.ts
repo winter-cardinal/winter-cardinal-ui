@@ -342,11 +342,12 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		let sx = this.toSkeletonX(ppx, ppy, px, py, nx, ny);
 
 		vertices[0] = 0;
-		vertices[1] = scale * sizeY;
+		vertices[1] = sizeY;
 		clippings[0] = -1;
+		distances[0] = sx;
 		lengths[0] = 0;
 		uvs[0] = 0.5;
-		uvs[1] = 0.5 * (scale + 1);
+		uvs[1] = 1;
 
 		let iv = 1;
 		let ii = 0;
@@ -370,40 +371,48 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 			const iv1 = iv++;
 			const iv2 = iv1 << 1;
-			const snx = scale * nx;
-			const sny = scale * ny;
-			vertices[iv2 + 0] = snx;
-			vertices[iv2 + 1] = sny;
-			clippings[iv1] = -1;
-			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * (snx / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * (sny / sizeY + 1);
-
 			const niv1 = iv++;
 			const niv2 = niv1 << 1;
 			const ndistance = Math.abs(-dx * py - dy * (nsx - px)) * fl;
+			maxDistance = Math.max(maxDistance, ndistance);
+			vertices[iv2 + 0] = nx;
+			vertices[iv2 + 1] = ny;
+			clippings[iv1] = -1 - ndistance;
+			distances[iv1] = nsx;
+			lengths[iv1] = nlength;
+			uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
+			uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+
 			vertices[niv2 + 0] = nsx;
 			vertices[niv2 + 1] = 0;
 			clippings[niv1] = ndistance;
-			maxDistance = Math.max(maxDistance, ndistance);
+			distances[niv1] = 0;
 			lengths[niv1] = length + ((nsx - px) * dx - py * dy) * fl;
 			uvs[niv2] = 0.5 * (nsx / sizeX + 1);
 			uvs[niv2 + 1] = 0.5;
+
 			indices[ii++] = current;
 			indices[ii++] = iv1;
 			indices[ii++] = niv1;
 
-			if (sx !== nsx) {
+			distances[current] = sx;
+			if (sx === nsx) {
+				clippings[current] = -1 - ndistance;
+			} else {
+				const mdistance = Math.abs(-dx * py - dy * (sx - px)) * fl;
+				maxDistance = Math.max(maxDistance, mdistance);
+				clippings[current] = -1 - mdistance;
+
 				const miv1 = iv++;
 				const miv2 = miv1 << 1;
-				const mdistance = Math.abs(-dx * py - dy * (sx - px)) * fl;
 				vertices[miv2] = sx;
 				vertices[miv2 + 1] = 0;
 				clippings[miv1] = mdistance;
-				maxDistance = Math.max(maxDistance, mdistance);
+				distances[miv1] = 0;
 				lengths[miv1] = length + ((sx - px) * dx - py * dy) * fl;
 				uvs[miv2] = 0.5 * (sx / sizeX + 1);
 				uvs[miv2 + 1] = 0.5;
+
 				indices[ii++] = current;
 				indices[ii++] = niv1;
 				indices[ii++] = miv1;
@@ -424,14 +433,26 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		if (0 < maxDistance) {
 			fdistance = 1 / maxDistance;
 		}
+		const shift = (scale - 1) * maxDistance;
 		for (let i = 0; i < iv; ++i) {
-			distances[i] = fdistance;
 			const clipping = clippings[i];
 			if (0 <= clipping) {
 				clippings[i] = 1 - clipping * fdistance;
 			} else {
+				const distance = -1 - clipping;
+				if (0 < distance) {
+					const i2 = i << 1;
+					const factor = shift / distance;
+					const x = vertices[i2] + (vertices[i2] - distances[i]) * factor;
+					const y = vertices[i2 + 1] * (1 + factor);
+					vertices[i2] = x;
+					vertices[i2 + 1] = y;
+					uvs[i2] = 0.5 * (x / sizeX + 1);
+					uvs[i2 + 1] = 0.5 * (y / sizeY + 1);
+				}
 				clippings[i] = scale;
 			}
+			distances[i] = fdistance;
 		}
 
 		// The skeleton points of adjacent vertices may coincide on a nearly circular ellipse.
@@ -496,11 +517,12 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		let sy = this.toSkeletonY(pppx, pppy, ppx, ppy, px, py);
 
 		vertices[0] = 0;
-		vertices[1] = scale * sizeY;
+		vertices[1] = sizeY;
 		clippings[0] = -1;
+		distances[0] = sy;
 		lengths[0] = 0;
 		uvs[0] = 0.5;
-		uvs[1] = 0.5 * (scale + 1);
+		uvs[1] = 1;
 
 		let iv = 1;
 		let ii = 0;
@@ -524,40 +546,48 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 			const iv1 = iv++;
 			const iv2 = iv1 << 1;
-			const snx = scale * nx;
-			const sny = scale * ny;
-			vertices[iv2 + 0] = snx;
-			vertices[iv2 + 1] = sny;
-			clippings[iv1] = -1;
-			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * (snx / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * (sny / sizeY + 1);
-
 			const niv1 = iv++;
 			const niv2 = niv1 << 1;
 			const ndistance = Math.abs(dx * (nsy - py) + dy * px) * fl;
+			maxDistance = Math.max(maxDistance, ndistance);
+			vertices[iv2 + 0] = nx;
+			vertices[iv2 + 1] = ny;
+			clippings[iv1] = -1 - ndistance;
+			distances[iv1] = nsy;
+			lengths[iv1] = nlength;
+			uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
+			uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+
 			vertices[niv2] = 0;
 			vertices[niv2 + 1] = nsy;
 			clippings[niv1] = ndistance;
-			maxDistance = Math.max(maxDistance, ndistance);
+			distances[niv1] = 0;
 			lengths[niv1] = length + (-px * dx + (nsy - py) * dy) * fl;
 			uvs[niv2] = 0.5;
 			uvs[niv2 + 1] = 0.5 * (nsy / sizeY + 1);
+
 			indices[ii++] = current;
 			indices[ii++] = iv1;
 			indices[ii++] = niv1;
 
-			if (sy !== nsy) {
+			distances[current] = sy;
+			if (sy === nsy) {
+				clippings[current] = -1 - ndistance;
+			} else {
+				const mdistance = Math.abs(dx * (sy - py) + dy * px) * fl;
+				maxDistance = Math.max(maxDistance, mdistance);
+				clippings[current] = -1 - mdistance;
+
 				const miv1 = iv++;
 				const miv2 = miv1 << 1;
-				const mdistance = Math.abs(dx * (sy - py) + dy * px) * fl;
 				vertices[miv2] = 0;
 				vertices[miv2 + 1] = sy;
 				clippings[miv1] = mdistance;
-				maxDistance = Math.max(maxDistance, mdistance);
+				distances[miv1] = 0;
 				lengths[miv1] = length + (-px * dx + (sy - py) * dy) * fl;
 				uvs[miv2] = 0.5;
 				uvs[miv2 + 1] = 0.5 * (sy / sizeY + 1);
+
 				indices[ii++] = current;
 				indices[ii++] = niv1;
 				indices[ii++] = miv1;
@@ -578,14 +608,26 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		if (0 < maxDistance) {
 			fdistance = 1 / maxDistance;
 		}
+		const shift = (scale - 1) * maxDistance;
 		for (let i = 0; i < iv; ++i) {
-			distances[i] = fdistance;
 			const clipping = clippings[i];
 			if (0 <= clipping) {
 				clippings[i] = 1 - clipping * fdistance;
 			} else {
+				const distance = -1 - clipping;
+				if (0 < distance) {
+					const i2 = i << 1;
+					const factor = shift / distance;
+					const x = vertices[i2] * (1 + factor);
+					const y = vertices[i2 + 1] + (vertices[i2 + 1] - distances[i]) * factor;
+					vertices[i2] = x;
+					vertices[i2 + 1] = y;
+					uvs[i2] = 0.5 * (x / sizeX + 1);
+					uvs[i2 + 1] = 0.5 * (y / sizeY + 1);
+				}
 				clippings[i] = scale;
 			}
+			distances[i] = fdistance;
 		}
 
 		// The skeleton points of adjacent vertices may coincide on a nearly circular ellipse.
