@@ -3,7 +3,7 @@ import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
+import { toPackedClippings, toPackedI4x64 } from "./to-packed";
 
 export const RECTANGLE_ROUNDED_VERTEX_COUNT = 44;
 export const RECTANGLE_ROUNDED_INDEX_COUNT = 24;
@@ -443,14 +443,14 @@ export const buildRectangleRoundedStep = (
 
 	const rxi = 1 - worldSize[3];
 	const ryi = 1 - worldSize[4];
-	const c11 = toPackedF2x1024(1, 1);
-	const c01 = toPackedF2x1024(0, 1);
-	const c10 = toPackedF2x1024(1, 0);
-	const c00 = toPackedF2x1024(0, 0);
-	const cx1 = toPackedF2x1024(rxi, 1);
-	const c1y = toPackedF2x1024(1, ryi);
-	const cxy = toPackedF2x1024(rxi, ryi);
-	const c0y = toPackedF2x1024(0, ryi);
+	const c11 = toPackedClippings(1, 1);
+	const c01 = toPackedClippings(0, 1);
+	const c10 = toPackedClippings(1, 0);
+	const c00 = toPackedClippings(0, 0);
+	const cx1 = toPackedClippings(rxi, 1);
+	const c1y = toPackedClippings(1, ryi);
+	const cxy = toPackedClippings(rxi, ryi);
+	const c0y = toPackedClippings(0, ryi);
 
 	// c0   c1        c4   c5
 	//  |---|          |---|

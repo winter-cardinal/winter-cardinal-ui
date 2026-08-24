@@ -64,7 +64,15 @@ float toStrokeWidthScale(in float scale) {
 	);
 }
 
-vec2 toUnpackedF2x1024(in float v) {
+vec2 toUnpackedClippings(in float v) {
+	vec2 c = vec2(1.0, 1.0/1024.0) * v;
+	c -= fract(c);
+	c -= c.yx * vec2(1024.0, 0.0);
+	c /= vec2(930.0, 930.0);
+	return c;
+}
+
+vec2 toUnpackedAlphas(in float v) {
 	vec2 c = vec2(1.0, 1.0/1024.0) * v;
 	c -= fract(c);
 	c -= c.yx * vec2(1024.0, 0.0);
@@ -85,7 +93,7 @@ vec2 toPosition012(in vec2 v) {
 }
 
 vec4 toStepB01(in vec4 sb) {
-	return vec4(sb.xy, toUnpackedF2x1024(sb.z));
+	return vec4(sb.xy, toUnpackedClippings(sb.z));
 }
 
 vec4 toStepB2(in vec4 sb, in float strokeWidth) {
@@ -187,7 +195,7 @@ vec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale)
 }
 
 void toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {
-	vec2 a = toUnpackedF2x1024(source.z);
+	vec2 a = toUnpackedAlphas(source.z);
 	fillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;
 	fillColor.w = a.x;
 	strokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;

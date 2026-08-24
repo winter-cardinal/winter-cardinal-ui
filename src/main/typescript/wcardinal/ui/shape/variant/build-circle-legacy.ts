@@ -2,7 +2,7 @@ import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
+import { toPackedClippings, toPackedI4x64 } from "./to-packed";
 
 export const CIRCLE_LEGACY_VERTEX_COUNT = 9;
 export const CIRCLE_LEGACY_INDEX_COUNT = 8;
@@ -130,10 +130,10 @@ export const buildCircleLegacyStep = (
 
 	const e = toPackedI4x64(1, scaleInvariant, 1, 1);
 
-	const c11 = toPackedF2x1024(1, 1);
-	const c01 = toPackedF2x1024(0, 1);
-	const c10 = toPackedF2x1024(1, 0);
-	const c00 = toPackedF2x1024(0, 0);
+	const c11 = toPackedClippings(1, 1);
+	const c01 = toPackedClippings(0, 1);
+	const c10 = toPackedClippings(1, 0);
+	const c00 = toPackedClippings(0, 0);
 
 	let is = voffset * 6 - 1;
 	steps[++is] = strokeWidth;

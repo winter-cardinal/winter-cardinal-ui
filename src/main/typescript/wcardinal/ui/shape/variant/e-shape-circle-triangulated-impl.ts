@@ -132,11 +132,11 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		if (isNotInitialized || isSizeChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this.update(sizeX, sizeY, this._n);
+			this.update(sizeX, sizeY, 1.1, this._n);
 		}
 	}
 
-	protected update(sizeX: number, sizeY: number, n: number): void {
+	protected update(sizeX: number, sizeY: number, scale: number, n: number): void {
 		// Boundary
 		const ax = Math.abs(sizeX);
 		const ay = Math.abs(sizeY);
@@ -159,11 +159,11 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		if (sizeX === 0 || sizeY === 0) {
 			this.pad(0, 0, nv, ni, 0);
 		} else if (ax === ay) {
-			this.update0(sizeX, sizeY, n, nv, ni);
+			this.update0(sizeX, sizeY, scale, n, nv, ni);
 		} else if (ay < ax) {
-			this.update1(sizeX, sizeY, n, nv, ni);
+			this.update1(sizeX, sizeY, scale, n, nv, ni);
 		} else {
-			this.update2(sizeX, sizeY, n, nv, ni);
+			this.update2(sizeX, sizeY, scale, n, nv, ni);
 		}
 	}
 
@@ -205,7 +205,14 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	/**
 	 * Precondition: sizeX !== 0 && sizeY !== 0 & abs(sizeX) === abs(sizeY)
 	 */
-	protected update0(sizeX: number, sizeY: number, n: number, nv: number, ni: number): void {
+	protected update0(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		n: number,
+		nv: number,
+		ni: number
+	): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
@@ -232,25 +239,25 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const dl = Math.sqrt(lx * lx + ly * ly);
 		let l1 = dl;
 		let l2 = 0.5 * dl;
-		vertices[0] = x0;
-		vertices[1] = y0;
-		vertices[2] = x1;
-		vertices[3] = y1;
+		vertices[0] = scale * x0;
+		vertices[1] = scale * y0;
+		vertices[2] = scale * x1;
+		vertices[3] = scale * y1;
 		vertices[4] = 0;
 		vertices[5] = 0;
 		distances[0] = fdistance;
 		distances[1] = fdistance;
 		distances[2] = fdistance;
-		clippings[0] = 1;
-		clippings[1] = 1;
+		clippings[0] = scale;
+		clippings[1] = scale;
 		clippings[2] = 0;
 		lengths[0] = 0;
 		lengths[1] = l1;
 		lengths[2] = l2;
 		uvs[0] = 0.5;
-		uvs[1] = 1.0;
-		uvs[2] = 0.5 * (u + 1);
-		uvs[3] = 0.5 * (v + 1);
+		uvs[1] = 1.0 * scale;
+		uvs[2] = 0.5 * (scale * u + 1);
+		uvs[3] = 0.5 * (scale * v + 1);
 		uvs[4] = 0.5;
 		uvs[5] = 0.5;
 		indices[0] = 0;
@@ -268,18 +275,18 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			v = vn;
 			l1 += dl;
 			l2 += dl;
-			vertices[iv2 + 0] = sizeX * u;
-			vertices[iv2 + 1] = sizeY * v;
+			vertices[iv2 + 0] = scale * u * sizeX;
+			vertices[iv2 + 1] = scale * v * sizeY;
 			vertices[iv2 + 2] = 0;
 			vertices[iv2 + 3] = 0;
 			distances[iv1 + 0] = fdistance;
 			distances[iv1 + 1] = fdistance;
-			clippings[iv1 + 0] = 1;
+			clippings[iv1 + 0] = scale;
 			clippings[iv1 + 1] = 0;
 			lengths[iv1 + 0] = l1;
 			lengths[iv1 + 1] = l2;
-			uvs[iv2 + 0] = 0.5 * (u + 1);
-			uvs[iv2 + 1] = 0.5 * (v + 1);
+			uvs[iv2 + 0] = 0.5 * (scale * u + 1);
+			uvs[iv2 + 1] = 0.5 * (scale * v + 1);
 			uvs[iv2 + 2] = 0.5;
 			uvs[iv2 + 3] = 0.5;
 			indices[ii + 0] = iv1 - 2;
@@ -297,7 +304,14 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	/**
 	 * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeY) < abs(sizeX)
 	 */
-	protected update1(sizeX: number, sizeY: number, n: number, nv: number, ni: number): void {
+	protected update1(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		n: number,
+		nv: number,
+		ni: number
+	): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
@@ -324,11 +338,11 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		let sx = this.toSkeletonX(ppx, ppy, px, py, nx, ny);
 
 		vertices[0] = 0;
-		vertices[1] = sizeY;
-		clippings[0] = 0;
+		vertices[1] = scale * sizeY;
+		clippings[0] = -1;
 		lengths[0] = 0;
 		uvs[0] = 0.5;
-		uvs[1] = 1;
+		uvs[1] = 0.5 * (scale + 1);
 
 		let iv = 1;
 		let ii = 0;
@@ -352,17 +366,17 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 			const iv1 = iv++;
 			const iv2 = iv1 << 1;
-			vertices[iv2 + 0] = nx;
-			vertices[iv2 + 1] = ny;
-			clippings[iv1] = 0;
+			vertices[iv2 + 0] = scale * nx;
+			vertices[iv2 + 1] = scale * ny;
+			clippings[iv1] = -1;
 			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+			uvs[iv2 + 0] = 0.5 * ((scale * nx) / sizeX + 1);
+			uvs[iv2 + 1] = 0.5 * ((scale * ny) / sizeY + 1);
 
 			const niv1 = iv++;
 			const niv2 = niv1 << 1;
 			const ndistance = Math.abs(-dx * py - dy * (nsx - px)) * fl;
-			vertices[niv2] = nsx;
+			vertices[niv2 + 0] = nsx;
 			vertices[niv2 + 1] = 0;
 			clippings[niv1] = ndistance;
 			maxDistance = Math.max(maxDistance, ndistance);
@@ -406,7 +420,12 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		}
 		for (let i = 0; i < iv; ++i) {
 			distances[i] = fdistance;
-			clippings[i] = 1 - clippings[i] * fdistance;
+			const clipping = clippings[i];
+			if (0 <= clipping) {
+				clippings[i] = 1 - clipping * fdistance;
+			} else {
+				clippings[i] = scale;
+			}
 		}
 
 		// The skeleton points of adjacent vertices may coincide on a nearly circular ellipse.
@@ -435,7 +454,14 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	/**
 	 * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeX) < abs(sizeY)
 	 */
-	protected update2(sizeX: number, sizeY: number, n: number, nv: number, ni: number): void {
+	protected update2(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		n: number,
+		nv: number,
+		ni: number
+	): void {
 		const vertices = this._vertices;
 		const distances = this._distances;
 		const lengths = this._lengths;
@@ -464,11 +490,11 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		let sy = this.toSkeletonY(pppx, pppy, ppx, ppy, px, py);
 
 		vertices[0] = 0;
-		vertices[1] = sizeY;
-		clippings[0] = 0;
+		vertices[1] = scale * sizeY;
+		clippings[0] = -1;
 		lengths[0] = 0;
 		uvs[0] = 0.5;
-		uvs[1] = 1;
+		uvs[1] = 0.5 * (scale + 1);
 
 		let iv = 1;
 		let ii = 0;
@@ -492,12 +518,12 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 			const iv1 = iv++;
 			const iv2 = iv1 << 1;
-			vertices[iv2 + 0] = nx;
-			vertices[iv2 + 1] = ny;
-			clippings[iv1] = 0;
+			vertices[iv2 + 0] = scale * nx;
+			vertices[iv2 + 1] = scale * ny;
+			clippings[iv1] = -1;
 			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+			uvs[iv2 + 0] = 0.5 * ((scale * nx) / sizeX + 1);
+			uvs[iv2 + 1] = 0.5 * ((scale * ny) / sizeY + 1);
 
 			const niv1 = iv++;
 			const niv2 = niv1 << 1;
@@ -546,7 +572,12 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		}
 		for (let i = 0; i < iv; ++i) {
 			distances[i] = fdistance;
-			clippings[i] = 1 - clippings[i] * fdistance;
+			const clipping = clippings[i];
+			if (0 <= clipping) {
+				clippings[i] = 1 - clipping * fdistance;
+			} else {
+				clippings[i] = scale;
+			}
 		}
 
 		// The skeleton points of adjacent vertices may coincide on a nearly circular ellipse.

@@ -3,7 +3,7 @@ import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
+import { toPackedClippings, toPackedI4x64 } from "./to-packed";
 
 export const TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
 export const TRIANGLE_ROUNDED_INDEX_COUNT = 15;
@@ -243,14 +243,14 @@ export const buildTriangleRoundedStep = (
 	const e0 = toPackedI4x64(0, scaleInvariant, 1, 1);
 	const e1 = toPackedI4x64(1, scaleInvariant, 1, 1);
 
-	const c00 = toPackedF2x1024(0, 0);
-	const c10 = toPackedF2x1024(1, 0);
-	const c11 = toPackedF2x1024(1, 1);
-	const c01 = toPackedF2x1024(0, 1);
-	const cww = toPackedF2x1024(w, w);
-	const c1w = toPackedF2x1024(1, w);
-	const cw1 = toPackedF2x1024(w, 1);
-	const cw0 = toPackedF2x1024(w, 0);
+	const c00 = toPackedClippings(0, 0);
+	const c10 = toPackedClippings(1, 0);
+	const c11 = toPackedClippings(1, 1);
+	const c01 = toPackedClippings(0, 1);
+	const cww = toPackedClippings(w, w);
+	const c1w = toPackedClippings(1, w);
+	const cw1 = toPackedClippings(w, 1);
+	const cw0 = toPackedClippings(w, 0);
 
 	// Top corner
 	let is = voffset * 6 - 1;
