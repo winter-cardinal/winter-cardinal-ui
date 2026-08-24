@@ -4,7 +4,9 @@
 	"license": "Apache-2.0",
 	"description": "A WebGL-based UI library",
 	"homepage": "https://github.com/winter-cardinal/winter-cardinal-ui",
-	"repository": "github:winter-cardinal/winter-cardinal-ui",
+	"repository": {
+		"url": "github:winter-cardinal/winter-cardinal-ui"
+	},
 	"keywords": [
 		"WebGL",
 		"UI"
@@ -57,8 +59,8 @@
 		"watch:rolldown": "rolldown -c -w",
 		"lint": "eslint src/main/typescript",
 		"lint:fix": "eslint src/main/typescript --fix",
-		"prepublishOnly": "npm run build",
-		"clean": "rimraf --glob dist/* && rimraf src/main/sample/js"
+		"clean": "rimraf --glob dist/* && rimraf src/main/sample/js",
+		"prepublishOnly": "npm run build"
 	},
 	"peerDependencies": {
 		"css-line-break": "2.0.1",

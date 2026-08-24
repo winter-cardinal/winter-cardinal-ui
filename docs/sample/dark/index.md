@@ -313,6 +313,7 @@
 * Shape
     * [Basics](./shape/basics.html)
     * [Bulk Update](./shape/bulk-update.html)
+    * [Circle](./shape/circle.html)
     * [Connector (Dangling)](./shape/connector-dangling.html)
     * [Connector (Elbow)](./shape/connector-elbow.html)
     * [Connector (Line)](./shape/connector-line.html)

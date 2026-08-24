@@ -1,6 +1,6 @@
-/*
- Winter Cardinal UI v0.463.0
- Copyright (C) 2019 Toshiba Corporation
+/*!
+ Winter Cardinal UI v0.464.0
+ Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
  Material Design icons by Google
@@ -5470,6 +5470,9 @@
         };
         EThemeWhiteShape.prototype.getCurveSegmentCount = function () {
             return 24;
+        };
+        EThemeWhiteShape.prototype.getCircleSegmentCount = function () {
+            return 48;
         };
         return EThemeWhiteShape;
     }());
