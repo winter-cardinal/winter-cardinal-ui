@@ -5,7 +5,7 @@
 
 import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
-import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
+import { toPackedClippings, toPackedI4x64 } from "./to-packed";
 import { toScaleInvariant } from "./to-scale-invariant";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { toDash } from "./to-dash";
@@ -157,7 +157,7 @@ export const buildPolygonStepX = (
 		steps[++is] = e;
 		steps[++is] = polygonDistances[i];
 		steps[++is] = afp * (fp - polygonUvs[j]);
-		steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
+		steps[++is] = toPackedClippings(polygonClippings[i], 0);
 		steps[++is] = polygonLengths[i];
 	}
 };
@@ -181,7 +181,7 @@ export const buildPolygonStepY = (
 		steps[++is] = e;
 		steps[++is] = polygonDistances[i];
 		steps[++is] = afp * (fp - polygonUvs[j]);
-		steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
+		steps[++is] = toPackedClippings(polygonClippings[i], 0);
 		steps[++is] = polygonLengths[i];
 	}
 };

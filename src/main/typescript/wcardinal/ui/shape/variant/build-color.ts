@@ -1,4 +1,4 @@
-import { toPackedF2x1024 } from "./to-packed";
+import { toPackedAlphas } from "./to-packed";
 
 export const buildColor = (
 	fillColor: number,
@@ -9,7 +9,7 @@ export const buildColor = (
 	vcount: number,
 	colors: Float32Array
 ): void => {
-	const alpha = toPackedF2x1024(
+	const alpha = toPackedAlphas(
 		Math.max(0, Math.min(1, fillAlpha)),
 		Math.max(0, Math.min(1, strokeAlpha))
 	);

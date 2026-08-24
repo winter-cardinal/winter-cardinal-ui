@@ -211,9 +211,8 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 		const isParentIdChanged = this._parentPointsId !== parentPointsId;
 		if (isParentIdChanged) {
 			this._parentPointsId = parentPointsId;
-			const buffer = UtilStraightSkeletonBuffer.from(
-				UtilStraightSkeleton.from(parentPoints.formatted.values)
-			);
+			const values = parentPoints.formatted.values;
+			const buffer = UtilStraightSkeletonBuffer.from(UtilStraightSkeleton.from(values));
 			this._id += 1;
 			const vertices = buffer.vertices;
 			this._vertices = vertices;
@@ -222,7 +221,7 @@ export class EShapePolygonTriangulatedImpl implements EShapePolygonTriangulated 
 			this._lengths = buffer.lengths;
 			this._clippings = buffer.clippings;
 			const boundary = this._boundary;
-			toPointsBoundary(vertices, boundary);
+			toPointsBoundary(values, boundary);
 			this._uvs = this.toUvs(vertices, boundary);
 			this._indices = buffer.indices;
 			this._nindices = buffer.indices.length / 3;

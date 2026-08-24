@@ -60,7 +60,7 @@ export class UtilStraightSkeletonBufferBuilder {
 		return result;
 	}
 
-	addWavefront(wavefront: UtilStraightSkeletonWavefront): void {
+	addWavefront(wavefront: UtilStraightSkeletonWavefront, shift: number): void {
 		if (wavefront.parent != null) {
 			return;
 		}
@@ -109,25 +109,57 @@ export class UtilStraightSkeletonBufferBuilder {
 		for (let i = oldDistancesLength + 1; i < newDistancesLength; ++i) {
 			mdistance = Math.max(mdistance, distances[i]);
 		}
+		const shifted = this.shift(wavefront, (shift - 1) * mdistance);
 		const clippings = this._clippings;
 		if (0 < mdistance) {
 			const fdistance = 1 / mdistance;
 			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
-				clippings.push(1 - distances[i] * fdistance);
+				clippings.push(shifted.has(i) ? shift : 1 - distances[i] * fdistance);
 				distances[i] = fdistance;
 			}
 		} else {
 			for (let i = oldDistancesLength; i < newDistancesLength; ++i) {
-				clippings.push(1);
+				clippings.push(shifted.has(i) ? shift : 1);
 				distances[i] = mdistance;
 			}
 		}
 	}
 
-	addWavefrontAll(wavefronts: UtilStraightSkeletonWavefront[]): this {
+	protected shift(wavefront: UtilStraightSkeletonWavefront, distance: number): Set<number> {
+		const result = new Set<number>();
+		const indexToLengthToIv = this._ivs.get(wavefront);
+		if (indexToLengthToIv != null) {
+			const normals = wavefront.normals;
+			const normalsLength = normals.length;
+			const vertices = this._vertices;
+			indexToLengthToIv.forEach((lengthToIv, index) => {
+				const pindex = (index - 2 + normalsLength) % normalsLength;
+				const nx = normals[index];
+				const ny = normals[index + 1];
+				const mx = ny;
+				const my = -nx;
+				const pnx = normals[pindex];
+				const pny = normals[pindex + 1];
+				const dnm = mx * pnx + my * pny;
+				const dnn = nx * pnx + ny * pny;
+				const s = 0 < Math.abs(dnm) ? (1 - dnn) / dnm : 0 <= dnn ? -0.5 * dnm : 0;
+				const dx = distance * (nx + s * mx);
+				const dy = distance * (ny + s * my);
+				lengthToIv.forEach((iv) => {
+					const iv2 = iv << 1;
+					vertices[iv2] += dx;
+					vertices[iv2 + 1] += dy;
+					result.add(iv);
+				});
+			});
+		}
+		return result;
+	}
+
+	addWavefrontAll(wavefronts: UtilStraightSkeletonWavefront[], shift: number): this {
 		const wavefrontsLength = wavefronts.length;
 		for (let i = 0; i < wavefrontsLength; ++i) {
-			this.addWavefront(wavefronts[i]);
+			this.addWavefront(wavefronts[i], shift);
 		}
 		return this;
 	}
@@ -319,7 +351,12 @@ export class UtilStraightSkeletonBuffer {
 		this.indices = indices;
 	}
 
-	public static from(wavefronts: UtilStraightSkeletonWavefront[]): UtilStraightSkeletonBuffer {
-		return new UtilStraightSkeletonBufferBuilder().addWavefrontAll(wavefronts).build();
+	public static from(
+		wavefronts: UtilStraightSkeletonWavefront[],
+		shift?: number
+	): UtilStraightSkeletonBuffer {
+		return new UtilStraightSkeletonBufferBuilder()
+			.addWavefrontAll(wavefronts, Math.min(1.1, Math.max(1.0, shift ?? 1.1)))
+			.build();
 	}
 }

@@ -3,7 +3,7 @@ import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
-import { toPackedF2x1024, toPackedI4x64 } from "./to-packed";
+import { toPackedClippings, toPackedI4x64 } from "./to-packed";
 
 export const RECTANGLE_VERTEX_COUNT = 16;
 export const RECTANGLE_INDEX_COUNT = 8;
@@ -184,10 +184,10 @@ export const buildRectangleStep = (
 	const elb = toPackedI4x64(0, scaleInvariant, wl, wb);
 	const erb = toPackedI4x64(0, scaleInvariant, wr, wb);
 
-	const c11 = toPackedF2x1024(1, 1);
-	const c01 = toPackedF2x1024(0, 1);
-	const c00 = toPackedF2x1024(0, 0);
-	const c10 = toPackedF2x1024(1, 0);
+	const c11 = toPackedClippings(1, 1);
+	const c01 = toPackedClippings(0, 1);
+	const c00 = toPackedClippings(0, 0);
+	const c10 = toPackedClippings(1, 0);
 
 	// c0     c1   c4     c5
 	//  |-----|     |-----|
