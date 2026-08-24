@@ -8,6 +8,6 @@ export const toPackedAlphas = (a0: number, a1: number): number => {
 
 export const toPackedClippings = (x: number, y: number): number => {
 	// Since 1023 / 1.1 = 930,
-	// Math.round(1023 * (x / 1.1)) = Math.round(930 / x)
+	// Math.round(1023 * (x / 1.1)) = Math.round(930 * x)
 	return Math.round(930 * x) + (Math.round(930 * y) << 10);
 };
