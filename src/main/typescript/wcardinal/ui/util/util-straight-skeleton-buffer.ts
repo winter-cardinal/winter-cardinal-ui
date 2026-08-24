@@ -353,8 +353,10 @@ export class UtilStraightSkeletonBuffer {
 
 	public static from(
 		wavefronts: UtilStraightSkeletonWavefront[],
-		shift: number = 1.1
+		shift?: number
 	): UtilStraightSkeletonBuffer {
-		return new UtilStraightSkeletonBufferBuilder().addWavefrontAll(wavefronts, shift).build();
+		return new UtilStraightSkeletonBufferBuilder()
+			.addWavefrontAll(wavefronts, Math.min(1.1, Math.max(1.0, shift ?? 1.1)))
+			.build();
 	}
 }

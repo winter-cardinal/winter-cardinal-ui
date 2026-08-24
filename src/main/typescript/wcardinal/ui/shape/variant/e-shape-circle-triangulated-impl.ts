@@ -229,6 +229,8 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const y0 = sizeY;
 		let u = -s;
 		let v = c;
+		let su = scale * u;
+		let sv = scale * v;
 		const x1 = u * sizeX;
 		const y1 = v * sizeY;
 		const dx = 0.5 * (x1 + x0) - 0;
@@ -239,10 +241,10 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const dl = Math.sqrt(lx * lx + ly * ly);
 		let l1 = dl;
 		let l2 = 0.5 * dl;
-		vertices[0] = scale * x0;
-		vertices[1] = scale * y0;
-		vertices[2] = scale * x1;
-		vertices[3] = scale * y1;
+		vertices[0] = 0;
+		vertices[1] = scale * sizeY;
+		vertices[2] = su * sizeX;
+		vertices[3] = sv * sizeY;
 		vertices[4] = 0;
 		vertices[5] = 0;
 		distances[0] = fdistance;
@@ -255,9 +257,9 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		lengths[1] = l1;
 		lengths[2] = l2;
 		uvs[0] = 0.5;
-		uvs[1] = 1.0 * scale;
-		uvs[2] = 0.5 * (scale * u + 1);
-		uvs[3] = 0.5 * (scale * v + 1);
+		uvs[1] = 0.5 * (scale + 1);
+		uvs[2] = 0.5 * (su + 1);
+		uvs[3] = 0.5 * (sv + 1);
 		uvs[4] = 0.5;
 		uvs[5] = 0.5;
 		indices[0] = 0;
@@ -273,10 +275,12 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			const vn = s * u + c * v;
 			u = un;
 			v = vn;
+			su = scale * u;
+			sv = scale * v;
 			l1 += dl;
 			l2 += dl;
-			vertices[iv2 + 0] = scale * u * sizeX;
-			vertices[iv2 + 1] = scale * v * sizeY;
+			vertices[iv2 + 0] = su * sizeX;
+			vertices[iv2 + 1] = sv * sizeY;
 			vertices[iv2 + 2] = 0;
 			vertices[iv2 + 3] = 0;
 			distances[iv1 + 0] = fdistance;
@@ -285,8 +289,8 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			clippings[iv1 + 1] = 0;
 			lengths[iv1 + 0] = l1;
 			lengths[iv1 + 1] = l2;
-			uvs[iv2 + 0] = 0.5 * (scale * u + 1);
-			uvs[iv2 + 1] = 0.5 * (scale * v + 1);
+			uvs[iv2 + 0] = 0.5 * (su + 1);
+			uvs[iv2 + 1] = 0.5 * (sv + 1);
 			uvs[iv2 + 2] = 0.5;
 			uvs[iv2 + 3] = 0.5;
 			indices[ii + 0] = iv1 - 2;
@@ -366,12 +370,14 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 			const iv1 = iv++;
 			const iv2 = iv1 << 1;
-			vertices[iv2 + 0] = scale * nx;
-			vertices[iv2 + 1] = scale * ny;
+			const snx = scale * nx;
+			const sny = scale * ny;
+			vertices[iv2 + 0] = snx;
+			vertices[iv2 + 1] = sny;
 			clippings[iv1] = -1;
 			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * ((scale * nx) / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * ((scale * ny) / sizeY + 1);
+			uvs[iv2 + 0] = 0.5 * (snx / sizeX + 1);
+			uvs[iv2 + 1] = 0.5 * (sny / sizeY + 1);
 
 			const niv1 = iv++;
 			const niv2 = niv1 << 1;
@@ -518,12 +524,14 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 
 			const iv1 = iv++;
 			const iv2 = iv1 << 1;
-			vertices[iv2 + 0] = scale * nx;
-			vertices[iv2 + 1] = scale * ny;
+			const snx = scale * nx;
+			const sny = scale * ny;
+			vertices[iv2 + 0] = snx;
+			vertices[iv2 + 1] = sny;
 			clippings[iv1] = -1;
 			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * ((scale * nx) / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * ((scale * ny) / sizeY + 1);
+			uvs[iv2 + 0] = 0.5 * (snx / sizeX + 1);
+			uvs[iv2 + 1] = 0.5 * (sny / sizeY + 1);
 
 			const niv1 = iv++;
 			const niv2 = niv1 << 1;
