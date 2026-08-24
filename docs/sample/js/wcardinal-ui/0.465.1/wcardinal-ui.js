@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.464.0
+ Winter Cardinal UI v0.465.1
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -250,8 +250,13 @@
     var toPackedI4x64 = function (i0, i1, i2, i3) {
         return i0 + (i1 << 6) + (i2 << 12) + (i3 << 18);
     };
-    var toPackedF2x1024 = function (f0, f1) {
-        return Math.round(1023 * f0) + (Math.round(1023 * f1) << 10);
+    var toPackedAlphas = function (a0, a1) {
+        return Math.round(1023 * a0) + (Math.round(1023 * a1) << 10);
+    };
+    var toPackedClippings = function (x, y) {
+        // Since 1023 / 1.1 = 930,
+        // Math.round(1023 * (x / 1.1)) = Math.round(930 * x)
+        return Math.round(930 * x) + (Math.round(930 * y) << 10);
     };
 
     var BAR_VERTEX_COUNT = 4;
@@ -1435,7 +1440,7 @@
     };
 
     var buildColor = function (fillColor, fillAlpha, strokeColor, strokeAlpha, voffset, vcount, colors) {
-        var alpha = toPackedF2x1024(Math.max(0, Math.min(1, fillAlpha)), Math.max(0, Math.min(1, strokeAlpha)));
+        var alpha = toPackedAlphas(Math.max(0, Math.min(1, fillAlpha)), Math.max(0, Math.min(1, strokeAlpha)));
         var ic = voffset * 3 - 1;
         var icmax = (voffset + vcount) * 3 - 1;
         for (; ic < icmax;) {
@@ -16697,7 +16702,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER$1 = "\nattribute highp vec2 aPosition;\nattribute highp vec2 aStepA;\nattribute highp vec4 aStepB;\nattribute highp vec3 aColor;\nattribute highp vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse(in vec2 v) {\n\treturn vec2(-v.y, v.x);\n}\n\nvec4 toGeneral(in float v) {\n\tvec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;\n\tc -= fract(c);\n\tc -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);\n\treturn c;\n}\n\nfloat toStrokeWidthScale(in float scale) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin(1.0, shapeScale) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax(1.0, shapeScale) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toUnpackedF2x1024(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(1023.0, 1023.0);\n\treturn c;\n}\n\nvec3 toUnpackedF3x256(in float v) {\n\tvec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;\n\tc -= fract(c);\n\tc -= c.yzx * vec3(256.0, 256.0, 0.0);\n\tc /= 255.0;\n\treturn c;\n}\n\nvec2 toPosition012(in vec2 v) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toStepB01(in vec4 sb) {\n\treturn vec4(sb.xy, toUnpackedF2x1024(sb.z));\n}\n\nvec4 toStepB2(in vec4 sb, in float strokeWidth) {\n\tfloat x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);\n\tfloat w = clamp(strokeWidth, 0.0, 1.0) * 0.4;\n\tfloat p = w * sb.y + sb.z;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));\n}\n\nvec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {\n\tvec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;\n\tt -= fract(t);\n\tt -= t.yzx * vec3(1024.0, 1024.0, 0.0);\n\tt *= vec3(1.0/511.5, 1.0/511.5, 1.0);\n\tt -= vec3(1.0, 1.0, 0.0);\n\tvec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));\n\tvec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));\n\n\tvec2 n0i = toInverse(n0);\n\tvec2 n1i = toInverse(n1);\n\tfloat direction = sign(4.5 - type);\n\n\t// Offset\n\tfloat cross = dot(n0i, n1);\n\tbool bcross = 0.00001 < abs(cross);\n\tfloat crossi = (bcross ? 1.0 / cross : 0.0);\n\tfloat b = dot(n1 - n0, n0) * crossi;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );\n\tfloat miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :\n\t\t(miterLength < 6.0 && bcross ? pmiter : pbevel)\n\t);\n\tvec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);\n\tshift = dot(ni, p - presult);\n\treturn toPosition012(presult);\n}\n\nvec2 toStepA3(in float type, in float strokeWidth) {\n\treturn vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);\n}\n\nfloat toDotWidth(in float strokeScaling, in float strokeWidthScale) {\n\treturn aStepA.x * (\n\t\tstrokeScaling == 4.0 || strokeScaling == 5.0 ||\n\t\tstrokeScaling == 6.0 || strokeScaling == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec2 toDotPattern(in float dash) {\n\treturn (dash < 0.5 ?\n\t\tvec2(1.0, 0.0) :\n\t\t(dash < 3.5 ?\n\t\t\t(dash < 1.5 ?\n\t\t\t\tvec2(1.0, 1.0) :\n\t\t\t\t(2.5 < dash ?\n\t\t\t\t\tvec2(1.0, 2.0) :\n\t\t\t\t\tvec2(1.0, 0.5)\n\t\t\t\t)\n\t\t\t) :\n\t\t\t(dash < 4.5 ?\n\t\t\t\tvec2(2.0, 1.0) :\n\t\t\t\t(5.5 < dash ?\n\t\t\t\t\tvec2(2.0, 2.0) :\n\t\t\t\t\tvec2(2.0, 0.5)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(dash);\n\treturn vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);\n}\n\nvec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(type - 7.0);\n\treturn vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);\n}\n\nvoid toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {\n\tvec2 a = toUnpackedF2x1024(source.z);\n\tfillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;\n\tfillColor.w = a.x;\n\tstrokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;\n\tstrokeColor.w = a.y;\n}\n\nvoid main(void) {\n\tvec4 general = toGeneral(aStepA.y);\n\tfloat type = general.x;\n\tfloat strokeScaling = general.y;\n\tfloat strokeWidthScale = toStrokeWidthScale(strokeScaling);\n\tfloat strokeWidth = strokeWidthScale * aStepA.x;\n\n\tvType = type;\n\tif (type < 2.5 || 6.5 < type) {\n\t\tgl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);\n\t\tvStepA = strokeWidth * general.zw;\n\t\tif (type < 1.5) {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else if (type < 2.5) {\n\t\t\tvStepB = toStepB2(aStepB, strokeWidth);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = toLength7(type, strokeScaling, strokeWidthScale);\n\t\t}\n\t} else {\n\t\tfloat shift3 = 0.0;\n\t\tgl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);\n\t\tvStepA = toStepA3(type, strokeWidth);\n\t\tvStepB = vec4(0.0);\n\t\tvLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);\n\t}\n\ttoColors(aColor, vColorFill, vColorStroke);\n\tvUv = aUv;\n}";
+    var VERTEX_SHADER$1 = "\nattribute highp vec2 aPosition;\nattribute highp vec2 aStepA;\nattribute highp vec4 aStepB;\nattribute highp vec3 aColor;\nattribute highp vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse(in vec2 v) {\n\treturn vec2(-v.y, v.x);\n}\n\nvec4 toGeneral(in float v) {\n\tvec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;\n\tc -= fract(c);\n\tc -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);\n\treturn c;\n}\n\nfloat toStrokeWidthScale(in float scale) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin(1.0, shapeScale) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax(1.0, shapeScale) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toUnpackedClippings(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(930.0, 930.0);\n\treturn c;\n}\n\nvec2 toUnpackedAlphas(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(1023.0, 1023.0);\n\treturn c;\n}\n\nvec3 toUnpackedF3x256(in float v) {\n\tvec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;\n\tc -= fract(c);\n\tc -= c.yzx * vec3(256.0, 256.0, 0.0);\n\tc /= 255.0;\n\treturn c;\n}\n\nvec2 toPosition012(in vec2 v) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toStepB01(in vec4 sb) {\n\treturn vec4(sb.xy, toUnpackedClippings(sb.z));\n}\n\nvec4 toStepB2(in vec4 sb, in float strokeWidth) {\n\tfloat x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);\n\tfloat w = clamp(strokeWidth, 0.0, 1.0) * 0.4;\n\tfloat p = w * sb.y + sb.z;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));\n}\n\nvec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {\n\tvec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;\n\tt -= fract(t);\n\tt -= t.yzx * vec3(1024.0, 1024.0, 0.0);\n\tt *= vec3(1.0/511.5, 1.0/511.5, 1.0);\n\tt -= vec3(1.0, 1.0, 0.0);\n\tvec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));\n\tvec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));\n\n\tvec2 n0i = toInverse(n0);\n\tvec2 n1i = toInverse(n1);\n\tfloat direction = sign(4.5 - type);\n\n\t// Offset\n\tfloat cross = dot(n0i, n1);\n\tbool bcross = 0.00001 < abs(cross);\n\tfloat crossi = (bcross ? 1.0 / cross : 0.0);\n\tfloat b = dot(n1 - n0, n0) * crossi;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );\n\tfloat miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :\n\t\t(miterLength < 6.0 && bcross ? pmiter : pbevel)\n\t);\n\tvec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);\n\tshift = dot(ni, p - presult);\n\treturn toPosition012(presult);\n}\n\nvec2 toStepA3(in float type, in float strokeWidth) {\n\treturn vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);\n}\n\nfloat toDotWidth(in float strokeScaling, in float strokeWidthScale) {\n\treturn aStepA.x * (\n\t\tstrokeScaling == 4.0 || strokeScaling == 5.0 ||\n\t\tstrokeScaling == 6.0 || strokeScaling == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec2 toDotPattern(in float dash) {\n\treturn (dash < 0.5 ?\n\t\tvec2(1.0, 0.0) :\n\t\t(dash < 3.5 ?\n\t\t\t(dash < 1.5 ?\n\t\t\t\tvec2(1.0, 1.0) :\n\t\t\t\t(2.5 < dash ?\n\t\t\t\t\tvec2(1.0, 2.0) :\n\t\t\t\t\tvec2(1.0, 0.5)\n\t\t\t\t)\n\t\t\t) :\n\t\t\t(dash < 4.5 ?\n\t\t\t\tvec2(2.0, 1.0) :\n\t\t\t\t(5.5 < dash ?\n\t\t\t\t\tvec2(2.0, 2.0) :\n\t\t\t\t\tvec2(2.0, 0.5)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(dash);\n\treturn vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);\n}\n\nvec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(type - 7.0);\n\treturn vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);\n}\n\nvoid toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {\n\tvec2 a = toUnpackedAlphas(source.z);\n\tfillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;\n\tfillColor.w = a.x;\n\tstrokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;\n\tstrokeColor.w = a.y;\n}\n\nvoid main(void) {\n\tvec4 general = toGeneral(aStepA.y);\n\tfloat type = general.x;\n\tfloat strokeScaling = general.y;\n\tfloat strokeWidthScale = toStrokeWidthScale(strokeScaling);\n\tfloat strokeWidth = strokeWidthScale * aStepA.x;\n\n\tvType = type;\n\tif (type < 2.5 || 6.5 < type) {\n\t\tgl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);\n\t\tvStepA = strokeWidth * general.zw;\n\t\tif (type < 1.5) {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else if (type < 2.5) {\n\t\t\tvStepB = toStepB2(aStepB, strokeWidth);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = toLength7(type, strokeScaling, strokeWidthScale);\n\t\t}\n\t} else {\n\t\tfloat shift3 = 0.0;\n\t\tgl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);\n\t\tvStepA = toStepA3(type, strokeWidth);\n\t\tvStepB = vec4(0.0);\n\t\tvLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);\n\t}\n\ttoColors(aColor, vColorFill, vColorStroke);\n\tvUv = aUv;\n}";
     var FRAGMENT_SHADER$1 = "\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float antialiasWeight;\n\nvec4 toColor0(in vec4 texture) {\n\tvec2 f = vec2(1.0) / vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight * f;\n\tvec2 swd = vStepA * f;\n\tvec2 one = vec2(1.0);\n\tvec2 s0 = smoothstep(one - awd, one + awd, c);\n\tvec2 s1 = smoothstep(one - swd - awd, one - swd + awd, c);\n\tfloat s2 = max(s0.x, s0.y);\n\tfloat s3 = max(s1.x, s1.y);\n\n\treturn texture * (\n\t\tvColorStroke * (s3 - s2) +\n\t\tvColorFill * (1.0 - s3)\n\t);\n}\n\nvec4 toColor1(in vec4 texture) {\n\tvec2 d = vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight / d;\n\tvec2 swd = vStepA / d;\n\tvec2 one = vec2(1.0);\n\tfloat s0 = smoothstep(length(c/(one + awd)), length(c/(one - awd)), 1.0);\n\tfloat s1 = smoothstep(length(c/(one - swd + awd)), length(c/(one - swd - awd)), 1.0);\n\treturn texture * (\n\t\tvColorStroke * (s0 - s1) +\n\t\tvColorFill * s1\n\t);\n}\n\nvec4 toColor2(in vec4 texture) {\n\tvec2 p0 = vStepB.xy;\n\tvec2 p1 = vStepB.zw;\n\tvec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));\n\tvec2 s = smoothstep(p0 - p1, p0 + p1, d);\n\treturn vColorStroke * (s.y - s.x) + vColorFill * s.x;\n}\n\nfloat toLineStep(in vec4 parameters) {\n\tfloat l = parameters.x;\n\tfloat lp0 = parameters.y;\n\tfloat lp1 = parameters.z;\n\tfloat lt = parameters.w;\n\tfloat ld = 0.5 * antialiasWeight;\n\tfloat lm = mod(l, lp0 + lp1);\n\tfloat s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);\n\tfloat s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);\n\treturn s0 * s1;\n}\n\nvec4 toColor3(in vec4 texture) {\n\tfloat c = vStepA.x;\n\tfloat awd = 0.5 * antialiasWeight / vStepA.y;\n\tfloat s0 = smoothstep(-awd, awd, c);\n\tfloat s1 = smoothstep(1.0 - awd, 1.0 + awd, c);\n\treturn texture * vColorStroke * (s0 - s1) * toLineStep(vLength);\n}\n\nvec4 toColor7(in vec4 texture) {\n\tfloat aw = 0.5 * antialiasWeight;\n\tfloat awd = aw * vStepB.x;\n\tfloat swd = vStepA.x * vStepB.x;\n\tfloat s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);\n\tfloat s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);\n\tfloat s2 = smoothstep(-aw, +aw, vStepB.y);\n\treturn texture * (\n\t\tvColorStroke * (s1 - s0) +\n\t\tvColorFill * (1.0 - s1) * s2\n\t);\n}\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tif (vType < 0.5) {\n\t\tgl_FragColor = toColor0(texture);\n\t} else if (vType < 1.5) {\n\t\tgl_FragColor = toColor1(texture);\n\t} else if (vType < 2.5) {\n\t\tgl_FragColor = toColor2(texture);\n\t} else if (vType < 6.5) {\n\t\tgl_FragColor = toColor3(texture);\n\t} else {\n\t\tgl_FragColor = toColor7(texture);\n\t}\n}";
     var EShapeRenderer = /** @class */ (function (_super) {
         __extends(EShapeRenderer, _super);
@@ -40489,14 +40494,14 @@
         var erb1 = toPackedI4x64(1, scaleInvariant, wr, wb);
         var rxi = 1 - worldSize[3];
         var ryi = 1 - worldSize[4];
-        var c11 = toPackedF2x1024(1, 1);
-        var c01 = toPackedF2x1024(0, 1);
-        var c10 = toPackedF2x1024(1, 0);
-        var c00 = toPackedF2x1024(0, 0);
-        var cx1 = toPackedF2x1024(rxi, 1);
-        var c1y = toPackedF2x1024(1, ryi);
-        var cxy = toPackedF2x1024(rxi, ryi);
-        var c0y = toPackedF2x1024(0, ryi);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var c10 = toPackedClippings(1, 0);
+        var c00 = toPackedClippings(0, 0);
+        var cx1 = toPackedClippings(rxi, 1);
+        var c1y = toPackedClippings(1, ryi);
+        var cxy = toPackedClippings(rxi, ryi);
+        var c0y = toPackedClippings(0, ryi);
         // c0   c1        c4   c5
         //  |---|          |---|
         //  |   |          |   |
@@ -42003,7 +42008,7 @@
             steps[++is] = e;
             steps[++is] = polygonDistances[i];
             steps[++is] = afp * (fp - polygonUvs[j]);
-            steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
+            steps[++is] = toPackedClippings(polygonClippings[i], 0);
             steps[++is] = polygonLengths[i];
         }
     };
@@ -42014,7 +42019,7 @@
             steps[++is] = e;
             steps[++is] = polygonDistances[i];
             steps[++is] = afp * (fp - polygonUvs[j]);
-            steps[++is] = toPackedF2x1024(polygonClippings[i], 0);
+            steps[++is] = toPackedClippings(polygonClippings[i], 0);
             steps[++is] = polygonLengths[i];
         }
     };
@@ -42327,10 +42332,10 @@
             if (isNotInitialized || isSizeChanged) {
                 this._sizeX = sizeX;
                 this._sizeY = sizeY;
-                this.update(sizeX, sizeY, this._n);
+                this.update(sizeX, sizeY, 1.1, this._n);
             }
         };
-        EShapeCircleTriangulatedImpl.prototype.update = function (sizeX, sizeY, n) {
+        EShapeCircleTriangulatedImpl.prototype.update = function (sizeX, sizeY, scale, n) {
             // Boundary
             var ax = Math.abs(sizeX);
             var ay = Math.abs(sizeY);
@@ -42351,13 +42356,13 @@
                 this.pad(0, 0, nv, ni, 0);
             }
             else if (ax === ay) {
-                this.update0(sizeX, sizeY, n, nv, ni);
+                this.update0(sizeX, sizeY, scale, n, nv, ni);
             }
             else if (ay < ax) {
-                this.update1(sizeX, sizeY, n, nv, ni);
+                this.update1(sizeX, sizeY, scale, n, nv, ni);
             }
             else {
-                this.update2(sizeX, sizeY, n, nv, ni);
+                this.update2(sizeX, sizeY, scale, n, nv, ni);
             }
         };
         /**
@@ -42395,7 +42400,7 @@
         /**
          * Precondition: sizeX !== 0 && sizeY !== 0 & abs(sizeX) === abs(sizeY)
          */
-        EShapeCircleTriangulatedImpl.prototype.update0 = function (sizeX, sizeY, n, nv, ni) {
+        EShapeCircleTriangulatedImpl.prototype.update0 = function (sizeX, sizeY, scale, n, nv, ni) {
             var vertices = this._vertices;
             var distances = this._distances;
             var lengths = this._lengths;
@@ -42410,6 +42415,8 @@
             var y0 = sizeY;
             var u = -s;
             var v = c;
+            var su = scale * u;
+            var sv = scale * v;
             var x1 = u * sizeX;
             var y1 = v * sizeY;
             var dx = 0.5 * (x1 + x0) - 0;
@@ -42420,25 +42427,25 @@
             var dl = Math.sqrt(lx * lx + ly * ly);
             var l1 = dl;
             var l2 = 0.5 * dl;
-            vertices[0] = x0;
-            vertices[1] = y0;
-            vertices[2] = x1;
-            vertices[3] = y1;
+            vertices[0] = 0;
+            vertices[1] = scale * sizeY;
+            vertices[2] = su * sizeX;
+            vertices[3] = sv * sizeY;
             vertices[4] = 0;
             vertices[5] = 0;
             distances[0] = fdistance;
             distances[1] = fdistance;
             distances[2] = fdistance;
-            clippings[0] = 1;
-            clippings[1] = 1;
+            clippings[0] = scale;
+            clippings[1] = scale;
             clippings[2] = 0;
             lengths[0] = 0;
             lengths[1] = l1;
             lengths[2] = l2;
             uvs[0] = 0.5;
-            uvs[1] = 1.0;
-            uvs[2] = 0.5 * (u + 1);
-            uvs[3] = 0.5 * (v + 1);
+            uvs[1] = 0.5 * (scale + 1);
+            uvs[2] = 0.5 * (su + 1);
+            uvs[3] = 0.5 * (sv + 1);
             uvs[4] = 0.5;
             uvs[5] = 0.5;
             indices[0] = 0;
@@ -42453,20 +42460,22 @@
                 var vn = s * u + c * v;
                 u = un;
                 v = vn;
+                su = scale * u;
+                sv = scale * v;
                 l1 += dl;
                 l2 += dl;
-                vertices[iv2 + 0] = sizeX * u;
-                vertices[iv2 + 1] = sizeY * v;
+                vertices[iv2 + 0] = su * sizeX;
+                vertices[iv2 + 1] = sv * sizeY;
                 vertices[iv2 + 2] = 0;
                 vertices[iv2 + 3] = 0;
                 distances[iv1 + 0] = fdistance;
                 distances[iv1 + 1] = fdistance;
-                clippings[iv1 + 0] = 1;
+                clippings[iv1 + 0] = scale;
                 clippings[iv1 + 1] = 0;
                 lengths[iv1 + 0] = l1;
                 lengths[iv1 + 1] = l2;
-                uvs[iv2 + 0] = 0.5 * (u + 1);
-                uvs[iv2 + 1] = 0.5 * (v + 1);
+                uvs[iv2 + 0] = 0.5 * (su + 1);
+                uvs[iv2 + 1] = 0.5 * (sv + 1);
                 uvs[iv2 + 2] = 0.5;
                 uvs[iv2 + 3] = 0.5;
                 indices[ii + 0] = iv1 - 2;
@@ -42482,7 +42491,7 @@
         /**
          * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeY) < abs(sizeX)
          */
-        EShapeCircleTriangulatedImpl.prototype.update1 = function (sizeX, sizeY, n, nv, ni) {
+        EShapeCircleTriangulatedImpl.prototype.update1 = function (sizeX, sizeY, scale, n, nv, ni) {
             var vertices = this._vertices;
             var distances = this._distances;
             var lengths = this._lengths;
@@ -42507,7 +42516,8 @@
             var sx = this.toSkeletonX(ppx, ppy, px, py, nx, ny);
             vertices[0] = 0;
             vertices[1] = sizeY;
-            clippings[0] = 0;
+            clippings[0] = -1;
+            distances[0] = sx;
             lengths[0] = 0;
             uvs[0] = 0.5;
             uvs[1] = 1;
@@ -42533,33 +42543,41 @@
                 var nlength = length + dl;
                 var iv1 = iv++;
                 var iv2 = iv1 << 1;
-                vertices[iv2 + 0] = nx;
-                vertices[iv2 + 1] = ny;
-                clippings[iv1] = 0;
-                lengths[iv1] = nlength;
-                uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-                uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
                 var niv1 = iv++;
                 var niv2 = niv1 << 1;
                 var ndistance = Math.abs(-dx * py - dy * (nsx - px)) * fl;
-                vertices[niv2] = nsx;
+                maxDistance = Math.max(maxDistance, ndistance);
+                vertices[iv2 + 0] = nx;
+                vertices[iv2 + 1] = ny;
+                clippings[iv1] = -1 - ndistance;
+                distances[iv1] = nsx;
+                lengths[iv1] = nlength;
+                uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
+                uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+                vertices[niv2 + 0] = nsx;
                 vertices[niv2 + 1] = 0;
                 clippings[niv1] = ndistance;
-                maxDistance = Math.max(maxDistance, ndistance);
+                distances[niv1] = 0;
                 lengths[niv1] = length + ((nsx - px) * dx - py * dy) * fl;
                 uvs[niv2] = 0.5 * (nsx / sizeX + 1);
                 uvs[niv2 + 1] = 0.5;
                 indices[ii++] = current;
                 indices[ii++] = iv1;
                 indices[ii++] = niv1;
-                if (sx !== nsx) {
+                distances[current] = sx;
+                if (sx === nsx) {
+                    clippings[current] = -1 - ndistance;
+                }
+                else {
+                    var mdistance = Math.abs(-dx * py - dy * (sx - px)) * fl;
+                    maxDistance = Math.max(maxDistance, mdistance);
+                    clippings[current] = -1 - mdistance;
                     var miv1 = iv++;
                     var miv2 = miv1 << 1;
-                    var mdistance = Math.abs(-dx * py - dy * (sx - px)) * fl;
                     vertices[miv2] = sx;
                     vertices[miv2 + 1] = 0;
                     clippings[miv1] = mdistance;
-                    maxDistance = Math.max(maxDistance, mdistance);
+                    distances[miv1] = 0;
                     lengths[miv1] = length + ((sx - px) * dx - py * dy) * fl;
                     uvs[miv2] = 0.5 * (sx / sizeX + 1);
                     uvs[miv2 + 1] = 0.5;
@@ -42581,9 +42599,27 @@
             if (0 < maxDistance) {
                 fdistance = 1 / maxDistance;
             }
+            var shift = (scale - 1) * maxDistance;
             for (var i = 0; i < iv; ++i) {
+                var clipping = clippings[i];
+                if (0 <= clipping) {
+                    clippings[i] = 1 - clipping * fdistance;
+                }
+                else {
+                    var distance = -1 - clipping;
+                    if (0 < distance) {
+                        var i2 = i << 1;
+                        var factor = shift / distance;
+                        var x = vertices[i2] + (vertices[i2] - distances[i]) * factor;
+                        var y = vertices[i2 + 1] * (1 + factor);
+                        vertices[i2] = x;
+                        vertices[i2 + 1] = y;
+                        uvs[i2] = 0.5 * (x / sizeX + 1);
+                        uvs[i2 + 1] = 0.5 * (y / sizeY + 1);
+                    }
+                    clippings[i] = scale;
+                }
                 distances[i] = fdistance;
-                clippings[i] = 1 - clippings[i] * fdistance;
             }
             // The skeleton points of adjacent vertices may coincide on a nearly circular ellipse.
             this.pad(iv, ii, nv, ni, fdistance);
@@ -42602,7 +42638,7 @@
         /**
          * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeX) < abs(sizeY)
          */
-        EShapeCircleTriangulatedImpl.prototype.update2 = function (sizeX, sizeY, n, nv, ni) {
+        EShapeCircleTriangulatedImpl.prototype.update2 = function (sizeX, sizeY, scale, n, nv, ni) {
             var vertices = this._vertices;
             var distances = this._distances;
             var lengths = this._lengths;
@@ -42629,7 +42665,8 @@
             var sy = this.toSkeletonY(pppx, pppy, ppx, ppy, px, py);
             vertices[0] = 0;
             vertices[1] = sizeY;
-            clippings[0] = 0;
+            clippings[0] = -1;
+            distances[0] = sy;
             lengths[0] = 0;
             uvs[0] = 0.5;
             uvs[1] = 1;
@@ -42655,33 +42692,41 @@
                 var nlength = length + dl;
                 var iv1 = iv++;
                 var iv2 = iv1 << 1;
-                vertices[iv2 + 0] = nx;
-                vertices[iv2 + 1] = ny;
-                clippings[iv1] = 0;
-                lengths[iv1] = nlength;
-                uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-                uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
                 var niv1 = iv++;
                 var niv2 = niv1 << 1;
                 var ndistance = Math.abs(dx * (nsy - py) + dy * px) * fl;
+                maxDistance = Math.max(maxDistance, ndistance);
+                vertices[iv2 + 0] = nx;
+                vertices[iv2 + 1] = ny;
+                clippings[iv1] = -1 - ndistance;
+                distances[iv1] = nsy;
+                lengths[iv1] = nlength;
+                uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
+                uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
                 vertices[niv2] = 0;
                 vertices[niv2 + 1] = nsy;
                 clippings[niv1] = ndistance;
-                maxDistance = Math.max(maxDistance, ndistance);
+                distances[niv1] = 0;
                 lengths[niv1] = length + (-px * dx + (nsy - py) * dy) * fl;
                 uvs[niv2] = 0.5;
                 uvs[niv2 + 1] = 0.5 * (nsy / sizeY + 1);
                 indices[ii++] = current;
                 indices[ii++] = iv1;
                 indices[ii++] = niv1;
-                if (sy !== nsy) {
+                distances[current] = sy;
+                if (sy === nsy) {
+                    clippings[current] = -1 - ndistance;
+                }
+                else {
+                    var mdistance = Math.abs(dx * (sy - py) + dy * px) * fl;
+                    maxDistance = Math.max(maxDistance, mdistance);
+                    clippings[current] = -1 - mdistance;
                     var miv1 = iv++;
                     var miv2 = miv1 << 1;
-                    var mdistance = Math.abs(dx * (sy - py) + dy * px) * fl;
                     vertices[miv2] = 0;
                     vertices[miv2 + 1] = sy;
                     clippings[miv1] = mdistance;
-                    maxDistance = Math.max(maxDistance, mdistance);
+                    distances[miv1] = 0;
                     lengths[miv1] = length + (-px * dx + (sy - py) * dy) * fl;
                     uvs[miv2] = 0.5;
                     uvs[miv2 + 1] = 0.5 * (sy / sizeY + 1);
@@ -42703,9 +42748,27 @@
             if (0 < maxDistance) {
                 fdistance = 1 / maxDistance;
             }
+            var shift = (scale - 1) * maxDistance;
             for (var i = 0; i < iv; ++i) {
+                var clipping = clippings[i];
+                if (0 <= clipping) {
+                    clippings[i] = 1 - clipping * fdistance;
+                }
+                else {
+                    var distance = -1 - clipping;
+                    if (0 < distance) {
+                        var i2 = i << 1;
+                        var factor = shift / distance;
+                        var x = vertices[i2] * (1 + factor);
+                        var y = vertices[i2 + 1] + (vertices[i2 + 1] - distances[i]) * factor;
+                        vertices[i2] = x;
+                        vertices[i2 + 1] = y;
+                        uvs[i2] = 0.5 * (x / sizeX + 1);
+                        uvs[i2 + 1] = 0.5 * (y / sizeY + 1);
+                    }
+                    clippings[i] = scale;
+                }
                 distances[i] = fdistance;
-                clippings[i] = 1 - clippings[i] * fdistance;
             }
             // The skeleton points of adjacent vertices may coincide on a nearly circular ellipse.
             this.pad(iv, ii, nv, ni, fdistance);
@@ -42864,10 +42927,10 @@
         var ax = worldSize[0];
         var ay = worldSize[1];
         var e = toPackedI4x64(1, scaleInvariant, 1, 1);
-        var c11 = toPackedF2x1024(1, 1);
-        var c01 = toPackedF2x1024(0, 1);
-        var c10 = toPackedF2x1024(1, 0);
-        var c00 = toPackedF2x1024(0, 0);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var c10 = toPackedClippings(1, 0);
+        var c00 = toPackedClippings(0, 0);
         var is = voffset * 6 - 1;
         steps[++is] = strokeWidth;
         steps[++is] = e;
@@ -44056,10 +44119,10 @@
         var ert = toPackedI4x64(0, scaleInvariant, wr, wt);
         var elb = toPackedI4x64(0, scaleInvariant, wl, wb);
         var erb = toPackedI4x64(0, scaleInvariant, wr, wb);
-        var c11 = toPackedF2x1024(1, 1);
-        var c01 = toPackedF2x1024(0, 1);
-        var c00 = toPackedF2x1024(0, 0);
-        var c10 = toPackedF2x1024(1, 0);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var c00 = toPackedClippings(0, 0);
+        var c10 = toPackedClippings(1, 0);
         // c0     c1   c4     c5
         //  |-----|     |-----|
         //  |     |     |     |
@@ -44317,10 +44380,10 @@
         var ws0 = worldSize[0];
         var ws1 = worldSize[1];
         var e = toPackedI4x64(1, scaleInvariant, 1, 1);
-        var c11 = toPackedF2x1024(1, 1);
-        var c01 = toPackedF2x1024(0, 1);
-        var c10 = toPackedF2x1024(1, 0);
-        var c00 = toPackedF2x1024(0, 0);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var c10 = toPackedClippings(1, 0);
+        var c00 = toPackedClippings(0, 0);
         var is = voffset * 6 - 1;
         steps[++is] = strokeWidth;
         steps[++is] = e;
@@ -44565,14 +44628,14 @@
         var w = 1 - radius;
         var e0 = toPackedI4x64(0, scaleInvariant, 1, 1);
         var e1 = toPackedI4x64(1, scaleInvariant, 1, 1);
-        var c00 = toPackedF2x1024(0, 0);
-        var c10 = toPackedF2x1024(1, 0);
-        var c11 = toPackedF2x1024(1, 1);
-        var c01 = toPackedF2x1024(0, 1);
-        var cww = toPackedF2x1024(w, w);
-        var c1w = toPackedF2x1024(1, w);
-        var cw1 = toPackedF2x1024(w, 1);
-        var cw0 = toPackedF2x1024(w, 0);
+        var c00 = toPackedClippings(0, 0);
+        var c10 = toPackedClippings(1, 0);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var cww = toPackedClippings(w, w);
+        var c1w = toPackedClippings(1, w);
+        var cw1 = toPackedClippings(w, 1);
+        var cw0 = toPackedClippings(w, 0);
         // Top corner
         var is = voffset * 6 - 1;
         if (corner & EShapeCorner.TOP) {
@@ -44987,9 +45050,9 @@
         var scaleInvariant = toScaleInvariant(strokeStyle);
         var s = worldSize[0];
         var e = toPackedI4x64(0, scaleInvariant, 1, 1);
-        var c00 = toPackedF2x1024(0, 0);
-        var c10 = toPackedF2x1024(1, 0);
-        var c01 = toPackedF2x1024(0, 1);
+        var c00 = toPackedClippings(0, 0);
+        var c10 = toPackedClippings(1, 0);
+        var c01 = toPackedClippings(0, 1);
         // 000
         var is = voffset * 6 - 1;
         steps[++is] = strokeWidth;
@@ -49096,7 +49159,7 @@
             this._lengths.push(length);
             return result;
         };
-        UtilStraightSkeletonBufferBuilder.prototype.addWavefront = function (wavefront) {
+        UtilStraightSkeletonBufferBuilder.prototype.addWavefront = function (wavefront, shift) {
             if (wavefront.parent != null) {
                 return;
             }
@@ -49143,25 +49206,56 @@
             for (var i = oldDistancesLength + 1; i < newDistancesLength; ++i) {
                 mdistance = Math.max(mdistance, distances[i]);
             }
+            var shifted = this.shift(wavefront, (shift - 1) * mdistance);
             var clippings = this._clippings;
             if (0 < mdistance) {
                 var fdistance = 1 / mdistance;
                 for (var i = oldDistancesLength; i < newDistancesLength; ++i) {
-                    clippings.push(1 - distances[i] * fdistance);
+                    clippings.push(shifted.has(i) ? shift : 1 - distances[i] * fdistance);
                     distances[i] = fdistance;
                 }
             }
             else {
                 for (var i = oldDistancesLength; i < newDistancesLength; ++i) {
-                    clippings.push(1);
+                    clippings.push(shifted.has(i) ? shift : 1);
                     distances[i] = mdistance;
                 }
             }
         };
-        UtilStraightSkeletonBufferBuilder.prototype.addWavefrontAll = function (wavefronts) {
+        UtilStraightSkeletonBufferBuilder.prototype.shift = function (wavefront, distance) {
+            var result = new Set();
+            var indexToLengthToIv = this._ivs.get(wavefront);
+            if (indexToLengthToIv != null) {
+                var normals_1 = wavefront.normals;
+                var normalsLength_1 = normals_1.length;
+                var vertices_1 = this._vertices;
+                indexToLengthToIv.forEach(function (lengthToIv, index) {
+                    var pindex = (index - 2 + normalsLength_1) % normalsLength_1;
+                    var nx = normals_1[index];
+                    var ny = normals_1[index + 1];
+                    var mx = ny;
+                    var my = -nx;
+                    var pnx = normals_1[pindex];
+                    var pny = normals_1[pindex + 1];
+                    var dnm = mx * pnx + my * pny;
+                    var dnn = nx * pnx + ny * pny;
+                    var s = 0 < Math.abs(dnm) ? (1 - dnn) / dnm : 0 <= dnn ? -0.5 * dnm : 0;
+                    var dx = distance * (nx + s * mx);
+                    var dy = distance * (ny + s * my);
+                    lengthToIv.forEach(function (iv) {
+                        var iv2 = iv << 1;
+                        vertices_1[iv2] += dx;
+                        vertices_1[iv2 + 1] += dy;
+                        result.add(iv);
+                    });
+                });
+            }
+            return result;
+        };
+        UtilStraightSkeletonBufferBuilder.prototype.addWavefrontAll = function (wavefronts, shift) {
             var wavefrontsLength = wavefronts.length;
             for (var i = 0; i < wavefrontsLength; ++i) {
-                this.addWavefront(wavefronts[i]);
+                this.addWavefront(wavefronts[i], shift);
             }
             return this;
         };
@@ -49291,8 +49385,10 @@
             this.clippings = clippings;
             this.indices = indices;
         }
-        UtilStraightSkeletonBuffer.from = function (wavefronts) {
-            return new UtilStraightSkeletonBufferBuilder().addWavefrontAll(wavefronts).build();
+        UtilStraightSkeletonBuffer.from = function (wavefronts, shift) {
+            return new UtilStraightSkeletonBufferBuilder()
+                .addWavefrontAll(wavefronts, Math.min(1.1, Math.max(1.0, shift !== null && shift !== void 0 ? shift : 1.1)))
+                .build();
         };
         return UtilStraightSkeletonBuffer;
     }());
@@ -49488,7 +49584,8 @@
             var isParentIdChanged = this._parentPointsId !== parentPointsId;
             if (isParentIdChanged) {
                 this._parentPointsId = parentPointsId;
-                var buffer = UtilStraightSkeletonBuffer.from(UtilStraightSkeleton.from(parentPoints.formatted.values));
+                var values = parentPoints.formatted.values;
+                var buffer = UtilStraightSkeletonBuffer.from(UtilStraightSkeleton.from(values));
                 this._id += 1;
                 var vertices = buffer.vertices;
                 this._vertices = vertices;
@@ -49497,7 +49594,7 @@
                 this._lengths = buffer.lengths;
                 this._clippings = buffer.clippings;
                 var boundary = this._boundary;
-                toPointsBoundary(vertices, boundary);
+                toPointsBoundary(values, boundary);
                 this._uvs = this.toUvs(vertices, boundary);
                 this._indices = buffer.indices;
                 this._nindices = buffer.indices.length / 3;
