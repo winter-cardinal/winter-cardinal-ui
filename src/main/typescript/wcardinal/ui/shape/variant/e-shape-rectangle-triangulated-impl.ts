@@ -15,6 +15,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	protected _height: number;
 	protected _strokeAlign: number;
 	protected _strokeWidth: number;
+	protected _strokeSide: EShapeStrokeSide;
 	protected _sizeX: number;
 	protected _sizeY: number;
 	protected _vertices: number[];
@@ -34,6 +35,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		this._height = 0;
 		this._strokeAlign = 0;
 		this._strokeWidth = 0;
+		this._strokeSide = EShapeStrokeSide.NONE;
 		this._sizeX = 0;
 		this._sizeY = 0;
 		this._vertices = [];
@@ -109,8 +111,11 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeSide = stroke.side;
 		const isStrokeChanged =
-			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
+			this._strokeAlign !== strokeAlign ||
+			this._strokeWidth !== strokeWidth ||
+			this._strokeSide !== strokeSide;
 
 		let isSizeChanged = false;
 		let sizeX = this._sizeX;
@@ -120,6 +125,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			this._height = height;
 			this._strokeAlign = strokeAlign;
 			this._strokeWidth = strokeWidth;
+			this._strokeSide = strokeSide;
 
 			const s = strokeAlign * strokeWidth;
 			sizeX = width * 0.5 + (0 <= width ? +s : -s);
@@ -127,7 +133,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
 		}
 
-		if (isNotInitialized || isSizeChanged) {
+		if (isNotInitialized || isSizeChanged || isStrokeChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
 			this.update(sizeX, sizeY, 1.1);
@@ -145,8 +151,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		boundary[3] = +ay;
 
 		// # of vertices and # of indices
-		const nv = 0; // TODO: IMPLEMENT THIS
-		const ni = 0; // TODO: IMPLEMENT THIS
+		const nv = 36;
+		const ni = 18;
 		this._nvertices = nv;
 		this._nindices = ni;
 
@@ -175,6 +181,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 				case EShapeStrokeSide.TOP_OR_BOTTOM:
 				case EShapeStrokeSide.TOP_OR_LEFT:
 				case EShapeStrokeSide.BOTTOM_OR_RIGHT:
+				case EShapeStrokeSide.BOTTOM_OR_LEFT:
 				case EShapeStrokeSide.LEFT_OR_RIGHT:
 					this.update0d(sizeX, sizeY, scale, side, nv, ni);
 					break;
@@ -204,6 +211,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 				case EShapeStrokeSide.TOP_OR_BOTTOM:
 				case EShapeStrokeSide.TOP_OR_LEFT:
 				case EShapeStrokeSide.BOTTOM_OR_RIGHT:
+				case EShapeStrokeSide.BOTTOM_OR_LEFT:
 				case EShapeStrokeSide.LEFT_OR_RIGHT:
 					this.update1d(sizeX, sizeY, scale, side, nv, ni);
 					break;
@@ -233,6 +241,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 				case EShapeStrokeSide.TOP_OR_BOTTOM:
 				case EShapeStrokeSide.TOP_OR_LEFT:
 				case EShapeStrokeSide.BOTTOM_OR_RIGHT:
+				case EShapeStrokeSide.BOTTOM_OR_LEFT:
 				case EShapeStrokeSide.LEFT_OR_RIGHT:
 					this.update2d(sizeX, sizeY, scale, side, nv, ni);
 					break;
@@ -296,7 +305,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -314,7 +323,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -332,7 +341,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangleSingle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -350,7 +359,22 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		if (side === EShapeStrokeSide.TOP_OR_RIGHT) {
+			this.updateTr(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.TOP_OR_LEFT) {
+			this.updateTl(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.BOTTOM_OR_RIGHT) {
+			this.updateBr(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.BOTTOM_OR_LEFT) {
+			this.updateBl(sizeX, sizeY, scale, nv, ni);
+		} else if (
+			side === EShapeStrokeSide.TOP_OR_BOTTOM ||
+			side === EShapeStrokeSide.LEFT_OR_RIGHT
+		) {
+			this.updateTb(sizeX, sizeY, scale, side, nv, ni);
+		} else {
+			this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
+		}
 	}
 
 	/**
@@ -368,7 +392,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangleThree(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -386,7 +410,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -404,7 +428,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -422,7 +446,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangleSingle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -440,7 +464,22 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		if (side === EShapeStrokeSide.TOP_OR_RIGHT) {
+			this.updateTr(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.TOP_OR_LEFT) {
+			this.updateTl(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.BOTTOM_OR_RIGHT) {
+			this.updateBr(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.BOTTOM_OR_LEFT) {
+			this.updateBl(sizeX, sizeY, scale, nv, ni);
+		} else if (
+			side === EShapeStrokeSide.TOP_OR_BOTTOM ||
+			side === EShapeStrokeSide.LEFT_OR_RIGHT
+		) {
+			this.updateTb(sizeX, sizeY, scale, side, nv, ni);
+		} else {
+			this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
+		}
 	}
 
 	/**
@@ -458,7 +497,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangleThree(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -476,7 +515,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -494,7 +533,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -512,7 +551,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangleSingle(sizeX, sizeY, scale, side, nv, ni);
 	}
 
 	/**
@@ -530,7 +569,22 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		if (side === EShapeStrokeSide.TOP_OR_RIGHT) {
+			this.updateTr(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.TOP_OR_LEFT) {
+			this.updateTl(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.BOTTOM_OR_RIGHT) {
+			this.updateBr(sizeX, sizeY, scale, nv, ni);
+		} else if (side === EShapeStrokeSide.BOTTOM_OR_LEFT) {
+			this.updateBl(sizeX, sizeY, scale, nv, ni);
+		} else if (
+			side === EShapeStrokeSide.TOP_OR_BOTTOM ||
+			side === EShapeStrokeSide.LEFT_OR_RIGHT
+		) {
+			this.updateTb(sizeX, sizeY, scale, side, nv, ni);
+		} else {
+			this.updateRectangle(sizeX, sizeY, scale, side, nv, ni);
+		}
 	}
 
 	/**
@@ -548,6 +602,1051 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		nv: number,
 		ni: number
 	): void {
-		// TODO: IMPLEMENT THIS
+		this.updateRectangleThree(sizeX, sizeY, scale, side, nv, ni);
+	}
+
+	protected updateRectangleSingle(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		side: EShapeStrokeSide,
+		nv: number,
+		ni: number
+	): void {
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		let fdistance: number;
+		switch (side) {
+			case EShapeStrokeSide.TOP:
+				fdistance = 1 / (2 * ay);
+				this.updateCell(
+					-ax,
+					-ay - (scale - 1) / fdistance,
+					+ax,
+					+ay,
+					side,
+					fdistance,
+					scale,
+					sizeX,
+					sizeY,
+					ax,
+					ay,
+					0
+				);
+				break;
+			case EShapeStrokeSide.RIGHT:
+				fdistance = 1 / (2 * ax);
+				this.updateCell(
+					-ax,
+					-ay,
+					+ax + (scale - 1) / fdistance,
+					+ay,
+					side,
+					fdistance,
+					scale,
+					sizeX,
+					sizeY,
+					ax,
+					ay,
+					0
+				);
+				break;
+			case EShapeStrokeSide.BOTTOM:
+				fdistance = 1 / (2 * ay);
+				this.updateCell(
+					-ax,
+					-ay,
+					+ax,
+					+ay + (scale - 1) / fdistance,
+					side,
+					fdistance,
+					scale,
+					sizeX,
+					sizeY,
+					ax,
+					ay,
+					0
+				);
+				break;
+			default:
+				fdistance = 1 / (2 * ax);
+				this.updateCell(
+					-ax - (scale - 1) / fdistance,
+					-ay,
+					+ax,
+					+ay,
+					side,
+					fdistance,
+					scale,
+					sizeX,
+					sizeY,
+					ax,
+					ay,
+					0
+				);
+				break;
+		}
+		this.pad(4, 6, nv, ni, fdistance);
+	}
+
+	protected updateTb(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		side: EShapeStrokeSide,
+		nv: number,
+		ni: number
+	): void {
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		let fdistance: number;
+		if (side === EShapeStrokeSide.LEFT_OR_RIGHT) {
+			fdistance = 1 / ax;
+			const shift = (scale - 1) / fdistance;
+			this.updateCell(
+				-ax - shift,
+				-ay,
+				0,
+				+ay,
+				EShapeStrokeSide.LEFT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay,
+				0
+			);
+			this.updateCell(
+				0,
+				-ay,
+				+ax + shift,
+				+ay,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay,
+				4
+			);
+		} else {
+			fdistance = 1 / ay;
+			const shift = (scale - 1) / fdistance;
+			this.updateCell(
+				-ax,
+				-ay - shift,
+				+ax,
+				0,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay,
+				0
+			);
+			this.updateCell(
+				-ax,
+				0,
+				+ax,
+				+ay + shift,
+				EShapeStrokeSide.BOTTOM,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay,
+				4
+			);
+		}
+		this.pad(8, 12, nv, ni, fdistance);
+	}
+
+	protected updateTr(sizeX: number, sizeY: number, scale: number, nv: number, ni: number): void {
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const distance = 2 * Math.min(ax, ay);
+		const fdistance = 1 / distance;
+		const shift = (scale - 1) * distance;
+		const left = -ax;
+		const right = +ax + shift;
+		const top = -ay - shift;
+		const bottom = +ay;
+		const indices = this._indices;
+
+		if (ay <= ax) {
+			const splitX = ax - 2 * ay;
+			this.updateCellVertex(
+				0,
+				left,
+				top,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				1,
+				right,
+				top,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				2,
+				splitX,
+				bottom,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				3,
+				left,
+				bottom,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				4,
+				right,
+				top,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				5,
+				right,
+				bottom,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				6,
+				splitX,
+				bottom,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			indices[0] = 0;
+			indices[1] = 1;
+			indices[2] = 2;
+			indices[3] = 0;
+			indices[4] = 2;
+			indices[5] = 3;
+			indices[6] = 4;
+			indices[7] = 5;
+			indices[8] = 6;
+		} else {
+			const splitY = 2 * ax - ay;
+			this.updateCellVertex(
+				0,
+				left,
+				top,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				1,
+				right,
+				top,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				2,
+				left,
+				splitY,
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				3,
+				right,
+				top,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				4,
+				right,
+				bottom,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				5,
+				left,
+				bottom,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateCellVertex(
+				6,
+				left,
+				splitY,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			indices[0] = 0;
+			indices[1] = 1;
+			indices[2] = 2;
+			indices[3] = 3;
+			indices[4] = 4;
+			indices[5] = 5;
+			indices[6] = 3;
+			indices[7] = 5;
+			indices[8] = 6;
+		}
+
+		this.pad(7, 9, nv, ni, fdistance);
+	}
+
+	protected updateBl(sizeX: number, sizeY: number, scale: number, nv: number, ni: number): void {
+		this.updateTr(sizeX, sizeY, scale, nv, ni);
+
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const fdistance = 1 / (2 * Math.min(ax, ay));
+		const horizontalEnd = ay <= ax ? 4 : 3;
+		for (let vertex = 0; vertex < horizontalEnd; ++vertex) {
+			const vertex2 = vertex << 1;
+			this.updateCellVertex(
+				vertex,
+				-this._vertices[vertex2],
+				-this._vertices[vertex2 + 1],
+				EShapeStrokeSide.BOTTOM,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+		for (let vertex = horizontalEnd; vertex < 7; ++vertex) {
+			const vertex2 = vertex << 1;
+			this.updateCellVertex(
+				vertex,
+				-this._vertices[vertex2],
+				-this._vertices[vertex2 + 1],
+				EShapeStrokeSide.LEFT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+	}
+
+	protected updateTl(sizeX: number, sizeY: number, scale: number, nv: number, ni: number): void {
+		this.updateTr(sizeX, sizeY, scale, nv, ni);
+
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const fdistance = 1 / (2 * Math.min(ax, ay));
+		const horizontalEnd = ay <= ax ? 4 : 3;
+		for (let vertex = 0; vertex < horizontalEnd; ++vertex) {
+			const vertex2 = vertex << 1;
+			this.updateCellVertex(
+				vertex,
+				-this._vertices[vertex2],
+				this._vertices[vertex2 + 1],
+				EShapeStrokeSide.TOP,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+		for (let vertex = horizontalEnd; vertex < 7; ++vertex) {
+			const vertex2 = vertex << 1;
+			this.updateCellVertex(
+				vertex,
+				-this._vertices[vertex2],
+				this._vertices[vertex2 + 1],
+				EShapeStrokeSide.LEFT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+		for (let index = 0; index < 9; index += 3) {
+			const second = this._indices[index + 1];
+			this._indices[index + 1] = this._indices[index + 2];
+			this._indices[index + 2] = second;
+		}
+	}
+
+	protected updateBr(sizeX: number, sizeY: number, scale: number, nv: number, ni: number): void {
+		this.updateTr(sizeX, sizeY, scale, nv, ni);
+
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const fdistance = 1 / (2 * Math.min(ax, ay));
+		const horizontalEnd = ay <= ax ? 4 : 3;
+		for (let vertex = 0; vertex < horizontalEnd; ++vertex) {
+			const vertex2 = vertex << 1;
+			this.updateCellVertex(
+				vertex,
+				this._vertices[vertex2],
+				-this._vertices[vertex2 + 1],
+				EShapeStrokeSide.BOTTOM,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+		for (let vertex = horizontalEnd; vertex < 7; ++vertex) {
+			const vertex2 = vertex << 1;
+			this.updateCellVertex(
+				vertex,
+				this._vertices[vertex2],
+				-this._vertices[vertex2 + 1],
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+		for (let index = 0; index < 9; index += 3) {
+			const second = this._indices[index + 1];
+			this._indices[index + 1] = this._indices[index + 2];
+			this._indices[index + 2] = second;
+		}
+	}
+
+	protected updateRectangleNotTop(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		nv: number,
+		ni: number
+	): void {
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const distance = Math.min(ax, 2 * ay);
+		const fdistance = 1 / distance;
+		const shift = (scale - 1) * distance;
+		const left = -ax - shift;
+		const right = +ax + shift;
+		const top = -ay;
+		const bottom = +ay + shift;
+
+		if (2 * ay <= ax) {
+			const splitLeft = 2 * ay - ax;
+			const splitRight = ax - 2 * ay;
+			this.updateTriangle(
+				0,
+				0,
+				left,
+				top,
+				splitLeft,
+				top,
+				left,
+				bottom,
+				EShapeStrokeSide.LEFT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateQuadrilateral(
+				3,
+				3,
+				splitLeft,
+				top,
+				splitRight,
+				top,
+				right,
+				bottom,
+				left,
+				bottom,
+				EShapeStrokeSide.BOTTOM,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateTriangle(
+				7,
+				9,
+				splitRight,
+				top,
+				right,
+				top,
+				right,
+				bottom,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.pad(10, 12, nv, ni, fdistance);
+		} else {
+			const splitY = ay - ax;
+			this.updateQuadrilateral(
+				0,
+				0,
+				left,
+				top,
+				0,
+				top,
+				0,
+				splitY,
+				left,
+				bottom,
+				EShapeStrokeSide.LEFT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateQuadrilateral(
+				4,
+				6,
+				0,
+				top,
+				right,
+				top,
+				right,
+				bottom,
+				0,
+				splitY,
+				EShapeStrokeSide.RIGHT,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.updateTriangle(
+				8,
+				12,
+				0,
+				splitY,
+				right,
+				bottom,
+				left,
+				bottom,
+				EShapeStrokeSide.BOTTOM,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+			this.pad(11, 15, nv, ni, fdistance);
+		}
+	}
+
+	protected updateRectangleThree(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		side: EShapeStrokeSide,
+		nv: number,
+		ni: number
+	): void {
+		if (side === EShapeStrokeSide.NOT_TOP) {
+			this.updateRectangleNotTop(sizeX, sizeY, scale, nv, ni);
+			return;
+		}
+
+		const isSwapped = side === EShapeStrokeSide.NOT_LEFT || side === EShapeStrokeSide.NOT_RIGHT;
+		if (isSwapped) {
+			this.updateRectangleNotTop(sizeY, sizeX, scale, nv, ni);
+		} else {
+			this.updateRectangleNotTop(sizeX, sizeY, scale, nv, ni);
+		}
+
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const canonicalAx = isSwapped ? ay : ax;
+		const canonicalAy = isSwapped ? ax : ay;
+		const fdistance = 1 / Math.min(canonicalAx, 2 * canonicalAy);
+		const isWide = 2 * canonicalAy <= canonicalAx;
+		const firstEnd = isWide ? 3 : 4;
+		const secondEnd = isWide ? 7 : 8;
+		const vertexEnd = isWide ? 10 : 11;
+		for (let vertex = 0; vertex < vertexEnd; ++vertex) {
+			const vertex2 = vertex << 1;
+			const x = this._vertices[vertex2];
+			const y = this._vertices[vertex2 + 1];
+			let canonicalEdge: EShapeStrokeSide;
+			if (vertex < firstEnd) {
+				canonicalEdge = EShapeStrokeSide.LEFT;
+			} else if (vertex < secondEnd) {
+				canonicalEdge = isWide ? EShapeStrokeSide.BOTTOM : EShapeStrokeSide.RIGHT;
+			} else {
+				canonicalEdge = isWide ? EShapeStrokeSide.RIGHT : EShapeStrokeSide.BOTTOM;
+			}
+			let transformedX: number;
+			let transformedY: number;
+			let edge: EShapeStrokeSide;
+			if (side === EShapeStrokeSide.NOT_BOTTOM) {
+				transformedX = x;
+				transformedY = -y;
+				edge =
+					canonicalEdge === EShapeStrokeSide.BOTTOM
+						? EShapeStrokeSide.TOP
+						: canonicalEdge;
+			} else if (side === EShapeStrokeSide.NOT_LEFT) {
+				transformedX = y;
+				transformedY = -x;
+				edge =
+					canonicalEdge === EShapeStrokeSide.LEFT
+						? EShapeStrokeSide.BOTTOM
+						: canonicalEdge === EShapeStrokeSide.BOTTOM
+						  ? EShapeStrokeSide.RIGHT
+						  : EShapeStrokeSide.TOP;
+			} else {
+				transformedX = -y;
+				transformedY = x;
+				edge =
+					canonicalEdge === EShapeStrokeSide.LEFT
+						? EShapeStrokeSide.TOP
+						: canonicalEdge === EShapeStrokeSide.BOTTOM
+						  ? EShapeStrokeSide.LEFT
+						  : EShapeStrokeSide.BOTTOM;
+			}
+			this.updateCellVertex(
+				vertex,
+				transformedX,
+				transformedY,
+				edge,
+				fdistance,
+				scale,
+				sizeX,
+				sizeY,
+				ax,
+				ay
+			);
+		}
+
+		if (side === EShapeStrokeSide.NOT_BOTTOM) {
+			const indexEnd = isWide ? 12 : 15;
+			for (let index = 0; index < indexEnd; index += 3) {
+				const second = this._indices[index + 1];
+				this._indices[index + 1] = this._indices[index + 2];
+				this._indices[index + 2] = second;
+			}
+		}
+	}
+
+	protected updateTriangle(
+		iv: number,
+		ii: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		edge: EShapeStrokeSide,
+		fdistance: number,
+		scale: number,
+		sizeX: number,
+		sizeY: number,
+		ax: number,
+		ay: number
+	): void {
+		this.updateCellVertex(iv, x0, y0, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 1, x1, y1, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 2, x2, y2, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this._indices[ii] = iv;
+		this._indices[ii + 1] = iv + 1;
+		this._indices[ii + 2] = iv + 2;
+	}
+
+	protected updateQuadrilateral(
+		iv: number,
+		ii: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		x3: number,
+		y3: number,
+		edge: EShapeStrokeSide,
+		fdistance: number,
+		scale: number,
+		sizeX: number,
+		sizeY: number,
+		ax: number,
+		ay: number
+	): void {
+		this.updateCellVertex(iv, x0, y0, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 1, x1, y1, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 2, x2, y2, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 3, x3, y3, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this._indices[ii] = iv;
+		this._indices[ii + 1] = iv + 1;
+		this._indices[ii + 2] = iv + 2;
+		this._indices[ii + 3] = iv;
+		this._indices[ii + 4] = iv + 2;
+		this._indices[ii + 5] = iv + 3;
+	}
+
+	protected updateRectangle(
+		sizeX: number,
+		sizeY: number,
+		scale: number,
+		side: EShapeStrokeSide,
+		nv: number,
+		ni: number
+	): void {
+		const ax = Math.abs(sizeX);
+		const ay = Math.abs(sizeY);
+		const distance = Math.min(ax, ay);
+		const fdistance = 1 / distance;
+		const shift = (scale - 1) * distance;
+		const left = -ax;
+		const right = +ax;
+		const top = -ay;
+		const bottom = +ay;
+		const innerLeft = left + distance;
+		const innerRight = right - distance;
+		const innerTop = top + distance;
+		const innerBottom = bottom - distance;
+		const outerLeft = left - shift;
+		const outerRight = right + shift;
+		const outerTop = top - shift;
+		const outerBottom = bottom + shift;
+		const hasTop = !!(side & EShapeStrokeSide.TOP);
+		const hasRight = !!(side & EShapeStrokeSide.RIGHT);
+		const hasBottom = !!(side & EShapeStrokeSide.BOTTOM);
+		const hasLeft = !!(side & EShapeStrokeSide.LEFT);
+		const topLeft = hasTop ? EShapeStrokeSide.TOP : hasLeft ? EShapeStrokeSide.LEFT : 0;
+		const topRight = hasTop ? EShapeStrokeSide.TOP : hasRight ? EShapeStrokeSide.RIGHT : 0;
+		const bottomLeft = hasBottom
+			? EShapeStrokeSide.BOTTOM
+			: hasLeft
+			  ? EShapeStrokeSide.LEFT
+			  : 0;
+		const bottomRight = hasBottom
+			? EShapeStrokeSide.BOTTOM
+			: hasRight
+			  ? EShapeStrokeSide.RIGHT
+			  : 0;
+
+		this.updateCell(
+			topLeft === EShapeStrokeSide.LEFT ? outerLeft : left,
+			topLeft === EShapeStrokeSide.TOP ? outerTop : top,
+			innerLeft,
+			innerTop,
+			topLeft,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			0
+		);
+		this.updateCell(
+			innerLeft,
+			hasTop ? outerTop : top,
+			innerRight,
+			innerTop,
+			hasTop ? EShapeStrokeSide.TOP : 0,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			4
+		);
+		this.updateCell(
+			innerRight,
+			topRight === EShapeStrokeSide.TOP ? outerTop : top,
+			topRight === EShapeStrokeSide.RIGHT ? outerRight : right,
+			innerTop,
+			topRight,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			8
+		);
+		this.updateCell(
+			hasLeft ? outerLeft : left,
+			innerTop,
+			innerLeft,
+			innerBottom,
+			hasLeft ? EShapeStrokeSide.LEFT : 0,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			12
+		);
+		this.updateCell(
+			innerLeft,
+			innerTop,
+			innerRight,
+			innerBottom,
+			0,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			16
+		);
+		this.updateCell(
+			innerRight,
+			innerTop,
+			hasRight ? outerRight : right,
+			innerBottom,
+			hasRight ? EShapeStrokeSide.RIGHT : 0,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			20
+		);
+		this.updateCell(
+			bottomLeft === EShapeStrokeSide.LEFT ? outerLeft : left,
+			innerBottom,
+			innerLeft,
+			bottomLeft === EShapeStrokeSide.BOTTOM ? outerBottom : bottom,
+			bottomLeft,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			24
+		);
+		this.updateCell(
+			innerLeft,
+			innerBottom,
+			innerRight,
+			hasBottom ? outerBottom : bottom,
+			hasBottom ? EShapeStrokeSide.BOTTOM : 0,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			28
+		);
+		this.updateCell(
+			innerRight,
+			innerBottom,
+			bottomRight === EShapeStrokeSide.RIGHT ? outerRight : right,
+			bottomRight === EShapeStrokeSide.BOTTOM ? outerBottom : bottom,
+			bottomRight,
+			fdistance,
+			scale,
+			sizeX,
+			sizeY,
+			ax,
+			ay,
+			32
+		);
+
+		this.pad(36, 54, nv, ni, fdistance);
+	}
+
+	protected updateCell(
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		edge: EShapeStrokeSide,
+		fdistance: number,
+		scale: number,
+		sizeX: number,
+		sizeY: number,
+		ax: number,
+		ay: number,
+		iv: number
+	): void {
+		const indices = this._indices;
+		this.updateCellVertex(iv, x0, y0, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 1, x1, y0, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 2, x1, y1, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateCellVertex(iv + 3, x0, y1, edge, fdistance, scale, sizeX, sizeY, ax, ay);
+
+		let ii = (iv >> 1) * 3;
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		indices[ii++] = iv;
+		indices[ii++] = iv + 2;
+		indices[ii++] = iv + 3;
+	}
+
+	protected updateCellVertex(
+		vertex: number,
+		x: number,
+		y: number,
+		edge: EShapeStrokeSide,
+		fdistance: number,
+		scale: number,
+		sizeX: number,
+		sizeY: number,
+		ax: number,
+		ay: number
+	): void {
+		let clipping = 0;
+		let length = 0;
+		switch (edge) {
+			case EShapeStrokeSide.TOP:
+				clipping = (y + ay) * -fdistance + 1;
+				length = x + ax;
+				break;
+			case EShapeStrokeSide.RIGHT:
+				clipping = (x - ax) * fdistance + 1;
+				length = 2 * ax + y + ay;
+				break;
+			case EShapeStrokeSide.BOTTOM:
+				clipping = (y - ay) * fdistance + 1;
+				length = 3 * ax + 2 * ay - x;
+				break;
+			case EShapeStrokeSide.LEFT:
+				clipping = (x + ax) * -fdistance + 1;
+				length = 4 * ax + 3 * ay - y;
+				break;
+		}
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			edge !== 0 ? fdistance : 0,
+			length,
+			Math.min(scale, clipping),
+			sizeX,
+			sizeY
+		);
+	}
+
+	protected updateVertex(
+		vertex: number,
+		x: number,
+		y: number,
+		distance: number,
+		length: number,
+		clipping: number,
+		sizeX: number,
+		sizeY: number
+	): void {
+		const vertex2 = vertex << 1;
+		this._vertices[vertex2] = x;
+		this._vertices[vertex2 + 1] = y;
+		this._distances[vertex] = distance;
+		this._lengths[vertex] = length;
+		this._clippings[vertex] = clipping;
+		this._uvs[vertex2] = 0.5 * (x / sizeX + 1);
+		this._uvs[vertex2 + 1] = 0.5 * (y / sizeY + 1);
 	}
 }
