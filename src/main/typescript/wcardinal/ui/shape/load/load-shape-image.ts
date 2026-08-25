@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createRectangleUploaded } from "../variant/create-rectangle-uploaded";
+import { createPolygonUploaded } from "../variant";
 import { deserializeImage } from "../variant/deserialize-image";
 
 export const loadShapeImage = (): void => {
-	EShapeUploadeds[EShapeType.IMAGE] = createRectangleUploaded;
+	EShapeUploadeds[EShapeType.IMAGE] = createPolygonUploaded;
 	EShapeDeserializers[EShapeType.IMAGE] = deserializeImage;
 };

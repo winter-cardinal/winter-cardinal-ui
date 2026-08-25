@@ -5,9 +5,9 @@
 
 import { EShapeType } from "../e-shape-type";
 import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
-import { EShapeRectangle } from "./e-shape-rectangle";
+import { EShapeRectangleLegacy } from "./e-shape-rectangle-legacy";
 
-export class EShapeRectanglePivoted extends EShapeRectangle {
+export class EShapeRectanglePivoted extends EShapeRectangleLegacy {
 	constructor(type: EShapeType = EShapeType.RECTANGLE_PIVOTED) {
 		super(type);
 	}

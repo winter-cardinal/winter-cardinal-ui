@@ -32,6 +32,7 @@ export const EShapeType = {
 	EMBEDDED_ACCEPTOR_EDGE: 25,
 	POLYGON: 26,
 	CIRCLE_LEGACY: 27,
+	RECTANGLE_LEGACY: 28,
 	EXTENSION: 1000
 } as const;
 

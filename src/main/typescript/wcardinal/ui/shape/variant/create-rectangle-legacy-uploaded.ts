@@ -11,10 +11,10 @@ import {
 	RECTANGLE_LEGACY_VERTEX_COUNT
 } from "./build-rectangle-legacy";
 import { TEXT_INDEX_COUNT_SHIFT, TEXT_VERTEX_COUNT_SHIFT, toTextBufferCount } from "./build-text";
-import { BuilderRectanglePivoted } from "./builder-rectangle-pivoted";
+import { BuilderRectangleLegacy } from "./builder-rectangle-legacy";
 import { BuilderText } from "./builder-text";
 
-export const createRectanglePivotedUploaded = (
+export const createRectangleLegacyUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
@@ -28,7 +28,7 @@ export const createRectanglePivotedUploaded = (
 	const icount = RECTANGLE_LEGACY_INDEX_COUNT + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-			new BuilderRectanglePivoted(buffer, voffset, ioffset),
+			new BuilderRectangleLegacy(buffer, voffset, ioffset),
 			new BuilderText(
 				buffer,
 				voffset + RECTANGLE_LEGACY_VERTEX_COUNT,
