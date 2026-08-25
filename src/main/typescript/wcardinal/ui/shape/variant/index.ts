@@ -46,7 +46,7 @@ export * from "./builder-polygon";
 export * from "./builder-rectangle-legacy";
 export * from "./builder-rectangle-pivoted";
 export * from "./builder-rectangle-rounded";
-export * from "./builder-rectangle-legacy";
+export * from "./builder-rectangle";
 export * from "./builder-semicircle";
 export * from "./builder-text";
 export * from "./builder-triangle-rounded";
