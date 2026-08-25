@@ -330,6 +330,7 @@
     * [Line (Formatter Function)](./shape/line-formatter-function.html)
     * [Line (Marker)](./shape/line-marker.html)
     * [Polygon](./shape/polygon.html)
+    * [Rectangle](./shape/rectangle.html)
     * [Straight Skeleton](./shape/straight-skeleton.html)
     * [Straight Skeleton Buffer](./shape/straight-skeleton-buffer.html)
     * Text

@@ -1,0 +1,153 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rectangle</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.3.12/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.466.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.466.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(() => {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set(300, 300);
+
+		// New
+		const new1 = new wcardinal.ui.EShapeRectangle();
+		new1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
+		new1.fill.direction = wcardinal.ui.EShapeFillDirection.LEFT;
+		new1.fill.percent = 0.75;
+		new1.fill.color = 0x3388ff;
+		new1.text.value = "New";
+		new1.text.size = 24;
+		new1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
+		new1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+		new1.text.offset.horizontal = -24;
+		new1.attach(container);
+
+		const new2 = new wcardinal.ui.EShapeRectangle();
+		new2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		new2.fill.percent = 0.75;
+		new2.fill.color = 0x3388ff;
+		new2.size.x = 200;
+		new2.transform.position.x = 200;
+		new2.attach(container);
+
+		const new3 = new wcardinal.ui.EShapeRectangle();
+		new3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		new3.fill.percent = 0.75;
+		new3.fill.color = 0x3388ff;
+		new3.size.y = 200;
+		new3.transform.position.x = 400;
+		new3.attach(container);
+
+		// Legacy
+		const legacy1 = new wcardinal.ui.EShapeRectangleLegacy();
+		legacy1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
+		legacy1.fill.direction = wcardinal.ui.EShapeFillDirection.LEFT;
+		legacy1.fill.percent = 0.75;
+		legacy1.fill.color = 0x3388ff;
+		legacy1.text.value = "Legacy";
+		legacy1.text.size = 24;
+		legacy1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
+		legacy1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+		legacy1.text.offset.horizontal = -24;
+		legacy1.transform.position.y = 250;
+		legacy1.attach(container);
+
+		const legacy2 = new wcardinal.ui.EShapeRectangleLegacy();
+		legacy2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		legacy2.fill.percent = 0.75;
+		legacy2.fill.color = 0x3388ff;
+		legacy2.size.x = 200;
+		legacy2.transform.position.x = 200;
+		legacy2.transform.position.y = 250;
+		legacy2.attach(container);
+
+		const legacy3 = new wcardinal.ui.EShapeRectangleLegacy();
+		legacy3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		legacy3.fill.percent = 0.75;
+		legacy3.fill.color = 0x3388ff;
+		legacy3.size.y = 200;
+		legacy3.transform.position.x = 400;
+		legacy3.transform.position.y = 250;
+		legacy3.attach(container);
+
+		application.stage.on("pointermove", (e) => {
+			container.hitTest(e.data.global, (shape) => {
+				console.log(shape);
+			});
+		});
+
+		application.stage.addChild(container);
+		application.update();
+		setInterval(() => {
+			const children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				child.transform.rotation += 0.01;
+				child.fill.percent += 0.002;
+				if (1 <= child.fill.percent) {
+					child.fill.percent = 0;
+				}
+				if (child.stroke.width < 20) {
+					child.stroke.width += 0.05;
+				} else {
+					child.stroke.width = 10;
+				}
+			}
+			application.render();
+		}, 32);
+
+		let iside = -1;
+		const sides = [
+			wcardinal.ui.EShapeStrokeSide.TOP,
+			wcardinal.ui.EShapeStrokeSide.RIGHT,
+			wcardinal.ui.EShapeStrokeSide.BOTTOM,
+			wcardinal.ui.EShapeStrokeSide.LEFT,
+			wcardinal.ui.EShapeStrokeSide.TOP_OR_LEFT,
+			wcardinal.ui.EShapeStrokeSide.TOP_OR_RIGHT,
+			wcardinal.ui.EShapeStrokeSide.TOP_OR_BOTTOM,
+			wcardinal.ui.EShapeStrokeSide.BOTTOM_OR_LEFT,
+			wcardinal.ui.EShapeStrokeSide.BOTTOM_OR_RIGHT,
+			wcardinal.ui.EShapeStrokeSide.LEFT_OR_RIGHT,
+			wcardinal.ui.EShapeStrokeSide.NOT_TOP,
+			wcardinal.ui.EShapeStrokeSide.NOT_RIGHT,
+			wcardinal.ui.EShapeStrokeSide.NOT_BOTTOM,
+			wcardinal.ui.EShapeStrokeSide.NOT_LEFT,
+			wcardinal.ui.EShapeStrokeSide.ALL
+		];
+		setInterval(() => {
+			iside = (iside + 1) % sides.length;
+			const side = sides[iside];
+			const children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].stroke.side = side;
+			}
+			application.render();
+		}, 1000)
+	})();
+	</script>
+</body>
+</html>
