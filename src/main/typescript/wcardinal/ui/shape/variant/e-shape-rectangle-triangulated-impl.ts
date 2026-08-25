@@ -151,8 +151,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		boundary[3] = +ay;
 
 		// # of vertices and # of indices
-		const nv = 36;
-		const ni = 18;
+		const nv = 14;
+		const ni = 6;
 		this._nvertices = nv;
 		this._nindices = ni;
 
@@ -163,89 +163,91 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		if (sizeX === 0 || sizeY === 0) {
 			this.pad(0, 0, nv, ni, 0);
 		} else {
+			const fx = 1 / sizeX;
+			const fy = 1 / sizeY;
 			switch (this._parent.stroke.side) {
 				case EShapeStrokeSide.NONE:
-					this.updateNone(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateNone(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.ALL:
 					if (ay <= ax) {
-						this.updateAll0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateAll0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateAll1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateAll1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.TOP:
-					this.updateTop(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateTop(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.RIGHT:
-					this.updateRight(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateRight(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.BOTTOM:
-					this.updateBottom(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateBottom(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.LEFT:
-					this.updateLeft(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateLeft(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.TOP_OR_BOTTOM:
-					this.updateTopBottom(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateTopBottom(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.LEFT_OR_RIGHT:
-					this.updateLeftRight(sizeX, sizeY, ax, ay, scale, nv, ni);
+					this.updateLeftRight(fx, fy, ax, ay, scale, nv, ni);
 					break;
 				case EShapeStrokeSide.TOP_OR_RIGHT:
 					if (ay <= ax) {
-						this.updateTopRight0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateTopRight0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateTopRight1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateTopRight1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.TOP_OR_LEFT:
 					if (ay <= ax) {
-						this.updateTopLeft0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateTopLeft0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateTopLeft1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateTopLeft1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.BOTTOM_OR_RIGHT:
 					if (ay <= ax) {
-						this.updateBottomRight0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateBottomRight0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateBottomRight1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateBottomRight1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.BOTTOM_OR_LEFT:
 					if (ay <= ax) {
-						this.updateBottomLeft0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateBottomLeft0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateBottomLeft1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateBottomLeft1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_TOP:
 					if (2 * ay <= ax) {
-						this.updateNotTop0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotTop0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateNotTop1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotTop1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_RIGHT:
 					if (2 * ax <= ay) {
-						this.updateNotRight0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotRight0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateNotRight1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotRight1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_BOTTOM:
 					if (2 * ay <= ax) {
-						this.updateNotBottom0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotBottom0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateNotBottom1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotBottom1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_LEFT:
 					if (2 * ax <= ay) {
-						this.updateNotLeft0(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotLeft0(fx, fy, ax, ay, scale, nv, ni);
 					} else {
-						this.updateNotLeft1(sizeX, sizeY, ax, ay, scale, nv, ni);
+						this.updateNotLeft1(fx, fy, ax, ay, scale, nv, ni);
 					}
 					break;
 			}
@@ -288,8 +290,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateTop(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -304,8 +306,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			+ay,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay,
 			0
@@ -314,8 +316,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateRight(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -330,8 +332,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			+ay,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay,
 			0
@@ -340,8 +342,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateBottom(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -356,8 +358,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			+ay + (scale - 1) / fdistance,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay,
 			0
@@ -366,8 +368,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateLeft(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -382,8 +384,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			+ay,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay,
 			0
@@ -392,8 +394,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateLeftRight(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -402,14 +404,14 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	): void {
 		const fdistance = 1 / ax;
 		const shift = (scale - 1) / fdistance;
-		this.updateCellLeft(-ax - shift, -ay, 0, +ay, fdistance, scale, sizeX, sizeY, ax, ay, 0);
-		this.updateCellRight(0, -ay, +ax + shift, +ay, fdistance, scale, sizeX, sizeY, ax, ay, 4);
+		this.updateCellLeft(-ax - shift, -ay, 0, +ay, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateCellRight(0, -ay, +ax + shift, +ay, fdistance, scale, fx, fy, ax, ay, 4);
 		this.pad(8, 12, nv, ni, fdistance);
 	}
 
 	protected updateTopBottom(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -418,14 +420,14 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	): void {
 		const fdistance = 1 / ay;
 		const shift = (scale - 1) / fdistance;
-		this.updateCellTop(-ax, -ay - shift, +ax, 0, fdistance, scale, sizeX, sizeY, ax, ay, 0);
-		this.updateCellBottom(-ax, 0, +ax, +ay + shift, fdistance, scale, sizeX, sizeY, ax, ay, 4);
+		this.updateCellTop(-ax, -ay - shift, +ax, 0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateCellBottom(-ax, 0, +ax, +ay + shift, fdistance, scale, fx, fy, ax, ay, 4);
 		this.pad(8, 12, nv, ni, fdistance);
 	}
 
 	protected updateTopRight0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -442,13 +444,13 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		const indices = this._indices;
 
 		const splitX = ax - 2 * ay;
-		this.updateVertexTop(0, left, top, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(1, right, top, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(2, splitX, bottom, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(3, left, bottom, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(4, right, top, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(5, right, bottom, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(6, splitX, bottom, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(2, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(3, left, bottom, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(4, right, top, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(5, right, bottom, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(6, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
@@ -462,8 +464,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateTopRight1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -479,13 +481,13 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		const bottom = +ay;
 		const indices = this._indices;
 		const splitY = 2 * ax - ay;
-		this.updateVertexTop(0, left, top, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(1, right, top, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(2, left, splitY, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(3, right, top, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(4, right, bottom, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(5, left, bottom, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(6, left, splitY, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(2, left, splitY, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(3, right, top, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(4, right, bottom, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(5, left, bottom, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(6, left, splitY, fdistance, scale, fx, fy, ax, ay);
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
@@ -500,8 +502,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateBottomLeft0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -530,8 +532,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -546,8 +548,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -555,8 +557,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateBottomLeft1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -582,8 +584,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -600,8 +602,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -609,8 +611,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateTopLeft0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -639,8 +641,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -655,8 +657,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -664,8 +666,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateTopLeft1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -691,8 +693,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -709,8 +711,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -718,8 +720,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateBottomRight0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -748,8 +750,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -764,8 +766,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -773,8 +775,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateBottomRight1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -800,8 +802,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -818,8 +820,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -827,8 +829,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotTop0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -855,8 +857,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -873,8 +875,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -889,8 +891,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -898,8 +900,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotTop1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -927,8 +929,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -945,8 +947,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -961,8 +963,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -970,8 +972,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotBottom0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -999,8 +1001,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1017,8 +1019,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1033,8 +1035,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1042,8 +1044,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotBottom1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1071,8 +1073,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1089,8 +1091,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			-splitY,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1105,8 +1107,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1114,8 +1116,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotLeft0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1143,8 +1145,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1161,8 +1163,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1177,8 +1179,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1186,8 +1188,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotLeft1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1215,8 +1217,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1233,8 +1235,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			0,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1249,8 +1251,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1258,8 +1260,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotRight0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1274,21 +1276,21 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		const top = -ay - shift;
 		const bottom = +ay + shift;
 
-		const splitTop = 2 * ax - ay;
-		const splitBottom = ay - 2 * ax;
+		const stop = 2 * ax - ay;
+		const sbottom = ay - 2 * ax;
 		this.updateTriBottom(
 			0,
 			0,
 			right,
 			bottom,
 			right,
-			splitBottom,
+			sbottom,
 			left,
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1296,17 +1298,17 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			3,
 			3,
 			right,
-			splitBottom,
+			sbottom,
 			right,
-			splitTop,
+			stop,
 			left,
 			top,
 			left,
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1314,15 +1316,15 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			7,
 			9,
 			right,
-			splitTop,
+			stop,
 			right,
 			top,
 			left,
 			top,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1330,8 +1332,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNotRight1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1359,8 +1361,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1377,8 +1379,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			0,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1393,8 +1395,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			bottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1412,15 +1414,15 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y2: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1437,15 +1439,15 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y2: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1462,15 +1464,15 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y2: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1487,15 +1489,15 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y2: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1514,16 +1516,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y3: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1545,16 +1547,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y3: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 3, x3, y3, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1576,16 +1578,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y3: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1607,16 +1609,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y3: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1626,21 +1628,21 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateNone(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
 		nv: number,
 		ni: number
 	): void {
-		this.updateCellNone(-ax, -ay, +ax, +ay, 0, scale, sizeX, sizeY, ax, ay, 0);
+		this.updateCellNone(-ax, -ay, +ax, +ay, 0, scale, fx, fy, ax, ay, 0);
 		this.pad(4, 6, nv, ni, 0);
 	}
 
 	protected updateAll0(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1670,8 +1672,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			0,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1686,8 +1688,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			0,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1704,8 +1706,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			0,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1720,8 +1722,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			0,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1729,8 +1731,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 	}
 
 	protected updateAll1(
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
@@ -1758,8 +1760,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			innerTop,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1776,8 +1778,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			innerTop,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1792,8 +1794,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			innerBottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1810,8 +1812,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			innerBottom,
 			fdistance,
 			scale,
-			sizeX,
-			sizeY,
+			fx,
+			fy,
 			ax,
 			ay
 		);
@@ -1825,16 +1827,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y1: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertex(iv, x0, y0, 0, 0, 0, sizeX, sizeY);
-		this.updateVertex(iv + 1, x1, y0, 0, 0, 0, sizeX, sizeY);
-		this.updateVertex(iv + 2, x1, y1, 0, 0, 0, sizeX, sizeY);
-		this.updateVertex(iv + 3, x0, y1, 0, 0, 0, sizeX, sizeY);
+		this.updateVertex(iv, x0, y0, 0, 0, 0, fx, fy);
+		this.updateVertex(iv + 1, x1, y0, 0, 0, 0, fx, fy);
+		this.updateVertex(iv + 2, x1, y1, 0, 0, 0, fx, fy);
+		this.updateVertex(iv + 3, x0, y1, 0, 0, 0, fx, fy);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1852,16 +1854,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y1: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1879,16 +1881,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y1: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1906,16 +1908,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y1: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1933,16 +1935,16 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y1: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, sizeX, sizeY, ax, ay);
-		this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, sizeX, sizeY, ax, ay);
+		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1959,8 +1961,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number
 	): void {
@@ -1971,8 +1973,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			fdistance,
 			x + ax,
 			Math.min(scale, (y + ay) * -fdistance + 1),
-			sizeX,
-			sizeY
+			fx,
+			fy
 		);
 	}
 
@@ -1982,8 +1984,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number
 	): void {
@@ -1994,8 +1996,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			fdistance,
 			2 * ax + y + ay,
 			Math.min(scale, (x - ax) * fdistance + 1),
-			sizeX,
-			sizeY
+			fx,
+			fy
 		);
 	}
 
@@ -2005,8 +2007,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number
 	): void {
@@ -2017,8 +2019,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			fdistance,
 			3 * ax + 2 * ay - x,
 			Math.min(scale, (y - ay) * fdistance + 1),
-			sizeX,
-			sizeY
+			fx,
+			fy
 		);
 	}
 
@@ -2028,8 +2030,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		y: number,
 		fdistance: number,
 		scale: number,
-		sizeX: number,
-		sizeY: number,
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number
 	): void {
@@ -2040,8 +2042,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 			fdistance,
 			4 * ax + 3 * ay - y,
 			Math.min(scale, (x + ax) * -fdistance + 1),
-			sizeX,
-			sizeY
+			fx,
+			fy
 		);
 	}
 
@@ -2052,8 +2054,8 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		distance: number,
 		length: number,
 		clipping: number,
-		sizeX: number,
-		sizeY: number
+		fx: number,
+		fy: number
 	): void {
 		const vertex2 = vertex << 1;
 		this._vertices[vertex2] = x;
@@ -2061,7 +2063,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated
 		this._distances[vertex] = distance;
 		this._lengths[vertex] = length;
 		this._clippings[vertex] = clipping;
-		this._uvs[vertex2] = 0.5 * (x / sizeX + 1);
-		this._uvs[vertex2 + 1] = 0.5 * (y / sizeY + 1);
+		this._uvs[vertex2] = 0.5 * (x * fx + 1);
+		this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
 	}
 }
