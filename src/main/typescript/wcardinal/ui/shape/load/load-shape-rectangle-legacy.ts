@@ -8,14 +8,14 @@ import { EShapeCapability } from "../e-shape-capability";
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createPolygonUploaded } from "../variant/create-polygon-uploaded";
-import { deserializeRectangle } from "../variant/deserialize-rectangle";
+import { createRectangleLegacyUploaded } from "../variant/create-rectangle-legacy-uploaded";
+import { deserializeRectangleLegacy } from "../variant/deserialize-rectangle-legacy";
 
-export const loadShapeRectangle = (): void => {
-	EShapeUploadeds[EShapeType.RECTANGLE] = createPolygonUploaded;
-	EShapeDeserializers[EShapeType.RECTANGLE] = deserializeRectangle;
+export const loadShapeRectangleLegacy = (): void => {
+	EShapeUploadeds[EShapeType.RECTANGLE_LEGACY] = createRectangleLegacyUploaded;
+	EShapeDeserializers[EShapeType.RECTANGLE_LEGACY] = deserializeRectangleLegacy;
 	EShapeCapabilities.set(
-		EShapeType.RECTANGLE,
+		EShapeType.RECTANGLE_LEGACY,
 		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE
 	);
 };

@@ -17,7 +17,7 @@ import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderBase } from "./builder-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export class BuilderRectanglePivoted extends BuilderBase {
+export class BuilderRectangleLegacy extends BuilderBase {
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
 		super(
 			buffer,
@@ -88,8 +88,8 @@ export class BuilderRectanglePivoted extends BuilderBase {
 			buildRectangleLegacyVertex(
 				buffer.vertices,
 				voffset,
-				0.5 * sizeX,
-				0.5 * sizeY,
+				0,
+				0,
 				sizeX,
 				sizeY,
 				strokeAlign,

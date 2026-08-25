@@ -6,14 +6,14 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
-	buildRectangleIndex,
-	buildRectangleStep,
-	buildRectangleUv,
-	buildRectangleVertex,
-	RECTANGLE_INDEX_COUNT,
-	RECTANGLE_VERTEX_COUNT,
-	RECTANGLE_WORLD_SIZE
-} from "./build-rectangle";
+	buildRectangleLegacyIndex,
+	buildRectangleLegacyStep,
+	buildRectangleLegacyUv,
+	buildRectangleLegacyVertex,
+	RECTANGLE_LEGACY_INDEX_COUNT,
+	RECTANGLE_LEGACY_VERTEX_COUNT,
+	RECTANGLE_LEGACY_WORLD_SIZE
+} from "./build-rectangle-legacy";
 import { BuilderMarkerBase } from "./builder-marker-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { BuilderBuffer, BuilderFlag } from "./builder";
@@ -23,14 +23,20 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 	protected pointId: number;
 
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
-		super(buffer, vertexOffset, indexOffset, RECTANGLE_VERTEX_COUNT, RECTANGLE_INDEX_COUNT);
+		super(
+			buffer,
+			vertexOffset,
+			indexOffset,
+			RECTANGLE_LEGACY_VERTEX_COUNT,
+			RECTANGLE_LEGACY_INDEX_COUNT
+		);
 		this.pointId = -1;
 	}
 
 	override init(): void {
 		const buffer = this.buffer;
 		buffer.updateIndices();
-		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+		buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
 		this.inited |= BuilderFlag.INDEX;
 	}
 
@@ -104,7 +110,7 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 			const internalTransform = (BuilderMarkerRectangle.WORK ??= new Matrix());
 			internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
 			buffer.updateVertices();
-			buildRectangleVertex(
+			buildRectangleLegacyVertex(
 				buffer.vertices,
 				voffset,
 				0,
@@ -114,26 +120,26 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 				strokeAlign,
 				strokeWidth,
 				internalTransform,
-				RECTANGLE_WORLD_SIZE
+				RECTANGLE_LEGACY_WORLD_SIZE
 			);
 
 			// Steps
 			if (isNotInited || isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
-				buildRectangleStep(
+				buildRectangleLegacyStep(
 					voffset,
 					buffer.steps,
 					strokeWidth,
 					strokeSide,
 					strokeStyle,
-					RECTANGLE_WORLD_SIZE
+					RECTANGLE_LEGACY_WORLD_SIZE
 				);
 			}
 
 			// UVs
 			if (isNotInited || isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture));
+				buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
 			}
 		}
 	}

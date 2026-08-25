@@ -6,14 +6,14 @@
 import { EShape } from "../e-shape";
 import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildRectangleIndex,
-	buildRectangleStep,
-	buildRectangleUv,
-	buildRectangleVertex,
-	RECTANGLE_INDEX_COUNT,
-	RECTANGLE_VERTEX_COUNT,
-	RECTANGLE_WORLD_SIZE
-} from "./build-rectangle";
+	buildRectangleLegacyIndex,
+	buildRectangleLegacyStep,
+	buildRectangleLegacyUv,
+	buildRectangleLegacyVertex,
+	RECTANGLE_LEGACY_INDEX_COUNT,
+	RECTANGLE_LEGACY_VERTEX_COUNT,
+	RECTANGLE_LEGACY_WORLD_SIZE
+} from "./build-rectangle-legacy";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
@@ -33,12 +33,12 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildRectangleIndex(indices, voffset, ioffset);
+			buildRectangleLegacyIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
-				RECTANGLE_VERTEX_COUNT,
+				RECTANGLE_LEGACY_VERTEX_COUNT,
 				ioffset,
-				RECTANGLE_INDEX_COUNT,
+				RECTANGLE_LEGACY_INDEX_COUNT,
 				pointCountReserved
 			);
 		}
@@ -50,7 +50,7 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexStepAndUv(buffer, shape, points);
-			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_LEGACY_VERTEX_COUNT);
 		}
 	}
 
@@ -133,7 +133,7 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 				const pointSizeY = pointSize.getY(0);
 
 				// Vertices
-				buildRectangleVertex(
+				buildRectangleLegacyVertex(
 					vertices,
 					voffset,
 					0,
@@ -143,13 +143,13 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 					strokeAlign,
 					strokeWidth,
 					internalTransform,
-					RECTANGLE_WORLD_SIZE
+					RECTANGLE_LEGACY_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
 					voffset,
-					RECTANGLE_VERTEX_COUNT,
+					RECTANGLE_LEGACY_VERTEX_COUNT,
 					pointCount,
 					pointsValues,
 					pointOffset
@@ -157,21 +157,21 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 
 				// Steps
 				if (isNotInited || isVertexChanged || isTransformChanged) {
-					buildRectangleStep(
+					buildRectangleLegacyStep(
 						voffset,
 						steps,
 						strokeWidth,
 						strokeSide,
 						strokeStyle,
-						RECTANGLE_WORLD_SIZE
+						RECTANGLE_LEGACY_WORLD_SIZE
 					);
-					copyStep(steps, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
+					copyStep(steps, voffset, RECTANGLE_LEGACY_VERTEX_COUNT, pointCount);
 				}
 
 				// UVs
 				if (isNotInited || isVertexChanged || isTextureChanged) {
-					buildRectangleUv(uvs, voffset, textureUvs);
-					copyUvs(uvs, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
+					buildRectangleLegacyUv(uvs, voffset, textureUvs);
+					copyUvs(uvs, voffset, RECTANGLE_LEGACY_VERTEX_COUNT, pointCount);
 				}
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
@@ -180,10 +180,10 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 					const py = pointsValues[ip + 1] + pointOffset.getY(i);
 					const pointSizeX = pointSize.getX(i);
 					const pointSizeY = pointSize.getY(i);
-					const iv = voffset + i * RECTANGLE_VERTEX_COUNT;
+					const iv = voffset + i * RECTANGLE_LEGACY_VERTEX_COUNT;
 
 					// Vertices
-					buildRectangleVertex(
+					buildRectangleLegacyVertex(
 						vertices,
 						iv,
 						px,
@@ -193,32 +193,33 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 						strokeAlign,
 						strokeWidth,
 						internalTransform,
-						RECTANGLE_WORLD_SIZE
+						RECTANGLE_LEGACY_WORLD_SIZE
 					);
 
 					// Steps
 					if (isNotInited || isVertexChanged || isTransformChanged) {
-						buildRectangleStep(
+						buildRectangleLegacyStep(
 							iv,
 							steps,
 							strokeWidth,
 							strokeSide,
 							strokeStyle,
-							RECTANGLE_WORLD_SIZE
+							RECTANGLE_LEGACY_WORLD_SIZE
 						);
 					}
 
 					// UVs
 					if (isNotInited || isVertexChanged || isTextureChanged) {
-						buildRectangleUv(uvs, iv, textureUvs);
+						buildRectangleLegacyUv(uvs, iv, textureUvs);
 					}
 				}
 			}
 
 			// Fill the rest
 			const pointCountReserved = this.pointCountReserved;
-			const voffsetReserved = voffset + pointCount * RECTANGLE_VERTEX_COUNT;
-			const vcountReserved = RECTANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
+			const voffsetReserved = voffset + pointCount * RECTANGLE_LEGACY_VERTEX_COUNT;
+			const vcountReserved =
+				RECTANGLE_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
 			buildNullUv(uvs, voffsetReserved, vcountReserved);

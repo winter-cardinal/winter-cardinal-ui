@@ -22,7 +22,10 @@ import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
 import { CIRCLE_LEGACY_INDEX_COUNT, CIRCLE_LEGACY_VERTEX_COUNT } from "./build-circle-legacy";
 import { BuilderMarkerRectangleTail } from "./builder-marker-rectangle-tail";
 import { BuilderMarkerRectangleHead } from "./builder-marker-rectangle-head";
-import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle";
+import {
+	RECTANGLE_LEGACY_INDEX_COUNT,
+	RECTANGLE_LEGACY_VERTEX_COUNT
+} from "./build-rectangle-legacy";
 
 const toMarkerVertexCount = (type: EShapePointsMarkerType): number => {
 	switch (type) {
@@ -33,7 +36,7 @@ const toMarkerVertexCount = (type: EShapePointsMarkerType): number => {
 		case EShapePointsMarkerType.TRIANGLE:
 			return TRIANGLE_VERTEX_COUNT;
 		case EShapePointsMarkerType.RECTANGLE:
-			return RECTANGLE_VERTEX_COUNT;
+			return RECTANGLE_LEGACY_VERTEX_COUNT;
 	}
 	return 0;
 };
@@ -47,7 +50,7 @@ const toMarkerIndexCount = (type: EShapePointsMarkerType): number => {
 		case EShapePointsMarkerType.TRIANGLE:
 			return TRIANGLE_INDEX_COUNT;
 		case EShapePointsMarkerType.RECTANGLE:
-			return RECTANGLE_INDEX_COUNT;
+			return RECTANGLE_LEGACY_INDEX_COUNT;
 	}
 	return 0;
 };
