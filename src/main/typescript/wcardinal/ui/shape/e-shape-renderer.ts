@@ -269,8 +269,9 @@ vec4 toColor1(in vec4 texture) {
 	vec2 awd = 0.5 * antialiasWeight / d;
 	vec2 swd = vStepA / d;
 	vec2 one = vec2(1.0);
-	float s0 = smoothstep(length(c/(one + awd)), length(c/(one - awd)), 1.0);
-	float s1 = smoothstep(length(c/(one - swd + awd)), length(c/(one - swd - awd)), 1.0);
+	vec2 zero = vec2(0.0);
+	float s0 = smoothstep(length(c/clamp(one + awd, zero, one)), length(c/clamp(one - awd, zero, one)), 1.0);
+	float s1 = smoothstep(length(c/clamp(one - swd + awd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);
 	return texture * (
 		vColorStroke * (s0 - s1) +
 		vColorFill * s1
