@@ -33,6 +33,7 @@ export const EShapeType = {
 	POLYGON: 26,
 	CIRCLE_LEGACY: 27,
 	RECTANGLE_LEGACY: 28,
+	TRIANGLE_LEGACY: 29,
 	EXTENSION: 1000
 } as const;
 

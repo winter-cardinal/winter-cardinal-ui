@@ -5,10 +5,10 @@
 
 import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
-import { EShapeCircleTriangulated } from "./e-shape-circle-triangulated";
 import type { EShapeRectangle } from "./e-shape-rectangle";
+import { EShapeRectangleTriangulated } from "./e-shape-rectangle-triangulated";
 
-export class EShapeRectangleTriangulatedImpl implements EShapeCircleTriangulated {
+export class EShapeRectangleTriangulatedImpl implements EShapeRectangleTriangulated {
 	protected _id: number;
 	protected _parent: EShapeRectangle;
 	protected _width: number;

@@ -6,7 +6,7 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeUploaded } from "../e-shape-uploaded";
-import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
+import { TRIANGLE_LEGACY_INDEX_COUNT, TRIANGLE_LEGACY_VERTEX_COUNT } from "./build-triangle-legacy";
 import { BuilderLineOfTriangles } from "./builder-line-of-triangles";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
 
@@ -21,9 +21,9 @@ export const createLineOfTrianglesUploaded = (
 		buffer,
 		shape,
 		voffset,
-		TRIANGLE_VERTEX_COUNT,
+		TRIANGLE_LEGACY_VERTEX_COUNT,
 		ioffset,
-		TRIANGLE_INDEX_COUNT,
+		TRIANGLE_LEGACY_INDEX_COUNT,
 		antialiasWeight,
 		BuilderLineOfTriangles
 	);

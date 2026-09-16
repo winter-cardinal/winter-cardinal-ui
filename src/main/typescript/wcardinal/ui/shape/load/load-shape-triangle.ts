@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createTriangleUploaded } from "../variant/create-triangle-uploaded";
+import { createPolygonUploaded } from "../variant/create-polygon-uploaded";
 import { deserializeTriangle } from "../variant/deserialize-triangle";
 
 export const loadShapeTriangle = (): void => {
-	EShapeUploadeds[EShapeType.TRIANGLE] = createTriangleUploaded;
+	EShapeUploadeds[EShapeType.TRIANGLE] = createPolygonUploaded;
 	EShapeDeserializers[EShapeType.TRIANGLE] = deserializeTriangle;
 };

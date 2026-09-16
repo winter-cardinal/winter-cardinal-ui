@@ -5,11 +5,24 @@
 
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { EShapeTriangleTriangulated } from "./e-shape-triangle-triangulated";
+import { EShapeTriangleTriangulatedImpl } from "./e-shape-triangle-triangulated-impl";
 import { hitTestTriangle } from "./hit-test-triangle";
 
 export class EShapeTriangle extends EShapePrimitive {
+	protected readonly _triangulated: EShapeTriangleTriangulated;
+
 	constructor(type: EShapeType = EShapeType.TRIANGLE) {
 		super(type);
+		this._triangulated = this.newTriangulated();
+	}
+
+	protected newTriangulated(): EShapeTriangleTriangulated {
+		return new EShapeTriangleTriangulatedImpl(this);
+	}
+
+	get triangulated(): EShapeTriangleTriangulated {
+		return this._triangulated;
 	}
 
 	clone(): EShapeTriangle {
