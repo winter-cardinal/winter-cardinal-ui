@@ -6,14 +6,14 @@
 import { EShape } from "../e-shape";
 import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildTriangleIndex,
-	buildTriangleStep,
-	buildTriangleUv,
-	buildTriangleVertex,
-	TRIANGLE_INDEX_COUNT,
-	TRIANGLE_VERTEX_COUNT,
-	TRIANGLE_WORLD_SIZE
-} from "./build-triangle";
+	buildTriangleLegacyIndex,
+	buildTriangleLegacyStep,
+	buildTriangleLegacyUv,
+	buildTriangleLegacyVertex,
+	TRIANGLE_LEGACY_INDEX_COUNT,
+	TRIANGLE_LEGACY_VERTEX_COUNT,
+	TRIANGLE_LEGACY_WORLD_SIZE
+} from "./build-triangle-legacy";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
@@ -33,12 +33,12 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildTriangleIndex(indices, voffset, ioffset);
+			buildTriangleLegacyIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
-				TRIANGLE_VERTEX_COUNT,
+				TRIANGLE_LEGACY_VERTEX_COUNT,
 				ioffset,
-				TRIANGLE_INDEX_COUNT,
+				TRIANGLE_LEGACY_INDEX_COUNT,
 				pointCountReserved
 			);
 		}
@@ -50,7 +50,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexStepAndUvs(buffer, shape, points);
-			this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_LEGACY_VERTEX_COUNT);
 		}
 	}
 
@@ -132,7 +132,7 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
 
-				buildTriangleVertex(
+				buildTriangleLegacyVertex(
 					vertices,
 					voffset,
 					0,
@@ -142,30 +142,30 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 					strokeAlign,
 					strokeWidth,
 					internalTransform,
-					TRIANGLE_WORLD_SIZE
+					TRIANGLE_LEGACY_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
 					voffset,
-					TRIANGLE_VERTEX_COUNT,
+					TRIANGLE_LEGACY_VERTEX_COUNT,
 					pointCount,
 					pointsValues,
 					pointOffset
 				);
 				if (isNotInited || isVertexChanged || isTransformChanged) {
-					buildTriangleStep(
+					buildTriangleLegacyStep(
 						steps,
 						voffset,
 						strokeWidth,
 						strokeStyle,
-						TRIANGLE_WORLD_SIZE
+						TRIANGLE_LEGACY_WORLD_SIZE
 					);
-					copyStep(steps, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
+					copyStep(steps, voffset, TRIANGLE_LEGACY_VERTEX_COUNT, pointCount);
 				}
 				if (isNotInited || isVertexChanged || isTextureChanged) {
-					buildTriangleUv(uvs, textureUvs, voffset, TRIANGLE_WORLD_SIZE);
-					copyUvs(uvs, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
+					buildTriangleLegacyUv(uvs, textureUvs, voffset, TRIANGLE_LEGACY_WORLD_SIZE);
+					copyUvs(uvs, voffset, TRIANGLE_LEGACY_VERTEX_COUNT, pointCount);
 				}
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
@@ -174,9 +174,9 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 					const py = pointsValues[ip + 1] + pointOffset.getY(i);
 					const pointSizeX = pointSize.getX(i);
 					const pointSizeY = pointSize.getY(i);
-					const iv = voffset + i * TRIANGLE_VERTEX_COUNT;
+					const iv = voffset + i * TRIANGLE_LEGACY_VERTEX_COUNT;
 
-					buildTriangleVertex(
+					buildTriangleLegacyVertex(
 						vertices,
 						iv,
 						px,
@@ -186,21 +186,27 @@ export class BuilderLineOfTriangles extends BuilderLineOfAny {
 						strokeAlign,
 						strokeWidth,
 						internalTransform,
-						TRIANGLE_WORLD_SIZE
+						TRIANGLE_LEGACY_WORLD_SIZE
 					);
 					if (isNotInited || isVertexChanged || isTransformChanged) {
-						buildTriangleStep(steps, iv, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
+						buildTriangleLegacyStep(
+							steps,
+							iv,
+							strokeWidth,
+							strokeStyle,
+							TRIANGLE_LEGACY_WORLD_SIZE
+						);
 					}
 					if (isNotInited || isVertexChanged || isTextureChanged) {
-						buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);
+						buildTriangleLegacyUv(uvs, textureUvs, iv, TRIANGLE_LEGACY_WORLD_SIZE);
 					}
 				}
 			}
 
 			// Fill the rest
 			const pointCountReserved = this.pointCountReserved;
-			const voffsetReserved = voffset + pointCount * TRIANGLE_VERTEX_COUNT;
-			const vcountReserved = TRIANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
+			const voffsetReserved = voffset + pointCount * TRIANGLE_LEGACY_VERTEX_COUNT;
+			const vcountReserved = TRIANGLE_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
 			buildNullUv(uvs, voffsetReserved, vcountReserved);

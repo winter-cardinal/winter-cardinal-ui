@@ -4,7 +4,7 @@
  */
 
 import { EShape } from "../e-shape";
-import { hitTestCircle } from "./hit-test-circle";
+import { hitTestCircleLegacy } from "./hit-test-circle";
 
 export const hitTestSemicircle = (
 	shape: EShape,
@@ -16,7 +16,7 @@ export const hitTestSemicircle = (
 	ss: number
 ): boolean => {
 	if (y <= 0) {
-		return hitTestCircle(shape, x, y, ax, ay, sw, ss);
+		return hitTestCircleLegacy(shape, x, y, ax, ay, sw, ss);
 	}
 	return false;
 };

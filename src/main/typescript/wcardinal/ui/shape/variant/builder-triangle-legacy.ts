@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import {
 	buildTriangleLegacyIndex,
@@ -14,14 +13,11 @@ import {
 	TRIANGLE_LEGACY_VERTEX_COUNT,
 	TRIANGLE_LEGACY_WORLD_SIZE
 } from "./build-triangle-legacy";
-import { BuilderMarkerBase } from "./builder-marker-base";
-import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { BuilderBuffer, BuilderFlag } from "./builder";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
-	protected static WORK?: Matrix;
-	protected pointId: number;
-
+export class BuilderTriangleLegacy extends BuilderBase {
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
 		super(
 			buffer,
@@ -30,7 +26,6 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 			TRIANGLE_LEGACY_VERTEX_COUNT,
 			TRIANGLE_LEGACY_INDEX_COUNT
 		);
-		this.pointId = -1;
 	}
 
 	override init(): void {
@@ -47,16 +42,7 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 	}
 
 	protected updateVertexStepAndUv(buffer: BuilderBuffer, shape: EShape): void {
-		const points = shape.points;
-		if (points == null) {
-			return;
-		}
-		const container = points.getMarker();
-		if (container == null) {
-			return;
-		}
-		const marker = this.toMarker(container);
-		const size = marker.size;
+		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
@@ -80,18 +66,9 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 
 		const isVertexChanged = isSizeChanged || isStrokeChanged;
 
-		const pointId = points.id;
-		const isPointChanged = pointId !== this.pointId;
-
 		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
-		if (
-			isNotInited ||
-			isVertexChanged ||
-			isTransformChanged ||
-			isTextureChanged ||
-			isPointChanged
-		) {
+		if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
 			this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
@@ -101,11 +78,9 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
-			this.pointId = pointId;
 
 			const voffset = this.vertexOffset;
-			const internalTransform = (BuilderMarkerTriangle.WORK ??= new Matrix());
-			internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+
 			buffer.updateVertices();
 			buildTriangleLegacyVertex(
 				buffer.vertices,
@@ -116,7 +91,7 @@ export abstract class BuilderMarkerTriangle extends BuilderMarkerBase {
 				sizeY,
 				strokeAlign,
 				strokeWidth,
-				internalTransform,
+				shape.transform.internalTransform,
 				TRIANGLE_LEGACY_WORLD_SIZE
 			);
 

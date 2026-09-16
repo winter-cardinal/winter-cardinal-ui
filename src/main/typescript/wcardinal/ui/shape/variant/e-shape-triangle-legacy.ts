@@ -5,15 +5,15 @@
 
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { hitTestRectangleLegacy } from "./hit-test-rectangle";
+import { hitTestTriangleLegacy } from "./hit-test-triangle";
 
-export class EShapeRectangleLegacy extends EShapePrimitive {
-	constructor(type: EShapeType = EShapeType.RECTANGLE_LEGACY) {
+export class EShapeTriangleLegacy extends EShapePrimitive {
+	constructor(type: EShapeType = EShapeType.TRIANGLE_LEGACY) {
 		super(type);
 	}
 
-	clone(): EShapeRectangleLegacy {
-		return new EShapeRectangleLegacy(this.type).copy(this);
+	clone(): EShapeTriangleLegacy {
+		return new EShapeTriangleLegacy(this.type).copy(this);
 	}
 
 	containsAbs(
@@ -26,7 +26,7 @@ export class EShapeRectangleLegacy extends EShapePrimitive {
 		sa: number
 	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			return hitTestRectangleLegacy(this, x, y, ax, ay, sw, ss);
+			return hitTestTriangleLegacy(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
 	}

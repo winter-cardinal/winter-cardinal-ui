@@ -16,6 +16,6 @@ export const loadShapeTriangleRounded = (): void => {
 	EShapeDeserializers[EShapeType.TRIANGLE_ROUNDED] = deserializeTriangleRounded;
 	EShapeCapabilities.set(
 		EShapeType.TRIANGLE_ROUNDED,
-		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS
+		EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS
 	);
 };
