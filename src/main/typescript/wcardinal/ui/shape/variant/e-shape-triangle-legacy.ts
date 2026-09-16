@@ -5,7 +5,7 @@
 
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { hitTestTriangle } from "./hit-test-triangle";
+import { hitTestTriangleLegacy } from "./hit-test-triangle";
 
 export class EShapeTriangleLegacy extends EShapePrimitive {
 	constructor(type: EShapeType = EShapeType.TRIANGLE_LEGACY) {
@@ -26,7 +26,7 @@ export class EShapeTriangleLegacy extends EShapePrimitive {
 		sa: number
 	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			return hitTestTriangle(this, x, y, ax, ay, sw, ss);
+			return hitTestTriangleLegacy(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
 	}

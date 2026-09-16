@@ -15,7 +15,7 @@ import { EShapeLineBasePointsHitTesterToThreshold } from "./e-shape-line-base-po
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestCircle } from "./hit-test-circle";
 import { hitTestRectangle } from "./hit-test-rectangle";
-import { hitTestTriangle } from "./hit-test-triangle";
+import { hitTestTriangleLegacy } from "./hit-test-triangle";
 import { toThresholdDefault } from "./to-threshold-default";
 
 export abstract class EShapeLineBase<POINTS extends EShapeLineBasePoints> extends EShapePrimitive {
@@ -94,7 +94,7 @@ export abstract class EShapeLineBase<POINTS extends EShapeLineBasePoints> extend
 				case EShapePointsMarkerType.CIRCLE:
 					return hitTestCircle(this, lx, ly, sx, sy, sw, ss);
 				case EShapePointsMarkerType.TRIANGLE:
-					return hitTestTriangle(this, lx, ly, sx, sy, sw, ss);
+					return hitTestTriangleLegacy(this, lx, ly, sx, sy, sw, ss);
 				case EShapePointsMarkerType.RECTANGLE:
 					return hitTestRectangle(this, lx, ly, sx, sy, sw, ss);
 			}
