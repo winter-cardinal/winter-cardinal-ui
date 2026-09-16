@@ -43,8 +43,11 @@ export const buildTriangleLegacyVertex = (
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-	const sz = Math.sqrt(sx * sx + 4 * sy * sy);
-	const sw = (2 * sx * sy) / (sx + sz);
+	const ax = Math.abs(sx);
+	const ay = Math.abs(sy);
+	const az = Math.sqrt(ax * ax + 4 * ay * ay);
+	const aw = (2 * ax * ay) / (ax + az);
+	const sz = sy - (0 <= sy ? +aw : -aw);
 
 	const a = internalTransform.a;
 	const b = internalTransform.b;
@@ -64,8 +67,8 @@ export const buildTriangleLegacyVertex = (
 	const y1 = ry + dy;
 	const x2 = ox + (ox - rx) + dx;
 	const y2 = oy + (oy - ry) + dy;
-	const x3 = a * originX + c * (originY + sy - sw) + tx;
-	const y3 = b * originX + d * (originY + sy - sw) + ty;
+	const x3 = a * originX + c * (originY + sz) + tx;
+	const y3 = b * originX + d * (originY + sz) + ty;
 
 	// World size
 	const xb = ox + dx;

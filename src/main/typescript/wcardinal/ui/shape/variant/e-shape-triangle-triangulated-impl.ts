@@ -156,9 +156,7 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		if (sizeX === 0 || sizeY === 0) {
 			this.pad(0, 0, nv, ni, 0);
 		} else {
-			const fx = 1 / sizeX;
-			const fy = 1 / sizeY;
-			this.updateAll(fx, fy, ax, ay, scale, nv, ni);
+			this.updateAll(sizeX, sizeY, scale);
 		}
 	}
 
@@ -197,17 +195,14 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		indices.length = ni * 3;
 	}
 
-	protected updateAll(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		nv: number,
-		ni: number
-	): void {
-		// The triangle is defined by the top vertex (0, -ay) and the two
-		// bottom vertices (-ax, ay) and (ax, ay).
+	protected updateAll(sx: number, sy: number, scale: number): void {
+		const fx = 1 / sx;
+		const fy = 1 / sy;
+		const ax = Math.abs(sx);
+		const ay = Math.abs(sy);
+		// The triangle is defined by the apex (0, -sy) and the two base
+		// vertices (-sx, sy) and (sx, sy). The signs of sx and
+		// sy intentionally preserve horizontal and vertical reflections.
 		// The sloped edge spans ax horizontally and 2 * ay vertically.
 		const side = Math.sqrt(ax * ax + 4 * ay * ay);
 		// The base is horizontal, so its length is twice the half-width.
@@ -225,17 +220,18 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		// cy = ay (2 side - 2 ax) / (2 side + 2 ax)
 		// cy = ay (side - ax) / (side + ax)
 		const cx = 0;
-		const cy = (ay * (side - ax)) / (side + ax);
+		const cy = (sy * (side - ax)) / (side + ax);
 		// The distance from the incenter to every edge is the inradius.
-		// Since 0 <= (side - ax) / (side + ax) <= 1, innerY <= ay.
-		const distance = ay - cy;
+		// Since 0 <= (side - ax) / (side + ax) <= 1, the incenter remains
+		// between the apex and the base even when sy is negative.
+		const distance = Math.abs(sy - cy);
 		const fdistance = 1 / distance;
 		// Expand the triangle around its incenter for anti-aliasing and strokes.
 		// The outer vertices are shared where their interpolated attributes match.
 		const x0 = 0;
-		const y0 = cy - scale * (ay + cy);
-		const x1 = +scale * ax;
-		const y1 = cy + scale * (ay - cy);
+		const y0 = cy + scale * (-sy - cy);
+		const x1 = scale * sx;
+		const y1 = cy + scale * (sy - cy);
 		const x2 = -x1;
 		const y2 = y1;
 
