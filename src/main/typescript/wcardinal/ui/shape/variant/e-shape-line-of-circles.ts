@@ -11,7 +11,7 @@ import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-poi
 import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { hitTestCircle } from "./hit-test-circle";
+import { hitTestCircleLegacy } from "./hit-test-circle";
 import { toThresholdDefault } from "./to-threshold-default";
 
 export class EShapeLineOfCircles extends EShapePrimitive implements EShapeLineOfAny {
@@ -77,7 +77,7 @@ export class EShapeLineOfCircles extends EShapePrimitive implements EShapeLineOf
 		const ex = x - px - ox;
 		const ey = y - py - oy;
 		if (this.containsAbsBBox(ex, ey, ax, ay)) {
-			return hitTestCircle(this, ex, ey, ax, ay, sw, ss);
+			return hitTestCircleLegacy(this, ex, ey, ax, ay, sw, ss);
 		}
 		return false;
 	}

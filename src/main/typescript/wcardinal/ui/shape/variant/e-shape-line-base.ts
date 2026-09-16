@@ -13,8 +13,8 @@ import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-te
 import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 import { EShapeLineBasePointsHitTesterToThreshold } from "./e-shape-line-base-points-hit-tester-to-threshold";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { hitTestCircle } from "./hit-test-circle";
-import { hitTestRectangle } from "./hit-test-rectangle";
+import { hitTestCircleLegacy } from "./hit-test-circle";
+import { hitTestRectangleLegacy } from "./hit-test-rectangle";
 import { hitTestTriangleLegacy } from "./hit-test-triangle";
 import { toThresholdDefault } from "./to-threshold-default";
 
@@ -92,11 +92,11 @@ export abstract class EShapeLineBase<POINTS extends EShapeLineBasePoints> extend
 
 			switch (type) {
 				case EShapePointsMarkerType.CIRCLE:
-					return hitTestCircle(this, lx, ly, sx, sy, sw, ss);
+					return hitTestCircleLegacy(this, lx, ly, sx, sy, sw, ss);
 				case EShapePointsMarkerType.TRIANGLE:
 					return hitTestTriangleLegacy(this, lx, ly, sx, sy, sw, ss);
 				case EShapePointsMarkerType.RECTANGLE:
-					return hitTestRectangle(this, lx, ly, sx, sy, sw, ss);
+					return hitTestRectangleLegacy(this, lx, ly, sx, sy, sw, ss);
 			}
 		}
 		return false;

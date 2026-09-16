@@ -5,7 +5,7 @@
 
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { hitTestCircle } from "./hit-test-circle";
+import { hitTestCircleLegacy } from "./hit-test-circle";
 
 export class EShapeCircleLegacy extends EShapePrimitive {
 	constructor(type: EShapeType = EShapeType.CIRCLE_LEGACY) {
@@ -26,7 +26,7 @@ export class EShapeCircleLegacy extends EShapePrimitive {
 		sa: number
 	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			return hitTestCircle(this, x, y, ax, ay, sw, ss);
+			return hitTestCircleLegacy(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
 	}
