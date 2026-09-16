@@ -106,7 +106,7 @@
 			const children = container.children;
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
-				// child.transform.rotation += 0.01;
+				child.transform.rotation += 0.01;
 				child.fill.percent += 0.002;
 				if (1 <= child.fill.percent) {
 					child.fill.percent = 0;
