@@ -24,11 +24,9 @@ export class EShapeActionRuntimeTransformMoveLeftOrRight extends EShapeActionRun
 			const writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
 			const oldPositionX = writtenPositionX ? position.x : runtime.x;
 			const oldPositionY = writtenPositionY ? position.y : runtime.y;
-			shape.updateTransform();
-			const localTransform = transform.localTransform;
 			position.set(
-				oldPositionX + localTransform.a * amount,
-				oldPositionY + localTransform.b * amount
+				oldPositionX + transform.cx * amount,
+				oldPositionY + transform.sx * amount
 			);
 			runtime.written |= this.reset;
 		}
