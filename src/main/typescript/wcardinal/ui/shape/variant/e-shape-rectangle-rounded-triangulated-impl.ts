@@ -4,6 +4,8 @@
  */
 
 import { EShapeBoundary } from "../e-shape-boundary";
+import { EShapeCorner } from "../e-shape-corner";
+import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import type { EShapeRectangleRounded } from "./e-shape-rectangle-rounded";
 import { EShapeRectangleRoundedTriangulated } from "./e-shape-rectangle-rounded-triangulated";
@@ -16,8 +18,11 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	protected _strokeAlign: number;
 	protected _strokeWidth: number;
 	protected _strokeSide: EShapeStrokeSide;
+	protected _radius: number;
+	protected _corner: EShapeCorner;
 	protected _sizeX: number;
 	protected _sizeY: number;
+	protected _n: number;
 	protected _vertices: number[];
 	protected _nvertices: number;
 	protected _distances: number[];
@@ -36,8 +41,11 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this._strokeAlign = 0;
 		this._strokeWidth = 0;
 		this._strokeSide = EShapeStrokeSide.NONE;
+		this._radius = 0;
+		this._corner = EShapeCorner.NONE;
 		this._sizeX = 0;
 		this._sizeY = 0;
+		this._n = EShapeDefaults.CIRCLE_SEGMENT_COUNT;
 		this._vertices = [];
 		this._nvertices = 0;
 		this._distances = [];
@@ -116,6 +124,9 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			this._strokeAlign !== strokeAlign ||
 			this._strokeWidth !== strokeWidth ||
 			this._strokeSide !== strokeSide;
+		const radius = parent.radius;
+		const corner = parent.corner;
+		const isRadiusChanged = this._radius !== radius || this._corner !== corner;
 
 		let isSizeChanged = false;
 		let sizeX = this._sizeX;
@@ -133,14 +144,22 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
 		}
 
-		if (isNotInitialized || isSizeChanged || isStrokeChanged) {
+		if (isNotInitialized || isSizeChanged || isStrokeChanged || isRadiusChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this.update(sizeX, sizeY, 1.1);
+			this._radius = radius;
+			this._corner = corner;
+			this.update(sizeX, sizeY, radius, corner, 1.1);
 		}
 	}
 
-	protected update(sizeX: number, sizeY: number, scale: number): void {
+	protected update(
+		sizeX: number,
+		sizeY: number,
+		radius: number,
+		corner: EShapeCorner,
+		scale: number
+	): void {
 		// Boundary
 		const ax = Math.abs(sizeX);
 		const ay = Math.abs(sizeY);
@@ -167,87 +186,87 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			const fy = 1 / sizeY;
 			switch (this._parent.stroke.side) {
 				case EShapeStrokeSide.NONE:
-					this.updateNone(fx, fy, ax, ay, scale, nv, ni);
+					this.updateNone(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.ALL:
 					if (ay <= ax) {
-						this.updateAll0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateAll0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateAll1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateAll1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.TOP:
-					this.updateTop(fx, fy, ax, ay, scale, nv, ni);
+					this.updateTop(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.RIGHT:
-					this.updateRight(fx, fy, ax, ay, scale, nv, ni);
+					this.updateRight(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.BOTTOM:
-					this.updateBottom(fx, fy, ax, ay, scale, nv, ni);
+					this.updateBottom(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.LEFT:
-					this.updateLeft(fx, fy, ax, ay, scale, nv, ni);
+					this.updateLeft(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.TOP_OR_BOTTOM:
-					this.updateTopBottom(fx, fy, ax, ay, scale, nv, ni);
+					this.updateTopBottom(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.LEFT_OR_RIGHT:
-					this.updateLeftRight(fx, fy, ax, ay, scale, nv, ni);
+					this.updateLeftRight(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					break;
 				case EShapeStrokeSide.TOP_OR_RIGHT:
 					if (ay <= ax) {
-						this.updateTopRight0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateTopRight0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateTopRight1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateTopRight1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.TOP_OR_LEFT:
 					if (ay <= ax) {
-						this.updateTopLeft0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateTopLeft0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateTopLeft1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateTopLeft1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.BOTTOM_OR_RIGHT:
 					if (ay <= ax) {
-						this.updateBottomRight0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateBottomRight0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateBottomRight1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateBottomRight1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.BOTTOM_OR_LEFT:
 					if (ay <= ax) {
-						this.updateBottomLeft0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateBottomLeft0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateBottomLeft1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateBottomLeft1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_TOP:
 					if (2 * ay <= ax) {
-						this.updateNotTop0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotTop0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateNotTop1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotTop1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_RIGHT:
 					if (2 * ax <= ay) {
-						this.updateNotRight0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotRight0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateNotRight1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotRight1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_BOTTOM:
 					if (2 * ay <= ax) {
-						this.updateNotBottom0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotBottom0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateNotBottom1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotBottom1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 				case EShapeStrokeSide.NOT_LEFT:
 					if (2 * ax <= ay) {
-						this.updateNotLeft0(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotLeft0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					} else {
-						this.updateNotLeft1(fx, fy, ax, ay, scale, nv, ni);
+						this.updateNotLeft1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
 					}
 					break;
 			}
@@ -295,6 +314,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -321,6 +342,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -347,6 +370,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -373,6 +398,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -399,6 +426,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -415,6 +444,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -431,6 +462,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -469,6 +502,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -507,6 +542,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -562,6 +599,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -616,6 +655,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -671,6 +712,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -725,6 +768,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -780,6 +825,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -834,6 +881,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -905,6 +954,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -977,6 +1028,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1049,6 +1102,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1121,6 +1176,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1193,6 +1250,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1265,6 +1324,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1337,6 +1398,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1633,6 +1696,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1646,6 +1711,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
@@ -1736,6 +1803,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ax: number,
 		ay: number,
 		scale: number,
+		radius: number,
+		corner: EShapeCorner,
 		nv: number,
 		ni: number
 	): void {
