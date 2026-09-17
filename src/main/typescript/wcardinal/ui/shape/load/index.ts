@@ -26,6 +26,7 @@ export * from "./load-shape-null";
 export * from "./load-shape-polygon";
 export * from "./load-shape-rectangle-legacy";
 export * from "./load-shape-rectangle-pivoted";
+export * from "./load-shape-rectangle-rounded-legacy";
 export * from "./load-shape-rectangle-rounded";
 export * from "./load-shape-rectangle";
 export * from "./load-shape-semicircle";
