@@ -51,18 +51,16 @@ export class EShapeActionRuntimeTransformResize extends EShapeActionRuntimeCondi
 	): void {
 		const dx = (-0.5 + originX) * dsx;
 		const dy = (-0.5 + originY) * dsy;
-		shape.updateTransform();
 		const transform = shape.transform;
 		const position = transform.position;
-		const localTransform = transform.localTransform;
 		const writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
 		const writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
 		const oldPositionX = writtenPositionX ? position.x : runtime.x;
 		const oldPositionY = writtenPositionY ? position.y : runtime.y;
 		runtime.written |= EShapeRuntimeReset.POSITION;
 		position.set(
-			oldPositionX + dx * localTransform.a + dy * localTransform.c,
-			oldPositionY + dx * localTransform.b + dy * localTransform.d
+			oldPositionX + dx * transform.cx + dy * transform.cy,
+			oldPositionY + dx * transform.sx + dy * transform.sy
 		);
 	}
 }

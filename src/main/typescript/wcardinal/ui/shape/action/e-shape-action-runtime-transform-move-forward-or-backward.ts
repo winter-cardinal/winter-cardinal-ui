@@ -24,11 +24,9 @@ export class EShapeActionRuntimeTransformMoveForwardOrBackward extends EShapeAct
 			const writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
 			const oldPositionX = writtenPositionX ? position.x : runtime.x;
 			const oldPositionY = writtenPositionY ? position.y : runtime.y;
-			shape.updateTransform();
-			const localTransform = transform.localTransform;
 			position.set(
-				oldPositionX - localTransform.c * amount,
-				oldPositionY - localTransform.d * amount
+				oldPositionX - transform.cy * amount,
+				oldPositionY - transform.sy * amount
 			);
 			runtime.written |= this.reset;
 		}

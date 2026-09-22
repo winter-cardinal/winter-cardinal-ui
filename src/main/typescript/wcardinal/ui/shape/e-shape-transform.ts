@@ -15,6 +15,11 @@ export interface EShapeTransform extends Transform {
 	skew: ObservablePoint;
 	scale: ObservablePoint;
 
+	readonly cx: number;
+	readonly sx: number;
+	readonly cy: number;
+	readonly sy: number;
+
 	getLocalIdCurrent(): number;
 	getLocalId(): number;
 	getParentId(): number;
@@ -55,6 +60,22 @@ export class EShapeTransformImpl extends Transform implements EShapeTransform {
 
 	getWorldId(): number {
 		return this._worldID;
+	}
+
+	get cx(): number {
+		return this._cx;
+	}
+
+	get sx(): number {
+		return this._sx;
+	}
+
+	get cy(): number {
+		return this._cy;
+	}
+
+	get sy(): number {
+		return this._sy;
 	}
 
 	updateTransform(parentTransform: Transform): void {
