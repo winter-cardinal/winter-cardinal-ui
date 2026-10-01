@@ -11,7 +11,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 const parse = (target: string): number[] | null => {
 	try {
 		return JSON.parse(target) as number[];
-	} catch (e) {
+	} catch {
 		return null;
 	}
 };

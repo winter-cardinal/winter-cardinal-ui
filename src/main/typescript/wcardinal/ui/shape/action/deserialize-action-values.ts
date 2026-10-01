@@ -17,7 +17,7 @@ const toSerialized = (resource: string): number[] | null => {
 			return parsed;
 		}
 		return null;
-	} catch (e) {
+	} catch {
 		return null;
 	}
 };

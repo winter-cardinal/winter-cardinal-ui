@@ -131,7 +131,7 @@ export class EShapeConnectorLine
 			this._headLocalId = headLocalId;
 			this._headNormalId = headNormalId;
 			this._headMargin = headMargin;
-			this._bodyId !== bodyId;
+			this._bodyId = bodyId;
 
 			const transform = this.transform;
 			const transformPosition = transform.position;

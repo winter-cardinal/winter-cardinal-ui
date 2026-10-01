@@ -79,7 +79,7 @@ export class EShapeActionExpressions {
 					body
 				) as EShapeActionExpressionWithParameter<T, P>;
 			}
-		} catch (e) {
+		} catch {
 			return def;
 		}
 	}

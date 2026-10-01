@@ -33,10 +33,10 @@ export interface DChartPlotAreaLike<CHART extends DBase = DBase> extends DApplic
 	readonly view: DView;
 	readonly state: DBaseStateSet;
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 	on(name: string, callback: Function, context?: any): this;
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 	off(name: string, callback?: Function, context?: any): this;
 
 	getPixelDomain(result: DChartRegion): DChartRegion;

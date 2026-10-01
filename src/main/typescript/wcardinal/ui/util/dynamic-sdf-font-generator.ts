@@ -187,8 +187,9 @@ export class DynamicSDFFontGenerator {
 			gl.shaderSource(shader, code);
 			gl.compileShader(shader);
 			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-				console &&
+				if (typeof console !== "undefined") {
 					console.error(`Failed to compile the shader: ${gl.getShaderInfoLog(shader)}`);
+				}
 				return null;
 			}
 		}
@@ -210,8 +211,9 @@ export class DynamicSDFFontGenerator {
 						gl.bindAttribLocation(shaderProgram, 1, "aTextureCoord");
 						gl.linkProgram(shaderProgram);
 						if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-							console &&
+							if (typeof console !== "undefined") {
 								console.error(`Failed to link the program: ${gl.getError()}`);
+							}
 							gl.deleteShader(vertexShader);
 							gl.deleteShader(fragmentShader);
 							return null;
