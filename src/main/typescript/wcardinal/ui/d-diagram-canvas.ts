@@ -441,7 +441,7 @@ export class DDiagramCanvas<
 				`}`
 				/* eslint-enable prettier/prettier */
 			) as any;
-		} catch (e) {
+		} catch {
 			return this.toInitializer(value);
 		}
 	}
@@ -460,7 +460,7 @@ export class DDiagramCanvas<
 				`}`
 				/* eslint-enable prettier/prettier */
 			) as any;
-		} catch (e) {
+		} catch {
 			return this.toInitializer(value);
 		}
 	}

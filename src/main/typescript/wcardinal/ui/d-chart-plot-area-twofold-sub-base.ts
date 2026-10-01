@@ -110,13 +110,13 @@ export abstract class DChartPlotAreaTwofoldSubBase<CHART extends DBase = DBase>
 		return this._plotArea.view;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 	on(name: string, callback: Function, context?: any): this {
 		this._plotArea.on(name, callback, context);
 		return this;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 	off(name: string, callback?: Function, context?: any): this {
 		this._plotArea.off(name, callback, context);
 		return this;

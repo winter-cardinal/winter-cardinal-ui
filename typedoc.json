@@ -5,7 +5,18 @@
 	"githubPages": false,
 	"excludePrivate": true,
 	"includeVersion": true,
-	"entryDocument": "index.md",
+	"entryFileName": "index",
+	"externalSymbolLinkMappings": {
+		"pixi.js": {
+			"PIXI.Sprite": "#",
+			"PIXI.Graphics": "#",
+			"PIXI.DRAW_MODES": "#",
+			"PIXI.settings.ROUND_PIXELS": "#"
+		},
+		"typescript": {
+			"DataTransfer.setData": "#"
+		}
+	},
 	"entryPoints": [ "src/main/typescript/wcardinal-ui.esm.ts" ],
 	"plugin": [ "typedoc-plugin-markdown" ]
 }

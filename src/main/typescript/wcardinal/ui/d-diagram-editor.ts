@@ -231,7 +231,7 @@ export class DDiagramEditor<
 				const result = canvas.serialize(serialized.id, this._thumbnail);
 				this.emit("serialized", canvas, null, this);
 				return result;
-			} catch (e) {
+			} catch {
 				this.emit("serialized", canvas, "exception", this);
 				return null;
 			}

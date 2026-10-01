@@ -38,7 +38,7 @@ export class DDiagrams {
 						return this.toSerialized(parsed);
 					}
 				}
-			} catch (e) {
+			} catch {
 				// DO NOTHING
 			}
 		}

@@ -105,7 +105,7 @@ export class DInputBoolean<
 				} else {
 					this.getButtonOff().activate();
 				}
-			} catch (e) {
+			} catch {
 				// DO NOTHING
 			}
 			this._lockCount -= 1;

@@ -1,13 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "es2015",
 		"newLine": "lf",
+		"rootDir": "src/main/typescript",
 		"outDir": "dist/",
 		"sourceMap": true,
 		"inlineSources": true,
 		"module": "es6",
-		"moduleResolution": "Node",
-		"skipLibCheck": false,
+		"moduleResolution": "Bundler",
+		"skipLibCheck": true,
 		"importHelpers": true,
 		"declaration": true,
 		"declarationDir": "dist/types",
@@ -15,10 +16,9 @@
 		"lib": [ "dom", "es5", "es2015.core", "es2015.collection", "es2015.promise" ],
 
 		"strict": true,
-		"downlevelIteration": false,
 		"preserveConstEnums": true,
 		"stripInternal": true,
-		"incremental": true,
+		"incremental": false,
 		"experimentalDecorators": true,
 		"esModuleInterop": true
 	},

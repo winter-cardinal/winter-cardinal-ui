@@ -476,6 +476,7 @@ export * from "./d-note-small-searching";
 export * from "./d-note-small";
 export * from "./d-note";
 export * from "./d-notification";
+export * from "./d-on-options";
 export * from "./d-outline";
 export * from "./d-padding";
 export * from "./d-pagination-button-last";
