@@ -1708,10 +1708,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 	/**
 	 * Preconditions:
-	 * * shape.corner === EShapeCorner.ALL
 	 * * shape.stroke.side === EShapeStrokeSide.ALL
 	 * * ay <= ax
-	 * * 0 < radius
 	 */
 	protected updateAll0(
 		fx: number,
@@ -1744,11 +1742,17 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const y4 = +ay - r;
 		const y5 = +ay + fs;
 
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
 		const arc = 0.5 * Math.PI * r;
-		const lot = -r;
-		const lor = arc - 3 * r;
-		const lob = 2 * arc - 5 * r;
-		const lol = 3 * arc - 7 * r;
+		const lot = ctl ? -r : 0;
+		const lor = lot + (ctr ? arc - 2 * r : 0);
+		const lob = lor + (cbr ? arc - 2 * r : 0);
+		const lol = lob + (cbl ? arc - 2 * r : 0);
 
 		let iv = 0;
 		let ii = 0;
@@ -1757,14 +1761,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			0,
 			lot,
-			x1,
-			y1,
+			ctl ? x1 : x0,
+			ctl ? y1 : y0,
 			x1,
 			y0,
 			x4,
 			y0,
-			x4,
-			y1,
+			ctr ? x4 : x5,
+			ctr ? y1 : y0,
 			x3,
 			0,
 			x2,
@@ -1783,14 +1787,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			1,
 			lor,
-			x4,
-			y1,
+			ctr ? x4 : x5,
+			ctr ? y1 : y0,
 			x5,
 			y1,
 			x5,
 			y4,
-			x4,
-			y4,
+			cbr ? x4 : x5,
+			cbr ? y4 : y5,
 			x3,
 			0,
 			fd,
@@ -1807,14 +1811,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			2,
 			lob,
-			x4,
-			y4,
+			cbr ? x4 : x5,
+			cbr ? y4 : y5,
 			x4,
 			y5,
 			x1,
 			y5,
-			x1,
-			y4,
+			cbl ? x1 : x0,
+			cbl ? y4 : y5,
 			x2,
 			0,
 			x3,
@@ -1833,14 +1837,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			3,
 			lol,
-			x1,
-			y4,
+			cbl ? x1 : x0,
+			cbl ? y4 : y5,
 			x0,
 			y4,
 			x0,
 			y1,
-			x1,
-			y1,
+			ctl ? x1 : x0,
+			ctl ? y1 : y0,
 			x2,
 			0,
 			fd,
@@ -1855,24 +1859,37 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		const dx = 2 * (ax - r);
 		const dy = 2 * (ay - r);
-		let l = dx;
 		const rs = r + fs;
-		this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 2 * n - 1;
-		ii += 3 * (n - 1);
-		l += arc + dy;
-		this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 2 * n - 1;
-		ii += 3 * (n - 1);
-		l += arc + dx;
-		this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 2 * n - 1;
-		ii += 3 * (n - 1);
-		l += arc + dy;
-		this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 2 * n - 1;
-		ii += 3 * (n - 1);
-
+		let l = ctl ? dx : dx + r;
+		if (ctr) {
+			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (cbr) {
+			this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+			l += arc + dx;
+		} else {
+			l += r + r + dx;
+		}
+		if (cbl) {
+			this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (ctl) {
+			this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
@@ -2057,10 +2074,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 	/**
 	 * Preconditions:
-	 * * shape.corner === EShapeCorner.ALL
 	 * * shape.stroke.side === EShapeStrokeSide.ALL
 	 * * ax < ay
-	 * * 0 < radius
 	 */
 	protected updateAll1(
 		fx: number,
@@ -2093,11 +2108,17 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const y4 = +ay - r;
 		const y5 = +ay + fs;
 
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
 		const arc = 0.5 * Math.PI * r;
-		const lot = -r;
-		const lor = arc - 3 * r;
-		const lob = 2 * arc - 5 * r;
-		const lol = 3 * arc - 7 * r;
+		const lot = ctl ? -r : 0;
+		const lor = lot + (ctr ? arc - 2 * r : 0);
+		const lob = lor + (cbr ? arc - 2 * r : 0);
+		const lol = lob + (cbl ? arc - 2 * r : 0);
 
 		let iv = 0;
 		let ii = 0;
@@ -2106,14 +2127,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			0,
 			lot,
-			x1,
-			y1,
+			ctl ? x1 : ol,
+			ctl ? y1 : y0,
 			x1,
 			y0,
 			x4,
 			y0,
-			x4,
-			y1,
+			ctr ? x4 : or,
+			ctr ? y1 : y0,
 			0,
 			y2,
 			fd,
@@ -2130,14 +2151,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			1,
 			lor,
-			x4,
-			y1,
+			ctr ? x4 : or,
+			ctr ? y1 : y0,
 			or,
 			y1,
 			or,
 			y4,
-			x4,
-			y4,
+			cbr ? x4 : or,
+			cbr ? y4 : y5,
 			0,
 			y3,
 			0,
@@ -2156,14 +2177,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			2,
 			lob,
-			x4,
-			y4,
+			cbr ? x4 : or,
+			cbr ? y4 : y5,
 			x4,
 			y5,
 			x1,
 			y5,
-			x1,
-			y4,
+			cbl ? x1 : ol,
+			cbl ? y4 : y5,
 			0,
 			y3,
 			fd,
@@ -2180,14 +2201,14 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ii,
 			3,
 			lol,
-			x1,
-			y4,
+			cbl ? x1 : ol,
+			cbl ? y4 : y5,
 			ol,
 			y4,
 			ol,
 			y1,
-			x1,
-			y1,
+			ctl ? x1 : ol,
+			ctl ? y1 : y0,
 			0,
 			y2,
 			0,
@@ -2204,22 +2225,36 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		const dx = 2 * (ax - r);
 		const dy = 2 * (ay - r);
-		let l = dx;
-		this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 1 + 2 * (n - 1);
-		ii += 3 * (n - 1);
-		l += arc + dy;
-		this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 1 + 2 * (n - 1);
-		ii += 3 * (n - 1);
-		l += arc + dx;
-		this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 1 + 2 * (n - 1);
-		ii += 3 * (n - 1);
-		l += arc + dy;
-		this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-		iv += 1 + 2 * (n - 1);
-		ii += 3 * (n - 1);
+		let l = ctl ? dx : dx + r;
+		if (ctr) {
+			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (cbr) {
+			this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+			l += arc + dx;
+		} else {
+			l += r + r + dx;
+		}
+		if (cbl) {
+			this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (ctl) {
+			this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+		}
 
 		this.pad(iv, ii, nv, ni, fd);
 	}
