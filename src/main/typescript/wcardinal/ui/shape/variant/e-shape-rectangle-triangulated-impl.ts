@@ -1649,85 +1649,21 @@ export class EShapeRectangleTriangulatedImpl implements EShapeRectangleTriangula
 		nv: number,
 		ni: number
 	): void {
-		const distance = ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const outerLeft = -ax - shift;
-		const outerRight = +ax + shift;
-		const outerTop = -ay - shift;
-		const outerBottom = +ay + shift;
-		const innerLeft = -ax + ay;
-		const innerRight = +ax - ay;
-
-		this.updateQuadTop(
-			0,
-			0,
-			outerLeft,
-			outerTop,
-			outerRight,
-			outerTop,
-			innerRight,
-			0,
-			innerLeft,
-			0,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriRight(
-			4,
-			6,
-			outerRight,
-			outerTop,
-			outerRight,
-			outerBottom,
-			innerRight,
-			0,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadBottom(
-			7,
-			9,
-			outerRight,
-			outerBottom,
-			outerLeft,
-			outerBottom,
-			innerLeft,
-			0,
-			innerRight,
-			0,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriLeft(
-			11,
-			15,
-			outerLeft,
-			outerBottom,
-			outerLeft,
-			outerTop,
-			innerLeft,
-			0,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(14, 18, nv, ni, fdistance);
+		const d = ay;
+		const fd = 1 / d;
+		const s = scale;
+		const fs = (s - 1) * d;
+		const ol = -ax - fs;
+		const or = +ax + fs;
+		const ot = -ay - fs;
+		const ob = +ay + fs;
+		const il = -ax + ay;
+		const ir = +ax - ay;
+		this.updateQuadTop(0, 0, ol, ot, or, ot, ir, 0, il, 0, fd, s, fx, fy, ax, ay);
+		this.updateTriRight(4, 6, or, ot, or, ob, ir, 0, fd, s, fx, fy, ax, ay);
+		this.updateQuadBottom(7, 9, or, ob, ol, ob, il, 0, ir, 0, fd, s, fx, fy, ax, ay);
+		this.updateTriLeft(11, 15, ol, ob, ol, ot, il, 0, fd, s, fx, fy, ax, ay);
+		this.pad(14, 18, nv, ni, fd);
 	}
 
 	protected updateAll1(
@@ -1739,85 +1675,21 @@ export class EShapeRectangleTriangulatedImpl implements EShapeRectangleTriangula
 		nv: number,
 		ni: number
 	): void {
-		const distance = ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const outerLeft = -ax - shift;
-		const outerRight = +ax + shift;
-		const outerTop = -ay - shift;
-		const outerBottom = +ay + shift;
-		const innerTop = -ay + ax;
-		const innerBottom = +ay - ax;
-
-		this.updateTriTop(
-			0,
-			0,
-			outerLeft,
-			outerTop,
-			outerRight,
-			outerTop,
-			0,
-			innerTop,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadRight(
-			3,
-			3,
-			outerRight,
-			outerTop,
-			outerRight,
-			outerBottom,
-			0,
-			innerBottom,
-			0,
-			innerTop,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriBottom(
-			7,
-			9,
-			outerRight,
-			outerBottom,
-			outerLeft,
-			outerBottom,
-			0,
-			innerBottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadLeft(
-			10,
-			12,
-			outerLeft,
-			outerBottom,
-			outerLeft,
-			outerTop,
-			0,
-			innerTop,
-			0,
-			innerBottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(14, 18, nv, ni, fdistance);
+		const d = ax;
+		const fd = 1 / d;
+		const s = scale;
+		const fs = (s - 1) * d;
+		const ol = -ax - fs;
+		const or = +ax + fs;
+		const ot = -ay - fs;
+		const ob = +ay + fs;
+		const it = -ay + ax;
+		const ib = +ay - ax;
+		this.updateTriTop(0, 0, ol, ot, or, ot, 0, it, fd, s, fx, fy, ax, ay);
+		this.updateQuadRight(3, 3, or, ot, or, ob, 0, ib, 0, it, fd, s, fx, fy, ax, ay);
+		this.updateTriBottom(7, 9, or, ob, ol, ob, 0, ib, fd, s, fx, fy, ax, ay);
+		this.updateQuadLeft(10, 12, ol, ob, ol, ot, 0, it, 0, ib, fd, s, fx, fy, ax, ay);
+		this.pad(14, 18, nv, ni, fd);
 	}
 
 	protected updateCellNone(

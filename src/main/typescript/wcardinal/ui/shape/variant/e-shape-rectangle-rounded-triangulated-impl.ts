@@ -170,8 +170,9 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		boundary[3] = +ay;
 
 		// # of vertices and # of indices
-		const nv = 14;
-		const ni = 6;
+		const n = this._n >> 2;
+		const nv = 22 + 4 * (2 * n - 1);
+		const ni = 14 + 4 * (n - 1);
 		this._nvertices = nv;
 		this._nindices = ni;
 
@@ -477,13 +478,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const indices = this._indices;
 
 		const splitX = ax - 2 * ay;
-		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(2, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(3, left, bottom, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(4, right, top, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(5, right, bottom, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(6, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(2, splitX, bottom, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(3, left, bottom, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(4, right, top, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(5, right, bottom, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(6, splitX, bottom, fdistance, scale, fx, fy, ax, ay, 0);
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
@@ -516,13 +517,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const bottom = +ay;
 		const indices = this._indices;
 		const splitY = 2 * ax - ay;
-		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(2, left, splitY, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(3, right, top, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(4, right, bottom, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(5, left, bottom, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(6, left, splitY, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(2, left, splitY, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(3, right, top, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(4, right, bottom, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(5, left, bottom, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(6, left, splitY, fdistance, scale, fx, fy, ax, ay, 0);
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
@@ -1483,9 +1484,9 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1508,9 +1509,9 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1533,9 +1534,9 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1558,9 +1559,9 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1585,10 +1586,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1616,10 +1617,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv, x0, y0, fdistance, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 1, x1, y1, fdistance, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 2, x2, y2, fdistance, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv + 3, x3, y3, fdistance, fdistance, scale, fx, fy, ax, ay);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1647,10 +1648,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1678,10 +1679,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
 	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay, 0);
 		this._indices[ii] = iv;
 		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
 		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
@@ -1705,6 +1706,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(4, 6, nv, ni, 0);
 	}
 
+	/**
+	 * Preconditions:
+	 * * shape.corner === EShapeCorner.ALL
+	 * * shape.stroke.side === EShapeStrokeSide.ALL
+	 * * ay <= ax
+	 * * 0 < radius
+	 */
 	protected updateAll0(
 		fx: number,
 		fy: number,
@@ -1716,87 +1724,344 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const outerLeft = -ax - shift;
-		const outerRight = +ax + shift;
-		const outerTop = -ay - shift;
-		const outerBottom = +ay + shift;
-		const innerLeft = -ax + ay;
-		const innerRight = +ax - ay;
+		const d = ay;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const s = scale;
+		const fs = (scale - 1) * d;
 
-		this.updateQuadTop(
+		const r = radius * ay;
+
+		const x0 = -ax - fs;
+		const x1 = -ax + r;
+		const x2 = -ax + d;
+		const x3 = +ax - d;
+		const x4 = +ax - r;
+		const x5 = +ax + fs;
+
+		const y0 = -ay - fs;
+		const y1 = -ay + r;
+		const y4 = +ay - r;
+		const y5 = +ay + fs;
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = -r;
+		const lor = arc - 3 * r;
+		const lob = 2 * arc - 5 * r;
+		const lol = 3 * arc - 7 * r;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly6(
+			iv,
+			ii,
 			0,
+			lot,
+			x1,
+			y1,
+			x1,
+			y0,
+			x4,
+			y0,
+			x4,
+			y1,
+			x3,
 			0,
-			outerLeft,
-			outerTop,
-			outerRight,
-			outerTop,
-			innerRight,
+			x2,
 			0,
-			innerLeft,
-			0,
-			fdistance,
-			scale,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateTriRight(
-			4,
-			6,
-			outerRight,
-			outerTop,
-			outerRight,
-			outerBottom,
-			innerRight,
+		iv += 6;
+		ii += 12;
+		this.writePoly5(
+			iv,
+			ii,
+			1,
+			lor,
+			x4,
+			y1,
+			x5,
+			y1,
+			x5,
+			y4,
+			x4,
+			y4,
+			x3,
 			0,
-			fdistance,
-			scale,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateQuadBottom(
-			7,
-			9,
-			outerRight,
-			outerBottom,
-			outerLeft,
-			outerBottom,
-			innerLeft,
+		iv += 5;
+		ii += 9;
+		this.writePoly6(
+			iv,
+			ii,
+			2,
+			lob,
+			x4,
+			y4,
+			x4,
+			y5,
+			x1,
+			y5,
+			x1,
+			y4,
+			x2,
 			0,
-			innerRight,
+			x3,
 			0,
-			fdistance,
-			scale,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateTriLeft(
-			11,
-			15,
-			outerLeft,
-			outerBottom,
-			outerLeft,
-			outerTop,
-			innerLeft,
+		iv += 6;
+		ii += 12;
+		this.writePoly5(
+			iv,
+			ii,
+			3,
+			lol,
+			x1,
+			y4,
+			x0,
+			y4,
+			x0,
+			y1,
+			x1,
+			y1,
+			x2,
 			0,
-			fdistance,
-			scale,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.pad(14, 18, nv, ni, fdistance);
+		iv += 5;
+		ii += 9;
+
+		const dx = 2 * (ax - r);
+		const dy = 2 * (ay - r);
+		let l = dx;
+		const rs = r + fs;
+		this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 2 * n - 1;
+		ii += 3 * (n - 1);
+		l += arc + dy;
+		this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 2 * n - 1;
+		ii += 3 * (n - 1);
+		l += arc + dx;
+		this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 2 * n - 1;
+		ii += 3 * (n - 1);
+		l += arc + dy;
+		this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 2 * n - 1;
+		ii += 3 * (n - 1);
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
+	protected writeVertex(
+		vertex: number,
+		x: number,
+		y: number,
+		side: number,
+		lo: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		switch (side) {
+			case 0:
+				this.updateVertexTop(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 1:
+				this.updateVertexRight(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 2:
+				this.updateVertexBottom(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 3:
+				this.updateVertexLeft(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			default:
+				this.updateVertex(vertex, x, y, fd, 0, 0, fx, fy);
+				break;
+		}
+	}
+
+	protected writePoly5(
+		vertex: number,
+		index: number,
+		side: number,
+		lo: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		x3: number,
+		y3: number,
+		x4: number,
+		y4: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const index0 = vertex++;
+		const index1 = vertex++;
+		const index2 = vertex++;
+		const index3 = vertex++;
+		const index4 = vertex++;
+		this.writeVertex(index0, x0, y0, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index1, x1, y1, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index2, x2, y2, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index3, x3, y3, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index4, x4, y4, side, lo, fd, scale, fx, fy, ax, ay);
+		const indices = this._indices;
+		indices[index++] = index0;
+		indices[index++] = index1;
+		indices[index++] = index2;
+
+		indices[index++] = index0;
+		indices[index++] = index2;
+		indices[index++] = index3;
+
+		indices[index++] = index0;
+		indices[index++] = index3;
+		indices[index++] = index4;
+	}
+
+	protected writePoly6(
+		vertex: number,
+		index: number,
+		side: number,
+		lo: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		x3: number,
+		y3: number,
+		x4: number,
+		y4: number,
+		x5: number,
+		y5: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const index0 = vertex++;
+		const index1 = vertex++;
+		const index2 = vertex++;
+		const index3 = vertex++;
+		const index4 = vertex++;
+		const index5 = vertex++;
+		this.writeVertex(index0, x0, y0, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index1, x1, y1, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index2, x2, y2, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index3, x3, y3, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index4, x4, y4, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index5, x5, y5, side, lo, fd, scale, fx, fy, ax, ay);
+		const indices = this._indices;
+		indices[index++] = index0;
+		indices[index++] = index1;
+		indices[index++] = index2;
+
+		indices[index++] = index0;
+		indices[index++] = index2;
+		indices[index++] = index3;
+
+		indices[index++] = index0;
+		indices[index++] = index3;
+		indices[index++] = index4;
+
+		indices[index++] = index0;
+		indices[index++] = index4;
+		indices[index++] = index5;
+	}
+
+	protected writeFan(
+		cx: number,
+		cy: number,
+		cos0: number,
+		sin0: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		rs: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number
+	): void {
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const c = Math.cos(dangle);
+		const s = Math.sin(dangle);
+		const dl = 0.5 * r * dangle;
+		let dx = rs * cos0;
+		let dy = rs * sin0;
+		let iv0 = iv++;
+		let l = lo;
+		this.updateVertex(iv0, cx + dx, cy + dy, fd, lo, scale, fx, fy);
+		const indices = this._indices;
+		const cc = 1 - r * fd;
+		for (let i = 0; i < n - 1; ++i) {
+			const iv1 = iv++;
+			l += dl;
+			this.updateVertex(iv1, cx, cy, fd, l, cc, fx, fy);
+
+			const iv2 = iv++;
+			l += dl;
+			const ndx = c * dx - s * dy;
+			const ndy = s * dx + c * dy;
+			this.updateVertex(iv2, cx + ndx, cy + ndy, fd, l, scale, fx, fy);
+			dx = ndx;
+			dy = ndy;
+
+			indices[ii++] = iv1;
+			indices[ii++] = iv0;
+			indices[ii++] = iv2;
+			iv0 = iv2;
+		}
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.corner === EShapeCorner.ALL
+	 * * shape.stroke.side === EShapeStrokeSide.ALL
+	 * * ax < ay
+	 * * 0 < radius
+	 */
 	protected updateAll1(
 		fx: number,
 		fy: number,
@@ -1808,85 +2073,155 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const outerLeft = -ax - shift;
-		const outerRight = +ax + shift;
-		const outerTop = -ay - shift;
-		const outerBottom = +ay + shift;
-		const innerTop = -ay + ax;
-		const innerBottom = +ay - ax;
+		const d = ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const s = scale;
+		const fs = (scale - 1) * d;
 
-		this.updateTriTop(
+		const r = radius * ax;
+		const rs = r + fs;
+		const ol = -ax - fs;
+		const or = +ax + fs;
+		const x1 = -ax + r;
+		const x4 = +ax - r;
+
+		const y0 = -ay - fs;
+		const y1 = -ay + r;
+		const y2 = -ay + d;
+		const y3 = +ay - d;
+		const y4 = +ay - r;
+		const y5 = +ay + fs;
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = -r;
+		const lor = arc - 3 * r;
+		const lob = 2 * arc - 5 * r;
+		const lol = 3 * arc - 7 * r;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
 			0,
+			lot,
+			x1,
+			y1,
+			x1,
+			y0,
+			x4,
+			y0,
+			x4,
+			y1,
 			0,
-			outerLeft,
-			outerTop,
-			outerRight,
-			outerTop,
-			0,
-			innerTop,
-			fdistance,
-			scale,
+			y2,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateQuadRight(
+		iv += 5;
+		ii += 9;
+		this.writePoly6(
+			iv,
+			ii,
+			1,
+			lor,
+			x4,
+			y1,
+			or,
+			y1,
+			or,
+			y4,
+			x4,
+			y4,
+			0,
+			y3,
+			0,
+			y2,
+			fd,
+			s,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 6;
+		ii += 12;
+		this.writePoly5(
+			iv,
+			ii,
+			2,
+			lob,
+			x4,
+			y4,
+			x4,
+			y5,
+			x1,
+			y5,
+			x1,
+			y4,
+			0,
+			y3,
+			fd,
+			s,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+		this.writePoly6(
+			iv,
+			ii,
 			3,
-			3,
-			outerRight,
-			outerTop,
-			outerRight,
-			outerBottom,
+			lol,
+			x1,
+			y4,
+			ol,
+			y4,
+			ol,
+			y1,
+			x1,
+			y1,
 			0,
-			innerBottom,
+			y2,
 			0,
-			innerTop,
-			fdistance,
-			scale,
+			y3,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateTriBottom(
-			7,
-			9,
-			outerRight,
-			outerBottom,
-			outerLeft,
-			outerBottom,
-			0,
-			innerBottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadLeft(
-			10,
-			12,
-			outerLeft,
-			outerBottom,
-			outerLeft,
-			outerTop,
-			0,
-			innerTop,
-			0,
-			innerBottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(14, 18, nv, ni, fdistance);
+		iv += 6;
+		ii += 12;
+
+		const dx = 2 * (ax - r);
+		const dy = 2 * (ay - r);
+		let l = dx;
+		this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 1 + 2 * (n - 1);
+		ii += 3 * (n - 1);
+		l += arc + dy;
+		this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 1 + 2 * (n - 1);
+		ii += 3 * (n - 1);
+		l += arc + dx;
+		this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 1 + 2 * (n - 1);
+		ii += 3 * (n - 1);
+		l += arc + dy;
+		this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+		iv += 1 + 2 * (n - 1);
+		ii += 3 * (n - 1);
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateCellNone(
@@ -1929,10 +2264,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1956,10 +2291,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -1983,10 +2318,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -2010,10 +2345,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ay: number,
 		iv: number
 	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
+		this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
 		let ii = (iv >> 1) * 3;
 		const indices = this._indices;
 		indices[ii++] = iv;
@@ -2033,14 +2368,15 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		fx: number,
 		fy: number,
 		ax: number,
-		ay: number
+		ay: number,
+		lengthOffset: number
 	): void {
 		this.updateVertex(
 			vertex,
 			x,
 			y,
 			fdistance,
-			x + ax,
+			lengthOffset + x + ax,
 			Math.min(scale, (y + ay) * -fdistance + 1),
 			fx,
 			fy
@@ -2056,14 +2392,15 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		fx: number,
 		fy: number,
 		ax: number,
-		ay: number
+		ay: number,
+		lengthOffset: number
 	): void {
 		this.updateVertex(
 			vertex,
 			x,
 			y,
 			fdistance,
-			2 * ax + y + ay,
+			lengthOffset + 2 * ax + y + ay,
 			Math.min(scale, (x - ax) * fdistance + 1),
 			fx,
 			fy
@@ -2079,14 +2416,15 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		fx: number,
 		fy: number,
 		ax: number,
-		ay: number
+		ay: number,
+		lengthOffset: number
 	): void {
 		this.updateVertex(
 			vertex,
 			x,
 			y,
 			fdistance,
-			3 * ax + 2 * ay - x,
+			lengthOffset + 3 * ax + 2 * ay - x,
 			Math.min(scale, (y - ay) * fdistance + 1),
 			fx,
 			fy
@@ -2102,14 +2440,15 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		fx: number,
 		fy: number,
 		ax: number,
-		ay: number
+		ay: number,
+		lengthOffset: number
 	): void {
 		this.updateVertex(
 			vertex,
 			x,
 			y,
 			fdistance,
-			4 * ax + 3 * ay - y,
+			lengthOffset + 4 * ax + 3 * ay - y,
 			Math.min(scale, (x + ax) * -fdistance + 1),
 			fx,
 			fy
