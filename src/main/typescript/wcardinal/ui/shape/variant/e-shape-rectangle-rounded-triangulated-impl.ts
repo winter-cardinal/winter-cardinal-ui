@@ -318,21 +318,108 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const fdistance = 1 / (2 * ay);
-		this.updateCellTop(
-			-ax,
-			-ay - (scale - 1) / fdistance,
-			+ax,
-			+ay,
-			fdistance,
-			scale,
+		const d = 2 * ay;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const s = scale;
+		const fs = (scale - 1) * d;
+
+		const r = radius * ay;
+
+		const x0 = -ax - fs;
+		const x1 = -ax + r;
+		const x4 = +ax - r;
+		const x5 = +ax + fs;
+
+		const y0 = -ay - fs;
+		const y1 = -ay + r;
+		const y4 = +ay - r;
+		const y5 = +ay + fs;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctl ? -r : 0;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly12(
+			iv,
+			ii,
+			0,
+			lot,
+			ctl ? x1 : x0,
+			ctl ? y1 : y0,
+			x1,
+			y0,
+			x4,
+			y0,
+			ctr ? x4 : x5,
+			ctr ? y1 : y0,
+			x5,
+			y1,
+			x5,
+			y4,
+			cbr ? x4 : x5,
+			cbr ? y4 : y5,
+			x4,
+			y5,
+			x1,
+			y5,
+			cbl ? x1 : x0,
+			cbl ? y4 : y5,
+			x0,
+			y4,
+			x0,
+			y1,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
-			ay,
-			0
+			ay
 		);
-		this.pad(4, 6, nv, ni, fdistance);
+		iv += 12;
+		ii += 30;
+
+		const dx = 2 * (ax - r);
+		const dy = 2 * (ay - r);
+		const rs = r + fs;
+		let l = ctl ? dx : dx + r;
+		if (ctr) {
+			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (cbr) {
+			this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+			l += arc + dx;
+		} else {
+			l += r + r + dx;
+		}
+		if (cbl) {
+			this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (ctl) {
+			this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateRight(
@@ -2006,6 +2093,108 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		indices[index++] = index0;
 		indices[index++] = index4;
 		indices[index++] = index5;
+	}
+
+	protected writePoly12(
+		vertex: number,
+		index: number,
+		side: number,
+		lo: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		x3: number,
+		y3: number,
+		x4: number,
+		y4: number,
+		x5: number,
+		y5: number,
+		x6: number,
+		y6: number,
+		x7: number,
+		y7: number,
+		x8: number,
+		y8: number,
+		x9: number,
+		y9: number,
+		x10: number,
+		y10: number,
+		x11: number,
+		y11: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const index0 = vertex++;
+		const index1 = vertex++;
+		const index2 = vertex++;
+		const index3 = vertex++;
+		const index4 = vertex++;
+		const index5 = vertex++;
+		const index6 = vertex++;
+		const index7 = vertex++;
+		const index8 = vertex++;
+		const index9 = vertex++;
+		const index10 = vertex++;
+		const index11 = vertex++;
+		this.writeVertex(index0, x0, y0, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index1, x1, y1, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index2, x2, y2, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index3, x3, y3, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index4, x4, y4, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index5, x5, y5, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index6, x6, y6, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index7, x7, y7, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index8, x8, y8, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index9, x9, y9, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index10, x10, y10, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index11, x11, y11, side, lo, fd, scale, fx, fy, ax, ay);
+		const indices = this._indices;
+		indices[index++] = index0;
+		indices[index++] = index1;
+		indices[index++] = index2;
+
+		indices[index++] = index0;
+		indices[index++] = index2;
+		indices[index++] = index3;
+
+		indices[index++] = index0;
+		indices[index++] = index3;
+		indices[index++] = index4;
+
+		indices[index++] = index0;
+		indices[index++] = index4;
+		indices[index++] = index5;
+
+		indices[index++] = index0;
+		indices[index++] = index5;
+		indices[index++] = index6;
+
+		indices[index++] = index0;
+		indices[index++] = index6;
+		indices[index++] = index7;
+
+		indices[index++] = index0;
+		indices[index++] = index7;
+		indices[index++] = index8;
+
+		indices[index++] = index0;
+		indices[index++] = index8;
+		indices[index++] = index9;
+
+		indices[index++] = index0;
+		indices[index++] = index9;
+		indices[index++] = index10;
+
+		indices[index++] = index0;
+		indices[index++] = index10;
+		indices[index++] = index11;
 	}
 
 	protected writeFan(
