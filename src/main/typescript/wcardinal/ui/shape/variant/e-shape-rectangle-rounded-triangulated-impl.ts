@@ -187,8 +187,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			const fy = 1 / sizeY;
 			switch (this._parent.stroke.side) {
 				case EShapeStrokeSide.NONE:
-					this.updateNone(fx, fy, ax, ay, scale, radius, corner, nv, ni);
-					break;
 				case EShapeStrokeSide.ALL:
 					if (ay <= ax) {
 						this.updateAll0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
@@ -1691,21 +1689,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this._indices[ii + 5] = iv + (reverse ? 2 : 3);
 	}
 
-	protected updateNone(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		this.updateCellNone(-ax, -ay, +ax, +ay, 0, scale, fx, fy, ax, ay, 0);
-		this.pad(4, 6, nv, ni, 0);
-	}
-
 	/**
 	 * Preconditions:
 	 * * shape.stroke.side === EShapeStrokeSide.ALL
@@ -2257,33 +2240,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 
 		this.pad(iv, ii, nv, ni, fd);
-	}
-
-	protected updateCellNone(
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		iv: number
-	): void {
-		this.updateVertex(iv, x0, y0, 0, 0, 0, fx, fy);
-		this.updateVertex(iv + 1, x1, y0, 0, 0, 0, fx, fy);
-		this.updateVertex(iv + 2, x1, y1, 0, 0, 0, fx, fy);
-		this.updateVertex(iv + 3, x0, y1, 0, 0, 0, fx, fy);
-		let ii = (iv >> 1) * 3;
-		const indices = this._indices;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 1;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv + 3;
 	}
 
 	protected updateCellTop(
