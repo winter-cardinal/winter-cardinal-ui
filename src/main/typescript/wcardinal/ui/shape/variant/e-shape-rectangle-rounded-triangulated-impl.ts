@@ -753,6 +753,58 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
+	/**
+	 * Writes a rounded-corner strip of one half (x <= 0 or 0 <= x) of the shape.
+	 * `sx` is -1 for the left half and +1 for the right half.
+	 * `sy` is -1 for a top corner and +1 for a bottom corner.
+	 * `yi` is Y of the line at the strip's inner edge.
+	 */
+	protected writeLeftRightStrip(
+		sx: number,
+		sy: number,
+		yi: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		for (let i = 0; i < n; ++i) {
+			const y = yi + sy * r * sin;
+			const xo = sx * (ax - r * (1 - cos));
+			const length = sx < 0 ? lo + 4 * ax + 3 * ay - y : lo + 2 * ax + y + ay;
+			const co = Math.min(scale, 1 - (ax - sx * xo) * fd);
+			this.updateVertex(iv, xo, y, fd, length, co, fx, fy);
+			this.updateVertex(iv + 1, 0, y, fd, length, 0, fx, fy);
+			if (0 < i) {
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+			}
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
 	protected updateLeftRight(
 		fx: number,
 		fy: number,
@@ -764,11 +816,95 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const fdistance = 1 / ax;
-		const shift = (scale - 1) / fdistance;
-		this.updateCellLeft(-ax - shift, -ay, 0, +ay, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateCellRight(0, -ay, +ax + shift, +ay, fdistance, scale, fx, fy, ax, ay, 4);
-		this.pad(8, 12, nv, ni, fdistance);
+		const fd = 1 / ax;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * ax;
+		const r = radius * Math.min(ax, ay);
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const xl = -ax - fs;
+		const xr = +ax + fs;
+		const ylt = ctl ? -ay + r : -ay;
+		const ylb = cbl ? +ay - r : +ay;
+		const yrt = ctr ? -ay + r : -ay;
+		const yrb = cbr ? +ay - r : +ay;
+		const lol = cbl ? -r : 0;
+		const lor = ctr ? -r : 0;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly4(
+			iv,
+			ii,
+			3,
+			lol,
+			xl,
+			ylt,
+			0,
+			ylt,
+			0,
+			ylb,
+			xl,
+			ylb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 4;
+		ii += 6;
+		this.writePoly4(
+			iv,
+			ii,
+			1,
+			lor,
+			0,
+			yrt,
+			xr,
+			yrt,
+			xr,
+			yrb,
+			0,
+			yrb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 4;
+		ii += 6;
+
+		if (ctl) {
+			this.writeLeftRightStrip(-1, -1, ylt, lol, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (cbl) {
+			this.writeLeftRightStrip(-1, +1, ylb, lol, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (ctr) {
+			this.writeLeftRightStrip(+1, -1, yrt, lor, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (cbr) {
+			this.writeLeftRightStrip(+1, +1, yrb, lor, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateTopBottom(
@@ -782,11 +918,141 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const fdistance = 1 / ay;
-		const shift = (scale - 1) / fdistance;
-		this.updateCellTop(-ax, -ay - shift, +ax, 0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateCellBottom(-ax, 0, +ax, +ay + shift, fdistance, scale, fx, fy, ax, ay, 4);
-		this.pad(8, 12, nv, ni, fdistance);
+		const fd = 1 / ay;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * ay;
+		const r = radius * Math.min(ax, ay);
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const xlt = ctl ? -ax + r : -ax;
+		const xrt = ctr ? +ax - r : +ax;
+		const xlb = cbl ? -ax + r : -ax;
+		const xrb = cbr ? +ax - r : +ax;
+		const yt = -ay - fs;
+		const yb = +ay + fs;
+		const lot = ctl ? -r : 0;
+		const lob = cbr ? -r : 0;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly4(
+			iv,
+			ii,
+			0,
+			lot,
+			xlt,
+			yt,
+			xrt,
+			yt,
+			xrt,
+			0,
+			xlt,
+			0,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 4;
+		ii += 6;
+		this.writePoly4(
+			iv,
+			ii,
+			2,
+			lob,
+			xlb,
+			0,
+			xrb,
+			0,
+			xrb,
+			yb,
+			xlb,
+			yb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 4;
+		ii += 6;
+
+		if (ctl) {
+			this.writeTopBottomStrip(-1, -1, xlt, lot, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (ctr) {
+			this.writeTopBottomStrip(+1, -1, xrt, lot, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (cbl) {
+			this.writeTopBottomStrip(-1, +1, xlb, lob, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (cbr) {
+			this.writeTopBottomStrip(+1, +1, xrb, lob, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	protected writeTopBottomStrip(
+		sx: number,
+		sy: number,
+		xi: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		for (let i = 0; i < n; ++i) {
+			const x = xi + sx * r * sin;
+			const y = sy * (ay - r * (1 - cos));
+			const length = sy < 0 ? lo + x + ax : lo + 3 * ax + 2 * ay - x;
+			const clipping = Math.min(scale, sy < 0 ? (y + ay) * -fd + 1 : (y - ay) * fd + 1);
+			this.updateVertex(iv, x, y, fd, length, clipping, fx, fy);
+			this.updateVertex(iv + 1, x, 0, fd, length, 0, fx, fy);
+			if (0 < i) {
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+			}
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
 	}
 
 	protected updateTopRight0(
@@ -800,33 +1066,141 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax;
-		const right = +ax + shift;
-		const top = -ay - shift;
-		const bottom = +ay;
-		const indices = this._indices;
+		const d = 2 * ay;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ay;
+		const rs = r + fs;
 
-		const splitX = ax - 2 * ay;
-		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(2, splitX, bottom, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(3, left, bottom, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(4, right, top, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(5, right, bottom, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(6, splitX, bottom, fdistance, scale, fx, fy, ax, ay, 0);
-		indices[0] = 0;
-		indices[1] = 1;
-		indices[2] = 2;
-		indices[3] = 0;
-		indices[4] = 2;
-		indices[5] = 3;
-		indices[6] = 4;
-		indices[7] = 5;
-		indices[8] = 6;
-		this.pad(7, 9, nv, ni, fdistance);
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const oldCtl = cbr;
+		const oldCtr = cbl;
+		const oldCbl = ctr;
+		const oldCbr = ctl;
+		const arc = 0.5 * Math.PI * r;
+		const lot = oldCtl ? -r : 0;
+		const lor = lot + (oldCtr ? arc - 2 * r : 0);
+		const lob = lor + (oldCbr ? arc - 2 * r : 0);
+		const lol = lob + (oldCbl ? arc - 2 * r : 0);
+
+		const xl = -ax - fs;
+		const xr = oldCtr || oldCbr ? +ax - r : +ax;
+		const yt = oldCtl ? -ay + r : -ay;
+		const yb = oldCbl ? +ay - r : +ay + fs;
+		const yo = +ay + fs;
+		const xdb = ay - ax - yb;
+		const xdt = Math.min(ay - ax - yt, xr);
+		const ydt = ay - ax - xdt;
+		const xtb = Math.min(2 * ay - ax, xr);
+		const ytb = ay - ax - xtb;
+		const xbl = oldCbl ? -ax + r : xl;
+		const lengthShift = 2 * ax + 2 * ay;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
+			7,
+			lol + lengthShift,
+			-xl,
+			-yt,
+			-xdt,
+			-yt,
+			-xdt,
+			-ydt,
+			-xdb,
+			-yb,
+			-xl,
+			-yb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+		this.writePoly5(
+			iv,
+			ii,
+			6,
+			lob + lengthShift,
+			-xtb,
+			-ytb,
+			-xr,
+			-ytb,
+			-xr,
+			-yo,
+			-xbl,
+			-yo,
+			-xdb,
+			-yb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+
+		if (ctr) {
+			const lo = lob + 4 * ax + 2 * ay - r + lengthShift;
+			this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (ctl || cbl) {
+			this.writeTopRightLeftStrip(
+				-xr,
+				oldCbr,
+				oldCtr,
+				lob + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 3 * n;
+			ii += 12 * (n - 1);
+		}
+		if (cbr) {
+			this.writeTopRightBottomStrip(
+				-xtb,
+				-ytb,
+				-xdt,
+				lol + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 2 * n + 3;
+			ii += 3 * (2 * n + 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateTopRight1(
@@ -840,33 +1214,141 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax;
-		const right = +ax + shift;
-		const top = -ay - shift;
-		const bottom = +ay;
-		const indices = this._indices;
-		const splitY = 2 * ax - ay;
-		this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(2, left, splitY, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(3, right, top, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(4, right, bottom, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(5, left, bottom, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(6, left, splitY, fdistance, scale, fx, fy, ax, ay, 0);
-		indices[0] = 0;
-		indices[1] = 1;
-		indices[2] = 2;
-		indices[3] = 3;
-		indices[4] = 4;
-		indices[5] = 5;
-		indices[6] = 3;
-		indices[7] = 5;
-		indices[8] = 6;
+		const d = 2 * ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+		const rs = r + fs;
 
-		this.pad(7, 9, nv, ni, fdistance);
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const oldCtl = cbr;
+		const oldCtr = cbl;
+		const oldCbl = ctr;
+		const oldCbr = ctl;
+		const arc = 0.5 * Math.PI * r;
+		const lot = oldCbr ? -r : 0;
+		const lor = lot + (oldCtr ? arc - 2 * r : 0);
+		const lob = lor + (oldCtl ? arc - 2 * r : 0);
+		const lol = lob + (oldCbl ? arc - 2 * r : 0);
+
+		const ul = -ay - fs;
+		const ur = oldCtl || oldCtr ? +ay - r : +ay;
+		const vt = oldCbr ? -ax + r : -ax;
+		const vb = oldCbl ? +ax - r : +ax + fs;
+		const vo = +ax + fs;
+		const udb = ax - ay - vb;
+		const udt = Math.min(ax - ay - vt, ur);
+		const vdt = ax - ay - udt;
+		const utb = Math.min(2 * ax - ay, ur);
+		const vtb = ax - ay - utb;
+		const ubl = oldCbl ? -ay + r : ul;
+		const lengthShift = 2 * ax + 2 * ay;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
+			6,
+			lol + lengthShift,
+			vt,
+			ul,
+			vdt,
+			ul,
+			vdt,
+			udt,
+			vb,
+			udb,
+			vb,
+			ul,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+		this.writePoly5(
+			iv,
+			ii,
+			7,
+			lob + lengthShift,
+			vtb,
+			utb,
+			vtb,
+			ur,
+			vo,
+			ur,
+			vo,
+			ubl,
+			vb,
+			udb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+
+		if (ctr) {
+			const lo = lob + 4 * ax + 2 * ay - r + lengthShift;
+			this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (cbl || cbr) {
+			this.writeTopRightBottomRowStrip(
+				ur,
+				oldCtr,
+				oldCtl,
+				lor + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 3 * n;
+			ii += 12 * (n - 1);
+		}
+		if (ctl) {
+			this.writeTopRightTopColumnStrip(
+				utb,
+				vtb,
+				udt,
+				lob + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 2 * n + 3;
+			ii += 6 * n + 3;
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateBottomLeft0(
@@ -880,50 +1362,362 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax;
-		const top = -ay;
-		const bottom = +ay + shift;
+		const d = 2 * ay;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ay;
+		const rs = r + fs;
 
-		const splitX = 2 * ay - ax;
-		this.updateQuadBottom(
-			0,
-			0,
-			right,
-			bottom,
-			left,
-			bottom,
-			splitX,
-			top,
-			right,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriLeft(
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctl ? -r : 0;
+		const lor = lot + (ctr ? arc - 2 * r : 0);
+		const lob = lor + (cbr ? arc - 2 * r : 0);
+		const lol = lob + (cbl ? arc - 2 * r : 0);
+
+		// The diagonal border between the left and the bottom sides is x + y = ay - ax
+		const xl = -ax - fs;
+		const xr = ctr || cbr ? +ax - r : +ax;
+		const yt = ctl ? -ay + r : -ay;
+		const yb = cbl ? +ay - r : +ay + fs;
+		const yo = +ay + fs;
+		const xdb = ay - ax - yb;
+		const xdt = Math.min(ay - ax - yt, xr);
+		const ydt = ay - ax - xdt;
+		const xtb = Math.min(2 * ay - ax, xr);
+		const ytb = ay - ax - xtb;
+		const xbl = cbl ? -ax + r : xl;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
 			4,
-			6,
-			left,
-			bottom,
-			left,
-			top,
-			splitX,
-			top,
-			fdistance,
+			lol,
+			xl,
+			yt,
+			xdt,
+			yt,
+			xdt,
+			ydt,
+			xdb,
+			yb,
+			xl,
+			yb,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.pad(7, 9, nv, ni, fdistance);
+		iv += 5;
+		ii += 9;
+		this.writePoly5(
+			iv,
+			ii,
+			5,
+			lob,
+			xtb,
+			ytb,
+			xr,
+			ytb,
+			xr,
+			yo,
+			xbl,
+			yo,
+			xdb,
+			yb,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+
+		if (cbl) {
+			const lo = lob + 4 * ax + 2 * ay - r;
+			this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (ctr || cbr) {
+			this.writeBottomLeftRightStrip(
+				xr,
+				ctr,
+				cbr,
+				lob,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 3 * n;
+			ii += 12 * (n - 1);
+		}
+		if (ctl) {
+			this.writeBottomLeftTopStrip(
+				xtb,
+				ytb,
+				xdt,
+				lol,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 2 * n + 3;
+			ii += 3 * (2 * n + 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	/**
+	 * Writes the column strip of the right corners.
+	 * Each line has 3 vertices (top, diagonal border, bottom) because the clipping bends on the border.
+	 * `xi` is X of the line at the column's inner edge.
+	 */
+	protected writeBottomLeftRightStrip(
+		xi: number,
+		ct: boolean,
+		cb: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const fs = (scale - 1) / fd;
+		for (let i = 0; i < n; ++i) {
+			const x = xi + r * sin;
+			const raise = r * (1 - cos);
+			const ytop = ct ? -ay + raise : -ay;
+			const ybottom = cb ? +ay - raise : +ay + fs;
+			const ymiddle = Math.min(Math.max(ay - ax - x, ytop), ybottom);
+			this.updateVertexNearBottom(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearBottom(iv + 1, x, ymiddle, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearBottom(iv + 2, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
+			if (0 < i) {
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 2;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 2;
+				indices[ii++] = iv + 1;
+			}
+			iv += 3;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	/**
+	 * Writes the strip of the top-left corner and the band along the top edge.
+	 * The first 3 vertices are the band's end on the diagonal border: `(xtb, ytb)`, `(xtb, -ay)` and `(xdt, -ay + r)`.
+	 */
+	protected writeBottomLeftTopStrip(
+		xtb: number,
+		ytb: number,
+		xdt: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const indices = this._indices;
+		const ybottom = -ay + r;
+		this.updateVertexNearLeft(iv, xtb, ytb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearLeft(iv + 1, xtb, -ay, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearLeft(iv + 2, xdt, ybottom, fd, scale, fx, fy, ax, ay, lo);
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		iv += 3;
+
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		for (let i = 0; i < n; ++i) {
+			const x = -ax + r - r * sin;
+			const ytop = -ay + r * (1 - cos);
+			this.updateVertexNearLeft(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearLeft(iv + 1, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv - 1;
+			indices[ii++] = iv + 1;
+
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv + 1;
+			indices[ii++] = iv;
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopRightLeftStrip(
+		xi: number,
+		ct: boolean,
+		cb: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const fs = (scale - 1) / fd;
+		for (let i = 0; i < n; ++i) {
+			const x = xi - r * sin;
+			const raise = r * (1 - cos);
+			const ytop = ct ? -ay + raise : -ay - fs;
+			const ybottom = cb ? +ay - raise : +ay;
+			const ymiddle = Math.min(Math.max(ax - ay - x, ytop), ybottom);
+			this.updateVertexNearTop(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearTop(iv + 1, x, ymiddle, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearTop(iv + 2, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
+			if (0 < i) {
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 2;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 2;
+				indices[ii++] = iv + 1;
+			}
+			iv += 3;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopRightBottomStrip(
+		xtb: number,
+		ytb: number,
+		xdt: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const indices = this._indices;
+		const ybottom = +ay - r;
+		this.updateVertexNearRight(iv, xtb, ytb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearRight(iv + 1, xtb, +ay, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearRight(iv + 2, xdt, ybottom, fd, scale, fx, fy, ax, ay, lo);
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		iv += 3;
+
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		for (let i = 0; i < n; ++i) {
+			const x = +ax - r + r * sin;
+			const ytop = +ay - r * (1 - cos);
+			this.updateVertexNearRight(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearRight(iv + 1, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv - 1;
+			indices[ii++] = iv + 1;
+
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv + 1;
+			indices[ii++] = iv;
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
 	}
 
 	protected updateBottomLeft1(
@@ -937,49 +1731,352 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax;
-		const top = -ay;
-		const bottom = +ay + shift;
-		const splitY = ay - 2 * ax;
-		this.updateTriBottom(
-			0,
-			0,
-			right,
-			bottom,
-			left,
-			bottom,
-			right,
-			splitY,
-			fdistance,
+		const d = 2 * ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+		const rs = r + fs;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = cbr ? -r : 0;
+		const lor = lot + (ctr ? arc - 2 * r : 0);
+		const lob = lor + (ctl ? arc - 2 * r : 0);
+		const lol = lob + (cbl ? arc - 2 * r : 0);
+
+		const ul = -ay - fs;
+		const ur = ctl || ctr ? +ay - r : +ay;
+		const vt = cbr ? -ax + r : -ax;
+		const vb = cbl ? +ax - r : +ax + fs;
+		const vo = +ax + fs;
+		const udb = ax - ay - vb;
+		const udt = Math.min(ax - ay - vt, ur);
+		const vdt = ax - ay - udt;
+		const utb = Math.min(2 * ax - ay, ur);
+		const vtb = ax - ay - utb;
+		const ubl = cbl ? -ay + r : ul;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
+			5,
+			lol,
+			-vt,
+			-ul,
+			-vdt,
+			-ul,
+			-vdt,
+			-udt,
+			-vb,
+			-udb,
+			-vb,
+			-ul,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateQuadLeft(
-			3,
-			3,
-			left,
-			bottom,
-			left,
-			top,
-			right,
-			top,
-			right,
-			splitY,
-			fdistance,
+		iv += 5;
+		ii += 9;
+		this.writePoly5(
+			iv,
+			ii,
+			4,
+			lob,
+			-vtb,
+			-utb,
+			-vtb,
+			-ur,
+			-vo,
+			-ur,
+			-vo,
+			-ubl,
+			-vb,
+			-udb,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.pad(7, 9, nv, ni, fdistance);
+		iv += 5;
+		ii += 9;
+
+		if (cbl) {
+			const lo = lob + 4 * ax + 2 * ay - r;
+			this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (ctl || ctr) {
+			this.writeBottomLeftTopColumnStrip(
+				ur,
+				ctr,
+				ctl,
+				lor,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 3 * n;
+			ii += 12 * (n - 1);
+		}
+		if (cbr) {
+			this.writeBottomLeftBottomStrip(
+				utb,
+				vtb,
+				udt,
+				lob,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 2 * n + 3;
+			ii += 6 * n + 3;
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	protected writeBottomLeftTopColumnStrip(
+		xi: number,
+		ct: boolean,
+		cb: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const fs = (scale - 1) / fd;
+		for (let i = 0; i < n; ++i) {
+			const u = xi + r * sin;
+			const raise = r * (1 - cos);
+			const vtop = ct ? -ax + raise : -ax;
+			const vbottom = cb ? +ax - raise : +ax + fs;
+			const vmiddle = Math.min(Math.max(ax - ay - u, vtop), vbottom);
+			this.updateVertexNearLeft(iv, -vtop, -u, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearLeft(iv + 1, -vmiddle, -u, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearLeft(iv + 2, -vbottom, -u, fd, scale, fx, fy, ax, ay, lo);
+			if (0 < i) {
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 2;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 2;
+				indices[ii++] = iv + 1;
+			}
+			iv += 3;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeBottomLeftBottomStrip(
+		xtb: number,
+		ytb: number,
+		xdt: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const indices = this._indices;
+		const xright = ax - r;
+		this.updateVertexNearBottom(iv, -ytb, -xtb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearBottom(iv + 1, ax, -xtb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearBottom(iv + 2, xright, -xdt, fd, scale, fx, fy, ax, ay, lo);
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		iv += 3;
+
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		for (let i = 0; i < n; ++i) {
+			const u = -ay + r - r * sin;
+			const v = -ax + r * (1 - cos);
+			this.updateVertexNearBottom(iv, -v, -u, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearBottom(iv + 1, xright, -u, fd, scale, fx, fy, ax, ay, lo);
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv - 1;
+			indices[ii++] = iv + 1;
+
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv + 1;
+			indices[ii++] = iv;
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopRightBottomRowStrip(
+		yi: number,
+		cl: boolean,
+		cr: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const fs = (scale - 1) / fd;
+		for (let i = 0; i < n; ++i) {
+			const y = yi + r * sin;
+			const raise = r * (1 - cos);
+			const xleft = cl ? -ax + raise : -ax;
+			const xright = cr ? +ax - raise : +ax + fs;
+			const xmiddle = Math.min(Math.max(ax - ay - y, xleft), xright);
+			this.updateVertexNearRight(iv, xleft, y, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearRight(iv + 1, xmiddle, y, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearRight(iv + 2, xright, y, fd, scale, fx, fy, ax, ay, lo);
+			if (0 < i) {
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 2;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 2;
+				indices[ii++] = iv + 1;
+			}
+			iv += 3;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopRightTopColumnStrip(
+		utb: number,
+		vtb: number,
+		udt: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const indices = this._indices;
+		const xleft = -ax + r;
+		this.updateVertexNearTop(iv, vtb, utb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearTop(iv + 1, -ax, utb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearTop(iv + 2, xleft, udt, fd, scale, fx, fy, ax, ay, lo);
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		iv += 3;
+
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		for (let i = 0; i < n; ++i) {
+			const y = -ay + r - r * sin;
+			const x = -ax + r * (1 - cos);
+			this.updateVertexNearTop(iv, x, y, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearTop(iv + 1, xleft, y, fd, scale, fx, fy, ax, ay, lo);
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv - 1;
+			indices[ii++] = iv + 1;
+
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv + 1;
+			indices[ii++] = iv;
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
 	}
 
 	protected updateTopLeft0(
@@ -993,50 +2090,141 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax;
-		const top = -ay - shift;
-		const bottom = +ay;
+		const d = 2 * ay;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ay;
+		const rs = r + fs;
 
-		const splitX = 2 * ay - ax;
-		this.updateQuadTop(
-			0,
-			0,
-			right,
-			top,
-			left,
-			top,
-			splitX,
-			bottom,
-			right,
-			bottom,
-			fdistance,
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const oldCtl = cbl;
+		const oldCtr = cbr;
+		const oldCbl = ctl;
+		const oldCbr = ctr;
+		const arc = 0.5 * Math.PI * r;
+		const lot = oldCtl ? -r : 0;
+		const lor = lot + (oldCtr ? arc - 2 * r : 0);
+		const lob = lor + (oldCbr ? arc - 2 * r : 0);
+		const lol = lob + (oldCbl ? arc - 2 * r : 0);
+
+		const xl = -ax - fs;
+		const xr = oldCtr || oldCbr ? +ax - r : +ax;
+		const yt = oldCtl ? -ay + r : -ay;
+		const yb = oldCbl ? +ay - r : +ay + fs;
+		const yo = +ay + fs;
+		const xdb = ay - ax - yb;
+		const xdt = Math.min(ay - ax - yt, xr);
+		const ydt = ay - ax - xdt;
+		const xtb = Math.min(2 * ay - ax, xr);
+		const ytb = ay - ax - xtb;
+		const xbl = oldCbl ? -ax + r : xl;
+		const lengthShift = -2 * ax - 2 * ay;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
+			9,
+			lol + lengthShift,
+			xl,
+			-yt,
+			xdt,
+			-yt,
+			xdt,
+			-ydt,
+			xdb,
+			-yb,
+			xl,
+			-yb,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateTriLeft(
-			4,
-			6,
-			left,
-			top,
-			left,
-			bottom,
-			splitX,
-			bottom,
-			fdistance,
+		iv += 5;
+		ii += 9;
+		this.writePoly5(
+			iv,
+			ii,
+			8,
+			lob + lengthShift,
+			xtb,
+			-ytb,
+			xr,
+			-ytb,
+			xr,
+			-yo,
+			xbl,
+			-yo,
+			xdb,
+			-yb,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.pad(7, 9, nv, ni, fdistance);
+		iv += 5;
+		ii += 9;
+
+		if (ctl) {
+			const lo = lob + 4 * ax + 2 * ay - r + lengthShift;
+			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (ctr || cbr) {
+			this.writeTopLeftRightStrip(
+				xr,
+				ctr,
+				cbr,
+				lob + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 3 * n;
+			ii += 12 * (n - 1);
+		}
+		if (cbl) {
+			this.writeTopLeftBottomStrip(
+				xtb,
+				-ytb,
+				xdt,
+				lol + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 2 * n + 3;
+			ii += 3 * (2 * n + 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateTopLeft1(
@@ -1050,49 +2238,357 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax;
-		const top = -ay - shift;
-		const bottom = +ay;
-		const splitY = 2 * ax - ay;
-		this.updateTriTop(
-			0,
-			0,
-			right,
-			top,
-			left,
-			top,
-			right,
-			splitY,
-			fdistance,
+		const d = 2 * ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+		const rs = r + fs;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const oldCtl = cbl;
+		const oldCtr = cbr;
+		const oldCbl = ctl;
+		const oldCbr = ctr;
+		const arc = 0.5 * Math.PI * r;
+		const lot = oldCbr ? -r : 0;
+		const lor = lot + (oldCtr ? arc - 2 * r : 0);
+		const lob = lor + (oldCtl ? arc - 2 * r : 0);
+		const lol = lob + (oldCbl ? arc - 2 * r : 0);
+
+		const ul = -ay - fs;
+		const ur = oldCtl || oldCtr ? +ay - r : +ay;
+		const vt = oldCbr ? -ax + r : -ax;
+		const vb = oldCbl ? +ax - r : +ax + fs;
+		const vo = +ax + fs;
+		const udb = ax - ay - vb;
+		const udt = Math.min(ax - ay - vt, ur);
+		const vdt = ax - ay - udt;
+		const utb = Math.min(2 * ax - ay, ur);
+		const vtb = ax - ay - utb;
+		const ubl = oldCbl ? -ay + r : ul;
+		const lengthShift = -2 * ax - 2 * ay;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
+			8,
+			lol + lengthShift,
+			-vt,
+			ul,
+			-vdt,
+			ul,
+			-vdt,
+			udt,
+			-vb,
+			udb,
+			-vb,
+			ul,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.updateQuadLeft(
-			3,
-			3,
-			left,
-			top,
-			left,
-			bottom,
-			right,
-			bottom,
-			right,
-			splitY,
-			fdistance,
+		iv += 5;
+		ii += 9;
+		this.writePoly5(
+			iv,
+			ii,
+			9,
+			lob + lengthShift,
+			-vtb,
+			utb,
+			-vtb,
+			ur,
+			-vo,
+			ur,
+			-vo,
+			ubl,
+			-vb,
+			udb,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
 			ay
 		);
-		this.pad(7, 9, nv, ni, fdistance);
+		iv += 5;
+		ii += 9;
+
+		if (ctl) {
+			const lo = lob + 4 * ax + 2 * ay - r + lengthShift;
+			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (cbl || cbr) {
+			this.writeTopLeftBottomRowStrip(
+				ur,
+				cbl,
+				cbr,
+				lor + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 3 * n;
+			ii += 12 * (n - 1);
+		}
+		if (ctr) {
+			this.writeTopLeftTopColumnStrip(
+				utb,
+				vtb,
+				udt,
+				lob + lengthShift,
+				iv,
+				ii,
+				n,
+				r,
+				ax,
+				ay,
+				scale,
+				fd,
+				fx,
+				fy
+			);
+			iv += 2 * n + 3;
+			ii += 6 * n + 3;
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	protected writeTopLeftRightStrip(
+		xi: number,
+		ct: boolean,
+		cb: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const fs = (scale - 1) / fd;
+		for (let i = 0; i < n; ++i) {
+			const x = xi + r * sin;
+			const raise = r * (1 - cos);
+			const ytop = ct ? -ay + raise : -ay - fs;
+			const ybottom = cb ? +ay - raise : +ay;
+			const ymiddle = Math.min(Math.max(x + ax - ay, ytop), ybottom);
+			this.updateVertexNearTopLeft(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearTopLeft(iv + 1, x, ymiddle, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearTopLeft(iv + 2, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
+			if (0 < i) {
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 2;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 2;
+				indices[ii++] = iv + 1;
+			}
+			iv += 3;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopLeftBottomStrip(
+		xtb: number,
+		ytb: number,
+		xdt: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const indices = this._indices;
+		const ybottom = +ay - r;
+		this.updateVertexNearLeftTop(iv, xtb, ytb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearLeftTop(iv + 1, xtb, +ay, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearLeftTop(iv + 2, xdt, ybottom, fd, scale, fx, fy, ax, ay, lo);
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		iv += 3;
+
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		for (let i = 0; i < n; ++i) {
+			const x = -ax + r - r * sin;
+			const ytop = +ay - r * (1 - cos);
+			this.updateVertexNearLeftTop(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearLeftTop(iv + 1, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv - 1;
+			indices[ii++] = iv + 1;
+
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv + 1;
+			indices[ii++] = iv;
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopLeftBottomRowStrip(
+		yi: number,
+		cl: boolean,
+		cr: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const fs = (scale - 1) / fd;
+		for (let i = 0; i < n; ++i) {
+			const y = yi + r * sin;
+			const raise = r * (1 - cos);
+			const xleft = cl ? -ax + raise : -ax - fs;
+			const xright = cr ? +ax - raise : +ax;
+			const xmiddle = Math.min(Math.max(y + ay - ax, xleft), xright);
+			this.updateVertexNearLeftTop(iv, xleft, y, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearLeftTop(iv + 1, xmiddle, y, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearLeftTop(iv + 2, xright, y, fd, scale, fx, fy, ax, ay, lo);
+			if (0 < i) {
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 3;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 2;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 2;
+				indices[ii++] = iv + 1;
+			}
+			iv += 3;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeTopLeftTopColumnStrip(
+		utb: number,
+		vtb: number,
+		udt: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const indices = this._indices;
+		const xright = +ax - r;
+		this.updateVertexNearTopLeft(iv, -vtb, utb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearTopLeft(iv + 1, +ax, utb, fd, scale, fx, fy, ax, ay, lo);
+		this.updateVertexNearTopLeft(iv + 2, xright, udt, fd, scale, fx, fy, ax, ay, lo);
+		indices[ii++] = iv;
+		indices[ii++] = iv + 1;
+		indices[ii++] = iv + 2;
+		iv += 3;
+
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		for (let i = 0; i < n; ++i) {
+			const y = -ay + r - r * sin;
+			const x = +ax - r * (1 - cos);
+			this.updateVertexNearTopLeft(iv, x, y, fd, scale, fx, fy, ax, ay, lo);
+			this.updateVertexNearTopLeft(iv + 1, xright, y, fd, scale, fx, fy, ax, ay, lo);
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv - 1;
+			indices[ii++] = iv + 1;
+
+			indices[ii++] = iv - 2;
+			indices[ii++] = iv + 1;
+			indices[ii++] = iv;
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
 	}
 
 	protected updateBottomRight0(
@@ -1106,50 +2602,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax;
-		const right = +ax + shift;
-		const top = -ay;
-		const bottom = +ay + shift;
-
-		const splitX = ax - 2 * ay;
-		this.updateQuadBottom(
-			0,
-			0,
-			left,
-			bottom,
-			right,
-			bottom,
-			splitX,
-			top,
-			left,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriRight(
-			4,
-			6,
-			right,
-			bottom,
-			right,
-			top,
-			splitX,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(7, 9, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateBottomRight1(
@@ -1163,49 +2616,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax;
-		const right = +ax + shift;
-		const top = -ay;
-		const bottom = +ay + shift;
-		const splitY = ay - 2 * ax;
-		this.updateTriBottom(
-			0,
-			0,
-			left,
-			bottom,
-			right,
-			bottom,
-			left,
-			splitY,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadRight(
-			3,
-			3,
-			right,
-			bottom,
-			right,
-			top,
-			left,
-			top,
-			left,
-			splitY,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(7, 9, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotTop0(
@@ -1219,66 +2630,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax + shift;
-		const top = -ay;
-		const bottom = +ay + shift;
-		const splitLeft = 2 * ay - ax;
-		const splitRight = ax - 2 * ay;
-		this.updateTriLeft(
-			0,
-			0,
-			left,
-			top,
-			splitLeft,
-			top,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadBottom(
-			3,
-			3,
-			splitLeft,
-			top,
-			splitRight,
-			top,
-			right,
-			bottom,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriRight(
-			7,
-			9,
-			splitRight,
-			top,
-			right,
-			top,
-			right,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(10, 12, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotTop1(
@@ -1292,67 +2644,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax + shift;
-		const top = -ay;
-		const bottom = +ay + shift;
-		const splitY = ay - ax;
-		this.updateQuadLeft(
-			0,
-			0,
-			left,
-			top,
-			0,
-			top,
-			0,
-			splitY,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadRight(
-			4,
-			6,
-			0,
-			top,
-			right,
-			top,
-			right,
-			bottom,
-			0,
-			splitY,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriBottom(
-			8,
-			12,
-			0,
-			splitY,
-			right,
-			bottom,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(11, 15, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotBottom0(
@@ -1366,67 +2658,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax + shift;
-		const top = -ay - shift;
-		const bottom = +ay;
-
-		const splitLeft = 2 * ay - ax;
-		const splitRight = ax - 2 * ay;
-		this.updateTriLeft(
-			0,
-			0,
-			left,
-			bottom,
-			splitLeft,
-			bottom,
-			left,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadTop(
-			3,
-			3,
-			splitLeft,
-			bottom,
-			splitRight,
-			bottom,
-			right,
-			top,
-			left,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriRight(
-			7,
-			9,
-			splitRight,
-			bottom,
-			right,
-			bottom,
-			right,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(10, 12, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotBottom1(
@@ -1440,67 +2672,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax + shift;
-		const top = -ay - shift;
-		const bottom = +ay;
-		const splitY = ay - ax;
-		this.updateQuadLeft(
-			0,
-			0,
-			left,
-			bottom,
-			0,
-			bottom,
-			0,
-			-splitY,
-			left,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadRight(
-			4,
-			6,
-			0,
-			bottom,
-			right,
-			bottom,
-			right,
-			top,
-			0,
-			-splitY,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriTop(
-			8,
-			12,
-			0,
-			-splitY,
-			right,
-			top,
-			left,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(11, 15, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotLeft0(
@@ -1514,67 +2686,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax;
-		const right = +ax + shift;
-		const top = -ay - shift;
-		const bottom = +ay + shift;
-
-		const splitTop = 2 * ax - ay;
-		const splitBottom = ay - 2 * ax;
-		this.updateTriBottom(
-			0,
-			0,
-			left,
-			bottom,
-			left,
-			splitBottom,
-			right,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadRight(
-			3,
-			3,
-			left,
-			splitBottom,
-			left,
-			splitTop,
-			right,
-			top,
-			right,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriTop(
-			7,
-			9,
-			left,
-			splitTop,
-			left,
-			top,
-			right,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(10, 12, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotLeft1(
@@ -1588,67 +2700,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax;
-		const right = +ax + shift;
-		const top = -ay - shift;
-		const bottom = +ay + shift;
-		const splitX = ax - ay;
-		this.updateQuadBottom(
-			0,
-			0,
-			left,
-			bottom,
-			left,
-			0,
-			splitX,
-			0,
-			right,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadTop(
-			4,
-			6,
-			left,
-			0,
-			left,
-			top,
-			right,
-			top,
-			splitX,
-			0,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriRight(
-			8,
-			12,
-			splitX,
-			0,
-			right,
-			top,
-			right,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(11, 15, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotRight0(
@@ -1662,67 +2714,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = 2 * ax;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax;
-		const top = -ay - shift;
-		const bottom = +ay + shift;
-
-		const stop = 2 * ax - ay;
-		const sbottom = ay - 2 * ax;
-		this.updateTriBottom(
-			0,
-			0,
-			right,
-			bottom,
-			right,
-			sbottom,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadLeft(
-			3,
-			3,
-			right,
-			sbottom,
-			right,
-			stop,
-			left,
-			top,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriTop(
-			7,
-			9,
-			right,
-			stop,
-			right,
-			top,
-			left,
-			top,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(10, 12, nv, ni, fdistance);
+		// TODO
 	}
 
 	protected updateNotRight1(
@@ -1736,291 +2728,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const distance = ay;
-		const fdistance = 1 / distance;
-		const shift = (scale - 1) * distance;
-		const left = -ax - shift;
-		const right = +ax;
-		const top = -ay - shift;
-		const bottom = +ay + shift;
-		const splitX = ay - ax;
-		this.updateQuadBottom(
-			0,
-			0,
-			right,
-			bottom,
-			right,
-			0,
-			splitX,
-			0,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateQuadTop(
-			4,
-			6,
-			right,
-			0,
-			right,
-			top,
-			left,
-			top,
-			splitX,
-			0,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.updateTriLeft(
-			8,
-			12,
-			splitX,
-			0,
-			left,
-			top,
-			left,
-			bottom,
-			fdistance,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		this.pad(11, 15, nv, ni, fdistance);
-	}
-
-	protected updateTriTop(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-	}
-
-	protected updateTriRight(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-	}
-
-	protected updateTriBottom(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-	}
-
-	protected updateTriLeft(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-	}
-
-	protected updateQuadTop(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		x3: number,
-		y3: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-		this._indices[ii + 3] = iv;
-		this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-		this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-	}
-
-	protected updateQuadRight(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		x3: number,
-		y3: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 1, x1, y1, fdistance, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 2, x2, y2, fdistance, fdistance, scale, fx, fy, ax, ay);
-		this.updateVertexRight(iv + 3, x3, y3, fdistance, fdistance, scale, fx, fy, ax, ay);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-		this._indices[ii + 3] = iv;
-		this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-		this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-	}
-
-	protected updateQuadBottom(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		x3: number,
-		y3: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-		this._indices[ii + 3] = iv;
-		this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-		this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-	}
-
-	protected updateQuadLeft(
-		iv: number,
-		ii: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		x3: number,
-		y3: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		reverse: boolean = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0)
-	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay, 0);
-		this._indices[ii] = iv;
-		this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-		this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-		this._indices[ii + 3] = iv;
-		this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-		this._indices[ii + 5] = iv + (reverse ? 2 : 3);
+		// TODO
 	}
 
 	/**
@@ -2236,6 +2944,24 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			case 3:
 				this.updateVertexLeft(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
 				break;
+			case 4:
+				this.updateVertexNearLeft(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 5:
+				this.updateVertexNearBottom(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 6:
+				this.updateVertexNearTop(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 7:
+				this.updateVertexNearRight(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 8:
+				this.updateVertexNearTopLeft(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
+			case 9:
+				this.updateVertexNearLeftTop(vertex, x, y, fd, scale, fx, fy, ax, ay, lo);
+				break;
 			default:
 				this.updateVertex(vertex, x, y, fd, 0, 0, fx, fy);
 				break;
@@ -2378,385 +3104,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		indices[index++] = index0;
 		indices[index++] = index4;
 		indices[index++] = index5;
-	}
-
-	protected writePoly12(
-		vertex: number,
-		index: number,
-		side: number,
-		lo: number,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		x3: number,
-		y3: number,
-		x4: number,
-		y4: number,
-		x5: number,
-		y5: number,
-		x6: number,
-		y6: number,
-		x7: number,
-		y7: number,
-		x8: number,
-		y8: number,
-		x9: number,
-		y9: number,
-		x10: number,
-		y10: number,
-		x11: number,
-		y11: number,
-		fd: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number
-	): void {
-		const index0 = vertex++;
-		const index1 = vertex++;
-		const index2 = vertex++;
-		const index3 = vertex++;
-		const index4 = vertex++;
-		const index5 = vertex++;
-		const index6 = vertex++;
-		const index7 = vertex++;
-		const index8 = vertex++;
-		const index9 = vertex++;
-		const index10 = vertex++;
-		const index11 = vertex++;
-		this.writeVertex(index0, x0, y0, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index1, x1, y1, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index2, x2, y2, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index3, x3, y3, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index4, x4, y4, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index5, x5, y5, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index6, x6, y6, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index7, x7, y7, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index8, x8, y8, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index9, x9, y9, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index10, x10, y10, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(index11, x11, y11, side, lo, fd, scale, fx, fy, ax, ay);
-		const indices = this._indices;
-		indices[index++] = index0;
-		indices[index++] = index1;
-		indices[index++] = index2;
-
-		indices[index++] = index0;
-		indices[index++] = index2;
-		indices[index++] = index3;
-
-		indices[index++] = index0;
-		indices[index++] = index3;
-		indices[index++] = index4;
-
-		indices[index++] = index0;
-		indices[index++] = index4;
-		indices[index++] = index5;
-
-		indices[index++] = index0;
-		indices[index++] = index5;
-		indices[index++] = index6;
-
-		indices[index++] = index0;
-		indices[index++] = index6;
-		indices[index++] = index7;
-
-		indices[index++] = index0;
-		indices[index++] = index7;
-		indices[index++] = index8;
-
-		indices[index++] = index0;
-		indices[index++] = index8;
-		indices[index++] = index9;
-
-		indices[index++] = index0;
-		indices[index++] = index9;
-		indices[index++] = index10;
-
-		indices[index++] = index0;
-		indices[index++] = index10;
-		indices[index++] = index11;
-	}
-
-	protected writeStripTop(
-		cx: number,
-		cy: number,
-		cos0: number,
-		sin0: number,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		rs: number,
-		fd: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number
-	): void {
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		const indices = this._indices;
-		const innerClipping = Math.min(scale, 1 - (cy + ay) * fd);
-		const outerClipping = sin0 < 0 || cos0 < 0 ? scale : 1 - scale;
-		let ivout = iv;
-		let ivin = iv;
-		let cos = 1;
-		let sin = 0;
-		for (let i = 0; i < n; ++i) {
-			const angle = i * dangle;
-			const horizontal = cos0 * cos - sin0 * sin;
-			const vertical = sin0 * cos + cos0 * sin;
-			const x = cx + r * horizontal;
-			const y = cy + r * vertical + (rs - r) * (cos0 + sin0);
-			const distance = vertical !== 0 ? fd / Math.abs(vertical) : fd;
-			const length = lo + r * angle;
-			const outer = iv++;
-			this.updateVertex(
-				outer,
-				x,
-				y,
-				distance,
-				length,
-				vertical !== 0 ? outerClipping : innerClipping,
-				fx,
-				fy
-			);
-			let inner = outer;
-			if (!((i === 0 && sin0 === 0) || (i === n - 1 && cos0 === 0))) {
-				inner = iv++;
-				this.updateVertex(inner, x, cy, distance, length, innerClipping, fx, fy);
-			}
-			if (0 < i) {
-				indices[ii++] = ivin;
-				indices[ii++] = ivout;
-				indices[ii++] = outer;
-				indices[ii++] = ivin;
-				indices[ii++] = outer;
-				indices[ii++] = inner;
-			}
-			ivout = outer;
-			ivin = inner;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
-		}
-	}
-
-	protected writeStripRight(
-		cx: number,
-		cy: number,
-		cos0: number,
-		sin0: number,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		rs: number,
-		fd: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number
-	): void {
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		const indices = this._indices;
-		const innerClipping = Math.min(scale, (cx - ax) * fd + 1);
-		const outerClipping = sin0 < 0 || cos0 > 0 ? scale : 1 - scale;
-		let ivout = iv;
-		let ivin = iv;
-		let cos = 1;
-		let sin = 0;
-		for (let i = 0; i < n; ++i) {
-			const angle = i * dangle;
-			const horizontal = cos0 * cos - sin0 * sin;
-			const vertical = sin0 * cos + cos0 * sin;
-			const x = cx + r * horizontal + (rs - r) * (cos0 - sin0);
-			const y = cy + r * vertical;
-			const distance = horizontal !== 0 ? fd / Math.abs(horizontal) : fd;
-			const length = lo + r * angle;
-			const outer = iv++;
-			this.updateVertex(
-				outer,
-				x,
-				y,
-				distance,
-				length,
-				horizontal !== 0 ? outerClipping : innerClipping,
-				fx,
-				fy
-			);
-			let inner = outer;
-			if (!((i === 0 && cos0 === 0) || (i === n - 1 && sin0 === 0))) {
-				inner = iv++;
-				this.updateVertex(inner, cx, y, distance, length, innerClipping, fx, fy);
-			}
-			if (0 < i) {
-				indices[ii++] = ivin;
-				indices[ii++] = ivout;
-				indices[ii++] = outer;
-				indices[ii++] = ivin;
-				indices[ii++] = outer;
-				indices[ii++] = inner;
-			}
-			ivout = outer;
-			ivin = inner;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
-		}
-	}
-
-	protected writeStripBottom(
-		cx: number,
-		cy: number,
-		cos0: number,
-		sin0: number,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		rs: number,
-		fd: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number
-	): void {
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		const indices = this._indices;
-		const innerClipping = Math.min(scale, (cy - ay) * fd + 1);
-		const outerClipping = 0 < sin0 || 0 < cos0 ? scale : 1 - scale;
-		let ivout = iv;
-		let ivin = iv;
-		let cos = 1;
-		let sin = 0;
-		for (let i = 0; i < n; ++i) {
-			const angle = i * dangle;
-			const horizontal = cos0 * cos - sin0 * sin;
-			const vertical = sin0 * cos + cos0 * sin;
-			const x = cx + r * horizontal;
-			const y = cy + r * vertical + (rs - r) * (cos0 + sin0);
-			// const distance = vertical !== 1 ? fd / Math.abs(1 - vertical) : fd;
-			const distance = fd;
-			const length = lo + r * angle;
-			const outer = iv++;
-			this.updateVertex(
-				outer,
-				x,
-				y,
-				distance,
-				length,
-				vertical !== 0 ? outerClipping : innerClipping,
-				fx,
-				fy
-			);
-			let inner = outer;
-			if (!((i === 0 && sin0 === 0) || (i === n - 1 && cos0 === 0))) {
-				inner = iv++;
-				this.updateVertex(inner, x, cy, distance, length, innerClipping, fx, fy);
-			}
-			if (0 < i) {
-				indices[ii++] = ivin;
-				indices[ii++] = ivout;
-				indices[ii++] = outer;
-				indices[ii++] = ivin;
-				indices[ii++] = outer;
-				indices[ii++] = inner;
-			}
-			ivout = outer;
-			ivin = inner;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
-		}
-	}
-
-	protected writeStripLeft(
-		cx: number,
-		cy: number,
-		cos0: number,
-		sin0: number,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		rs: number,
-		fd: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number
-	): void {
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		const indices = this._indices;
-		const innerClipping = Math.min(scale, (cx + ax) * -fd + 1);
-		const outerClipping = sin0 > 0 || cos0 < 0 ? scale : 1 - scale;
-		let ivout = iv;
-		let ivin = iv;
-		let cos = 1;
-		let sin = 0;
-		for (let i = 0; i < n; ++i) {
-			const angle = i * dangle;
-			const horizontal = cos0 * cos - sin0 * sin;
-			const vertical = sin0 * cos + cos0 * sin;
-			const x = cx + r * horizontal + (rs - r) * (cos0 - sin0);
-			const y = cy + r * vertical;
-			const distance = horizontal !== 0 ? fd / Math.abs(horizontal) : fd;
-			const length = lo + r * angle;
-			const outer = iv++;
-			this.updateVertex(
-				outer,
-				x,
-				y,
-				distance,
-				length,
-				horizontal !== 0 ? outerClipping : innerClipping,
-				fx,
-				fy
-			);
-			let inner = outer;
-			if (!((i === 0 && cos0 === 0) || (i === n - 1 && sin0 === 0))) {
-				inner = iv++;
-				this.updateVertex(inner, cx, y, distance, length, innerClipping, fx, fy);
-			}
-			if (0 < i) {
-				indices[ii++] = ivin;
-				indices[ii++] = ivout;
-				indices[ii++] = outer;
-				indices[ii++] = ivin;
-				indices[ii++] = outer;
-				indices[ii++] = inner;
-			}
-			ivout = outer;
-			ivin = inner;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
-		}
 	}
 
 	protected writeFan(
@@ -2993,114 +3340,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected updateCellTop(
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		iv: number
-	): void {
-		this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		let ii = (iv >> 1) * 3;
-		const indices = this._indices;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 1;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv + 3;
-	}
-
-	protected updateCellRight(
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		iv: number
-	): void {
-		this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		let ii = (iv >> 1) * 3;
-		const indices = this._indices;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 1;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv + 3;
-	}
-
-	protected updateCellBottom(
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		iv: number
-	): void {
-		this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		let ii = (iv >> 1) * 3;
-		const indices = this._indices;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 1;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv + 3;
-	}
-
-	protected updateCellLeft(
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		fdistance: number,
-		scale: number,
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		iv: number
-	): void {
-		this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay, 0);
-		let ii = (iv >> 1) * 3;
-		const indices = this._indices;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 1;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv;
-		indices[ii++] = iv + 2;
-		indices[ii++] = iv + 3;
-	}
-
 	protected updateVertexTop(
 		vertex: number,
 		x: number,
@@ -3192,6 +3431,168 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			fdistance,
 			lengthOffset + 4 * ax + 3 * ay - y,
 			Math.min(scale, (x + ax) * -fdistance + 1),
+			fx,
+			fy
+		);
+	}
+
+	protected updateVertexNearTopLeft(
+		vertex: number,
+		x: number,
+		y: number,
+		fdistance: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		lengthOffset: number
+	): void {
+		const ct = (y + ay) * -fdistance + 1;
+		const cl = (x + ax) * -fdistance + 1;
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			fdistance,
+			lengthOffset + x + ax,
+			Math.min(scale, Math.max(ct, cl)),
+			fx,
+			fy
+		);
+	}
+
+	protected updateVertexNearTop(
+		vertex: number,
+		x: number,
+		y: number,
+		fdistance: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		lengthOffset: number
+	): void {
+		const ct = (y + ay) * -fdistance + 1;
+		const cr = (x - ax) * fdistance + 1;
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			fdistance,
+			lengthOffset + x + ax,
+			Math.min(scale, Math.max(ct, cr)),
+			fx,
+			fy
+		);
+	}
+
+	protected updateVertexNearLeftTop(
+		vertex: number,
+		x: number,
+		y: number,
+		fdistance: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		lengthOffset: number
+	): void {
+		const ct = (y + ay) * -fdistance + 1;
+		const cl = (x + ax) * -fdistance + 1;
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			fdistance,
+			lengthOffset + 4 * ax + 3 * ay - y,
+			Math.min(scale, Math.max(ct, cl)),
+			fx,
+			fy
+		);
+	}
+
+	protected updateVertexNearRight(
+		vertex: number,
+		x: number,
+		y: number,
+		fdistance: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		lengthOffset: number
+	): void {
+		const ct = (y + ay) * -fdistance + 1;
+		const cr = (x - ax) * fdistance + 1;
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			fdistance,
+			lengthOffset + 2 * ax + y + ay,
+			Math.min(scale, Math.max(ct, cr)),
+			fx,
+			fy
+		);
+	}
+
+	/**
+	 * The length follows the left side. The clipping follows the nearer of the left and the bottom sides.
+	 */
+	protected updateVertexNearLeft(
+		vertex: number,
+		x: number,
+		y: number,
+		fdistance: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		lengthOffset: number
+	): void {
+		const cl = (x + ax) * -fdistance + 1;
+		const cb = (y - ay) * fdistance + 1;
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			fdistance,
+			lengthOffset + 4 * ax + 3 * ay - y,
+			Math.min(scale, Math.max(cl, cb)),
+			fx,
+			fy
+		);
+	}
+
+	/**
+	 * The length follows the bottom side. The clipping follows the nearer of the left and the bottom sides.
+	 */
+	protected updateVertexNearBottom(
+		vertex: number,
+		x: number,
+		y: number,
+		fdistance: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		lengthOffset: number
+	): void {
+		const cl = (x + ax) * -fdistance + 1;
+		const cb = (y - ay) * fdistance + 1;
+		this.updateVertex(
+			vertex,
+			x,
+			y,
+			fdistance,
+			lengthOffset + 3 * ax + 2 * ay - x,
+			Math.min(scale, Math.max(cl, cb)),
 			fx,
 			fy
 		);
