@@ -59,7 +59,6 @@ export const buildPolygonStep = (
 	polygonDistances: number[],
 	polygonLengths: number[],
 	polygonClippings: number[],
-	polygonStrokeWidths: number[] | undefined,
 	polygonUvs: number[],
 	polygonBoundary: EShapeBoundary,
 	voffset: number,
@@ -82,7 +81,6 @@ export const buildPolygonStep = (
 				polygonDistances,
 				polygonLengths,
 				polygonClippings,
-				polygonStrokeWidths,
 				polygonUvs,
 				voffset,
 				vertexCount,
@@ -98,7 +96,6 @@ export const buildPolygonStep = (
 				polygonDistances,
 				polygonLengths,
 				polygonClippings,
-				polygonStrokeWidths,
 				polygonUvs,
 				voffset,
 				vertexCount,
@@ -114,7 +111,6 @@ export const buildPolygonStep = (
 				polygonDistances,
 				polygonLengths,
 				polygonClippings,
-				polygonStrokeWidths,
 				polygonUvs,
 				voffset,
 				vertexCount,
@@ -130,7 +126,6 @@ export const buildPolygonStep = (
 				polygonDistances,
 				polygonLengths,
 				polygonClippings,
-				polygonStrokeWidths,
 				polygonUvs,
 				voffset,
 				vertexCount,
@@ -148,7 +143,6 @@ export const buildPolygonStepX = (
 	polygonDistances: number[],
 	polygonLengths: number[],
 	polygonClippings: number[],
-	polygonStrokeWidths: number[] | undefined,
 	polygonUvs: number[],
 	voffset: number,
 	vertexCount: number,
@@ -159,7 +153,7 @@ export const buildPolygonStepX = (
 ): void => {
 	let is = voffset * 6 - 1;
 	for (let i = 0, j = 0; i < vertexCount; i += 1, j += 2) {
-		steps[++is] = polygonStrokeWidths ? polygonStrokeWidths[i] : strokeWidth;
+		steps[++is] = strokeWidth;
 		steps[++is] = e;
 		steps[++is] = polygonDistances[i];
 		steps[++is] = afp * (fp - polygonUvs[j]);
@@ -173,7 +167,6 @@ export const buildPolygonStepY = (
 	polygonDistances: number[],
 	polygonLengths: number[],
 	polygonClippings: number[],
-	polygonStrokeWidths: number[] | undefined,
 	polygonUvs: number[],
 	voffset: number,
 	vertexCount: number,
@@ -184,7 +177,7 @@ export const buildPolygonStepY = (
 ): void => {
 	let is = voffset * 6 - 1;
 	for (let i = 0, j = 1; i < vertexCount; i += 1, j += 2) {
-		steps[++is] = polygonStrokeWidths ? polygonStrokeWidths[i] : strokeWidth;
+		steps[++is] = strokeWidth;
 		steps[++is] = e;
 		steps[++is] = polygonDistances[i];
 		steps[++is] = afp * (fp - polygonUvs[j]);

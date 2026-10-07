@@ -5,6 +5,4 @@
 
 import { EShapePolygonTriangulatedLike } from "./e-shape-polygon-triangulated-like";
 
-export interface EShapeRectangleRoundedTriangulated extends EShapePolygonTriangulatedLike {
-	readonly strokeWidths: number[];
-}
+export interface EShapeRectangleRoundedTriangulated extends EShapePolygonTriangulatedLike {}

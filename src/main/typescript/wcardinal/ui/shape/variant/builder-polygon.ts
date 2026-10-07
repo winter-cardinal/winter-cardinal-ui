@@ -176,7 +176,6 @@ export class BuilderPolygon extends BuilderBase {
 					triangulated.distances,
 					triangulated.lengths,
 					triangulated.clippings,
-					triangulated.strokeWidths,
 					triangulated.uvs,
 					triangulated.boundary,
 					voffset,

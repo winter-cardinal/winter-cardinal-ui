@@ -28,7 +28,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	protected _distances: number[];
 	protected _lengths: number[];
 	protected _clippings: number[];
-	protected _strokeWidths: number[];
 	protected _uvs: number[];
 	protected _indices: number[];
 	protected _nindices: number;
@@ -52,7 +51,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this._distances = [];
 		this._lengths = [];
 		this._clippings = [];
-		this._strokeWidths = [];
 		this._uvs = [];
 		this._indices = [];
 		this._nindices = 0;
@@ -87,11 +85,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	get clippings(): number[] {
 		this.triangulate();
 		return this._clippings;
-	}
-
-	get strokeWidths(): number[] {
-		this.triangulate();
-		return this._strokeWidths;
 	}
 
 	get uvs(): number[] {
@@ -288,7 +281,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const distances = this._distances;
 		const lengths = this._lengths;
 		const clippings = this._clippings;
-		const strokeWidths = this._strokeWidths;
 		const uvs = this._uvs;
 		const indices = this._indices;
 
@@ -299,7 +291,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			distances[i] = fd;
 			lengths[i] = 0;
 			clippings[i] = 0;
-			strokeWidths[i] = this._strokeWidth;
 			uvs[i2] = 0.5;
 			uvs[i2 + 1] = 0.5;
 		}
@@ -312,7 +303,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		distances.length = nv;
 		lengths.length = nv;
 		clippings.length = nv;
-		strokeWidths.length = nv;
 		uvs.length = nv2;
 		indices.length = ni * 3;
 	}
@@ -3169,8 +3159,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		length: number,
 		clipping: number,
 		fx: number,
-		fy: number,
-		strokeWidth: number = this._strokeWidth
+		fy: number
 	): void {
 		const vertex2 = vertex << 1;
 		this._vertices[vertex2] = x;
@@ -3178,7 +3167,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this._distances[vertex] = distance;
 		this._lengths[vertex] = length;
 		this._clippings[vertex] = clipping;
-		this._strokeWidths[vertex] = strokeWidth;
 		this._uvs[vertex2] = 0.5 * (x * fx + 1);
 		this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
 	}
