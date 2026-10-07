@@ -778,25 +778,31 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const xo = -ax - fs;
 		const m = -sx;
 		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
 
-		let k = iv;
-		this.writeVertex(k++, 0, -ay, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(k++, 0, +ay, side, lo, fd, scale, fx, fy, ax, ay);
-		for (let i = n - 1; 0 <= i; --i) {
-			const angle = i * dangle;
-			const x = cb && 0 < i ? -ax + r - r * Math.cos(angle) : xo;
-			const y = cb ? +ay - r + r * Math.sin(angle) : +ay;
-			this.writeVertex(k++, m * x, y, side, lo, fd, scale, fx, fy, ax, ay);
-		}
+		this.writeVertex(iv, 0, -ay, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(iv + 1, 0, +ay, side, lo, fd, scale, fx, fy, ax, ay);
+		const ib = iv + 2;
+		const it = ib + n;
+		let cos = 1;
+		let sin = 0;
 		for (let i = 0; i < n; ++i) {
-			const angle = i * dangle;
-			const x = ct && 0 < i ? -ax + r - r * Math.cos(angle) : xo;
-			const y = ct ? -ay + r - r * Math.sin(angle) : -ay;
-			this.writeVertex(k++, m * x, y, side, lo, fd, scale, fx, fy, ax, ay);
+			// The bottom arc runs from the bottom tangent point to the left one, so its angle is pi / 2 - i * dangle.
+			const xb = cb && i < n - 1 ? -ax + r - r * sin : xo;
+			const yb = cb ? +ay - r + r * cos : +ay;
+			this.writeVertex(ib + i, m * xb, yb, side, lo, fd, scale, fx, fy, ax, ay);
+			const xt = ct && 0 < i ? -ax + r - r * cos : xo;
+			const yt = ct ? -ay + r - r * sin : -ay;
+			this.writeVertex(it + i, m * xt, yt, side, lo, fd, scale, fx, fy, ax, ay);
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
 		}
 
 		const indices = this._indices;
-		for (let i = 1, imax = k - iv - 1; i < imax; ++i) {
+		for (let i = 1, imax = 2 * n + 1; i < imax; ++i) {
 			indices[ii++] = iv;
 			indices[ii++] = iv + (sx < 0 ? i : i + 1);
 			indices[ii++] = iv + (sx < 0 ? i + 1 : i);
