@@ -1256,69 +1256,70 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const lob = lor + (cbr ? arc - 2 * r : 0);
 		const lol = lob + (cbl ? arc - 2 * r : 0);
 
-		// The diagonal border between the left and the bottom sides is x + y = ay - ax
-		const xl = -ax - fs;
-		const xr = ctr || cbr ? +ax - r : +ax;
-		const yt = ctl ? -ay + r : -ay;
-		const yb = cbl ? +ay - r : +ay + fs;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const xo = -ax - fs;
 		const yo = +ay + fs;
-		const xdb = ay - ax - yb;
-		const xdt = Math.min(ay - ax - yt, xr);
-		const ydt = ay - ax - xdt;
-		const xtb = Math.min(2 * ay - ax, xr);
-		const ytb = ay - ax - xtb;
-		const xbl = cbl ? -ax + r : xl;
 
+		// The diagonal border between the left and the bottom sides is x + y = ay - ax.
+		// It starts from the center of the bottom-left corner.
+		const xc = cbl ? -ax + r : xo;
+		const yc = cbl ? +ay - r : yo;
+
+		// The diagonal border ends at the red point on the top edge or on the top-right arc.
+		// k is the number of the top-right arc vertices on the left side of the red point.
+		let xred = 2 * ay - ax;
+		let yred = -ay;
+		let k = 0;
+		if (ctr && ax - r < xred) {
+			const e = ax - ay;
+			const z = Math.sqrt(0.5 * r * r - e * e);
+			xred = ax - r + z - e;
+			yred = -ay + r - z - e;
+			k = Math.ceil(Math.atan2(z - e, z + e) / dangle);
+		}
+
+		// Top-left polygon of N + k + 3 vertices as a triangle fan.
+		// Order: the corner center (fan origin), the left end, the top-left arc (N), the top-right arc (k), the red point.
 		let iv = 0;
 		let ii = 0;
-		this.writePoly5(
-			iv,
-			ii,
-			4,
-			lol,
-			xl,
-			yt,
-			xdt,
-			yt,
-			xdt,
-			ydt,
-			xdb,
-			yb,
-			xl,
-			yb,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 5;
-		ii += 9;
-		this.writePoly5(
-			iv,
-			ii,
-			5,
-			lob,
-			xtb,
-			ytb,
-			xr,
-			ytb,
-			xr,
-			yo,
-			xbl,
-			yo,
-			xdb,
-			yb,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 5;
-		ii += 9;
+		this.writeVertex(iv++, xc, yc, 3, lol, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(iv++, xo, yc, 3, lol, fd, scale, fx, fy, ax, ay);
+		for (let i = 0; i < n; ++i) {
+			const phi = i * dangle;
+			const x = ctl && 0 < i ? -ax + r - r * Math.cos(phi) : xo;
+			const y = ctl ? -ay + r - r * Math.sin(phi) : -ay;
+			this.writeVertex(iv++, x, y, 3, lol, fd, scale, fx, fy, ax, ay);
+		}
+		for (let i = 0; i < k; ++i) {
+			const phi = i * dangle;
+			const x = ax - r + r * Math.sin(phi);
+			const y = -ay + r - r * Math.cos(phi);
+			this.writeVertex(iv++, x, y, 3, lol, fd, scale, fx, fy, ax, ay);
+		}
+		this.writeVertex(iv++, xred, yred, 3, lol, fd, scale, fx, fy, ax, ay);
+		this.writeFanIndices(0, ii, iv);
+		ii += 3 * (iv - 2);
+
+		// Bottom-right polygon of M + N + 3 vertices as a triangle fan, where M = N - k.
+		// Order: the corner center (fan origin), the red point, the top-right arc (M), the bottom-right arc (N), the bottom end.
+		const iv0 = iv;
+		this.writeVertex(iv++, xc, yc, 2, lob, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(iv++, xred, yred, 2, lob, fd, scale, fx, fy, ax, ay);
+		for (let i = k; i < n; ++i) {
+			const phi = i * dangle;
+			const x = ctr ? ax - r + r * Math.sin(phi) : ax;
+			const y = ctr ? -ay + r - r * Math.cos(phi) : -ay;
+			this.writeVertex(iv++, x, y, 2, lob, fd, scale, fx, fy, ax, ay);
+		}
+		for (let i = 0; i < n; ++i) {
+			const phi = i * dangle;
+			const x = cbr ? ax - r + r * Math.cos(phi) : ax;
+			const y = cbr && i < n - 1 ? +ay - r + r * Math.sin(phi) : yo;
+			this.writeVertex(iv++, x, y, 2, lob, fd, scale, fx, fy, ax, ay);
+		}
+		this.writeVertex(iv++, xc, yo, 2, lob, fd, scale, fx, fy, ax, ay);
+		this.writeFanIndices(iv0, ii, iv - iv0);
+		ii += 3 * (iv - iv0 - 2);
 
 		if (cbl) {
 			const lo = lob + 4 * ax + 2 * ay - r;
@@ -1326,164 +1327,16 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			iv += 2 * n - 1;
 			ii += 3 * (n - 1);
 		}
-		if (ctr || cbr) {
-			this.writeBottomLeftRightStrip(
-				xr,
-				ctr,
-				cbr,
-				lob,
-				iv,
-				ii,
-				n,
-				r,
-				ax,
-				ay,
-				scale,
-				fd,
-				fx,
-				fy
-			);
-			iv += 3 * n;
-			ii += 12 * (n - 1);
-		}
-		if (ctl) {
-			this.writeBottomLeftTopStrip(
-				xtb,
-				ytb,
-				xdt,
-				lol,
-				iv,
-				ii,
-				n,
-				r,
-				ax,
-				ay,
-				scale,
-				fd,
-				fx,
-				fy
-			);
-			iv += 2 * n + 3;
-			ii += 3 * (2 * n + 1);
-		}
 
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	/**
-	 * Writes the column strip of the right corners.
-	 * Each line has 3 vertices (top, diagonal border, bottom) because the clipping bends on the border.
-	 * `xi` is X of the line at the column's inner edge.
-	 */
-	protected writeBottomLeftRightStrip(
-		xi: number,
-		ct: boolean,
-		cb: boolean,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		fd: number,
-		fx: number,
-		fy: number
-	): void {
-		let cos = 1;
-		let sin = 0;
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
+	protected writeFanIndices(iv: number, ii: number, count: number): void {
 		const indices = this._indices;
-		const fs = (scale - 1) / fd;
-		for (let i = 0; i < n; ++i) {
-			const x = xi + r * sin;
-			const raise = r * (1 - cos);
-			const ytop = ct ? -ay + raise : -ay;
-			const ybottom = cb ? +ay - raise : +ay + fs;
-			const ymiddle = Math.min(Math.max(ay - ax - x, ytop), ybottom);
-			this.updateVertexNearBottom(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
-			this.updateVertexNearBottom(iv + 1, x, ymiddle, fd, scale, fx, fy, ax, ay, lo);
-			this.updateVertexNearBottom(iv + 2, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
-			if (0 < i) {
-				indices[ii++] = iv - 3;
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv + 1;
-
-				indices[ii++] = iv - 3;
-				indices[ii++] = iv + 1;
-				indices[ii++] = iv;
-
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv - 1;
-				indices[ii++] = iv + 2;
-
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv + 2;
-				indices[ii++] = iv + 1;
-			}
-			iv += 3;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
-		}
-	}
-
-	/**
-	 * Writes the strip of the top-left corner and the band along the top edge.
-	 * The first 3 vertices are the band's end on the diagonal border: `(xtb, ytb)`, `(xtb, -ay)` and `(xdt, -ay + r)`.
-	 */
-	protected writeBottomLeftTopStrip(
-		xtb: number,
-		ytb: number,
-		xdt: number,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		fd: number,
-		fx: number,
-		fy: number
-	): void {
-		const indices = this._indices;
-		const ybottom = -ay + r;
-		this.updateVertexNearLeft(iv, xtb, ytb, fd, scale, fx, fy, ax, ay, lo);
-		this.updateVertexNearLeft(iv + 1, xtb, -ay, fd, scale, fx, fy, ax, ay, lo);
-		this.updateVertexNearLeft(iv + 2, xdt, ybottom, fd, scale, fx, fy, ax, ay, lo);
-		indices[ii++] = iv;
-		indices[ii++] = iv + 1;
-		indices[ii++] = iv + 2;
-		iv += 3;
-
-		let cos = 1;
-		let sin = 0;
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		for (let i = 0; i < n; ++i) {
-			const x = -ax + r - r * sin;
-			const ytop = -ay + r * (1 - cos);
-			this.updateVertexNearLeft(iv, x, ytop, fd, scale, fx, fy, ax, ay, lo);
-			this.updateVertexNearLeft(iv + 1, x, ybottom, fd, scale, fx, fy, ax, ay, lo);
-			indices[ii++] = iv - 2;
-			indices[ii++] = iv - 1;
-			indices[ii++] = iv + 1;
-
-			indices[ii++] = iv - 2;
-			indices[ii++] = iv + 1;
+		for (let i = 1, imax = count - 1; i < imax; ++i) {
 			indices[ii++] = iv;
-			iv += 2;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
+			indices[ii++] = iv + i;
+			indices[ii++] = iv + i + 1;
 		}
 	}
 
