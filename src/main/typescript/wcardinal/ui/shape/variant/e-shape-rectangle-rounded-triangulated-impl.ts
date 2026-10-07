@@ -28,6 +28,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	protected _distances: number[];
 	protected _lengths: number[];
 	protected _clippings: number[];
+	protected _strokeWidths: number[];
 	protected _uvs: number[];
 	protected _indices: number[];
 	protected _nindices: number;
@@ -51,6 +52,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this._distances = [];
 		this._lengths = [];
 		this._clippings = [];
+		this._strokeWidths = [];
 		this._uvs = [];
 		this._indices = [];
 		this._nindices = 0;
@@ -85,6 +87,11 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	get clippings(): number[] {
 		this.triangulate();
 		return this._clippings;
+	}
+
+	get strokeWidths(): number[] {
+		this.triangulate();
+		return this._strokeWidths;
 	}
 
 	get uvs(): number[] {
@@ -172,7 +179,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		// # of vertices and # of indices
 		const n = this._n >> 2;
 		const nv = 22 + 4 * (2 * n - 1);
-		const ni = 14 + 4 * (n - 1);
+		const ni = Math.max(14 + 4 * (n - 1), 10 + 8 * (n - 1));
 		this._nvertices = nv;
 		this._nindices = ni;
 
@@ -281,6 +288,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const distances = this._distances;
 		const lengths = this._lengths;
 		const clippings = this._clippings;
+		const strokeWidths = this._strokeWidths;
 		const uvs = this._uvs;
 		const indices = this._indices;
 
@@ -291,6 +299,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			distances[i] = fd;
 			lengths[i] = 0;
 			clippings[i] = 0;
+			strokeWidths[i] = this._strokeWidth;
 			uvs[i2] = 0.5;
 			uvs[i2 + 1] = 0.5;
 		}
@@ -303,6 +312,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		distances.length = nv;
 		lengths.length = nv;
 		clippings.length = nv;
+		strokeWidths.length = nv;
 		uvs.length = nv2;
 		indices.length = ni * 3;
 	}
@@ -323,13 +333,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const n = this._n >> 2;
 		const s = scale;
 		const fs = (scale - 1) * d;
-
 		const r = radius * ay;
 
-		const x0 = -ax - fs;
+		const x0 = -ax;
 		const x1 = -ax + r;
 		const x4 = +ax - r;
-		const x5 = +ax + fs;
+		const x5 = +ax;
 
 		const y0 = -ay - fs;
 		const y1 = -ay + r;
@@ -391,34 +400,35 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const rs = r + fs;
 		let l = ctl ? dx : dx + r;
 		if (ctr) {
-			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			this.writeStripTop(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
 			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
+			ii += 6 * (n - 1);
 			l += arc + dy;
 		} else {
 			l += r + r + dy;
 		}
 		if (cbr) {
-			this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			this.writeStripTop(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
 			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
+			ii += 6 * (n - 1);
 			l += arc + dx;
 		} else {
 			l += r + r + dx;
 		}
 		if (cbl) {
-			this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			this.writeStripTop(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
 			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
+			ii += 6 * (n - 1);
 			l += arc + dy;
 		} else {
 			l += r + r + dy;
 		}
 		if (ctl) {
-			this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			this.writeStripTop(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
 			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
+			ii += 6 * (n - 1);
 		}
+
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
@@ -433,21 +443,108 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const fdistance = 1 / (2 * ax);
-		this.updateCellRight(
-			-ax,
-			-ay,
-			+ax + (scale - 1) / fdistance,
-			+ay,
-			fdistance,
-			scale,
+		const d = 2 * ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const s = scale;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+
+		const x0 = -ax - fs;
+		const x1 = -ax + r;
+		const x4 = +ax - r;
+		const x5 = +ax + fs;
+
+		const y0 = -ay;
+		const y1 = -ay + r;
+		const y4 = +ay - r;
+		const y5 = +ay;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctl ? -r : 0;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly12(
+			iv,
+			ii,
+			1,
+			lot,
+			ctl ? x1 : x0,
+			ctl ? y1 : y0,
+			x1,
+			y0,
+			x4,
+			y0,
+			ctr ? x4 : x5,
+			ctr ? y1 : y0,
+			x5,
+			y1,
+			x5,
+			y4,
+			cbr ? x4 : x5,
+			cbr ? y4 : y5,
+			x4,
+			y5,
+			x1,
+			y5,
+			cbl ? x1 : x0,
+			cbl ? y4 : y5,
+			x0,
+			y4,
+			x0,
+			y1,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
-			ay,
-			0
+			ay
 		);
-		this.pad(4, 6, nv, ni, fdistance);
+		iv += 12;
+		ii += 30;
+
+		const dx = 2 * (ax - r);
+		const dy = 2 * (ay - r);
+		const rs = r + fs;
+		let l = ctl ? dx : dx + r;
+		if (ctr) {
+			this.writeStripRight(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (cbr) {
+			this.writeStripRight(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+			l += arc + dx;
+		} else {
+			l += r + r + dx;
+		}
+		if (cbl) {
+			this.writeStripRight(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (ctl) {
+			this.writeStripRight(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateBottom(
@@ -461,21 +558,132 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const fdistance = 1 / (2 * ay);
-		this.updateCellBottom(
-			-ax,
-			-ay,
-			+ax,
-			+ay + (scale - 1) / fdistance,
-			fdistance,
+		const n = this._n >> 2;
+		const r = radius * Math.min(ax, ay);
+		const d = 2 * ay;
+		const fd = 1 / d;
+		const sw = this._strokeWidth;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const xl = ctl || cbl ? -ax + r : -ax;
+		const xr = ctr || cbr ? +ax - r : +ax;
+
+		const yt = -ay;
+		const yb = +ay + (scale - 1) * d;
+
+		// Perimeter length of the bottom edge: lb - x
+		const arc = 0.5 * Math.PI * r;
+		const lb =
+			2 * ax -
+			(ctl ? r : 0) -
+			(ctr ? r : 0) +
+			(ctr ? arc : 0) +
+			2 * ay -
+			(ctr ? r : 0) -
+			(cbr ? r : 0) +
+			(cbr ? arc : 0) +
+			(cbr ? ax - r : ax);
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly4(
+			iv,
+			ii,
+			2,
+			lb - 3 * ax - 2 * ay,
+			xl,
+			yt,
+			xr,
+			yt,
+			xr,
+			yb,
+			xl,
+			yb,
+			fd,
 			scale,
 			fx,
 			fy,
 			ax,
-			ay,
-			0
+			ay
 		);
-		this.pad(4, 6, nv, ni, fdistance);
+		iv += 4;
+		ii += 6;
+
+		if (ctr || cbr) {
+			this.writeBottomStrip(+1, xr, ctr, cbr, lb, iv, ii, n, r, ay, scale, sw, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+		if (ctl || cbl) {
+			this.writeBottomStrip(-1, xl, ctl, cbl, lb, iv, ii, n, r, ay, scale, sw, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	/**
+	 * Writes a vertical strip of a corner column (n lines, 2 vertices per line).
+	 * `sign` is +1 for the right column and -1 for the left column.
+	 * `xi` is X of the line at the column's inner edge.
+	 */
+	protected writeBottomStrip(
+		sign: number,
+		xi: number,
+		ct: boolean,
+		cb: boolean,
+		lb: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ay: number,
+		scale: number,
+		sw: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const indices = this._indices;
+		for (let i = 0; i < n; ++i) {
+			const angle = i * dangle;
+			const x = xi + sign * r * Math.sin(angle);
+			const raise = r * (1 - Math.cos(angle));
+			const top = -ay + (ct ? raise : 0);
+			const bottom = +ay - (cb ? raise : 0);
+			const length = cb ? lb - xi - sign * r * angle : lb - x;
+			const width = Math.max(0, sw - (cb ? raise : 0));
+			const h = bottom - top;
+			const distance = 0 < h ? 1 / h : fd;
+			this.updateVertex(iv, x, top, distance, length, 0, fx, fy, width);
+			this.updateVertex(
+				iv + 1,
+				x,
+				bottom + (scale - 1) * h,
+				distance,
+				length,
+				scale,
+				fx,
+				fy,
+				width
+			);
+			if (0 < i) {
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+			}
+			iv += 2;
+		}
 	}
 
 	protected updateLeft(
@@ -489,21 +697,108 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const fdistance = 1 / (2 * ax);
-		this.updateCellLeft(
-			-ax - (scale - 1) / fdistance,
-			-ay,
-			+ax,
-			+ay,
-			fdistance,
-			scale,
+		const d = 2 * ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const s = scale;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+
+		const x0 = -ax - fs;
+		const x1 = -ax + r;
+		const x4 = +ax - r;
+		const x5 = +ax;
+
+		const y0 = -ay;
+		const y1 = -ay + r;
+		const y4 = +ay - r;
+		const y5 = +ay;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctl ? -r : 0;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly12(
+			iv,
+			ii,
+			3,
+			lot,
+			ctl ? x1 : x0,
+			ctl ? y1 : y0,
+			x1,
+			y0,
+			x4,
+			y0,
+			ctr ? x4 : x5,
+			ctr ? y1 : y0,
+			x5,
+			y1,
+			x5,
+			y4,
+			cbr ? x4 : x5,
+			cbr ? y4 : y5,
+			x4,
+			y5,
+			x1,
+			y5,
+			cbl ? x1 : x0,
+			cbl ? y4 : y5,
+			x0,
+			y4,
+			x0,
+			y1,
+			fd,
+			s,
 			fx,
 			fy,
 			ax,
-			ay,
-			0
+			ay
 		);
-		this.pad(4, 6, nv, ni, fdistance);
+		iv += 12;
+		ii += 30;
+
+		const dx = 2 * (ax - r);
+		const dy = 2 * (ay - r);
+		const rs = r + fs;
+		let l = ctl ? dx : dx + r;
+		if (ctr) {
+			this.writeStripLeft(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (cbr) {
+			this.writeStripLeft(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+			l += arc + dx;
+		} else {
+			l += r + r + dx;
+		}
+		if (cbl) {
+			this.writeStripLeft(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (ctl) {
+			this.writeStripLeft(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy, ax, ay);
+			iv += 2 * n - 1;
+			ii += 6 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
 	protected updateLeftRight(
@@ -1995,6 +2290,44 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
+	protected writePoly4(
+		vertex: number,
+		index: number,
+		side: number,
+		lo: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		x3: number,
+		y3: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const index0 = vertex++;
+		const index1 = vertex++;
+		const index2 = vertex++;
+		const index3 = vertex++;
+		this.writeVertex(index0, x0, y0, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index1, x1, y1, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index2, x2, y2, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(index3, x3, y3, side, lo, fd, scale, fx, fy, ax, ay);
+		const indices = this._indices;
+		indices[index++] = index0;
+		indices[index++] = index1;
+		indices[index++] = index2;
+
+		indices[index++] = index0;
+		indices[index++] = index2;
+		indices[index++] = index3;
+	}
+
 	protected writePoly5(
 		vertex: number,
 		index: number,
@@ -2195,6 +2528,283 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		indices[index++] = index0;
 		indices[index++] = index10;
 		indices[index++] = index11;
+	}
+
+	protected writeStripTop(
+		cx: number,
+		cy: number,
+		cos0: number,
+		sin0: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		rs: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const innerClipping = Math.min(scale, 1 - (cy + ay) * fd);
+		const outerClipping = sin0 < 0 || cos0 < 0 ? scale : 1 - scale;
+		let ivout = iv;
+		let ivin = iv;
+		let cos = 1;
+		let sin = 0;
+		for (let i = 0; i < n; ++i) {
+			const angle = i * dangle;
+			const horizontal = cos0 * cos - sin0 * sin;
+			const vertical = sin0 * cos + cos0 * sin;
+			const x = cx + r * horizontal;
+			const y = cy + r * vertical + (rs - r) * (cos0 + sin0);
+			const distance = vertical !== 0 ? fd / Math.abs(vertical) : fd;
+			const length = lo + r * angle;
+			const outer = iv++;
+			this.updateVertex(
+				outer,
+				x,
+				y,
+				distance,
+				length,
+				vertical !== 0 ? outerClipping : innerClipping,
+				fx,
+				fy
+			);
+			let inner = outer;
+			if (!((i === 0 && sin0 === 0) || (i === n - 1 && cos0 === 0))) {
+				inner = iv++;
+				this.updateVertex(inner, x, cy, distance, length, innerClipping, fx, fy);
+			}
+			if (0 < i) {
+				indices[ii++] = ivin;
+				indices[ii++] = ivout;
+				indices[ii++] = outer;
+				indices[ii++] = ivin;
+				indices[ii++] = outer;
+				indices[ii++] = inner;
+			}
+			ivout = outer;
+			ivin = inner;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeStripRight(
+		cx: number,
+		cy: number,
+		cos0: number,
+		sin0: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		rs: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const innerClipping = Math.min(scale, (cx - ax) * fd + 1);
+		const outerClipping = sin0 < 0 || cos0 > 0 ? scale : 1 - scale;
+		let ivout = iv;
+		let ivin = iv;
+		let cos = 1;
+		let sin = 0;
+		for (let i = 0; i < n; ++i) {
+			const angle = i * dangle;
+			const horizontal = cos0 * cos - sin0 * sin;
+			const vertical = sin0 * cos + cos0 * sin;
+			const x = cx + r * horizontal + (rs - r) * (cos0 - sin0);
+			const y = cy + r * vertical;
+			const distance = horizontal !== 0 ? fd / Math.abs(horizontal) : fd;
+			const length = lo + r * angle;
+			const outer = iv++;
+			this.updateVertex(
+				outer,
+				x,
+				y,
+				distance,
+				length,
+				horizontal !== 0 ? outerClipping : innerClipping,
+				fx,
+				fy
+			);
+			let inner = outer;
+			if (!((i === 0 && cos0 === 0) || (i === n - 1 && sin0 === 0))) {
+				inner = iv++;
+				this.updateVertex(inner, cx, y, distance, length, innerClipping, fx, fy);
+			}
+			if (0 < i) {
+				indices[ii++] = ivin;
+				indices[ii++] = ivout;
+				indices[ii++] = outer;
+				indices[ii++] = ivin;
+				indices[ii++] = outer;
+				indices[ii++] = inner;
+			}
+			ivout = outer;
+			ivin = inner;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeStripBottom(
+		cx: number,
+		cy: number,
+		cos0: number,
+		sin0: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		rs: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const innerClipping = Math.min(scale, (cy - ay) * fd + 1);
+		const outerClipping = 0 < sin0 || 0 < cos0 ? scale : 1 - scale;
+		let ivout = iv;
+		let ivin = iv;
+		let cos = 1;
+		let sin = 0;
+		for (let i = 0; i < n; ++i) {
+			const angle = i * dangle;
+			const horizontal = cos0 * cos - sin0 * sin;
+			const vertical = sin0 * cos + cos0 * sin;
+			const x = cx + r * horizontal;
+			const y = cy + r * vertical + (rs - r) * (cos0 + sin0);
+			// const distance = vertical !== 1 ? fd / Math.abs(1 - vertical) : fd;
+			const distance = fd;
+			const length = lo + r * angle;
+			const outer = iv++;
+			this.updateVertex(
+				outer,
+				x,
+				y,
+				distance,
+				length,
+				vertical !== 0 ? outerClipping : innerClipping,
+				fx,
+				fy
+			);
+			let inner = outer;
+			if (!((i === 0 && sin0 === 0) || (i === n - 1 && cos0 === 0))) {
+				inner = iv++;
+				this.updateVertex(inner, x, cy, distance, length, innerClipping, fx, fy);
+			}
+			if (0 < i) {
+				indices[ii++] = ivin;
+				indices[ii++] = ivout;
+				indices[ii++] = outer;
+				indices[ii++] = ivin;
+				indices[ii++] = outer;
+				indices[ii++] = inner;
+			}
+			ivout = outer;
+			ivin = inner;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	protected writeStripLeft(
+		cx: number,
+		cy: number,
+		cos0: number,
+		sin0: number,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		rs: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number
+	): void {
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		const innerClipping = Math.min(scale, (cx + ax) * -fd + 1);
+		const outerClipping = sin0 > 0 || cos0 < 0 ? scale : 1 - scale;
+		let ivout = iv;
+		let ivin = iv;
+		let cos = 1;
+		let sin = 0;
+		for (let i = 0; i < n; ++i) {
+			const angle = i * dangle;
+			const horizontal = cos0 * cos - sin0 * sin;
+			const vertical = sin0 * cos + cos0 * sin;
+			const x = cx + r * horizontal + (rs - r) * (cos0 - sin0);
+			const y = cy + r * vertical;
+			const distance = horizontal !== 0 ? fd / Math.abs(horizontal) : fd;
+			const length = lo + r * angle;
+			const outer = iv++;
+			this.updateVertex(
+				outer,
+				x,
+				y,
+				distance,
+				length,
+				horizontal !== 0 ? outerClipping : innerClipping,
+				fx,
+				fy
+			);
+			let inner = outer;
+			if (!((i === 0 && cos0 === 0) || (i === n - 1 && sin0 === 0))) {
+				inner = iv++;
+				this.updateVertex(inner, cx, y, distance, length, innerClipping, fx, fy);
+			}
+			if (0 < i) {
+				indices[ii++] = ivin;
+				indices[ii++] = ivout;
+				indices[ii++] = outer;
+				indices[ii++] = ivin;
+				indices[ii++] = outer;
+				indices[ii++] = inner;
+			}
+			ivout = outer;
+			ivin = inner;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
 	}
 
 	protected writeFan(
@@ -2643,7 +3253,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		length: number,
 		clipping: number,
 		fx: number,
-		fy: number
+		fy: number,
+		strokeWidth: number = this._strokeWidth
 	): void {
 		const vertex2 = vertex << 1;
 		this._vertices[vertex2] = x;
@@ -2651,6 +3262,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this._distances[vertex] = distance;
 		this._lengths[vertex] = length;
 		this._clippings[vertex] = clipping;
+		this._strokeWidths[vertex] = strokeWidth;
 		this._uvs[vertex2] = 0.5 * (x * fx + 1);
 		this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
 	}

@@ -12,6 +12,8 @@ export interface EShapePolygonTriangulatedLike {
 	readonly distances: number[];
 	readonly lengths: number[];
 	readonly clippings: number[];
+	/** Per-vertex stroke widths. When omitted, the shape's stroke width is used. */
+	readonly strokeWidths?: number[];
 	readonly uvs: number[];
 	readonly indices: number[];
 	readonly nindices: number;
