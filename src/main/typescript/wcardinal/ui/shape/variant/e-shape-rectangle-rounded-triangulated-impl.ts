@@ -858,7 +858,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	): void {
 		const fd = 1 / ay;
 		const n = this._n >> 2;
-		const fs = (scale - 1) * ay;
 		const r = radius * Math.min(ax, ay);
 
 		const cr = 0 < radius;
@@ -867,91 +866,26 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
 		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
 
-		const xlt = ctl ? -ax + r : -ax;
-		const xrt = ctr ? +ax - r : +ax;
-		const xlb = cbl ? -ax + r : -ax;
-		const xrb = cbr ? +ax - r : +ax;
-		const yt = -ay - fs;
-		const yb = +ay + fs;
 		const lot = ctl ? -r : 0;
 		const lob = cbr ? -r : 0;
 
 		let iv = 0;
 		let ii = 0;
-		this.writePoly4(
-			iv,
-			ii,
-			0,
-			lot,
-			xlt,
-			yt,
-			xrt,
-			yt,
-			xrt,
-			0,
-			xlt,
-			0,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 4;
-		ii += 6;
-		this.writePoly4(
-			iv,
-			ii,
-			2,
-			lob,
-			xlb,
-			0,
-			xrb,
-			0,
-			xrb,
-			yb,
-			xlb,
-			yb,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 4;
-		ii += 6;
-
-		if (ctl) {
-			this.writeTopBottomStrip(-1, -1, xlt, lot, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-			iv += 2 * n;
-			ii += 6 * (n - 1);
-		}
-		if (ctr) {
-			this.writeTopBottomStrip(+1, -1, xrt, lot, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-			iv += 2 * n;
-			ii += 6 * (n - 1);
-		}
-		if (cbl) {
-			this.writeTopBottomStrip(-1, +1, xlb, lob, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-			iv += 2 * n;
-			ii += 6 * (n - 1);
-		}
-		if (cbr) {
-			this.writeTopBottomStrip(+1, +1, xrb, lob, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-			iv += 2 * n;
-			ii += 6 * (n - 1);
-		}
+		this.writeTopBottomSide(-1, lot, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += 2 * n + 2;
+		ii += 6 * n;
+		this.writeTopBottomSide(+1, lob, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += 2 * n + 2;
+		ii += 6 * n;
 
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected writeTopBottomStrip(
-		sx: number,
+	protected writeTopBottomSide(
 		sy: number,
-		xi: number,
 		lo: number,
+		cl: boolean,
+		cr: boolean,
 		iv: number,
 		ii: number,
 		n: number,
@@ -963,33 +897,36 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		fx: number,
 		fy: number
 	): void {
+		const side = sy < 0 ? 0 : 2;
+		const fs = (scale - 1) / fd;
+		const yo = -ay - fs;
+		const m = -sy;
 		let cos = 1;
 		let sin = 0;
 		const dangle = (Math.PI * 0.5) / (n - 1);
 		const dcos = Math.cos(dangle);
 		const dsin = Math.sin(dangle);
 		const indices = this._indices;
+		this.writeVertex(iv, -ax, 0, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(iv + 1, +ax, 0, side, lo, fd, scale, fx, fy, ax, ay);
+		const ir = iv + 2;
+		const il = ir + n;
 		for (let i = 0; i < n; ++i) {
-			const x = xi + sx * r * sin;
-			const y = sy * (ay - r * (1 - cos));
-			const length = sy < 0 ? lo + x + ax : lo + 3 * ax + 2 * ay - x;
-			const clipping = Math.min(scale, sy < 0 ? (y + ay) * -fd + 1 : (y - ay) * fd + 1);
-			this.updateVertex(iv, x, y, fd, length, clipping, fx, fy);
-			this.updateVertex(iv + 1, x, 0, fd, length, 0, fx, fy);
-			if (0 < i) {
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv - 1;
-				indices[ii++] = iv + 1;
-
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv + 1;
-				indices[ii++] = iv;
-			}
-			iv += 2;
+			const xr = cr ? +ax - r + r * cos : +ax;
+			const yr = cr && i < n - 1 ? -ay + r - r * sin : yo;
+			const xl = cl ? -ax + r - r * sin : -ax;
+			const yl = cl && 0 < i ? -ay + r - r * cos : yo;
+			this.writeVertex(ir + i, xr, m * yr, side, lo, fd, scale, fx, fy, ax, ay);
+			this.writeVertex(il + i, xl, m * yl, side, lo, fd, scale, fx, fy, ax, ay);
 			const ncos = dcos * cos - dsin * sin;
 			const nsin = dsin * cos + dcos * sin;
 			cos = ncos;
 			sin = nsin;
+		}
+		for (let i = 1, imax = 2 * n + 1; i < imax; ++i) {
+			indices[ii++] = iv;
+			indices[ii++] = iv + (sy < 0 ? i : i + 1);
+			indices[ii++] = iv + (sy < 0 ? i + 1 : i);
 		}
 	}
 
