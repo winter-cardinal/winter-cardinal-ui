@@ -1146,17 +1146,41 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		let ii = 0;
 		this.writeVertexRight(iv++, xc, yc, lor, fd, scale, fx, fy, ax, ay);
 		this.writeVertexRight(iv++, xo, yc, lor, fd, scale, fx, fy, ax, ay);
-		for (let i = 0; i < n; ++i) {
-			const phi = i * dangle;
-			const x = cbr && 0 < i ? ax - r + r * Math.cos(phi) : xo;
-			const y = cbr ? +ay - r + r * Math.sin(phi) : +ay;
-			this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		let cos = 1;
+		let sin = 0;
+		if (cbr) {
+			for (let i = 0; i < n; ++i) {
+				const x = 0 < i ? ax - r + r * cos : xo;
+				const y = +ay - r + r * sin;
+				this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertexRight(iv++, xo, ay, lor, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = 0; i < k; ++i) {
-			const phi = i * dangle;
-			const x = cbl ? -ax + r - r * Math.sin(phi) : -ax;
-			const y = cbl ? +ay - r + r * Math.cos(phi) : +ay;
-			this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+		if (cbl) {
+			cos = 1;
+			sin = 0;
+			for (let i = 0; i < k; ++i) {
+				const x = -ax + r - r * sin;
+				const y = +ay - r + r * cos;
+				this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < k; ++i) {
+				this.writeVertexRight(iv++, -ax, ay, lor, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexRight(iv++, xred, yred, lor, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(0, ii, iv);
@@ -1167,17 +1191,37 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const iv0 = iv;
 		this.writeVertexTop(iv++, xc, yc, lot, fd, scale, fx, fy, ax, ay);
 		this.writeVertexTop(iv++, xred, yred, lot, fd, scale, fx, fy, ax, ay);
-		for (let i = k; i < n; ++i) {
-			const phi = i * dangle;
-			const x = cbl ? -ax + r - r * Math.sin(phi) : -ax;
-			const y = cbl ? +ay - r + r * Math.cos(phi) : +ay;
-			this.writeVertexTop(iv++, x, y, lot, fd, scale, fx, fy, ax, ay);
+		if (cbl) {
+			for (let i = k; i < n; ++i) {
+				const x = -ax + r - r * sin;
+				const y = +ay - r + r * cos;
+				this.writeVertexTop(iv++, x, y, lot, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = k; i < n; ++i) {
+				this.writeVertexTop(iv++, -ax, ay, lot, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = 0; i < n; ++i) {
-			const phi = i * dangle;
-			const x = ctl ? -ax + r - r * Math.cos(phi) : -ax;
-			const y = ctl && i < n - 1 ? -ay + r - r * Math.sin(phi) : yo;
-			this.writeVertexTop(iv++, x, y, lot, fd, scale, fx, fy, ax, ay);
+		if (ctl) {
+			cos = 1;
+			sin = 0;
+			for (let i = 0; i < n; ++i) {
+				const x = -ax + r - r * cos;
+				const y = i < n - 1 ? -ay + r - r * sin : yo;
+				this.writeVertexTop(iv++, x, y, lot, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertexTop(iv++, -ax, yo, lot, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexTop(iv++, xc, yo, lot, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(iv0, ii, iv - iv0);
@@ -1298,17 +1342,41 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		let ii = 0;
 		this.writeVertexLeft(iv++, xc, yc, lol, fd, scale, fx, fy, ax, ay);
 		this.writeVertexLeft(iv++, xo, yc, lol, fd, scale, fx, fy, ax, ay);
-		for (let i = 0; i < n; ++i) {
-			const phi = i * dangle;
-			const x = ctl && 0 < i ? -ax + r - r * Math.cos(phi) : xo;
-			const y = ctl ? -ay + r - r * Math.sin(phi) : -ay;
-			this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		let cos = 1;
+		let sin = 0;
+		if (ctl) {
+			for (let i = 0; i < n; ++i) {
+				const x = 0 < i ? -ax + r - r * cos : xo;
+				const y = -ay + r - r * sin;
+				this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertexLeft(iv++, xo, -ay, lol, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = 0; i < k; ++i) {
-			const phi = i * dangle;
-			const x = ctr ? ax - r + r * Math.sin(phi) : ax;
-			const y = ctr ? -ay + r - r * Math.cos(phi) : -ay;
-			this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+		if (ctr) {
+			cos = 1;
+			sin = 0;
+			for (let i = 0; i < k; ++i) {
+				const x = ax - r + r * sin;
+				const y = -ay + r - r * cos;
+				this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < k; ++i) {
+				this.writeVertexLeft(iv++, ax, -ay, lol, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexLeft(iv++, xred, yred, lol, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(0, ii, iv);
@@ -1319,17 +1387,37 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const iv0 = iv;
 		this.writeVertexBottom(iv++, xc, yc, lob, fd, scale, fx, fy, ax, ay);
 		this.writeVertexBottom(iv++, xred, yred, lob, fd, scale, fx, fy, ax, ay);
-		for (let i = k; i < n; ++i) {
-			const phi = i * dangle;
-			const x = ctr ? ax - r + r * Math.sin(phi) : ax;
-			const y = ctr ? -ay + r - r * Math.cos(phi) : -ay;
-			this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+		if (ctr) {
+			for (let i = k; i < n; ++i) {
+				const x = ax - r + r * sin;
+				const y = -ay + r - r * cos;
+				this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = k; i < n; ++i) {
+				this.writeVertexBottom(iv++, ax, -ay, lob, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = 0; i < n; ++i) {
-			const phi = i * dangle;
-			const x = cbr ? ax - r + r * Math.cos(phi) : ax;
-			const y = cbr && i < n - 1 ? +ay - r + r * Math.sin(phi) : yo;
-			this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+		if (cbr) {
+			cos = 1;
+			sin = 0;
+			for (let i = 0; i < n; ++i) {
+				const x = ax - r + r * cos;
+				const y = i < n - 1 ? +ay - r + r * sin : yo;
+				this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertexBottom(iv++, ax, yo, lob, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexBottom(iv++, xc, yo, lob, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(iv0, ii, iv - iv0);
@@ -1459,17 +1547,49 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		let ii = 0;
 		this.writeVertexLeft(iv++, xc, yc, lol, fd, scale, fx, fy, ax, ay);
 		this.writeVertexLeft(iv++, xred, yred, lol, fd, scale, fx, fy, ax, ay);
-		for (let i = k - 1; 0 <= i; --i) {
-			const phi = i * dangle;
-			const x = cbr ? ax - r + r * Math.sin(phi) : ax;
-			const y = cbr ? +ay - r + r * Math.cos(phi) : +ay;
-			this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		if (cbr) {
+			let cos = 0;
+			let sin = 1;
+			if (0 < k) {
+				for (let i = n - 1; k <= i; --i) {
+					const ncos = dcos * cos + dsin * sin;
+					const nsin = -dsin * cos + dcos * sin;
+					cos = ncos;
+					sin = nsin;
+				}
+			}
+			for (let i = k - 1; 0 <= i; --i) {
+				const x = ax - r + r * sin;
+				const y = +ay - r + r * cos;
+				this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos + dsin * sin;
+				const nsin = -dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = k - 1; 0 <= i; --i) {
+				this.writeVertexLeft(iv++, ax, +ay, lol, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = n - 1; 0 <= i; --i) {
-			const phi = i * dangle;
-			const x = cbl && 0 < i ? -ax + r - r * Math.cos(phi) : xo;
-			const y = cbl ? +ay - r + r * Math.sin(phi) : +ay;
-			this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+		if (cbl) {
+			let cos = 0;
+			let sin = 1;
+			for (let i = n - 1; 0 <= i; --i) {
+				const x = 0 < i ? -ax + r - r * cos : xo;
+				const y = +ay - r + r * sin;
+				this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos + dsin * sin;
+				const nsin = -dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = n - 1; 0 <= i; --i) {
+				this.writeVertexLeft(iv++, xo, +ay, lol, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexLeft(iv++, xo, yc, lol, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(0, ii, iv);
@@ -1480,17 +1600,39 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const iv0 = iv;
 		this.writeVertexTop(iv++, xc, yc, lop, fd, scale, fx, fy, ax, ay);
 		this.writeVertexTop(iv++, xc, yo, lop, fd, scale, fx, fy, ax, ay);
-		for (let i = n - 1; 0 <= i; --i) {
-			const phi = i * dangle;
-			const x = ctr ? ax - r + r * Math.cos(phi) : ax;
-			const y = ctr && i < n - 1 ? -ay + r - r * Math.sin(phi) : yo;
-			this.writeVertexTop(iv++, x, y, lop, fd, scale, fx, fy, ax, ay);
+		if (ctr) {
+			let cos = 0;
+			let sin = 1;
+			for (let i = n - 1; 0 <= i; --i) {
+				const x = ax - r + r * cos;
+				const y = i < n - 1 ? -ay + r - r * sin : yo;
+				this.writeVertexTop(iv++, x, y, lop, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos + dsin * sin;
+				const nsin = -dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = n - 1; 0 <= i; --i) {
+				this.writeVertexTop(iv++, ax, yo, lop, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = n - 1; k <= i; --i) {
-			const phi = i * dangle;
-			const x = cbr ? ax - r + r * Math.sin(phi) : ax;
-			const y = cbr ? +ay - r + r * Math.cos(phi) : +ay;
-			this.writeVertexTop(iv++, x, y, lop, fd, scale, fx, fy, ax, ay);
+		if (cbr) {
+			let cos = 0;
+			let sin = 1;
+			for (let i = n - 1; k <= i; --i) {
+				const x = ax - r + r * sin;
+				const y = +ay - r + r * cos;
+				this.writeVertexTop(iv++, x, y, lop, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos + dsin * sin;
+				const nsin = -dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = n - 1; k <= i; --i) {
+				this.writeVertexTop(iv++, ax, +ay, lop, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexTop(iv++, xred, yred, lop, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(iv0, ii, iv - iv0);
@@ -1638,17 +1780,49 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		let ii = 0;
 		this.writeVertexRight(iv++, xc, yc, lor, fd, scale, fx, fy, ax, ay);
 		this.writeVertexRight(iv++, xred, yred, lor, fd, scale, fx, fy, ax, ay);
-		for (let i = k - 1; 0 <= i; --i) {
-			const phi = i * dangle;
-			const x = ctl ? -ax + r - r * Math.sin(phi) : -ax;
-			const y = ctl ? -ay + r - r * Math.cos(phi) : -ay;
-			this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		if (ctl) {
+			let cos = 0;
+			let sin = 1;
+			if (0 < k) {
+				for (let i = n - 1; k <= i; --i) {
+					const ncos = dcos * cos + dsin * sin;
+					const nsin = -dsin * cos + dcos * sin;
+					cos = ncos;
+					sin = nsin;
+				}
+			}
+			for (let i = k - 1; 0 <= i; --i) {
+				const x = -ax + r - r * sin;
+				const y = -ay + r - r * cos;
+				this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos + dsin * sin;
+				const nsin = -dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = k - 1; 0 <= i; --i) {
+				this.writeVertexRight(iv++, -ax, -ay, lor, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = 0; i < n; ++i) {
-			const phi = i * dangle;
-			const x = ctr && i < n - 1 ? ax - r + r * Math.sin(phi) : xo;
-			const y = ctr ? -ay + r - r * Math.cos(phi) : -ay;
-			this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+		if (ctr) {
+			let cos = 1;
+			let sin = 0;
+			for (let i = 0; i < n; ++i) {
+				const x = i < n - 1 ? ax - r + r * sin : xo;
+				const y = -ay + r - r * cos;
+				this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertexRight(iv++, xo, -ay, lor, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexRight(iv++, xo, yc, lor, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(0, ii, iv);
@@ -1659,17 +1833,39 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const iv0 = iv;
 		this.writeVertexBottom(iv++, xc, yc, lob, fd, scale, fx, fy, ax, ay);
 		this.writeVertexBottom(iv++, xc, yo, lob, fd, scale, fx, fy, ax, ay);
-		for (let i = 0; i < n; ++i) {
-			const phi = i * dangle;
-			const x = cbl ? -ax + r - r * Math.sin(phi) : -ax;
-			const y = cbl && 0 < i ? +ay - r + r * Math.cos(phi) : yo;
-			this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+		if (cbl) {
+			let cos = 1;
+			let sin = 0;
+			for (let i = 0; i < n; ++i) {
+				const x = -ax + r - r * sin;
+				const y = 0 < i ? +ay - r + r * cos : yo;
+				this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos - dsin * sin;
+				const nsin = dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertexBottom(iv++, -ax, yo, lob, fd, scale, fx, fy, ax, ay);
+			}
 		}
-		for (let i = n - 1; k <= i; --i) {
-			const phi = i * dangle;
-			const x = ctl ? -ax + r - r * Math.sin(phi) : -ax;
-			const y = ctl ? -ay + r - r * Math.cos(phi) : -ay;
-			this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+		if (ctl) {
+			let cos = 0;
+			let sin = 1;
+			for (let i = n - 1; k <= i; --i) {
+				const x = -ax + r - r * sin;
+				const y = -ay + r - r * cos;
+				this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+				const ncos = dcos * cos + dsin * sin;
+				const nsin = -dsin * cos + dcos * sin;
+				cos = ncos;
+				sin = nsin;
+			}
+		} else {
+			for (let i = n - 1; k <= i; --i) {
+				this.writeVertexBottom(iv++, -ax, -ay, lob, fd, scale, fx, fy, ax, ay);
+			}
 		}
 		this.writeVertexBottom(iv++, xred, yred, lob, fd, scale, fx, fy, ax, ay);
 		this.writeFanIndices(iv0, ii, iv - iv0);
