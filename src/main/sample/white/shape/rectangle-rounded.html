@@ -147,6 +147,29 @@
 			}
 			application.render();
 		}, 1000)
+
+		let icorner = -1;
+		const corners = [
+			wcardinal.ui.EShapeCorner.NONE,
+			wcardinal.ui.EShapeCorner.TOP_LEFT,
+			wcardinal.ui.EShapeCorner.TOP_RIGHT,
+			wcardinal.ui.EShapeCorner.BOTTOM_LEFT,
+			wcardinal.ui.EShapeCorner.BOTTOM_RIGHT,
+			wcardinal.ui.EShapeCorner.TOP,
+			wcardinal.ui.EShapeCorner.BOTTOM,
+			wcardinal.ui.EShapeCorner.LEFT,
+			wcardinal.ui.EShapeCorner.RIGHT,
+			wcardinal.ui.EShapeCorner.ALL
+		];
+		setInterval(() => {
+			icorner = (icorner + 1) % corners.length;
+			const corner = corners[icorner];
+			const children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].corner = corner;
+			}
+			application.render();
+		}, 1000)
 	})();
 	</script>
 </body>
