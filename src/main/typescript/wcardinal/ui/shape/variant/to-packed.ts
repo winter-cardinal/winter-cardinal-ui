@@ -7,7 +7,7 @@ export const toPackedAlphas = (a0: number, a1: number): number => {
 };
 
 export const toPackedClippings = (x: number, y: number): number => {
-	// Since 1023 / 1.1 = 930,
-	// Math.round(1023 * (x / 1.1)) = Math.round(930 * x)
-	return Math.round(930 * x) + (Math.round(930 * y) << 10);
+	// Encode the range [-0.1, 1.1] into the 10-bit range [0, 1023]
+	// Since 1023 / 1.2 = 852.5,
+	return Math.round(852.5 * (x + 0.1)) + (Math.round(852.5 * (y + 0.1)) << 10);
 };
