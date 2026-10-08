@@ -185,7 +185,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		} else {
 			const fx = 1 / sizeX;
 			const fy = 1 / sizeY;
-			switch (this._parent.stroke.side) {
+			switch (this._strokeSide) {
 				case EShapeStrokeSide.NONE:
 				case EShapeStrokeSide.ALL:
 					if (ay <= ax) {

@@ -10,11 +10,11 @@ import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit
 import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
 import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
-import { EShapeRectangleRounded } from "./e-shape-rectangle-rounded";
+import { EShapeRectangleRoundedLegacy } from "./e-shape-rectangle-rounded-legacy";
 import { toThresholdDefault } from "./to-threshold-default";
 
 export class EShapeLineOfRectangleRoundeds
-	extends EShapeRectangleRounded
+	extends EShapeRectangleRoundedLegacy
 	implements EShapeLineOfAny
 {
 	protected declare _points: EShapeLineOfAnyPoints;

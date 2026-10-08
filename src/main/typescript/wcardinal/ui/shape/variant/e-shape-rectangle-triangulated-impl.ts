@@ -165,7 +165,7 @@ export class EShapeRectangleTriangulatedImpl implements EShapeRectangleTriangula
 		} else {
 			const fx = 1 / sizeX;
 			const fy = 1 / sizeY;
-			switch (this._parent.stroke.side) {
+			switch (this._strokeSide) {
 				case EShapeStrokeSide.NONE:
 					this.updateNone(fx, fy, ax, ay, scale, nv, ni);
 					break;
