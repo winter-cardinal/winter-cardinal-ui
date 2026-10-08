@@ -171,8 +171,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		// # of vertices and # of indices
 		const n = this._n >> 2;
-		const nv = 22 + 4 * (2 * n - 1);
-		const ni = Math.max(14 + 4 * (n - 1), 10 + 8 * (n - 1));
+		const nv = 8 * n + 18;
+		const ni = 4 * n + 10;
 		this._nvertices = nv;
 		this._nindices = ni;
 
@@ -307,6 +307,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		indices.length = ni * 3;
 	}
 
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.TOP
+	 * * 4 * N + 4 <= nv
+	 * * 4 * N - 2 <= ni
+	 */
 	protected updateTop(
 		fx: number,
 		fy: number,
@@ -343,12 +349,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ii += 6;
 
 		if (ctr || cbr) {
-			this.writeTopStrip(+1, xr, ctr, cbr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+			this.writeStripTop(+1, xr, ctr, cbr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
 			iv += 2 * n;
 			ii += 6 * (n - 1);
 		}
 		if (ctl || cbl) {
-			this.writeTopStrip(-1, xl, ctl, cbl, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+			this.writeStripTop(-1, xl, ctl, cbl, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
 			iv += 2 * n;
 			ii += 6 * (n - 1);
 		}
@@ -356,6 +362,63 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
+	protected writeStripTop(
+		sign: number,
+		xi: number,
+		ct: boolean,
+		cb: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		d: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		for (let i = 0; i < n; ++i) {
+			const x = xi + sign * r * sin;
+			const raise = r * (1 - cos);
+			const ytop = ct ? -ay + raise : -ay - (scale - 1) * d;
+			const ybottom = cb ? +ay - raise : +ay;
+			const length = lo + x + ax;
+			const ctop = Math.min(scale, (ytop + ay) * -fd + 1);
+			const cbottom = Math.min(scale, (ybottom + ay) * -fd + 1);
+			this.updateVertex(iv, x, ytop, fd, length, ctop, fx, fy);
+			this.updateVertex(iv + 1, x, ybottom, fd, length, cbottom, fx, fy);
+			if (0 < i) {
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+			}
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.RIGHT
+	 * * 4 * N + 4 <= nv
+	 * * 4 * N - 2 <= ni
+	 */
 	protected updateRight(
 		fx: number,
 		fy: number,
@@ -392,12 +455,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ii += 6;
 
 		if (ctl || ctr) {
-			this.writeRightStrip(-1, yt, ctl, ctr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+			this.writeStripRight(-1, yt, ctl, ctr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
 			iv += 2 * n;
 			ii += 6 * (n - 1);
 		}
 		if (cbl || cbr) {
-			this.writeRightStrip(+1, yb, cbl, cbr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+			this.writeStripRight(+1, yb, cbl, cbr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
 			iv += 2 * n;
 			ii += 6 * (n - 1);
 		}
@@ -405,6 +468,63 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
+	protected writeStripRight(
+		sign: number,
+		yi: number,
+		cl: boolean,
+		cr: boolean,
+		lo: number,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		d: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		let cos = 1;
+		let sin = 0;
+		const dangle = (Math.PI * 0.5) / (n - 1);
+		const dcos = Math.cos(dangle);
+		const dsin = Math.sin(dangle);
+		const indices = this._indices;
+		for (let i = 0; i < n; ++i) {
+			const y = yi + sign * r * sin;
+			const raise = r * (1 - cos);
+			const xleft = cl ? -ax + raise : -ax;
+			const xright = cr ? +ax - raise : +ax + (scale - 1) * d;
+			const length = lo + 2 * ax + y + ay;
+			const cleft = Math.min(scale, (xleft - ax) * fd + 1);
+			const cright = Math.min(scale, (xright - ax) * fd + 1);
+			this.updateVertex(iv, xleft, y, fd, length, cleft, fx, fy);
+			this.updateVertex(iv + 1, xright, y, fd, length, cright, fx, fy);
+			if (0 < i) {
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv - 1;
+				indices[ii++] = iv + 1;
+
+				indices[ii++] = iv - 2;
+				indices[ii++] = iv + 1;
+				indices[ii++] = iv;
+			}
+			iv += 2;
+			const ncos = dcos * cos - dsin * sin;
+			const nsin = dsin * cos + dcos * sin;
+			cos = ncos;
+			sin = nsin;
+		}
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.BOTTOM
+	 * * 4 * N + 4 <= nv
+	 * * 4 * N - 2 <= ni
+	 */
 	protected updateBottom(
 		fx: number,
 		fy: number,
@@ -472,12 +592,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ii += 6;
 
 		if (ctr || cbr) {
-			this.writeBottomStrip(+1, xr, ctr, cbr, lb, iv, ii, n, r, ay, scale, d, fd, fx, fy);
+			this.writeStripBottom(+1, xr, ctr, cbr, lb, iv, ii, n, r, ay, scale, d, fd, fx, fy);
 			iv += 2 * n;
 			ii += 6 * (n - 1);
 		}
 		if (ctl || cbl) {
-			this.writeBottomStrip(-1, xl, ctl, cbl, lb, iv, ii, n, r, ay, scale, d, fd, fx, fy);
+			this.writeStripBottom(-1, xl, ctl, cbl, lb, iv, ii, n, r, ay, scale, d, fd, fx, fy);
 			iv += 2 * n;
 			ii += 6 * (n - 1);
 		}
@@ -491,7 +611,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	 * `sign` is +1 for the right column and -1 for the left column.
 	 * `xi` is X of the line at the column's inner edge.
 	 */
-	protected writeBottomStrip(
+	protected writeStripBottom(
 		sign: number,
 		xi: number,
 		ct: boolean,
@@ -541,109 +661,62 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	protected writeTopStrip(
-		sign: number,
-		xi: number,
-		ct: boolean,
-		cb: boolean,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.LEFT
+	 * * 4 * N + 4 <= nv
+	 * * 4 * N - 2 <= ni
+	 */
+	protected updateLeft(
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
-		d: number,
-		fd: number,
-		fx: number,
-		fy: number
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
 	): void {
-		let cos = 1;
-		let sin = 0;
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		const indices = this._indices;
-		for (let i = 0; i < n; ++i) {
-			const x = xi + sign * r * sin;
-			const raise = r * (1 - cos);
-			const ytop = ct ? -ay + raise : -ay - (scale - 1) * d;
-			const ybottom = cb ? +ay - raise : +ay;
-			const length = lo + x + ax;
-			const ctop = Math.min(scale, (ytop + ay) * -fd + 1);
-			const cbottom = Math.min(scale, (ybottom + ay) * -fd + 1);
-			this.updateVertex(iv, x, ytop, fd, length, ctop, fx, fy);
-			this.updateVertex(iv + 1, x, ybottom, fd, length, cbottom, fx, fy);
-			if (0 < i) {
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv - 1;
-				indices[ii++] = iv + 1;
+		const d = 2 * ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * Math.min(ax, ay);
 
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv + 1;
-				indices[ii++] = iv;
-			}
-			iv += 2;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const yt = ctl || ctr ? -ay + r : -ay;
+		const yb = cbl || cbr ? +ay - r : +ay;
+		const xl = -ax - fs;
+		const xr = +ax;
+		const lo = cbl ? -r : 0;
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly4(iv, ii, 3, lo, xl, yt, xr, yt, xr, yb, xl, yb, fd, scale, fx, fy, ax, ay);
+		iv += 4;
+		ii += 6;
+
+		if (ctl || ctr) {
+			this.writeStripLeft(-1, yt, ctl, ctr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
 		}
+		if (cbl || cbr) {
+			this.writeStripLeft(+1, yb, cbl, cbr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+			iv += 2 * n;
+			ii += 6 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected writeRightStrip(
-		sign: number,
-		yi: number,
-		cl: boolean,
-		cr: boolean,
-		lo: number,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		d: number,
-		fd: number,
-		fx: number,
-		fy: number
-	): void {
-		let cos = 1;
-		let sin = 0;
-		const dangle = (Math.PI * 0.5) / (n - 1);
-		const dcos = Math.cos(dangle);
-		const dsin = Math.sin(dangle);
-		const indices = this._indices;
-		for (let i = 0; i < n; ++i) {
-			const y = yi + sign * r * sin;
-			const raise = r * (1 - cos);
-			const xleft = cl ? -ax + raise : -ax;
-			const xright = cr ? +ax - raise : +ax + (scale - 1) * d;
-			const length = lo + 2 * ax + y + ay;
-			const cleft = Math.min(scale, (xleft - ax) * fd + 1);
-			const cright = Math.min(scale, (xright - ax) * fd + 1);
-			this.updateVertex(iv, xleft, y, fd, length, cleft, fx, fy);
-			this.updateVertex(iv + 1, xright, y, fd, length, cright, fx, fy);
-			if (0 < i) {
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv - 1;
-				indices[ii++] = iv + 1;
-
-				indices[ii++] = iv - 2;
-				indices[ii++] = iv + 1;
-				indices[ii++] = iv;
-			}
-			iv += 2;
-			const ncos = dcos * cos - dsin * sin;
-			const nsin = dsin * cos + dcos * sin;
-			cos = ncos;
-			sin = nsin;
-		}
-	}
-
-	protected writeLeftStrip(
+	protected writeStripLeft(
 		sign: number,
 		yi: number,
 		cl: boolean,
@@ -694,7 +767,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	protected updateLeft(
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.LEFT_OR_RIGHT
+	 * * 4 * N + 4 <= nv
+	 * * 4 * N + 0 <= ni
+	 */
+	protected updateLeftRight(
 		fx: number,
 		fy: number,
 		ax: number,
@@ -705,10 +784,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const d = 2 * ax;
-		const fd = 1 / d;
+		const fd = 1 / ax;
 		const n = this._n >> 2;
-		const fs = (scale - 1) * d;
 		const r = radius * Math.min(ax, ay);
 
 		const cr = 0 < radius;
@@ -717,28 +794,17 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
 		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
 
-		const yt = ctl || ctr ? -ay + r : -ay;
-		const yb = cbl || cbr ? +ay - r : +ay;
-		const xl = -ax - fs;
-		const xr = +ax;
-		const lo = cbl ? -r : 0;
+		const lol = cbl ? -r : 0;
+		const lor = ctr ? -r : 0;
 
 		let iv = 0;
 		let ii = 0;
-		this.writePoly4(iv, ii, 3, lo, xl, yt, xr, yt, xr, yb, xl, yb, fd, scale, fx, fy, ax, ay);
-		iv += 4;
-		ii += 6;
-
-		if (ctl || ctr) {
-			this.writeLeftStrip(-1, yt, ctl, ctr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
-			iv += 2 * n;
-			ii += 6 * (n - 1);
-		}
-		if (cbl || cbr) {
-			this.writeLeftStrip(+1, yb, cbl, cbr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
-			iv += 2 * n;
-			ii += 6 * (n - 1);
-		}
+		this.writeSideLeftRight(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += 2 * n + 2;
+		ii += 6 * n;
+		this.writeSideLeftRight(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += 2 * n + 2;
+		ii += 6 * n;
 
 		this.pad(iv, ii, nv, ni, fd);
 	}
@@ -747,7 +813,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	 * Writes the left (`sx` = -1) or the right (`sx` = +1) half as a triangle fan of 2N + 2 vertices.
 	 * Order: the top center (fan origin), the bottom center, the bottom arc (N), the top arc (N).
 	 */
-	protected writeLeftRightSide(
+	protected writeSideLeftRight(
 		sx: number,
 		lo: number,
 		ct: boolean,
@@ -799,42 +865,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	protected updateLeftRight(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const fd = 1 / ax;
-		const n = this._n >> 2;
-		const r = radius * Math.min(ax, ay);
-
-		const cr = 0 < radius;
-		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
-		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
-		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
-		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
-
-		const lol = cbl ? -r : 0;
-		const lor = ctr ? -r : 0;
-
-		let iv = 0;
-		let ii = 0;
-		this.writeLeftRightSide(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += 2 * n + 2;
-		ii += 6 * n;
-		this.writeLeftRightSide(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += 2 * n + 2;
-		ii += 6 * n;
-
-		this.pad(iv, ii, nv, ni, fd);
-	}
-
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.TOP_OR_BOTTOM
+	 * * 4 * N + 4 <= nv
+	 * * 4 * N + 0 <= ni
+	 */
 	protected updateTopBottom(
 		fx: number,
 		fy: number,
@@ -861,17 +897,17 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		let iv = 0;
 		let ii = 0;
-		this.writeTopBottomSide(-1, lot, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideTopBottom(-1, lot, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += 2 * n + 2;
 		ii += 6 * n;
-		this.writeTopBottomSide(+1, lob, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideTopBottom(+1, lob, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += 2 * n + 2;
 		ii += 6 * n;
 
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected writeTopBottomSide(
+	protected writeSideTopBottom(
 		sy: number,
 		lo: number,
 		cl: boolean,
@@ -920,6 +956,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.TOP_OR_RIGHT
+	 * * ay <= ax
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
 	protected updateTopRight0(
 		fx: number,
 		fy: number,
@@ -933,6 +976,29 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	): void {
 		const r = radius * ay;
 		this.writeTopRight(fx, fy, ax, ay, scale, 2 * ay, r, corner, ax - 2 * ay, ay, 0, nv, ni);
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.TOP_OR_RIGHT
+	 * * ax < ay
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
+	protected updateTopRight1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		const n = this._n >> 2;
+		const r = radius * ax;
+		this.writeTopRight(fx, fy, ax, ay, scale, 2 * ax, r, corner, -ax, 2 * ax - ay, n, nv, ni);
 	}
 
 	/**
@@ -1040,22 +1106,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected updateTopRight1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const n = this._n >> 2;
-		const r = radius * ax;
-		this.writeTopRight(fx, fy, ax, ay, scale, 2 * ax, r, corner, -ax, 2 * ax - ay, n, nv, ni);
-	}
-
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_LEFT
+	 * * ay <= ax
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
 	protected updateBottomLeft0(
 		fx: number,
 		fy: number,
@@ -1069,6 +1126,29 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	): void {
 		const r = radius * ay;
 		this.writeBottomLeft(fx, fy, ax, ay, scale, 2 * ay, r, corner, 2 * ay - ax, -ay, 0, nv, ni);
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_LEFT
+	 * * ax < ay
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
+	protected updateBottomLeft1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		const n = this._n >> 2;
+		const r = radius * ax;
+		this.writeBottomLeft(fx, fy, ax, ay, scale, 2 * ax, r, corner, ax, ay - 2 * ax, n, nv, ni);
 	}
 
 	/**
@@ -1187,22 +1267,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	protected updateBottomLeft1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const n = this._n >> 2;
-		const r = radius * ax;
-		this.writeBottomLeft(fx, fy, ax, ay, scale, 2 * ax, r, corner, ax, ay - 2 * ax, n, nv, ni);
-	}
-
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.TOP_OR_LEFT
+	 * * ay <= ax
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
 	protected updateTopLeft0(
 		fx: number,
 		fy: number,
@@ -1216,6 +1287,29 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	): void {
 		const r = radius * ay;
 		this.writeTopLeft(fx, fy, ax, ay, scale, 2 * ay, r, corner, 2 * ay - ax, ay, 0, nv, ni);
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.TOP_OR_LEFT
+	 * * ax < ay
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
+	protected updateTopLeft1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		const n = this._n >> 2;
+		const r = radius * ax;
+		this.writeTopLeft(fx, fy, ax, ay, scale, 2 * ax, r, corner, ax, 2 * ax - ay, n, nv, ni);
 	}
 
 	/**
@@ -1325,22 +1419,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected updateTopLeft1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const n = this._n >> 2;
-		const r = radius * ax;
-		this.writeTopLeft(fx, fy, ax, ay, scale, 2 * ax, r, corner, ax, 2 * ax - ay, n, nv, ni);
-	}
-
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_RIGHT
+	 * * ay <= ax
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
 	protected updateBottomRight0(
 		fx: number,
 		fy: number,
@@ -1365,6 +1450,43 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ax - 2 * ay,
 			-ay,
 			0,
+			nv,
+			ni
+		);
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_RIGHT
+	 * * ax < ay
+	 * * 5 * N + 5 <= nv
+	 * * 4 * N + 1 <= ni
+	 */
+	protected updateBottomRight1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		const n = this._n >> 2;
+		const r = radius * ax;
+		this.writeBottomRight(
+			fx,
+			fy,
+			ax,
+			ay,
+			scale,
+			2 * ax,
+			r,
+			corner,
+			-ax,
+			ay - 2 * ax,
+			n,
 			nv,
 			ni
 		);
@@ -1476,40 +1598,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected updateBottomRight1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const n = this._n >> 2;
-		const r = radius * ax;
-		this.writeBottomRight(
-			fx,
-			fy,
-			ax,
-			ay,
-			scale,
-			2 * ax,
-			r,
-			corner,
-			-ax,
-			ay - 2 * ax,
-			n,
-			nv,
-			ni
-		);
-	}
-
 	/**
 	 * Preconditions:
 	 * * shape.stroke.side === EShapeStrokeSide.NOT_TOP
 	 * * ay <= ax
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
 	 */
 	protected updateNotTop0(
 		fx: number,
@@ -1522,7 +1616,8 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const d = 2 * ay;
+		// The deepest point of the stroke areas: the top edge if 2 * ay <= ax, otherwise the red point
+		const d = Math.min(2 * ay, ax);
 		const fd = 1 / d;
 		const n = this._n >> 2;
 		const fs = (scale - 1) * d;
@@ -1552,10 +1647,106 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		let iv = 0;
 		let ii = 0;
-		this.writeNotTopSide(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotTop(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
-		this.writeNotTopSide(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotTop(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += n + 4;
+		ii += 3 * (n + 2);
+		this.writePoly6(
+			iv,
+			ii,
+			2,
+			lob,
+			xred,
+			yred,
+			-xred,
+			yred,
+			xr,
+			ydr,
+			xr,
+			yo,
+			xl,
+			yo,
+			xl,
+			ydl,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 6;
+		ii += 12;
+
+		if (cbl) {
+			const lo = lob + 4 * ax + 2 * ay - r;
+			this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (cbr) {
+			const lo = lor + 2 * ax + 2 * ay - r;
+			this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_TOP
+	 * * ax < ay
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
+	protected updateNotTop1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		const d = ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+		const rs = r + fs;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctl ? -r : 0;
+		const lor = lot + (ctr ? arc - 2 * r : 0);
+		const lob = lor + (cbr ? arc - 2 * r : 0);
+		const lol = lob + (cbl ? arc - 2 * r : 0);
+
+		const xred = Math.min(2 * ay - ax, 0);
+		const yred = ay - ax - xred;
+		const xl = cbl ? -ax + r : -ax - fs;
+		const xr = cbr ? +ax - r : +ax + fs;
+		const ydl = cbl ? +ay - r : +ay + fs;
+		const ydr = cbr ? +ay - r : +ay + fs;
+		const yo = +ay + fs;
+
+		let iv = 0;
+		let ii = 0;
+		this.writeSideNotTop(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += n + 4;
+		ii += 3 * (n + 2);
+		this.writeSideNotTop(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
 		this.writePoly6(
@@ -1606,7 +1797,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	 * Order: the red point (fan origin), the diagonal end, the outer bottom, the top arc (N), the blue point (0, -ay).
 	 * If 2 * ay <= ax, the red point is on the top edge and the last triangle degenerates.
 	 */
-	protected writeNotTopSide(
+	protected writeSideNotTop(
 		sx: number,
 		lo: number,
 		ct: boolean,
@@ -1657,111 +1848,118 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	protected writeNotRightSide(
-		sy: number,
-		lo: number,
-		ct: boolean,
-		cb: boolean,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_BOTTOM
+	 * * ay <= ax
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
+	protected updateNotBottom0(
+		fx: number,
+		fy: number,
 		ax: number,
 		ay: number,
 		scale: number,
-		fd: number,
-		fx: number,
-		fy: number
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
 	): void {
-		const side = sy < 0 ? 0 : 2;
-		const fs = (scale - 1) / fd;
-		const xo = -ay - fs;
-		const xd = cb ? -ay + r : xo;
-		const yd = cb ? +ax - r : +ax + fs;
-		const m = -sy;
-		const xred = Math.min(2 * ax - ay, 0);
-		const yred = ax - ay - xred;
+		// The deepest point of the stroke areas: the bottom edge if 2 * ay <= ax, otherwise the red point
+		const d = Math.min(2 * ay, ax);
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ay;
+		const rs = r + fs;
 
-		let k = iv;
-		this.writeVertex(k++, -yred, m * xred, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(k++, -yd, m * xd, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(k++, -yd, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
-		if (ct) {
-			const dangle = (Math.PI * 0.5) / (n - 1);
-			for (let i = 0; i < n; ++i) {
-				const angle = i * dangle;
-				const x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
-				const y = -ax + r - r * Math.sin(angle);
-				this.writeVertex(k++, -y, m * x, side, lo, fd, scale, fx, fy, ax, ay);
-			}
-		} else {
-			for (let i = 0; i < n; ++i) {
-				this.writeVertex(k++, +ax, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
-			}
-		}
-		this.writeVertex(k++, +ax, 0, side, lo, fd, scale, fx, fy, ax, ay);
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
 
+		const arc = 0.5 * Math.PI * r;
+		const lot = cbl ? -r : 0;
+		const lor = lot + (cbr ? arc - 2 * r : 0);
+		const lob = lor + (ctr ? arc - 2 * r : 0);
+		const lol = lob + (ctl ? arc - 2 * r : 0);
+
+		const xred = Math.min(2 * ay - ax, 0);
+		const yred = ay - ax - xred;
+		const xl = ctl ? -ax + r : -ax - fs;
+		const xr = ctr ? +ax - r : +ax + fs;
+		const ydl = ctl ? +ay - r : +ay + fs;
+		const ydr = ctr ? +ay - r : +ay + fs;
+		const yo = +ay + fs;
+
+		let iv = 0;
+		let ii = 0;
+		this.writeSideNotBottom(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += n + 4;
+		ii += 3 * (n + 2);
+		this.writeSideNotBottom(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += n + 4;
+		ii += 3 * (n + 2);
+		this.writePoly6(
+			iv,
+			ii,
+			0,
+			lob,
+			xred,
+			-yred,
+			-xred,
+			-yred,
+			xr,
+			-ydr,
+			xr,
+			-yo,
+			xl,
+			-yo,
+			xl,
+			-ydl,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
 		const indices = this._indices;
-		for (let i = 1, imax = k - iv - 1; i < imax; ++i) {
-			indices[ii++] = iv;
-			indices[ii++] = iv + (sy < 0 ? i : i + 1);
-			indices[ii++] = iv + (sy < 0 ? i + 1 : i);
+		for (let i = 0; i < 4; ++i) {
+			const index = ii + 3 * i + 1;
+			const value = indices[index];
+			indices[index] = indices[index + 1];
+			indices[index + 1] = value;
 		}
+		iv += 6;
+		ii += 12;
+
+		if (ctl) {
+			const lo = lob + 4 * ax + 2 * ay - r;
+			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (ctr) {
+			const lo = lor + 2 * ax + 2 * ay - r;
+			this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected writeNotLeftSide(
-		sy: number,
-		lo: number,
-		ct: boolean,
-		cb: boolean,
-		iv: number,
-		ii: number,
-		n: number,
-		r: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		fd: number,
-		fx: number,
-		fy: number
-	): void {
-		const side = sy < 0 ? 0 : 2;
-		const fs = (scale - 1) / fd;
-		const xo = -ay - fs;
-		const xd = cb ? -ay + r : xo;
-		const yd = cb ? +ax - r : +ax + fs;
-		const m = -sy;
-		const xred = Math.min(2 * ax - ay, 0);
-		const yred = ax - ay - xred;
-
-		let k = iv;
-		this.writeVertex(k++, yred, m * xred, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(k++, yd, m * xd, side, lo, fd, scale, fx, fy, ax, ay);
-		this.writeVertex(k++, yd, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
-		if (ct) {
-			const dangle = (Math.PI * 0.5) / (n - 1);
-			for (let i = 0; i < n; ++i) {
-				const angle = i * dangle;
-				const x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
-				const y = -ax + r - r * Math.sin(angle);
-				this.writeVertex(k++, y, m * x, side, lo, fd, scale, fx, fy, ax, ay);
-			}
-		} else {
-			for (let i = 0; i < n; ++i) {
-				this.writeVertex(k++, -ax, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
-			}
-		}
-		this.writeVertex(k++, -ax, 0, side, lo, fd, scale, fx, fy, ax, ay);
-
-		const indices = this._indices;
-		for (let i = 1, imax = k - iv - 1; i < imax; ++i) {
-			indices[ii++] = iv;
-			indices[ii++] = iv + (sy < 0 ? i + 1 : i);
-			indices[ii++] = iv + (sy < 0 ? i : i + 1);
-		}
-	}
-
-	protected updateNotTop1(
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_BOTTOM
+	 * * ax < ay
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
+	protected updateNotBottom1(
 		fx: number,
 		fy: number,
 		ax: number,
@@ -1786,44 +1984,44 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
 
 		const arc = 0.5 * Math.PI * r;
-		const lot = ctl ? -r : 0;
-		const lor = lot + (ctr ? arc - 2 * r : 0);
-		const lob = lor + (cbr ? arc - 2 * r : 0);
-		const lol = lob + (cbl ? arc - 2 * r : 0);
+		const lot = cbl ? -r : 0;
+		const lor = lot + (cbr ? arc - 2 * r : 0);
+		const lob = lor + (ctr ? arc - 2 * r : 0);
+		const lol = lob + (ctl ? arc - 2 * r : 0);
 
 		const xred = Math.min(2 * ay - ax, 0);
 		const yred = ay - ax - xred;
-		const xl = cbl ? -ax + r : -ax - fs;
-		const xr = cbr ? +ax - r : +ax + fs;
-		const ydl = cbl ? +ay - r : +ay + fs;
-		const ydr = cbr ? +ay - r : +ay + fs;
+		const xl = ctl ? -ax + r : -ax - fs;
+		const xr = ctr ? +ax - r : +ax + fs;
+		const ydl = ctl ? +ay - r : +ay + fs;
+		const ydr = ctr ? +ay - r : +ay + fs;
 		const yo = +ay + fs;
 
 		let iv = 0;
 		let ii = 0;
-		this.writeNotTopSide(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotBottom(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
-		this.writeNotTopSide(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotBottom(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
 		this.writePoly6(
 			iv,
 			ii,
-			2,
+			0,
 			lob,
 			xred,
-			yred,
+			-yred,
 			-xred,
-			yred,
+			-yred,
 			xr,
-			ydr,
+			-ydr,
 			xr,
-			yo,
+			-yo,
 			xl,
-			yo,
+			-yo,
 			xl,
-			ydl,
+			-ydl,
 			fd,
 			scale,
 			fx,
@@ -1831,18 +2029,25 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			ax,
 			ay
 		);
+		const indices = this._indices;
+		for (let i = 0; i < 4; ++i) {
+			const index = ii + 3 * i + 1;
+			const value = indices[index];
+			indices[index] = indices[index + 1];
+			indices[index + 1] = value;
+		}
 		iv += 6;
 		ii += 12;
 
-		if (cbl) {
+		if (ctl) {
 			const lo = lob + 4 * ax + 2 * ay - r;
-			this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
 			iv += 2 * n - 1;
 			ii += 3 * (n - 1);
 		}
-		if (cbr) {
+		if (ctr) {
 			const lo = lor + 2 * ax + 2 * ay - r;
-			this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
 			iv += 2 * n - 1;
 			ii += 3 * (n - 1);
 		}
@@ -1850,7 +2055,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
-	protected writeNotBottomSide(
+	protected writeSideNotBottom(
 		sx: number,
 		lo: number,
 		ct: boolean,
@@ -1902,198 +2107,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	protected updateNotBottom0(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const d = 2 * ay;
-		const fd = 1 / d;
-		const n = this._n >> 2;
-		const fs = (scale - 1) * d;
-		const r = radius * ay;
-		const rs = r + fs;
-
-		const cr = 0 < radius;
-		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
-		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
-		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
-		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
-
-		const arc = 0.5 * Math.PI * r;
-		const lot = cbl ? -r : 0;
-		const lor = lot + (cbr ? arc - 2 * r : 0);
-		const lob = lor + (ctr ? arc - 2 * r : 0);
-		const lol = lob + (ctl ? arc - 2 * r : 0);
-
-		const xred = Math.min(2 * ay - ax, 0);
-		const yred = ay - ax - xred;
-		const xl = ctl ? -ax + r : -ax - fs;
-		const xr = ctr ? +ax - r : +ax + fs;
-		const ydl = ctl ? +ay - r : +ay + fs;
-		const ydr = ctr ? +ay - r : +ay + fs;
-		const yo = +ay + fs;
-
-		let iv = 0;
-		let ii = 0;
-		this.writeNotBottomSide(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += n + 4;
-		ii += 3 * (n + 2);
-		this.writeNotBottomSide(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += n + 4;
-		ii += 3 * (n + 2);
-		this.writePoly6(
-			iv,
-			ii,
-			0,
-			lob,
-			xred,
-			-yred,
-			-xred,
-			-yred,
-			xr,
-			-ydr,
-			xr,
-			-yo,
-			xl,
-			-yo,
-			xl,
-			-ydl,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		const indices = this._indices;
-		for (let i = 0; i < 4; ++i) {
-			const index = ii + 3 * i + 1;
-			const value = indices[index];
-			indices[index] = indices[index + 1];
-			indices[index + 1] = value;
-		}
-		iv += 6;
-		ii += 12;
-
-		if (ctl) {
-			const lo = lob + 4 * ax + 2 * ay - r;
-			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
-		}
-		if (ctr) {
-			const lo = lor + 2 * ax + 2 * ay - r;
-			this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
-		}
-
-		this.pad(iv, ii, nv, ni, fd);
-	}
-
-	protected updateNotBottom1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const d = ax;
-		const fd = 1 / d;
-		const n = this._n >> 2;
-		const fs = (scale - 1) * d;
-		const r = radius * ax;
-		const rs = r + fs;
-
-		const cr = 0 < radius;
-		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
-		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
-		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
-		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
-
-		const arc = 0.5 * Math.PI * r;
-		const lot = cbl ? -r : 0;
-		const lor = lot + (cbr ? arc - 2 * r : 0);
-		const lob = lor + (ctr ? arc - 2 * r : 0);
-		const lol = lob + (ctl ? arc - 2 * r : 0);
-
-		const xred = Math.min(2 * ay - ax, 0);
-		const yred = ay - ax - xred;
-		const xl = ctl ? -ax + r : -ax - fs;
-		const xr = ctr ? +ax - r : +ax + fs;
-		const ydl = ctl ? +ay - r : +ay + fs;
-		const ydr = ctr ? +ay - r : +ay + fs;
-		const yo = +ay + fs;
-
-		let iv = 0;
-		let ii = 0;
-		this.writeNotBottomSide(-1, lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += n + 4;
-		ii += 3 * (n + 2);
-		this.writeNotBottomSide(+1, lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += n + 4;
-		ii += 3 * (n + 2);
-		this.writePoly6(
-			iv,
-			ii,
-			0,
-			lob,
-			xred,
-			-yred,
-			-xred,
-			-yred,
-			xr,
-			-ydr,
-			xr,
-			-yo,
-			xl,
-			-yo,
-			xl,
-			-ydl,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		const indices = this._indices;
-		for (let i = 0; i < 4; ++i) {
-			const index = ii + 3 * i + 1;
-			const value = indices[index];
-			indices[index] = indices[index + 1];
-			indices[index + 1] = value;
-		}
-		iv += 6;
-		ii += 12;
-
-		if (ctl) {
-			const lo = lob + 4 * ax + 2 * ay - r;
-			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
-		}
-		if (ctr) {
-			const lo = lor + 2 * ax + 2 * ay - r;
-			this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
-		}
-
-		this.pad(iv, ii, nv, ni, fd);
-	}
-
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_LEFT
+	 * * ay <= ax
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
 	protected updateNotLeft0(
 		fx: number,
 		fy: number,
@@ -2126,18 +2146,18 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		const xred = Math.min(2 * ax - ay, 0);
 		const yred = ax - ay - xred;
-		const xl = ctl ? -ay + r : -ay - fs;
-		const xr = cbl ? +ay - r : +ay + fs;
-		const ydl = ctl ? +ax - r : +ax + fs;
-		const ydr = cbl ? +ax - r : +ax + fs;
+		const xl = ctr ? -ay + r : -ay - fs;
+		const xr = cbr ? +ay - r : +ay + fs;
+		const ydl = ctr ? +ax - r : +ax + fs;
+		const ydr = cbr ? +ax - r : +ax + fs;
 		const yo = +ax + fs;
 
 		let iv = 0;
 		let ii = 0;
-		this.writeNotLeftSide(-1, lol, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotLeft(-1, lol, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
-		this.writeNotLeftSide(+1, lor, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotLeft(+1, lor, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
 		this.writePoly6(
@@ -2190,6 +2210,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_LEFT
+	 * * ax < ay
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
 	protected updateNotLeft1(
 		fx: number,
 		fy: number,
@@ -2201,11 +2228,12 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		nv: number,
 		ni: number
 	): void {
-		const d = ay;
+		// The deepest point of the stroke areas: the left edge if 2 * ax <= ay, otherwise the red point
+		const d = Math.min(2 * ax, ay);
 		const fd = 1 / d;
 		const n = this._n >> 2;
 		const fs = (scale - 1) * d;
-		const r = radius * ay;
+		const r = radius * ax;
 		const rs = r + fs;
 
 		const cr = 0 < radius;
@@ -2222,18 +2250,18 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		const xred = Math.min(2 * ax - ay, 0);
 		const yred = ax - ay - xred;
-		const xl = ctl ? -ay + r : -ay - fs;
-		const xr = cbl ? +ay - r : +ay + fs;
-		const ydl = ctl ? +ax - r : +ax + fs;
-		const ydr = cbl ? +ax - r : +ax + fs;
+		const xl = ctr ? -ay + r : -ay - fs;
+		const xr = cbr ? +ay - r : +ay + fs;
+		const ydl = ctr ? +ax - r : +ax + fs;
+		const ydr = cbr ? +ax - r : +ax + fs;
 		const yo = +ax + fs;
 
 		let iv = 0;
 		let ii = 0;
-		this.writeNotLeftSide(-1, lol, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotLeft(-1, lol, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
-		this.writeNotLeftSide(+1, lor, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotLeft(+1, lor, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
 		this.writePoly6(
@@ -2286,6 +2314,65 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
+	protected writeSideNotLeft(
+		sy: number,
+		lo: number,
+		ct: boolean,
+		cb: boolean,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const side = sy < 0 ? 0 : 2;
+		const fs = (scale - 1) / fd;
+		const xo = -ay - fs;
+		const xd = cb ? -ay + r : xo;
+		const yd = cb ? +ax - r : +ax + fs;
+		const m = -sy;
+		const xred = Math.min(2 * ax - ay, 0);
+		const yred = ax - ay - xred;
+
+		let k = iv;
+		this.writeVertex(k++, yred, m * xred, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(k++, yd, m * xd, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(k++, yd, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
+		if (ct) {
+			const dangle = (Math.PI * 0.5) / (n - 1);
+			for (let i = 0; i < n; ++i) {
+				const angle = i * dangle;
+				const x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
+				const y = -ax + r - r * Math.sin(angle);
+				this.writeVertex(k++, y, m * x, side, lo, fd, scale, fx, fy, ax, ay);
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertex(k++, -ax, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
+			}
+		}
+		this.writeVertex(k++, -ax, 0, side, lo, fd, scale, fx, fy, ax, ay);
+
+		const indices = this._indices;
+		for (let i = 1, imax = k - iv - 1; i < imax; ++i) {
+			indices[ii++] = iv;
+			indices[ii++] = iv + (sy < 0 ? i + 1 : i);
+			indices[ii++] = iv + (sy < 0 ? i : i + 1);
+		}
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_RIGHT
+	 * * ay <= ax
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
 	protected updateNotRight0(
 		fx: number,
 		fy: number,
@@ -2326,99 +2413,10 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 		let iv = 0;
 		let ii = 0;
-		this.writeNotRightSide(-1, lol, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotRight(-1, lol, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
-		this.writeNotRightSide(+1, lor, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += n + 4;
-		ii += 3 * (n + 2);
-		this.writePoly6(
-			iv,
-			ii,
-			3,
-			lob,
-			-yred,
-			xred,
-			-yred,
-			-xred,
-			-ydr,
-			xr,
-			-yo,
-			xr,
-			-yo,
-			xl,
-			-ydl,
-			xl,
-			fd,
-			scale,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 6;
-		ii += 12;
-
-		if (ctl) {
-			const lo = lob + 4 * ay + 2 * ax - r;
-			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
-		}
-		if (cbl) {
-			const lo = lor + 2 * ay + 2 * ax - r;
-			this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-			iv += 2 * n - 1;
-			ii += 3 * (n - 1);
-		}
-
-		this.pad(iv, ii, nv, ni, fd);
-	}
-
-	protected updateNotRight1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const d = ay;
-		const fd = 1 / d;
-		const n = this._n >> 2;
-		const fs = (scale - 1) * d;
-		const r = radius * ay;
-		const rs = r + fs;
-
-		const cr = 0 < radius;
-		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
-		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
-		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
-		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
-
-		const arc = 0.5 * Math.PI * r;
-		const lot = ctr ? -r : 0;
-		const lor = lot + (cbr ? arc - 2 * r : 0);
-		const lob = lor + (cbl ? arc - 2 * r : 0);
-		const lol = lob + (ctl ? arc - 2 * r : 0);
-
-		const xred = Math.min(2 * ax - ay, 0);
-		const yred = ax - ay - xred;
-		const xl = ctl ? -ay + r : -ay - fs;
-		const xr = cbl ? +ay - r : +ay + fs;
-		const ydl = ctl ? +ax - r : +ax + fs;
-		const ydr = cbl ? +ax - r : +ax + fs;
-		const yo = +ax + fs;
-
-		let iv = 0;
-		let ii = 0;
-		this.writeNotRightSide(-1, lol, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
-		iv += n + 4;
-		ii += 3 * (n + 2);
-		this.writeNotRightSide(+1, lor, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		this.writeSideNotRight(+1, lor, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
 		iv += n + 4;
 		ii += 3 * (n + 2);
 		this.writePoly6(
@@ -2466,8 +2464,159 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 
 	/**
 	 * Preconditions:
-	 * * shape.stroke.side === EShapeStrokeSide.ALL
+	 * * shape.stroke.side === EShapeStrokeSide.NOT_RIGHT
+	 * * ax < ay
+	 * * 6 * N + 12 <= nv
+	 * * 4 * N + 6 <= ni
+	 */
+	protected updateNotRight1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		// The deepest point of the stroke areas: the right edge if 2 * ax <= ay, otherwise the red point
+		const d = Math.min(2 * ax, ay);
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const fs = (scale - 1) * d;
+		const r = radius * ax;
+		const rs = r + fs;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctr ? -r : 0;
+		const lor = lot + (cbr ? arc - 2 * r : 0);
+		const lob = lor + (cbl ? arc - 2 * r : 0);
+		const lol = lob + (ctl ? arc - 2 * r : 0);
+
+		const xred = Math.min(2 * ax - ay, 0);
+		const yred = ax - ay - xred;
+		const xl = ctl ? -ay + r : -ay - fs;
+		const xr = cbl ? +ay - r : +ay + fs;
+		const ydl = ctl ? +ax - r : +ax + fs;
+		const ydr = cbl ? +ax - r : +ax + fs;
+		const yo = +ax + fs;
+
+		let iv = 0;
+		let ii = 0;
+		this.writeSideNotRight(-1, lol, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += n + 4;
+		ii += 3 * (n + 2);
+		this.writeSideNotRight(+1, lor, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+		iv += n + 4;
+		ii += 3 * (n + 2);
+		this.writePoly6(
+			iv,
+			ii,
+			3,
+			lob,
+			-yred,
+			xred,
+			-yred,
+			-xred,
+			-ydr,
+			xr,
+			-yo,
+			xr,
+			-yo,
+			xl,
+			-ydl,
+			xl,
+			fd,
+			scale,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 6;
+		ii += 12;
+
+		if (ctl) {
+			const lo = lob + 4 * ay + 2 * ax - r;
+			this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+		if (cbl) {
+			const lo = lor + 2 * ay + 2 * ax - r;
+			this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	protected writeSideNotRight(
+		sy: number,
+		lo: number,
+		ct: boolean,
+		cb: boolean,
+		iv: number,
+		ii: number,
+		n: number,
+		r: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		fd: number,
+		fx: number,
+		fy: number
+	): void {
+		const side = sy < 0 ? 0 : 2;
+		const fs = (scale - 1) / fd;
+		const xo = -ay - fs;
+		const xd = cb ? -ay + r : xo;
+		const yd = cb ? +ax - r : +ax + fs;
+		const m = -sy;
+		const xred = Math.min(2 * ax - ay, 0);
+		const yred = ax - ay - xred;
+
+		let k = iv;
+		this.writeVertex(k++, -yred, m * xred, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(k++, -yd, m * xd, side, lo, fd, scale, fx, fy, ax, ay);
+		this.writeVertex(k++, -yd, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
+		if (ct) {
+			const dangle = (Math.PI * 0.5) / (n - 1);
+			for (let i = 0; i < n; ++i) {
+				const angle = i * dangle;
+				const x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
+				const y = -ax + r - r * Math.sin(angle);
+				this.writeVertex(k++, -y, m * x, side, lo, fd, scale, fx, fy, ax, ay);
+			}
+		} else {
+			for (let i = 0; i < n; ++i) {
+				this.writeVertex(k++, +ax, m * xo, side, lo, fd, scale, fx, fy, ax, ay);
+			}
+		}
+		this.writeVertex(k++, +ax, 0, side, lo, fd, scale, fx, fy, ax, ay);
+
+		const indices = this._indices;
+		for (let i = 1, imax = k - iv - 1; i < imax; ++i) {
+			indices[ii++] = iv;
+			indices[ii++] = iv + (sy < 0 ? i : i + 1);
+			indices[ii++] = iv + (sy < 0 ? i + 1 : i);
+		}
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.ALL or NONE
 	 * * ay <= ax
+	 * * 8 * N + 18 <= nv
+	 * * 4 * N + 10 <= ni
 	 */
 	protected updateAll0(
 		fx: number,
@@ -2648,6 +2797,195 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 			iv += 2 * n - 1;
 			ii += 3 * (n - 1);
 		}
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	/**
+	 * Preconditions:
+	 * * shape.stroke.side === EShapeStrokeSide.ALL or NONE
+	 * * ax < ay
+	 * * 8 * N + 18 <= nv
+	 * * 4 * N + 10 <= ni
+	 */
+	protected updateAll1(
+		fx: number,
+		fy: number,
+		ax: number,
+		ay: number,
+		scale: number,
+		radius: number,
+		corner: EShapeCorner,
+		nv: number,
+		ni: number
+	): void {
+		const d = ax;
+		const fd = 1 / d;
+		const n = this._n >> 2;
+		const s = scale;
+		const fs = (scale - 1) * d;
+
+		const r = radius * ax;
+		const rs = r + fs;
+		const ol = -ax - fs;
+		const or = +ax + fs;
+		const x1 = -ax + r;
+		const x4 = +ax - r;
+
+		const y0 = -ay - fs;
+		const y1 = -ay + r;
+		const y2 = -ay + d;
+		const y3 = +ay - d;
+		const y4 = +ay - r;
+		const y5 = +ay + fs;
+
+		const cr = 0 < radius;
+		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+
+		const arc = 0.5 * Math.PI * r;
+		const lot = ctl ? -r : 0;
+		const lor = lot + (ctr ? arc - 2 * r : 0);
+		const lob = lor + (cbr ? arc - 2 * r : 0);
+		const lol = lob + (cbl ? arc - 2 * r : 0);
+
+		let iv = 0;
+		let ii = 0;
+		this.writePoly5(
+			iv,
+			ii,
+			0,
+			lot,
+			ctl ? x1 : ol,
+			ctl ? y1 : y0,
+			x1,
+			y0,
+			x4,
+			y0,
+			ctr ? x4 : or,
+			ctr ? y1 : y0,
+			0,
+			y2,
+			fd,
+			s,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+		this.writePoly6(
+			iv,
+			ii,
+			1,
+			lor,
+			ctr ? x4 : or,
+			ctr ? y1 : y0,
+			or,
+			y1,
+			or,
+			y4,
+			cbr ? x4 : or,
+			cbr ? y4 : y5,
+			0,
+			y3,
+			0,
+			y2,
+			fd,
+			s,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 6;
+		ii += 12;
+		this.writePoly5(
+			iv,
+			ii,
+			2,
+			lob,
+			cbr ? x4 : or,
+			cbr ? y4 : y5,
+			x4,
+			y5,
+			x1,
+			y5,
+			cbl ? x1 : ol,
+			cbl ? y4 : y5,
+			0,
+			y3,
+			fd,
+			s,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 5;
+		ii += 9;
+		this.writePoly6(
+			iv,
+			ii,
+			3,
+			lol,
+			cbl ? x1 : ol,
+			cbl ? y4 : y5,
+			ol,
+			y4,
+			ol,
+			y1,
+			ctl ? x1 : ol,
+			ctl ? y1 : y0,
+			0,
+			y2,
+			0,
+			y3,
+			fd,
+			s,
+			fx,
+			fy,
+			ax,
+			ay
+		);
+		iv += 6;
+		ii += 12;
+
+		const dx = 2 * (ax - r);
+		const dy = 2 * (ay - r);
+		let l = ctl ? dx : dx + r;
+		if (ctr) {
+			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (cbr) {
+			this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+			l += arc + dx;
+		} else {
+			l += r + r + dx;
+		}
+		if (cbl) {
+			this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+			l += arc + dy;
+		} else {
+			l += r + r + dy;
+		}
+		if (ctl) {
+			this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+			iv += 1 + 2 * (n - 1);
+			ii += 3 * (n - 1);
+		}
+
 		this.pad(iv, ii, nv, ni, fd);
 	}
 
@@ -2868,193 +3206,6 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		}
 	}
 
-	/**
-	 * Preconditions:
-	 * * shape.stroke.side === EShapeStrokeSide.ALL
-	 * * ax < ay
-	 */
-	protected updateAll1(
-		fx: number,
-		fy: number,
-		ax: number,
-		ay: number,
-		scale: number,
-		radius: number,
-		corner: EShapeCorner,
-		nv: number,
-		ni: number
-	): void {
-		const d = ax;
-		const fd = 1 / d;
-		const n = this._n >> 2;
-		const s = scale;
-		const fs = (scale - 1) * d;
-
-		const r = radius * ax;
-		const rs = r + fs;
-		const ol = -ax - fs;
-		const or = +ax + fs;
-		const x1 = -ax + r;
-		const x4 = +ax - r;
-
-		const y0 = -ay - fs;
-		const y1 = -ay + r;
-		const y2 = -ay + d;
-		const y3 = +ay - d;
-		const y4 = +ay - r;
-		const y5 = +ay + fs;
-
-		const cr = 0 < radius;
-		const ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
-		const ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
-		const cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
-		const cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
-
-		const arc = 0.5 * Math.PI * r;
-		const lot = ctl ? -r : 0;
-		const lor = lot + (ctr ? arc - 2 * r : 0);
-		const lob = lor + (cbr ? arc - 2 * r : 0);
-		const lol = lob + (cbl ? arc - 2 * r : 0);
-
-		let iv = 0;
-		let ii = 0;
-		this.writePoly5(
-			iv,
-			ii,
-			0,
-			lot,
-			ctl ? x1 : ol,
-			ctl ? y1 : y0,
-			x1,
-			y0,
-			x4,
-			y0,
-			ctr ? x4 : or,
-			ctr ? y1 : y0,
-			0,
-			y2,
-			fd,
-			s,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 5;
-		ii += 9;
-		this.writePoly6(
-			iv,
-			ii,
-			1,
-			lor,
-			ctr ? x4 : or,
-			ctr ? y1 : y0,
-			or,
-			y1,
-			or,
-			y4,
-			cbr ? x4 : or,
-			cbr ? y4 : y5,
-			0,
-			y3,
-			0,
-			y2,
-			fd,
-			s,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 6;
-		ii += 12;
-		this.writePoly5(
-			iv,
-			ii,
-			2,
-			lob,
-			cbr ? x4 : or,
-			cbr ? y4 : y5,
-			x4,
-			y5,
-			x1,
-			y5,
-			cbl ? x1 : ol,
-			cbl ? y4 : y5,
-			0,
-			y3,
-			fd,
-			s,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 5;
-		ii += 9;
-		this.writePoly6(
-			iv,
-			ii,
-			3,
-			lol,
-			cbl ? x1 : ol,
-			cbl ? y4 : y5,
-			ol,
-			y4,
-			ol,
-			y1,
-			ctl ? x1 : ol,
-			ctl ? y1 : y0,
-			0,
-			y2,
-			0,
-			y3,
-			fd,
-			s,
-			fx,
-			fy,
-			ax,
-			ay
-		);
-		iv += 6;
-		ii += 12;
-
-		const dx = 2 * (ax - r);
-		const dy = 2 * (ay - r);
-		let l = ctl ? dx : dx + r;
-		if (ctr) {
-			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-			iv += 1 + 2 * (n - 1);
-			ii += 3 * (n - 1);
-			l += arc + dy;
-		} else {
-			l += r + r + dy;
-		}
-		if (cbr) {
-			this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-			iv += 1 + 2 * (n - 1);
-			ii += 3 * (n - 1);
-			l += arc + dx;
-		} else {
-			l += r + r + dx;
-		}
-		if (cbl) {
-			this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-			iv += 1 + 2 * (n - 1);
-			ii += 3 * (n - 1);
-			l += arc + dy;
-		} else {
-			l += r + r + dy;
-		}
-		if (ctl) {
-			this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-			iv += 1 + 2 * (n - 1);
-			ii += 3 * (n - 1);
-		}
-
-		this.pad(iv, ii, nv, ni, fd);
-	}
-
 	protected updateVertexTop(
 		vertex: number,
 		x: number,
@@ -3152,7 +3303,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 	}
 
 	protected updateVertex(
-		vertex: number,
+		iv: number,
 		x: number,
 		y: number,
 		distance: number,
@@ -3161,13 +3312,13 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		fx: number,
 		fy: number
 	): void {
-		const vertex2 = vertex << 1;
-		this._vertices[vertex2] = x;
-		this._vertices[vertex2 + 1] = y;
-		this._distances[vertex] = distance;
-		this._lengths[vertex] = length;
-		this._clippings[vertex] = clipping;
-		this._uvs[vertex2] = 0.5 * (x * fx + 1);
-		this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
+		const iv2 = iv << 1;
+		this._vertices[iv2] = x;
+		this._vertices[iv2 + 1] = y;
+		this._distances[iv] = distance;
+		this._lengths[iv] = length;
+		this._clippings[iv] = clipping;
+		this._uvs[iv2] = 0.5 * (x * fx + 1);
+		this._uvs[iv2 + 1] = 0.5 * (y * fy + 1);
 	}
 }
