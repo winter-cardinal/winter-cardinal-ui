@@ -6,8 +6,8 @@
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { deserializeCircleLegacy } from "../variant";
 import { createCircleLegacyUploaded } from "../variant/create-circle-legacy-uploaded";
+import { deserializeCircleLegacy } from "../variant/deserialize-circle-legacy";
 
 export const loadShapeCircleLegacy = (): void => {
 	EShapeUploadeds[EShapeType.CIRCLE_LEGACY] = createCircleLegacyUploaded;
