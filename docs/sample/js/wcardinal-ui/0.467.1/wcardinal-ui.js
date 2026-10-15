@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.467.0
+ Winter Cardinal UI v0.467.1
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -8470,6 +8470,38 @@
         return EShapePrimitive;
     }(EShapeBase));
 
+    var hitTestFill = function (x, y, ax, ay, fill) {
+        if (fill.enable) {
+            var percent = Math.max(0, Math.min(1, fill.percent));
+            if (1 <= percent) {
+                return true;
+            }
+            switch (fill.direction) {
+                case EShapeFillDirection.TOP:
+                    if (y + ay <= percent * (2 * ay)) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.RIGHT:
+                    if ((1 - percent) * (2 * ax) <= x + ax) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.BOTTOM:
+                    if ((1 - percent) * (2 * ay) <= y + ay) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.LEFT:
+                    if (x + ax <= percent * (2 * ax)) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return false;
+    };
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -8507,34 +8539,8 @@
         if (!hitTestCircleFilled(x, y, ax, ay)) {
             return false;
         }
-        var fill = shape.fill;
-        if (fill.enable) {
-            var percent = Math.max(0, Math.min(1, fill.percent));
-            if (1 <= percent) {
-                return true;
-            }
-            switch (fill.direction) {
-                case EShapeFillDirection.TOP:
-                    if (y + ay <= percent * (2 * ay)) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.RIGHT:
-                    if ((1 - percent) * (2 * ax) <= x + ax) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.BOTTOM:
-                    if ((1 - percent) * (2 * ay) <= y + ay) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.LEFT:
-                    if (x + ax <= percent * (2 * ax)) {
-                        return true;
-                    }
-                    break;
-            }
+        if (hitTestFill(x, y, ax, ay, shape.fill)) {
+            return true;
         }
         return hitTestCircleStroke(x, y, ax, ay, sw, ss);
     };
@@ -8608,34 +8614,8 @@
         if (!hitTestBBox(x, y, ax, ay)) {
             return false;
         }
-        var fill = shape.fill;
-        if (fill.enable) {
-            var percent = Math.max(0, Math.min(1, fill.percent));
-            if (1 <= percent) {
-                return true;
-            }
-            switch (fill.direction) {
-                case EShapeFillDirection.TOP:
-                    if (y + ay <= percent * (2 * ay)) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.RIGHT:
-                    if ((1 - percent) * (2 * ax) <= x + ax) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.BOTTOM:
-                    if ((1 - percent) * (2 * ay) <= y + ay) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.LEFT:
-                    if (x + ax <= percent * (2 * ax)) {
-                        return true;
-                    }
-                    break;
-            }
+        if (hitTestFill(x, y, ax, ay, shape.fill)) {
+            return true;
         }
         return hitTestRectangleStroke(shape, x, y, ax, ay, sw, ss);
     };
@@ -8685,34 +8665,8 @@
         if (!hitTestTriangleFilled(x, y, a, -ay, +ay)) {
             return false;
         }
-        var fill = shape.fill;
-        if (fill.enable) {
-            var percent = Math.max(0, Math.min(1, fill.percent));
-            if (1 <= percent) {
-                return true;
-            }
-            switch (fill.direction) {
-                case EShapeFillDirection.TOP:
-                    if (y + ay <= percent * (2 * ay)) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.RIGHT:
-                    if ((1 - percent) * (2 * ax) <= x + ax) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.BOTTOM:
-                    if ((1 - percent) * (2 * ay) <= y + ay) {
-                        return true;
-                    }
-                    break;
-                case EShapeFillDirection.LEFT:
-                    if (x + ax <= percent * (2 * ax)) {
-                        return true;
-                    }
-                    break;
-            }
+        if (hitTestFill(x, y, ax, ay, shape.fill)) {
+            return true;
         }
         return hitTestTriangleStroke(x, y, a, ax, ay, sw, ss);
     };
@@ -43179,7 +43133,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var hitTestRectangleRounded_ = function (x, y, ax, ay, r, corner) {
+    var hitTestRectangleRoundedFilled = function (x, y, ax, ay, r, corner) {
         var bx0 = -ax + r;
         if (x <= bx0) {
             var by0 = -ay + r;
@@ -43232,111 +43186,133 @@
             }
         }
     };
+    var hitTestRectangleRoundedStroke = function (shape, x, y, ax, ay, sw, ss, r, corner) {
+        var s = sw * ss;
+        var wx = Math.max(0.0, ax - s);
+        var wy = Math.max(0.0, ay - s);
+        var wr = Math.max(0.0, r - s);
+        if (!hitTestRectangleRoundedFilled(x, y, wx, wy, wr, corner)) {
+            var strokeSide = shape.stroke.side;
+            if (strokeSide === EShapeStrokeSide.ALL) {
+                return true;
+            }
+            else {
+                if (x <= -wx + wr) {
+                    var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
+                    if (y <= -wy + wr) {
+                        var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+                        if (hasTopSide && hasLeftSide) {
+                            return true;
+                        }
+                        else if (hasTopSide) {
+                            return -wx <= y;
+                        }
+                        else if (hasLeftSide) {
+                            return x <= -wx;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else if (+wy - wr <= y) {
+                        var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                        if (hasBottomSide && hasLeftSide) {
+                            return true;
+                        }
+                        else if (hasBottomSide) {
+                            return +wx <= y;
+                        }
+                        else if (hasLeftSide) {
+                            return x <= -wx;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return hasLeftSide;
+                    }
+                }
+                else if (+wx - wr <= x) {
+                    var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
+                    if (y <= -wy + wr) {
+                        var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+                        if (hasTopSide && hasRightSide) {
+                            return true;
+                        }
+                        else if (hasTopSide) {
+                            return -wx <= y;
+                        }
+                        else if (hasRightSide) {
+                            return +wx <= x;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else if (+wy - wr <= y) {
+                        var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                        if (hasBottomSide && hasRightSide) {
+                            return true;
+                        }
+                        else if (hasBottomSide) {
+                            return +wx <= y;
+                        }
+                        else if (hasRightSide) {
+                            return +wx <= x;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return hasRightSide;
+                    }
+                }
+                else {
+                    if (y <= -wy + wr) {
+                        return !!(strokeSide & EShapeStrokeSide.TOP);
+                    }
+                    else if (+wy - wr <= y) {
+                        return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    };
+    var hitTestRectangleRoundedLegacy = function (shape, x, y, ax, ay, sw, ss) {
+        var fill = shape.fill;
+        if (fill.enable || 0 < sw) {
+            var r = shape.radius * Math.min(ax, ay);
+            var corner = shape.corner;
+            if (hitTestRectangleRoundedFilled(x, y, ax, ay, r, corner)) {
+                if (fill.enable) {
+                    return true;
+                }
+                else {
+                    if (hitTestRectangleRoundedStroke(shape, x, y, ax, ay, sw, ss, r, corner)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
     var hitTestRectangleRounded = function (shape, x, y, ax, ay, sw, ss) {
         var fill = shape.fill;
         if (fill.enable || 0 < sw) {
             var r = shape.radius * Math.min(ax, ay);
             var corner = shape.corner;
-            if (hitTestRectangleRounded_(x, y, ax, ay, r, corner)) {
-                if (fill.enable) {
+            if (hitTestRectangleRoundedFilled(x, y, ax, ay, r, corner)) {
+                if (hitTestFill(x, y, ax, ay, fill)) {
                     return true;
                 }
-                else {
-                    var s = sw * ss;
-                    var wx = Math.max(0.0, ax - s);
-                    var wy = Math.max(0.0, ay - s);
-                    var wr = Math.max(0.0, r - s);
-                    if (!hitTestRectangleRounded_(x, y, wx, wy, wr, corner)) {
-                        var strokeSide = shape.stroke.side;
-                        if (strokeSide === EShapeStrokeSide.ALL) {
-                            return true;
-                        }
-                        else {
-                            if (x <= -wx + wr) {
-                                var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
-                                if (y <= -wy + wr) {
-                                    var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-                                    if (hasTopSide && hasLeftSide) {
-                                        return true;
-                                    }
-                                    else if (hasTopSide) {
-                                        return -wx <= y;
-                                    }
-                                    else if (hasLeftSide) {
-                                        return x <= -wx;
-                                    }
-                                    else {
-                                        return false;
-                                    }
-                                }
-                                else if (+wy - wr <= y) {
-                                    var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                    if (hasBottomSide && hasLeftSide) {
-                                        return true;
-                                    }
-                                    else if (hasBottomSide) {
-                                        return +wx <= y;
-                                    }
-                                    else if (hasLeftSide) {
-                                        return x <= -wx;
-                                    }
-                                    else {
-                                        return false;
-                                    }
-                                }
-                                else {
-                                    return hasLeftSide;
-                                }
-                            }
-                            else if (+wx - wr <= x) {
-                                var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
-                                if (y <= -wy + wr) {
-                                    var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-                                    if (hasTopSide && hasRightSide) {
-                                        return true;
-                                    }
-                                    else if (hasTopSide) {
-                                        return -wx <= y;
-                                    }
-                                    else if (hasRightSide) {
-                                        return +wx <= x;
-                                    }
-                                    else {
-                                        return false;
-                                    }
-                                }
-                                else if (+wy - wr <= y) {
-                                    var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                    if (hasBottomSide && hasRightSide) {
-                                        return true;
-                                    }
-                                    else if (hasBottomSide) {
-                                        return +wx <= y;
-                                    }
-                                    else if (hasRightSide) {
-                                        return +wx <= x;
-                                    }
-                                    else {
-                                        return false;
-                                    }
-                                }
-                                else {
-                                    return hasRightSide;
-                                }
-                            }
-                            else {
-                                if (y <= -wy + wr) {
-                                    return !!(strokeSide & EShapeStrokeSide.TOP);
-                                }
-                                else if (+wy - wr <= y) {
-                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                }
-                                else {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
+                if (hitTestRectangleRoundedStroke(shape, x, y, ax, ay, sw, ss, r, corner)) {
+                    return true;
                 }
             }
         }
@@ -51873,7 +51849,7 @@
         };
         EShapeRectangleRoundedLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestRectangleRounded(this, x, y, ax, ay, sw, ss);
+                return hitTestRectangleRoundedLegacy(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -88734,6 +88710,7 @@
         hitTestCircleLegacy: hitTestCircleLegacy,
         hitTestCircle: hitTestCircle,
         hitTestSemicircle: hitTestSemicircle,
+        hitTestRectangleRoundedLegacy: hitTestRectangleRoundedLegacy,
         hitTestRectangleRounded: hitTestRectangleRounded,
         hitTestRectangleLegacy: hitTestRectangleLegacy,
         hitTestRectangle: hitTestRectangle,
