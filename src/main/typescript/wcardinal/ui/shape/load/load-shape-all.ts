@@ -32,6 +32,7 @@ import { loadShapeSemicircle } from "./load-shape-semicircle";
 import { loadShapeTriangle } from "./load-shape-triangle";
 import { loadShapeTriangleLegacy } from "./load-shape-triangle-legacy";
 import { loadShapeTriangleRounded } from "./load-shape-triangle-rounded";
+import { loadShapeTriangleRoundedLegacy } from "./load-shape-triangle-rounded-legacy";
 
 export const loadShapeAll = (): void => {
 	loadShapeBar();
@@ -56,6 +57,7 @@ export const loadShapeAll = (): void => {
 	loadShapeRectangle();
 	loadShapeSemicircle();
 	loadShapeTriangleLegacy();
+	loadShapeTriangleRoundedLegacy();
 	loadShapeTriangleRounded();
 	loadShapeTriangle();
 	loadShapeLineOfCircles();

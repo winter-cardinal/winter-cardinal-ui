@@ -10,10 +10,13 @@ import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit
 import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
 import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
-import { EShapeTriangleRounded } from "./e-shape-triangle-rounded";
+import { EShapeTriangleRoundedLegacy } from "./e-shape-triangle-rounded-legacy";
 import { toThresholdDefault } from "./to-threshold-default";
 
-export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implements EShapeLineOfAny {
+export class EShapeLineOfTriangleRoundeds
+	extends EShapeTriangleRoundedLegacy
+	implements EShapeLineOfAny
+{
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
