@@ -6,8 +6,9 @@
 import { EShape } from "../e-shape";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { hitTestFill } from "./hit-test-fill";
 
-const hitTestRectangleRounded_ = (
+const hitTestRectangleRoundedFilled = (
 	x: number,
 	y: number,
 	ax: number,
@@ -62,6 +63,120 @@ const hitTestRectangleRounded_ = (
 	}
 };
 
+const hitTestRectangleRoundedStroke = (
+	shape: EShape,
+	x: number,
+	y: number,
+	ax: number,
+	ay: number,
+	sw: number,
+	ss: number,
+	r: number,
+	corner: EShapeCorner
+): boolean => {
+	const s = sw * ss;
+	const wx = Math.max(0.0, ax - s);
+	const wy = Math.max(0.0, ay - s);
+	const wr = Math.max(0.0, r - s);
+	if (!hitTestRectangleRoundedFilled(x, y, wx, wy, wr, corner)) {
+		const strokeSide = shape.stroke.side;
+		if (strokeSide === EShapeStrokeSide.ALL) {
+			return true;
+		} else {
+			if (x <= -wx + wr) {
+				const hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
+				if (y <= -wy + wr) {
+					const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+					if (hasTopSide && hasLeftSide) {
+						return true;
+					} else if (hasTopSide) {
+						return -wx <= y;
+					} else if (hasLeftSide) {
+						return x <= -wx;
+					} else {
+						return false;
+					}
+				} else if (+wy - wr <= y) {
+					const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+					if (hasBottomSide && hasLeftSide) {
+						return true;
+					} else if (hasBottomSide) {
+						return +wx <= y;
+					} else if (hasLeftSide) {
+						return x <= -wx;
+					} else {
+						return false;
+					}
+				} else {
+					return hasLeftSide;
+				}
+			} else if (+wx - wr <= x) {
+				const hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
+				if (y <= -wy + wr) {
+					const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+					if (hasTopSide && hasRightSide) {
+						return true;
+					} else if (hasTopSide) {
+						return -wx <= y;
+					} else if (hasRightSide) {
+						return +wx <= x;
+					} else {
+						return false;
+					}
+				} else if (+wy - wr <= y) {
+					const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+					if (hasBottomSide && hasRightSide) {
+						return true;
+					} else if (hasBottomSide) {
+						return +wx <= y;
+					} else if (hasRightSide) {
+						return +wx <= x;
+					} else {
+						return false;
+					}
+				} else {
+					return hasRightSide;
+				}
+			} else {
+				if (y <= -wy + wr) {
+					return !!(strokeSide & EShapeStrokeSide.TOP);
+				} else if (+wy - wr <= y) {
+					return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+				} else {
+					return false;
+				}
+			}
+		}
+	}
+	return false;
+};
+
+export const hitTestRectangleRoundedLegacy = (
+	shape: EShape,
+	x: number,
+	y: number,
+	ax: number,
+	ay: number,
+	sw: number,
+	ss: number
+): boolean => {
+	const fill = shape.fill;
+	if (fill.enable || 0 < sw) {
+		const r = shape.radius * Math.min(ax, ay);
+		const corner = shape.corner;
+		if (hitTestRectangleRoundedFilled(x, y, ax, ay, r, corner)) {
+			if (fill.enable) {
+				return true;
+			} else {
+				if (hitTestRectangleRoundedStroke(shape, x, y, ax, ay, sw, ss, r, corner)) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+};
+
 export const hitTestRectangleRounded = (
 	shape: EShape,
 	x: number,
@@ -75,84 +190,12 @@ export const hitTestRectangleRounded = (
 	if (fill.enable || 0 < sw) {
 		const r = shape.radius * Math.min(ax, ay);
 		const corner = shape.corner;
-		if (hitTestRectangleRounded_(x, y, ax, ay, r, corner)) {
-			if (fill.enable) {
+		if (hitTestRectangleRoundedFilled(x, y, ax, ay, r, corner)) {
+			if (hitTestFill(x, y, ax, ay, fill)) {
 				return true;
-			} else {
-				const s = sw * ss;
-				const wx = Math.max(0.0, ax - s);
-				const wy = Math.max(0.0, ay - s);
-				const wr = Math.max(0.0, r - s);
-				if (!hitTestRectangleRounded_(x, y, wx, wy, wr, corner)) {
-					const strokeSide = shape.stroke.side;
-					if (strokeSide === EShapeStrokeSide.ALL) {
-						return true;
-					} else {
-						if (x <= -wx + wr) {
-							const hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
-							if (y <= -wy + wr) {
-								const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-								if (hasTopSide && hasLeftSide) {
-									return true;
-								} else if (hasTopSide) {
-									return -wx <= y;
-								} else if (hasLeftSide) {
-									return x <= -wx;
-								} else {
-									return false;
-								}
-							} else if (+wy - wr <= y) {
-								const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-								if (hasBottomSide && hasLeftSide) {
-									return true;
-								} else if (hasBottomSide) {
-									return +wx <= y;
-								} else if (hasLeftSide) {
-									return x <= -wx;
-								} else {
-									return false;
-								}
-							} else {
-								return hasLeftSide;
-							}
-						} else if (+wx - wr <= x) {
-							const hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
-							if (y <= -wy + wr) {
-								const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-								if (hasTopSide && hasRightSide) {
-									return true;
-								} else if (hasTopSide) {
-									return -wx <= y;
-								} else if (hasRightSide) {
-									return +wx <= x;
-								} else {
-									return false;
-								}
-							} else if (+wy - wr <= y) {
-								const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-								if (hasBottomSide && hasRightSide) {
-									return true;
-								} else if (hasBottomSide) {
-									return +wx <= y;
-								} else if (hasRightSide) {
-									return +wx <= x;
-								} else {
-									return false;
-								}
-							} else {
-								return hasRightSide;
-							}
-						} else {
-							if (y <= -wy + wr) {
-								return !!(strokeSide & EShapeStrokeSide.TOP);
-							} else if (+wy - wr <= y) {
-								return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-							} else {
-								return false;
-							}
-						}
-					}
-				}
+			}
+			if (hitTestRectangleRoundedStroke(shape, x, y, ax, ay, sw, ss, r, corner)) {
+				return true;
 			}
 		}
 	}

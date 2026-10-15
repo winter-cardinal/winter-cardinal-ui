@@ -5,7 +5,7 @@
 
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { hitTestRectangleRounded } from "./hit-test-rectangle-rounded";
+import { hitTestRectangleRoundedLegacy } from "./hit-test-rectangle-rounded";
 
 export class EShapeRectangleRoundedLegacy extends EShapePrimitive {
 	constructor(type: EShapeType = EShapeType.RECTANGLE_ROUNDED_LEGACY) {
@@ -26,7 +26,7 @@ export class EShapeRectangleRoundedLegacy extends EShapePrimitive {
 		sa: number
 	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			return hitTestRectangleRounded(this, x, y, ax, ay, sw, ss);
+			return hitTestRectangleRoundedLegacy(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
 	}
