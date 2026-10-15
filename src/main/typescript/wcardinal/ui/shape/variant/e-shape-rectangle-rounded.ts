@@ -4,12 +4,25 @@
  */
 
 import { EShapeType } from "../e-shape-type";
+import { EShapeRectangleRoundedTriangulated } from "./e-shape-rectangle-rounded-triangulated";
+import { EShapeRectangleRoundedTriangulatedImpl } from "./e-shape-rectangle-rounded-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestRectangleRounded } from "./hit-test-rectangle-rounded";
 
 export class EShapeRectangleRounded extends EShapePrimitive {
+	protected readonly _triangulated: EShapeRectangleRoundedTriangulated;
+
 	constructor(type: EShapeType = EShapeType.RECTANGLE_ROUNDED) {
 		super(type);
+		this._triangulated = this.newTriangulated();
+	}
+
+	protected newTriangulated(): EShapeRectangleRoundedTriangulated {
+		return new EShapeRectangleRoundedTriangulatedImpl(this);
+	}
+
+	get triangulated(): EShapeRectangleRoundedTriangulated {
+		return this._triangulated;
 	}
 
 	clone(): EShapeRectangleRounded {

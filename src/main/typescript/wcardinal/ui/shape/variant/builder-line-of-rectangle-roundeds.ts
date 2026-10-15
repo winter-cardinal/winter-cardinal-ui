@@ -7,14 +7,14 @@ import { EShape } from "../e-shape";
 import { EShapeCorner } from "../e-shape-corner";
 import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildRectangleRoundedIndex,
-	buildRectangleRoundedStep,
-	buildRectangleRoundedUv,
-	buildRectangleRoundedVertex,
-	RECTANGLE_ROUNDED_INDEX_COUNT,
-	RECTANGLE_ROUNDED_VERTEX_COUNT,
-	RECTANGLE_ROUNDED_WORLD_SIZE
-} from "./build-rectangle-rounded";
+	buildRectangleRoundedLegacyIndex,
+	buildRectangleRoundedLegacyStep,
+	buildRectangleRoundedLegacyUv,
+	buildRectangleRoundedLegacyVertex,
+	RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT,
+	RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
+	RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
+} from "./build-rectangle-rounded-legacy";
 import { BuilderBuffer, BuilderFlag } from "./builder";
 import { BuilderLineOfAny } from "./builder-line-of-any";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
@@ -61,12 +61,12 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildRectangleRoundedIndex(indices, voffset, ioffset);
+			buildRectangleRoundedLegacyIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
-				RECTANGLE_ROUNDED_VERTEX_COUNT,
+				RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
 				ioffset,
-				RECTANGLE_ROUNDED_INDEX_COUNT,
+				RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT,
 				pointCountReserved
 			);
 		}
@@ -78,7 +78,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			const buffer = this.buffer;
 			this.updateVertexStepAndUv(buffer, shape, points);
-			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
+			this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT);
 		}
 	}
 
@@ -176,7 +176,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 				const pointSizeY = pointSize.getY(0);
 
 				// Vertices
-				buildRectangleRoundedVertex(
+				buildRectangleRoundedLegacyVertex(
 					vertices,
 					voffset,
 					0,
@@ -187,13 +187,13 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 					strokeWidth,
 					radius,
 					internalTransform,
-					RECTANGLE_ROUNDED_WORLD_SIZE
+					RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
 					voffset,
-					RECTANGLE_ROUNDED_VERTEX_COUNT,
+					RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
 					pointCount,
 					pointsValues,
 					pointOffset
@@ -201,22 +201,27 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 
 				// Steps
 				if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-					buildRectangleRoundedStep(
+					buildRectangleRoundedLegacyStep(
 						steps,
 						voffset,
 						strokeWidth,
 						strokeSide,
 						strokeStyle,
 						corner,
-						RECTANGLE_ROUNDED_WORLD_SIZE
+						RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
 					);
-					copyStep(steps, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+					copyStep(steps, voffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount);
 				}
 
 				// UVs
 				if (isNotInited || isVertexChanged || isTextureChanged) {
-					buildRectangleRoundedUv(uvs, voffset, textureUvs, RECTANGLE_ROUNDED_WORLD_SIZE);
-					copyUvs(uvs, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+					buildRectangleRoundedLegacyUv(
+						uvs,
+						voffset,
+						textureUvs,
+						RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
+					);
+					copyUvs(uvs, voffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount);
 				}
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
@@ -226,10 +231,10 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 					const pointSizeX = pointSize.getX(i);
 					const pointSizeY = pointSize.getY(i);
 
-					const iv = voffset + i * RECTANGLE_ROUNDED_VERTEX_COUNT;
+					const iv = voffset + i * RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT;
 
 					// Vertices
-					buildRectangleRoundedVertex(
+					buildRectangleRoundedLegacyVertex(
 						vertices,
 						iv,
 						px,
@@ -240,34 +245,39 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 						strokeWidth,
 						radius,
 						internalTransform,
-						RECTANGLE_ROUNDED_WORLD_SIZE
+						RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
 					);
 
 					// Steps
 					if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-						buildRectangleRoundedStep(
+						buildRectangleRoundedLegacyStep(
 							steps,
 							iv,
 							strokeWidth,
 							strokeSide,
 							strokeStyle,
 							corner,
-							RECTANGLE_ROUNDED_WORLD_SIZE
+							RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
 						);
 					}
 
 					// UVs
 					if (isNotInited || isVertexChanged || isTextureChanged) {
-						buildRectangleRoundedUv(uvs, iv, textureUvs, RECTANGLE_ROUNDED_WORLD_SIZE);
+						buildRectangleRoundedLegacyUv(
+							uvs,
+							iv,
+							textureUvs,
+							RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE
+						);
 					}
 				}
 			}
 
 			// Fill the rest
 			const pointCountReserved = this.pointCountReserved;
-			const voffsetReserved = voffset + pointCount * RECTANGLE_ROUNDED_VERTEX_COUNT;
+			const voffsetReserved = voffset + pointCount * RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT;
 			const vcountReserved =
-				RECTANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
+				RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
 			buildNullUv(uvs, voffsetReserved, vcountReserved);

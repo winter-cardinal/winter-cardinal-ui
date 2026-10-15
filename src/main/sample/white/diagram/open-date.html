@@ -39,7 +39,6 @@
 		fetch("../../resource/diagram/open-date.json").then((response) => {
 			response.json().then((json) => {
 				diagram.set(json);
-				diagram.view.fit();
 			});
 		});
 	})();

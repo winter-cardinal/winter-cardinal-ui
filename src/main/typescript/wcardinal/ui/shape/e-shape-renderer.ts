@@ -68,7 +68,8 @@ vec2 toUnpackedClippings(in float v) {
 	vec2 c = vec2(1.0, 1.0/1024.0) * v;
 	c -= fract(c);
 	c -= c.yx * vec2(1024.0, 0.0);
-	c /= vec2(930.0, 930.0);
+	c /= vec2(852.5, 852.5);
+	c -= vec2(0.1, 0.1);
 	return c;
 }
 
@@ -313,9 +314,10 @@ vec4 toColor7(in vec4 texture) {
 	float s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);
 	float s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);
 	float s2 = smoothstep(-aw, +aw, vStepB.y);
+	float s3 = smoothstep(-awd, 0.0, vStepB.z);
 	return texture * (
 		vColorStroke * (s1 - s0) +
-		vColorFill * (1.0 - s1) * s2
+		vColorFill * (1.0 - s1) * s2 * s3
 	);
 }
 
