@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeCorner } from "../e-shape-corner";
+import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 
 const hitTestRectangleRounded_ = (
@@ -77,79 +78,104 @@ export const hitTestRectangleRounded = (
 		const corner = shape.corner;
 		if (hitTestRectangleRounded_(x, y, ax, ay, r, corner)) {
 			if (fill.enable) {
-				return true;
-			} else {
-				const s = sw * ss;
-				const wx = Math.max(0.0, ax - s);
-				const wy = Math.max(0.0, ay - s);
-				const wr = Math.max(0.0, r - s);
-				if (!hitTestRectangleRounded_(x, y, wx, wy, wr, corner)) {
-					const strokeSide = shape.stroke.side;
-					if (strokeSide === EShapeStrokeSide.ALL) {
-						return true;
-					} else {
-						if (x <= -wx + wr) {
-							const hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
-							if (y <= -wy + wr) {
-								const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-								if (hasTopSide && hasLeftSide) {
-									return true;
-								} else if (hasTopSide) {
-									return -wx <= y;
-								} else if (hasLeftSide) {
-									return x <= -wx;
-								} else {
-									return false;
-								}
-							} else if (+wy - wr <= y) {
-								const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-								if (hasBottomSide && hasLeftSide) {
-									return true;
-								} else if (hasBottomSide) {
-									return +wx <= y;
-								} else if (hasLeftSide) {
-									return x <= -wx;
-								} else {
-									return false;
-								}
-							} else {
-								return hasLeftSide;
-							}
-						} else if (+wx - wr <= x) {
-							const hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
-							if (y <= -wy + wr) {
-								const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-								if (hasTopSide && hasRightSide) {
-									return true;
-								} else if (hasTopSide) {
-									return -wx <= y;
-								} else if (hasRightSide) {
-									return +wx <= x;
-								} else {
-									return false;
-								}
-							} else if (+wy - wr <= y) {
-								const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-								if (hasBottomSide && hasRightSide) {
-									return true;
-								} else if (hasBottomSide) {
-									return +wx <= y;
-								} else if (hasRightSide) {
-									return +wx <= x;
-								} else {
-									return false;
-								}
-							} else {
-								return hasRightSide;
-							}
-						} else {
-							if (y <= -wy + wr) {
-								return !!(strokeSide & EShapeStrokeSide.TOP);
-							} else if (+wy - wr <= y) {
-								return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+				const percent = Math.max(0, Math.min(1, fill.percent));
+				if (1 <= percent) {
+					return true;
+				}
+
+				switch (fill.direction) {
+					case EShapeFillDirection.TOP:
+						if (y + ay <= percent * (2 * ay)) {
+							return true;
+						}
+						break;
+					case EShapeFillDirection.RIGHT:
+						if ((1 - percent) * (2 * ax) <= x + ax) {
+							return true;
+						}
+						break;
+					case EShapeFillDirection.BOTTOM:
+						if ((1 - percent) * (2 * ay) <= y + ay) {
+							return true;
+						}
+						break;
+					case EShapeFillDirection.LEFT:
+						if (x + ax <= percent * (2 * ax)) {
+							return true;
+						}
+						break;
+				}
+			}
+			const s = sw * ss;
+			const wx = Math.max(0.0, ax - s);
+			const wy = Math.max(0.0, ay - s);
+			const wr = Math.max(0.0, r - s);
+			if (!hitTestRectangleRounded_(x, y, wx, wy, wr, corner)) {
+				const strokeSide = shape.stroke.side;
+				if (strokeSide === EShapeStrokeSide.ALL) {
+					return true;
+				} else {
+					if (x <= -wx + wr) {
+						const hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
+						if (y <= -wy + wr) {
+							const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+							if (hasTopSide && hasLeftSide) {
+								return true;
+							} else if (hasTopSide) {
+								return -wx <= y;
+							} else if (hasLeftSide) {
+								return x <= -wx;
 							} else {
 								return false;
 							}
+						} else if (+wy - wr <= y) {
+							const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+							if (hasBottomSide && hasLeftSide) {
+								return true;
+							} else if (hasBottomSide) {
+								return +wx <= y;
+							} else if (hasLeftSide) {
+								return x <= -wx;
+							} else {
+								return false;
+							}
+						} else {
+							return hasLeftSide;
+						}
+					} else if (+wx - wr <= x) {
+						const hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
+						if (y <= -wy + wr) {
+							const hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+							if (hasTopSide && hasRightSide) {
+								return true;
+							} else if (hasTopSide) {
+								return -wx <= y;
+							} else if (hasRightSide) {
+								return +wx <= x;
+							} else {
+								return false;
+							}
+						} else if (+wy - wr <= y) {
+							const hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+							if (hasBottomSide && hasRightSide) {
+								return true;
+							} else if (hasBottomSide) {
+								return +wx <= y;
+							} else if (hasRightSide) {
+								return +wx <= x;
+							} else {
+								return false;
+							}
+						} else {
+							return hasRightSide;
+						}
+					} else {
+						if (y <= -wy + wr) {
+							return !!(strokeSide & EShapeStrokeSide.TOP);
+						} else if (+wy - wr <= y) {
+							return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+						} else {
+							return false;
 						}
 					}
 				}
