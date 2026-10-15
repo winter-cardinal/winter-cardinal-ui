@@ -8,7 +8,7 @@ import { EShapeCapability } from "../e-shape-capability";
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createPolygonUploaded } from "../variant";
+import { createPolygonUploaded } from "../variant/create-polygon-uploaded";
 import { deserializeRectangleRounded } from "../variant/deserialize-rectangle-rounded";
 
 export const loadShapeRectangleRounded = (): void => {
