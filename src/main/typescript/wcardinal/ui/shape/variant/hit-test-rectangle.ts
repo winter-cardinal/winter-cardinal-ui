@@ -4,9 +4,9 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { hitTestBBox } from "./hit-test-bbox";
+import { hitTestFill } from "./hit-test-fill";
 
 export const hitTestRectangleLegacy = (
 	shape: EShape,
@@ -89,37 +89,8 @@ export const hitTestRectangle = (
 	if (!hitTestBBox(x, y, ax, ay)) {
 		return false;
 	}
-
-	const fill = shape.fill;
-	if (fill.enable) {
-		const percent = Math.max(0, Math.min(1, fill.percent));
-		if (1 <= percent) {
-			return true;
-		}
-
-		switch (fill.direction) {
-			case EShapeFillDirection.TOP:
-				if (y + ay <= percent * (2 * ay)) {
-					return true;
-				}
-				break;
-			case EShapeFillDirection.RIGHT:
-				if ((1 - percent) * (2 * ax) <= x + ax) {
-					return true;
-				}
-				break;
-			case EShapeFillDirection.BOTTOM:
-				if ((1 - percent) * (2 * ay) <= y + ay) {
-					return true;
-				}
-				break;
-			case EShapeFillDirection.LEFT:
-				if (x + ax <= percent * (2 * ax)) {
-					return true;
-				}
-				break;
-		}
+	if (hitTestFill(x, y, ax, ay, shape.fill)) {
+		return true;
 	}
-
 	return hitTestRectangleStroke(shape, x, y, ax, ay, sw, ss);
 };
