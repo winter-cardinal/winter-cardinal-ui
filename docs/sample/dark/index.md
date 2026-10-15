@@ -331,6 +331,7 @@
     * [Line (Marker)](./shape/line-marker.html)
     * [Polygon](./shape/polygon.html)
     * [Rectangle](./shape/rectangle.html)
+    * [Rounded Rectangle](./shape/rectangle-rounded.html)
     * [Straight Skeleton](./shape/straight-skeleton.html)
     * [Straight Skeleton Buffer](./shape/straight-skeleton-buffer.html)
     * Text
@@ -346,6 +347,7 @@
             * [Case 3 (v0.425.0)](./shape\text\performance/case-3-v0.425.0.html)
         * [Spacing](./shape\text/spacing.html)
         * [Surrogate Pair](./shape\text/surrogate-pair.html)
+    * [Triangle](./shape/triangle.html)
 * Slider
     * [Basics](./slider/basics.html)
 * Table

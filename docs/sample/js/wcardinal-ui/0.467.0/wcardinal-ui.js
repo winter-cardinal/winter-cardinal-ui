@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.466.1
+ Winter Cardinal UI v0.467.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -56,6 +56,8 @@
         POLYGON: 26,
         CIRCLE_LEGACY: 27,
         RECTANGLE_LEGACY: 28,
+        TRIANGLE_LEGACY: 29,
+        RECTANGLE_ROUNDED_LEGACY: 30,
         EXTENSION: 1000
     };
 
@@ -255,9 +257,9 @@
         return Math.round(1023 * a0) + (Math.round(1023 * a1) << 10);
     };
     var toPackedClippings = function (x, y) {
-        // Since 1023 / 1.1 = 930,
-        // Math.round(1023 * (x / 1.1)) = Math.round(930 * x)
-        return Math.round(930 * x) + (Math.round(930 * y) << 10);
+        // Encode the range [-0.1, 1.1] into the 10-bit range [0, 1023]
+        // Since 1023 / 1.2 = 852.5,
+        return Math.round(852.5 * (x + 0.1)) + (Math.round(852.5 * (y + 0.1)) << 10);
     };
 
     var BAR_VERTEX_COUNT = 4;
@@ -1813,7 +1815,7 @@
         });
         Object.defineProperty(EShapeDefaults, "CIRCLE_SEGMENT_COUNT", {
             get: function () {
-                return Math.max(4, this.THEME.getCircleSegmentCount()) & ~3;
+                return Math.max(8, this.THEME.getCircleSegmentCount()) & ~3;
             },
             enumerable: false,
             configurable: true
@@ -4577,6 +4579,34 @@
         EShapeTransformImpl.prototype.getWorldId = function () {
             return this._worldID;
         };
+        Object.defineProperty(EShapeTransformImpl.prototype, "cx", {
+            get: function () {
+                return this._cx;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTransformImpl.prototype, "sx", {
+            get: function () {
+                return this._sx;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTransformImpl.prototype, "cy", {
+            get: function () {
+                return this._cy;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTransformImpl.prototype, "sy", {
+            get: function () {
+                return this._sy;
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeTransformImpl.prototype.updateTransform = function (parentTransform) {
             var oldLocalId = this._currentLocalID;
             var oldWorldId = this._worldID;
@@ -8444,98 +8474,170 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var hitTestCircle = function (shape, x, y, ax, ay, sw, ss) {
+    var hitTestCircleLegacy = function (shape, x, y, ax, ay, sw, ss) {
         var fill = shape.fill;
         if (fill.enable) {
+            return hitTestCircleFilled(x, y, ax, ay);
+        }
+        return hitTestCircleStroke(x, y, ax, ay, sw, ss);
+    };
+    var hitTestCircleFilled = function (x, y, ax, ay) {
+        var x2 = x * x;
+        var y2 = y * y;
+        var ax2 = ax * ax;
+        var ay2 = ay * ay;
+        return x2 * ay2 + y2 * ax2 <= ax2 * ay2;
+    };
+    var hitTestCircleStroke = function (x, y, ax, ay, sw, ss) {
+        if (0 < sw) {
+            var s = sw * ss;
             var x2 = x * x;
             var y2 = y * y;
-            var ax2 = ax * ax;
-            var ay2 = ay * ay;
-            if (x2 * ay2 + y2 * ax2 <= ax2 * ay2) {
-                return true;
-            }
-        }
-        else {
-            if (0 < sw) {
-                var s = sw * ss;
-                var x2 = x * x;
-                var y2 = y * y;
-                var wx = Math.max(0.0, ax - s);
-                var wy = Math.max(0.0, ay - s);
-                var wx2 = wx * wx;
-                var wy2 = wy * wy;
-                if (wx2 * wy2 <= x2 * wy2 + y2 * wx2) {
-                    var ax2 = ax * ax;
-                    var ay2 = ay * ay;
-                    if (x2 * ay2 + y2 * ax2 <= ax2 * ay2) {
-                        return true;
-                    }
-                }
+            var wx = Math.max(0.0, ax - s);
+            var wy = Math.max(0.0, ay - s);
+            var wx2 = wx * wx;
+            var wy2 = wy * wy;
+            if (wx2 * wy2 <= x2 * wy2 + y2 * wx2) {
+                return hitTestCircleFilled(x, y, ax, ay);
             }
         }
         return false;
+    };
+    var hitTestCircle = function (shape, x, y, ax, ay, sw, ss) {
+        if (!hitTestCircleFilled(x, y, ax, ay)) {
+            return false;
+        }
+        var fill = shape.fill;
+        if (fill.enable) {
+            var percent = Math.max(0, Math.min(1, fill.percent));
+            if (1 <= percent) {
+                return true;
+            }
+            switch (fill.direction) {
+                case EShapeFillDirection.TOP:
+                    if (y + ay <= percent * (2 * ay)) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.RIGHT:
+                    if ((1 - percent) * (2 * ax) <= x + ax) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.BOTTOM:
+                    if ((1 - percent) * (2 * ay) <= y + ay) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.LEFT:
+                    if (x + ax <= percent * (2 * ax)) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return hitTestCircleStroke(x, y, ax, ay, sw, ss);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var hitTestRectangle = function (shape, x, y, ax, ay, sw, ss) {
+    var hitTestRectangleLegacy = function (shape, x, y, ax, ay, sw, ss) {
         if (hitTestBBox(x, y, ax, ay)) {
             var fill = shape.fill;
             if (fill.enable) {
                 return true;
             }
             else {
-                var strokeSide = shape.stroke.side;
-                if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
-                    var s = sw * ss;
-                    var wx = Math.max(0.0, ax - s);
-                    var wy = Math.max(0.0, ay - s);
-                    if (!hitTestBBox(x, y, wx, wy)) {
-                        if (strokeSide === EShapeStrokeSide.ALL) {
-                            return true;
+                return hitTestRectangleStroke(shape, x, y, ax, ay, sw, ss);
+            }
+        }
+        return false;
+    };
+    var hitTestRectangleStroke = function (shape, x, y, ax, ay, sw, ss) {
+        var strokeSide = shape.stroke.side;
+        if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
+            var s = sw * ss;
+            var wx = Math.max(0.0, ax - s);
+            var wy = Math.max(0.0, ay - s);
+            if (!hitTestBBox(x, y, wx, wy)) {
+                if (strokeSide === EShapeStrokeSide.ALL) {
+                    return true;
+                }
+                else {
+                    if (x <= -wx) {
+                        if (y <= -wy) {
+                            return !!(strokeSide & EShapeStrokeSide.TOP_OR_LEFT);
+                        }
+                        else if (+wy <= y) {
+                            return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT);
                         }
                         else {
-                            if (x <= -wx) {
-                                if (y <= -wy) {
-                                    return !!(strokeSide & EShapeStrokeSide.TOP_OR_LEFT);
-                                }
-                                else if (+wy <= y) {
-                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT);
-                                }
-                                else {
-                                    return !!(strokeSide & EShapeStrokeSide.LEFT);
-                                }
-                            }
-                            else if (+wx <= x) {
-                                if (y <= -wy) {
-                                    return !!(strokeSide & EShapeStrokeSide.TOP_OR_RIGHT);
-                                }
-                                else if (+wy <= y) {
-                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT);
-                                }
-                                else {
-                                    return !!(strokeSide & EShapeStrokeSide.RIGHT);
-                                }
-                            }
-                            else {
-                                if (y <= -wy) {
-                                    return !!(strokeSide & EShapeStrokeSide.TOP);
-                                }
-                                else if (+wy <= y) {
-                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                }
-                                else {
-                                    return false;
-                                }
-                            }
+                            return !!(strokeSide & EShapeStrokeSide.LEFT);
+                        }
+                    }
+                    else if (+wx <= x) {
+                        if (y <= -wy) {
+                            return !!(strokeSide & EShapeStrokeSide.TOP_OR_RIGHT);
+                        }
+                        else if (+wy <= y) {
+                            return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT);
+                        }
+                        else {
+                            return !!(strokeSide & EShapeStrokeSide.RIGHT);
+                        }
+                    }
+                    else {
+                        if (y <= -wy) {
+                            return !!(strokeSide & EShapeStrokeSide.TOP);
+                        }
+                        else if (+wy <= y) {
+                            return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                        }
+                        else {
+                            return false;
                         }
                     }
                 }
             }
         }
         return false;
+    };
+    var hitTestRectangle = function (shape, x, y, ax, ay, sw, ss) {
+        if (!hitTestBBox(x, y, ax, ay)) {
+            return false;
+        }
+        var fill = shape.fill;
+        if (fill.enable) {
+            var percent = Math.max(0, Math.min(1, fill.percent));
+            if (1 <= percent) {
+                return true;
+            }
+            switch (fill.direction) {
+                case EShapeFillDirection.TOP:
+                    if (y + ay <= percent * (2 * ay)) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.RIGHT:
+                    if ((1 - percent) * (2 * ax) <= x + ax) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.BOTTOM:
+                    if ((1 - percent) * (2 * ay) <= y + ay) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.LEFT:
+                    if (x + ax <= percent * (2 * ax)) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return hitTestRectangleStroke(shape, x, y, ax, ay, sw, ss);
     };
 
     /*
@@ -8549,7 +8651,7 @@
         // y = ay2;
         return +a * x + ay1 - y <= 0 && -a * x + ay1 - y <= 0 && y <= ay2;
     };
-    var hitTestTriangle = function (shape, x, y, ax, ay, sw, ss) {
+    var hitTestTriangleLegacy = function (shape, x, y, ax, ay, sw, ss) {
         var a = (2 * ay) / ax;
         var fill = shape.fill;
         if (fill.enable) {
@@ -8558,21 +8660,61 @@
             }
         }
         else {
-            if (0 < sw) {
-                var s = sw * ss;
-                if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
-                    var az = Math.sqrt(ax * ax + 4 * ay * ay);
-                    var aw = (2 * ax * ay) / (ax + az);
-                    var cy = ay - aw;
-                    var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
-                    var ay2 = ay - s;
-                    if (!hitTestTriangleFilled(x, y, a, ay1, ay2)) {
-                        return true;
-                    }
+            return hitTestTriangleStroke(x, y, a, ax, ay, sw, ss);
+        }
+        return false;
+    };
+    var hitTestTriangleStroke = function (x, y, a, ax, ay, sw, ss) {
+        if (0 < sw) {
+            var s = sw * ss;
+            if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
+                var az = Math.sqrt(ax * ax + 4 * ay * ay);
+                var aw = (2 * ax * ay) / (ax + az);
+                var cy = ay - aw;
+                var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+                var ay2 = ay - s;
+                if (!hitTestTriangleFilled(x, y, a, ay1, ay2)) {
+                    return true;
                 }
             }
         }
         return false;
+    };
+    var hitTestTriangle = function (shape, x, y, ax, ay, sw, ss) {
+        var a = (2 * ay) / ax;
+        if (!hitTestTriangleFilled(x, y, a, -ay, +ay)) {
+            return false;
+        }
+        var fill = shape.fill;
+        if (fill.enable) {
+            var percent = Math.max(0, Math.min(1, fill.percent));
+            if (1 <= percent) {
+                return true;
+            }
+            switch (fill.direction) {
+                case EShapeFillDirection.TOP:
+                    if (y + ay <= percent * (2 * ay)) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.RIGHT:
+                    if ((1 - percent) * (2 * ax) <= x + ax) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.BOTTOM:
+                    if ((1 - percent) * (2 * ay) <= y + ay) {
+                        return true;
+                    }
+                    break;
+                case EShapeFillDirection.LEFT:
+                    if (x + ax <= percent * (2 * ax)) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return hitTestTriangleStroke(x, y, a, ax, ay, sw, ss);
     };
 
     /*
@@ -8650,11 +8792,11 @@
                 sy += s;
                 switch (type) {
                     case EShapePointsMarkerType.CIRCLE:
-                        return hitTestCircle(this, lx, ly, sx, sy, sw, ss);
+                        return hitTestCircleLegacy(this, lx, ly, sx, sy, sw, ss);
                     case EShapePointsMarkerType.TRIANGLE:
-                        return hitTestTriangle(this, lx, ly, sx, sy, sw, ss);
+                        return hitTestTriangleLegacy(this, lx, ly, sx, sy, sw, ss);
                     case EShapePointsMarkerType.RECTANGLE:
-                        return hitTestRectangle(this, lx, ly, sx, sy, sw, ss);
+                        return hitTestRectangleLegacy(this, lx, ly, sx, sy, sw, ss);
                 }
             }
             return false;
@@ -11527,7 +11669,7 @@
         };
         EShapeCircleLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestCircle(this, x, y, ax, ay, sw, ss);
+                return hitTestCircleLegacy(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -16709,8 +16851,8 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER$1 = "\nattribute highp vec2 aPosition;\nattribute highp vec2 aStepA;\nattribute highp vec4 aStepB;\nattribute highp vec3 aColor;\nattribute highp vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse(in vec2 v) {\n\treturn vec2(-v.y, v.x);\n}\n\nvec4 toGeneral(in float v) {\n\tvec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;\n\tc -= fract(c);\n\tc -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);\n\treturn c;\n}\n\nfloat toStrokeWidthScale(in float scale) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin(1.0, shapeScale) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax(1.0, shapeScale) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toUnpackedClippings(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(930.0, 930.0);\n\treturn c;\n}\n\nvec2 toUnpackedAlphas(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(1023.0, 1023.0);\n\treturn c;\n}\n\nvec3 toUnpackedF3x256(in float v) {\n\tvec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;\n\tc -= fract(c);\n\tc -= c.yzx * vec3(256.0, 256.0, 0.0);\n\tc /= 255.0;\n\treturn c;\n}\n\nvec2 toPosition012(in vec2 v) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toStepB01(in vec4 sb) {\n\treturn vec4(sb.xy, toUnpackedClippings(sb.z));\n}\n\nvec4 toStepB2(in vec4 sb, in float strokeWidth) {\n\tfloat x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);\n\tfloat w = clamp(strokeWidth, 0.0, 1.0) * 0.4;\n\tfloat p = w * sb.y + sb.z;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));\n}\n\nvec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {\n\tvec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;\n\tt -= fract(t);\n\tt -= t.yzx * vec3(1024.0, 1024.0, 0.0);\n\tt *= vec3(1.0/511.5, 1.0/511.5, 1.0);\n\tt -= vec3(1.0, 1.0, 0.0);\n\tvec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));\n\tvec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));\n\n\tvec2 n0i = toInverse(n0);\n\tvec2 n1i = toInverse(n1);\n\tfloat direction = sign(4.5 - type);\n\n\t// Offset\n\tfloat cross = dot(n0i, n1);\n\tbool bcross = 0.00001 < abs(cross);\n\tfloat crossi = (bcross ? 1.0 / cross : 0.0);\n\tfloat b = dot(n1 - n0, n0) * crossi;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );\n\tfloat miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :\n\t\t(miterLength < 6.0 && bcross ? pmiter : pbevel)\n\t);\n\tvec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);\n\tshift = dot(ni, p - presult);\n\treturn toPosition012(presult);\n}\n\nvec2 toStepA3(in float type, in float strokeWidth) {\n\treturn vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);\n}\n\nfloat toDotWidth(in float strokeScaling, in float strokeWidthScale) {\n\treturn aStepA.x * (\n\t\tstrokeScaling == 4.0 || strokeScaling == 5.0 ||\n\t\tstrokeScaling == 6.0 || strokeScaling == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec2 toDotPattern(in float dash) {\n\treturn (dash < 0.5 ?\n\t\tvec2(1.0, 0.0) :\n\t\t(dash < 3.5 ?\n\t\t\t(dash < 1.5 ?\n\t\t\t\tvec2(1.0, 1.0) :\n\t\t\t\t(2.5 < dash ?\n\t\t\t\t\tvec2(1.0, 2.0) :\n\t\t\t\t\tvec2(1.0, 0.5)\n\t\t\t\t)\n\t\t\t) :\n\t\t\t(dash < 4.5 ?\n\t\t\t\tvec2(2.0, 1.0) :\n\t\t\t\t(5.5 < dash ?\n\t\t\t\t\tvec2(2.0, 2.0) :\n\t\t\t\t\tvec2(2.0, 0.5)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(dash);\n\treturn vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);\n}\n\nvec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(type - 7.0);\n\treturn vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);\n}\n\nvoid toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {\n\tvec2 a = toUnpackedAlphas(source.z);\n\tfillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;\n\tfillColor.w = a.x;\n\tstrokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;\n\tstrokeColor.w = a.y;\n}\n\nvoid main(void) {\n\tvec4 general = toGeneral(aStepA.y);\n\tfloat type = general.x;\n\tfloat strokeScaling = general.y;\n\tfloat strokeWidthScale = toStrokeWidthScale(strokeScaling);\n\tfloat strokeWidth = strokeWidthScale * aStepA.x;\n\n\tvType = type;\n\tif (type < 2.5 || 6.5 < type) {\n\t\tgl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);\n\t\tvStepA = strokeWidth * general.zw;\n\t\tif (type < 1.5) {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else if (type < 2.5) {\n\t\t\tvStepB = toStepB2(aStepB, strokeWidth);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = toLength7(type, strokeScaling, strokeWidthScale);\n\t\t}\n\t} else {\n\t\tfloat shift3 = 0.0;\n\t\tgl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);\n\t\tvStepA = toStepA3(type, strokeWidth);\n\t\tvStepB = vec4(0.0);\n\t\tvLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);\n\t}\n\ttoColors(aColor, vColorFill, vColorStroke);\n\tvUv = aUv;\n}";
-    var FRAGMENT_SHADER$1 = "\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float antialiasWeight;\n\nvec4 toColor0(in vec4 texture) {\n\tvec2 f = vec2(1.0) / vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight * f;\n\tvec2 swd = vStepA * f;\n\tvec2 one = vec2(1.0);\n\tvec2 s0 = smoothstep(one - awd, one + awd, c);\n\tvec2 s1 = smoothstep(one - swd - awd, one - swd + awd, c);\n\tfloat s2 = max(s0.x, s0.y);\n\tfloat s3 = max(s1.x, s1.y);\n\n\treturn texture * (\n\t\tvColorStroke * (s3 - s2) +\n\t\tvColorFill * (1.0 - s3)\n\t);\n}\n\nvec4 toColor1(in vec4 texture) {\n\tvec2 d = vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight / d;\n\tvec2 swd = vStepA / d;\n\tvec2 one = vec2(1.0);\n\tvec2 zero = vec2(0.0);\n\tfloat s0 = smoothstep(length(c/clamp(one + awd, zero, one)), length(c/clamp(one - awd, zero, one)), 1.0);\n\tfloat s1 = smoothstep(length(c/clamp(one - swd + awd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);\n\treturn texture * (\n\t\tvColorStroke * (s0 - s1) +\n\t\tvColorFill * s1\n\t);\n}\n\nvec4 toColor2(in vec4 texture) {\n\tvec2 p0 = vStepB.xy;\n\tvec2 p1 = vStepB.zw;\n\tvec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));\n\tvec2 s = smoothstep(p0 - p1, p0 + p1, d);\n\treturn vColorStroke * (s.y - s.x) + vColorFill * s.x;\n}\n\nfloat toLineStep(in vec4 parameters) {\n\tfloat l = parameters.x;\n\tfloat lp0 = parameters.y;\n\tfloat lp1 = parameters.z;\n\tfloat lt = parameters.w;\n\tfloat ld = 0.5 * antialiasWeight;\n\tfloat lm = mod(l, lp0 + lp1);\n\tfloat s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);\n\tfloat s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);\n\treturn s0 * s1;\n}\n\nvec4 toColor3(in vec4 texture) {\n\tfloat c = vStepA.x;\n\tfloat awd = 0.5 * antialiasWeight / vStepA.y;\n\tfloat s0 = smoothstep(-awd, awd, c);\n\tfloat s1 = smoothstep(1.0 - awd, 1.0 + awd, c);\n\treturn texture * vColorStroke * (s0 - s1) * toLineStep(vLength);\n}\n\nvec4 toColor7(in vec4 texture) {\n\tfloat aw = 0.5 * antialiasWeight;\n\tfloat awd = aw * vStepB.x;\n\tfloat swd = vStepA.x * vStepB.x;\n\tfloat s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);\n\tfloat s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);\n\tfloat s2 = smoothstep(-aw, +aw, vStepB.y);\n\treturn texture * (\n\t\tvColorStroke * (s1 - s0) +\n\t\tvColorFill * (1.0 - s1) * s2\n\t);\n}\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tif (vType < 0.5) {\n\t\tgl_FragColor = toColor0(texture);\n\t} else if (vType < 1.5) {\n\t\tgl_FragColor = toColor1(texture);\n\t} else if (vType < 2.5) {\n\t\tgl_FragColor = toColor2(texture);\n\t} else if (vType < 6.5) {\n\t\tgl_FragColor = toColor3(texture);\n\t} else {\n\t\tgl_FragColor = toColor7(texture);\n\t}\n}";
+    var VERTEX_SHADER$1 = "\nattribute highp vec2 aPosition;\nattribute highp vec2 aStepA;\nattribute highp vec4 aStepB;\nattribute highp vec3 aColor;\nattribute highp vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse(in vec2 v) {\n\treturn vec2(-v.y, v.x);\n}\n\nvec4 toGeneral(in float v) {\n\tvec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;\n\tc -= fract(c);\n\tc -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);\n\treturn c;\n}\n\nfloat toStrokeWidthScale(in float scale) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin(1.0, shapeScale) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax(1.0, shapeScale) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toUnpackedClippings(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(852.5, 852.5);\n\tc -= vec2(0.1, 0.1);\n\treturn c;\n}\n\nvec2 toUnpackedAlphas(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(1023.0, 1023.0);\n\treturn c;\n}\n\nvec3 toUnpackedF3x256(in float v) {\n\tvec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;\n\tc -= fract(c);\n\tc -= c.yzx * vec3(256.0, 256.0, 0.0);\n\tc /= 255.0;\n\treturn c;\n}\n\nvec2 toPosition012(in vec2 v) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toStepB01(in vec4 sb) {\n\treturn vec4(sb.xy, toUnpackedClippings(sb.z));\n}\n\nvec4 toStepB2(in vec4 sb, in float strokeWidth) {\n\tfloat x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);\n\tfloat w = clamp(strokeWidth, 0.0, 1.0) * 0.4;\n\tfloat p = w * sb.y + sb.z;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));\n}\n\nvec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {\n\tvec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;\n\tt -= fract(t);\n\tt -= t.yzx * vec3(1024.0, 1024.0, 0.0);\n\tt *= vec3(1.0/511.5, 1.0/511.5, 1.0);\n\tt -= vec3(1.0, 1.0, 0.0);\n\tvec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));\n\tvec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));\n\n\tvec2 n0i = toInverse(n0);\n\tvec2 n1i = toInverse(n1);\n\tfloat direction = sign(4.5 - type);\n\n\t// Offset\n\tfloat cross = dot(n0i, n1);\n\tbool bcross = 0.00001 < abs(cross);\n\tfloat crossi = (bcross ? 1.0 / cross : 0.0);\n\tfloat b = dot(n1 - n0, n0) * crossi;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );\n\tfloat miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :\n\t\t(miterLength < 6.0 && bcross ? pmiter : pbevel)\n\t);\n\tvec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);\n\tshift = dot(ni, p - presult);\n\treturn toPosition012(presult);\n}\n\nvec2 toStepA3(in float type, in float strokeWidth) {\n\treturn vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);\n}\n\nfloat toDotWidth(in float strokeScaling, in float strokeWidthScale) {\n\treturn aStepA.x * (\n\t\tstrokeScaling == 4.0 || strokeScaling == 5.0 ||\n\t\tstrokeScaling == 6.0 || strokeScaling == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec2 toDotPattern(in float dash) {\n\treturn (dash < 0.5 ?\n\t\tvec2(1.0, 0.0) :\n\t\t(dash < 3.5 ?\n\t\t\t(dash < 1.5 ?\n\t\t\t\tvec2(1.0, 1.0) :\n\t\t\t\t(2.5 < dash ?\n\t\t\t\t\tvec2(1.0, 2.0) :\n\t\t\t\t\tvec2(1.0, 0.5)\n\t\t\t\t)\n\t\t\t) :\n\t\t\t(dash < 4.5 ?\n\t\t\t\tvec2(2.0, 1.0) :\n\t\t\t\t(5.5 < dash ?\n\t\t\t\t\tvec2(2.0, 2.0) :\n\t\t\t\t\tvec2(2.0, 0.5)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(dash);\n\treturn vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);\n}\n\nvec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(type - 7.0);\n\treturn vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);\n}\n\nvoid toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {\n\tvec2 a = toUnpackedAlphas(source.z);\n\tfillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;\n\tfillColor.w = a.x;\n\tstrokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;\n\tstrokeColor.w = a.y;\n}\n\nvoid main(void) {\n\tvec4 general = toGeneral(aStepA.y);\n\tfloat type = general.x;\n\tfloat strokeScaling = general.y;\n\tfloat strokeWidthScale = toStrokeWidthScale(strokeScaling);\n\tfloat strokeWidth = strokeWidthScale * aStepA.x;\n\n\tvType = type;\n\tif (type < 2.5 || 6.5 < type) {\n\t\tgl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);\n\t\tvStepA = strokeWidth * general.zw;\n\t\tif (type < 1.5) {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else if (type < 2.5) {\n\t\t\tvStepB = toStepB2(aStepB, strokeWidth);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = toLength7(type, strokeScaling, strokeWidthScale);\n\t\t}\n\t} else {\n\t\tfloat shift3 = 0.0;\n\t\tgl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);\n\t\tvStepA = toStepA3(type, strokeWidth);\n\t\tvStepB = vec4(0.0);\n\t\tvLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);\n\t}\n\ttoColors(aColor, vColorFill, vColorStroke);\n\tvUv = aUv;\n}";
+    var FRAGMENT_SHADER$1 = "\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float antialiasWeight;\n\nvec4 toColor0(in vec4 texture) {\n\tvec2 f = vec2(1.0) / vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight * f;\n\tvec2 swd = vStepA * f;\n\tvec2 one = vec2(1.0);\n\tvec2 s0 = smoothstep(one - awd, one + awd, c);\n\tvec2 s1 = smoothstep(one - swd - awd, one - swd + awd, c);\n\tfloat s2 = max(s0.x, s0.y);\n\tfloat s3 = max(s1.x, s1.y);\n\n\treturn texture * (\n\t\tvColorStroke * (s3 - s2) +\n\t\tvColorFill * (1.0 - s3)\n\t);\n}\n\nvec4 toColor1(in vec4 texture) {\n\tvec2 d = vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight / d;\n\tvec2 swd = vStepA / d;\n\tvec2 one = vec2(1.0);\n\tvec2 zero = vec2(0.0);\n\tfloat s0 = smoothstep(length(c/clamp(one + awd, zero, one)), length(c/clamp(one - awd, zero, one)), 1.0);\n\tfloat s1 = smoothstep(length(c/clamp(one - swd + awd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);\n\treturn texture * (\n\t\tvColorStroke * (s0 - s1) +\n\t\tvColorFill * s1\n\t);\n}\n\nvec4 toColor2(in vec4 texture) {\n\tvec2 p0 = vStepB.xy;\n\tvec2 p1 = vStepB.zw;\n\tvec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));\n\tvec2 s = smoothstep(p0 - p1, p0 + p1, d);\n\treturn vColorStroke * (s.y - s.x) + vColorFill * s.x;\n}\n\nfloat toLineStep(in vec4 parameters) {\n\tfloat l = parameters.x;\n\tfloat lp0 = parameters.y;\n\tfloat lp1 = parameters.z;\n\tfloat lt = parameters.w;\n\tfloat ld = 0.5 * antialiasWeight;\n\tfloat lm = mod(l, lp0 + lp1);\n\tfloat s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);\n\tfloat s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);\n\treturn s0 * s1;\n}\n\nvec4 toColor3(in vec4 texture) {\n\tfloat c = vStepA.x;\n\tfloat awd = 0.5 * antialiasWeight / vStepA.y;\n\tfloat s0 = smoothstep(-awd, awd, c);\n\tfloat s1 = smoothstep(1.0 - awd, 1.0 + awd, c);\n\treturn texture * vColorStroke * (s0 - s1) * toLineStep(vLength);\n}\n\nvec4 toColor7(in vec4 texture) {\n\tfloat aw = 0.5 * antialiasWeight;\n\tfloat awd = aw * vStepB.x;\n\tfloat swd = vStepA.x * vStepB.x;\n\tfloat s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);\n\tfloat s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);\n\tfloat s2 = smoothstep(-aw, +aw, vStepB.y);\n\tfloat s3 = smoothstep(-awd, 0.0, vStepB.z);\n\treturn texture * (\n\t\tvColorStroke * (s1 - s0) +\n\t\tvColorFill * (1.0 - s1) * s2 * s3\n\t);\n}\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tif (vType < 0.5) {\n\t\tgl_FragColor = toColor0(texture);\n\t} else if (vType < 1.5) {\n\t\tgl_FragColor = toColor1(texture);\n\t} else if (vType < 2.5) {\n\t\tgl_FragColor = toColor2(texture);\n\t} else if (vType < 6.5) {\n\t\tgl_FragColor = toColor3(texture);\n\t} else {\n\t\tgl_FragColor = toColor7(texture);\n\t}\n}";
     var EShapeRenderer = /** @class */ (function (_super) {
         __extends(EShapeRenderer, _super);
         function EShapeRenderer(renderer) {
@@ -25485,7 +25627,7 @@
         };
         EShapeRectangleLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
+                return hitTestRectangleLegacy(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -39197,9 +39339,7 @@
                 var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
                 var oldPositionX = writtenPositionX ? position.x : runtime.x;
                 var oldPositionY = writtenPositionY ? position.y : runtime.y;
-                shape.updateTransform();
-                var localTransform = transform.localTransform;
-                position.set(oldPositionX - localTransform.c * amount, oldPositionY - localTransform.d * amount);
+                position.set(oldPositionX - transform.cy * amount, oldPositionY - transform.sy * amount);
                 runtime.written |= this.reset;
             }
         };
@@ -39224,9 +39364,7 @@
                 var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
                 var oldPositionX = writtenPositionX ? position.x : runtime.x;
                 var oldPositionY = writtenPositionY ? position.y : runtime.y;
-                shape.updateTransform();
-                var localTransform = transform.localTransform;
-                position.set(oldPositionX + localTransform.a * amount, oldPositionY + localTransform.b * amount);
+                position.set(oldPositionX + transform.cx * amount, oldPositionY + transform.sx * amount);
                 runtime.written |= this.reset;
             }
         };
@@ -39412,16 +39550,14 @@
         EShapeActionRuntimeTransformResize.prototype.adjustPosition = function (shape, runtime, dsx, dsy, originX, originY) {
             var dx = (-0.5 + originX) * dsx;
             var dy = (-0.5 + originY) * dsy;
-            shape.updateTransform();
             var transform = shape.transform;
             var position = transform.position;
-            var localTransform = transform.localTransform;
             var writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
             var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
             var oldPositionX = writtenPositionX ? position.x : runtime.x;
             var oldPositionY = writtenPositionY ? position.y : runtime.y;
             runtime.written |= EShapeRuntimeReset.POSITION;
-            position.set(oldPositionX + dx * localTransform.a + dy * localTransform.c, oldPositionY + dx * localTransform.b + dy * localTransform.d);
+            position.set(oldPositionX + dx * transform.cx + dy * transform.cy, oldPositionY + dx * transform.sx + dy * transform.sy);
         };
         return EShapeActionRuntimeTransformResize;
     }(EShapeActionRuntimeConditional));
@@ -40118,1137 +40254,255 @@
         EShapeDeserializers[EShapeType.BAR] = deserializeBar;
     };
 
-    var RECTANGLE_ROUNDED_VERTEX_COUNT = 44;
-    var RECTANGLE_ROUNDED_INDEX_COUNT = 24;
-    var RECTANGLE_ROUNDED_WORLD_SIZE = [
-        0, 0, 0, 0, 0
-    ];
-    var RECTANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
-    var buildRectangleRoundedIndex = function (indices, voffset, ioffset) {
-        // c0   c1        c4   c5
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        // c2   c3        c6   c7
-        //
-        // c8   c9       c12   c13
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        //c10   c11      c14   c15
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Build index buffer for polygons.
+     */
+    var buildPolygonIndex = function (indices, polygonIndices, voffset, ioffset) {
         var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 8;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 10;
-        indices[++ii] = voffset + 10;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 11;
-        indices[++ii] = voffset + 12;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 15;
-        //     16  17  23  24
-        //      |---|  |---|
-        //      |   |  |   |
-        // 18--19--20  25--26--27
-        //  |       |  |       |
-        //  |       |  |       |
-        // 21------22  28------29
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 22;
-        indices[++ii] = voffset + 23;
-        indices[++ii] = voffset + 24;
-        indices[++ii] = voffset + 25;
-        indices[++ii] = voffset + 25;
-        indices[++ii] = voffset + 24;
-        indices[++ii] = voffset + 26;
-        indices[++ii] = voffset + 25;
-        indices[++ii] = voffset + 27;
-        indices[++ii] = voffset + 28;
-        indices[++ii] = voffset + 28;
-        indices[++ii] = voffset + 27;
-        indices[++ii] = voffset + 29;
-        // 30------31  37------38
-        //  |       |  |       |
-        //  |       |  |       |
-        // 32--33--34  39--40--41
-        //      |   |  |   |
-        //      |---|  |---|
-        //     35  36  42  43
-        indices[++ii] = voffset + 30;
-        indices[++ii] = voffset + 31;
-        indices[++ii] = voffset + 32;
-        indices[++ii] = voffset + 32;
-        indices[++ii] = voffset + 31;
-        indices[++ii] = voffset + 34;
-        indices[++ii] = voffset + 33;
-        indices[++ii] = voffset + 34;
-        indices[++ii] = voffset + 35;
-        indices[++ii] = voffset + 35;
-        indices[++ii] = voffset + 34;
-        indices[++ii] = voffset + 36;
-        indices[++ii] = voffset + 37;
-        indices[++ii] = voffset + 38;
-        indices[++ii] = voffset + 39;
-        indices[++ii] = voffset + 39;
-        indices[++ii] = voffset + 38;
-        indices[++ii] = voffset + 41;
-        indices[++ii] = voffset + 39;
-        indices[++ii] = voffset + 40;
-        indices[++ii] = voffset + 42;
-        indices[++ii] = voffset + 42;
-        indices[++ii] = voffset + 40;
-        indices[++ii] = voffset + 43;
+        for (var i = 0, n = polygonIndices.length; i < n; ++i) {
+            indices[++ii] = voffset + polygonIndices[i];
+        }
     };
-    var buildRectangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
-        // b0      b1      b2
-        // |-------|-------|
-        // |       |       |
-        // b3------b4------b5
-        // |       |       |
-        // |-------|-------|
-        // b6      b7      b8
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        var ax = Math.abs(sx);
-        var ay = Math.abs(sy);
-        var a = radius * Math.min(ax, ay);
-        var rx = a / ax;
-        var ry = a / ay;
-        var work = RECTANGLE_ROUNDED_WORK_POINT;
-        work.set(originX - sx, originY - sy);
-        internalTransform.apply(work, work);
-        var b0x = work.x;
-        var b0y = work.y;
-        work.set(originX, originY - sy);
-        internalTransform.apply(work, work);
-        var b1x = work.x;
-        var b1y = work.y;
-        work.set(originX - sx, originY);
-        internalTransform.apply(work, work);
-        var b3x = work.x;
-        var b3y = work.y;
-        var d01x = b1x - b0x;
-        var d01y = b1y - b0y;
-        var d03x = b3x - b0x;
-        var d03y = b3y - b0y;
-        var b2x = b1x + d01x;
-        var b2y = b1y + d01y;
-        var b4x = b3x + d01x;
-        var b4y = b3y + d01y;
-        var b5x = b2x + d03x;
-        var b5y = b2y + d03y;
-        var b6x = b3x + d03x;
-        var b6y = b3y + d03y;
-        var b7x = b6x + d01x;
-        var b7y = b6y + d01y;
-        var b8x = b7x + d01x;
-        var b8y = b7y + d01y;
-        var r01x = rx * d01x;
-        var r01y = rx * d01y;
-        var r03x = ry * d03x;
-        var r03y = ry * d03y;
-        // c0   c1        c4   c5
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        // c2   c3        c6   c7
-        //
-        // c8   c9       c12   c13
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        //c10   c11      c14   c15
-        var c0x = b0x;
-        var c0y = b0y;
-        var c1x = c0x + r01x;
-        var c1y = c0y + r01y;
-        var c2x = c0x + r03x;
-        var c2y = c0y + r03y;
-        var c3x = c2x + r01x;
-        var c3y = c2y + r01y;
-        var iv = voffset * 2 - 1;
-        vertices[++iv] = c0x;
-        vertices[++iv] = c0y;
-        vertices[++iv] = c1x;
-        vertices[++iv] = c1y;
-        vertices[++iv] = c2x;
-        vertices[++iv] = c2y;
-        vertices[++iv] = c3x;
-        vertices[++iv] = c3y;
-        var c5x = b2x;
-        var c5y = b2y;
-        var c4x = b2x - r01x;
-        var c4y = b2y - r01y;
-        var c6x = c4x + r03x;
-        var c6y = c4y + r03y;
-        var c7x = c6x + r01x;
-        var c7y = c6y + r01y;
-        vertices[++iv] = c4x;
-        vertices[++iv] = c4y;
-        vertices[++iv] = c5x;
-        vertices[++iv] = c5y;
-        vertices[++iv] = c6x;
-        vertices[++iv] = c6y;
-        vertices[++iv] = c7x;
-        vertices[++iv] = c7y;
-        var c10x = b6x;
-        var c10y = b6y;
-        var c8x = c10x - r03x;
-        var c8y = c10y - r03y;
-        var c11x = c10x + r01x;
-        var c11y = c10y + r01y;
-        var c9x = c8x + r01x;
-        var c9y = c8y + r01y;
-        vertices[++iv] = c8x;
-        vertices[++iv] = c8y;
-        vertices[++iv] = c9x;
-        vertices[++iv] = c9y;
-        vertices[++iv] = c10x;
-        vertices[++iv] = c10y;
-        vertices[++iv] = c11x;
-        vertices[++iv] = c11y;
-        var c15x = b8x;
-        var c15y = b8y;
-        var c14x = c15x - r01x;
-        var c14y = c15y - r01y;
-        var c13x = c15x - r03x;
-        var c13y = c15y - r03y;
-        var c12x = c13x - r01x;
-        var c12y = c13y - r01y;
-        vertices[++iv] = c12x;
-        vertices[++iv] = c12y;
-        vertices[++iv] = c13x;
-        vertices[++iv] = c13y;
-        vertices[++iv] = c14x;
-        vertices[++iv] = c14y;
-        vertices[++iv] = c15x;
-        vertices[++iv] = c15y;
-        //     16  17  23  24
-        //      |---|  |---|
-        //      |   |  |   |
-        // 18--19--20  25--26--27
-        //  |       |  |       |
-        //  |       |  |       |
-        // 21------22  28------29
-        var c16x = c1x;
-        var c16y = c1y;
-        var c17x = b1x;
-        var c17y = b1y;
-        var c18x = c2x;
-        var c18y = c2y;
-        var c19x = c3x;
-        var c19y = c3y;
-        var c20x = c17x + r03x;
-        var c20y = c17y + r03y;
-        var c21x = b3x;
-        var c21y = b3y;
-        var c22x = b4x;
-        var c22y = b4y;
-        vertices[++iv] = c16x;
-        vertices[++iv] = c16y;
-        vertices[++iv] = c17x;
-        vertices[++iv] = c17y;
-        vertices[++iv] = c18x;
-        vertices[++iv] = c18y;
-        vertices[++iv] = c19x;
-        vertices[++iv] = c19y;
-        vertices[++iv] = c20x;
-        vertices[++iv] = c20y;
-        vertices[++iv] = c21x;
-        vertices[++iv] = c21y;
-        vertices[++iv] = c22x;
-        vertices[++iv] = c22y;
-        var c23x = c17x;
-        var c23y = c17y;
-        var c24x = c4x;
-        var c24y = c4y;
-        var c25x = c20x;
-        var c25y = c20y;
-        var c26x = c6x;
-        var c26y = c6y;
-        var c27x = c7x;
-        var c27y = c7y;
-        var c28x = c22x;
-        var c28y = c22y;
-        var c29x = b5x;
-        var c29y = b5y;
-        vertices[++iv] = c23x;
-        vertices[++iv] = c23y;
-        vertices[++iv] = c24x;
-        vertices[++iv] = c24y;
-        vertices[++iv] = c25x;
-        vertices[++iv] = c25y;
-        vertices[++iv] = c26x;
-        vertices[++iv] = c26y;
-        vertices[++iv] = c27x;
-        vertices[++iv] = c27y;
-        vertices[++iv] = c28x;
-        vertices[++iv] = c28y;
-        vertices[++iv] = c29x;
-        vertices[++iv] = c29y;
-        // 30------31  37------38
-        //  |       |  |       |
-        //  |       |  |       |
-        // 32--33--34  39--40--41
-        //      |   |  |   |
-        //      |---|  |---|
-        //     35  36  42  43
-        var c30x = c21x;
-        var c30y = c21y;
-        var c31x = c22x;
-        var c31y = c22y;
-        var c32x = c8x;
-        var c32y = c8y;
-        var c33x = c9x;
-        var c33y = c9y;
-        var c34x = b7x - r03x;
-        var c34y = b7y - r03y;
-        var c35x = c11x;
-        var c35y = c11y;
-        var c36x = b7x;
-        var c36y = b7y;
-        vertices[++iv] = c30x;
-        vertices[++iv] = c30y;
-        vertices[++iv] = c31x;
-        vertices[++iv] = c31y;
-        vertices[++iv] = c32x;
-        vertices[++iv] = c32y;
-        vertices[++iv] = c33x;
-        vertices[++iv] = c33y;
-        vertices[++iv] = c34x;
-        vertices[++iv] = c34y;
-        vertices[++iv] = c35x;
-        vertices[++iv] = c35y;
-        vertices[++iv] = c36x;
-        vertices[++iv] = c36y;
-        var c37x = c31x;
-        var c37y = c31y;
-        var c38x = c29x;
-        var c38y = c29y;
-        var c39x = c34x;
-        var c39y = c34y;
-        var c40x = c12x;
-        var c40y = c12y;
-        var c41x = c13x;
-        var c41y = c13y;
-        var c42x = c36x;
-        var c42y = c36y;
-        var c43x = c14x;
-        var c43y = c14y;
-        vertices[++iv] = c37x;
-        vertices[++iv] = c37y;
-        vertices[++iv] = c38x;
-        vertices[++iv] = c38y;
-        vertices[++iv] = c39x;
-        vertices[++iv] = c39y;
-        vertices[++iv] = c40x;
-        vertices[++iv] = c40y;
-        vertices[++iv] = c41x;
-        vertices[++iv] = c41y;
-        vertices[++iv] = c42x;
-        vertices[++iv] = c42y;
-        vertices[++iv] = c43x;
-        vertices[++iv] = c43y;
-        // World size
-        worldSize[0] = ax;
-        worldSize[1] = ay;
-        worldSize[2] = a;
-        worldSize[3] = rx;
-        worldSize[4] = ry;
+    /**
+     * Build vertices buffer for polygons.
+     */
+    var buildPolygonVertex = function (vertices, polygonVertices, voffset, internalTransform) {
+        var a = internalTransform.a;
+        var b = internalTransform.b;
+        var c = internalTransform.c;
+        var d = internalTransform.d;
+        var tx = internalTransform.tx;
+        var ty = internalTransform.ty;
+        var iv = (voffset << 1) - 1;
+        for (var i = 0, n = polygonVertices.length; i < n; i += 2) {
+            var x = polygonVertices[i];
+            var y = polygonVertices[i + 1];
+            vertices[++iv] = a * x + c * y + tx;
+            vertices[++iv] = b * x + d * y + ty;
+        }
     };
-    var buildRectangleRoundedStep = function (steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, worldSize) {
+    /**
+     * Build step buffer for polygons.
+     */
+    var buildPolygonStep = function (steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, polygonBoundary, voffset, vertexCount, fillDirection, fillPercent, strokeWidth, strokeSide, strokeStyle) {
         var scaleInvariant = toScaleInvariant(strokeStyle);
-        var ax = worldSize[0];
-        var ay = worldSize[1];
-        var a = worldSize[2];
-        var wt = strokeSide & EShapeStrokeSide.TOP ? 1 : 0;
-        var wr = strokeSide & EShapeStrokeSide.RIGHT ? 1 : 0;
-        var wb = strokeSide & EShapeStrokeSide.BOTTOM ? 1 : 0;
-        var wl = strokeSide & EShapeStrokeSide.LEFT ? 1 : 0;
-        var elt0 = toPackedI4x64(0, scaleInvariant, wl, wt);
-        var ert0 = toPackedI4x64(0, scaleInvariant, wr, wt);
-        var elb0 = toPackedI4x64(0, scaleInvariant, wl, wb);
-        var erb0 = toPackedI4x64(0, scaleInvariant, wr, wb);
-        var elt1 = toPackedI4x64(1, scaleInvariant, wl, wt);
-        var ert1 = toPackedI4x64(1, scaleInvariant, wr, wt);
-        var elb1 = toPackedI4x64(1, scaleInvariant, wl, wb);
-        var erb1 = toPackedI4x64(1, scaleInvariant, wr, wb);
-        var rxi = 1 - worldSize[3];
-        var ryi = 1 - worldSize[4];
-        var c11 = toPackedClippings(1, 1);
-        var c01 = toPackedClippings(0, 1);
-        var c10 = toPackedClippings(1, 0);
-        var c00 = toPackedClippings(0, 0);
-        var cx1 = toPackedClippings(rxi, 1);
-        var c1y = toPackedClippings(1, ryi);
-        var cxy = toPackedClippings(rxi, ryi);
-        var c0y = toPackedClippings(0, ryi);
-        // c0   c1        c4   c5
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        // c2   c3        c6   c7
-        //
-        // c8   c9       c12   c13
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        //c10   c11      c14   c15
-        var is = voffset * 6 - 1;
-        if (corner & EShapeCorner.TOP_LEFT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = elt1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elt1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c01;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elt1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c10;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elt1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c00;
-            steps[++is] = 0;
+        var dash = toDash(strokeStyle);
+        var w = strokeSide !== EShapeStrokeSide.NONE ? 1 : 0;
+        var e = toPackedI4x64(7 + dash, scaleInvariant, w, 0);
+        var fp = Math.max(0, Math.min(1, fillPercent));
+        switch (fillDirection) {
+            case EShapeFillDirection.TOP:
+                buildPolygonStepY(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[3] - polygonBoundary[1], fp);
+                break;
+            case EShapeFillDirection.RIGHT:
+                buildPolygonStepX(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[0] - polygonBoundary[2], 1 - fp);
+                break;
+            case EShapeFillDirection.BOTTOM:
+                buildPolygonStepY(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[1] - polygonBoundary[3], 1 - fp);
+                break;
+            case EShapeFillDirection.LEFT:
+                buildPolygonStepX(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[2] - polygonBoundary[0], fp);
+                break;
         }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = elt0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elt0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cx1;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elt0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c1y;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elt0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cxy;
-            steps[++is] = 0;
-        }
-        if (corner & EShapeCorner.TOP_RIGHT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = ert1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c01;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = ert1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = ert1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c00;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = ert1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c10;
-            steps[++is] = 0;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = ert0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cx1;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = ert0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = ert0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cxy;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = ert0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c1y;
-            steps[++is] = 0;
-        }
-        if (corner & EShapeCorner.BOTTOM_LEFT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = elb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c10;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c00;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c01;
-            steps[++is] = 0;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = elb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c1y;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cxy;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = elb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cx1;
-            steps[++is] = 0;
-        }
-        if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = erb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c00;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = erb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c10;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = erb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c01;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = erb1;
-            steps[++is] = a;
-            steps[++is] = a;
-            steps[++is] = c11;
-            steps[++is] = 0;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = erb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cxy;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = erb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c1y;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = erb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = cx1;
-            steps[++is] = 0;
-            steps[++is] = strokeWidth;
-            steps[++is] = erb0;
-            steps[++is] = ax;
-            steps[++is] = ay;
-            steps[++is] = c11;
-            steps[++is] = 0;
-        }
-        //     16  17  23  24
-        //      |---|  |---|
-        //      |   |  |   |
-        // 18--19--20  25--26--27
-        //  |       |  |       |
-        //  |       |  |       |
-        // 21------22  28------29
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cx1;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c1y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cxy;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c0y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elt0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c00;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cx1;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c0y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cxy;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c1y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c00;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = ert0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        // 30------31  37------38
-        //  |       |  |       |
-        //  |       |  |       |
-        // 32--33--34  39--40--41
-        //      |   |  |   |
-        //      |---|  |---|
-        //     35  36  42  43
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c00;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c1y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cxy;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c0y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cx1;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = elb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c00;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c0y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cxy;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c1y;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = erb0;
-        steps[++is] = ax;
-        steps[++is] = ay;
-        steps[++is] = cx1;
-        steps[++is] = 0;
     };
-    var buildRectangleRoundedUv = function (uvs, voffset, textureUvs, worldSize) {
-        // b0      b1      b2
-        // |-------|-------|
-        // |       |       |
-        // b3------b4------b5
-        // |       |       |
-        // |-------|-------|
-        // b6      b7      b8
-        var b0x = textureUvs.x0;
-        var b0y = textureUvs.y0;
-        var b2x = textureUvs.x1;
-        var b2y = textureUvs.y1;
-        var b8x = textureUvs.x2;
-        var b8y = textureUvs.y2;
-        var b6x = textureUvs.x3;
-        var b6y = textureUvs.y3;
-        var b1x = (b0x + b2x) * 0.5;
-        var b1y = (b0y + b2y) * 0.5;
-        var b3x = (b0x + b6x) * 0.5;
-        var b3y = (b0y + b6y) * 0.5;
-        var d01x = b1x - b0x;
-        var d01y = b1y - b0y;
-        var d03x = b3x - b0x;
-        var d03y = b3y - b0y;
-        var b4x = b3x + d01x;
-        var b4y = b3y + d01y;
-        var b5x = b2x + d03x;
-        var b5y = b2y + d03y;
-        var b7x = b6x + d01x;
-        var b7y = b6y + d01y;
-        var rx = worldSize[3];
-        var ry = worldSize[4];
-        var r01x = rx * d01x;
-        var r01y = rx * d01y;
-        var r03x = ry * d03x;
-        var r03y = ry * d03y;
-        // c0   c1        c4   c5
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        // c2   c3        c6   c7
-        //
-        // c8   c9       c12   c13
-        //  |---|          |---|
-        //  |   |          |   |
-        //  |---|          |---|
-        //c10   c11      c14   c15
-        var c0x = b0x;
-        var c0y = b0y;
-        var c1x = c0x + r01x;
-        var c1y = c0y + r01y;
-        var c2x = c0x + r03x;
-        var c2y = c0y + r03y;
-        var c3x = c2x + r01x;
-        var c3y = c2y + r01y;
-        var iuv = voffset * 2 - 1;
-        uvs[++iuv] = c0x;
-        uvs[++iuv] = c0y;
-        uvs[++iuv] = c1x;
-        uvs[++iuv] = c1y;
-        uvs[++iuv] = c2x;
-        uvs[++iuv] = c2y;
-        uvs[++iuv] = c3x;
-        uvs[++iuv] = c3y;
-        var c5x = b2x;
-        var c5y = b2y;
-        var c4x = b2x - r01x;
-        var c4y = b2y - r01y;
-        var c6x = c4x + r03x;
-        var c6y = c4y + r03y;
-        var c7x = c6x + r01x;
-        var c7y = c6y + r01y;
-        uvs[++iuv] = c4x;
-        uvs[++iuv] = c4y;
-        uvs[++iuv] = c5x;
-        uvs[++iuv] = c5y;
-        uvs[++iuv] = c6x;
-        uvs[++iuv] = c6y;
-        uvs[++iuv] = c7x;
-        uvs[++iuv] = c7y;
-        var c10x = b6x;
-        var c10y = b6y;
-        var c8x = c10x - r03x;
-        var c8y = c10y - r03y;
-        var c11x = c10x + r01x;
-        var c11y = c10y + r01y;
-        var c9x = c8x + r01x;
-        var c9y = c8y + r01y;
-        uvs[++iuv] = c8x;
-        uvs[++iuv] = c8y;
-        uvs[++iuv] = c9x;
-        uvs[++iuv] = c9y;
-        uvs[++iuv] = c10x;
-        uvs[++iuv] = c10y;
-        uvs[++iuv] = c11x;
-        uvs[++iuv] = c11y;
-        var c15x = b8x;
-        var c15y = b8y;
-        var c14x = c15x - r01x;
-        var c14y = c15y - r01y;
-        var c13x = c15x - r03x;
-        var c13y = c15y - r03y;
-        var c12x = c13x - r01x;
-        var c12y = c13y - r01y;
-        uvs[++iuv] = c12x;
-        uvs[++iuv] = c12y;
-        uvs[++iuv] = c13x;
-        uvs[++iuv] = c13y;
-        uvs[++iuv] = c14x;
-        uvs[++iuv] = c14y;
-        uvs[++iuv] = c15x;
-        uvs[++iuv] = c15y;
-        //     16  17  23  24
-        //      |---|  |---|
-        //      |   |  |   |
-        // 18--19--20  25--26--27
-        //  |       |  |       |
-        //  |       |  |       |
-        // 21------22  28------29
-        var c16x = c1x;
-        var c16y = c1y;
-        var c17x = b1x;
-        var c17y = b1y;
-        var c18x = c2x;
-        var c18y = c2y;
-        var c19x = c3x;
-        var c19y = c3y;
-        var c20x = c17x + r03x;
-        var c20y = c17y + r03y;
-        var c21x = b3x;
-        var c21y = b3y;
-        var c22x = b4x;
-        var c22y = b4y;
-        uvs[++iuv] = c16x;
-        uvs[++iuv] = c16y;
-        uvs[++iuv] = c17x;
-        uvs[++iuv] = c17y;
-        uvs[++iuv] = c18x;
-        uvs[++iuv] = c18y;
-        uvs[++iuv] = c19x;
-        uvs[++iuv] = c19y;
-        uvs[++iuv] = c20x;
-        uvs[++iuv] = c20y;
-        uvs[++iuv] = c21x;
-        uvs[++iuv] = c21y;
-        uvs[++iuv] = c22x;
-        uvs[++iuv] = c22y;
-        var c23x = c17x;
-        var c23y = c17y;
-        var c24x = c4x;
-        var c24y = c4y;
-        var c25x = c20x;
-        var c25y = c20y;
-        var c26x = c6x;
-        var c26y = c6y;
-        var c27x = c7x;
-        var c27y = c7y;
-        var c28x = c22x;
-        var c28y = c22y;
-        var c29x = b5x;
-        var c29y = b5y;
-        uvs[++iuv] = c23x;
-        uvs[++iuv] = c23y;
-        uvs[++iuv] = c24x;
-        uvs[++iuv] = c24y;
-        uvs[++iuv] = c25x;
-        uvs[++iuv] = c25y;
-        uvs[++iuv] = c26x;
-        uvs[++iuv] = c26y;
-        uvs[++iuv] = c27x;
-        uvs[++iuv] = c27y;
-        uvs[++iuv] = c28x;
-        uvs[++iuv] = c28y;
-        uvs[++iuv] = c29x;
-        uvs[++iuv] = c29y;
-        // 30------31  37------38
-        //  |       |  |       |
-        //  |       |  |       |
-        // 32--33--34  39--40--41
-        //      |   |  |   |
-        //      |---|  |---|
-        //     35  36  42  43
-        var c30x = c21x;
-        var c30y = c21y;
-        var c31x = c22x;
-        var c31y = c22y;
-        var c32x = c8x;
-        var c32y = c8y;
-        var c33x = c9x;
-        var c33y = c9y;
-        var c34x = b7x - r03x;
-        var c34y = b7y - r03y;
-        var c35x = c11x;
-        var c35y = c11y;
-        var c36x = b7x;
-        var c36y = b7y;
-        uvs[++iuv] = c30x;
-        uvs[++iuv] = c30y;
-        uvs[++iuv] = c31x;
-        uvs[++iuv] = c31y;
-        uvs[++iuv] = c32x;
-        uvs[++iuv] = c32y;
-        uvs[++iuv] = c33x;
-        uvs[++iuv] = c33y;
-        uvs[++iuv] = c34x;
-        uvs[++iuv] = c34y;
-        uvs[++iuv] = c35x;
-        uvs[++iuv] = c35y;
-        uvs[++iuv] = c36x;
-        uvs[++iuv] = c36y;
-        var c37x = c31x;
-        var c37y = c31y;
-        var c38x = c29x;
-        var c38y = c29y;
-        var c39x = c34x;
-        var c39y = c34y;
-        var c40x = c12x;
-        var c40y = c12y;
-        var c41x = c13x;
-        var c41y = c13y;
-        var c42x = c36x;
-        var c42y = c36y;
-        var c43x = c14x;
-        var c43y = c14y;
-        uvs[++iuv] = c37x;
-        uvs[++iuv] = c37y;
-        uvs[++iuv] = c38x;
-        uvs[++iuv] = c38y;
-        uvs[++iuv] = c39x;
-        uvs[++iuv] = c39y;
-        uvs[++iuv] = c40x;
-        uvs[++iuv] = c40y;
-        uvs[++iuv] = c41x;
-        uvs[++iuv] = c41y;
-        uvs[++iuv] = c42x;
-        uvs[++iuv] = c42y;
-        uvs[++iuv] = c43x;
-        uvs[++iuv] = c43y;
+    var buildPolygonStepX = function (steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, afp, fp) {
+        var is = voffset * 6 - 1;
+        for (var i = 0, j = 0; i < vertexCount; i += 1, j += 2) {
+            steps[++is] = strokeWidth;
+            steps[++is] = e;
+            steps[++is] = polygonDistances[i];
+            steps[++is] = afp * (fp - polygonUvs[j]);
+            steps[++is] = toPackedClippings(polygonClippings[i], 0);
+            steps[++is] = polygonLengths[i];
+        }
+    };
+    var buildPolygonStepY = function (steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, afp, fp) {
+        var is = voffset * 6 - 1;
+        for (var i = 0, j = 1; i < vertexCount; i += 1, j += 2) {
+            steps[++is] = strokeWidth;
+            steps[++is] = e;
+            steps[++is] = polygonDistances[i];
+            steps[++is] = afp * (fp - polygonUvs[j]);
+            steps[++is] = toPackedClippings(polygonClippings[i], 0);
+            steps[++is] = polygonLengths[i];
+        }
+    };
+    /**
+     * Build UV buffer for polygons.
+     */
+    var buildPolygonUv = function (uvs, polygonUvs, voffset, textureUvs) {
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var y0 = textureUvs.y0;
+        var y3 = textureUvs.y3;
+        var dx = x1 - x0;
+        var dy = y3 - y0;
+        var iuv = (voffset << 1) - 1;
+        for (var i = 0, n = polygonUvs.length; i < n; i += 2) {
+            uvs[++iuv] = x0 + polygonUvs[i] * dx;
+            uvs[++iuv] = y0 + polygonUvs[i + 1] * dy;
+        }
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isShapePolygonLike = function (shape) {
+        return "triangulated" in shape;
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var BuilderRectangleRounded = /** @class */ (function (_super) {
-        __extends(BuilderRectangleRounded, _super);
-        function BuilderRectangleRounded(buffer, vertexOffset, indexOffset) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_ROUNDED_VERTEX_COUNT, RECTANGLE_ROUNDED_INDEX_COUNT) || this;
-            _this.radius = 0;
-            _this.corner = 0;
+    var BuilderPolygon = /** @class */ (function (_super) {
+        __extends(BuilderPolygon, _super);
+        function BuilderPolygon(buffer, vertexOffset, indexOffset, vertexCount, indexCount) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, vertexCount, indexCount) || this;
+            _this.triangulatedId = -1;
             return _this;
         }
-        BuilderRectangleRounded.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildRectangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
+        BuilderPolygon.prototype.init = function () {
+            // DO NOTHING
         };
-        BuilderRectangleRounded.prototype.update = function (shape) {
+        BuilderPolygon.prototype.reinit = function (buffer, shape, vertexOffset, indexOffset) {
+            if (!isShapePolygonLike(shape)) {
+                return true;
+            }
+            var triangulated = shape.triangulated;
+            var vertexCount = triangulated.nvertices;
+            var indexCount = triangulated.nindices;
+            if (this.buffer !== buffer ||
+                this.vertexOffset !== vertexOffset ||
+                this.indexOffset !== indexOffset ||
+                this.vertexCount !== vertexCount ||
+                this.indexCount !== indexCount) {
+                if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
+                    this.inited = BuilderFlag.NONE;
+                    this.buffer = buffer;
+                    this.vertexOffset = vertexOffset;
+                    this.indexOffset = indexOffset;
+                    this.vertexCount = vertexCount;
+                    this.indexCount = indexCount;
+                    this.triangulatedId = -1;
+                    this.init();
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return true;
+            }
+        };
+        BuilderPolygon.prototype.isCompatible = function (shape) {
+            if (!isShapePolygonLike(shape)) {
+                return true;
+            }
+            var triangulated = shape.triangulated;
+            var vertexCount = triangulated.nvertices;
+            var indexCount = triangulated.nindices;
+            return vertexCount === this.vertexCount && indexCount === this.indexCount;
+        };
+        BuilderPolygon.prototype.update = function (shape) {
+            if (!isShapePolygonLike(shape)) {
+                return;
+            }
             var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
+            this.updateVertexStepUvAndIndex(buffer, shape);
             this.updateColor(buffer, shape);
         };
-        BuilderRectangleRounded.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var radius = shape.radius;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
+        BuilderPolygon.prototype.updateVertexStepUvAndIndex = function (buffer, shape) {
             var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
+            // Check if vertices/distances/clippings/indices changed
+            var triangulated = shape.triangulated;
+            var triangulatedId = triangulated.id;
+            var isTriangulatedIdChanged = this.triangulatedId !== triangulatedId;
+            var fill = shape.fill;
+            var fillDirection = fill.direction;
+            var fillPercent = fill.percent;
+            var isFillChanged = this.fillDirection !== fillDirection || this.fillPercent !== fillPercent;
             var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
             var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeSide = stroke.side;
             var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
+            var isStrokeChanged = this.strokeWidth !== strokeWidth ||
                 this.strokeSide !== strokeSide ||
                 this.strokeStyle !== strokeStyle;
-            var corner = shape.corner;
-            var isCornerChanged = corner !== this.corner;
             var texture = toTexture(shape);
             var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_UV_AND_INDEX);
             if (isNotInited ||
-                isVertexChanged ||
+                isTriangulatedIdChanged ||
                 isTransformChanged ||
-                isCornerChanged ||
+                isFillChanged ||
+                isStrokeChanged ||
                 isTextureChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.radius = radius;
+                this.inited |= BuilderFlag.VERTEX_STEP_UV_AND_INDEX;
                 this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
+                this.fillDirection = fillDirection;
+                this.fillPercent = fillPercent;
                 this.strokeWidth = strokeWidth;
                 this.strokeSide = strokeSide;
                 this.strokeStyle = strokeStyle;
-                this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
+                this.triangulatedId = triangulatedId;
+                // Indices
+                if (isNotInited || isTriangulatedIdChanged) {
+                    buffer.updateIndices();
+                    buildPolygonIndex(buffer.indices, triangulated.indices, this.vertexOffset, this.indexOffset);
+                }
                 // Vertices
                 var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildRectangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, RECTANGLE_ROUNDED_WORLD_SIZE);
+                if (isNotInited || isTriangulatedIdChanged || isTransformChanged) {
+                    buffer.updateVertices();
+                    buildPolygonVertex(buffer.vertices, triangulated.vertices, voffset, shape.transform.internalTransform);
+                }
                 // Steps
-                if (isNotInited || isVertexChanged || isCornerChanged || isTransformChanged) {
+                if (isNotInited || isTriangulatedIdChanged || isFillChanged || isStrokeChanged) {
                     buffer.updateSteps();
-                    buildRectangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
+                    buildPolygonStep(buffer.steps, triangulated.distances, triangulated.lengths, triangulated.clippings, triangulated.uvs, triangulated.boundary, voffset, this.vertexCount, fillDirection, fillPercent, strokeWidth, strokeSide, strokeStyle);
                 }
                 // UVs
-                if (isNotInited || isVertexChanged || isTextureChanged) {
+                if (isNotInited || isTriangulatedIdChanged || isTextureChanged) {
                     buffer.updateUvs();
-                    buildRectangleRoundedUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_ROUNDED_WORLD_SIZE);
+                    buildPolygonUv(buffer.uvs, triangulated.uvs, voffset, toTextureUvs(texture));
                 }
             }
         };
-        return BuilderRectangleRounded;
+        return BuilderPolygon;
     }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createRectangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+    var createPolygonUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
         var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = RECTANGLE_ROUNDED_VERTEX_COUNT + tvcount;
-        var icount = RECTANGLE_ROUNDED_INDEX_COUNT + ticount;
+        var pvcount = 0;
+        var picount = 0;
+        if (isShapePolygonLike(shape)) {
+            var triangulated = shape.triangulated;
+            pvcount = triangulated.nvertices;
+            picount = triangulated.nindices;
+        }
+        var vcount = pvcount + tvcount;
+        var icount = picount + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
             return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderRectangleRounded(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset + RECTANGLE_ROUNDED_INDEX_COUNT, tvcount, ticount)
+                new BuilderPolygon(buffer, voffset, ioffset, pvcount, picount),
+                new BuilderText(buffer, voffset + pvcount, ioffset + picount, tvcount, ticount)
             ]).init(shape);
         }
         return null;
@@ -41259,8 +40513,2667 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var createButtonUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
+        return createPolygonUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
     };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangleRoundedTriangulatedImpl = /** @class */ (function () {
+        function EShapeRectangleRoundedTriangulatedImpl(parent) {
+            this._id = 0;
+            this._parent = parent;
+            this._width = 0;
+            this._height = 0;
+            this._strokeAlign = 0;
+            this._strokeWidth = 0;
+            this._strokeSide = EShapeStrokeSide.NONE;
+            this._radius = 0;
+            this._corner = EShapeCorner.NONE;
+            this._sizeX = 0;
+            this._sizeY = 0;
+            this._n = EShapeDefaults.CIRCLE_SEGMENT_COUNT;
+            this._vertices = [];
+            this._nvertices = 0;
+            this._distances = [];
+            this._lengths = [];
+            this._clippings = [];
+            this._uvs = [];
+            this._indices = [];
+            this._nindices = 0;
+            this._boundary = [0, 0, 0, 0];
+        }
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "id", {
+            get: function () {
+                this.triangulate();
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "vertices", {
+            get: function () {
+                this.triangulate();
+                return this._vertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "nvertices", {
+            get: function () {
+                this.triangulate();
+                return this._nvertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "distances", {
+            get: function () {
+                this.triangulate();
+                return this._distances;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "lengths", {
+            get: function () {
+                this.triangulate();
+                return this._lengths;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "clippings", {
+            get: function () {
+                this.triangulate();
+                return this._clippings;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "uvs", {
+            get: function () {
+                this.triangulate();
+                return this._uvs;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "indices", {
+            get: function () {
+                this.triangulate();
+                return this._indices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "nindices", {
+            get: function () {
+                this.triangulate();
+                return this._nindices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleRoundedTriangulatedImpl.prototype, "boundary", {
+            get: function () {
+                this.triangulate();
+                return this._boundary;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeRectangleRoundedTriangulatedImpl.prototype.triangulate = function () {
+            var isNotInitialized = this._id === 0;
+            var parent = this._parent;
+            var size = parent.size;
+            var width = size.x;
+            var height = size.y;
+            var isRectChanged = this._width !== width || this._height !== height;
+            var stroke = parent.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var isStrokeChanged = this._strokeAlign !== strokeAlign ||
+                this._strokeWidth !== strokeWidth ||
+                this._strokeSide !== strokeSide;
+            var radius = parent.radius;
+            var corner = parent.corner;
+            var isRadiusChanged = this._radius !== radius || this._corner !== corner;
+            var isSizeChanged = false;
+            var sizeX = this._sizeX;
+            var sizeY = this._sizeY;
+            if (isRectChanged || isStrokeChanged) {
+                this._width = width;
+                this._height = height;
+                this._strokeAlign = strokeAlign;
+                this._strokeWidth = strokeWidth;
+                this._strokeSide = strokeSide;
+                var s = strokeAlign * strokeWidth;
+                sizeX = width * 0.5 + (0 <= width ? +s : -s);
+                sizeY = height * 0.5 + (0 <= height ? +s : -s);
+                isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
+            }
+            if (isNotInitialized || isSizeChanged || isStrokeChanged || isRadiusChanged) {
+                this._sizeX = sizeX;
+                this._sizeY = sizeY;
+                this._radius = radius;
+                this._corner = corner;
+                this.update(sizeX, sizeY, radius, corner, 1.1);
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.update = function (sizeX, sizeY, radius, corner, scale) {
+            // Boundary
+            var ax = Math.abs(sizeX);
+            var ay = Math.abs(sizeY);
+            var boundary = this._boundary;
+            boundary[0] = -ax;
+            boundary[1] = -ay;
+            boundary[2] = +ax;
+            boundary[3] = +ay;
+            // # of vertices and # of indices
+            var n = this._n >> 2;
+            var nv = 8 * n + 18;
+            var ni = 4 * n + 10;
+            this._nvertices = nv;
+            this._nindices = ni;
+            // ID
+            this._id += 1;
+            //
+            if (sizeX === 0 || sizeY === 0) {
+                this.pad(0, 0, nv, ni, 0);
+            }
+            else {
+                var fx = 1 / sizeX;
+                var fy = 1 / sizeY;
+                switch (this._strokeSide) {
+                    case EShapeStrokeSide.NONE:
+                    case EShapeStrokeSide.ALL:
+                        if (ay <= ax) {
+                            this.updateAll0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateAll1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.TOP:
+                        this.updateTop(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        break;
+                    case EShapeStrokeSide.RIGHT:
+                        this.updateRight(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        break;
+                    case EShapeStrokeSide.BOTTOM:
+                        this.updateBottom(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        break;
+                    case EShapeStrokeSide.LEFT:
+                        this.updateLeft(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        break;
+                    case EShapeStrokeSide.TOP_OR_BOTTOM:
+                        this.updateTopBottom(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        break;
+                    case EShapeStrokeSide.LEFT_OR_RIGHT:
+                        this.updateLeftRight(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        break;
+                    case EShapeStrokeSide.TOP_OR_RIGHT:
+                        if (ay <= ax) {
+                            this.updateTopRight0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateTopRight1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.TOP_OR_LEFT:
+                        if (ay <= ax) {
+                            this.updateTopLeft0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateTopLeft1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.BOTTOM_OR_RIGHT:
+                        if (ay <= ax) {
+                            this.updateBottomRight0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateBottomRight1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.BOTTOM_OR_LEFT:
+                        if (ay <= ax) {
+                            this.updateBottomLeft0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateBottomLeft1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_TOP:
+                        if (ay <= ax) {
+                            this.updateNotTop0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateNotTop1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_RIGHT:
+                        if (ay <= ax) {
+                            this.updateNotRight0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateNotRight1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_BOTTOM:
+                        if (ay <= ax) {
+                            this.updateNotBottom0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateNotBottom1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_LEFT:
+                        if (ay <= ax) {
+                            this.updateNotLeft0(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        else {
+                            this.updateNotLeft1(fx, fy, ax, ay, scale, radius, corner, nv, ni);
+                        }
+                        break;
+                }
+            }
+        };
+        /**
+         * Fills the unused tail with degenerated triangles and trims the arrays
+         * so that the buffers always hold exactly `nv` vertices and `ni` triangles.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, fd) {
+            var vertices = this._vertices;
+            var distances = this._distances;
+            var lengths = this._lengths;
+            var clippings = this._clippings;
+            var uvs = this._uvs;
+            var indices = this._indices;
+            for (var i = iv; i < nv; ++i) {
+                var i2 = i << 1;
+                vertices[i2] = 0;
+                vertices[i2 + 1] = 0;
+                distances[i] = fd;
+                lengths[i] = 0;
+                clippings[i] = 0;
+                uvs[i2] = 0.5;
+                uvs[i2 + 1] = 0.5;
+            }
+            for (var i = ii, imax = ni * 3; i < imax; ++i) {
+                indices[i] = 0;
+            }
+            var nv2 = nv << 1;
+            vertices.length = nv2;
+            distances.length = nv;
+            lengths.length = nv;
+            clippings.length = nv;
+            uvs.length = nv2;
+            indices.length = ni * 3;
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.TOP
+         * * 4 * N + 4 <= nv
+         * * 4 * N - 2 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateTop = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = 2 * ay;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * Math.min(ax, ay);
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var xl = ctl || cbl ? -ax + r : -ax;
+            var xr = ctr || cbr ? +ax - r : +ax;
+            var yt = -ay - fs;
+            var yb = +ay;
+            var lot = 0;
+            var iv = 0;
+            var ii = 0;
+            this.writeQuadTop(iv, ii, lot, xl, yt, xr, yt, xr, yb, xl, yb, fd, scale, fx, fy, ax, ay);
+            iv += 4;
+            ii += 6;
+            if (ctr || cbr) {
+                this.writeStripTop(+1, xr, ctr, cbr, lot, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            if (ctl || cbl) {
+                this.writeStripTop(-1, xl, ctl, cbl, lot, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeStripTop = function (sign, xi, ct, cb, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy) {
+            var cos = 1;
+            var sin = 0;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var indices = this._indices;
+            for (var i = 0; i < n; ++i) {
+                var x = xi + sign * r * sin;
+                var raise = r * (1 - cos);
+                var ytop = ct ? -ay + raise : -ay - (scale - 1) * d;
+                var ybottom = cb ? +ay - raise : +ay;
+                var length_1 = lo + x + ax;
+                var ctop = Math.min(scale, (ytop + ay) * -fd + 1);
+                var cbottom = Math.min(scale, (ybottom + ay) * -fd + 1);
+                this.writeVertex(iv, x, ytop, fd, length_1, ctop, fx, fy);
+                this.writeVertex(iv + 1, x, ybottom, fd, length_1, cbottom, fx, fy);
+                if (0 < i) {
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv - 1;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv;
+                }
+                iv += 2;
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.RIGHT
+         * * 4 * N + 4 <= nv
+         * * 4 * N - 2 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateRight = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = 2 * ax;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * Math.min(ax, ay);
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var yt = ctl || ctr ? -ay + r : -ay;
+            var yb = cbl || cbr ? +ay - r : +ay;
+            var xl = -ax;
+            var xr = +ax + fs;
+            var lot = 0;
+            var lor = lot + 2 * ax;
+            var iv = 0;
+            var ii = 0;
+            this.writeQuadRight(iv, ii, lor, xl, yt, xr, yt, xr, yb, xl, yb, fd, scale, fx, fy, ax, ay);
+            iv += 4;
+            ii += 6;
+            if (ctl || ctr) {
+                this.writeStripRight(-1, yt, ctl, ctr, lor, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            if (cbl || cbr) {
+                this.writeStripRight(+1, yb, cbl, cbr, lor, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeStripRight = function (sign, yi, cl, cr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy) {
+            var cos = 1;
+            var sin = 0;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var indices = this._indices;
+            for (var i = 0; i < n; ++i) {
+                var y = yi + sign * r * sin;
+                var raise = r * (1 - cos);
+                var xleft = cl ? -ax + raise : -ax;
+                var xright = cr ? +ax - raise : +ax + (scale - 1) * d;
+                var length_2 = lo + y + ay;
+                var cleft = Math.min(scale, (xleft - ax) * fd + 1);
+                var cright = Math.min(scale, (xright - ax) * fd + 1);
+                this.writeVertex(iv, xleft, y, fd, length_2, cleft, fx, fy);
+                this.writeVertex(iv + 1, xright, y, fd, length_2, cright, fx, fy);
+                if (0 < i) {
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv - 1;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv;
+                }
+                iv += 2;
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.BOTTOM
+         * * 4 * N + 4 <= nv
+         * * 4 * N - 2 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottom = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var n = this._n >> 2;
+            var r = radius * Math.min(ax, ay);
+            var d = 2 * ay;
+            var fd = 1 / d;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var xl = ctl || cbl ? -ax + r : -ax;
+            var xr = ctr || cbr ? +ax - r : +ax;
+            var yt = -ay;
+            var yb = +ay + (scale - 1) * d;
+            var lot = 0;
+            var lor = lot + 2 * ax;
+            var lob = lor + 2 * ay;
+            var iv = 0;
+            var ii = 0;
+            this.writeQuadBottom(iv, ii, lob, xl, yt, xr, yt, xr, yb, xl, yb, fd, scale, fx, fy, ax, ay);
+            iv += 4;
+            ii += 6;
+            if (ctr || cbr) {
+                this.writeStripBottom(+1, xr, ctr, cbr, lob, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            if (ctl || cbl) {
+                this.writeStripBottom(-1, xl, ctl, cbl, lob, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Writes a vertical strip of a corner column (n lines, 2 vertices per line).
+         * Distance is constant and clipping depends only on y, so the stroke inner edge stays straight.
+         * `sign` is +1 for the right column and -1 for the left column.
+         * `xi` is X of the line at the column's inner edge.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeStripBottom = function (sign, xi, ct, cb, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy) {
+            var cos = 1;
+            var sin = 0;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var indices = this._indices;
+            for (var i = 0; i < n; ++i) {
+                var x = xi + sign * r * sin;
+                var raise = r * (1 - cos);
+                var ytop = -ay + (ct ? raise : 0);
+                var ybottom = cb ? +ay - raise : +ay + (scale - 1) * d;
+                var length_3 = lo + ax - x;
+                var ctop = Math.min(scale, (ytop - ay) * fd + 1);
+                var cbottom = Math.min(scale, (ybottom - ay) * fd + 1);
+                this.writeVertex(iv, x, ytop, fd, length_3, ctop, fx, fy);
+                this.writeVertex(iv + 1, x, ybottom, fd, length_3, cbottom, fx, fy);
+                if (0 < i) {
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv - 1;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv;
+                }
+                iv += 2;
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.LEFT
+         * * 4 * N + 4 <= nv
+         * * 4 * N - 2 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateLeft = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = 2 * ax;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * Math.min(ax, ay);
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var yt = ctl || ctr ? -ay + r : -ay;
+            var yb = cbl || cbr ? +ay - r : +ay;
+            var xl = -ax - fs;
+            var xr = +ax;
+            var lot = 0;
+            var lor = lot + 2 * ax;
+            var lob = lor + 2 * ay;
+            var lol = lob + 2 * ax;
+            var iv = 0;
+            var ii = 0;
+            this.writeQuadLeft(iv, ii, lol, xl, yt, xr, yt, xr, yb, xl, yb, fd, scale, fx, fy, ax, ay);
+            iv += 4;
+            ii += 6;
+            if (ctl || ctr) {
+                this.writeStripLeft(-1, yt, ctl, ctr, lol, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            if (cbl || cbr) {
+                this.writeStripLeft(+1, yb, cbl, cbr, lol, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy);
+                iv += 2 * n;
+                ii += 6 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeStripLeft = function (sign, yi, cl, cr, lo, iv, ii, n, r, ax, ay, scale, d, fd, fx, fy) {
+            var cos = 1;
+            var sin = 0;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var indices = this._indices;
+            for (var i = 0; i < n; ++i) {
+                var y = yi + sign * r * sin;
+                var raise = r * (1 - cos);
+                var xleft = cl ? -ax + raise : -ax - (scale - 1) * d;
+                var xright = cr ? +ax - raise : +ax;
+                var length_4 = lo + ay - y;
+                var cleft = Math.min(scale, (xleft + ax) * -fd + 1);
+                var cright = Math.min(scale, (xright + ax) * -fd + 1);
+                this.writeVertex(iv, xleft, y, fd, length_4, cleft, fx, fy);
+                this.writeVertex(iv + 1, xright, y, fd, length_4, cright, fx, fy);
+                if (0 < i) {
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv - 1;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv - 2;
+                    indices[ii++] = iv + 1;
+                    indices[ii++] = iv;
+                }
+                iv += 2;
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.LEFT_OR_RIGHT
+         * * 4 * N + 4 <= nv
+         * * 4 * N + 0 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateLeftRight = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var fd = 1 / ax;
+            var n = this._n >> 2;
+            var r = radius * Math.min(ax, ay);
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lot = 0;
+            var lor = lot + 2 * ax;
+            var lob = lor + 2 * ay;
+            var lol = lob + 2 * ax;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideLeftRight0(lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += 2 * n + 2;
+            ii += 6 * n;
+            this.writeSideLeftRight1(lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += 2 * n + 2;
+            ii += 6 * n;
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Writes the left (`sx` = -1) or the right (`sx` = +1) half as a triangle fan of 2N + 2 vertices.
+         * Order: the top center (fan origin), the bottom center, the bottom arc (N), the top arc (N).
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideLeftRight0 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ax - fs;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            this.writeVertexLeft(iv, 0, -ay, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(iv + 1, 0, +ay, lo, fd, scale, fx, fy, ax, ay);
+            var ib = iv + 2;
+            var it = ib + n;
+            var cos = 1;
+            var sin = 0;
+            for (var i = 0; i < n; ++i) {
+                // The bottom arc runs from the bottom tangent point to the left one, so its angle is pi / 2 - i * dangle.
+                var xb = cb && i < n - 1 ? -ax + r - r * sin : xo;
+                var yb = cb ? +ay - r + r * cos : +ay;
+                this.writeVertexLeft(ib + i, xb, yb, lo, fd, scale, fx, fy, ax, ay);
+                var xt = ct && 0 < i ? -ax + r - r * cos : xo;
+                var yt = ct ? -ay + r - r * sin : -ay;
+                this.writeVertexLeft(it + i, xt, yt, lo, fd, scale, fx, fy, ax, ay);
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+            var indices = this._indices;
+            for (var i = 1, imax = 2 * n + 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        /**
+         * Writes the left (`sx` = -1) or the right (`sx` = +1) half as a triangle fan of 2N + 2 vertices.
+         * Order: the top center (fan origin), the bottom center, the bottom arc (N), the top arc (N).
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideLeftRight1 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ax - fs;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            this.writeVertexRight(iv, 0, -ay, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(iv + 1, 0, +ay, lo, fd, scale, fx, fy, ax, ay);
+            var ib = iv + 2;
+            var it = ib + n;
+            var cos = 1;
+            var sin = 0;
+            for (var i = 0; i < n; ++i) {
+                // The bottom arc runs from the bottom tangent point to the left one, so its angle is pi / 2 - i * dangle.
+                var xb = cb && i < n - 1 ? -ax + r - r * sin : xo;
+                var yb = cb ? +ay - r + r * cos : +ay;
+                this.writeVertexRight(ib + i, -xb, yb, lo, fd, scale, fx, fy, ax, ay);
+                var xt = ct && 0 < i ? -ax + r - r * cos : xo;
+                var yt = ct ? -ay + r - r * sin : -ay;
+                this.writeVertexRight(it + i, -xt, yt, lo, fd, scale, fx, fy, ax, ay);
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+            var indices = this._indices;
+            for (var i = 1, imax = 2 * n + 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i + 1;
+                indices[ii++] = iv + i;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.TOP_OR_BOTTOM
+         * * 4 * N + 4 <= nv
+         * * 4 * N + 0 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopBottom = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var fd = 1 / ay;
+            var n = this._n >> 2;
+            var r = radius * Math.min(ax, ay);
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lot = 0;
+            var lor = lot + 2 * ax;
+            var lob = lor + 2 * ay;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideTopBottom0(lot, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += 2 * n + 2;
+            ii += 6 * n;
+            this.writeSideTopBottom1(lob, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += 2 * n + 2;
+            ii += 6 * n;
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideTopBottom0 = function (lo, cl, cr, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var yo = -ay - fs;
+            var cos = 1;
+            var sin = 0;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var indices = this._indices;
+            this.writeVertexTop(iv, -ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(iv + 1, +ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            var ir = iv + 2;
+            var il = ir + n;
+            for (var i = 0; i < n; ++i) {
+                var xr = cr ? +ax - r + r * cos : +ax;
+                var yr = cr && i < n - 1 ? -ay + r - r * sin : yo;
+                var xl = cl ? -ax + r - r * sin : -ax;
+                var yl = cl && 0 < i ? -ay + r - r * cos : yo;
+                this.writeVertexTop(ir + i, xr, yr, lo, fd, scale, fx, fy, ax, ay);
+                this.writeVertexTop(il + i, xl, yl, lo, fd, scale, fx, fy, ax, ay);
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+            for (var i = 1, imax = 2 * n + 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideTopBottom1 = function (lo, cl, cr, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var yo = -ay - fs;
+            var cos = 1;
+            var sin = 0;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var indices = this._indices;
+            this.writeVertexBottom(iv, -ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(iv + 1, +ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            var ir = iv + 2;
+            var il = ir + n;
+            for (var i = 0; i < n; ++i) {
+                var xr = cr ? +ax - r + r * cos : +ax;
+                var yr = cr && i < n - 1 ? -ay + r - r * sin : yo;
+                var xl = cl ? -ax + r - r * sin : -ax;
+                var yl = cl && 0 < i ? -ay + r - r * cos : yo;
+                this.writeVertexBottom(ir + i, xr, -yr, lo, fd, scale, fx, fy, ax, ay);
+                this.writeVertexBottom(il + i, xl, -yl, lo, fd, scale, fx, fy, ax, ay);
+                var ncos = dcos * cos - dsin * sin;
+                var nsin = dsin * cos + dcos * sin;
+                cos = ncos;
+                sin = nsin;
+            }
+            for (var i = 1, imax = 2 * n + 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i + 1;
+                indices[ii++] = iv + i;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.TOP_OR_RIGHT
+         * * ay <= ax
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopRight0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var r = radius * ay;
+            this.writeTopRight(fx, fy, ax, ay, scale, 2 * ay, r, corner, ax - 2 * ay, ay, 0, nv, ni);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.TOP_OR_RIGHT
+         * * ax < ay
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopRight1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var n = this._n >> 2;
+            var r = radius * ax;
+            this.writeTopRight(fx, fy, ax, ay, scale, 2 * ax, r, corner, -ax, 2 * ax - ay, n, nv, ni);
+        };
+        /**
+         * `(xred, yred)` is where the diagonal border meets the bottom edge or the left edge.
+         * `k` is the number of the bottom-left arc vertices on the right side of that point.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeTopRight = function (fx, fy, ax, ay, scale, d, r, corner, xred, yred, k, nv, ni) {
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var rs = r + fs;
+            var cr = 0 < r;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var xo = +ax + fs;
+            var yo = -ay - fs;
+            // The diagonal border between the top and the right sides is x + y = ax - ay.
+            // It starts from the center of the top-right corner.
+            var xc = ctr ? +ax - r : xo;
+            var yc = ctr ? -ay + r : yo;
+            // The red point is on the bottom-left arc if the border meets the bottom-left corner.
+            if (cbl && xred < -ax + r && ay - r < yred) {
+                var e = ax - ay;
+                var z = Math.sqrt(0.5 * r * r - e * e);
+                xred = -ax + r - z + e;
+                yred = +ay - r + z + e;
+                k = Math.ceil(Math.atan2(z - e, z + e) / dangle);
+            }
+            // Bottom-right polygon of N + k + 3 vertices as a triangle fan.
+            // Order: the corner center (fan origin), the right end, the bottom-right arc (N), the bottom-left arc (k), the red point.
+            var iv = 0;
+            var ii = 0;
+            this.writeVertexRight(iv++, xc, yc, lor, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(iv++, xo, yc, lor, fd, scale, fx, fy, ax, ay);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var cos = 1;
+            var sin = 0;
+            if (cbr) {
+                for (var i = 0; i < n; ++i) {
+                    var x = 0 < i ? ax - r + r * cos : xo;
+                    var y = +ay - r + r * sin;
+                    this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexRight(iv++, xo, ay, lor, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (cbl) {
+                cos = 1;
+                sin = 0;
+                for (var i = 0; i < k; ++i) {
+                    var x = -ax + r - r * sin;
+                    var y = +ay - r + r * cos;
+                    this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < k; ++i) {
+                    this.writeVertexRight(iv++, -ax, ay, lor, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexRight(iv++, xred, yred, lor, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(0, ii, iv);
+            ii += 3 * (iv - 2);
+            // Top-left polygon of M + N + 3 vertices as a triangle fan, where M = N - k.
+            // Order: the corner center (fan origin), the red point, the bottom-left arc (M), the top-left arc (N), the top end.
+            var iv0 = iv;
+            this.writeVertexTop(iv++, xc, yc, lot, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(iv++, xred, yred, lot, fd, scale, fx, fy, ax, ay);
+            if (cbl) {
+                for (var i = k; i < n; ++i) {
+                    var x = -ax + r - r * sin;
+                    var y = +ay - r + r * cos;
+                    this.writeVertexTop(iv++, x, y, lot, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = k; i < n; ++i) {
+                    this.writeVertexTop(iv++, -ax, ay, lot, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (ctl) {
+                cos = 1;
+                sin = 0;
+                for (var i = 0; i < n; ++i) {
+                    var x = -ax + r - r * cos;
+                    var y = i < n - 1 ? -ay + r - r * sin : yo;
+                    this.writeVertexTop(iv++, x, y, lot, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexTop(iv++, -ax, yo, lot, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexTop(iv++, xc, yo, lot, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(iv0, ii, iv - iv0);
+            ii += 3 * (iv - iv0 - 2);
+            if (ctr) {
+                var lo = lot + 2 * ax - r;
+                this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_LEFT
+         * * ay <= ax
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomLeft0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var r = radius * ay;
+            this.writeBottomLeft(fx, fy, ax, ay, scale, 2 * ay, r, corner, 2 * ay - ax, -ay, 0, nv, ni);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_LEFT
+         * * ax < ay
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomLeft1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var n = this._n >> 2;
+            var r = radius * ax;
+            this.writeBottomLeft(fx, fy, ax, ay, scale, 2 * ax, r, corner, ax, ay - 2 * ax, n, nv, ni);
+        };
+        /**
+         * `(xred, yred)` is where the diagonal border meets the top edge or the right edge.
+         * `k` is the number of the top-right arc vertices on the left side of that point.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeBottomLeft = function (fx, fy, ax, ay, scale, d, r, corner, xred, yred, k, nv, ni) {
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var rs = r + fs;
+            var cr = 0 < r;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var xo = -ax - fs;
+            var yo = +ay + fs;
+            // The diagonal border between the left and the bottom sides is x + y = ay - ax.
+            // It starts from the center of the bottom-left corner.
+            var xc = cbl ? -ax + r : xo;
+            var yc = cbl ? +ay - r : yo;
+            // The red point is on the top-right arc if the border meets the top-right corner.
+            if (ctr && ax - r < xred && yred < -ay + r) {
+                var e = ax - ay;
+                var z = Math.sqrt(0.5 * r * r - e * e);
+                xred = ax - r + z - e;
+                yred = -ay + r - z - e;
+                k = Math.ceil(Math.atan2(z - e, z + e) / dangle);
+            }
+            // Top-left polygon of N + k + 3 vertices as a triangle fan.
+            // Order: the corner center (fan origin), the left end, the top-left arc (N), the top-right arc (k), the red point.
+            var iv = 0;
+            var ii = 0;
+            this.writeVertexLeft(iv++, xc, yc, lol, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(iv++, xo, yc, lol, fd, scale, fx, fy, ax, ay);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            var cos = 1;
+            var sin = 0;
+            if (ctl) {
+                for (var i = 0; i < n; ++i) {
+                    var x = 0 < i ? -ax + r - r * cos : xo;
+                    var y = -ay + r - r * sin;
+                    this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexLeft(iv++, xo, -ay, lol, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (ctr) {
+                cos = 1;
+                sin = 0;
+                for (var i = 0; i < k; ++i) {
+                    var x = ax - r + r * sin;
+                    var y = -ay + r - r * cos;
+                    this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < k; ++i) {
+                    this.writeVertexLeft(iv++, ax, -ay, lol, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexLeft(iv++, xred, yred, lol, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(0, ii, iv);
+            ii += 3 * (iv - 2);
+            // Bottom-right polygon of M + N + 3 vertices as a triangle fan, where M = N - k.
+            // Order: the corner center (fan origin), the red point, the top-right arc (M), the bottom-right arc (N), the bottom end.
+            var iv0 = iv;
+            this.writeVertexBottom(iv++, xc, yc, lob, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(iv++, xred, yred, lob, fd, scale, fx, fy, ax, ay);
+            if (ctr) {
+                for (var i = k; i < n; ++i) {
+                    var x = ax - r + r * sin;
+                    var y = -ay + r - r * cos;
+                    this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = k; i < n; ++i) {
+                    this.writeVertexBottom(iv++, ax, -ay, lob, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (cbr) {
+                cos = 1;
+                sin = 0;
+                for (var i = 0; i < n; ++i) {
+                    var x = ax - r + r * cos;
+                    var y = i < n - 1 ? +ay - r + r * sin : yo;
+                    this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexBottom(iv++, ax, yo, lob, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexBottom(iv++, xc, yo, lob, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(iv0, ii, iv - iv0);
+            ii += 3 * (iv - iv0 - 2);
+            if (cbl) {
+                var lo = lob + 2 * ax - r;
+                this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeFanIndices = function (iv, ii, count) {
+            var indices = this._indices;
+            for (var i = 1, imax = count - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.TOP_OR_LEFT
+         * * ay <= ax
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopLeft0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var r = radius * ay;
+            this.writeTopLeft(fx, fy, ax, ay, scale, 2 * ay, r, corner, 2 * ay - ax, ay, 0, nv, ni);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.TOP_OR_LEFT
+         * * ax < ay
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopLeft1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var n = this._n >> 2;
+            var r = radius * ax;
+            this.writeTopLeft(fx, fy, ax, ay, scale, 2 * ax, r, corner, ax, 2 * ax - ay, n, nv, ni);
+        };
+        /**
+         * `(xred, yred)` is where the diagonal border meets the bottom edge or the right edge.
+         * `k` is the number of the bottom-right arc vertices before that point, counted from the bottom.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeTopLeft = function (fx, fy, ax, ay, scale, d, r, corner, xred, yred, k, nv, ni) {
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var rs = r + fs;
+            var cr = 0 < r;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            // The top side continues the left side beyond the top-left corner.
+            var lop = lol + (ctl ? lc : 0) + 2 * ay;
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var xo = -ax - fs;
+            var yo = -ay - fs;
+            // The diagonal border between the top and the left sides is -x + y = ax - ay.
+            // It starts from the center of the top-left corner.
+            var xc = ctl ? -ax + r : xo;
+            var yc = ctl ? -ay + r : yo;
+            // The red point is on the bottom-right arc if the border meets the bottom-right corner.
+            if (cbr && ax - r < xred && ay - r < yred) {
+                var e = ax - ay;
+                var z = Math.sqrt(0.5 * r * r - e * e);
+                xred = ax - r + z - e;
+                yred = +ay - r + z + e;
+                k = Math.ceil(Math.atan2(z - e, z + e) / dangle);
+            }
+            // Bottom-left polygon of N + k + 3 vertices as a triangle fan.
+            // Order: the corner center (fan origin), the red point, the bottom-right arc (k), the bottom-left arc (N), the left end.
+            var iv = 0;
+            var ii = 0;
+            this.writeVertexLeft(iv++, xc, yc, lol, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(iv++, xred, yred, lol, fd, scale, fx, fy, ax, ay);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            if (cbr) {
+                var cos = 0;
+                var sin = 1;
+                if (0 < k) {
+                    for (var i = n - 1; k <= i; --i) {
+                        var ncos = dcos * cos + dsin * sin;
+                        var nsin = -dsin * cos + dcos * sin;
+                        cos = ncos;
+                        sin = nsin;
+                    }
+                }
+                for (var i = k - 1; 0 <= i; --i) {
+                    var x = ax - r + r * sin;
+                    var y = +ay - r + r * cos;
+                    this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos + dsin * sin;
+                    var nsin = -dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = k - 1; 0 <= i; --i) {
+                    this.writeVertexLeft(iv++, ax, +ay, lol, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (cbl) {
+                var cos = 0;
+                var sin = 1;
+                for (var i = n - 1; 0 <= i; --i) {
+                    var x = 0 < i ? -ax + r - r * cos : xo;
+                    var y = +ay - r + r * sin;
+                    this.writeVertexLeft(iv++, x, y, lol, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos + dsin * sin;
+                    var nsin = -dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = n - 1; 0 <= i; --i) {
+                    this.writeVertexLeft(iv++, xo, +ay, lol, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexLeft(iv++, xo, yc, lol, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(0, ii, iv);
+            ii += 3 * (iv - 2);
+            // Top-right polygon of M + N + 3 vertices as a triangle fan, where M = N - k.
+            // Order: the corner center (fan origin), the top end, the top-right arc (N), the bottom-right arc (M), the red point.
+            var iv0 = iv;
+            this.writeVertexTop(iv++, xc, yc, lop, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(iv++, xc, yo, lop, fd, scale, fx, fy, ax, ay);
+            if (ctr) {
+                var cos = 0;
+                var sin = 1;
+                for (var i = n - 1; 0 <= i; --i) {
+                    var x = ax - r + r * cos;
+                    var y = i < n - 1 ? -ay + r - r * sin : yo;
+                    this.writeVertexTop(iv++, x, y, lop, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos + dsin * sin;
+                    var nsin = -dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = n - 1; 0 <= i; --i) {
+                    this.writeVertexTop(iv++, ax, yo, lop, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (cbr) {
+                var cos = 0;
+                var sin = 1;
+                for (var i = n - 1; k <= i; --i) {
+                    var x = ax - r + r * sin;
+                    var y = +ay - r + r * cos;
+                    this.writeVertexTop(iv++, x, y, lop, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos + dsin * sin;
+                    var nsin = -dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = n - 1; k <= i; --i) {
+                    this.writeVertexTop(iv++, ax, +ay, lop, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexTop(iv++, xred, yred, lop, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(iv0, ii, iv - iv0);
+            ii += 3 * (iv - iv0 - 2);
+            if (ctl) {
+                var lo = lol + 2 * ay - r;
+                this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_RIGHT
+         * * ay <= ax
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomRight0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var r = radius * ay;
+            this.writeBottomRight(fx, fy, ax, ay, scale, 2 * ay, r, corner, ax - 2 * ay, -ay, 0, nv, ni);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_RIGHT
+         * * ax < ay
+         * * 5 * N + 5 <= nv
+         * * 4 * N + 1 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomRight1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var n = this._n >> 2;
+            var r = radius * ax;
+            this.writeBottomRight(fx, fy, ax, ay, scale, 2 * ax, r, corner, -ax, ay - 2 * ax, n, nv, ni);
+        };
+        /**
+         * `(xred, yred)` is where the diagonal border meets the top edge or the left edge.
+         * `k` is the number of the top-left arc vertices on the right side of that point.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeBottomRight = function (fx, fy, ax, ay, scale, d, r, corner, xred, yred, k, nv, ni) {
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var rs = r + fs;
+            var cr = 0 < r;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var xo = +ax + fs;
+            var yo = +ay + fs;
+            // The diagonal border between the right and the bottom sides is -x + y = ay - ax.
+            // It starts from the center of the bottom-right corner.
+            var xc = cbr ? +ax - r : xo;
+            var yc = cbr ? +ay - r : yo;
+            // The red point is on the top-left arc if the border meets the top-left corner.
+            if (ctl && xred < -ax + r && yred < -ay + r) {
+                var e = ax - ay;
+                var z = Math.sqrt(0.5 * r * r - e * e);
+                xred = -ax + r - z + e;
+                yred = -ay + r - z - e;
+                k = Math.ceil(Math.atan2(z - e, z + e) / dangle);
+            }
+            // Top-right polygon of N + k + 3 vertices as a triangle fan.
+            // Order: the corner center (fan origin), the red point, the top-left arc (k), the top-right arc (N), the right end.
+            var iv = 0;
+            var ii = 0;
+            this.writeVertexRight(iv++, xc, yc, lor, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(iv++, xred, yred, lor, fd, scale, fx, fy, ax, ay);
+            var dcos = Math.cos(dangle);
+            var dsin = Math.sin(dangle);
+            if (ctl) {
+                var cos = 0;
+                var sin = 1;
+                if (0 < k) {
+                    for (var i = n - 1; k <= i; --i) {
+                        var ncos = dcos * cos + dsin * sin;
+                        var nsin = -dsin * cos + dcos * sin;
+                        cos = ncos;
+                        sin = nsin;
+                    }
+                }
+                for (var i = k - 1; 0 <= i; --i) {
+                    var x = -ax + r - r * sin;
+                    var y = -ay + r - r * cos;
+                    this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos + dsin * sin;
+                    var nsin = -dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = k - 1; 0 <= i; --i) {
+                    this.writeVertexRight(iv++, -ax, -ay, lor, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (ctr) {
+                var cos = 1;
+                var sin = 0;
+                for (var i = 0; i < n; ++i) {
+                    var x = i < n - 1 ? ax - r + r * sin : xo;
+                    var y = -ay + r - r * cos;
+                    this.writeVertexRight(iv++, x, y, lor, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexRight(iv++, xo, -ay, lor, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexRight(iv++, xo, yc, lor, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(0, ii, iv);
+            ii += 3 * (iv - 2);
+            // Bottom-left polygon of M + N + 3 vertices as a triangle fan, where M = N - k.
+            // Order: the corner center (fan origin), the bottom end, the bottom-left arc (N), the top-left arc (M), the red point.
+            var iv0 = iv;
+            this.writeVertexBottom(iv++, xc, yc, lob, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(iv++, xc, yo, lob, fd, scale, fx, fy, ax, ay);
+            if (cbl) {
+                var cos = 1;
+                var sin = 0;
+                for (var i = 0; i < n; ++i) {
+                    var x = -ax + r - r * sin;
+                    var y = 0 < i ? +ay - r + r * cos : yo;
+                    this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos - dsin * sin;
+                    var nsin = dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexBottom(iv++, -ax, yo, lob, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            if (ctl) {
+                var cos = 0;
+                var sin = 1;
+                for (var i = n - 1; k <= i; --i) {
+                    var x = -ax + r - r * sin;
+                    var y = -ay + r - r * cos;
+                    this.writeVertexBottom(iv++, x, y, lob, fd, scale, fx, fy, ax, ay);
+                    var ncos = dcos * cos + dsin * sin;
+                    var nsin = -dsin * cos + dcos * sin;
+                    cos = ncos;
+                    sin = nsin;
+                }
+            }
+            else {
+                for (var i = n - 1; k <= i; --i) {
+                    this.writeVertexBottom(iv++, -ax, -ay, lob, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexBottom(iv++, xred, yred, lob, fd, scale, fx, fy, ax, ay);
+            this.writeFanIndices(iv0, ii, iv - iv0);
+            ii += 3 * (iv - iv0 - 2);
+            if (cbr) {
+                var lo = lor + 2 * ay - r;
+                this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_TOP
+         * * ay <= ax
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotTop0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            // The deepest point of the stroke areas: the top edge if 2 * ay <= ax, otherwise the red point
+            var d = Math.min(2 * ay, ax);
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ay;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            // The diagonal borders x + y = ay - ax and -x + y = ay - ax meet the top edge or each other (red point)
+            var xred = Math.min(2 * ay - ax, 0);
+            var yred = ay - ax - xred;
+            var xl = cbl ? -ax + r : -ax - fs;
+            var xr = cbr ? +ax - r : +ax + fs;
+            var ydl = cbl ? +ay - r : +ay + fs;
+            var ydr = cbr ? +ay - r : +ay + fs;
+            var yo = +ay + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotTop0(lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotTop1(lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaBottom(iv, ii, lob, xred, yred, -xred, yred, xr, ydr, xr, yo, xl, yo, xl, ydl, fd, scale, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            if (cbl) {
+                var lo = lob + 2 * ax - r;
+                this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (cbr) {
+                var lo = lor + 2 * ay - r;
+                this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_TOP
+         * * ax < ay
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotTop1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = ax;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ax;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var xred = Math.min(2 * ay - ax, 0);
+            var yred = ay - ax - xred;
+            var xl = cbl ? -ax + r : -ax - fs;
+            var xr = cbr ? +ax - r : +ax + fs;
+            var ydl = cbl ? +ay - r : +ay + fs;
+            var ydr = cbr ? +ay - r : +ay + fs;
+            var yo = +ay + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotTop0(lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotTop1(lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaBottom(iv, ii, lob, xred, yred, -xred, yred, xr, ydr, xr, yo, xl, yo, xl, ydl, fd, scale, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            if (cbl) {
+                var lo = lob + 2 * ax - r;
+                this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (cbr) {
+                var lo = lor + 2 * ay - r;
+                this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Writes the left (`sx` = -1) or the right (`sx` = +1) polygon of N + 4 vertices as a triangle fan.
+         * Order: the red point (fan origin), the diagonal end, the outer bottom, the top arc (N), the blue point (0, -ay).
+         * If 2 * ay <= ax, the red point is on the top edge and the last triangle degenerates.
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotTop0 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ax - fs;
+            var xd = cb ? -ax + r : xo;
+            var yd = cb ? +ay - r : +ay + fs;
+            var xred = Math.min(2 * ay - ax, 0);
+            var k = iv;
+            this.writeVertexLeft(k++, xred, ay - ax - xred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(k++, xd, yd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(k++, xo, yd, lo, fd, scale, fx, fy, ax, ay);
+            if (ct) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ax + r - r * Math.cos(angle);
+                    var y = -ay + r - r * Math.sin(angle);
+                    this.writeVertexLeft(k++, x, y, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexLeft(k++, xo, -ay, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexLeft(k++, 0, -ay, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotTop1 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ax - fs;
+            var xd = cb ? -ax + r : xo;
+            var yd = cb ? +ay - r : +ay + fs;
+            var xred = Math.min(2 * ay - ax, 0);
+            var k = iv;
+            this.writeVertexRight(k++, -xred, ay - ax - xred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(k++, -xd, yd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(k++, -xo, yd, lo, fd, scale, fx, fy, ax, ay);
+            if (ct) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ax + r - r * Math.cos(angle);
+                    var y = -ay + r - r * Math.sin(angle);
+                    this.writeVertexRight(k++, -x, y, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexRight(k++, -xo, -ay, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexRight(k++, 0, -ay, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i + 1;
+                indices[ii++] = iv + i;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_BOTTOM
+         * * ay <= ax
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotBottom0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            // The deepest point of the stroke areas: the bottom edge if 2 * ay <= ax, otherwise the red point
+            var d = Math.min(2 * ay, ax);
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ay;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var xred = Math.min(2 * ay - ax, 0);
+            var yred = ay - ax - xred;
+            var xl = ctl ? -ax + r : -ax - fs;
+            var xr = ctr ? +ax - r : +ax + fs;
+            var ydl = ctl ? +ay - r : +ay + fs;
+            var ydr = ctr ? +ay - r : +ay + fs;
+            var yo = +ay + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotBottom0(lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotBottom1(lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaTop(iv, ii, lot, xred, -yred, -xred, -yred, xr, -ydr, xr, -yo, xl, -yo, xl, -ydl, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 0; i < 4; ++i) {
+                var index = ii + 3 * i + 1;
+                var value = indices[index];
+                indices[index] = indices[index + 1];
+                indices[index + 1] = value;
+            }
+            iv += 6;
+            ii += 12;
+            if (ctl) {
+                var lo = lol + 2 * ay - r;
+                this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (ctr) {
+                var lo = lot + 2 * ax - r;
+                this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_BOTTOM
+         * * ax < ay
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotBottom1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = ax;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ax;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var xred = Math.min(2 * ay - ax, 0);
+            var yred = ay - ax - xred;
+            var xl = ctl ? -ax + r : -ax - fs;
+            var xr = ctr ? +ax - r : +ax + fs;
+            var ydl = ctl ? +ay - r : +ay + fs;
+            var ydr = ctr ? +ay - r : +ay + fs;
+            var yo = +ay + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotBottom0(lol, ctl, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotBottom1(lor, ctr, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaTop(iv, ii, lot, xred, -yred, -xred, -yred, xr, -ydr, xr, -yo, xl, -yo, xl, -ydl, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 0; i < 4; ++i) {
+                var index = ii + 3 * i + 1;
+                var value = indices[index];
+                indices[index] = indices[index + 1];
+                indices[index + 1] = value;
+            }
+            iv += 6;
+            ii += 12;
+            if (ctl) {
+                var lo = lol + 2 * ay - r;
+                this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (ctr) {
+                var lo = lot + 2 * ax - r;
+                this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotBottom0 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ax - fs;
+            var xd = ct ? -ax + r : xo;
+            var yd = ct ? +ay - r : +ay + fs;
+            var xred = Math.min(2 * ay - ax, 0);
+            var yred = ay - ax - xred;
+            var k = iv;
+            this.writeVertexLeft(k++, xred, -yred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(k++, xd, -yd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(k++, xo, -yd, lo, fd, scale, fx, fy, ax, ay);
+            if (cb) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ax + r - r * Math.cos(angle);
+                    var y = +ay - r + r * Math.sin(angle);
+                    this.writeVertexLeft(k++, x, y, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexLeft(k++, xo, +ay, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexLeft(k++, 0, +ay, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotBottom1 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ax - fs;
+            var xd = ct ? -ax + r : xo;
+            var yd = ct ? +ay - r : +ay + fs;
+            var xred = Math.min(2 * ay - ax, 0);
+            var yred = ay - ax - xred;
+            var k = iv;
+            this.writeVertexRight(k++, -xred, -yred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(k++, -xd, -yd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(k++, -xo, -yd, lo, fd, scale, fx, fy, ax, ay);
+            if (cb) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ax + r - r * Math.cos(angle);
+                    var y = +ay - r + r * Math.sin(angle);
+                    this.writeVertexRight(k++, -x, y, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexRight(k++, -xo, +ay, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexRight(k++, 0, +ay, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i + 1;
+                indices[ii++] = iv + i;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_LEFT
+         * * ay <= ax
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotLeft0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = ay;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ay;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var xl = ctr ? -ay + r : -ay - fs;
+            var xr = cbr ? +ay - r : +ay + fs;
+            var ydl = ctr ? +ax - r : +ax + fs;
+            var ydr = cbr ? +ax - r : +ax + fs;
+            var yo = +ax + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotLeft0(lot, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotLeft1(lob, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaRight(iv, ii, lor, yred, xred, yred, -xred, ydr, xr, yo, xr, yo, xl, ydl, xl, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 0; i < 4; ++i) {
+                var index = ii + 3 * i + 1;
+                var value = indices[index];
+                indices[index] = indices[index + 1];
+                indices[index + 1] = value;
+            }
+            iv += 6;
+            ii += 12;
+            if (ctr) {
+                var lo = lot + 2 * ax - r;
+                this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (cbr) {
+                var lo = lor + 2 * ay - r;
+                this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_LEFT
+         * * ax < ay
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotLeft1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            // The deepest point of the stroke areas: the left edge if 2 * ax <= ay, otherwise the red point
+            var d = Math.min(2 * ax, ay);
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ax;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var xl = ctr ? -ay + r : -ay - fs;
+            var xr = cbr ? +ay - r : +ay + fs;
+            var ydl = ctr ? +ax - r : +ax + fs;
+            var ydr = cbr ? +ax - r : +ax + fs;
+            var yo = +ax + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotLeft0(lot, ctl, ctr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotLeft1(lob, cbl, cbr, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaRight(iv, ii, lor, yred, xred, yred, -xred, ydr, xr, yo, xr, yo, xl, ydl, xl, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 0; i < 4; ++i) {
+                var index = ii + 3 * i + 1;
+                var value = indices[index];
+                indices[index] = indices[index + 1];
+                indices[index + 1] = value;
+            }
+            iv += 6;
+            ii += 12;
+            if (ctr) {
+                var lo = lot + 2 * ax - r;
+                this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (cbr) {
+                var lo = lor + 2 * ay - r;
+                this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotLeft0 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ay - fs;
+            var xd = cb ? -ay + r : xo;
+            var yd = cb ? +ax - r : +ax + fs;
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var k = iv;
+            this.writeVertexTop(k++, yred, xred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(k++, yd, xd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(k++, yd, xo, lo, fd, scale, fx, fy, ax, ay);
+            if (ct) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
+                    var y = -ax + r - r * Math.sin(angle);
+                    this.writeVertexTop(k++, y, x, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexTop(k++, -ax, xo, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexTop(k++, -ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i + 1;
+                indices[ii++] = iv + i;
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotLeft1 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ay - fs;
+            var xd = cb ? -ay + r : xo;
+            var yd = cb ? +ax - r : +ax + fs;
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var k = iv;
+            this.writeVertexBottom(k++, yred, -xred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(k++, yd, -xd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(k++, yd, -xo, lo, fd, scale, fx, fy, ax, ay);
+            if (ct) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
+                    var y = -ax + r - r * Math.sin(angle);
+                    this.writeVertexBottom(k++, y, -x, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexBottom(k++, -ax, -xo, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexBottom(k++, -ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_RIGHT
+         * * ay <= ax
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotRight0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = ay;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ay;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var xl = ctl ? -ay + r : -ay - fs;
+            var xr = cbl ? +ay - r : +ay + fs;
+            var ydl = ctl ? +ax - r : +ax + fs;
+            var ydr = cbl ? +ax - r : +ax + fs;
+            var yo = +ax + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotRight0(lot, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotRight1(lob, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaLeft(iv, ii, lol, -yred, xred, -yred, -xred, -ydr, xr, -yo, xr, -yo, xl, -ydl, xl, fd, scale, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            if (ctl) {
+                var lo = lol + 2 * ay - r;
+                this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (cbl) {
+                var lo = lob + 2 * ax - r;
+                this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.NOT_RIGHT
+         * * ax < ay
+         * * 6 * N + 12 <= nv
+         * * 4 * N + 6 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotRight1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            // The deepest point of the stroke areas: the right edge if 2 * ax <= ay, otherwise the red point
+            var d = Math.min(2 * ax, ay);
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var fs = (scale - 1) * d;
+            var r = radius * ax;
+            var rs = r + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var xl = ctl ? -ay + r : -ay - fs;
+            var xr = cbl ? +ay - r : +ay + fs;
+            var ydl = ctl ? +ax - r : +ax + fs;
+            var ydr = cbl ? +ax - r : +ax + fs;
+            var yo = +ax + fs;
+            var iv = 0;
+            var ii = 0;
+            this.writeSideNotRight0(lot, ctr, ctl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeSideNotRight1(lob, cbr, cbl, iv, ii, n, r, ax, ay, scale, fd, fx, fy);
+            iv += n + 4;
+            ii += 3 * (n + 2);
+            this.writeHexaLeft(iv, ii, lol, -yred, xred, -yred, -xred, -ydr, xr, -yo, xr, -yo, xl, -ydl, xl, fd, scale, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            if (ctl) {
+                var lo = lol + 2 * ay - r;
+                this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            if (cbl) {
+                var lo = lob + 2 * ax - r;
+                this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotRight0 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ay - fs;
+            var xd = cb ? -ay + r : xo;
+            var yd = cb ? +ax - r : +ax + fs;
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var k = iv;
+            this.writeVertexTop(k++, -yred, xred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(k++, -yd, xd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(k++, -yd, xo, lo, fd, scale, fx, fy, ax, ay);
+            if (ct) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
+                    var y = -ax + r - r * Math.sin(angle);
+                    this.writeVertexTop(k++, -y, x, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexTop(k++, +ax, xo, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexTop(k++, +ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeSideNotRight1 = function (lo, ct, cb, iv, ii, n, r, ax, ay, scale, fd, fx, fy) {
+            var fs = (scale - 1) / fd;
+            var xo = -ay - fs;
+            var xd = cb ? -ay + r : xo;
+            var yd = cb ? +ax - r : +ax + fs;
+            var xred = Math.min(2 * ax - ay, 0);
+            var yred = ax - ay - xred;
+            var k = iv;
+            this.writeVertexBottom(k++, -yred, -xred, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(k++, -yd, -xd, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(k++, -yd, -xo, lo, fd, scale, fx, fy, ax, ay);
+            if (ct) {
+                var dangle = (Math.PI * 0.5) / (n - 1);
+                for (var i = 0; i < n; ++i) {
+                    var angle = i * dangle;
+                    var x = i === 0 ? xo : -ay + r - r * Math.cos(angle);
+                    var y = -ax + r - r * Math.sin(angle);
+                    this.writeVertexBottom(k++, -y, -x, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            else {
+                for (var i = 0; i < n; ++i) {
+                    this.writeVertexBottom(k++, +ax, -xo, lo, fd, scale, fx, fy, ax, ay);
+                }
+            }
+            this.writeVertexBottom(k++, +ax, 0, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            for (var i = 1, imax = k - iv - 1; i < imax; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i + 1;
+                indices[ii++] = iv + i;
+            }
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.ALL or NONE
+         * * ay <= ax
+         * * 8 * N + 18 <= nv
+         * * 4 * N + 10 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateAll0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = ay;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var s = scale;
+            var fs = (scale - 1) * d;
+            var r = radius * ay;
+            var x0 = -ax - fs;
+            var x1 = -ax + r;
+            var x2 = -ax + d;
+            var x3 = +ax - d;
+            var x4 = +ax - r;
+            var x5 = +ax + fs;
+            var y0 = -ay - fs;
+            var y1 = -ay + r;
+            var y4 = +ay - r;
+            var y5 = +ay + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var iv = 0;
+            var ii = 0;
+            this.writeHexaTop(iv, ii, lot, ctl ? x1 : x0, ctl ? y1 : y0, x1, y0, x4, y0, ctr ? x4 : x5, ctr ? y1 : y0, x3, 0, x2, 0, fd, s, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            this.writePentaRight(iv, ii, lor, ctr ? x4 : x5, ctr ? y1 : y0, x5, y1, x5, y4, cbr ? x4 : x5, cbr ? y4 : y5, x3, 0, fd, s, fx, fy, ax, ay);
+            iv += 5;
+            ii += 9;
+            this.writeHexaBottom(iv, ii, lob, cbr ? x4 : x5, cbr ? y4 : y5, x4, y5, x1, y5, cbl ? x1 : x0, cbl ? y4 : y5, x2, 0, x3, 0, fd, s, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            this.writePentaLeft(iv, ii, lol, cbl ? x1 : x0, cbl ? y4 : y5, x0, y4, x0, y1, ctl ? x1 : x0, ctl ? y1 : y0, x2, 0, fd, s, fx, fy, ax, ay);
+            iv += 5;
+            ii += 9;
+            var rs = r + fs;
+            var l = 2 * ax + lot;
+            if (ctr) {
+                this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+                l += 2 * ay + lc;
+            }
+            else {
+                l += 2 * ay;
+            }
+            if (cbr) {
+                this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+                l += 2 * ax + lc;
+            }
+            else {
+                l += 2 * ax;
+            }
+            if (cbl) {
+                this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+                l += 2 * ay + lc;
+            }
+            else {
+                l += 2 * ay;
+            }
+            if (ctl) {
+                this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 2 * n - 1;
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Preconditions:
+         * * shape.stroke.side === EShapeStrokeSide.ALL or NONE
+         * * ax < ay
+         * * 8 * N + 18 <= nv
+         * * 4 * N + 10 <= ni
+         */
+        EShapeRectangleRoundedTriangulatedImpl.prototype.updateAll1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
+            var d = ax;
+            var fd = 1 / d;
+            var n = this._n >> 2;
+            var s = scale;
+            var fs = (scale - 1) * d;
+            var r = radius * ax;
+            var rs = r + fs;
+            var ol = -ax - fs;
+            var or = +ax + fs;
+            var x1 = -ax + r;
+            var x4 = +ax - r;
+            var y0 = -ay - fs;
+            var y1 = -ay + r;
+            var y2 = -ay + d;
+            var y3 = +ay - d;
+            var y4 = +ay - r;
+            var y5 = +ay + fs;
+            var cr = 0 < radius;
+            var ctl = cr && !!(corner & EShapeCorner.TOP_LEFT);
+            var ctr = cr && !!(corner & EShapeCorner.TOP_RIGHT);
+            var cbl = cr && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var cbr = cr && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var lc = 0.5 * Math.PI * r - 2 * r;
+            var lot = ctl ? -r : 0;
+            var lor = lot + 2 * ax + (ctr ? lc : 0);
+            var lob = lor + 2 * ay + (cbr ? lc : 0);
+            var lol = lob + 2 * ax + (cbl ? lc : 0);
+            var iv = 0;
+            var ii = 0;
+            this.writePentaTop(iv, ii, lot, ctl ? x1 : ol, ctl ? y1 : y0, x1, y0, x4, y0, ctr ? x4 : or, ctr ? y1 : y0, 0, y2, fd, s, fx, fy, ax, ay);
+            iv += 5;
+            ii += 9;
+            this.writeHexaRight(iv, ii, lor, ctr ? x4 : or, ctr ? y1 : y0, or, y1, or, y4, cbr ? x4 : or, cbr ? y4 : y5, 0, y3, 0, y2, fd, s, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            this.writePentaBottom(iv, ii, lob, cbr ? x4 : or, cbr ? y4 : y5, x4, y5, x1, y5, cbl ? x1 : ol, cbl ? y4 : y5, 0, y3, fd, s, fx, fy, ax, ay);
+            iv += 5;
+            ii += 9;
+            this.writeHexaLeft(iv, ii, lol, cbl ? x1 : ol, cbl ? y4 : y5, ol, y4, ol, y1, ctl ? x1 : ol, ctl ? y1 : y0, 0, y2, 0, y3, fd, s, fx, fy, ax, ay);
+            iv += 6;
+            ii += 12;
+            var l = 2 * ax + lot;
+            if (ctr) {
+                this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 1 + 2 * (n - 1);
+                ii += 3 * (n - 1);
+                l += 2 * ay + lc;
+            }
+            else {
+                l += 2 * ay;
+            }
+            if (cbr) {
+                this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 1 + 2 * (n - 1);
+                ii += 3 * (n - 1);
+                l += 2 * ax + lc;
+            }
+            else {
+                l += 2 * ax;
+            }
+            if (cbl) {
+                this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 1 + 2 * (n - 1);
+                ii += 3 * (n - 1);
+                l += 2 * ay + lc;
+            }
+            else {
+                l += 2 * ay;
+            }
+            if (ctl) {
+                this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
+                iv += 1 + 2 * (n - 1);
+                ii += 3 * (n - 1);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeQuadTop = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            this.writeVertexTop(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeQuadRight = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            this.writeVertexRight(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeQuadBottom = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            this.writeVertexBottom(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeQuadLeft = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            this.writeVertexLeft(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writePentaTop = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            this.writeVertexTop(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writePentaRight = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            this.writeVertexRight(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writePentaBottom = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            this.writeVertexBottom(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writePentaLeft = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            this.writeVertexLeft(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeHexaTop = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            var index5 = vertex++;
+            this.writeVertexTop(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexTop(index5, x5, y5, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+            indices[index++] = index0;
+            indices[index++] = index4;
+            indices[index++] = index5;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeHexaRight = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            var index5 = vertex++;
+            this.writeVertexRight(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexRight(index5, x5, y5, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+            indices[index++] = index0;
+            indices[index++] = index4;
+            indices[index++] = index5;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeHexaBottom = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            var index5 = vertex++;
+            this.writeVertexBottom(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexBottom(index5, x5, y5, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+            indices[index++] = index0;
+            indices[index++] = index4;
+            indices[index++] = index5;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeHexaLeft = function (vertex, index, lo, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, fd, scale, fx, fy, ax, ay) {
+            var index0 = vertex++;
+            var index1 = vertex++;
+            var index2 = vertex++;
+            var index3 = vertex++;
+            var index4 = vertex++;
+            var index5 = vertex++;
+            this.writeVertexLeft(index0, x0, y0, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index1, x1, y1, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index2, x2, y2, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index3, x3, y3, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index4, x4, y4, lo, fd, scale, fx, fy, ax, ay);
+            this.writeVertexLeft(index5, x5, y5, lo, fd, scale, fx, fy, ax, ay);
+            var indices = this._indices;
+            indices[index++] = index0;
+            indices[index++] = index1;
+            indices[index++] = index2;
+            indices[index++] = index0;
+            indices[index++] = index2;
+            indices[index++] = index3;
+            indices[index++] = index0;
+            indices[index++] = index3;
+            indices[index++] = index4;
+            indices[index++] = index0;
+            indices[index++] = index4;
+            indices[index++] = index5;
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeFan = function (cx, cy, cos0, sin0, lo, iv, ii, n, r, rs, fd, scale, fx, fy) {
+            var dangle = (Math.PI * 0.5) / (n - 1);
+            var c = Math.cos(dangle);
+            var s = Math.sin(dangle);
+            var dl = 0.5 * r * dangle;
+            var dx = rs * cos0;
+            var dy = rs * sin0;
+            var iv0 = iv++;
+            var l = lo;
+            this.writeVertex(iv0, cx + dx, cy + dy, fd, lo, scale, fx, fy);
+            var indices = this._indices;
+            var cc = 1 - r * fd;
+            for (var i = 0; i < n - 1; ++i) {
+                var iv1 = iv++;
+                l += dl;
+                this.writeVertex(iv1, cx, cy, fd, l, cc, fx, fy);
+                var iv2 = iv++;
+                l += dl;
+                var ndx = c * dx - s * dy;
+                var ndy = s * dx + c * dy;
+                this.writeVertex(iv2, cx + ndx, cy + ndy, fd, l, scale, fx, fy);
+                dx = ndx;
+                dy = ndy;
+                indices[ii++] = iv1;
+                indices[ii++] = iv0;
+                indices[ii++] = iv2;
+                iv0 = iv2;
+            }
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeVertexTop = function (vertex, x, y, lengthOffset, fdistance, scale, fx, fy, ax, ay) {
+            this.writeVertex(vertex, x, y, fdistance, lengthOffset + x + ax, Math.min(scale, (y + ay) * -fdistance + 1), fx, fy);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeVertexRight = function (vertex, x, y, lengthOffset, fdistance, scale, fx, fy, ax, ay) {
+            this.writeVertex(vertex, x, y, fdistance, lengthOffset + y + ay, Math.min(scale, (x - ax) * fdistance + 1), fx, fy);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeVertexBottom = function (vertex, x, y, lengthOffset, fdistance, scale, fx, fy, ax, ay) {
+            this.writeVertex(vertex, x, y, fdistance, lengthOffset + ax - x, Math.min(scale, (y - ay) * fdistance + 1), fx, fy);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeVertexLeft = function (vertex, x, y, lengthOffset, fdistance, scale, fx, fy, ax, ay) {
+            this.writeVertex(vertex, x, y, fdistance, lengthOffset + ay - y, Math.min(scale, (x + ax) * -fdistance + 1), fx, fy);
+        };
+        EShapeRectangleRoundedTriangulatedImpl.prototype.writeVertex = function (iv, x, y, distance, length, clipping, fx, fy) {
+            var iv2 = iv << 1;
+            this._vertices[iv2] = x;
+            this._vertices[iv2 + 1] = y;
+            this._distances[iv] = distance;
+            this._lengths[iv] = length;
+            this._clippings[iv] = clipping;
+            this._uvs[iv2] = 0.5 * (x * fx + 1);
+            this._uvs[iv2 + 1] = 0.5 * (y * fy + 1);
+        };
+        return EShapeRectangleRoundedTriangulatedImpl;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -41438,8 +43351,20 @@
         __extends(EShapeRectangleRounded, _super);
         function EShapeRectangleRounded(type) {
             if (type === void 0) { type = EShapeType.RECTANGLE_ROUNDED; }
-            return _super.call(this, type) || this;
+            var _this = _super.call(this, type) || this;
+            _this._triangulated = _this.newTriangulated();
+            return _this;
         }
+        EShapeRectangleRounded.prototype.newTriangulated = function () {
+            return new EShapeRectangleRoundedTriangulatedImpl(this);
+        };
+        Object.defineProperty(EShapeRectangleRounded.prototype, "triangulated", {
+            get: function () {
+                return this._triangulated;
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeRectangleRounded.prototype.clone = function () {
             return new EShapeRectangleRounded(this.type).copy(this);
         };
@@ -41951,260 +43876,6 @@
         EShapeDeserializers[EShapeType.BUTTON] = deserializeButton;
         EShapeRuntimes[EShapeType.BUTTON] = EShapeButtonRuntime;
         EShapeCapabilities.set(EShapeType.BUTTON, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * Build index buffer for polygons.
-     */
-    var buildPolygonIndex = function (indices, polygonIndices, voffset, ioffset) {
-        var ii = ioffset * 3 - 1;
-        for (var i = 0, n = polygonIndices.length; i < n; ++i) {
-            indices[++ii] = voffset + polygonIndices[i];
-        }
-    };
-    /**
-     * Build vertices buffer for polygons.
-     */
-    var buildPolygonVertex = function (vertices, polygonVertices, voffset, internalTransform) {
-        var a = internalTransform.a;
-        var b = internalTransform.b;
-        var c = internalTransform.c;
-        var d = internalTransform.d;
-        var tx = internalTransform.tx;
-        var ty = internalTransform.ty;
-        var iv = (voffset << 1) - 1;
-        for (var i = 0, n = polygonVertices.length; i < n; i += 2) {
-            var x = polygonVertices[i];
-            var y = polygonVertices[i + 1];
-            vertices[++iv] = a * x + c * y + tx;
-            vertices[++iv] = b * x + d * y + ty;
-        }
-    };
-    /**
-     * Build step buffer for polygons.
-     */
-    var buildPolygonStep = function (steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, polygonBoundary, voffset, vertexCount, fillDirection, fillPercent, strokeWidth, strokeSide, strokeStyle) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var dash = toDash(strokeStyle);
-        var w = strokeSide !== EShapeStrokeSide.NONE ? 1 : 0;
-        var e = toPackedI4x64(7 + dash, scaleInvariant, w, 0);
-        var fp = Math.max(0, Math.min(1, fillPercent));
-        switch (fillDirection) {
-            case EShapeFillDirection.TOP:
-                buildPolygonStepY(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[3] - polygonBoundary[1], fp);
-                break;
-            case EShapeFillDirection.RIGHT:
-                buildPolygonStepX(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[0] - polygonBoundary[2], 1 - fp);
-                break;
-            case EShapeFillDirection.BOTTOM:
-                buildPolygonStepY(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[1] - polygonBoundary[3], 1 - fp);
-                break;
-            case EShapeFillDirection.LEFT:
-                buildPolygonStepX(steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, polygonBoundary[2] - polygonBoundary[0], fp);
-                break;
-        }
-    };
-    var buildPolygonStepX = function (steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, afp, fp) {
-        var is = voffset * 6 - 1;
-        for (var i = 0, j = 0; i < vertexCount; i += 1, j += 2) {
-            steps[++is] = strokeWidth;
-            steps[++is] = e;
-            steps[++is] = polygonDistances[i];
-            steps[++is] = afp * (fp - polygonUvs[j]);
-            steps[++is] = toPackedClippings(polygonClippings[i], 0);
-            steps[++is] = polygonLengths[i];
-        }
-    };
-    var buildPolygonStepY = function (steps, polygonDistances, polygonLengths, polygonClippings, polygonUvs, voffset, vertexCount, strokeWidth, e, afp, fp) {
-        var is = voffset * 6 - 1;
-        for (var i = 0, j = 1; i < vertexCount; i += 1, j += 2) {
-            steps[++is] = strokeWidth;
-            steps[++is] = e;
-            steps[++is] = polygonDistances[i];
-            steps[++is] = afp * (fp - polygonUvs[j]);
-            steps[++is] = toPackedClippings(polygonClippings[i], 0);
-            steps[++is] = polygonLengths[i];
-        }
-    };
-    /**
-     * Build UV buffer for polygons.
-     */
-    var buildPolygonUv = function (uvs, polygonUvs, voffset, textureUvs) {
-        var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var y0 = textureUvs.y0;
-        var y3 = textureUvs.y3;
-        var dx = x1 - x0;
-        var dy = y3 - y0;
-        var iuv = (voffset << 1) - 1;
-        for (var i = 0, n = polygonUvs.length; i < n; i += 2) {
-            uvs[++iuv] = x0 + polygonUvs[i] * dx;
-            uvs[++iuv] = y0 + polygonUvs[i + 1] * dy;
-        }
-    };
-
-    /*
-     * Copyright (C) 2019-2026 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isShapePolygonLike = function (shape) {
-        return "triangulated" in shape;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderPolygon = /** @class */ (function (_super) {
-        __extends(BuilderPolygon, _super);
-        function BuilderPolygon(buffer, vertexOffset, indexOffset, vertexCount, indexCount) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, vertexCount, indexCount) || this;
-            _this.triangulatedId = -1;
-            return _this;
-        }
-        BuilderPolygon.prototype.init = function () {
-            // DO NOTHING
-        };
-        BuilderPolygon.prototype.reinit = function (buffer, shape, vertexOffset, indexOffset) {
-            if (!isShapePolygonLike(shape)) {
-                return true;
-            }
-            var triangulated = shape.triangulated;
-            var vertexCount = triangulated.nvertices;
-            var indexCount = triangulated.nindices;
-            if (this.buffer !== buffer ||
-                this.vertexOffset !== vertexOffset ||
-                this.indexOffset !== indexOffset ||
-                this.vertexCount !== vertexCount ||
-                this.indexCount !== indexCount) {
-                if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
-                    this.inited = BuilderFlag.NONE;
-                    this.buffer = buffer;
-                    this.vertexOffset = vertexOffset;
-                    this.indexOffset = indexOffset;
-                    this.vertexCount = vertexCount;
-                    this.indexCount = indexCount;
-                    this.triangulatedId = -1;
-                    this.init();
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
-                return true;
-            }
-        };
-        BuilderPolygon.prototype.isCompatible = function (shape) {
-            if (!isShapePolygonLike(shape)) {
-                return true;
-            }
-            var triangulated = shape.triangulated;
-            var vertexCount = triangulated.nvertices;
-            var indexCount = triangulated.nindices;
-            return vertexCount === this.vertexCount && indexCount === this.indexCount;
-        };
-        BuilderPolygon.prototype.update = function (shape) {
-            if (!isShapePolygonLike(shape)) {
-                return;
-            }
-            var buffer = this.buffer;
-            this.updateVertexStepUvAndIndex(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderPolygon.prototype.updateVertexStepUvAndIndex = function (buffer, shape) {
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            // Check if vertices/distances/clippings/indices changed
-            var triangulated = shape.triangulated;
-            var triangulatedId = triangulated.id;
-            var isTriangulatedIdChanged = this.triangulatedId !== triangulatedId;
-            var fill = shape.fill;
-            var fillDirection = fill.direction;
-            var fillPercent = fill.percent;
-            var isFillChanged = this.fillDirection !== fillDirection || this.fillPercent !== fillPercent;
-            var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeSide = stroke.side;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_UV_AND_INDEX);
-            if (isNotInited ||
-                isTriangulatedIdChanged ||
-                isTransformChanged ||
-                isFillChanged ||
-                isStrokeChanged ||
-                isTextureChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_UV_AND_INDEX;
-                this.transformLocalId = transformLocalId;
-                this.fillDirection = fillDirection;
-                this.fillPercent = fillPercent;
-                this.strokeWidth = strokeWidth;
-                this.strokeSide = strokeSide;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                this.triangulatedId = triangulatedId;
-                // Indices
-                if (isNotInited || isTriangulatedIdChanged) {
-                    buffer.updateIndices();
-                    buildPolygonIndex(buffer.indices, triangulated.indices, this.vertexOffset, this.indexOffset);
-                }
-                // Vertices
-                var voffset = this.vertexOffset;
-                if (isNotInited || isTriangulatedIdChanged || isTransformChanged) {
-                    buffer.updateVertices();
-                    buildPolygonVertex(buffer.vertices, triangulated.vertices, voffset, shape.transform.internalTransform);
-                }
-                // Steps
-                if (isNotInited || isTriangulatedIdChanged || isFillChanged || isStrokeChanged) {
-                    buffer.updateSteps();
-                    buildPolygonStep(buffer.steps, triangulated.distances, triangulated.lengths, triangulated.clippings, triangulated.uvs, triangulated.boundary, voffset, this.vertexCount, fillDirection, fillPercent, strokeWidth, strokeSide, strokeStyle);
-                }
-                // UVs
-                if (isNotInited || isTriangulatedIdChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildPolygonUv(buffer.uvs, triangulated.uvs, voffset, toTextureUvs(texture));
-                }
-            }
-        };
-        return BuilderPolygon;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createPolygonUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var pvcount = 0;
-        var picount = 0;
-        if (isShapePolygonLike(shape)) {
-            var triangulated = shape.triangulated;
-            pvcount = triangulated.nvertices;
-            picount = triangulated.nindices;
-        }
-        var vcount = pvcount + tvcount;
-        var icount = picount + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderPolygon(buffer, voffset, ioffset, pvcount, picount),
-                new BuilderText(buffer, voffset + pvcount, ioffset + picount, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
     };
 
     /*
@@ -43025,448 +44696,110 @@
         uvs[++iuv] = y2;
     };
 
-    var IMAGE_SDF_VERTEX_COUNT = 9;
-    var IMAGE_SDF_INDEX_COUNT = 8;
-    var IMAGE_SDF_WORLD_SIZE = [0, 0];
-    var IMAGE_SDF_WORK_POINT = new pixi_js.Point();
-    var buildImageSdfIndex = function (indices, voffset, ioffset) {
-        var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 8;
-        indices[++ii] = voffset + 7;
-    };
-    var buildImageSdfStep = function (steps, voffset, strokeAlign, strokeWidth, strokeStyle, textureWidth, textureHeight, worldSize) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var e = toPackedI4x64(2, scaleInvariant, 1, 1);
-        var scaleX = textureWidth / worldSize[0];
-        var scaleY = textureHeight / worldSize[1];
-        var scaleZ = (scaleX + scaleY) * 0.5;
-        var strokeWidthRatio = strokeWidth / 12.0;
-        var position = -1 + strokeAlign;
-        var is = voffset * 6 - 1;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleZ;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleY;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleZ;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleX;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleZ;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleX;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleZ;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleY;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-        steps[++is] = strokeWidthRatio;
-        steps[++is] = e;
-        steps[++is] = scaleY;
-        steps[++is] = position;
-        steps[++is] = 0;
-        steps[++is] = 0;
-    };
-    var buildImageSdfVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, internalTransform, worldSize) {
-        // Calculate the transformed positions
-        //
-        // 0       1       2
-        // |-------|-------|
-        // |       |       |
-        // 3-------4-------5
-        // |       |       |
-        // |-------|-------|
-        // 6       7       8
-        //
-        var work = IMAGE_SDF_WORK_POINT;
-        var sx = sizeX * 0.5;
-        var sy = sizeY * 0.5;
-        work.set(originX - sx, originY - sy);
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
-        work.set(originX + sx, originY - sy);
-        internalTransform.apply(work, work);
-        var x2 = work.x;
-        var y2 = work.y;
-        work.set(originX + sx, originY + sy);
-        internalTransform.apply(work, work);
-        var x8 = work.x;
-        var y8 = work.y;
-        var x6 = x0 + (x8 - x2);
-        var y6 = y0 + (y8 - y2);
-        // Vertices
-        var iv = (voffset << 1) - 1;
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
-        vertices[++iv] = (x0 + x2) * 0.5;
-        vertices[++iv] = (y0 + y2) * 0.5;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        vertices[++iv] = (x0 + x6) * 0.5;
-        vertices[++iv] = (y0 + y6) * 0.5;
-        vertices[++iv] = (x0 + x8) * 0.5;
-        vertices[++iv] = (y0 + y8) * 0.5;
-        vertices[++iv] = (x2 + x8) * 0.5;
-        vertices[++iv] = (y2 + y8) * 0.5;
-        vertices[++iv] = x6;
-        vertices[++iv] = y6;
-        vertices[++iv] = (x6 + x8) * 0.5;
-        vertices[++iv] = (y6 + y8) * 0.5;
-        vertices[++iv] = x8;
-        vertices[++iv] = y8;
-        worldSize[0] = toLength(x0, y0, x2, y2) * 0.5;
-        worldSize[1] = toLength(x0, y0, x6, y6) * 0.5;
-    };
-    var buildImageSdfUv = function (uvs, voffset, textureUv) {
-        var x0 = textureUv.x0;
-        var y0 = textureUv.y0;
-        var x1 = textureUv.x1;
-        var y1 = textureUv.y1;
-        var x2 = textureUv.x2;
-        var y2 = textureUv.y2;
-        var x3 = textureUv.x3;
-        var y3 = textureUv.y3;
-        var iv = (voffset << 1) - 1;
-        uvs[++iv] = x0;
-        uvs[++iv] = y0;
-        uvs[++iv] = (x1 + x0) * 0.5;
-        uvs[++iv] = (y1 + y0) * 0.5;
-        uvs[++iv] = x1;
-        uvs[++iv] = y1;
-        uvs[++iv] = (x0 + x3) * 0.5;
-        uvs[++iv] = (y0 + y3) * 0.5;
-        uvs[++iv] = (x0 + x2) * 0.5;
-        uvs[++iv] = (y0 + y2) * 0.5;
-        uvs[++iv] = (x1 + x2) * 0.5;
-        uvs[++iv] = (y1 + y2) * 0.5;
-        uvs[++iv] = x3;
-        uvs[++iv] = y3;
-        uvs[++iv] = (x3 + x2) * 0.5;
-        uvs[++iv] = (y3 + y2) * 0.5;
-        uvs[++iv] = x2;
-        uvs[++iv] = y2;
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderCircleLegacy = /** @class */ (function (_super) {
+        __extends(BuilderCircleLegacy, _super);
+        function BuilderCircleLegacy(buffer, vertexOffset, indexOffset) {
+            return _super.call(this, buffer, vertexOffset, indexOffset, CIRCLE_LEGACY_VERTEX_COUNT, CIRCLE_LEGACY_INDEX_COUNT) || this;
+        }
+        BuilderCircleLegacy.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            var voffset = this.vertexOffset;
+            buildCircleLegacyIndex(buffer.indices, voffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderCircleLegacy.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexAndStep(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateUv(buffer, shape);
+        };
+        BuilderCircleLegacy.prototype.updateVertexAndStep = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+            if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
+                this.inited |= BuilderFlag.VERTEX_AND_STEP;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                // Buffer
+                buffer.updateVertices();
+                buffer.updateSteps();
+                buildCircleLegacyVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, CIRCLE_LEGACY_WORLD_SIZE);
+                buildCircleLegacyStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_LEGACY_WORLD_SIZE);
+            }
+        };
+        BuilderCircleLegacy.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isNotInited = !(this.inited & BuilderFlag.UV);
+            if (isNotInited ||
+                texture !== this.texture ||
+                textureTransformId !== this.textureTransformId) {
+                this.inited |= BuilderFlag.UV;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                buffer.updateUvs();
+                var textureUvs = toTextureUvs(texture);
+                buildCircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
+            }
+        };
+        return BuilderCircleLegacy;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createCircleLegacyUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = CIRCLE_LEGACY_VERTEX_COUNT + tvcount;
+        var icount = CIRCLE_LEGACY_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderCircleLegacy(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + CIRCLE_LEGACY_VERTEX_COUNT, ioffset + CIRCLE_LEGACY_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
     };
 
-    var toLineOfAnyPointCount = function (pointCount) {
-        return ((pointCount >> 4) + (0 < (pointCount & 0xf) ? 1 : 0)) << 4;
-    };
-    /**
-     * Build a vertex buffer of colors.
-     *
-     * @param vo Vertex pffset
-     * @param vcpp Vertex count per point
-     * @param pf Point Fill
-     * @param ps Point stroke
-     * @param pc Point count
-     * @param colors Vertex buffer of colors
-     * @param ife True if fills are enabled
-     * @param ise True if strokes are enabled
-     * @param cfd Default fill color
-     * @param afd Default fill alpha
-     * @param csd Default stroke color
-     * @param asd Default stroke alpha
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
      */
-    var buildLineOfAnyColor = function (vo, vcpp, pf, ps, pc, colors, ife, ise, cfd, afd, csd, asd) {
-        if (ife) {
-            if (pf.isStaticColor()) {
-                var cf = pf.getColor(0, cfd);
-                if (pf.isStaticAlpha()) {
-                    var af = pf.getAlpha(0, afd);
-                    buildLineOfAnyColor0(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, af);
-                }
-                else {
-                    buildLineOfAnyColor1(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, afd);
-                }
-            }
-            else {
-                if (pf.isStaticAlpha()) {
-                    var af = pf.getAlpha(0, afd);
-                    buildLineOfAnyColor2(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, af);
-                }
-                else {
-                    buildLineOfAnyColor3(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, afd);
-                }
-            }
-        }
-        else {
-            if (pf.isStaticColor()) {
-                var cf = pf.getColor(0, cfd);
-                buildLineOfAnyColor0(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, 0);
-            }
-            else {
-                buildLineOfAnyColor2(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, 0);
-            }
-        }
+    var deserializeCircleLegacy = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeCircleLegacy());
     };
-    var buildLineOfAnyColor0 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, af) {
-        if (ise) {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    buildColor(cf, af, cs, as, vo, vcpp * pc, colors);
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-            else {
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cs = ps.getColor(i, csd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cs = ps.getColor(i, csd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-        }
-        else {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                buildColor(cf, af, cs, 0, vo, vcpp * pc, colors);
-            }
-            else {
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var cs = ps.getColor(i, csd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-        }
-    };
-    var buildLineOfAnyColor1 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, afd) {
-        if (ise) {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var af = pf.getAlpha(i, afd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var af = pf.getAlpha(i, afd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-            else {
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var af = pf.getAlpha(i, afd);
-                        var cs = ps.getColor(i, csd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var af = pf.getAlpha(i, afd);
-                        var cs = ps.getColor(i, csd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-        }
-        else {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var af = pf.getAlpha(i, afd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-            else {
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var af = pf.getAlpha(i, afd);
-                    var cs = ps.getColor(i, csd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-        }
-    };
-    var buildLineOfAnyColor2 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, af) {
-        if (ise) {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-            else {
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var cs = ps.getColor(i, csd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var cs = ps.getColor(i, csd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-        }
-        else {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var cf = pf.getColor(i, cfd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-            else {
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var cf = pf.getColor(i, cfd);
-                    var cs = ps.getColor(i, csd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-        }
-    };
-    var buildLineOfAnyColor3 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, afd) {
-        if (ise) {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var af = pf.getAlpha(i, afd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var af = pf.getAlpha(i, afd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-            else {
-                if (ps.isStaticAlpha()) {
-                    var as = ps.getAlpha(0, asd);
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var af = pf.getAlpha(i, afd);
-                        var cs = ps.getColor(i, csd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-                else {
-                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                        var cf = pf.getColor(i, cfd);
-                        var af = pf.getAlpha(i, afd);
-                        var cs = ps.getColor(i, csd);
-                        var as = ps.getAlpha(i, asd);
-                        buildColor(cf, af, cs, as, iv, vcpp, colors);
-                    }
-                }
-            }
-        }
-        else {
-            if (ps.isStaticColor()) {
-                var cs = ps.getColor(0, csd);
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var cf = pf.getColor(i, cfd);
-                    var af = pf.getAlpha(i, afd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-            else {
-                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
-                    var cf = pf.getColor(i, cfd);
-                    var af = pf.getAlpha(i, afd);
-                    var cs = ps.getColor(i, csd);
-                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
-                }
-            }
-        }
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeCircleLegacy = function () {
+        EShapeUploadeds[EShapeType.CIRCLE_LEGACY] = createCircleLegacyUploaded;
+        EShapeDeserializers[EShapeType.CIRCLE_LEGACY] = deserializeCircleLegacy;
     };
 
     var toVectorLength = function (v) {
@@ -43954,35 +45287,587 @@
         return l;
     };
 
-    var buildNullIndex = function (indices, voffset, ioffset, icount) {
-        for (var ii = ioffset * 3, iimax = (ioffset + icount) * 3; ii < iimax; ii += 3) {
-            indices[ii + 0] = voffset;
-            indices[ii + 1] = voffset;
-            indices[ii + 2] = voffset;
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderLine = /** @class */ (function (_super) {
+        __extends(BuilderLine, _super);
+        function BuilderLine(buffer, vertexOffset, indexOffset, vertexCount, indexCount) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, vertexCount, indexCount) || this;
+            _this.pointId = -1;
+            _this.pointCount = 0;
+            _this.pointsClosed = false;
+            _this.length = 1;
+            return _this;
         }
+        BuilderLine.prototype.init = function () { };
+        BuilderLine.prototype.reinit = function (buffer, shape, vertexOffset, indexOffset) {
+            var pointCount = toLinePointCount(shape.points);
+            var vertexCount = toLineVertexCount(pointCount, true);
+            var indexCount = toLineIndexCount(pointCount, true);
+            if (this.buffer !== buffer ||
+                this.vertexOffset !== vertexOffset ||
+                this.indexOffset !== indexOffset ||
+                this.vertexCount !== vertexCount ||
+                this.indexCount !== indexCount) {
+                if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
+                    this.inited = BuilderFlag.NONE;
+                    this.buffer = buffer;
+                    this.vertexOffset = vertexOffset;
+                    this.indexOffset = indexOffset;
+                    this.vertexCount = vertexCount;
+                    this.indexCount = indexCount;
+                    this.init();
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return true;
+            }
+        };
+        BuilderLine.prototype.isCompatible = function (shape) {
+            var vcount = toLineVertexCount(toLinePointCount(shape.points), true);
+            return vcount === this.vertexCount;
+        };
+        BuilderLine.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateLineVertexStepAndIndex(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateLineUv(buffer, shape);
+        };
+        BuilderLine.prototype.updateLineVertexStepAndIndex = function (buffer, shape) {
+            var points = shape.points;
+            if (points) {
+                var pointId = points.id;
+                var formatted = points.formatted;
+                var pointCount = formatted.length;
+                var pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
+                var isPointChanged = pointId !== this.pointId ||
+                    pointCount !== this.pointCount ||
+                    pointsClosed !== this.pointsClosed;
+                var stroke = shape.stroke;
+                var strokeWidth = stroke.enable ? stroke.width : 0;
+                var strokeStyle = stroke.style;
+                var isStrokeWidthChanged = this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
+                var transformLocalId = toTransformLocalId(shape);
+                var isTransformChanged = this.transformLocalId !== transformLocalId;
+                var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_INDEX);
+                if (isNotInited || isPointChanged || isTransformChanged || isStrokeWidthChanged) {
+                    this.inited |= BuilderFlag.VERTEX_STEP_AND_INDEX;
+                    this.pointId = pointId;
+                    this.pointCount = pointCount;
+                    this.pointsClosed = pointsClosed;
+                    this.strokeWidth = strokeWidth;
+                    this.strokeStyle = strokeStyle;
+                    this.transformLocalId = transformLocalId;
+                    if (isPointChanged) {
+                        // Invalidate the UV buffer
+                        this.inited &= ~BuilderFlag.UV;
+                    }
+                    buffer.updateVertices();
+                    buffer.updateSteps();
+                    buffer.updateIndices();
+                    this.length = buildLineVertexStepAndIndex(buffer.vertices, buffer.steps, buffer.indices, this.indexOffset, this.indexCount, this.vertexOffset, this.vertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, strokeWidth, strokeStyle, shape.transform.internalTransform);
+                }
+            }
+        };
+        BuilderLine.prototype.updateLineUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isNotInited = !(this.inited & BuilderFlag.UV);
+            if (isNotInited ||
+                texture !== this.texture ||
+                textureTransformId !== this.textureTransformId) {
+                this.inited |= BuilderFlag.UV;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                buffer.updateUvs();
+                buildLineUv(buffer.uvs, buffer.steps, this.vertexOffset, this.vertexCount, toTextureUvs(texture), this.length);
+            }
+        };
+        return BuilderLine;
+    }(BuilderBase));
+
+    var TRIANGLE_LEGACY_VERTEX_COUNT = 7;
+    var TRIANGLE_LEGACY_INDEX_COUNT = 3;
+    var TRIANGLE_LEGACY_WORLD_SIZE = [0, 0, 0];
+    var buildTriangleLegacyIndex = function (indices, voffset, ioffset) {
+        // Indices
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
     };
-    var buildNullVertex = function (vertices, voffset, vcount) {
-        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
-            vertices[i + 0] = 0;
-            vertices[i + 1] = 0;
+    var buildTriangleLegacyVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        var ax = Math.abs(sx);
+        var ay = Math.abs(sy);
+        var az = Math.sqrt(ax * ax + 4 * ay * ay);
+        var aw = (2 * ax * ay) / (ax + az);
+        var sz = sy - (0 <= sy ? +aw : -aw);
+        var a = internalTransform.a;
+        var b = internalTransform.b;
+        var c = internalTransform.c;
+        var d = internalTransform.d;
+        var tx = internalTransform.tx;
+        var ty = internalTransform.ty;
+        var x0 = a * originX + c * (originY - sy) + tx;
+        var y0 = b * originX + d * (originY - sy) + ty;
+        var ox = a * originX + c * originY + tx;
+        var oy = b * originX + d * originY + ty;
+        var rx = a * (originX + sx) + c * originY + tx;
+        var ry = b * (originX + sx) + d * originY + ty;
+        var dx = ox - x0;
+        var dy = oy - y0;
+        var x1 = rx + dx;
+        var y1 = ry + dy;
+        var x2 = ox + (ox - rx) + dx;
+        var y2 = oy + (oy - ry) + dy;
+        var x3 = a * originX + c * (originY + sz) + tx;
+        var y3 = b * originX + d * (originY + sz) + ty;
+        // World size
+        var xb = ox + dx;
+        var yb = oy + dy;
+        worldSize[0] = toLength(xb, yb, x3, y3);
+        worldSize[1] = toLength(x1, y1, xb, yb);
+        worldSize[2] = toLength(x0, y0, ox, oy);
+        // Vertices
+        var iv = (voffset << 1) - 1;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+    };
+    var buildTriangleLegacyStep = function (steps, voffset, strokeWidth, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var s = worldSize[0];
+        var e = toPackedI4x64(0, scaleInvariant, 1, 1);
+        var c00 = toPackedClippings(0, 0);
+        var c10 = toPackedClippings(1, 0);
+        var c01 = toPackedClippings(0, 1);
+        // 000
+        var is = voffset * 6 - 1;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 010
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        // 010
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+    };
+    var buildTriangleLegacyUv = function (uvs, textureUvs, voffset, worldSize) {
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var x2 = textureUvs.x2;
+        var x3 = textureUvs.x3;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var y2 = textureUvs.y2;
+        var y3 = textureUvs.y3;
+        var x4 = 0.5 * (x0 + x1);
+        var y4 = 0.5 * (y0 + y1);
+        var c = 1 - (0.5 * worldSize[0]) / worldSize[2];
+        var x5 = x4 + c * (x3 - x0);
+        var y5 = y4 + c * (y3 - y0);
+        var iuv = (voffset << 1) - 1;
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerBase = /** @class */ (function (_super) {
+        __extends(BuilderMarkerBase, _super);
+        function BuilderMarkerBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-    };
-    var buildNullStep = function (steps, voffset, vcount) {
-        for (var i = voffset * 6, imax = (voffset + vcount) * 6; i < imax; i += 6) {
-            steps[i + 0] = 0;
-            steps[i + 1] = 0;
-            steps[i + 2] = 0;
-            steps[i + 3] = 0;
-            steps[i + 4] = 0;
-            steps[i + 5] = 0;
+        BuilderMarkerBase.prototype.updateColor = function (buffer, shape) {
+            var colorFill = 0xffffff;
+            var alphaFill = 1;
+            var points = shape.points;
+            if (points != null) {
+                var container = points.getMarker();
+                if (container != null) {
+                    var marker = this.toMarker(container);
+                    var fill = marker.fill;
+                    colorFill = fill.color;
+                    alphaFill = shape.visible && fill.enable ? fill.alpha : 0;
+                }
+            }
+            var stroke = shape.stroke;
+            var colorStroke = stroke.color;
+            var alphaStroke = shape.visible && stroke.enable && 0 < stroke.width ? stroke.alpha : 0;
+            var isNotInited = !(this.inited & BuilderFlag.COLOR);
+            if (isNotInited ||
+                colorFill !== this.colorFill ||
+                alphaFill !== this.alphaFill ||
+                colorStroke !== this.colorStroke ||
+                alphaStroke !== this.alphaStroke) {
+                this.inited |= BuilderFlag.COLOR;
+                this.colorFill = colorFill;
+                this.alphaFill = alphaFill;
+                this.colorStroke = colorStroke;
+                this.alphaStroke = alphaStroke;
+                buffer.updateColors();
+                buildColor(colorFill, alphaFill, colorStroke, alphaStroke, this.vertexOffset, this.vertexCount, buffer.colors);
+            }
+        };
+        return BuilderMarkerBase;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerTriangle = /** @class */ (function (_super) {
+        __extends(BuilderMarkerTriangle, _super);
+        function BuilderMarkerTriangle(buffer, vertexOffset, indexOffset) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_LEGACY_VERTEX_COUNT, TRIANGLE_LEGACY_INDEX_COUNT) || this;
+            _this.pointId = -1;
+            return _this;
         }
-    };
-    var buildNullUv = function (uvs, voffset, vcount) {
-        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
-            uvs[i + 0] = 0;
-            uvs[i + 1] = 0;
+        BuilderMarkerTriangle.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildTriangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderMarkerTriangle.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderMarkerTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var _a;
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var size = marker.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var pointId = points.id;
+            var isPointChanged = pointId !== this.pointId;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited ||
+                isVertexChanged ||
+                isTransformChanged ||
+                isTextureChanged ||
+                isPointChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                this.pointId = pointId;
+                var voffset = this.vertexOffset;
+                var internalTransform = ((_a = BuilderMarkerTriangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerTriangle.WORK = new pixi_js.Matrix()));
+                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+                buffer.updateVertices();
+                buildTriangleLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_LEGACY_WORLD_SIZE);
+                if (isNotInited || isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildTriangleLegacyStep(buffer.steps, voffset, strokeWidth, strokeStyle, TRIANGLE_LEGACY_WORLD_SIZE);
+                }
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleLegacyUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_LEGACY_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderMarkerTriangle;
+    }(BuilderMarkerBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerTriangleHead = /** @class */ (function (_super) {
+        __extends(BuilderMarkerTriangleHead, _super);
+        function BuilderMarkerTriangleHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-    };
+        BuilderMarkerTriangleHead.prototype.toMarker = function (container) {
+            return container.head;
+        };
+        return BuilderMarkerTriangleHead;
+    }(BuilderMarkerTriangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerTriangleTail = /** @class */ (function (_super) {
+        __extends(BuilderMarkerTriangleTail, _super);
+        function BuilderMarkerTriangleTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerTriangleTail.prototype.toMarker = function (container) {
+            return container.tail;
+        };
+        return BuilderMarkerTriangleTail;
+    }(BuilderMarkerTriangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerCircle = /** @class */ (function (_super) {
+        __extends(BuilderMarkerCircle, _super);
+        function BuilderMarkerCircle(buffer, vertexOffset, indexOffset) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, CIRCLE_LEGACY_VERTEX_COUNT, CIRCLE_LEGACY_INDEX_COUNT) || this;
+            _this.pointId = -1;
+            return _this;
+        }
+        BuilderMarkerCircle.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            var vertexOffset = this.vertexOffset;
+            buildCircleLegacyIndex(buffer.indices, vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderMarkerCircle.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexAndStep(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateUv(buffer, shape);
+        };
+        BuilderMarkerCircle.prototype.updateVertexAndStep = function (buffer, shape) {
+            var _a;
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var size = marker.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var pointId = points.id;
+            var isPointChanged = pointId !== this.pointId;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+            if (isNotInited ||
+                isSizeChanged ||
+                isTransformChanged ||
+                isStrokeChanged ||
+                isPointChanged) {
+                this.inited |= BuilderFlag.VERTEX_AND_STEP;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.pointId = pointId;
+                // Buffer
+                var internalTransform = ((_a = BuilderMarkerCircle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerCircle.WORK = new pixi_js.Matrix()));
+                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+                buffer.updateVertices();
+                buffer.updateSteps();
+                buildCircleLegacyVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, CIRCLE_LEGACY_WORLD_SIZE);
+                buildCircleLegacyStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_LEGACY_WORLD_SIZE);
+            }
+        };
+        BuilderMarkerCircle.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isNotInited = !(this.inited & BuilderFlag.UV);
+            if (isNotInited ||
+                texture !== this.texture ||
+                textureTransformId !== this.textureTransformId) {
+                this.inited |= BuilderFlag.UV;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                buffer.updateUvs();
+                var textureUvs = toTextureUvs(texture);
+                buildCircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
+            }
+        };
+        return BuilderMarkerCircle;
+    }(BuilderMarkerBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerCircleHead = /** @class */ (function (_super) {
+        __extends(BuilderMarkerCircleHead, _super);
+        function BuilderMarkerCircleHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerCircleHead.prototype.toMarker = function (container) {
+            return container.head;
+        };
+        return BuilderMarkerCircleHead;
+    }(BuilderMarkerCircle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerCircleTail = /** @class */ (function (_super) {
+        __extends(BuilderMarkerCircleTail, _super);
+        function BuilderMarkerCircleTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerCircleTail.prototype.toMarker = function (container) {
+            return container.tail;
+        };
+        return BuilderMarkerCircleTail;
+    }(BuilderMarkerCircle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderNull = /** @class */ (function () {
+        function BuilderNull(buffer, vertexOffset, indexOffset) {
+            this.buffer = buffer;
+            this.vertexOffset = vertexOffset;
+            this.indexOffset = indexOffset;
+            this.vertexCount = 0;
+            this.indexCount = 0;
+            this.texture = null;
+        }
+        BuilderNull.prototype.init = function () {
+            return this;
+        };
+        BuilderNull.prototype.reinit = function (buffer, shape, vertexOffset, indexOffset) {
+            this.buffer = buffer;
+            this.vertexOffset = vertexOffset;
+            this.indexOffset = indexOffset;
+            return true;
+        };
+        BuilderNull.prototype.isCompatible = function (shape) {
+            return true;
+        };
+        BuilderNull.prototype.update = function (shape) {
+            this.texture = toTexture(shape);
+        };
+        BuilderNull.prototype.buildUnit = function (builder) {
+            var texture = this.texture || pixi_js.Texture.WHITE;
+            var baseTexture = texture.baseTexture;
+            if (baseTexture !== builder.baseTexture) {
+                builder.baseTexture = baseTexture;
+                var indexOffset = this.indexOffset;
+                builder.push(texture, indexOffset);
+            }
+        };
+        return BuilderNull;
+    }());
 
     var RECTANGLE_LEGACY_VERTEX_COUNT = 16;
     var RECTANGLE_LEGACY_INDEX_COUNT = 8;
@@ -44316,11 +46201,2729 @@
         uvs[++iuv] = b8y;
     };
 
-    var SEMICIRCLE_VERTEX_COUNT = 6;
-    var SEMICIRCLE_INDEX_COUNT = 4;
-    var SEMICIRCLE_WORLD_SIZE = [0, 0];
-    var SEMICIRCLE_WORK_POINT = new pixi_js.Point();
-    var buildSemicircleIndex = function (indices, voffset, ioffset) {
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerRectangle = /** @class */ (function (_super) {
+        __extends(BuilderMarkerRectangle, _super);
+        function BuilderMarkerRectangle(buffer, vertexOffset, indexOffset) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_LEGACY_VERTEX_COUNT, RECTANGLE_LEGACY_INDEX_COUNT) || this;
+            _this.pointId = -1;
+            return _this;
+        }
+        BuilderMarkerRectangle.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderMarkerRectangle.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderMarkerRectangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var _a;
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var size = marker.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var pointId = points.id;
+            var isPointChanged = pointId !== this.pointId;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited ||
+                isVertexChanged ||
+                isTransformChanged ||
+                isTextureChanged ||
+                isPointChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                // Vertices
+                var voffset = this.vertexOffset;
+                var internalTransform = ((_a = BuilderMarkerRectangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerRectangle.WORK = new pixi_js.Matrix()));
+                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+                buffer.updateVertices();
+                buildRectangleLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, RECTANGLE_LEGACY_WORLD_SIZE);
+                // Steps
+                if (isNotInited || isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleLegacyStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_LEGACY_WORLD_SIZE);
+                }
+                // UVs
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
+                }
+            }
+        };
+        return BuilderMarkerRectangle;
+    }(BuilderMarkerBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerRectangleTail = /** @class */ (function (_super) {
+        __extends(BuilderMarkerRectangleTail, _super);
+        function BuilderMarkerRectangleTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerRectangleTail.prototype.toMarker = function (container) {
+            return container.tail;
+        };
+        return BuilderMarkerRectangleTail;
+    }(BuilderMarkerRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerRectangleHead = /** @class */ (function (_super) {
+        __extends(BuilderMarkerRectangleHead, _super);
+        function BuilderMarkerRectangleHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerRectangleHead.prototype.toMarker = function (container) {
+            return container.head;
+        };
+        return BuilderMarkerRectangleHead;
+    }(BuilderMarkerRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toMarkerVertexCount = function (type) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return 0;
+            case EShapePointsMarkerType.CIRCLE:
+                return CIRCLE_LEGACY_VERTEX_COUNT;
+            case EShapePointsMarkerType.TRIANGLE:
+                return TRIANGLE_LEGACY_VERTEX_COUNT;
+            case EShapePointsMarkerType.RECTANGLE:
+                return RECTANGLE_LEGACY_VERTEX_COUNT;
+        }
+        return 0;
+    };
+    var toMarkerIndexCount = function (type) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return 0;
+            case EShapePointsMarkerType.CIRCLE:
+                return CIRCLE_LEGACY_INDEX_COUNT;
+            case EShapePointsMarkerType.TRIANGLE:
+                return TRIANGLE_LEGACY_INDEX_COUNT;
+            case EShapePointsMarkerType.RECTANGLE:
+                return RECTANGLE_LEGACY_INDEX_COUNT;
+        }
+        return 0;
+    };
+    var toBuilderMarkerHead = function (type, buffer, vertexOffset, indexOffset) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return new BuilderNull(buffer, vertexOffset, indexOffset);
+            case EShapePointsMarkerType.CIRCLE:
+                return new BuilderMarkerCircleHead(buffer, vertexOffset, indexOffset);
+            case EShapePointsMarkerType.TRIANGLE:
+                return new BuilderMarkerTriangleHead(buffer, vertexOffset, indexOffset);
+            case EShapePointsMarkerType.RECTANGLE:
+                return new BuilderMarkerRectangleHead(buffer, vertexOffset, indexOffset);
+        }
+        return new BuilderNull(buffer, vertexOffset, indexOffset);
+    };
+    var toBuilderMarkerTail = function (type, buffer, vertexOffset, indexOffset) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return new BuilderNull(buffer, vertexOffset, indexOffset);
+            case EShapePointsMarkerType.CIRCLE:
+                return new BuilderMarkerCircleTail(buffer, vertexOffset, indexOffset);
+            case EShapePointsMarkerType.TRIANGLE:
+                return new BuilderMarkerTriangleTail(buffer, vertexOffset, indexOffset);
+            case EShapePointsMarkerType.RECTANGLE:
+                return new BuilderMarkerRectangleTail(buffer, vertexOffset, indexOffset);
+        }
+        return new BuilderNull(buffer, vertexOffset, indexOffset);
+    };
+    var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        // Line
+        var points = shape.points;
+        var pointCount = toLinePointCount(points);
+        var lvcount = toLineVertexCount(pointCount, true);
+        var licount = toLineIndexCount(pointCount, true);
+        // Markers
+        var mttype = EShapePointsMarkerType.NONE;
+        var mhtype = EShapePointsMarkerType.NONE;
+        if (points && points instanceof EShapeLinePoints) {
+            var marker = points.getMarker();
+            if (marker) {
+                mttype = marker.tail.type;
+                mhtype = marker.head.type;
+            }
+        }
+        var mtvcount = toMarkerVertexCount(mttype);
+        var mticount = toMarkerIndexCount(mttype);
+        var mtvoffset = voffset + lvcount;
+        var mtioffset = ioffset + licount;
+        var mhvcount = toMarkerVertexCount(mhtype);
+        var mhicount = toMarkerIndexCount(mhtype);
+        var mhvoffset = mtvoffset + mtvcount;
+        var mhioffset = mtioffset + mticount;
+        // Text
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var tvoffset = mhvoffset + mhvcount;
+        var tioffset = mhioffset + mhicount;
+        // Uploaded
+        var vcount = lvcount + mhvcount + mtvcount + tvcount;
+        var icount = licount + mhicount + mticount + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderLine(buffer, voffset, ioffset, lvcount, licount),
+                toBuilderMarkerTail(mttype, buffer, mtvoffset, mtioffset),
+                toBuilderMarkerHead(mhtype, buffer, mhvoffset, mhioffset),
+                new BuilderText(buffer, tvoffset, tioffset, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorElbowPointsFiller = /** @class */ (function () {
+        function EShapeConnectorElbowPointsFiller(x, y, values) {
+            this._threshold = 0.000001;
+            this._x = x;
+            this._y = y;
+            this._z = 0;
+            this._values = values;
+            values[0] = x;
+            values[1] = y;
+            this.index = 0;
+        }
+        Object.defineProperty(EShapeConnectorElbowPointsFiller.prototype, "x", {
+            get: function () {
+                return this._x;
+            },
+            set: function (x) {
+                if (this._z === 0 || this._threshold < Math.abs(this._x - x)) {
+                    this._x = x;
+                    var index = this.index;
+                    var values = this._values;
+                    if (this._z === 1) {
+                        values[index + 0] = this._x;
+                        values[index + 1] = this._y;
+                    }
+                    else {
+                        values[index + 2] = this._x;
+                        values[index + 3] = this._y;
+                        this.index += 2;
+                        this._z = 1;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorElbowPointsFiller.prototype, "y", {
+            get: function () {
+                return this._y;
+            },
+            set: function (y) {
+                if (this._z === 0 || this._threshold < Math.abs(this._y - y)) {
+                    this._y = y;
+                    var index = this.index;
+                    var values = this._values;
+                    if (this._z === 2) {
+                        values[index + 0] = this._x;
+                        values[index + 1] = this._y;
+                    }
+                    else {
+                        values[index + 2] = this._x;
+                        values[index + 3] = this._y;
+                        this.index += 2;
+                        this._z = 2;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorElbowPointsFiller.prototype.toSide = function (x, y) {
+            // y = +x => 0 = x - y
+            // y = -x => 0 = x + y
+            if (0 <= x - y) {
+                if (0 <= x + y) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+            else {
+                if (0 <= x + y) {
+                    return 2;
+                }
+                else {
+                    return 3;
+                }
+            }
+        };
+        EShapeConnectorElbowPointsFiller.prototype.toAxis = function (dx, dy, nx, ny, side) {
+            // When (nx, ny) === (0, 0), treat as if side === EShapeAcceptorEdgeSide.ALL.
+            var anx = Math.abs(nx);
+            var any = Math.abs(ny);
+            var threshold = this._threshold;
+            if (anx < threshold && any < threshold) {
+                if (Math.abs(dx) < Math.abs(dy)) {
+                    if (0 <= dy) {
+                        return 2; // Bottom
+                    }
+                    else {
+                        return 0; // Top
+                    }
+                }
+                else {
+                    if (0 <= dx) {
+                        return 1; // Right
+                    }
+                    else {
+                        return 3; // Left
+                    }
+                }
+            }
+            var d = null;
+            var result = 0;
+            var dd = dx * dx + dy * dy;
+            if (this._threshold < dd) {
+                var f = 1 / Math.sqrt(dd);
+                var fx = dx * f;
+                var fy = dy * f;
+                var d0 = +nx * fx + ny * fy;
+                var d1 = -ny * fx + nx * fy;
+                var d2 = -d0;
+                var d3 = -d1;
+                if (side & EShapeAcceptorEdgeSide.TOP) {
+                    if (d == null || d < d0) {
+                        d = d0;
+                        result = this.toSide(nx, ny);
+                    }
+                }
+                if (side & EShapeAcceptorEdgeSide.RIGHT) {
+                    if (d == null || d < d1) {
+                        d = d1;
+                        result = this.toSide(-ny, nx);
+                    }
+                }
+                if (side & EShapeAcceptorEdgeSide.BOTTOM) {
+                    if (d == null || d < d2) {
+                        d = d2;
+                        result = this.toSide(-nx, -ny);
+                    }
+                }
+                if (side & EShapeAcceptorEdgeSide.LEFT) {
+                    if (d == null || d < d3) {
+                        d = d3;
+                        result = this.toSide(ny, -nx);
+                    }
+                }
+            }
+            return result;
+        };
+        EShapeConnectorElbowPointsFiller.prototype.toTailAxis = function (x, y, nx, ny, side) {
+            return this.toAxis(x - this.x, y - this.y, nx, ny, side);
+        };
+        EShapeConnectorElbowPointsFiller.prototype.tail = function (x, y, nx, ny, sxh, syh, margin, side) {
+            switch (this.toTailAxis(x, y, nx, ny, side)) {
+                case 0:
+                    if (this.y - margin <= y) {
+                        this.y -= Math.max(margin, syh);
+                        this.x = x;
+                    }
+                    else {
+                        this.y = y;
+                    }
+                    break;
+                case 1:
+                    if (x <= this.x + margin) {
+                        this.x += Math.max(margin, sxh);
+                        this.y = y;
+                    }
+                    else {
+                        this.x = x;
+                    }
+                    break;
+                case 2:
+                    if (y <= this.y + margin) {
+                        this.y += Math.max(margin, sxh);
+                        this.x = x;
+                    }
+                    else {
+                        this.y = y;
+                    }
+                    break;
+                case 3:
+                    if (this.x - margin <= x) {
+                        this.x -= Math.max(margin, sxh);
+                        this.y = y;
+                    }
+                    else {
+                        this.x = x;
+                    }
+                    break;
+            }
+        };
+        EShapeConnectorElbowPointsFiller.prototype.middle = function (x, y) {
+            var dx = x - this._x;
+            var dy = y - this._y;
+            if (Math.abs(dx) < Math.abs(dy)) {
+                this.y = y;
+            }
+            else {
+                this.x = x;
+            }
+        };
+        EShapeConnectorElbowPointsFiller.prototype.toHeadAxis = function (x, y, nx, ny, side) {
+            return this.toAxis(this.x - x, this.y - y, nx, ny, side);
+        };
+        EShapeConnectorElbowPointsFiller.prototype.head = function (x, y, nx, ny, sxh, syh, margin, side) {
+            switch (this.toHeadAxis(x, y, nx, ny, side)) {
+                case 0:
+                    if (y - margin <= this.y) {
+                        this.y = y - Math.max(margin, syh);
+                    }
+                    this.x = x;
+                    this.y = y;
+                    break;
+                case 1:
+                    if (this.x <= x + margin) {
+                        this.x = x + Math.max(margin, sxh);
+                    }
+                    this.y = y;
+                    this.x = x;
+                    break;
+                case 2:
+                    if (this.y <= y + margin) {
+                        this.y = y + Math.max(margin, syh);
+                    }
+                    this.x = x;
+                    this.y = y;
+                    break;
+                case 3:
+                    if (x - margin <= this.x) {
+                        this.x = x - Math.max(margin, sxh);
+                    }
+                    this.y = y;
+                    this.x = x;
+                    break;
+            }
+        };
+        EShapeConnectorElbowPointsFiller.prototype.margin = function (tail, head) {
+            var values = this._values;
+            // Tail
+            var index = this.index;
+            if (tail !== 0 && 2 <= index) {
+                var x0 = values[0];
+                var y0 = values[1];
+                var dx = values[2] - x0;
+                var dy = values[3] - y0;
+                var d = dx * dx + dy * dy;
+                var threshold = this._threshold;
+                if (threshold < d) {
+                    var f = tail / Math.sqrt(dx * dx + dy * dy);
+                    if (threshold < Math.abs(f - 1)) {
+                        values[0] = x0 + dx * f;
+                        values[1] = y0 + dy * f;
+                    }
+                    else {
+                        this.index -= 2;
+                    }
+                }
+            }
+            // Head
+            index = this.index;
+            if (head !== 0 && 2 <= index) {
+                var x1 = values[index + 0];
+                var y1 = values[index + 1];
+                var dx = values[index - 2] - x1;
+                var dy = values[index - 1] - y1;
+                var d = dx * dx + dy * dy;
+                var threshold = this._threshold;
+                if (threshold < d) {
+                    var f = head / Math.sqrt(dx * dx + dy * dy);
+                    if (threshold < Math.abs(f - 1)) {
+                        values[index + 0] = x1 + dx * f;
+                        values[index + 1] = y1 + dy * f;
+                    }
+                    else {
+                        this.index -= 2;
+                    }
+                }
+            }
+            // Remote the rest
+            values.length = this.index + 2;
+        };
+        return EShapeConnectorElbowPointsFiller;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorElbow = /** @class */ (function (_super) {
+        __extends(EShapeConnectorElbow, _super);
+        function EShapeConnectorElbow(type) {
+            if (type === void 0) { type = EShapeType.CONNECTOR_ELBOW; }
+            return _super.call(this, type) || this;
+        }
+        EShapeConnectorElbow.prototype.fillPoints = function (tail, tailMargin, head, headMargin, body, px, py, values) {
+            // Tail
+            var tailLocal = tail.local;
+            var tailLocalX = tailLocal.x;
+            var tailLocalY = tailLocal.y;
+            var tailNormal = tail.normal;
+            var tailNormalX = tailNormal.x;
+            var tailNormalY = tailNormal.y;
+            var tailSide = tail.side;
+            // Head
+            var headLocal = head.local;
+            var headLocalX = headLocal.x;
+            var headLocalY = headLocal.y;
+            var headNormal = head.normal;
+            var headNormalX = headNormal.x;
+            var headNormalY = headNormal.y;
+            var headSide = head.side;
+            // Body
+            var bodyValues = body.values;
+            var bodyValuesLength = bodyValues.length;
+            // Values
+            var x0 = tailLocalX - px;
+            var y0 = tailLocalY - py;
+            var x1 = headLocalX - px;
+            var y1 = headLocalY - py;
+            var cx = (x1 + x0) * 0.5;
+            var cy = (y1 + y0) * 0.5;
+            var dx = x1 - x0;
+            var dy = y1 - y0;
+            var sxh = 0.5 * EShapeDefaults.SIZE_X;
+            var syh = 0.5 * EShapeDefaults.SIZE_Y;
+            var threshold = 0.000001;
+            if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) {
+                values[0] = x0;
+                values[1] = y0;
+                values[2] = x1;
+                values[3] = y1;
+                values.length = 4;
+            }
+            else {
+                var filler = new EShapeConnectorElbowPointsFiller(x0, y0, values);
+                if (0 < bodyValuesLength) {
+                    var a = Math.atan2(dy, dx);
+                    var l = Math.sqrt(dx * dx + dy * dy);
+                    var c = Math.cos(a) * l;
+                    var s = Math.sin(a) * l;
+                    var x3 = bodyValues[0];
+                    var y3 = bodyValues[1];
+                    var x4 = cx + c * x3 - s * y3;
+                    var y4 = cy + c * y3 + s * x3;
+                    filler.tail(x4, y4, tailNormalX, tailNormalY, sxh, syh, tailMargin, tailSide);
+                    for (var i = 2; i < bodyValuesLength; i += 2) {
+                        var x = bodyValues[i + 0];
+                        var y = bodyValues[i + 1];
+                        var x5 = cx + c * x - s * y;
+                        var y5 = cy + c * y + s * x;
+                        filler.middle(x5, y5);
+                    }
+                    filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin, headSide);
+                }
+                else {
+                    filler.tail(cx, cy, tailNormalX, tailNormalY, sxh, syh, tailMargin, tailSide);
+                    filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin, headSide);
+                }
+                filler.margin(tailMargin, headMargin);
+            }
+        };
+        return EShapeConnectorElbow;
+    }(EShapeConnectorLine));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeConnectorElbow = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeConnectorElbow());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorBodies = /** @class */ (function () {
+        function EShapeConnectorBodies() {
+        }
+        EShapeConnectorBodies.from = function (values, tailMargin, headMargin) {
+            var result = [];
+            var length = values.length;
+            if (4 < length) {
+                var threshold = 0.000001;
+                var x0 = values[0];
+                var y0 = values[1];
+                if (tailMargin !== 0) {
+                    var ex = x0 - values[2];
+                    var ey = y0 - values[3];
+                    var n = ex * ex + ey * ey;
+                    if (threshold < n) {
+                        var f = tailMargin / Math.sqrt(n);
+                        x0 += ex * f;
+                        y0 += ey * f;
+                    }
+                }
+                var x1 = values[length - 2];
+                var y1 = values[length - 1];
+                if (headMargin !== 0) {
+                    var ex = x1 - values[length - 4];
+                    var ey = y1 - values[length - 3];
+                    var n = ex * ex + ey * ey;
+                    if (threshold < n) {
+                        var f = headMargin / Math.sqrt(n);
+                        x1 += ex * f;
+                        y1 += ey * f;
+                    }
+                }
+                var cx = (x1 + x0) * 0.5;
+                var cy = (y1 + y0) * 0.5;
+                var dx = x1 - x0;
+                var dy = y1 - y0;
+                var a = Math.atan2(dy, dx);
+                var c = Math.cos(a);
+                var s = Math.sin(a);
+                var l = dx * dx + dy * dy;
+                var m = threshold < l ? 1 / Math.sqrt(l) : 1;
+                for (var i = 2, imax = length - 2; i < imax; i += 2) {
+                    var x = values[i + 0] - cx;
+                    var y = values[i + 1] - cy;
+                    result.push((c * x + s * y) * m, (c * y - s * x) * m);
+                }
+            }
+            return result;
+        };
+        return EShapeConnectorBodies;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeConnectorLine = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeConnectorLine());
+    };
+    var onDeserializedConnectorLine = function (item, shape, mapping, manager) {
+        if (shape instanceof EShapeConnectorLine) {
+            var resources = manager.resources;
+            var resourceId = item[15];
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                // Lock
+                shape.lock(EShapeLockPart.CONNECTOR);
+                // Points
+                var points = shape.points;
+                points.deserialize(parsed[1], manager);
+                // Edge
+                var edge = shape.edge;
+                edge.deserialize(parsed[0], mapping, manager);
+                // Body
+                var body = shape.body;
+                var bodyId = parsed[2];
+                if (bodyId != null) {
+                    body.deserialize(bodyId, mapping, manager);
+                }
+                else {
+                    // The following is for backward compatibility.
+                    body.set(EShapeConnectorBodies.from(points.values, edge.tail.margin, edge.head.margin));
+                }
+                // Unlock
+                shape.unlock(EShapeLockPart.CONNECTOR, true);
+            }
+        }
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeConnectorElbow = function () {
+        EShapeUploadeds[EShapeType.CONNECTOR_ELBOW] = createLineUploaded;
+        EShapeDeserializers[EShapeType.CONNECTOR_ELBOW] = deserializeConnectorElbow;
+        EShapeOnDeserializeds[EShapeType.CONNECTOR_ELBOW] = onDeserializedConnectorLine;
+        EShapeCapabilities.set(EShapeType.CONNECTOR_ELBOW, EShapeCapability.CONNECTOR);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeConnectorLine = function () {
+        EShapeUploadeds[EShapeType.CONNECTOR_LINE] = createLineUploaded;
+        EShapeDeserializers[EShapeType.CONNECTOR_LINE] = deserializeConnectorLine;
+        EShapeOnDeserializeds[EShapeType.CONNECTOR_LINE] = onDeserializedConnectorLine;
+        EShapeCapabilities.set(EShapeType.CONNECTOR_LINE, EShapeCapability.CONNECTOR);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderRectanglePivoted = /** @class */ (function (_super) {
+        __extends(BuilderRectanglePivoted, _super);
+        function BuilderRectanglePivoted(buffer, vertexOffset, indexOffset) {
+            return _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_LEGACY_VERTEX_COUNT, RECTANGLE_LEGACY_INDEX_COUNT) || this;
+        }
+        BuilderRectanglePivoted.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderRectanglePivoted.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderRectanglePivoted.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                // Vertices
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildRectangleLegacyVertex(buffer.vertices, voffset, 0.5 * sizeX, 0.5 * sizeY, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, RECTANGLE_LEGACY_WORLD_SIZE);
+                // Steps
+                if (isNotInited || isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleLegacyStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_LEGACY_WORLD_SIZE);
+                }
+                // UVs
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
+                }
+            }
+        };
+        return BuilderRectanglePivoted;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createRectanglePivotedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = RECTANGLE_LEGACY_VERTEX_COUNT + tvcount;
+        var icount = RECTANGLE_LEGACY_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderRectanglePivoted(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + RECTANGLE_LEGACY_VERTEX_COUNT, ioffset + RECTANGLE_LEGACY_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createGroupUploaded = function (buffer, shape, voffset, ioffset) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = tvcount;
+        var icount = ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderText(buffer, voffset, ioffset, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangleTriangulatedImpl = /** @class */ (function () {
+        function EShapeRectangleTriangulatedImpl(parent) {
+            this._id = 0;
+            this._parent = parent;
+            this._width = 0;
+            this._height = 0;
+            this._strokeAlign = 0;
+            this._strokeWidth = 0;
+            this._strokeSide = EShapeStrokeSide.NONE;
+            this._sizeX = 0;
+            this._sizeY = 0;
+            this._vertices = [];
+            this._nvertices = 0;
+            this._distances = [];
+            this._lengths = [];
+            this._clippings = [];
+            this._uvs = [];
+            this._indices = [];
+            this._nindices = 0;
+            this._boundary = [0, 0, 0, 0];
+        }
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "id", {
+            get: function () {
+                this.triangulate();
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "vertices", {
+            get: function () {
+                this.triangulate();
+                return this._vertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "nvertices", {
+            get: function () {
+                this.triangulate();
+                return this._nvertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "distances", {
+            get: function () {
+                this.triangulate();
+                return this._distances;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "lengths", {
+            get: function () {
+                this.triangulate();
+                return this._lengths;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "clippings", {
+            get: function () {
+                this.triangulate();
+                return this._clippings;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "uvs", {
+            get: function () {
+                this.triangulate();
+                return this._uvs;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "indices", {
+            get: function () {
+                this.triangulate();
+                return this._indices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "nindices", {
+            get: function () {
+                this.triangulate();
+                return this._nindices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "boundary", {
+            get: function () {
+                this.triangulate();
+                return this._boundary;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeRectangleTriangulatedImpl.prototype.triangulate = function () {
+            var isNotInitialized = this._id === 0;
+            var parent = this._parent;
+            var size = parent.size;
+            var width = size.x;
+            var height = size.y;
+            var isRectChanged = this._width !== width || this._height !== height;
+            var stroke = parent.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var isStrokeChanged = this._strokeAlign !== strokeAlign ||
+                this._strokeWidth !== strokeWidth ||
+                this._strokeSide !== strokeSide;
+            var isSizeChanged = false;
+            var sizeX = this._sizeX;
+            var sizeY = this._sizeY;
+            if (isRectChanged || isStrokeChanged) {
+                this._width = width;
+                this._height = height;
+                this._strokeAlign = strokeAlign;
+                this._strokeWidth = strokeWidth;
+                this._strokeSide = strokeSide;
+                var s = strokeAlign * strokeWidth;
+                sizeX = width * 0.5 + (0 <= width ? +s : -s);
+                sizeY = height * 0.5 + (0 <= height ? +s : -s);
+                isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
+            }
+            if (isNotInitialized || isSizeChanged || isStrokeChanged) {
+                this._sizeX = sizeX;
+                this._sizeY = sizeY;
+                this.update(sizeX, sizeY, 1.1);
+            }
+        };
+        EShapeRectangleTriangulatedImpl.prototype.update = function (sizeX, sizeY, scale) {
+            // Boundary
+            var ax = Math.abs(sizeX);
+            var ay = Math.abs(sizeY);
+            var boundary = this._boundary;
+            boundary[0] = -ax;
+            boundary[1] = -ay;
+            boundary[2] = +ax;
+            boundary[3] = +ay;
+            // # of vertices and # of indices
+            var nv = 14;
+            var ni = 6;
+            this._nvertices = nv;
+            this._nindices = ni;
+            // ID
+            this._id += 1;
+            //
+            if (sizeX === 0 || sizeY === 0) {
+                this.pad(0, 0, nv, ni, 0);
+            }
+            else {
+                var fx = 1 / sizeX;
+                var fy = 1 / sizeY;
+                switch (this._strokeSide) {
+                    case EShapeStrokeSide.NONE:
+                        this.updateNone(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.ALL:
+                        if (ay <= ax) {
+                            this.updateAll0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateAll1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.TOP:
+                        this.updateTop(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.RIGHT:
+                        this.updateRight(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.BOTTOM:
+                        this.updateBottom(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.LEFT:
+                        this.updateLeft(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.TOP_OR_BOTTOM:
+                        this.updateTopBottom(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.LEFT_OR_RIGHT:
+                        this.updateLeftRight(fx, fy, ax, ay, scale, nv, ni);
+                        break;
+                    case EShapeStrokeSide.TOP_OR_RIGHT:
+                        if (ay <= ax) {
+                            this.updateTopRight0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateTopRight1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.TOP_OR_LEFT:
+                        if (ay <= ax) {
+                            this.updateTopLeft0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateTopLeft1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.BOTTOM_OR_RIGHT:
+                        if (ay <= ax) {
+                            this.updateBottomRight0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateBottomRight1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.BOTTOM_OR_LEFT:
+                        if (ay <= ax) {
+                            this.updateBottomLeft0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateBottomLeft1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_TOP:
+                        if (2 * ay <= ax) {
+                            this.updateNotTop0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateNotTop1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_RIGHT:
+                        if (2 * ax <= ay) {
+                            this.updateNotRight0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateNotRight1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_BOTTOM:
+                        if (2 * ay <= ax) {
+                            this.updateNotBottom0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateNotBottom1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                    case EShapeStrokeSide.NOT_LEFT:
+                        if (2 * ax <= ay) {
+                            this.updateNotLeft0(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        else {
+                            this.updateNotLeft1(fx, fy, ax, ay, scale, nv, ni);
+                        }
+                        break;
+                }
+            }
+        };
+        /**
+         * Fills the unused tail with degenerated triangles and trims the arrays
+         * so that the buffers always hold exactly `nv` vertices and `ni` triangles.
+         */
+        EShapeRectangleTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, fd) {
+            var vertices = this._vertices;
+            var distances = this._distances;
+            var lengths = this._lengths;
+            var clippings = this._clippings;
+            var uvs = this._uvs;
+            var indices = this._indices;
+            for (var i = iv; i < nv; ++i) {
+                var i2 = i << 1;
+                vertices[i2] = 0;
+                vertices[i2 + 1] = 0;
+                distances[i] = fd;
+                lengths[i] = 0;
+                clippings[i] = 0;
+                uvs[i2] = 0.5;
+                uvs[i2 + 1] = 0.5;
+            }
+            for (var i = ii, imax = ni * 3; i < imax; ++i) {
+                indices[i] = 0;
+            }
+            var nv2 = nv << 1;
+            vertices.length = nv2;
+            distances.length = nv;
+            lengths.length = nv;
+            clippings.length = nv;
+            uvs.length = nv2;
+            indices.length = ni * 3;
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTop = function (fx, fy, ax, ay, scale, nv, ni) {
+            var fdistance = 1 / (2 * ay);
+            this.updateCellTop(-ax, -ay - (scale - 1) / fdistance, +ax, +ay, fdistance, scale, fx, fy, ax, ay, 0);
+            this.pad(4, 6, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateRight = function (fx, fy, ax, ay, scale, nv, ni) {
+            var fdistance = 1 / (2 * ax);
+            this.updateCellRight(-ax, -ay, +ax + (scale - 1) / fdistance, +ay, fdistance, scale, fx, fy, ax, ay, 0);
+            this.pad(4, 6, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateBottom = function (fx, fy, ax, ay, scale, nv, ni) {
+            var fdistance = 1 / (2 * ay);
+            this.updateCellBottom(-ax, -ay, +ax, +ay + (scale - 1) / fdistance, fdistance, scale, fx, fy, ax, ay, 0);
+            this.pad(4, 6, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateLeft = function (fx, fy, ax, ay, scale, nv, ni) {
+            var fdistance = 1 / (2 * ax);
+            this.updateCellLeft(-ax - (scale - 1) / fdistance, -ay, +ax, +ay, fdistance, scale, fx, fy, ax, ay, 0);
+            this.pad(4, 6, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateLeftRight = function (fx, fy, ax, ay, scale, nv, ni) {
+            var fdistance = 1 / ax;
+            var shift = (scale - 1) / fdistance;
+            this.updateCellLeft(-ax - shift, -ay, 0, +ay, fdistance, scale, fx, fy, ax, ay, 0);
+            this.updateCellRight(0, -ay, +ax + shift, +ay, fdistance, scale, fx, fy, ax, ay, 4);
+            this.pad(8, 12, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTopBottom = function (fx, fy, ax, ay, scale, nv, ni) {
+            var fdistance = 1 / ay;
+            var shift = (scale - 1) / fdistance;
+            this.updateCellTop(-ax, -ay - shift, +ax, 0, fdistance, scale, fx, fy, ax, ay, 0);
+            this.updateCellBottom(-ax, 0, +ax, +ay + shift, fdistance, scale, fx, fy, ax, ay, 4);
+            this.pad(8, 12, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTopRight0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax;
+            var right = +ax + shift;
+            var top = -ay - shift;
+            var bottom = +ay;
+            var indices = this._indices;
+            var splitX = ax - 2 * ay;
+            this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(2, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(3, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(4, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(5, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(6, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
+            indices[0] = 0;
+            indices[1] = 1;
+            indices[2] = 2;
+            indices[3] = 0;
+            indices[4] = 2;
+            indices[5] = 3;
+            indices[6] = 4;
+            indices[7] = 5;
+            indices[8] = 6;
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTopRight1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax;
+            var right = +ax + shift;
+            var top = -ay - shift;
+            var bottom = +ay;
+            var indices = this._indices;
+            var splitY = 2 * ax - ay;
+            this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(2, left, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(3, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(4, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(5, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(6, left, splitY, fdistance, scale, fx, fy, ax, ay);
+            indices[0] = 0;
+            indices[1] = 1;
+            indices[2] = 2;
+            indices[3] = 3;
+            indices[4] = 4;
+            indices[5] = 5;
+            indices[6] = 3;
+            indices[7] = 5;
+            indices[8] = 6;
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateBottomLeft0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax;
+            var top = -ay;
+            var bottom = +ay + shift;
+            var splitX = 2 * ay - ax;
+            this.updateQuadBottom(0, 0, right, bottom, left, bottom, splitX, top, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriLeft(4, 6, left, bottom, left, top, splitX, top, fdistance, scale, fx, fy, ax, ay);
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateBottomLeft1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax;
+            var top = -ay;
+            var bottom = +ay + shift;
+            var splitY = ay - 2 * ax;
+            this.updateTriBottom(0, 0, right, bottom, left, bottom, right, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadLeft(3, 3, left, bottom, left, top, right, top, right, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTopLeft0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax;
+            var top = -ay - shift;
+            var bottom = +ay;
+            var splitX = 2 * ay - ax;
+            this.updateQuadTop(0, 0, right, top, left, top, splitX, bottom, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriLeft(4, 6, left, top, left, bottom, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTopLeft1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax;
+            var top = -ay - shift;
+            var bottom = +ay;
+            var splitY = 2 * ax - ay;
+            this.updateTriTop(0, 0, right, top, left, top, right, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadLeft(3, 3, left, top, left, bottom, right, bottom, right, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateBottomRight0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax;
+            var right = +ax + shift;
+            var top = -ay;
+            var bottom = +ay + shift;
+            var splitX = ax - 2 * ay;
+            this.updateQuadBottom(0, 0, left, bottom, right, bottom, splitX, top, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriRight(4, 6, right, bottom, right, top, splitX, top, fdistance, scale, fx, fy, ax, ay);
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateBottomRight1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax;
+            var right = +ax + shift;
+            var top = -ay;
+            var bottom = +ay + shift;
+            var splitY = ay - 2 * ax;
+            this.updateTriBottom(0, 0, left, bottom, right, bottom, left, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadRight(3, 3, right, bottom, right, top, left, top, left, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.pad(7, 9, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotTop0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax + shift;
+            var top = -ay;
+            var bottom = +ay + shift;
+            var splitLeft = 2 * ay - ax;
+            var splitRight = ax - 2 * ay;
+            this.updateTriLeft(0, 0, left, top, splitLeft, top, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadBottom(3, 3, splitLeft, top, splitRight, top, right, bottom, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriRight(7, 9, splitRight, top, right, top, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.pad(10, 12, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotTop1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax + shift;
+            var top = -ay;
+            var bottom = +ay + shift;
+            var splitY = ay - ax;
+            this.updateQuadLeft(0, 0, left, top, 0, top, 0, splitY, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadRight(4, 6, 0, top, right, top, right, bottom, 0, splitY, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriBottom(8, 12, 0, splitY, right, bottom, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.pad(11, 15, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotBottom0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax + shift;
+            var top = -ay - shift;
+            var bottom = +ay;
+            var splitLeft = 2 * ay - ax;
+            var splitRight = ax - 2 * ay;
+            this.updateTriLeft(0, 0, left, bottom, splitLeft, bottom, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadTop(3, 3, splitLeft, bottom, splitRight, bottom, right, top, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriRight(7, 9, splitRight, bottom, right, bottom, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.pad(10, 12, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotBottom1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax + shift;
+            var top = -ay - shift;
+            var bottom = +ay;
+            var splitY = ay - ax;
+            this.updateQuadLeft(0, 0, left, bottom, 0, bottom, 0, -splitY, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadRight(4, 6, 0, bottom, right, bottom, right, top, 0, -splitY, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriTop(8, 12, 0, -splitY, right, top, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.pad(11, 15, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotLeft0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax;
+            var right = +ax + shift;
+            var top = -ay - shift;
+            var bottom = +ay + shift;
+            var splitTop = 2 * ax - ay;
+            var splitBottom = ay - 2 * ax;
+            this.updateTriBottom(0, 0, left, bottom, left, splitBottom, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadRight(3, 3, left, splitBottom, left, splitTop, right, top, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriTop(7, 9, left, splitTop, left, top, right, top, fdistance, scale, fx, fy, ax, ay);
+            this.pad(10, 12, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotLeft1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax;
+            var right = +ax + shift;
+            var top = -ay - shift;
+            var bottom = +ay + shift;
+            var splitX = ax - ay;
+            this.updateQuadBottom(0, 0, left, bottom, left, 0, splitX, 0, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadTop(4, 6, left, 0, left, top, right, top, splitX, 0, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriRight(8, 12, splitX, 0, right, top, right, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.pad(11, 15, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotRight0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = 2 * ax;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax;
+            var top = -ay - shift;
+            var bottom = +ay + shift;
+            var stop = 2 * ax - ay;
+            var sbottom = ay - 2 * ax;
+            this.updateTriBottom(0, 0, right, bottom, right, sbottom, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadLeft(3, 3, right, sbottom, right, stop, left, top, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriTop(7, 9, right, stop, right, top, left, top, fdistance, scale, fx, fy, ax, ay);
+            this.pad(10, 12, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNotRight1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var distance = ay;
+            var fdistance = 1 / distance;
+            var shift = (scale - 1) * distance;
+            var left = -ax - shift;
+            var right = +ax;
+            var top = -ay - shift;
+            var bottom = +ay + shift;
+            var splitX = ay - ax;
+            this.updateQuadBottom(0, 0, right, bottom, right, 0, splitX, 0, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.updateQuadTop(4, 6, right, 0, right, top, left, top, splitX, 0, fdistance, scale, fx, fy, ax, ay);
+            this.updateTriLeft(8, 12, splitX, 0, left, top, left, bottom, fdistance, scale, fx, fy, ax, ay);
+            this.pad(11, 15, nv, ni, fdistance);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTriTop = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTriRight = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTriBottom = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateTriLeft = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateQuadTop = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+            this._indices[ii + 3] = iv;
+            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
+            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateQuadRight = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+            this._indices[ii + 3] = iv;
+            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
+            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateQuadBottom = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+            this._indices[ii + 3] = iv;
+            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
+            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateQuadLeft = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
+            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
+            this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
+            this._indices[ii] = iv;
+            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
+            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
+            this._indices[ii + 3] = iv;
+            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
+            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateNone = function (fx, fy, ax, ay, scale, nv, ni) {
+            this.updateCellNone(-ax, -ay, +ax, +ay, 0, scale, fx, fy, ax, ay, 0);
+            this.pad(4, 6, nv, ni, 0);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateAll0 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var d = ay;
+            var fd = 1 / d;
+            var s = scale;
+            var fs = (s - 1) * d;
+            var ol = -ax - fs;
+            var or = +ax + fs;
+            var ot = -ay - fs;
+            var ob = +ay + fs;
+            var il = -ax + ay;
+            var ir = +ax - ay;
+            this.updateQuadTop(0, 0, ol, ot, or, ot, ir, 0, il, 0, fd, s, fx, fy, ax, ay);
+            this.updateTriRight(4, 6, or, ot, or, ob, ir, 0, fd, s, fx, fy, ax, ay);
+            this.updateQuadBottom(7, 9, or, ob, ol, ob, il, 0, ir, 0, fd, s, fx, fy, ax, ay);
+            this.updateTriLeft(11, 15, ol, ob, ol, ot, il, 0, fd, s, fx, fy, ax, ay);
+            this.pad(14, 18, nv, ni, fd);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateAll1 = function (fx, fy, ax, ay, scale, nv, ni) {
+            var d = ax;
+            var fd = 1 / d;
+            var s = scale;
+            var fs = (s - 1) * d;
+            var ol = -ax - fs;
+            var or = +ax + fs;
+            var ot = -ay - fs;
+            var ob = +ay + fs;
+            var it = -ay + ax;
+            var ib = +ay - ax;
+            this.updateTriTop(0, 0, ol, ot, or, ot, 0, it, fd, s, fx, fy, ax, ay);
+            this.updateQuadRight(3, 3, or, ot, or, ob, 0, ib, 0, it, fd, s, fx, fy, ax, ay);
+            this.updateTriBottom(7, 9, or, ob, ol, ob, 0, ib, fd, s, fx, fy, ax, ay);
+            this.updateQuadLeft(10, 12, ol, ob, ol, ot, 0, it, 0, ib, fd, s, fx, fy, ax, ay);
+            this.pad(14, 18, nv, ni, fd);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateCellNone = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
+            this.updateVertex(iv, x0, y0, 0, 0, 0, fx, fy);
+            this.updateVertex(iv + 1, x1, y0, 0, 0, 0, fx, fy);
+            this.updateVertex(iv + 2, x1, y1, 0, 0, 0, fx, fy);
+            this.updateVertex(iv + 3, x0, y1, 0, 0, 0, fx, fy);
+            var ii = (iv >> 1) * 3;
+            var indices = this._indices;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 1;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv + 3;
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateCellTop = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
+            this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+            var ii = (iv >> 1) * 3;
+            var indices = this._indices;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 1;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv + 3;
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateCellRight = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
+            this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+            var ii = (iv >> 1) * 3;
+            var indices = this._indices;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 1;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv + 3;
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateCellBottom = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
+            this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+            var ii = (iv >> 1) * 3;
+            var indices = this._indices;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 1;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv + 3;
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateCellLeft = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
+            this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
+            this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
+            var ii = (iv >> 1) * 3;
+            var indices = this._indices;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 1;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv;
+            indices[ii++] = iv + 2;
+            indices[ii++] = iv + 3;
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateVertexTop = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
+            this.updateVertex(vertex, x, y, fdistance, x + ax, Math.min(scale, (y + ay) * -fdistance + 1), fx, fy);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateVertexRight = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
+            this.updateVertex(vertex, x, y, fdistance, 2 * ax + y + ay, Math.min(scale, (x - ax) * fdistance + 1), fx, fy);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateVertexBottom = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
+            this.updateVertex(vertex, x, y, fdistance, 3 * ax + 2 * ay - x, Math.min(scale, (y - ay) * fdistance + 1), fx, fy);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateVertexLeft = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
+            this.updateVertex(vertex, x, y, fdistance, 4 * ax + 3 * ay - y, Math.min(scale, (x + ax) * -fdistance + 1), fx, fy);
+        };
+        EShapeRectangleTriangulatedImpl.prototype.updateVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
+            var vertex2 = vertex << 1;
+            this._vertices[vertex2] = x;
+            this._vertices[vertex2 + 1] = y;
+            this._distances[vertex] = distance;
+            this._lengths[vertex] = length;
+            this._clippings[vertex] = clipping;
+            this._uvs[vertex2] = 0.5 * (x * fx + 1);
+            this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
+        };
+        return EShapeRectangleTriangulatedImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangle = /** @class */ (function (_super) {
+        __extends(EShapeRectangle, _super);
+        function EShapeRectangle(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE; }
+            var _this = _super.call(this, type) || this;
+            _this._triangulated = _this.newTriangulated();
+            return _this;
+        }
+        EShapeRectangle.prototype.newTriangulated = function () {
+            return new EShapeRectangleTriangulatedImpl(this);
+        };
+        Object.defineProperty(EShapeRectangle.prototype, "triangulated", {
+            get: function () {
+                return this._triangulated;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeRectangle.prototype.clone = function () {
+            return new EShapeRectangle(this.type).copy(this);
+        };
+        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeRectangle;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var create = function (name, width, height, container, manager, item, shape) {
+        var mode = manager.mode;
+        var depth = manager.depth;
+        shape = shape || new EShapeEmbedded(name, mode, depth);
+        var result = deserializeBase(item, manager, shape);
+        var shapeSize = shape.size;
+        var sizeX = shapeSize.x;
+        var sizeY = shapeSize.y;
+        shape.size.set(width, height);
+        container.copyTo(shape);
+        shape.size.init();
+        shape.size.set(sizeX, sizeY);
+        if (mode === EShapeResourceManagerDeserializationMode.EDITOR) {
+            if (0 < depth) {
+                applyDataMappings(shape, manager);
+            }
+        }
+        else {
+            applyDataMappings(shape, manager);
+        }
+        return result;
+    };
+    var createMissing = function (name, manager, item, shape) {
+        var mode = manager.mode;
+        var depth = manager.depth;
+        shape = shape || new EShapeEmbedded(name, mode, depth);
+        var result = deserializeBase(item, manager, shape);
+        var size = shape.size;
+        var sizeX = size.x;
+        var sizeY = size.y;
+        var children = shape.children;
+        var layer = new EShapeEmbeddedLayer("missing", mode, depth);
+        var px = 0.5 * sizeX;
+        var py = 0.5 * sizeX;
+        layer.transform.position.set(-px, -py);
+        layer.size.set(sizeX, sizeY);
+        layer.size.init();
+        layer.parent = shape;
+        var rectangle = new EShapeRectangle();
+        rectangle.stroke.color = 0xff0000;
+        rectangle.transform.position.set(px, py);
+        rectangle.size.copyFrom(shape.size);
+        rectangle.attach(layer);
+        children.push(layer);
+        shape.onChildTransformChange();
+        shape.toDirty();
+        shape.onAttach();
+        shape.size.init();
+        if (mode === EShapeResourceManagerDeserializationMode.EDITOR) {
+            if (0 < depth) {
+                applyDataMappings(shape, manager);
+            }
+        }
+        else {
+            applyDataMappings(shape, manager);
+        }
+        return result;
+    };
+    var applyDataMappings = function (shape, manager) {
+        var mapping = shape.data.getMapping();
+        if (mapping != null) {
+            var values = mapping.values;
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                var value = values[i];
+                var source = value[0];
+                var mapper = manager.getDataMapper(source);
+                if (mapper != null) {
+                    var children = shape.children;
+                    var destination = manager.getDataDestination(value[1]);
+                    var initial = value[2];
+                    applyDataMapping(children, mapper, destination, initial);
+                }
+            }
+        }
+    };
+    var applyDataMapping = function (targets, mapper, destination, initial) {
+        for (var i = 0, imax = targets.length; i < imax; ++i) {
+            var target = targets[i];
+            var targetData = target.data;
+            for (var j = 0, jmax = targetData.size(); j < jmax; ++j) {
+                var targetDatum = targetData.get(j);
+                if (targetDatum && targetDatum.scope !== EShapeDataValueScope.PRIVATE) {
+                    mapper.map(targetDatum, destination, initial);
+                }
+            }
+            // Children
+            var children = target.children;
+            if (0 < children.length) {
+                applyDataMapping(children, mapper, destination, initial);
+            }
+        }
+    };
+    var deserializeEmbedded = function (item, manager, creator) {
+        var pieces = manager.pieces;
+        var pieceId = item[15];
+        if (pieces && 0 <= pieceId && pieceId < pieces.length) {
+            var pieceData = manager.pieceData;
+            if (pieceData) {
+                var piece = pieces[pieceId];
+                var pieceDatum = pieceData.get(piece);
+                var shape = creator && creator(piece, manager);
+                if (pieceDatum) {
+                    return create(piece, pieceDatum.width, pieceDatum.height, pieceDatum.layer, manager, item, shape);
+                }
+                else {
+                    return createMissing(piece, manager, item, shape);
+                }
+            }
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSubtype = function (target) {
+        var result = EShapeAcceptorEdgeType.ALL & target;
+        if (result !== 0) {
+            return result;
+        }
+        return EShapeAcceptorEdgeType.HEAD;
+    };
+    var toSide = function (target) {
+        return (EShapeAcceptorEdgeSide.ALL & (target >> 2));
+    };
+    var toVvisible = function (target) {
+        return 0 < (0x1 & (target >> 6));
+    };
+    var deserializeEmbeddedAcceptorEdge = function (item, manager, shape) {
+        shape !== null && shape !== void 0 ? shape : (shape = new EShapeEmbeddedAcceptorEdge());
+        var item15 = item[15];
+        shape.subtype = toSubtype(item15);
+        shape.side = toSide(item15);
+        shape.vvisible = toVvisible(item15);
+        var result = deserializeBase(item, manager, shape);
+        if (shape.vvisible === false) {
+            if (manager.mode === EShapeResourceManagerDeserializationMode.VIEWER) {
+                shape.visible = false;
+            }
+        }
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeEmbedded = function () {
+        // Embedded
+        EShapeUploadeds[EShapeType.EMBEDDED] = createGroupUploaded;
+        EShapeDeserializers[EShapeType.EMBEDDED] = deserializeEmbedded;
+        EShapeCapabilities.set(EShapeType.EMBEDDED, EShapeCapability.EMBEDDED);
+        // Embedded layer
+        EShapeUploadeds[EShapeType.EMBEDDED_LAYER] = createRectanglePivotedUploaded;
+        // Embedded acceptor edge
+        EShapeUploadeds[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = createCircleLegacyUploaded;
+        EShapeDeserializers[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = deserializeEmbeddedAcceptorEdge;
+        EShapeCapabilities.set(EShapeType.EMBEDDED_ACCEPTOR_EDGE, EShapeCapability.EMBEDDED_ACCEPTOR_EDGE);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeGroupFillEditor = /** @class */ (function () {
+        function EShapeGroupFillEditor(parent) {
+            this._parent = parent;
+        }
+        Object.defineProperty(EShapeGroupFillEditor.prototype, "enable", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].fill.enable;
+                }
+                return true;
+            },
+            set: function (enable) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].fill.enable = enable;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupFillEditor.prototype, "color", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].fill.color;
+                }
+                return 0xffffff;
+            },
+            set: function (color) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].fill.color = color;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupFillEditor.prototype, "alpha", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].fill.alpha;
+                }
+                return 1.0;
+            },
+            set: function (alpha) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].fill.alpha = alpha;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupFillEditor.prototype, "direction", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].fill.direction;
+                }
+                return EShapeFillDirection.BOTTOM;
+            },
+            set: function (direction) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].fill.direction = direction;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupFillEditor.prototype, "percent", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].fill.percent;
+                }
+                return 1.0;
+            },
+            set: function (percent) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].fill.percent = percent;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroupFillEditor.prototype.copy = function (target) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].fill.copy(target);
+            }
+        };
+        EShapeGroupFillEditor.prototype.set = function (enable, color, alpha, direction, percent) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].fill.set(enable, color, alpha, direction, percent);
+            }
+        };
+        EShapeGroupFillEditor.prototype.clone = function () {
+            return new EShapeGroupFillEditor(this._parent);
+        };
+        EShapeGroupFillEditor.prototype.toObject = function () {
+            var children = this._parent.children;
+            if (0 < children.length) {
+                return children[children.length - 1].fill.toObject();
+            }
+            return {
+                enable: true,
+                color: 0xffffff,
+                alpha: 1.0,
+                direction: EShapeFillDirection.BOTTOM,
+                percent: 1.0
+            };
+        };
+        EShapeGroupFillEditor.prototype.serialize = function (manager) {
+            return -1;
+        };
+        EShapeGroupFillEditor.prototype.deserialize = function (target, manager) {
+            // DO NOTHING
+        };
+        return EShapeGroupFillEditor;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeGroupPoints = /** @class */ (function () {
+        function EShapeGroupPoints(parent) {
+            this._parent = parent;
+        }
+        Object.defineProperty(EShapeGroupPoints.prototype, "length", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.length;
+                    }
+                }
+                return 0;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "plength", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.plength;
+                    }
+                }
+                return 0;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "id", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.id;
+                    }
+                }
+                return 0;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "values", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.values;
+                    }
+                }
+                return [];
+            },
+            set: function (values) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        points.values = values;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "segments", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.segments;
+                    }
+                }
+                return [];
+            },
+            set: function (segments) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        points.segments = segments;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "style", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.style;
+                    }
+                }
+                return EShapePointsStyle.NONE;
+            },
+            set: function (style) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        points.style = style;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "marker", {
+            get: function () {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        return points.marker;
+                    }
+                }
+                return EShapePointsMarkerContainerImplNoop.getInstance();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroupPoints.prototype.getMarker = function () {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var points = children[i].points;
+                if (points != null) {
+                    return points.getMarker();
+                }
+            }
+            return undefined;
+        };
+        Object.defineProperty(EShapeGroupPoints.prototype, "formatter", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.formatter;
+                    }
+                }
+                return null;
+            },
+            set: function (formatter) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        points.formatter = formatter;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "formatted", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.formatted;
+                    }
+                }
+                return this;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroupPoints.prototype.onSizeChange = function () {
+            // DO NOTHING
+        };
+        EShapeGroupPoints.prototype.copy = function (source) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var points = children[i].points;
+                if (points != null) {
+                    points.copy(source);
+                }
+            }
+            return this;
+        };
+        EShapeGroupPoints.prototype.set = function (values, segments, style) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var points = children[i].points;
+                if (points != null) {
+                    points.set(values, segments, style);
+                }
+            }
+            return this;
+        };
+        EShapeGroupPoints.prototype.clone = function (parent) {
+            return new EShapeGroupPoints(parent);
+        };
+        EShapeGroupPoints.prototype.toPoints = function (transform) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var points = children[i].points;
+                if (points != null) {
+                    return points.toPoints(transform);
+                }
+            }
+            return [];
+        };
+        EShapeGroupPoints.prototype.serialize = function (manager) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var points = children[i].points;
+                if (points != null) {
+                    return points.serialize(manager);
+                }
+            }
+            return -1;
+        };
+        return EShapeGroupPoints;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeGroupStrokeEditor = /** @class */ (function () {
+        function EShapeGroupStrokeEditor(parent) {
+            this._parent = parent;
+        }
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "enable", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.enable;
+                }
+                return false;
+            },
+            set: function (enable) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.enable = enable;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "color", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.color;
+                }
+                return 0xffffff;
+            },
+            set: function (color) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.color = color;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "alpha", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.alpha;
+                }
+                return 1.0;
+            },
+            set: function (alpha) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.alpha = alpha;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "width", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.width;
+                }
+                return 1.0;
+            },
+            set: function (width) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.width = width;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "align", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.align;
+                }
+                return 1.0;
+            },
+            set: function (align) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.align = align;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "side", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.side;
+                }
+                return 1.0;
+            },
+            set: function (side) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.side = side;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "style", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.style;
+                }
+                return EShapeStrokeStyle.NONE;
+            },
+            set: function (style) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.style = style;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroupStrokeEditor.prototype.copy = function (target) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].stroke.copy(target);
+            }
+        };
+        EShapeGroupStrokeEditor.prototype.set = function (enable, color, alpha, width, side) {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].stroke.set(enable, color, alpha, width, side);
+            }
+        };
+        EShapeGroupStrokeEditor.prototype.clone = function () {
+            return new EShapeGroupStrokeEditor(this._parent);
+        };
+        EShapeGroupStrokeEditor.prototype.toObject = function () {
+            var children = this._parent.children;
+            if (0 < children.length) {
+                return children[children.length - 1].stroke.toObject();
+            }
+            return {
+                enable: false,
+                color: 0xffffff,
+                alpha: 1.0,
+                width: 1.0,
+                align: 0.0,
+                side: EShapeStrokeSide.NONE,
+                style: EShapeStrokeStyle.NONE
+            };
+        };
+        EShapeGroupStrokeEditor.prototype.serialize = function (manager) {
+            return -1;
+        };
+        EShapeGroupStrokeEditor.prototype.deserialize = function (target, manager) {
+            //
+        };
+        return EShapeGroupStrokeEditor;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeGroup = /** @class */ (function (_super) {
+        __extends(EShapeGroup, _super);
+        function EShapeGroup(mode, type) {
+            if (type === void 0) { type = EShapeType.GROUP; }
+            var _this = _super.call(this, type) || this;
+            _this._mode = mode;
+            var data = new EShapeDataImpl();
+            _this.data = data;
+            _this.tag = data;
+            _this.size = _this.newGroupSize(mode);
+            _this.fill = _this.newGroupFill();
+            _this.stroke = _this.newGroupStroke();
+            _this.text = _this.newGroupText();
+            _this._points = _this.newGroupPoints();
+            return _this;
+        }
+        Object.defineProperty(EShapeGroup.prototype, "mode", {
+            get: function () {
+                return this._mode;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroup.prototype.newGroupSize = function (mode) {
+            var sizeX = EShapeDefaults.SIZE_X;
+            var sizeY = EShapeDefaults.SIZE_Y;
+            if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
+                return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
+            }
+            else {
+                return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
+            }
+        };
+        EShapeGroup.prototype.isGroupSizeFittable = function () {
+            return true;
+        };
+        EShapeGroup.prototype.newGroupFill = function () {
+            return new EShapeGroupFillEditor(this);
+        };
+        EShapeGroup.prototype.newGroupStroke = function () {
+            return new EShapeGroupStrokeEditor(this);
+        };
+        EShapeGroup.prototype.newGroupText = function () {
+            return new EShapeTextImpl(this, EShapeDefaults.TEXT_VALUE, EShapeDefaults.TEXT_COLOR, EShapeDefaults.TEXT_ALPHA, EShapeDefaults.TEXT_FAMILY, EShapeDefaults.TEXT_SIZE);
+        };
+        EShapeGroup.prototype.newGroupPoints = function () {
+            return new EShapeGroupPoints(this);
+        };
+        EShapeGroup.prototype.getBoundsSize = function () {
+            var size = this.size;
+            if (size instanceof EShapeGroupSizeViewer) {
+                return size.base;
+            }
+            else {
+                return size;
+            }
+        };
+        EShapeGroup.prototype.onChildTransformChange = function () {
+            _super.prototype.onChildTransformChange.call(this);
+            this.size.fit();
+        };
+        Object.defineProperty(EShapeGroup.prototype, "corner", {
+            get: function () {
+                var children = this.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].corner;
+                }
+                return EShapeCorner.ALL;
+            },
+            set: function (corner) {
+                var children = this.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].corner = corner;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroup.prototype, "gradient", {
+            get: function () {
+                var children = this.children;
+                for (var i = children.length - 1; 0 <= i; --i) {
+                    var gradient = children[i].gradient;
+                    if (gradient != null) {
+                        return gradient;
+                    }
+                }
+                return undefined;
+            },
+            set: function (gradient) {
+                var children = this.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].gradient = gradient;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroup.prototype.serializeGradient = function (manager) {
+            return -1;
+        };
+        Object.defineProperty(EShapeGroup.prototype, "radius", {
+            get: function () {
+                var children = this.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].radius;
+                }
+                return 0.5;
+            },
+            set: function (radius) {
+                var children = this.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].radius = radius;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroup.prototype, "image", {
+            get: function () {
+                var children = this.children;
+                for (var i = children.length - 1; 0 <= i; --i) {
+                    var image = children[i].image;
+                    if (image != null) {
+                        return image;
+                    }
+                }
+                return undefined;
+            },
+            set: function (image) {
+                var children = this.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].image = image;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroup.prototype.serializeImage = function (manager) {
+            return -1;
+        };
+        Object.defineProperty(EShapeGroup.prototype, "points", {
+            get: function () {
+                var children = this.children;
+                for (var i = children.length - 1; 0 <= i; --i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        return this._points;
+                    }
+                }
+                return undefined;
+            },
+            set: function (points) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroup.prototype.clone = function () {
+            var result = this.newClone().copy(this);
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var clone = children[i].clone();
+                clone.parent = result;
+                result.children.push(clone);
+            }
+            EShapeConnectors.move(this, result);
+            result.onChildTransformChange();
+            result.toDirty();
+            return result;
+        };
+        EShapeGroup.prototype.newClone = function () {
+            var constructor = this.constructor;
+            return new constructor(this._mode, this.type);
+        };
+        EShapeGroup.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            return false;
+        };
+        return EShapeGroup;
+    }(EShapeBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeGroup = function (item, manager, shape) {
+        shape = shape || new EShapeGroup(manager.mode);
+        var result = deserializeBase(item, manager, shape);
+        shape.size.init();
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeGroup = function () {
+        EShapeUploadeds[EShapeType.GROUP] = createGroupUploaded;
+        EShapeDeserializers[EShapeType.GROUP] = deserializeGroup;
+        EShapeCapabilities.set(EShapeType.GROUP, EShapeCapability.GROUP);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeGroupSizeShadowed = /** @class */ (function () {
+        function EShapeGroupSizeShadowed(parent, x, y) {
+            this._parent = parent;
+            this._size = new pixi_js.Point(x, y);
+        }
+        EShapeGroupSizeShadowed.prototype.init = function () {
+            return this;
+        };
+        Object.defineProperty(EShapeGroupSizeShadowed.prototype, "x", {
+            get: function () {
+                return this._size.x;
+            },
+            set: function (x) {
+                var size = this._size;
+                if (size.x !== x) {
+                    var ox = size.x;
+                    size.x = x;
+                    this.onChange(ox, size.y);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupSizeShadowed.prototype, "y", {
+            get: function () {
+                return this._size.y;
+            },
+            set: function (y) {
+                var size = this._size;
+                if (size.y !== y) {
+                    var oy = size.y;
+                    size.y = y;
+                    this.onChange(size.x, oy);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroupSizeShadowed.prototype.set = function (x, y) {
+            var isChanged = false;
+            var size = this._size;
+            var ox = size.x;
+            var oy = size.y;
+            if (x != null && ox !== x) {
+                isChanged = true;
+                size.x = x;
+            }
+            if (y != null && oy !== y) {
+                isChanged = true;
+                size.y = y;
+            }
+            if (isChanged) {
+                this.onChange(ox, oy);
+            }
+            return this;
+        };
+        EShapeGroupSizeShadowed.prototype.clone = function () {
+            var size = this._size;
+            return new EShapeGroupSizeShadowed(this._parent, size.x, size.y);
+        };
+        EShapeGroupSizeShadowed.prototype.copy = function () {
+            // DO NOTHING
+        };
+        EShapeGroupSizeShadowed.prototype.copyFrom = function (point) {
+            var x = point.x;
+            var y = point.y;
+            var size = this._size;
+            var ox = size.x;
+            var oy = size.y;
+            if (ox !== x || oy !== y) {
+                size.x = x;
+                size.y = y;
+                this.onChange(ox, oy);
+            }
+            return this;
+        };
+        EShapeGroupSizeShadowed.prototype.copyTo = function (point) {
+            return this._size.copyTo(point);
+        };
+        EShapeGroupSizeShadowed.prototype.equals = function (point) {
+            return this._size.equals(point);
+        };
+        EShapeGroupSizeShadowed.prototype.fit = function () {
+            return this;
+        };
+        EShapeGroupSizeShadowed.prototype.onChange = function (ox, oy) {
+            this._parent.onSizeChange();
+        };
+        return EShapeGroupSizeShadowed;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeGroupShadowed = /** @class */ (function (_super) {
+        __extends(EShapeGroupShadowed, _super);
+        function EShapeGroupShadowed(mode, type) {
+            if (type === void 0) { type = EShapeType.GROUP_SHADOWED; }
+            return _super.call(this, mode, type) || this;
+        }
+        EShapeGroupShadowed.prototype.newGroupSize = function (mode) {
+            if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
+                return new EShapeGroupSizeShadowed(this, EShapeDefaults.SIZE_X, EShapeDefaults.SIZE_Y);
+            }
+            else {
+                return _super.prototype.newGroupSize.call(this, mode);
+            }
+        };
+        return EShapeGroupShadowed;
+    }(EShapeGroup));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeGroupShadowed = function (item, manager, shape) {
+        shape = shape || new EShapeGroupShadowed(manager.mode);
+        var result = deserializeBase(item, manager, shape);
+        shape.size.init();
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeGroupShadowed = function () {
+        EShapeUploadeds[EShapeType.GROUP_SHADOWED] = createGroupUploaded;
+        EShapeDeserializers[EShapeType.GROUP_SHADOWED] = deserializeGroupShadowed;
+        EShapeCapabilities.set(EShapeType.GROUP_SHADOWED, EShapeCapability.GROUP);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeImage = /** @class */ (function (_super) {
+        __extends(EShapeImage, _super);
+        function EShapeImage(image, type) {
+            if (type === void 0) { type = EShapeType.IMAGE; }
+            var _this = _super.call(this, type) || this;
+            if (image != null) {
+                _this.image = image;
+                _this.size.set(image.width, image.height);
+            }
+            _this.fill.alpha = 1;
+            return _this;
+        }
+        EShapeImage.prototype.clone = function () {
+            return new EShapeImage(this.image, this.type).copy(this);
+        };
+        return EShapeImage;
+    }(EShapeRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeImage = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeImage());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeImage = function () {
+        EShapeUploadeds[EShapeType.IMAGE] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.IMAGE] = deserializeImage;
+    };
+
+    var IMAGE_SDF_VERTEX_COUNT = 9;
+    var IMAGE_SDF_INDEX_COUNT = 8;
+    var IMAGE_SDF_WORLD_SIZE = [0, 0];
+    var IMAGE_SDF_WORK_POINT = new pixi_js.Point();
+    var buildImageSdfIndex = function (indices, voffset, ioffset) {
         var ii = ioffset * 3 - 1;
         indices[++ii] = voffset;
         indices[++ii] = voffset + 1;
@@ -44334,881 +48937,163 @@
         indices[++ii] = voffset + 2;
         indices[++ii] = voffset + 5;
         indices[++ii] = voffset + 4;
-    };
-    var buildSemicircleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
-        // Calculate the transformed positions
-        //
-        //  0       1       2
-        // |-------|-------|
-        // |3      |4      |5
-        // |-------|-------|
-        //
-        var work = SEMICIRCLE_WORK_POINT;
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        work.set(-sx + originX, -sy + originY);
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
-        work.set(0 + originX, -sy + originY);
-        internalTransform.apply(work, work);
-        var x1 = work.x;
-        var y1 = work.y;
-        var dx = x1 - x0;
-        var dy = y1 - y0;
-        work.set(originX, originY);
-        internalTransform.apply(work, work);
-        var x4 = work.x;
-        var y4 = work.y;
-        var x3 = x4 - dx;
-        var y3 = y4 - dy;
-        // Vertices
-        var iv = voffset * 2 - 1;
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x1 + dx;
-        vertices[++iv] = y1 + dy;
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
-        vertices[++iv] = x4;
-        vertices[++iv] = y4;
-        vertices[++iv] = x4 + dx;
-        vertices[++iv] = y4 + dy;
-        worldSize[0] = toLength(x0, y0, x1, y1);
-        worldSize[1] = toLength(x0, y0, x3, y3);
-    };
-    var buildSemicircleStep = function (steps, voffset, strokeWidth, strokeStyle, worldSize) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var ws0 = worldSize[0];
-        var ws1 = worldSize[1];
-        var e = toPackedI4x64(1, scaleInvariant, 1, 1);
-        var c11 = toPackedClippings(1, 1);
-        var c01 = toPackedClippings(0, 1);
-        var c10 = toPackedClippings(1, 0);
-        var c00 = toPackedClippings(0, 0);
-        var is = voffset * 6 - 1;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = ws0;
-        steps[++is] = ws1;
-        steps[++is] = c11;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = ws0;
-        steps[++is] = ws1;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = ws0;
-        steps[++is] = ws1;
-        steps[++is] = c11;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = ws0;
-        steps[++is] = ws1;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = ws0;
-        steps[++is] = ws1;
-        steps[++is] = c00;
-        steps[++is] = 0;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = ws0;
-        steps[++is] = ws1;
-        steps[++is] = c10;
-        steps[++is] = 0;
-    };
-    var buildSemicircleUv = function (uvs, voffset, textureUvs) {
-        var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var x2 = textureUvs.x2;
-        var x3 = textureUvs.x3;
-        var y0 = textureUvs.y0;
-        var y1 = textureUvs.y1;
-        var y2 = textureUvs.y2;
-        var y3 = textureUvs.y3;
-        // UVs
-        var iuv = voffset * 2 - 1;
-        uvs[++iuv] = x0;
-        uvs[++iuv] = y0;
-        uvs[++iuv] = 0.5 * (x0 + x1);
-        uvs[++iuv] = 0.5 * (y0 + y1);
-        uvs[++iuv] = x1;
-        uvs[++iuv] = y1;
-        uvs[++iuv] = 0.5 * (x0 + x3);
-        uvs[++iuv] = 0.5 * (y0 + y3);
-        uvs[++iuv] = 0.5 * (x0 + x2);
-        uvs[++iuv] = 0.5 * (y0 + y2);
-        uvs[++iuv] = 0.5 * (x1 + x2);
-        uvs[++iuv] = 0.5 * (y1 + y2);
-    };
-
-    var TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
-    var TRIANGLE_ROUNDED_INDEX_COUNT = 15;
-    var TRIANGLE_ROUNDED_WORLD_SIZE = [
-        0, 0, 0, 0, 0
-    ];
-    var TRIANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
-    var buildTriangleRoundedIndex = function (indices, voffset, ioffset) {
-        // Top corner
-        var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 1;
         indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 3;
-        // Bottom-right corner
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 6;
         indices[++ii] = voffset + 4;
         indices[++ii] = voffset + 5;
         indices[++ii] = voffset + 7;
         indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 7;
-        // Bottom-left corner
         indices[++ii] = voffset + 8;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 11;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 10;
-        indices[++ii] = voffset + 11;
-        // Others
-        indices[++ii] = voffset + 12;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 15;
-        indices[++ii] = voffset + 16;
-        //
-        indices[++ii] = voffset + 12;
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 19;
-        //
-        indices[++ii] = voffset + 12;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 7;
     };
-    var buildTriangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
-        // Calculate the transformed positions
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        var sz = Math.sqrt(sx * sx + 4 * sy * sy);
-        var sw = (2 * sx * sy) / (sx + sz);
-        var ry = (sw * radius) / (2 * sy);
-        var rz = (0.5 * (sz - sw) * radius) / sz;
-        var rx = (ry * sz) / (2 * sx);
-        var work = TRIANGLE_ROUNDED_WORK_POINT;
-        work.set(originX, originY - sy);
-        internalTransform.apply(work, work);
-        var x1 = work.x;
-        var y1 = work.y;
-        work.set(originX, originY);
-        internalTransform.apply(work, work);
-        var tx = work.x;
-        var ty = work.y;
-        work.set(originX + sx, originY);
-        internalTransform.apply(work, work);
-        var dx = tx - x1;
-        var dy = ty - y1;
-        var x4 = work.x + dx;
-        var y4 = work.y + dy;
-        var x7 = tx + (tx - work.x) + dx;
-        var y7 = ty + (ty - work.y) + dy;
-        var dx14 = x4 - x1;
-        var dy14 = y4 - y1;
-        var x2 = x1 + rz * dx14;
-        var y2 = y1 + rz * dy14;
-        var x3 = x4 - ry * dx14;
-        var y3 = y4 - ry * dy14;
-        var dx47r = rx * (x7 - x4);
-        var dy47r = rx * (y7 - y4);
-        var x5 = x4 + dx47r;
-        var y5 = y4 + dy47r;
-        var x6 = x7 - dx47r;
-        var y6 = y7 - dy47r;
-        var dx71 = x1 - x7;
-        var dy71 = y1 - y7;
-        var x8 = x7 + ry * dx71;
-        var y8 = y7 + ry * dy71;
-        var x9 = x1 - rz * dx71;
-        var y9 = y1 - rz * dy71;
-        work.set(originX, originY + sy - sw); // Incenter of a triangle
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
-        var x10 = x1 + radius * (x0 - x1);
-        var y10 = y1 + radius * (y0 - y1);
-        var x11 = x4 + radius * (x0 - x4);
-        var y11 = y4 + radius * (y0 - y4);
-        var x12 = x7 + radius * (x0 - x7);
-        var y12 = y7 + radius * (y0 - y7);
-        // World size
-        var xb = tx + dx;
-        var yb = ty + dy;
-        worldSize[0] = toLength(xb, yb, x0, y0);
-        worldSize[1] = rx;
-        worldSize[2] = ry;
-        worldSize[3] = rz;
-        worldSize[4] = 1 - (0.5 * sw) / sy;
-        // Vertices
-        // Top corner
-        var iv = voffset * 2 - 1;
-        vertices[++iv] = x10;
-        vertices[++iv] = y10;
-        vertices[++iv] = x9;
-        vertices[++iv] = y9;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        // Bottom-right corner
-        vertices[++iv] = x11;
-        vertices[++iv] = y11;
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
-        vertices[++iv] = x4;
-        vertices[++iv] = y4;
-        vertices[++iv] = x5;
-        vertices[++iv] = y5;
-        // Bottom-left corner
-        vertices[++iv] = x12;
-        vertices[++iv] = y12;
-        vertices[++iv] = x6;
-        vertices[++iv] = y6;
-        vertices[++iv] = x7;
-        vertices[++iv] = y7;
-        vertices[++iv] = x8;
-        vertices[++iv] = y8;
-        // Others
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
-        vertices[++iv] = x10;
-        vertices[++iv] = y10;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
-        vertices[++iv] = x11;
-        vertices[++iv] = y11;
-        vertices[++iv] = x5;
-        vertices[++iv] = y5;
-        vertices[++iv] = x6;
-        vertices[++iv] = y6;
-        vertices[++iv] = x12;
-        vertices[++iv] = y12;
-        vertices[++iv] = x8;
-        vertices[++iv] = y8;
-        vertices[++iv] = x9;
-        vertices[++iv] = y9;
-    };
-    var buildTriangleRoundedStep = function (steps, voffset, strokeWidth, strokeStyle, corner, radius, worldSize) {
+    var buildImageSdfStep = function (steps, voffset, strokeAlign, strokeWidth, strokeStyle, textureWidth, textureHeight, worldSize) {
         var scaleInvariant = toScaleInvariant(strokeStyle);
-        var s = worldSize[0];
-        var sr = radius * s;
-        var w = 1 - radius;
-        var e0 = toPackedI4x64(0, scaleInvariant, 1, 1);
-        var e1 = toPackedI4x64(1, scaleInvariant, 1, 1);
-        var c00 = toPackedClippings(0, 0);
-        var c10 = toPackedClippings(1, 0);
-        var c11 = toPackedClippings(1, 1);
-        var c01 = toPackedClippings(0, 1);
-        var cww = toPackedClippings(w, w);
-        var c1w = toPackedClippings(1, w);
-        var cw1 = toPackedClippings(w, 1);
-        var cw0 = toPackedClippings(w, 0);
-        // Top corner
+        var e = toPackedI4x64(2, scaleInvariant, 1, 1);
+        var scaleX = textureWidth / worldSize[0];
+        var scaleY = textureHeight / worldSize[1];
+        var scaleZ = (scaleX + scaleY) * 0.5;
+        var strokeWidthRatio = strokeWidth / 12.0;
+        var position = -1 + strokeAlign;
         var is = voffset * 6 - 1;
-        if (corner & EShapeCorner.TOP) {
-            // 001
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c00;
-            steps[++is] = 0;
-            // 101
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c10;
-            steps[++is] = 0;
-            // 111
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            // 011
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c01;
-            steps[++is] = 0;
-        }
-        else {
-            // ww0
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = cww;
-            steps[++is] = 0;
-            // 1w0
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = c1w;
-            steps[++is] = 0;
-            // 110
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            // w10
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = cw1;
-            steps[++is] = 0;
-        }
-        // Bottom-right corner
-        if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            // 001
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c00;
-            steps[++is] = 0;
-            // 101
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c10;
-            steps[++is] = 0;
-            // 111
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            // 011
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c01;
-            steps[++is] = 0;
-        }
-        else {
-            // ww0
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = cww;
-            steps[++is] = 0;
-            // 1w0
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = c1w;
-            steps[++is] = 0;
-            // 110
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            // w10
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = cw1;
-            steps[++is] = 0;
-        }
-        // Bottom-left corner
-        if (corner & EShapeCorner.BOTTOM_LEFT) {
-            // 001
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c00;
-            steps[++is] = 0;
-            // 101
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c10;
-            steps[++is] = 0;
-            // 111
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            // 011
-            steps[++is] = strokeWidth;
-            steps[++is] = e1;
-            steps[++is] = sr;
-            steps[++is] = sr;
-            steps[++is] = c01;
-            steps[++is] = 0;
-        }
-        else {
-            // ww0
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = cww;
-            steps[++is] = 0;
-            // 1w0
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = c1w;
-            steps[++is] = 0;
-            // 110
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = c11;
-            steps[++is] = 0;
-            // w10
-            steps[++is] = strokeWidth;
-            steps[++is] = e0;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = cw1;
-            steps[++is] = 0;
-        }
-        // Others
-        // 000
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c00;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleZ;
+        steps[++is] = position;
         steps[++is] = 0;
-        // w00
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = cw0;
         steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleY;
+        steps[++is] = position;
         steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
         steps[++is] = 0;
-        // w00
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = cw0;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleZ;
+        steps[++is] = position;
         steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
         steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleX;
+        steps[++is] = position;
         steps[++is] = 0;
-        // w00
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = cw0;
         steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleZ;
+        steps[++is] = position;
         steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e0;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
+        steps[++is] = 0;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleX;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = 0;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleZ;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = 0;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleY;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = 0;
+        steps[++is] = strokeWidthRatio;
+        steps[++is] = e;
+        steps[++is] = scaleY;
+        steps[++is] = position;
+        steps[++is] = 0;
         steps[++is] = 0;
     };
-    var buildTriangleRoundedUv = function (uvs, voffset, textureUvs, radius, worldSize) {
-        var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var x2 = textureUvs.x2;
-        var x3 = textureUvs.x3;
-        var y0 = textureUvs.y0;
-        var y1 = textureUvs.y1;
-        var y2 = textureUvs.y2;
-        var y3 = textureUvs.y3;
-        var x4 = 0.5 * (x0 + x1);
-        var y4 = 0.5 * (y0 + y1);
-        var c = worldSize[4];
-        var x5 = x4 + c * (x3 - x0);
-        var y5 = y4 + c * (y3 - y0);
-        var rx = worldSize[1];
-        var ry = worldSize[2];
-        var rz = worldSize[3];
-        var x6 = x4 + rz * (x3 - x4);
-        var y6 = y4 + rz * (y3 - y4);
-        var x7 = x4 + radius * (x5 - x4);
-        var y7 = y4 + radius * (y5 - y4);
-        var x8 = x4 + rz * (x2 - x4);
-        var y8 = y4 + rz * (y2 - y4);
-        var x9 = x2 + ry * (x4 - x2);
-        var y9 = y2 + ry * (y4 - y2);
-        var x10 = x2 + radius * (x5 - x2);
-        var y10 = y2 + radius * (y5 - y2);
-        var x11 = x2 + rx * (x3 - x2);
-        var y11 = y2 + rx * (y3 - y2);
-        var x12 = x3 + rx * (x2 - x3);
-        var y12 = y3 + rx * (y2 - y3);
-        var x13 = x3 + radius * (x5 - x3);
-        var y13 = y3 + radius * (y5 - y3);
-        var x14 = x3 + ry * (x4 - x3);
-        var y14 = y3 + ry * (y4 - y3);
-        // Uvs
-        // Top corner
-        var iuv = voffset * 2 - 1;
-        uvs[++iuv] = x7;
-        uvs[++iuv] = y7;
-        uvs[++iuv] = x6;
-        uvs[++iuv] = y6;
-        uvs[++iuv] = x4;
-        uvs[++iuv] = y4;
-        uvs[++iuv] = x8;
-        uvs[++iuv] = y8;
-        // Bottom-right corner
-        uvs[++iuv] = x10;
-        uvs[++iuv] = y10;
-        uvs[++iuv] = x9;
-        uvs[++iuv] = y9;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        uvs[++iuv] = x11;
-        uvs[++iuv] = y11;
-        // Bottom-left corner
-        uvs[++iuv] = x13;
-        uvs[++iuv] = y13;
-        uvs[++iuv] = x12;
-        uvs[++iuv] = y12;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x14;
-        uvs[++iuv] = y14;
-        // Others
-        uvs[++iuv] = x5;
-        uvs[++iuv] = y5;
-        uvs[++iuv] = x7;
-        uvs[++iuv] = y7;
-        uvs[++iuv] = x8;
-        uvs[++iuv] = y8;
-        uvs[++iuv] = x9;
-        uvs[++iuv] = y9;
-        uvs[++iuv] = x10;
-        uvs[++iuv] = y10;
-        uvs[++iuv] = x11;
-        uvs[++iuv] = y11;
-        uvs[++iuv] = x12;
-        uvs[++iuv] = y12;
-        uvs[++iuv] = x13;
-        uvs[++iuv] = y13;
-        uvs[++iuv] = x14;
-        uvs[++iuv] = y14;
-        uvs[++iuv] = x6;
-        uvs[++iuv] = y6;
-    };
-
-    var TRIANGLE_VERTEX_COUNT = 7;
-    var TRIANGLE_INDEX_COUNT = 3;
-    var TRIANGLE_WORLD_SIZE = [0, 0, 0];
-    var TRIANGLE_WORK_POINT = new pixi_js.Point();
-    var buildTriangleIndex = function (indices, voffset, ioffset) {
-        // Indices
-        var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 6;
-    };
-    var buildTriangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        var sz = Math.sqrt(sx * sx + 4 * sy * sy);
-        var sw = (2 * sx * sy) / (sx + sz);
-        var work = TRIANGLE_WORK_POINT;
-        work.set(originX, originY - sy);
+    var buildImageSdfVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, internalTransform, worldSize) {
+        // Calculate the transformed positions
+        //
+        // 0       1       2
+        // |-------|-------|
+        // |       |       |
+        // 3-------4-------5
+        // |       |       |
+        // |-------|-------|
+        // 6       7       8
+        //
+        var work = IMAGE_SDF_WORK_POINT;
+        var sx = sizeX * 0.5;
+        var sy = sizeY * 0.5;
+        work.set(originX - sx, originY - sy);
         internalTransform.apply(work, work);
         var x0 = work.x;
         var y0 = work.y;
-        work.set(originX, originY);
+        work.set(originX + sx, originY - sy);
         internalTransform.apply(work, work);
-        var tx = work.x;
-        var ty = work.y;
-        work.set(originX + sx, originY);
+        var x2 = work.x;
+        var y2 = work.y;
+        work.set(originX + sx, originY + sy);
         internalTransform.apply(work, work);
-        var dx = tx - x0;
-        var dy = ty - y0;
-        var x1 = work.x + dx;
-        var y1 = work.y + dy;
-        var x2 = tx + (tx - work.x) + dx;
-        var y2 = ty + (ty - work.y) + dy;
-        work.set(originX, originY + sy - sw); // Incenter of a triangle
-        internalTransform.apply(work, work);
-        var x3 = work.x;
-        var y3 = work.y;
-        // World size
-        var xb = tx + dx;
-        var yb = ty + dy;
-        worldSize[0] = toLength(xb, yb, x3, y3);
-        worldSize[1] = toLength(x1, y1, xb, yb);
-        worldSize[2] = toLength(x0, y0, tx, ty);
+        var x8 = work.x;
+        var y8 = work.y;
+        var x6 = x0 + (x8 - x2);
+        var y6 = y0 + (y8 - y2);
         // Vertices
         var iv = (voffset << 1) - 1;
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
         vertices[++iv] = x0;
         vertices[++iv] = y0;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
+        vertices[++iv] = (x0 + x2) * 0.5;
+        vertices[++iv] = (y0 + y2) * 0.5;
         vertices[++iv] = x2;
         vertices[++iv] = y2;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
+        vertices[++iv] = (x0 + x6) * 0.5;
+        vertices[++iv] = (y0 + y6) * 0.5;
+        vertices[++iv] = (x0 + x8) * 0.5;
+        vertices[++iv] = (y0 + y8) * 0.5;
+        vertices[++iv] = (x2 + x8) * 0.5;
+        vertices[++iv] = (y2 + y8) * 0.5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = (x6 + x8) * 0.5;
+        vertices[++iv] = (y6 + y8) * 0.5;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        worldSize[0] = toLength(x0, y0, x2, y2) * 0.5;
+        worldSize[1] = toLength(x0, y0, x6, y6) * 0.5;
     };
-    var buildTriangleStep = function (steps, voffset, strokeWidth, strokeStyle, worldSize) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var s = worldSize[0];
-        var e = toPackedI4x64(0, scaleInvariant, 1, 1);
-        var c00 = toPackedClippings(0, 0);
-        var c10 = toPackedClippings(1, 0);
-        var c01 = toPackedClippings(0, 1);
-        // 000
-        var is = voffset * 6 - 1;
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c00;
-        steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        // 010
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        // 010
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c01;
-        steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
-        steps[++is] = 0;
-        // 100
-        steps[++is] = strokeWidth;
-        steps[++is] = e;
-        steps[++is] = s;
-        steps[++is] = s;
-        steps[++is] = c10;
-        steps[++is] = 0;
+    var buildImageSdfUv = function (uvs, voffset, textureUv) {
+        var x0 = textureUv.x0;
+        var y0 = textureUv.y0;
+        var x1 = textureUv.x1;
+        var y1 = textureUv.y1;
+        var x2 = textureUv.x2;
+        var y2 = textureUv.y2;
+        var x3 = textureUv.x3;
+        var y3 = textureUv.y3;
+        var iv = (voffset << 1) - 1;
+        uvs[++iv] = x0;
+        uvs[++iv] = y0;
+        uvs[++iv] = (x1 + x0) * 0.5;
+        uvs[++iv] = (y1 + y0) * 0.5;
+        uvs[++iv] = x1;
+        uvs[++iv] = y1;
+        uvs[++iv] = (x0 + x3) * 0.5;
+        uvs[++iv] = (y0 + y3) * 0.5;
+        uvs[++iv] = (x0 + x2) * 0.5;
+        uvs[++iv] = (y0 + y2) * 0.5;
+        uvs[++iv] = (x1 + x2) * 0.5;
+        uvs[++iv] = (y1 + y2) * 0.5;
+        uvs[++iv] = x3;
+        uvs[++iv] = y3;
+        uvs[++iv] = (x3 + x2) * 0.5;
+        uvs[++iv] = (y3 + y2) * 0.5;
+        uvs[++iv] = x2;
+        uvs[++iv] = y2;
     };
-    var buildTriangleUv = function (uvs, textureUvs, voffset, worldSize) {
-        var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var x2 = textureUvs.x2;
-        var x3 = textureUvs.x3;
-        var y0 = textureUvs.y0;
-        var y1 = textureUvs.y1;
-        var y2 = textureUvs.y2;
-        var y3 = textureUvs.y3;
-        var x4 = 0.5 * (x0 + x1);
-        var y4 = 0.5 * (y0 + y1);
-        var c = 1 - (0.5 * worldSize[0]) / worldSize[2];
-        var x5 = x4 + c * (x3 - x0);
-        var y5 = y4 + c * (y3 - y0);
-        var iuv = (voffset << 1) - 1;
-        uvs[++iuv] = x5;
-        uvs[++iuv] = y5;
-        uvs[++iuv] = x4;
-        uvs[++iuv] = y4;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x4;
-        uvs[++iuv] = y4;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderCircleLegacy = /** @class */ (function (_super) {
-        __extends(BuilderCircleLegacy, _super);
-        function BuilderCircleLegacy(buffer, vertexOffset, indexOffset) {
-            return _super.call(this, buffer, vertexOffset, indexOffset, CIRCLE_LEGACY_VERTEX_COUNT, CIRCLE_LEGACY_INDEX_COUNT) || this;
-        }
-        BuilderCircleLegacy.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            var voffset = this.vertexOffset;
-            buildCircleLegacyIndex(buffer.indices, voffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderCircleLegacy.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexAndStep(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateUv(buffer, shape);
-        };
-        BuilderCircleLegacy.prototype.updateVertexAndStep = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
-            if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
-                this.inited |= BuilderFlag.VERTEX_AND_STEP;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                // Buffer
-                buffer.updateVertices();
-                buffer.updateSteps();
-                buildCircleLegacyVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, CIRCLE_LEGACY_WORLD_SIZE);
-                buildCircleLegacyStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_LEGACY_WORLD_SIZE);
-            }
-        };
-        BuilderCircleLegacy.prototype.updateUv = function (buffer, shape) {
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isNotInited = !(this.inited & BuilderFlag.UV);
-            if (isNotInited ||
-                texture !== this.texture ||
-                textureTransformId !== this.textureTransformId) {
-                this.inited |= BuilderFlag.UV;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                buffer.updateUvs();
-                var textureUvs = toTextureUvs(texture);
-                buildCircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
-            }
-        };
-        return BuilderCircleLegacy;
-    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -45297,6 +49182,58 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var createImageSdfUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = IMAGE_SDF_VERTEX_COUNT + tvcount;
+        var icount = IMAGE_SDF_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderImageSdf(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + IMAGE_SDF_VERTEX_COUNT, ioffset + IMAGE_SDF_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeImageSdf = /** @class */ (function (_super) {
+        __extends(EShapeImageSdf, _super);
+        function EShapeImageSdf(image, type) {
+            if (type === void 0) { type = EShapeType.IMAGE_SDF; }
+            return _super.call(this, image, type) || this;
+        }
+        EShapeImageSdf.prototype.clone = function () {
+            return new EShapeImageSdf(this.image, this.type).copy(this);
+        };
+        return EShapeImageSdf;
+    }(EShapeImage));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeImageSdf = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeImageSdf());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeImageSdf = function () {
+        EShapeUploadeds[EShapeType.IMAGE_SDF] = createImageSdfUploaded;
+        EShapeDeserializers[EShapeType.IMAGE_SDF] = deserializeImageSdf;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var BuilderLabel = /** @class */ (function () {
         function BuilderLabel(buffer, vertexOffset, indexOffset) {
             this.buffer = buffer;
@@ -45332,6 +49269,415 @@
         };
         return BuilderLabel;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createLabelUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = tvcount;
+        var icount = ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderLabel(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset, ioffset, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLabel = /** @class */ (function (_super) {
+        __extends(EShapeLabel, _super);
+        function EShapeLabel(type) {
+            if (type === void 0) { type = EShapeType.LABEL; }
+            return _super.call(this, type) || this;
+        }
+        EShapeLabel.prototype.clone = function () {
+            return new EShapeLabel(this.type).copy(this);
+        };
+        return EShapeLabel;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLabel = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeLabel());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLabel = function () {
+        EShapeUploadeds[EShapeType.LABEL] = createLabelUploaded;
+        EShapeDeserializers[EShapeType.LABEL] = deserializeLabel;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLine = /** @class */ (function (_super) {
+        __extends(EShapeLine, _super);
+        function EShapeLine(type) {
+            if (type === void 0) { type = EShapeType.LINE; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeLinePoints(_this);
+            return _this;
+        }
+        Object.defineProperty(EShapeLine.prototype, "points", {
+            get: function () {
+                return this._points;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLine.prototype.clone = function () {
+            return new EShapeLine(this.type).copy(this);
+        };
+        EShapeLine.prototype.serialize = function (manager) {
+            var result = _super.prototype.serialize.call(this, manager);
+            result[15] = this._points.serialize(manager);
+            return result;
+        };
+        return EShapeLine;
+    }(EShapeLineBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLine = function (item, manager, shape) {
+        shape = shape || new EShapeLine();
+        var result = deserializeBase(item, manager, shape);
+        shape.points.deserialize(item[15], manager);
+        var style = shape.points.style;
+        var mask = EShapePointsStyle.NON_SCALING_MASK |
+            EShapePointsStyle.DOTTED_MASK |
+            EShapePointsStyle.DASHED_MASK;
+        var deprecated = style & mask;
+        if (deprecated) {
+            shape.points.style &= ~mask;
+            shape.stroke.style |= deprecated;
+        }
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLine = function () {
+        EShapeUploadeds[EShapeType.LINE] = createLineUploaded;
+        EShapeDeserializers[EShapeType.LINE] = deserializeLine;
+    };
+
+    var buildNullIndex = function (indices, voffset, ioffset, icount) {
+        for (var ii = ioffset * 3, iimax = (ioffset + icount) * 3; ii < iimax; ii += 3) {
+            indices[ii + 0] = voffset;
+            indices[ii + 1] = voffset;
+            indices[ii + 2] = voffset;
+        }
+    };
+    var buildNullVertex = function (vertices, voffset, vcount) {
+        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
+            vertices[i + 0] = 0;
+            vertices[i + 1] = 0;
+        }
+    };
+    var buildNullStep = function (steps, voffset, vcount) {
+        for (var i = voffset * 6, imax = (voffset + vcount) * 6; i < imax; i += 6) {
+            steps[i + 0] = 0;
+            steps[i + 1] = 0;
+            steps[i + 2] = 0;
+            steps[i + 3] = 0;
+            steps[i + 4] = 0;
+            steps[i + 5] = 0;
+        }
+    };
+    var buildNullUv = function (uvs, voffset, vcount) {
+        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
+            uvs[i + 0] = 0;
+            uvs[i + 1] = 0;
+        }
+    };
+
+    var toLineOfAnyPointCount = function (pointCount) {
+        return ((pointCount >> 4) + (0 < (pointCount & 0xf) ? 1 : 0)) << 4;
+    };
+    /**
+     * Build a vertex buffer of colors.
+     *
+     * @param vo Vertex pffset
+     * @param vcpp Vertex count per point
+     * @param pf Point Fill
+     * @param ps Point stroke
+     * @param pc Point count
+     * @param colors Vertex buffer of colors
+     * @param ife True if fills are enabled
+     * @param ise True if strokes are enabled
+     * @param cfd Default fill color
+     * @param afd Default fill alpha
+     * @param csd Default stroke color
+     * @param asd Default stroke alpha
+     */
+    var buildLineOfAnyColor = function (vo, vcpp, pf, ps, pc, colors, ife, ise, cfd, afd, csd, asd) {
+        if (ife) {
+            if (pf.isStaticColor()) {
+                var cf = pf.getColor(0, cfd);
+                if (pf.isStaticAlpha()) {
+                    var af = pf.getAlpha(0, afd);
+                    buildLineOfAnyColor0(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, af);
+                }
+                else {
+                    buildLineOfAnyColor1(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, afd);
+                }
+            }
+            else {
+                if (pf.isStaticAlpha()) {
+                    var af = pf.getAlpha(0, afd);
+                    buildLineOfAnyColor2(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, af);
+                }
+                else {
+                    buildLineOfAnyColor3(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, afd);
+                }
+            }
+        }
+        else {
+            if (pf.isStaticColor()) {
+                var cf = pf.getColor(0, cfd);
+                buildLineOfAnyColor0(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, 0);
+            }
+            else {
+                buildLineOfAnyColor2(vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, 0);
+            }
+        }
+    };
+    var buildLineOfAnyColor0 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, af) {
+        if (ise) {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    buildColor(cf, af, cs, as, vo, vcpp * pc, colors);
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+            else {
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cs = ps.getColor(i, csd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cs = ps.getColor(i, csd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+        }
+        else {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                buildColor(cf, af, cs, 0, vo, vcpp * pc, colors);
+            }
+            else {
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var cs = ps.getColor(i, csd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+        }
+    };
+    var buildLineOfAnyColor1 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cf, afd) {
+        if (ise) {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var af = pf.getAlpha(i, afd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var af = pf.getAlpha(i, afd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+            else {
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var af = pf.getAlpha(i, afd);
+                        var cs = ps.getColor(i, csd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var af = pf.getAlpha(i, afd);
+                        var cs = ps.getColor(i, csd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+        }
+        else {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var af = pf.getAlpha(i, afd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+            else {
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var af = pf.getAlpha(i, afd);
+                    var cs = ps.getColor(i, csd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+        }
+    };
+    var buildLineOfAnyColor2 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, af) {
+        if (ise) {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+            else {
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var cs = ps.getColor(i, csd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var cs = ps.getColor(i, csd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+        }
+        else {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var cf = pf.getColor(i, cfd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+            else {
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var cf = pf.getColor(i, cfd);
+                    var cs = ps.getColor(i, csd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+        }
+    };
+    var buildLineOfAnyColor3 = function (vo, vcpp, pf, ps, pc, colors, ise, csd, asd, cfd, afd) {
+        if (ise) {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var af = pf.getAlpha(i, afd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var af = pf.getAlpha(i, afd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+            else {
+                if (ps.isStaticAlpha()) {
+                    var as = ps.getAlpha(0, asd);
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var af = pf.getAlpha(i, afd);
+                        var cs = ps.getColor(i, csd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+                else {
+                    for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                        var cf = pf.getColor(i, cfd);
+                        var af = pf.getAlpha(i, afd);
+                        var cs = ps.getColor(i, csd);
+                        var as = ps.getAlpha(i, asd);
+                        buildColor(cf, af, cs, as, iv, vcpp, colors);
+                    }
+                }
+            }
+        }
+        else {
+            if (ps.isStaticColor()) {
+                var cs = ps.getColor(0, csd);
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var cf = pf.getColor(i, cfd);
+                    var af = pf.getAlpha(i, afd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+            else {
+                for (var i = 0, iv = vo; i < pc; i += 1, iv += vcpp) {
+                    var cf = pf.getColor(i, cfd);
+                    var af = pf.getAlpha(i, afd);
+                    var cs = ps.getColor(i, csd);
+                    buildColor(cf, af, cs, 0, iv, vcpp, colors);
+                }
+            }
+        }
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -46224,6 +50570,1139 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var createLineOfAnyUploaded = function (buffer, shape, voffset, vcountPerPoint, ioffset, icountPerPoint, antialiasWeight, constructor) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var points = shape.points;
+        var pointCount = toLineOfAnyPointCount(toPointCount(points));
+        var pvcount = pointCount * vcountPerPoint;
+        var picount = pointCount * icountPerPoint;
+        var vcount = pvcount + tvcount;
+        var icount = picount + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new constructor(buffer, voffset, ioffset, pvcount, picount, pointCount, vcountPerPoint, icountPerPoint),
+                new BuilderText(buffer, voffset + pvcount, ioffset + picount, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createLineOfCirclesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        return createLineOfAnyUploaded(buffer, shape, voffset, CIRCLE_LEGACY_VERTEX_COUNT, ioffset, CIRCLE_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfCircles);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLineOfCircles = /** @class */ (function (_super) {
+        __extends(EShapeLineOfCircles, _super);
+        function EShapeLineOfCircles(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_CIRCLES; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
+            };
+            return _this;
+        }
+        Object.defineProperty(EShapeLineOfCircles.prototype, "points", {
+            get: function () {
+                return this._points;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLineOfCircles.prototype.clone = function () {
+            return new EShapeLineOfCircles(this.type).copy(this);
+        };
+        EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
+            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
+            }
+            return false;
+        };
+        EShapeLineOfCircles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            var ex = x - px - ox;
+            var ey = y - py - oy;
+            if (this.containsAbsBBox(ex, ey, ax, ay)) {
+                return hitTestCircleLegacy(this, ex, ey, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        EShapeLineOfCircles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
+            }
+            return false;
+        };
+        return EShapeLineOfCircles;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLineOfCircles = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeLineOfCircles());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLineOfCircles = function () {
+        EShapeUploadeds[EShapeType.LINE_OF_CIRCLES] = createLineOfCirclesUploaded;
+        EShapeDeserializers[EShapeType.LINE_OF_CIRCLES] = deserializeLineOfCircles;
+    };
+
+    var RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT = 44;
+    var RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT = 24;
+    var RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE = [
+        0, 0, 0, 0, 0
+    ];
+    var RECTANGLE_ROUNDED_LEGACY_WORK_POINT = new pixi_js.Point();
+    var buildRectangleRoundedLegacyIndex = function (indices, voffset, ioffset) {
+        // c0   c1        c4   c5
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        // c2   c3        c6   c7
+        //
+        // c8   c9       c12   c13
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        //c10   c11      c14   c15
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 11;
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 15;
+        //     16  17  23  24
+        //      |---|  |---|
+        //      |   |  |   |
+        // 18--19--20  25--26--27
+        //  |       |  |       |
+        //  |       |  |       |
+        // 21------22  28------29
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 23;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 26;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 28;
+        indices[++ii] = voffset + 28;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 29;
+        // 30------31  37------38
+        //  |       |  |       |
+        //  |       |  |       |
+        // 32--33--34  39--40--41
+        //      |   |  |   |
+        //      |---|  |---|
+        //     35  36  42  43
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 31;
+        indices[++ii] = voffset + 32;
+        indices[++ii] = voffset + 32;
+        indices[++ii] = voffset + 31;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 33;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 35;
+        indices[++ii] = voffset + 35;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 36;
+        indices[++ii] = voffset + 37;
+        indices[++ii] = voffset + 38;
+        indices[++ii] = voffset + 39;
+        indices[++ii] = voffset + 39;
+        indices[++ii] = voffset + 38;
+        indices[++ii] = voffset + 41;
+        indices[++ii] = voffset + 39;
+        indices[++ii] = voffset + 40;
+        indices[++ii] = voffset + 42;
+        indices[++ii] = voffset + 42;
+        indices[++ii] = voffset + 40;
+        indices[++ii] = voffset + 43;
+    };
+    var buildRectangleRoundedLegacyVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
+        // b0      b1      b2
+        // |-------|-------|
+        // |       |       |
+        // b3------b4------b5
+        // |       |       |
+        // |-------|-------|
+        // b6      b7      b8
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        var ax = Math.abs(sx);
+        var ay = Math.abs(sy);
+        var a = radius * Math.min(ax, ay);
+        var rx = a / ax;
+        var ry = a / ay;
+        var work = RECTANGLE_ROUNDED_LEGACY_WORK_POINT;
+        work.set(originX - sx, originY - sy);
+        internalTransform.apply(work, work);
+        var b0x = work.x;
+        var b0y = work.y;
+        work.set(originX, originY - sy);
+        internalTransform.apply(work, work);
+        var b1x = work.x;
+        var b1y = work.y;
+        work.set(originX - sx, originY);
+        internalTransform.apply(work, work);
+        var b3x = work.x;
+        var b3y = work.y;
+        var d01x = b1x - b0x;
+        var d01y = b1y - b0y;
+        var d03x = b3x - b0x;
+        var d03y = b3y - b0y;
+        var b2x = b1x + d01x;
+        var b2y = b1y + d01y;
+        var b4x = b3x + d01x;
+        var b4y = b3y + d01y;
+        var b5x = b2x + d03x;
+        var b5y = b2y + d03y;
+        var b6x = b3x + d03x;
+        var b6y = b3y + d03y;
+        var b7x = b6x + d01x;
+        var b7y = b6y + d01y;
+        var b8x = b7x + d01x;
+        var b8y = b7y + d01y;
+        var r01x = rx * d01x;
+        var r01y = rx * d01y;
+        var r03x = ry * d03x;
+        var r03y = ry * d03y;
+        // c0   c1        c4   c5
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        // c2   c3        c6   c7
+        //
+        // c8   c9       c12   c13
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        //c10   c11      c14   c15
+        var c0x = b0x;
+        var c0y = b0y;
+        var c1x = c0x + r01x;
+        var c1y = c0y + r01y;
+        var c2x = c0x + r03x;
+        var c2y = c0y + r03y;
+        var c3x = c2x + r01x;
+        var c3y = c2y + r01y;
+        var iv = voffset * 2 - 1;
+        vertices[++iv] = c0x;
+        vertices[++iv] = c0y;
+        vertices[++iv] = c1x;
+        vertices[++iv] = c1y;
+        vertices[++iv] = c2x;
+        vertices[++iv] = c2y;
+        vertices[++iv] = c3x;
+        vertices[++iv] = c3y;
+        var c5x = b2x;
+        var c5y = b2y;
+        var c4x = b2x - r01x;
+        var c4y = b2y - r01y;
+        var c6x = c4x + r03x;
+        var c6y = c4y + r03y;
+        var c7x = c6x + r01x;
+        var c7y = c6y + r01y;
+        vertices[++iv] = c4x;
+        vertices[++iv] = c4y;
+        vertices[++iv] = c5x;
+        vertices[++iv] = c5y;
+        vertices[++iv] = c6x;
+        vertices[++iv] = c6y;
+        vertices[++iv] = c7x;
+        vertices[++iv] = c7y;
+        var c10x = b6x;
+        var c10y = b6y;
+        var c8x = c10x - r03x;
+        var c8y = c10y - r03y;
+        var c11x = c10x + r01x;
+        var c11y = c10y + r01y;
+        var c9x = c8x + r01x;
+        var c9y = c8y + r01y;
+        vertices[++iv] = c8x;
+        vertices[++iv] = c8y;
+        vertices[++iv] = c9x;
+        vertices[++iv] = c9y;
+        vertices[++iv] = c10x;
+        vertices[++iv] = c10y;
+        vertices[++iv] = c11x;
+        vertices[++iv] = c11y;
+        var c15x = b8x;
+        var c15y = b8y;
+        var c14x = c15x - r01x;
+        var c14y = c15y - r01y;
+        var c13x = c15x - r03x;
+        var c13y = c15y - r03y;
+        var c12x = c13x - r01x;
+        var c12y = c13y - r01y;
+        vertices[++iv] = c12x;
+        vertices[++iv] = c12y;
+        vertices[++iv] = c13x;
+        vertices[++iv] = c13y;
+        vertices[++iv] = c14x;
+        vertices[++iv] = c14y;
+        vertices[++iv] = c15x;
+        vertices[++iv] = c15y;
+        //     16  17  23  24
+        //      |---|  |---|
+        //      |   |  |   |
+        // 18--19--20  25--26--27
+        //  |       |  |       |
+        //  |       |  |       |
+        // 21------22  28------29
+        var c16x = c1x;
+        var c16y = c1y;
+        var c17x = b1x;
+        var c17y = b1y;
+        var c18x = c2x;
+        var c18y = c2y;
+        var c19x = c3x;
+        var c19y = c3y;
+        var c20x = c17x + r03x;
+        var c20y = c17y + r03y;
+        var c21x = b3x;
+        var c21y = b3y;
+        var c22x = b4x;
+        var c22y = b4y;
+        vertices[++iv] = c16x;
+        vertices[++iv] = c16y;
+        vertices[++iv] = c17x;
+        vertices[++iv] = c17y;
+        vertices[++iv] = c18x;
+        vertices[++iv] = c18y;
+        vertices[++iv] = c19x;
+        vertices[++iv] = c19y;
+        vertices[++iv] = c20x;
+        vertices[++iv] = c20y;
+        vertices[++iv] = c21x;
+        vertices[++iv] = c21y;
+        vertices[++iv] = c22x;
+        vertices[++iv] = c22y;
+        var c23x = c17x;
+        var c23y = c17y;
+        var c24x = c4x;
+        var c24y = c4y;
+        var c25x = c20x;
+        var c25y = c20y;
+        var c26x = c6x;
+        var c26y = c6y;
+        var c27x = c7x;
+        var c27y = c7y;
+        var c28x = c22x;
+        var c28y = c22y;
+        var c29x = b5x;
+        var c29y = b5y;
+        vertices[++iv] = c23x;
+        vertices[++iv] = c23y;
+        vertices[++iv] = c24x;
+        vertices[++iv] = c24y;
+        vertices[++iv] = c25x;
+        vertices[++iv] = c25y;
+        vertices[++iv] = c26x;
+        vertices[++iv] = c26y;
+        vertices[++iv] = c27x;
+        vertices[++iv] = c27y;
+        vertices[++iv] = c28x;
+        vertices[++iv] = c28y;
+        vertices[++iv] = c29x;
+        vertices[++iv] = c29y;
+        // 30------31  37------38
+        //  |       |  |       |
+        //  |       |  |       |
+        // 32--33--34  39--40--41
+        //      |   |  |   |
+        //      |---|  |---|
+        //     35  36  42  43
+        var c30x = c21x;
+        var c30y = c21y;
+        var c31x = c22x;
+        var c31y = c22y;
+        var c32x = c8x;
+        var c32y = c8y;
+        var c33x = c9x;
+        var c33y = c9y;
+        var c34x = b7x - r03x;
+        var c34y = b7y - r03y;
+        var c35x = c11x;
+        var c35y = c11y;
+        var c36x = b7x;
+        var c36y = b7y;
+        vertices[++iv] = c30x;
+        vertices[++iv] = c30y;
+        vertices[++iv] = c31x;
+        vertices[++iv] = c31y;
+        vertices[++iv] = c32x;
+        vertices[++iv] = c32y;
+        vertices[++iv] = c33x;
+        vertices[++iv] = c33y;
+        vertices[++iv] = c34x;
+        vertices[++iv] = c34y;
+        vertices[++iv] = c35x;
+        vertices[++iv] = c35y;
+        vertices[++iv] = c36x;
+        vertices[++iv] = c36y;
+        var c37x = c31x;
+        var c37y = c31y;
+        var c38x = c29x;
+        var c38y = c29y;
+        var c39x = c34x;
+        var c39y = c34y;
+        var c40x = c12x;
+        var c40y = c12y;
+        var c41x = c13x;
+        var c41y = c13y;
+        var c42x = c36x;
+        var c42y = c36y;
+        var c43x = c14x;
+        var c43y = c14y;
+        vertices[++iv] = c37x;
+        vertices[++iv] = c37y;
+        vertices[++iv] = c38x;
+        vertices[++iv] = c38y;
+        vertices[++iv] = c39x;
+        vertices[++iv] = c39y;
+        vertices[++iv] = c40x;
+        vertices[++iv] = c40y;
+        vertices[++iv] = c41x;
+        vertices[++iv] = c41y;
+        vertices[++iv] = c42x;
+        vertices[++iv] = c42y;
+        vertices[++iv] = c43x;
+        vertices[++iv] = c43y;
+        // World size
+        worldSize[0] = ax;
+        worldSize[1] = ay;
+        worldSize[2] = a;
+        worldSize[3] = rx;
+        worldSize[4] = ry;
+    };
+    var buildRectangleRoundedLegacyStep = function (steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var ax = worldSize[0];
+        var ay = worldSize[1];
+        var a = worldSize[2];
+        var wt = strokeSide & EShapeStrokeSide.TOP ? 1 : 0;
+        var wr = strokeSide & EShapeStrokeSide.RIGHT ? 1 : 0;
+        var wb = strokeSide & EShapeStrokeSide.BOTTOM ? 1 : 0;
+        var wl = strokeSide & EShapeStrokeSide.LEFT ? 1 : 0;
+        var elt0 = toPackedI4x64(0, scaleInvariant, wl, wt);
+        var ert0 = toPackedI4x64(0, scaleInvariant, wr, wt);
+        var elb0 = toPackedI4x64(0, scaleInvariant, wl, wb);
+        var erb0 = toPackedI4x64(0, scaleInvariant, wr, wb);
+        var elt1 = toPackedI4x64(1, scaleInvariant, wl, wt);
+        var ert1 = toPackedI4x64(1, scaleInvariant, wr, wt);
+        var elb1 = toPackedI4x64(1, scaleInvariant, wl, wb);
+        var erb1 = toPackedI4x64(1, scaleInvariant, wr, wb);
+        var rxi = 1 - worldSize[3];
+        var ryi = 1 - worldSize[4];
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var c10 = toPackedClippings(1, 0);
+        var c00 = toPackedClippings(0, 0);
+        var cx1 = toPackedClippings(rxi, 1);
+        var c1y = toPackedClippings(1, ryi);
+        var cxy = toPackedClippings(rxi, ryi);
+        var c0y = toPackedClippings(0, ryi);
+        // c0   c1        c4   c5
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        // c2   c3        c6   c7
+        //
+        // c8   c9       c12   c13
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        //c10   c11      c14   c15
+        var is = voffset * 6 - 1;
+        if (corner & EShapeCorner.TOP_LEFT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = elt1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elt1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c01;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elt1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c10;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elt1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c00;
+            steps[++is] = 0;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = elt0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elt0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cx1;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elt0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c1y;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elt0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cxy;
+            steps[++is] = 0;
+        }
+        if (corner & EShapeCorner.TOP_RIGHT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = ert1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c01;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = ert1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = ert1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c00;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = ert1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c10;
+            steps[++is] = 0;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = ert0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cx1;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = ert0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = ert0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cxy;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = ert0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c1y;
+            steps[++is] = 0;
+        }
+        if (corner & EShapeCorner.BOTTOM_LEFT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = elb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c10;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c00;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c01;
+            steps[++is] = 0;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = elb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c1y;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cxy;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = elb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cx1;
+            steps[++is] = 0;
+        }
+        if (corner & EShapeCorner.BOTTOM_RIGHT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = erb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c00;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = erb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c10;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = erb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c01;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = erb1;
+            steps[++is] = a;
+            steps[++is] = a;
+            steps[++is] = c11;
+            steps[++is] = 0;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = erb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cxy;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = erb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c1y;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = erb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = cx1;
+            steps[++is] = 0;
+            steps[++is] = strokeWidth;
+            steps[++is] = erb0;
+            steps[++is] = ax;
+            steps[++is] = ay;
+            steps[++is] = c11;
+            steps[++is] = 0;
+        }
+        //     16  17  23  24
+        //      |---|  |---|
+        //      |   |  |   |
+        // 18--19--20  25--26--27
+        //  |       |  |       |
+        //  |       |  |       |
+        // 21------22  28------29
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cx1;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c1y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cxy;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c0y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elt0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cx1;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c0y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cxy;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c1y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = ert0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 30------31  37------38
+        //  |       |  |       |
+        //  |       |  |       |
+        // 32--33--34  39--40--41
+        //      |   |  |   |
+        //      |---|  |---|
+        //     35  36  42  43
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c1y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cxy;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c0y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cx1;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = elb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c0y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cxy;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c1y;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = erb0;
+        steps[++is] = ax;
+        steps[++is] = ay;
+        steps[++is] = cx1;
+        steps[++is] = 0;
+    };
+    var buildRectangleRoundedLegacyUv = function (uvs, voffset, textureUvs, worldSize) {
+        // b0      b1      b2
+        // |-------|-------|
+        // |       |       |
+        // b3------b4------b5
+        // |       |       |
+        // |-------|-------|
+        // b6      b7      b8
+        var b0x = textureUvs.x0;
+        var b0y = textureUvs.y0;
+        var b2x = textureUvs.x1;
+        var b2y = textureUvs.y1;
+        var b8x = textureUvs.x2;
+        var b8y = textureUvs.y2;
+        var b6x = textureUvs.x3;
+        var b6y = textureUvs.y3;
+        var b1x = (b0x + b2x) * 0.5;
+        var b1y = (b0y + b2y) * 0.5;
+        var b3x = (b0x + b6x) * 0.5;
+        var b3y = (b0y + b6y) * 0.5;
+        var d01x = b1x - b0x;
+        var d01y = b1y - b0y;
+        var d03x = b3x - b0x;
+        var d03y = b3y - b0y;
+        var b4x = b3x + d01x;
+        var b4y = b3y + d01y;
+        var b5x = b2x + d03x;
+        var b5y = b2y + d03y;
+        var b7x = b6x + d01x;
+        var b7y = b6y + d01y;
+        var rx = worldSize[3];
+        var ry = worldSize[4];
+        var r01x = rx * d01x;
+        var r01y = rx * d01y;
+        var r03x = ry * d03x;
+        var r03y = ry * d03y;
+        // c0   c1        c4   c5
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        // c2   c3        c6   c7
+        //
+        // c8   c9       c12   c13
+        //  |---|          |---|
+        //  |   |          |   |
+        //  |---|          |---|
+        //c10   c11      c14   c15
+        var c0x = b0x;
+        var c0y = b0y;
+        var c1x = c0x + r01x;
+        var c1y = c0y + r01y;
+        var c2x = c0x + r03x;
+        var c2y = c0y + r03y;
+        var c3x = c2x + r01x;
+        var c3y = c2y + r01y;
+        var iuv = voffset * 2 - 1;
+        uvs[++iuv] = c0x;
+        uvs[++iuv] = c0y;
+        uvs[++iuv] = c1x;
+        uvs[++iuv] = c1y;
+        uvs[++iuv] = c2x;
+        uvs[++iuv] = c2y;
+        uvs[++iuv] = c3x;
+        uvs[++iuv] = c3y;
+        var c5x = b2x;
+        var c5y = b2y;
+        var c4x = b2x - r01x;
+        var c4y = b2y - r01y;
+        var c6x = c4x + r03x;
+        var c6y = c4y + r03y;
+        var c7x = c6x + r01x;
+        var c7y = c6y + r01y;
+        uvs[++iuv] = c4x;
+        uvs[++iuv] = c4y;
+        uvs[++iuv] = c5x;
+        uvs[++iuv] = c5y;
+        uvs[++iuv] = c6x;
+        uvs[++iuv] = c6y;
+        uvs[++iuv] = c7x;
+        uvs[++iuv] = c7y;
+        var c10x = b6x;
+        var c10y = b6y;
+        var c8x = c10x - r03x;
+        var c8y = c10y - r03y;
+        var c11x = c10x + r01x;
+        var c11y = c10y + r01y;
+        var c9x = c8x + r01x;
+        var c9y = c8y + r01y;
+        uvs[++iuv] = c8x;
+        uvs[++iuv] = c8y;
+        uvs[++iuv] = c9x;
+        uvs[++iuv] = c9y;
+        uvs[++iuv] = c10x;
+        uvs[++iuv] = c10y;
+        uvs[++iuv] = c11x;
+        uvs[++iuv] = c11y;
+        var c15x = b8x;
+        var c15y = b8y;
+        var c14x = c15x - r01x;
+        var c14y = c15y - r01y;
+        var c13x = c15x - r03x;
+        var c13y = c15y - r03y;
+        var c12x = c13x - r01x;
+        var c12y = c13y - r01y;
+        uvs[++iuv] = c12x;
+        uvs[++iuv] = c12y;
+        uvs[++iuv] = c13x;
+        uvs[++iuv] = c13y;
+        uvs[++iuv] = c14x;
+        uvs[++iuv] = c14y;
+        uvs[++iuv] = c15x;
+        uvs[++iuv] = c15y;
+        //     16  17  23  24
+        //      |---|  |---|
+        //      |   |  |   |
+        // 18--19--20  25--26--27
+        //  |       |  |       |
+        //  |       |  |       |
+        // 21------22  28------29
+        var c16x = c1x;
+        var c16y = c1y;
+        var c17x = b1x;
+        var c17y = b1y;
+        var c18x = c2x;
+        var c18y = c2y;
+        var c19x = c3x;
+        var c19y = c3y;
+        var c20x = c17x + r03x;
+        var c20y = c17y + r03y;
+        var c21x = b3x;
+        var c21y = b3y;
+        var c22x = b4x;
+        var c22y = b4y;
+        uvs[++iuv] = c16x;
+        uvs[++iuv] = c16y;
+        uvs[++iuv] = c17x;
+        uvs[++iuv] = c17y;
+        uvs[++iuv] = c18x;
+        uvs[++iuv] = c18y;
+        uvs[++iuv] = c19x;
+        uvs[++iuv] = c19y;
+        uvs[++iuv] = c20x;
+        uvs[++iuv] = c20y;
+        uvs[++iuv] = c21x;
+        uvs[++iuv] = c21y;
+        uvs[++iuv] = c22x;
+        uvs[++iuv] = c22y;
+        var c23x = c17x;
+        var c23y = c17y;
+        var c24x = c4x;
+        var c24y = c4y;
+        var c25x = c20x;
+        var c25y = c20y;
+        var c26x = c6x;
+        var c26y = c6y;
+        var c27x = c7x;
+        var c27y = c7y;
+        var c28x = c22x;
+        var c28y = c22y;
+        var c29x = b5x;
+        var c29y = b5y;
+        uvs[++iuv] = c23x;
+        uvs[++iuv] = c23y;
+        uvs[++iuv] = c24x;
+        uvs[++iuv] = c24y;
+        uvs[++iuv] = c25x;
+        uvs[++iuv] = c25y;
+        uvs[++iuv] = c26x;
+        uvs[++iuv] = c26y;
+        uvs[++iuv] = c27x;
+        uvs[++iuv] = c27y;
+        uvs[++iuv] = c28x;
+        uvs[++iuv] = c28y;
+        uvs[++iuv] = c29x;
+        uvs[++iuv] = c29y;
+        // 30------31  37------38
+        //  |       |  |       |
+        //  |       |  |       |
+        // 32--33--34  39--40--41
+        //      |   |  |   |
+        //      |---|  |---|
+        //     35  36  42  43
+        var c30x = c21x;
+        var c30y = c21y;
+        var c31x = c22x;
+        var c31y = c22y;
+        var c32x = c8x;
+        var c32y = c8y;
+        var c33x = c9x;
+        var c33y = c9y;
+        var c34x = b7x - r03x;
+        var c34y = b7y - r03y;
+        var c35x = c11x;
+        var c35y = c11y;
+        var c36x = b7x;
+        var c36y = b7y;
+        uvs[++iuv] = c30x;
+        uvs[++iuv] = c30y;
+        uvs[++iuv] = c31x;
+        uvs[++iuv] = c31y;
+        uvs[++iuv] = c32x;
+        uvs[++iuv] = c32y;
+        uvs[++iuv] = c33x;
+        uvs[++iuv] = c33y;
+        uvs[++iuv] = c34x;
+        uvs[++iuv] = c34y;
+        uvs[++iuv] = c35x;
+        uvs[++iuv] = c35y;
+        uvs[++iuv] = c36x;
+        uvs[++iuv] = c36y;
+        var c37x = c31x;
+        var c37y = c31y;
+        var c38x = c29x;
+        var c38y = c29y;
+        var c39x = c34x;
+        var c39y = c34y;
+        var c40x = c12x;
+        var c40y = c12y;
+        var c41x = c13x;
+        var c41y = c13y;
+        var c42x = c36x;
+        var c42y = c36y;
+        var c43x = c14x;
+        var c43y = c14y;
+        uvs[++iuv] = c37x;
+        uvs[++iuv] = c37y;
+        uvs[++iuv] = c38x;
+        uvs[++iuv] = c38y;
+        uvs[++iuv] = c39x;
+        uvs[++iuv] = c39y;
+        uvs[++iuv] = c40x;
+        uvs[++iuv] = c40y;
+        uvs[++iuv] = c41x;
+        uvs[++iuv] = c41y;
+        uvs[++iuv] = c42x;
+        uvs[++iuv] = c42y;
+        uvs[++iuv] = c43x;
+        uvs[++iuv] = c43y;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var BuilderLineOfRectangleRoundeds = /** @class */ (function (_super) {
         __extends(BuilderLineOfRectangleRoundeds, _super);
         function BuilderLineOfRectangleRoundeds(buffer, vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved, vcountPerPoint, icountPerPoint) {
@@ -46240,8 +51719,8 @@
             var ioffset = this.indexOffset;
             var pointCountReserved = this.pointCountReserved;
             if (0 < pointCountReserved) {
-                buildRectangleRoundedIndex(indices, voffset, ioffset);
-                copyIndex(indices, RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_INDEX_COUNT, pointCountReserved);
+                buildRectangleRoundedLegacyIndex(indices, voffset, ioffset);
+                copyIndex(indices, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT, pointCountReserved);
             }
             this.inited |= BuilderFlag.INDEX;
         };
@@ -46250,7 +51729,7 @@
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 var buffer = this.buffer;
                 this.updateVertexStepAndUv(buffer, shape, points);
-                this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
+                this.updateLineOfAnyColor(buffer, shape, points, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT);
             }
         };
         BuilderLineOfRectangleRoundeds.prototype.updateVertexStepAndUv = function (buffer, shape, points) {
@@ -46326,17 +51805,17 @@
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
                     // Vertices
-                    buildRectangleRoundedVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, RECTANGLE_ROUNDED_WORLD_SIZE);
-                    copyVertex(vertices, internalTransform, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
+                    buildRectangleRoundedLegacyVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                    copyVertex(vertices, internalTransform, voffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
                     // Steps
                     if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-                        buildRectangleRoundedStep(steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
-                        copyStep(steps, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+                        buildRectangleRoundedLegacyStep(steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                        copyStep(steps, voffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount);
                     }
                     // UVs
                     if (isNotInited || isVertexChanged || isTextureChanged) {
-                        buildRectangleRoundedUv(uvs, voffset, textureUvs, RECTANGLE_ROUNDED_WORLD_SIZE);
-                        copyUvs(uvs, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+                        buildRectangleRoundedLegacyUv(uvs, voffset, textureUvs, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                        copyUvs(uvs, voffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount);
                     }
                 }
                 else {
@@ -46346,23 +51825,23 @@
                         var py = pointsValues[ip + 1] + pointOffset.getY(i);
                         var pointSizeX = pointSize.getX(i);
                         var pointSizeY = pointSize.getY(i);
-                        var iv = voffset + i * RECTANGLE_ROUNDED_VERTEX_COUNT;
+                        var iv = voffset + i * RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT;
                         // Vertices
-                        buildRectangleRoundedVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, RECTANGLE_ROUNDED_WORLD_SIZE);
+                        buildRectangleRoundedLegacyVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                         // Steps
                         if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-                            buildRectangleRoundedStep(steps, iv, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
+                            buildRectangleRoundedLegacyStep(steps, iv, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                         }
                         // UVs
                         if (isNotInited || isVertexChanged || isTextureChanged) {
-                            buildRectangleRoundedUv(uvs, iv, textureUvs, RECTANGLE_ROUNDED_WORLD_SIZE);
+                            buildRectangleRoundedLegacyUv(uvs, iv, textureUvs, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                         }
                     }
                 }
                 // Fill the rest
                 var pointCountReserved = this.pointCountReserved;
-                var voffsetReserved = voffset + pointCount * RECTANGLE_ROUNDED_VERTEX_COUNT;
-                var vcountReserved = RECTANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
+                var voffsetReserved = voffset + pointCount * RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT;
+                var vcountReserved = RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
                 buildNullVertex(vertices, voffsetReserved, vcountReserved);
                 buildNullStep(steps, voffsetReserved, vcountReserved);
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
@@ -46370,6 +51849,100 @@
         };
         return BuilderLineOfRectangleRoundeds;
     }(BuilderLineOfAny));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createLineOfRectangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfRectangleRoundeds);
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangleRoundedLegacy = /** @class */ (function (_super) {
+        __extends(EShapeRectangleRoundedLegacy, _super);
+        function EShapeRectangleRoundedLegacy(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE_ROUNDED_LEGACY; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectangleRoundedLegacy.prototype.clone = function () {
+            return new EShapeRectangleRoundedLegacy(this.type).copy(this);
+        };
+        EShapeRectangleRoundedLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestRectangleRounded(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeRectangleRoundedLegacy;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLineOfRectangleRoundeds = /** @class */ (function (_super) {
+        __extends(EShapeLineOfRectangleRoundeds, _super);
+        function EShapeLineOfRectangleRoundeds(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_RECTANGLE_ROUNDEDS; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
+            };
+            return _this;
+        }
+        Object.defineProperty(EShapeLineOfRectangleRoundeds.prototype, "points", {
+            get: function () {
+                return this._points;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLineOfRectangleRoundeds.prototype.clone = function () {
+            return new EShapeLineOfRectangleRoundeds(this.type).copy(this);
+        };
+        EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
+            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
+                return this._points.calcHitPointAbs(x, y, threshold, sw, ss, sa, null, this._tester, null);
+            }
+            return false;
+        };
+        EShapeLineOfRectangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
+        };
+        EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
+            }
+            return false;
+        };
+        return EShapeLineOfRectangleRoundeds;
+    }(EShapeRectangleRoundedLegacy));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLineOfRectangleRoundeds = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeLineOfRectangleRoundeds());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLineOfRectangleRoundeds = function () {
+        EShapeUploadeds[EShapeType.LINE_OF_RECTANGLE_ROUNDEDS] = createLineOfRectangleRoundedsUploaded;
+        EShapeDeserializers[EShapeType.LINE_OF_RECTANGLE_ROUNDEDS] = deserializeLineOfRectangleRoundeds;
+        EShapeCapabilities.set(EShapeType.LINE_OF_RECTANGLE_ROUNDEDS, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -46507,6 +52080,610 @@
         };
         return BuilderLineOfRectangles;
     }(BuilderLineOfAny));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createLineOfRectanglesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_LEGACY_VERTEX_COUNT, ioffset, RECTANGLE_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfRectangles);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLineOfRectangles = /** @class */ (function (_super) {
+        __extends(EShapeLineOfRectangles, _super);
+        function EShapeLineOfRectangles(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_RECTANGLES; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
+            };
+            return _this;
+        }
+        Object.defineProperty(EShapeLineOfRectangles.prototype, "points", {
+            get: function () {
+                return this._points;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLineOfRectangles.prototype.clone = function () {
+            return new EShapeLineOfRectangles(this.type).copy(this);
+        };
+        EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
+            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
+            }
+            return false;
+        };
+        EShapeLineOfRectangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
+        };
+        EShapeLineOfRectangles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
+            }
+            return false;
+        };
+        return EShapeLineOfRectangles;
+    }(EShapeRectangleLegacy));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLineOfRectangles = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeLineOfRectangles());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLineOfRectangles = function () {
+        EShapeUploadeds[EShapeType.LINE_OF_RECTANGLES] = createLineOfRectanglesUploaded;
+        EShapeDeserializers[EShapeType.LINE_OF_RECTANGLES] = deserializeLineOfRectangles;
+        EShapeCapabilities.set(EShapeType.LINE_OF_RECTANGLES, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    var TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
+    var TRIANGLE_ROUNDED_INDEX_COUNT = 15;
+    var TRIANGLE_ROUNDED_WORLD_SIZE = [
+        0, 0, 0, 0, 0
+    ];
+    var TRIANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
+    var buildTriangleRoundedIndex = function (indices, voffset, ioffset) {
+        // Top corner
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 3;
+        // Bottom-right corner
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 7;
+        // Bottom-left corner
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 11;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 11;
+        // Others
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 15;
+        indices[++ii] = voffset + 16;
+        //
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 19;
+        //
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 13;
+    };
+    var buildTriangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
+        // Calculate the transformed positions
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        var sz = Math.sqrt(sx * sx + 4 * sy * sy);
+        var sw = (2 * sx * sy) / (sx + sz);
+        var ry = (sw * radius) / (2 * sy);
+        var rz = (0.5 * (sz - sw) * radius) / sz;
+        var rx = (ry * sz) / (2 * sx);
+        var work = TRIANGLE_ROUNDED_WORK_POINT;
+        work.set(originX, originY - sy);
+        internalTransform.apply(work, work);
+        var x1 = work.x;
+        var y1 = work.y;
+        work.set(originX, originY);
+        internalTransform.apply(work, work);
+        var tx = work.x;
+        var ty = work.y;
+        work.set(originX + sx, originY);
+        internalTransform.apply(work, work);
+        var dx = tx - x1;
+        var dy = ty - y1;
+        var x4 = work.x + dx;
+        var y4 = work.y + dy;
+        var x7 = tx + (tx - work.x) + dx;
+        var y7 = ty + (ty - work.y) + dy;
+        var dx14 = x4 - x1;
+        var dy14 = y4 - y1;
+        var x2 = x1 + rz * dx14;
+        var y2 = y1 + rz * dy14;
+        var x3 = x4 - ry * dx14;
+        var y3 = y4 - ry * dy14;
+        var dx47r = rx * (x7 - x4);
+        var dy47r = rx * (y7 - y4);
+        var x5 = x4 + dx47r;
+        var y5 = y4 + dy47r;
+        var x6 = x7 - dx47r;
+        var y6 = y7 - dy47r;
+        var dx71 = x1 - x7;
+        var dy71 = y1 - y7;
+        var x8 = x7 + ry * dx71;
+        var y8 = y7 + ry * dy71;
+        var x9 = x1 - rz * dx71;
+        var y9 = y1 - rz * dy71;
+        work.set(originX, originY + sy - sw); // Incenter of a triangle
+        internalTransform.apply(work, work);
+        var x0 = work.x;
+        var y0 = work.y;
+        var x10 = x1 + radius * (x0 - x1);
+        var y10 = y1 + radius * (y0 - y1);
+        var x11 = x4 + radius * (x0 - x4);
+        var y11 = y4 + radius * (y0 - y4);
+        var x12 = x7 + radius * (x0 - x7);
+        var y12 = y7 + radius * (y0 - y7);
+        // World size
+        var xb = tx + dx;
+        var yb = ty + dy;
+        worldSize[0] = toLength(xb, yb, x0, y0);
+        worldSize[1] = rx;
+        worldSize[2] = ry;
+        worldSize[3] = rz;
+        worldSize[4] = 1 - (0.5 * sw) / sy;
+        // Vertices
+        // Top corner
+        var iv = voffset * 2 - 1;
+        vertices[++iv] = x10;
+        vertices[++iv] = y10;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        // Bottom-right corner
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x4;
+        vertices[++iv] = y4;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        // Bottom-left corner
+        vertices[++iv] = x12;
+        vertices[++iv] = y12;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = x7;
+        vertices[++iv] = y7;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        // Others
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x10;
+        vertices[++iv] = y10;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = x12;
+        vertices[++iv] = y12;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
+    };
+    var buildTriangleRoundedStep = function (steps, voffset, strokeWidth, strokeStyle, corner, radius, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var s = worldSize[0];
+        var sr = radius * s;
+        var w = 1 - radius;
+        var e0 = toPackedI4x64(0, scaleInvariant, 1, 1);
+        var e1 = toPackedI4x64(1, scaleInvariant, 1, 1);
+        var c00 = toPackedClippings(0, 0);
+        var c10 = toPackedClippings(1, 0);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var cww = toPackedClippings(w, w);
+        var c1w = toPackedClippings(1, w);
+        var cw1 = toPackedClippings(w, 1);
+        var cw0 = toPackedClippings(w, 0);
+        // Top corner
+        var is = voffset * 6 - 1;
+        if (corner & EShapeCorner.TOP) {
+            // 001
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c00;
+            steps[++is] = 0;
+            // 101
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c10;
+            steps[++is] = 0;
+            // 111
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            // 011
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c01;
+            steps[++is] = 0;
+        }
+        else {
+            // ww0
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = cww;
+            steps[++is] = 0;
+            // 1w0
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = c1w;
+            steps[++is] = 0;
+            // 110
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            // w10
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = cw1;
+            steps[++is] = 0;
+        }
+        // Bottom-right corner
+        if (corner & EShapeCorner.BOTTOM_RIGHT) {
+            // 001
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c00;
+            steps[++is] = 0;
+            // 101
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c10;
+            steps[++is] = 0;
+            // 111
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            // 011
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c01;
+            steps[++is] = 0;
+        }
+        else {
+            // ww0
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = cww;
+            steps[++is] = 0;
+            // 1w0
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = c1w;
+            steps[++is] = 0;
+            // 110
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            // w10
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = cw1;
+            steps[++is] = 0;
+        }
+        // Bottom-left corner
+        if (corner & EShapeCorner.BOTTOM_LEFT) {
+            // 001
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c00;
+            steps[++is] = 0;
+            // 101
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c10;
+            steps[++is] = 0;
+            // 111
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            // 011
+            steps[++is] = strokeWidth;
+            steps[++is] = e1;
+            steps[++is] = sr;
+            steps[++is] = sr;
+            steps[++is] = c01;
+            steps[++is] = 0;
+        }
+        else {
+            // ww0
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = cww;
+            steps[++is] = 0;
+            // 1w0
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = c1w;
+            steps[++is] = 0;
+            // 110
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = c11;
+            steps[++is] = 0;
+            // w10
+            steps[++is] = strokeWidth;
+            steps[++is] = e0;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = cw1;
+            steps[++is] = 0;
+        }
+        // Others
+        // 000
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        // w00
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = cw0;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // w00
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = cw0;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // w00
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = cw0;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        // 100
+        steps[++is] = strokeWidth;
+        steps[++is] = e0;
+        steps[++is] = s;
+        steps[++is] = s;
+        steps[++is] = c10;
+        steps[++is] = 0;
+    };
+    var buildTriangleRoundedUv = function (uvs, voffset, textureUvs, radius, worldSize) {
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var x2 = textureUvs.x2;
+        var x3 = textureUvs.x3;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var y2 = textureUvs.y2;
+        var y3 = textureUvs.y3;
+        var x4 = 0.5 * (x0 + x1);
+        var y4 = 0.5 * (y0 + y1);
+        var c = worldSize[4];
+        var x5 = x4 + c * (x3 - x0);
+        var y5 = y4 + c * (y3 - y0);
+        var rx = worldSize[1];
+        var ry = worldSize[2];
+        var rz = worldSize[3];
+        var x6 = x4 + rz * (x3 - x4);
+        var y6 = y4 + rz * (y3 - y4);
+        var x7 = x4 + radius * (x5 - x4);
+        var y7 = y4 + radius * (y5 - y4);
+        var x8 = x4 + rz * (x2 - x4);
+        var y8 = y4 + rz * (y2 - y4);
+        var x9 = x2 + ry * (x4 - x2);
+        var y9 = y2 + ry * (y4 - y2);
+        var x10 = x2 + radius * (x5 - x2);
+        var y10 = y2 + radius * (y5 - y2);
+        var x11 = x2 + rx * (x3 - x2);
+        var y11 = y2 + rx * (y3 - y2);
+        var x12 = x3 + rx * (x2 - x3);
+        var y12 = y3 + rx * (y2 - y3);
+        var x13 = x3 + radius * (x5 - x3);
+        var y13 = y3 + radius * (y5 - y3);
+        var x14 = x3 + ry * (x4 - x3);
+        var y14 = y3 + ry * (y4 - y3);
+        // Uvs
+        // Top corner
+        var iuv = voffset * 2 - 1;
+        uvs[++iuv] = x7;
+        uvs[++iuv] = y7;
+        uvs[++iuv] = x6;
+        uvs[++iuv] = y6;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x8;
+        uvs[++iuv] = y8;
+        // Bottom-right corner
+        uvs[++iuv] = x10;
+        uvs[++iuv] = y10;
+        uvs[++iuv] = x9;
+        uvs[++iuv] = y9;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x11;
+        uvs[++iuv] = y11;
+        // Bottom-left corner
+        uvs[++iuv] = x13;
+        uvs[++iuv] = y13;
+        uvs[++iuv] = x12;
+        uvs[++iuv] = y12;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x14;
+        uvs[++iuv] = y14;
+        // Others
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x7;
+        uvs[++iuv] = y7;
+        uvs[++iuv] = x8;
+        uvs[++iuv] = y8;
+        uvs[++iuv] = x9;
+        uvs[++iuv] = y9;
+        uvs[++iuv] = x10;
+        uvs[++iuv] = y10;
+        uvs[++iuv] = x11;
+        uvs[++iuv] = y11;
+        uvs[++iuv] = x12;
+        uvs[++iuv] = y12;
+        uvs[++iuv] = x13;
+        uvs[++iuv] = y13;
+        uvs[++iuv] = x14;
+        uvs[++iuv] = y14;
+        uvs[++iuv] = x6;
+        uvs[++iuv] = y6;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -46664,6 +52841,220 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var createLineOfTriangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangleRoundeds);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var containsCorner_ = function (shape, x, y, r, aw, sw, ss) {
+        var fill = shape.fill;
+        if (fill.enable) {
+            if (x * x + y * y <= r * r) {
+                return true;
+            }
+        }
+        else {
+            if (0 < sw) {
+                var d = x * x + y * y;
+                if (d <= r * r) {
+                    var w = Math.max(0.0, r * (1 - (sw * ss) / aw));
+                    if (w * w <= d) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
+    var containsCorner = function (shape, x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss) {
+        var xl = x1 + r12 * (x2 - x1) - x0;
+        var yl = y1 + r12 * (y2 - y1) - y0;
+        var n = Math.sqrt(xl * xl + yl * yl);
+        var threshold = 0.00001;
+        if (threshold < n) {
+            var ni = 1 / n;
+            var nlx = xl * ni;
+            var nly = yl * ni;
+            var xr = x1 + r13 * (x3 - x1) - x0;
+            var yr = y1 + r13 * (y3 - y1) - y0;
+            var nrx = xr * ni;
+            var nry = yr * ni;
+            var det = nlx * nry - nrx * nly;
+            if (threshold < Math.abs(det)) {
+                var deti = 1 / det;
+                var xc = x - x0;
+                var yc = y - y0;
+                var dx = (+nry * xc - nrx * yc) * deti;
+                var dy = (-nly * xc + nlx * yc) * deti;
+                if (containsCorner_(shape, dx, dy, n, aw * radius, sw, ss)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    var hitTestTriangleRounded = function (shape, x, y, ax, ay, sw, ss) {
+        var a = (2 * ay) / ax;
+        if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
+            var az = Math.sqrt(ax * ax + 4 * ay * ay);
+            var aw = (2 * ax * ay) / (ax + az);
+            var radius = shape.radius;
+            var x0 = 0;
+            var y0 = ay - aw;
+            var x1 = 0;
+            var y1 = -ay;
+            var x4 = +ax;
+            var y4 = +ay;
+            var x7 = -x4;
+            var y7 = +y4;
+            var x10 = x1 + radius * (x0 - x1);
+            var y10 = y1 + radius * (y0 - y1);
+            var x11 = x4 + radius * (x0 - x4);
+            var y11 = y4 + radius * (y0 - y4);
+            var y12 = +y11;
+            var x12 = -x11;
+            var c0 = -a * x + y10 - y <= 0;
+            var c1 = +a * x + y10 - y <= 0;
+            var c2 = y <= y11;
+            var corner = shape.corner;
+            if (!c0 && !c1 && corner & EShapeCorner.TOP) {
+                // Top corner
+                var rz = (0.5 * (az - aw) * radius) / az;
+                if (containsCorner(shape, x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss)) {
+                    return true;
+                }
+            }
+            else if (!c0 && !c2 && corner & EShapeCorner.BOTTOM_LEFT) {
+                // Bottom-left corner
+                var ry = (aw * radius) / (2 * ay);
+                var rx = (ry * az) / (2 * ax);
+                if (containsCorner(shape, x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss)) {
+                    return true;
+                }
+            }
+            else if (!c1 && !c2 && corner & EShapeCorner.BOTTOM_RIGHT) {
+                // Bottom-right corner
+                var ry = (aw * radius) / (2 * ay);
+                var rx = (ry * az) / (2 * ax);
+                if (containsCorner(shape, x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss)) {
+                    return true;
+                }
+            }
+            else {
+                // Others
+                var fill = shape.fill;
+                if (fill.enable) {
+                    return true;
+                }
+                else {
+                    if (0 < sw) {
+                        var s = sw * ss;
+                        var cy = ay - aw;
+                        var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+                        var ay2 = ay - s;
+                        if (!hitTestTriangleFilled(x, y, a, ay1, ay2)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeTriangleRounded = /** @class */ (function (_super) {
+        __extends(EShapeTriangleRounded, _super);
+        function EShapeTriangleRounded(type) {
+            if (type === void 0) { type = EShapeType.TRIANGLE_ROUNDED; }
+            return _super.call(this, type) || this;
+        }
+        EShapeTriangleRounded.prototype.clone = function () {
+            return new EShapeTriangleRounded(this.type).copy(this);
+        };
+        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestTriangleRounded(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeTriangleRounded;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLineOfTriangleRoundeds = /** @class */ (function (_super) {
+        __extends(EShapeLineOfTriangleRoundeds, _super);
+        function EShapeLineOfTriangleRoundeds(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_TRIANGLE_ROUNDEDS; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
+            };
+            return _this;
+        }
+        Object.defineProperty(EShapeLineOfTriangleRoundeds.prototype, "points", {
+            get: function () {
+                return this._points;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLineOfTriangleRoundeds.prototype.clone = function () {
+            return new EShapeLineOfTriangleRoundeds(this.type).copy(this);
+        };
+        EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
+            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
+            }
+            return false;
+        };
+        EShapeLineOfTriangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
+        };
+        EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
+            }
+            return false;
+        };
+        return EShapeLineOfTriangleRoundeds;
+    }(EShapeTriangleRounded));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLineOfTriangleRoundeds = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeLineOfTriangleRoundeds());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLineOfTriangleRoundeds = function () {
+        EShapeUploadeds[EShapeType.LINE_OF_TRIANGLE_ROUNDEDS] = createLineOfTriangleRoundedsUploaded;
+        EShapeDeserializers[EShapeType.LINE_OF_TRIANGLE_ROUNDEDS] = deserializeLineOfTriangleRoundeds;
+        EShapeCapabilities.set(EShapeType.LINE_OF_TRIANGLE_ROUNDEDS, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var BuilderLineOfTriangles = /** @class */ (function (_super) {
         __extends(BuilderLineOfTriangles, _super);
         function BuilderLineOfTriangles() {
@@ -46677,8 +53068,8 @@
             var ioffset = this.indexOffset;
             var pointCountReserved = this.pointCountReserved;
             if (0 < pointCountReserved) {
-                buildTriangleIndex(indices, voffset, ioffset);
-                copyIndex(indices, TRIANGLE_VERTEX_COUNT, ioffset, TRIANGLE_INDEX_COUNT, pointCountReserved);
+                buildTriangleLegacyIndex(indices, voffset, ioffset);
+                copyIndex(indices, TRIANGLE_LEGACY_VERTEX_COUNT, ioffset, TRIANGLE_LEGACY_INDEX_COUNT, pointCountReserved);
             }
             this.inited |= BuilderFlag.INDEX;
         };
@@ -46687,7 +53078,7 @@
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 var buffer = this.buffer;
                 this.updateVertexStepAndUvs(buffer, shape, points);
-                this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
+                this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_LEGACY_VERTEX_COUNT);
             }
         };
         BuilderLineOfTriangles.prototype.updateVertexStepAndUvs = function (buffer, shape, points) {
@@ -46750,15 +53141,15 @@
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
-                    buildTriangleVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_WORLD_SIZE);
-                    copyVertex(vertices, internalTransform, voffset, TRIANGLE_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
+                    buildTriangleLegacyVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_LEGACY_WORLD_SIZE);
+                    copyVertex(vertices, internalTransform, voffset, TRIANGLE_LEGACY_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
                     if (isNotInited || isVertexChanged || isTransformChanged) {
-                        buildTriangleStep(steps, voffset, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
-                        copyStep(steps, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
+                        buildTriangleLegacyStep(steps, voffset, strokeWidth, strokeStyle, TRIANGLE_LEGACY_WORLD_SIZE);
+                        copyStep(steps, voffset, TRIANGLE_LEGACY_VERTEX_COUNT, pointCount);
                     }
                     if (isNotInited || isVertexChanged || isTextureChanged) {
-                        buildTriangleUv(uvs, textureUvs, voffset, TRIANGLE_WORLD_SIZE);
-                        copyUvs(uvs, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
+                        buildTriangleLegacyUv(uvs, textureUvs, voffset, TRIANGLE_LEGACY_WORLD_SIZE);
+                        copyUvs(uvs, voffset, TRIANGLE_LEGACY_VERTEX_COUNT, pointCount);
                     }
                 }
                 else {
@@ -46768,20 +53159,20 @@
                         var py = pointsValues[ip + 1] + pointOffset.getY(i);
                         var pointSizeX = pointSize.getX(i);
                         var pointSizeY = pointSize.getY(i);
-                        var iv = voffset + i * TRIANGLE_VERTEX_COUNT;
-                        buildTriangleVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_WORLD_SIZE);
+                        var iv = voffset + i * TRIANGLE_LEGACY_VERTEX_COUNT;
+                        buildTriangleLegacyVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_LEGACY_WORLD_SIZE);
                         if (isNotInited || isVertexChanged || isTransformChanged) {
-                            buildTriangleStep(steps, iv, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
+                            buildTriangleLegacyStep(steps, iv, strokeWidth, strokeStyle, TRIANGLE_LEGACY_WORLD_SIZE);
                         }
                         if (isNotInited || isVertexChanged || isTextureChanged) {
-                            buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);
+                            buildTriangleLegacyUv(uvs, textureUvs, iv, TRIANGLE_LEGACY_WORLD_SIZE);
                         }
                     }
                 }
                 // Fill the rest
                 var pointCountReserved = this.pointCountReserved;
-                var voffsetReserved = voffset + pointCount * TRIANGLE_VERTEX_COUNT;
-                var vcountReserved = TRIANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
+                var voffsetReserved = voffset + pointCount * TRIANGLE_LEGACY_VERTEX_COUNT;
+                var vcountReserved = TRIANGLE_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
                 buildNullVertex(vertices, voffsetReserved, vcountReserved);
                 buildNullStep(steps, voffsetReserved, vcountReserved);
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
@@ -46794,972 +53185,22 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var BuilderLine = /** @class */ (function (_super) {
-        __extends(BuilderLine, _super);
-        function BuilderLine(buffer, vertexOffset, indexOffset, vertexCount, indexCount) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, vertexCount, indexCount) || this;
-            _this.pointId = -1;
-            _this.pointCount = 0;
-            _this.pointsClosed = false;
-            _this.length = 1;
-            return _this;
-        }
-        BuilderLine.prototype.init = function () { };
-        BuilderLine.prototype.reinit = function (buffer, shape, vertexOffset, indexOffset) {
-            var pointCount = toLinePointCount(shape.points);
-            var vertexCount = toLineVertexCount(pointCount, true);
-            var indexCount = toLineIndexCount(pointCount, true);
-            if (this.buffer !== buffer ||
-                this.vertexOffset !== vertexOffset ||
-                this.indexOffset !== indexOffset ||
-                this.vertexCount !== vertexCount ||
-                this.indexCount !== indexCount) {
-                if (buffer.check(vertexOffset, indexOffset, vertexCount, indexCount)) {
-                    this.inited = BuilderFlag.NONE;
-                    this.buffer = buffer;
-                    this.vertexOffset = vertexOffset;
-                    this.indexOffset = indexOffset;
-                    this.vertexCount = vertexCount;
-                    this.indexCount = indexCount;
-                    this.init();
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
-                return true;
-            }
-        };
-        BuilderLine.prototype.isCompatible = function (shape) {
-            var vcount = toLineVertexCount(toLinePointCount(shape.points), true);
-            return vcount === this.vertexCount;
-        };
-        BuilderLine.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateLineVertexStepAndIndex(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateLineUv(buffer, shape);
-        };
-        BuilderLine.prototype.updateLineVertexStepAndIndex = function (buffer, shape) {
-            var points = shape.points;
-            if (points) {
-                var pointId = points.id;
-                var formatted = points.formatted;
-                var pointCount = formatted.length;
-                var pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
-                var isPointChanged = pointId !== this.pointId ||
-                    pointCount !== this.pointCount ||
-                    pointsClosed !== this.pointsClosed;
-                var stroke = shape.stroke;
-                var strokeWidth = stroke.enable ? stroke.width : 0;
-                var strokeStyle = stroke.style;
-                var isStrokeWidthChanged = this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
-                var transformLocalId = toTransformLocalId(shape);
-                var isTransformChanged = this.transformLocalId !== transformLocalId;
-                var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_INDEX);
-                if (isNotInited || isPointChanged || isTransformChanged || isStrokeWidthChanged) {
-                    this.inited |= BuilderFlag.VERTEX_STEP_AND_INDEX;
-                    this.pointId = pointId;
-                    this.pointCount = pointCount;
-                    this.pointsClosed = pointsClosed;
-                    this.strokeWidth = strokeWidth;
-                    this.strokeStyle = strokeStyle;
-                    this.transformLocalId = transformLocalId;
-                    if (isPointChanged) {
-                        // Invalidate the UV buffer
-                        this.inited &= ~BuilderFlag.UV;
-                    }
-                    buffer.updateVertices();
-                    buffer.updateSteps();
-                    buffer.updateIndices();
-                    this.length = buildLineVertexStepAndIndex(buffer.vertices, buffer.steps, buffer.indices, this.indexOffset, this.indexCount, this.vertexOffset, this.vertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, strokeWidth, strokeStyle, shape.transform.internalTransform);
-                }
-            }
-        };
-        BuilderLine.prototype.updateLineUv = function (buffer, shape) {
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isNotInited = !(this.inited & BuilderFlag.UV);
-            if (isNotInited ||
-                texture !== this.texture ||
-                textureTransformId !== this.textureTransformId) {
-                this.inited |= BuilderFlag.UV;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                buffer.updateUvs();
-                buildLineUv(buffer.uvs, buffer.steps, this.vertexOffset, this.vertexCount, toTextureUvs(texture), this.length);
-            }
-        };
-        return BuilderLine;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerBase = /** @class */ (function (_super) {
-        __extends(BuilderMarkerBase, _super);
-        function BuilderMarkerBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerBase.prototype.updateColor = function (buffer, shape) {
-            var colorFill = 0xffffff;
-            var alphaFill = 1;
-            var points = shape.points;
-            if (points != null) {
-                var container = points.getMarker();
-                if (container != null) {
-                    var marker = this.toMarker(container);
-                    var fill = marker.fill;
-                    colorFill = fill.color;
-                    alphaFill = shape.visible && fill.enable ? fill.alpha : 0;
-                }
-            }
-            var stroke = shape.stroke;
-            var colorStroke = stroke.color;
-            var alphaStroke = shape.visible && stroke.enable && 0 < stroke.width ? stroke.alpha : 0;
-            var isNotInited = !(this.inited & BuilderFlag.COLOR);
-            if (isNotInited ||
-                colorFill !== this.colorFill ||
-                alphaFill !== this.alphaFill ||
-                colorStroke !== this.colorStroke ||
-                alphaStroke !== this.alphaStroke) {
-                this.inited |= BuilderFlag.COLOR;
-                this.colorFill = colorFill;
-                this.alphaFill = alphaFill;
-                this.colorStroke = colorStroke;
-                this.alphaStroke = alphaStroke;
-                buffer.updateColors();
-                buildColor(colorFill, alphaFill, colorStroke, alphaStroke, this.vertexOffset, this.vertexCount, buffer.colors);
-            }
-        };
-        return BuilderMarkerBase;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerCircle = /** @class */ (function (_super) {
-        __extends(BuilderMarkerCircle, _super);
-        function BuilderMarkerCircle(buffer, vertexOffset, indexOffset) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, CIRCLE_LEGACY_VERTEX_COUNT, CIRCLE_LEGACY_INDEX_COUNT) || this;
-            _this.pointId = -1;
-            return _this;
-        }
-        BuilderMarkerCircle.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            var vertexOffset = this.vertexOffset;
-            buildCircleLegacyIndex(buffer.indices, vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderMarkerCircle.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexAndStep(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateUv(buffer, shape);
-        };
-        BuilderMarkerCircle.prototype.updateVertexAndStep = function (buffer, shape) {
-            var _a;
-            var points = shape.points;
-            if (points == null) {
-                return;
-            }
-            var container = points.getMarker();
-            if (container == null) {
-                return;
-            }
-            var marker = this.toMarker(container);
-            var size = marker.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var pointId = points.id;
-            var isPointChanged = pointId !== this.pointId;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
-            if (isNotInited ||
-                isSizeChanged ||
-                isTransformChanged ||
-                isStrokeChanged ||
-                isPointChanged) {
-                this.inited |= BuilderFlag.VERTEX_AND_STEP;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.pointId = pointId;
-                // Buffer
-                var internalTransform = ((_a = BuilderMarkerCircle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerCircle.WORK = new pixi_js.Matrix()));
-                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
-                buffer.updateVertices();
-                buffer.updateSteps();
-                buildCircleLegacyVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, CIRCLE_LEGACY_WORLD_SIZE);
-                buildCircleLegacyStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_LEGACY_WORLD_SIZE);
-            }
-        };
-        BuilderMarkerCircle.prototype.updateUv = function (buffer, shape) {
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isNotInited = !(this.inited & BuilderFlag.UV);
-            if (isNotInited ||
-                texture !== this.texture ||
-                textureTransformId !== this.textureTransformId) {
-                this.inited |= BuilderFlag.UV;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                buffer.updateUvs();
-                var textureUvs = toTextureUvs(texture);
-                buildCircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
-            }
-        };
-        return BuilderMarkerCircle;
-    }(BuilderMarkerBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerCircleHead = /** @class */ (function (_super) {
-        __extends(BuilderMarkerCircleHead, _super);
-        function BuilderMarkerCircleHead() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerCircleHead.prototype.toMarker = function (container) {
-            return container.head;
-        };
-        return BuilderMarkerCircleHead;
-    }(BuilderMarkerCircle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerCircleTail = /** @class */ (function (_super) {
-        __extends(BuilderMarkerCircleTail, _super);
-        function BuilderMarkerCircleTail() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerCircleTail.prototype.toMarker = function (container) {
-            return container.tail;
-        };
-        return BuilderMarkerCircleTail;
-    }(BuilderMarkerCircle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerRectangle = /** @class */ (function (_super) {
-        __extends(BuilderMarkerRectangle, _super);
-        function BuilderMarkerRectangle(buffer, vertexOffset, indexOffset) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_LEGACY_VERTEX_COUNT, RECTANGLE_LEGACY_INDEX_COUNT) || this;
-            _this.pointId = -1;
-            return _this;
-        }
-        BuilderMarkerRectangle.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderMarkerRectangle.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderMarkerRectangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var _a;
-            var points = shape.points;
-            if (points == null) {
-                return;
-            }
-            var container = points.getMarker();
-            if (container == null) {
-                return;
-            }
-            var marker = this.toMarker(container);
-            var size = marker.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeSide = stroke.side;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            var pointId = points.id;
-            var isPointChanged = pointId !== this.pointId;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
-            if (isNotInited ||
-                isVertexChanged ||
-                isTransformChanged ||
-                isTextureChanged ||
-                isPointChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeSide = strokeSide;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                // Vertices
-                var voffset = this.vertexOffset;
-                var internalTransform = ((_a = BuilderMarkerRectangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerRectangle.WORK = new pixi_js.Matrix()));
-                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
-                buffer.updateVertices();
-                buildRectangleLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, RECTANGLE_LEGACY_WORLD_SIZE);
-                // Steps
-                if (isNotInited || isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildRectangleLegacyStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_LEGACY_WORLD_SIZE);
-                }
-                // UVs
-                if (isNotInited || isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
-                }
-            }
-        };
-        return BuilderMarkerRectangle;
-    }(BuilderMarkerBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerRectangleHead = /** @class */ (function (_super) {
-        __extends(BuilderMarkerRectangleHead, _super);
-        function BuilderMarkerRectangleHead() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerRectangleHead.prototype.toMarker = function (container) {
-            return container.head;
-        };
-        return BuilderMarkerRectangleHead;
-    }(BuilderMarkerRectangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerRectangleTail = /** @class */ (function (_super) {
-        __extends(BuilderMarkerRectangleTail, _super);
-        function BuilderMarkerRectangleTail() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerRectangleTail.prototype.toMarker = function (container) {
-            return container.tail;
-        };
-        return BuilderMarkerRectangleTail;
-    }(BuilderMarkerRectangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerTriangle = /** @class */ (function (_super) {
-        __extends(BuilderMarkerTriangle, _super);
-        function BuilderMarkerTriangle(buffer, vertexOffset, indexOffset) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_VERTEX_COUNT, TRIANGLE_INDEX_COUNT) || this;
-            _this.pointId = -1;
-            return _this;
-        }
-        BuilderMarkerTriangle.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderMarkerTriangle.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderMarkerTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var _a;
-            var points = shape.points;
-            if (points == null) {
-                return;
-            }
-            var container = points.getMarker();
-            if (container == null) {
-                return;
-            }
-            var marker = this.toMarker(container);
-            var size = marker.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            var pointId = points.id;
-            var isPointChanged = pointId !== this.pointId;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
-            if (isNotInited ||
-                isVertexChanged ||
-                isTransformChanged ||
-                isTextureChanged ||
-                isPointChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                this.pointId = pointId;
-                var voffset = this.vertexOffset;
-                var internalTransform = ((_a = BuilderMarkerTriangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerTriangle.WORK = new pixi_js.Matrix()));
-                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
-                buffer.updateVertices();
-                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_WORLD_SIZE);
-                if (isNotInited || isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildTriangleStep(buffer.steps, voffset, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
-                }
-                if (isNotInited || isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
-                }
-            }
-        };
-        return BuilderMarkerTriangle;
-    }(BuilderMarkerBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerTriangleHead = /** @class */ (function (_super) {
-        __extends(BuilderMarkerTriangleHead, _super);
-        function BuilderMarkerTriangleHead() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerTriangleHead.prototype.toMarker = function (container) {
-            return container.head;
-        };
-        return BuilderMarkerTriangleHead;
-    }(BuilderMarkerTriangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderMarkerTriangleTail = /** @class */ (function (_super) {
-        __extends(BuilderMarkerTriangleTail, _super);
-        function BuilderMarkerTriangleTail() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderMarkerTriangleTail.prototype.toMarker = function (container) {
-            return container.tail;
-        };
-        return BuilderMarkerTriangleTail;
-    }(BuilderMarkerTriangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderNull = /** @class */ (function () {
-        function BuilderNull(buffer, vertexOffset, indexOffset) {
-            this.buffer = buffer;
-            this.vertexOffset = vertexOffset;
-            this.indexOffset = indexOffset;
-            this.vertexCount = 0;
-            this.indexCount = 0;
-            this.texture = null;
-        }
-        BuilderNull.prototype.init = function () {
-            return this;
-        };
-        BuilderNull.prototype.reinit = function (buffer, shape, vertexOffset, indexOffset) {
-            this.buffer = buffer;
-            this.vertexOffset = vertexOffset;
-            this.indexOffset = indexOffset;
-            return true;
-        };
-        BuilderNull.prototype.isCompatible = function (shape) {
-            return true;
-        };
-        BuilderNull.prototype.update = function (shape) {
-            this.texture = toTexture(shape);
-        };
-        BuilderNull.prototype.buildUnit = function (builder) {
-            var texture = this.texture || pixi_js.Texture.WHITE;
-            var baseTexture = texture.baseTexture;
-            if (baseTexture !== builder.baseTexture) {
-                builder.baseTexture = baseTexture;
-                var indexOffset = this.indexOffset;
-                builder.push(texture, indexOffset);
-            }
-        };
-        return BuilderNull;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderRectangleLegacy = /** @class */ (function (_super) {
-        __extends(BuilderRectangleLegacy, _super);
-        function BuilderRectangleLegacy(buffer, vertexOffset, indexOffset) {
-            return _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_LEGACY_VERTEX_COUNT, RECTANGLE_LEGACY_INDEX_COUNT) || this;
-        }
-        BuilderRectangleLegacy.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderRectangleLegacy.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderRectangleLegacy.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeSide = stroke.side;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
-            if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeSide = strokeSide;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                // Vertices
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildRectangleLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, RECTANGLE_LEGACY_WORLD_SIZE);
-                // Steps
-                if (isNotInited || isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildRectangleLegacyStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_LEGACY_WORLD_SIZE);
-                }
-                // UVs
-                if (isNotInited || isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
-                }
-            }
-        };
-        return BuilderRectangleLegacy;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderRectanglePivoted = /** @class */ (function (_super) {
-        __extends(BuilderRectanglePivoted, _super);
-        function BuilderRectanglePivoted(buffer, vertexOffset, indexOffset) {
-            return _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_LEGACY_VERTEX_COUNT, RECTANGLE_LEGACY_INDEX_COUNT) || this;
-        }
-        BuilderRectanglePivoted.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderRectanglePivoted.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderRectanglePivoted.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeSide = stroke.side;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
-            if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeSide = strokeSide;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                // Vertices
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildRectangleLegacyVertex(buffer.vertices, voffset, 0.5 * sizeX, 0.5 * sizeY, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, RECTANGLE_LEGACY_WORLD_SIZE);
-                // Steps
-                if (isNotInited || isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildRectangleLegacyStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_LEGACY_WORLD_SIZE);
-                }
-                // UVs
-                if (isNotInited || isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
-                }
-            }
-        };
-        return BuilderRectanglePivoted;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderSemicircle = /** @class */ (function (_super) {
-        __extends(BuilderSemicircle, _super);
-        function BuilderSemicircle(buffer, vertexOffset, indexOffset) {
-            return _super.call(this, buffer, vertexOffset, indexOffset, SEMICIRCLE_VERTEX_COUNT, SEMICIRCLE_INDEX_COUNT) || this;
-        }
-        BuilderSemicircle.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            var voffset = this.vertexOffset;
-            buildSemicircleIndex(buffer.indices, voffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderSemicircle.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexAndStep(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateUv(buffer, shape);
-        };
-        BuilderSemicircle.prototype.updateVertexAndStep = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
-            if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
-                this.inited |= BuilderFlag.VERTEX_AND_STEP;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                // Buffer
-                buffer.updateVertices();
-                buffer.updateSteps();
-                buildSemicircleVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, SEMICIRCLE_WORLD_SIZE);
-                buildSemicircleStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, SEMICIRCLE_WORLD_SIZE);
-            }
-        };
-        BuilderSemicircle.prototype.updateUv = function (buffer, shape) {
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isNotInited = !(this.inited & BuilderFlag.UV);
-            if (isNotInited ||
-                texture !== this.texture ||
-                textureTransformId !== this.textureTransformId) {
-                this.inited |= BuilderFlag.UV;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                buffer.updateUvs();
-                var textureUvs = toTextureUvs(texture);
-                buildSemicircleUv(buffer.uvs, this.vertexOffset, textureUvs);
-            }
-        };
-        return BuilderSemicircle;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderTriangleRounded = /** @class */ (function (_super) {
-        __extends(BuilderTriangleRounded, _super);
-        function BuilderTriangleRounded(buffer, vertexOffset, indexOffset) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_ROUNDED_VERTEX_COUNT, TRIANGLE_ROUNDED_INDEX_COUNT) || this;
-            _this.radius = 0;
-            _this.corner = 0;
-            return _this;
-        }
-        BuilderTriangleRounded.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderTriangleRounded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderTriangleRounded.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var radius = shape.radius;
-            var isRadiusChanged = radius !== this.radius;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var corner = shape.corner;
-            var isCornerChanged = corner !== this.corner;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
-            if (isNotInited ||
-                isVertexChanged ||
-                isTransformChanged ||
-                isCornerChanged ||
-                isTextureChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.radius = radius;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.corner = corner;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildTriangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
-                if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-                    buffer.updateSteps();
-                    buildTriangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
-                }
-                if (isNotInited || isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleRoundedUv(buffer.uvs, voffset, toTextureUvs(texture), radius, TRIANGLE_ROUNDED_WORLD_SIZE);
-                }
-            }
-        };
-        return BuilderTriangleRounded;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var BuilderTriangle = /** @class */ (function (_super) {
-        __extends(BuilderTriangle, _super);
-        function BuilderTriangle(buffer, vertexOffset, indexOffset) {
-            return _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_VERTEX_COUNT, TRIANGLE_INDEX_COUNT) || this;
-        }
-        BuilderTriangle.prototype.init = function () {
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            this.inited |= BuilderFlag.INDEX;
-        };
-        BuilderTriangle.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-        };
-        BuilderTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
-            if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
-                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
-                if (isNotInited || isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildTriangleStep(buffer.steps, voffset, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
-                }
-                if (isNotInited || isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
-                }
-            }
-        };
-        return BuilderTriangle;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createCircleLegacyUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = CIRCLE_LEGACY_VERTEX_COUNT + tvcount;
-        var icount = CIRCLE_LEGACY_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderCircleLegacy(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + CIRCLE_LEGACY_VERTEX_COUNT, ioffset + CIRCLE_LEGACY_INDEX_COUNT, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createGroupUploaded = function (buffer, shape, voffset, ioffset) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = tvcount;
-        var icount = ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderText(buffer, voffset, ioffset, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImageSdfUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = IMAGE_SDF_VERTEX_COUNT + tvcount;
-        var icount = IMAGE_SDF_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderImageSdf(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + IMAGE_SDF_VERTEX_COUNT, ioffset + IMAGE_SDF_INDEX_COUNT, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
+    var createLineOfTrianglesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_LEGACY_VERTEX_COUNT, ioffset, TRIANGLE_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangles);
     };
 
     /*
      * Copyright (C) 2019-2026 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectangleTriangulatedImpl = /** @class */ (function () {
-        function EShapeRectangleTriangulatedImpl(parent) {
+    var EShapeTriangleTriangulatedImpl = /** @class */ (function () {
+        function EShapeTriangleTriangulatedImpl(parent) {
             this._id = 0;
             this._parent = parent;
             this._width = 0;
             this._height = 0;
             this._strokeAlign = 0;
             this._strokeWidth = 0;
-            this._strokeSide = EShapeStrokeSide.NONE;
             this._sizeX = 0;
             this._sizeY = 0;
             this._vertices = [];
@@ -47772,7 +53213,7 @@
             this._nindices = 0;
             this._boundary = [0, 0, 0, 0];
         }
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "id", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "id", {
             get: function () {
                 this.triangulate();
                 return this._id;
@@ -47780,7 +53221,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "vertices", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "vertices", {
             get: function () {
                 this.triangulate();
                 return this._vertices;
@@ -47788,7 +53229,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "nvertices", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "nvertices", {
             get: function () {
                 this.triangulate();
                 return this._nvertices;
@@ -47796,7 +53237,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "distances", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "distances", {
             get: function () {
                 this.triangulate();
                 return this._distances;
@@ -47804,7 +53245,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "lengths", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "lengths", {
             get: function () {
                 this.triangulate();
                 return this._lengths;
@@ -47812,7 +53253,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "clippings", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "clippings", {
             get: function () {
                 this.triangulate();
                 return this._clippings;
@@ -47820,7 +53261,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "uvs", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "uvs", {
             get: function () {
                 this.triangulate();
                 return this._uvs;
@@ -47828,7 +53269,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "indices", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "indices", {
             get: function () {
                 this.triangulate();
                 return this._indices;
@@ -47836,7 +53277,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "nindices", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "nindices", {
             get: function () {
                 this.triangulate();
                 return this._nindices;
@@ -47844,7 +53285,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeRectangleTriangulatedImpl.prototype, "boundary", {
+        Object.defineProperty(EShapeTriangleTriangulatedImpl.prototype, "boundary", {
             get: function () {
                 this.triangulate();
                 return this._boundary;
@@ -47852,7 +53293,7 @@
             enumerable: false,
             configurable: true
         });
-        EShapeRectangleTriangulatedImpl.prototype.triangulate = function () {
+        EShapeTriangleTriangulatedImpl.prototype.triangulate = function () {
             var isNotInitialized = this._id === 0;
             var parent = this._parent;
             var size = parent.size;
@@ -47862,10 +53303,7 @@
             var stroke = parent.stroke;
             var strokeAlign = stroke.align;
             var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeSide = stroke.side;
-            var isStrokeChanged = this._strokeAlign !== strokeAlign ||
-                this._strokeWidth !== strokeWidth ||
-                this._strokeSide !== strokeSide;
+            var isStrokeChanged = this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
             var isSizeChanged = false;
             var sizeX = this._sizeX;
             var sizeY = this._sizeY;
@@ -47874,7 +53312,6 @@
                 this._height = height;
                 this._strokeAlign = strokeAlign;
                 this._strokeWidth = strokeWidth;
-                this._strokeSide = strokeSide;
                 var s = strokeAlign * strokeWidth;
                 sizeX = width * 0.5 + (0 <= width ? +s : -s);
                 sizeY = height * 0.5 + (0 <= height ? +s : -s);
@@ -47886,7 +53323,7 @@
                 this.update(sizeX, sizeY, 1.1);
             }
         };
-        EShapeRectangleTriangulatedImpl.prototype.update = function (sizeX, sizeY, scale) {
+        EShapeTriangleTriangulatedImpl.prototype.update = function (sizeX, sizeY, scale) {
             // Boundary
             var ax = Math.abs(sizeX);
             var ay = Math.abs(sizeY);
@@ -47896,8 +53333,8 @@
             boundary[2] = +ax;
             boundary[3] = +ay;
             // # of vertices and # of indices
-            var nv = 14;
-            var ni = 6;
+            var nv = 7;
+            var ni = 3;
             this._nvertices = nv;
             this._nindices = ni;
             // ID
@@ -47907,110 +53344,14 @@
                 this.pad(0, 0, nv, ni, 0);
             }
             else {
-                var fx = 1 / sizeX;
-                var fy = 1 / sizeY;
-                switch (this._parent.stroke.side) {
-                    case EShapeStrokeSide.NONE:
-                        this.updateNone(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.ALL:
-                        if (ay <= ax) {
-                            this.updateAll0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateAll1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.TOP:
-                        this.updateTop(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.RIGHT:
-                        this.updateRight(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.BOTTOM:
-                        this.updateBottom(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.LEFT:
-                        this.updateLeft(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.TOP_OR_BOTTOM:
-                        this.updateTopBottom(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.LEFT_OR_RIGHT:
-                        this.updateLeftRight(fx, fy, ax, ay, scale, nv, ni);
-                        break;
-                    case EShapeStrokeSide.TOP_OR_RIGHT:
-                        if (ay <= ax) {
-                            this.updateTopRight0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateTopRight1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.TOP_OR_LEFT:
-                        if (ay <= ax) {
-                            this.updateTopLeft0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateTopLeft1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.BOTTOM_OR_RIGHT:
-                        if (ay <= ax) {
-                            this.updateBottomRight0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateBottomRight1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.BOTTOM_OR_LEFT:
-                        if (ay <= ax) {
-                            this.updateBottomLeft0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateBottomLeft1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.NOT_TOP:
-                        if (2 * ay <= ax) {
-                            this.updateNotTop0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateNotTop1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.NOT_RIGHT:
-                        if (2 * ax <= ay) {
-                            this.updateNotRight0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateNotRight1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.NOT_BOTTOM:
-                        if (2 * ay <= ax) {
-                            this.updateNotBottom0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateNotBottom1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                    case EShapeStrokeSide.NOT_LEFT:
-                        if (2 * ax <= ay) {
-                            this.updateNotLeft0(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        else {
-                            this.updateNotLeft1(fx, fy, ax, ay, scale, nv, ni);
-                        }
-                        break;
-                }
+                this.updateAll(sizeX, sizeY, scale);
             }
         };
         /**
          * Fills the unused tail with degenerated triangles and trims the arrays
          * so that the buffers always hold exactly `nv` vertices and `ni` triangles.
          */
-        EShapeRectangleTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, fd) {
+        EShapeTriangleTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, fd) {
             var vertices = this._vertices;
             var distances = this._distances;
             var lengths = this._lengths;
@@ -48038,497 +53379,67 @@
             uvs.length = nv2;
             indices.length = ni * 3;
         };
-        EShapeRectangleTriangulatedImpl.prototype.updateTop = function (fx, fy, ax, ay, scale, nv, ni) {
-            var fdistance = 1 / (2 * ay);
-            this.updateCellTop(-ax, -ay - (scale - 1) / fdistance, +ax, +ay, fdistance, scale, fx, fy, ax, ay, 0);
-            this.pad(4, 6, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateRight = function (fx, fy, ax, ay, scale, nv, ni) {
-            var fdistance = 1 / (2 * ax);
-            this.updateCellRight(-ax, -ay, +ax + (scale - 1) / fdistance, +ay, fdistance, scale, fx, fy, ax, ay, 0);
-            this.pad(4, 6, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateBottom = function (fx, fy, ax, ay, scale, nv, ni) {
-            var fdistance = 1 / (2 * ay);
-            this.updateCellBottom(-ax, -ay, +ax, +ay + (scale - 1) / fdistance, fdistance, scale, fx, fy, ax, ay, 0);
-            this.pad(4, 6, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateLeft = function (fx, fy, ax, ay, scale, nv, ni) {
-            var fdistance = 1 / (2 * ax);
-            this.updateCellLeft(-ax - (scale - 1) / fdistance, -ay, +ax, +ay, fdistance, scale, fx, fy, ax, ay, 0);
-            this.pad(4, 6, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateLeftRight = function (fx, fy, ax, ay, scale, nv, ni) {
-            var fdistance = 1 / ax;
-            var shift = (scale - 1) / fdistance;
-            this.updateCellLeft(-ax - shift, -ay, 0, +ay, fdistance, scale, fx, fy, ax, ay, 0);
-            this.updateCellRight(0, -ay, +ax + shift, +ay, fdistance, scale, fx, fy, ax, ay, 4);
-            this.pad(8, 12, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTopBottom = function (fx, fy, ax, ay, scale, nv, ni) {
-            var fdistance = 1 / ay;
-            var shift = (scale - 1) / fdistance;
-            this.updateCellTop(-ax, -ay - shift, +ax, 0, fdistance, scale, fx, fy, ax, ay, 0);
-            this.updateCellBottom(-ax, 0, +ax, +ay + shift, fdistance, scale, fx, fy, ax, ay, 4);
-            this.pad(8, 12, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTopRight0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ay;
+        EShapeTriangleTriangulatedImpl.prototype.updateAll = function (sx, sy, scale) {
+            var fx = 1 / sx;
+            var fy = 1 / sy;
+            var ax = Math.abs(sx);
+            var ay = Math.abs(sy);
+            // The triangle is defined by the apex (0, -sy) and the two base
+            // vertices (-sx, sy) and (sx, sy). The signs of sx and
+            // sy intentionally preserve horizontal and vertical reflections.
+            // The sloped edge spans ax horizontally and 2 * ay vertically.
+            var side = Math.sqrt(ax * ax + 4 * ay * ay);
+            // The base is horizontal, so its length is twice the half-width.
+            var base = 2 * ax;
+            // Length values are measured along the triangle perimeter.
+            var perimeter = 2 * side + base;
+            // The incenter lies on the vertical center line. This is its y-coordinate.
+            // Along the median, the distances from the top vertex to the incenter and
+            // from the incenter to the base are in the ratio 2 * side : base.
+            // Thus, (ay + cy) : (ay - cy) = 2 * side : base.
+            // 2 side (ay - cy) = base * (ay + cy)
+            // 2 side ay - 2 side cy = base ay + base cy
+            // (base + 2 side) cy = ay (2 side - base)
+            // cy = ay (2 side - base) / (2 side + base)
+            // cy = ay (2 side - 2 ax) / (2 side + 2 ax)
+            // cy = ay (side - ax) / (side + ax)
+            var cx = 0;
+            var cy = (sy * (side - ax)) / (side + ax);
+            // The distance from the incenter to every edge is the inradius.
+            // Since 0 <= (side - ax) / (side + ax) <= 1, the incenter remains
+            // between the apex and the base even when sy is negative.
+            var distance = Math.abs(sy - cy);
             var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax;
-            var right = +ax + shift;
-            var top = -ay - shift;
-            var bottom = +ay;
+            // Expand the triangle around its incenter for anti-aliasing and strokes.
+            // The outer vertices are shared where their interpolated attributes match.
+            var x0 = 0;
+            var y0 = cy + scale * (-sy - cy);
+            var x1 = scale * sx;
+            var y1 = cy + scale * (sy - cy);
+            var x2 = -x1;
+            var y2 = y1;
+            // Top-to-right edge cell. The inner vertex carries the fill attributes.
+            this.updateVertex(0, x0, y0, fdistance, 0, scale, fx, fy);
+            this.updateVertex(1, x1, y1, fdistance, side, scale, fx, fy);
+            this.updateVertex(2, cx, cy, fdistance, side - ax, 0, fx, fy);
             var indices = this._indices;
-            var splitX = ax - 2 * ay;
-            this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(2, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(3, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(4, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(5, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(6, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
             indices[0] = 0;
             indices[1] = 1;
             indices[2] = 2;
-            indices[3] = 0;
-            indices[4] = 2;
-            indices[5] = 3;
-            indices[6] = 4;
-            indices[7] = 5;
-            indices[8] = 6;
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTopRight1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax;
-            var right = +ax + shift;
-            var top = -ay - shift;
-            var bottom = +ay;
-            var indices = this._indices;
-            var splitY = 2 * ax - ay;
-            this.updateVertexTop(0, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(1, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(2, left, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(3, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(4, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(5, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(6, left, splitY, fdistance, scale, fx, fy, ax, ay);
-            indices[0] = 0;
-            indices[1] = 1;
-            indices[2] = 2;
-            indices[3] = 3;
-            indices[4] = 4;
-            indices[5] = 5;
+            // Right-to-left base edge cell. The right and left outer vertices are reused.
+            this.updateVertex(3, x2, y2, fdistance, side + base, scale, fx, fy);
+            this.updateVertex(4, cx, cy, fdistance, side + ax, 0, fx, fy);
+            indices[3] = 1;
+            indices[4] = 3;
+            indices[5] = 4;
+            // Left-to-top edge cell. The top vertex is duplicated for the perimeter seam.
+            this.updateVertex(5, x0, y0, fdistance, perimeter, scale, fx, fy);
+            this.updateVertex(6, cx, cy, fdistance, perimeter - (side - ax), 0, fx, fy);
             indices[6] = 3;
             indices[7] = 5;
             indices[8] = 6;
-            this.pad(7, 9, nv, ni, fdistance);
         };
-        EShapeRectangleTriangulatedImpl.prototype.updateBottomLeft0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax;
-            var top = -ay;
-            var bottom = +ay + shift;
-            var splitX = 2 * ay - ax;
-            this.updateQuadBottom(0, 0, right, bottom, left, bottom, splitX, top, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriLeft(4, 6, left, bottom, left, top, splitX, top, fdistance, scale, fx, fy, ax, ay);
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateBottomLeft1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax;
-            var top = -ay;
-            var bottom = +ay + shift;
-            var splitY = ay - 2 * ax;
-            this.updateTriBottom(0, 0, right, bottom, left, bottom, right, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadLeft(3, 3, left, bottom, left, top, right, top, right, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTopLeft0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax;
-            var top = -ay - shift;
-            var bottom = +ay;
-            var splitX = 2 * ay - ax;
-            this.updateQuadTop(0, 0, right, top, left, top, splitX, bottom, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriLeft(4, 6, left, top, left, bottom, splitX, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTopLeft1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax;
-            var top = -ay - shift;
-            var bottom = +ay;
-            var splitY = 2 * ax - ay;
-            this.updateTriTop(0, 0, right, top, left, top, right, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadLeft(3, 3, left, top, left, bottom, right, bottom, right, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateBottomRight0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax;
-            var right = +ax + shift;
-            var top = -ay;
-            var bottom = +ay + shift;
-            var splitX = ax - 2 * ay;
-            this.updateQuadBottom(0, 0, left, bottom, right, bottom, splitX, top, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriRight(4, 6, right, bottom, right, top, splitX, top, fdistance, scale, fx, fy, ax, ay);
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateBottomRight1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax;
-            var right = +ax + shift;
-            var top = -ay;
-            var bottom = +ay + shift;
-            var splitY = ay - 2 * ax;
-            this.updateTriBottom(0, 0, left, bottom, right, bottom, left, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadRight(3, 3, right, bottom, right, top, left, top, left, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.pad(7, 9, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotTop0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax + shift;
-            var top = -ay;
-            var bottom = +ay + shift;
-            var splitLeft = 2 * ay - ax;
-            var splitRight = ax - 2 * ay;
-            this.updateTriLeft(0, 0, left, top, splitLeft, top, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadBottom(3, 3, splitLeft, top, splitRight, top, right, bottom, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriRight(7, 9, splitRight, top, right, top, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.pad(10, 12, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotTop1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax + shift;
-            var top = -ay;
-            var bottom = +ay + shift;
-            var splitY = ay - ax;
-            this.updateQuadLeft(0, 0, left, top, 0, top, 0, splitY, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadRight(4, 6, 0, top, right, top, right, bottom, 0, splitY, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriBottom(8, 12, 0, splitY, right, bottom, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.pad(11, 15, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotBottom0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax + shift;
-            var top = -ay - shift;
-            var bottom = +ay;
-            var splitLeft = 2 * ay - ax;
-            var splitRight = ax - 2 * ay;
-            this.updateTriLeft(0, 0, left, bottom, splitLeft, bottom, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadTop(3, 3, splitLeft, bottom, splitRight, bottom, right, top, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriRight(7, 9, splitRight, bottom, right, bottom, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.pad(10, 12, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotBottom1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax + shift;
-            var top = -ay - shift;
-            var bottom = +ay;
-            var splitY = ay - ax;
-            this.updateQuadLeft(0, 0, left, bottom, 0, bottom, 0, -splitY, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadRight(4, 6, 0, bottom, right, bottom, right, top, 0, -splitY, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriTop(8, 12, 0, -splitY, right, top, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.pad(11, 15, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotLeft0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax;
-            var right = +ax + shift;
-            var top = -ay - shift;
-            var bottom = +ay + shift;
-            var splitTop = 2 * ax - ay;
-            var splitBottom = ay - 2 * ax;
-            this.updateTriBottom(0, 0, left, bottom, left, splitBottom, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadRight(3, 3, left, splitBottom, left, splitTop, right, top, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriTop(7, 9, left, splitTop, left, top, right, top, fdistance, scale, fx, fy, ax, ay);
-            this.pad(10, 12, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotLeft1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax;
-            var right = +ax + shift;
-            var top = -ay - shift;
-            var bottom = +ay + shift;
-            var splitX = ax - ay;
-            this.updateQuadBottom(0, 0, left, bottom, left, 0, splitX, 0, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadTop(4, 6, left, 0, left, top, right, top, splitX, 0, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriRight(8, 12, splitX, 0, right, top, right, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.pad(11, 15, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotRight0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = 2 * ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax;
-            var top = -ay - shift;
-            var bottom = +ay + shift;
-            var stop = 2 * ax - ay;
-            var sbottom = ay - 2 * ax;
-            this.updateTriBottom(0, 0, right, bottom, right, sbottom, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadLeft(3, 3, right, sbottom, right, stop, left, top, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriTop(7, 9, right, stop, right, top, left, top, fdistance, scale, fx, fy, ax, ay);
-            this.pad(10, 12, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNotRight1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var left = -ax - shift;
-            var right = +ax;
-            var top = -ay - shift;
-            var bottom = +ay + shift;
-            var splitX = ay - ax;
-            this.updateQuadBottom(0, 0, right, bottom, right, 0, splitX, 0, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadTop(4, 6, right, 0, right, top, left, top, splitX, 0, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriLeft(8, 12, splitX, 0, left, top, left, bottom, fdistance, scale, fx, fy, ax, ay);
-            this.pad(11, 15, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTriTop = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTriRight = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTriBottom = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateTriLeft = function (iv, ii, x0, y0, x1, y1, x2, y2, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateQuadTop = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-            this._indices[ii + 3] = iv;
-            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateQuadRight = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-            this._indices[ii + 3] = iv;
-            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateQuadBottom = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-            this._indices[ii + 3] = iv;
-            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateQuadLeft = function (iv, ii, x0, y0, x1, y1, x2, y2, x3, y3, fdistance, scale, fx, fy, ax, ay, reverse) {
-            if (reverse === void 0) { reverse = (x1 - x0) * (y2 - y0) < (y1 - y0) * (x2 - x0); }
-            this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 1, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 2, x2, y2, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 3, x3, y3, fdistance, scale, fx, fy, ax, ay);
-            this._indices[ii] = iv;
-            this._indices[ii + 1] = iv + (reverse ? 2 : 1);
-            this._indices[ii + 2] = iv + (reverse ? 1 : 2);
-            this._indices[ii + 3] = iv;
-            this._indices[ii + 4] = iv + (reverse ? 3 : 2);
-            this._indices[ii + 5] = iv + (reverse ? 2 : 3);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateNone = function (fx, fy, ax, ay, scale, nv, ni) {
-            this.updateCellNone(-ax, -ay, +ax, +ay, 0, scale, fx, fy, ax, ay, 0);
-            this.pad(4, 6, nv, ni, 0);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateAll0 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = ay;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var outerLeft = -ax - shift;
-            var outerRight = +ax + shift;
-            var outerTop = -ay - shift;
-            var outerBottom = +ay + shift;
-            var innerLeft = -ax + ay;
-            var innerRight = +ax - ay;
-            this.updateQuadTop(0, 0, outerLeft, outerTop, outerRight, outerTop, innerRight, 0, innerLeft, 0, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriRight(4, 6, outerRight, outerTop, outerRight, outerBottom, innerRight, 0, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadBottom(7, 9, outerRight, outerBottom, outerLeft, outerBottom, innerLeft, 0, innerRight, 0, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriLeft(11, 15, outerLeft, outerBottom, outerLeft, outerTop, innerLeft, 0, fdistance, scale, fx, fy, ax, ay);
-            this.pad(14, 18, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateAll1 = function (fx, fy, ax, ay, scale, nv, ni) {
-            var distance = ax;
-            var fdistance = 1 / distance;
-            var shift = (scale - 1) * distance;
-            var outerLeft = -ax - shift;
-            var outerRight = +ax + shift;
-            var outerTop = -ay - shift;
-            var outerBottom = +ay + shift;
-            var innerTop = -ay + ax;
-            var innerBottom = +ay - ax;
-            this.updateTriTop(0, 0, outerLeft, outerTop, outerRight, outerTop, 0, innerTop, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadRight(3, 3, outerRight, outerTop, outerRight, outerBottom, 0, innerBottom, 0, innerTop, fdistance, scale, fx, fy, ax, ay);
-            this.updateTriBottom(7, 9, outerRight, outerBottom, outerLeft, outerBottom, 0, innerBottom, fdistance, scale, fx, fy, ax, ay);
-            this.updateQuadLeft(10, 12, outerLeft, outerBottom, outerLeft, outerTop, 0, innerTop, 0, innerBottom, fdistance, scale, fx, fy, ax, ay);
-            this.pad(14, 18, nv, ni, fdistance);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateCellNone = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
-            this.updateVertex(iv, x0, y0, 0, 0, 0, fx, fy);
-            this.updateVertex(iv + 1, x1, y0, 0, 0, 0, fx, fy);
-            this.updateVertex(iv + 2, x1, y1, 0, 0, 0, fx, fy);
-            this.updateVertex(iv + 3, x0, y1, 0, 0, 0, fx, fy);
-            var ii = (iv >> 1) * 3;
-            var indices = this._indices;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 1;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv + 3;
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateCellTop = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
-            this.updateVertexTop(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexTop(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
-            var ii = (iv >> 1) * 3;
-            var indices = this._indices;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 1;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv + 3;
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateCellRight = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
-            this.updateVertexRight(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexRight(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
-            var ii = (iv >> 1) * 3;
-            var indices = this._indices;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 1;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv + 3;
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateCellBottom = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
-            this.updateVertexBottom(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexBottom(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
-            var ii = (iv >> 1) * 3;
-            var indices = this._indices;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 1;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv + 3;
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateCellLeft = function (x0, y0, x1, y1, fdistance, scale, fx, fy, ax, ay, iv) {
-            this.updateVertexLeft(iv, x0, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 1, x1, y0, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 2, x1, y1, fdistance, scale, fx, fy, ax, ay);
-            this.updateVertexLeft(iv + 3, x0, y1, fdistance, scale, fx, fy, ax, ay);
-            var ii = (iv >> 1) * 3;
-            var indices = this._indices;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 1;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv;
-            indices[ii++] = iv + 2;
-            indices[ii++] = iv + 3;
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateVertexTop = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
-            this.updateVertex(vertex, x, y, fdistance, x + ax, Math.min(scale, (y + ay) * -fdistance + 1), fx, fy);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateVertexRight = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
-            this.updateVertex(vertex, x, y, fdistance, 2 * ax + y + ay, Math.min(scale, (x - ax) * fdistance + 1), fx, fy);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateVertexBottom = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
-            this.updateVertex(vertex, x, y, fdistance, 3 * ax + 2 * ay - x, Math.min(scale, (y - ay) * fdistance + 1), fx, fy);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateVertexLeft = function (vertex, x, y, fdistance, scale, fx, fy, ax, ay) {
-            this.updateVertex(vertex, x, y, fdistance, 4 * ax + 3 * ay - y, Math.min(scale, (x + ax) * -fdistance + 1), fx, fy);
-        };
-        EShapeRectangleTriangulatedImpl.prototype.updateVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
+        EShapeTriangleTriangulatedImpl.prototype.updateVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
             var vertex2 = vertex << 1;
             this._vertices[vertex2] = x;
             this._vertices[vertex2 + 1] = y;
@@ -48538,344 +53449,104 @@
             this._uvs[vertex2] = 0.5 * (x * fx + 1);
             this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
         };
-        return EShapeRectangleTriangulatedImpl;
+        return EShapeTriangleTriangulatedImpl;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectangle = /** @class */ (function (_super) {
-        __extends(EShapeRectangle, _super);
-        function EShapeRectangle(type) {
-            if (type === void 0) { type = EShapeType.RECTANGLE; }
+    var EShapeTriangle = /** @class */ (function (_super) {
+        __extends(EShapeTriangle, _super);
+        function EShapeTriangle(type) {
+            if (type === void 0) { type = EShapeType.TRIANGLE; }
             var _this = _super.call(this, type) || this;
             _this._triangulated = _this.newTriangulated();
             return _this;
         }
-        EShapeRectangle.prototype.newTriangulated = function () {
-            return new EShapeRectangleTriangulatedImpl(this);
+        EShapeTriangle.prototype.newTriangulated = function () {
+            return new EShapeTriangleTriangulatedImpl(this);
         };
-        Object.defineProperty(EShapeRectangle.prototype, "triangulated", {
+        Object.defineProperty(EShapeTriangle.prototype, "triangulated", {
             get: function () {
                 return this._triangulated;
             },
             enumerable: false,
             configurable: true
         });
-        EShapeRectangle.prototype.clone = function () {
-            return new EShapeRectangle(this.type).copy(this);
+        EShapeTriangle.prototype.clone = function () {
+            return new EShapeTriangle(this.type).copy(this);
         };
-        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+        EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
+                return hitTestTriangle(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
-        return EShapeRectangle;
+        return EShapeTriangle;
     }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeImage = /** @class */ (function (_super) {
-        __extends(EShapeImage, _super);
-        function EShapeImage(image, type) {
-            if (type === void 0) { type = EShapeType.IMAGE; }
+    var EShapeLineOfTriangles = /** @class */ (function (_super) {
+        __extends(EShapeLineOfTriangles, _super);
+        function EShapeLineOfTriangles(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_TRIANGLES; }
             var _this = _super.call(this, type) || this;
-            if (image != null) {
-                _this.image = image;
-                _this.size.set(image.width, image.height);
-            }
-            _this.fill.alpha = 1;
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
+            };
             return _this;
         }
-        EShapeImage.prototype.clone = function () {
-            return new EShapeImage(this.image, this.type).copy(this);
-        };
-        return EShapeImage;
-    }(EShapeRectangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeImageSdf = /** @class */ (function (_super) {
-        __extends(EShapeImageSdf, _super);
-        function EShapeImageSdf(image, type) {
-            if (type === void 0) { type = EShapeType.IMAGE_SDF; }
-            return _super.call(this, image, type) || this;
-        }
-        EShapeImageSdf.prototype.clone = function () {
-            return new EShapeImageSdf(this.image, this.type).copy(this);
-        };
-        return EShapeImageSdf;
-    }(EShapeImage));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImageSdf = function (dataUrl, convertToSdf) {
-        if (convertToSdf) {
-            return toImageElement(dataUrl).then(function (image) {
-                var generator = DynamicSDFFontGenerator.getInstance().init();
-                generator.updateTexture(image.width, image.height, image.source);
-                generator.render();
-                var canvas = document.createElement("canvas");
-                generator.read(canvas);
-                return createImageSdf(canvas.toDataURL(), false);
-            });
-        }
-        else {
-            return toImageElement(dataUrl).then(function (image) {
-                return new EShapeImageSdf(image);
-            });
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImage = function (dataUrl) {
-        return toImageElement(dataUrl).then(function (image) {
-            return new EShapeImage(image);
-        });
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLabelUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = tvcount;
-        var icount = ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderLabel(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset, ioffset, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineOfAnyUploaded = function (buffer, shape, voffset, vcountPerPoint, ioffset, icountPerPoint, antialiasWeight, constructor) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var points = shape.points;
-        var pointCount = toLineOfAnyPointCount(toPointCount(points));
-        var pvcount = pointCount * vcountPerPoint;
-        var picount = pointCount * icountPerPoint;
-        var vcount = pvcount + tvcount;
-        var icount = picount + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new constructor(buffer, voffset, ioffset, pvcount, picount, pointCount, vcountPerPoint, icountPerPoint),
-                new BuilderText(buffer, voffset + pvcount, ioffset + picount, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineOfCirclesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, CIRCLE_LEGACY_VERTEX_COUNT, ioffset, CIRCLE_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfCircles);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineOfRectangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, BuilderLineOfRectangleRoundeds);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineOfRectanglesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_LEGACY_VERTEX_COUNT, ioffset, RECTANGLE_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfRectangles);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineOfTriangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangleRoundeds);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineOfTrianglesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_VERTEX_COUNT, ioffset, TRIANGLE_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangles);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toMarkerVertexCount = function (type) {
-        switch (type) {
-            case EShapePointsMarkerType.NONE:
-                return 0;
-            case EShapePointsMarkerType.CIRCLE:
-                return CIRCLE_LEGACY_VERTEX_COUNT;
-            case EShapePointsMarkerType.TRIANGLE:
-                return TRIANGLE_VERTEX_COUNT;
-            case EShapePointsMarkerType.RECTANGLE:
-                return RECTANGLE_LEGACY_VERTEX_COUNT;
-        }
-        return 0;
-    };
-    var toMarkerIndexCount = function (type) {
-        switch (type) {
-            case EShapePointsMarkerType.NONE:
-                return 0;
-            case EShapePointsMarkerType.CIRCLE:
-                return CIRCLE_LEGACY_INDEX_COUNT;
-            case EShapePointsMarkerType.TRIANGLE:
-                return TRIANGLE_INDEX_COUNT;
-            case EShapePointsMarkerType.RECTANGLE:
-                return RECTANGLE_LEGACY_INDEX_COUNT;
-        }
-        return 0;
-    };
-    var toBuilderMarkerHead = function (type, buffer, vertexOffset, indexOffset) {
-        switch (type) {
-            case EShapePointsMarkerType.NONE:
-                return new BuilderNull(buffer, vertexOffset, indexOffset);
-            case EShapePointsMarkerType.CIRCLE:
-                return new BuilderMarkerCircleHead(buffer, vertexOffset, indexOffset);
-            case EShapePointsMarkerType.TRIANGLE:
-                return new BuilderMarkerTriangleHead(buffer, vertexOffset, indexOffset);
-            case EShapePointsMarkerType.RECTANGLE:
-                return new BuilderMarkerRectangleHead(buffer, vertexOffset, indexOffset);
-        }
-        return new BuilderNull(buffer, vertexOffset, indexOffset);
-    };
-    var toBuilderMarkerTail = function (type, buffer, vertexOffset, indexOffset) {
-        switch (type) {
-            case EShapePointsMarkerType.NONE:
-                return new BuilderNull(buffer, vertexOffset, indexOffset);
-            case EShapePointsMarkerType.CIRCLE:
-                return new BuilderMarkerCircleTail(buffer, vertexOffset, indexOffset);
-            case EShapePointsMarkerType.TRIANGLE:
-                return new BuilderMarkerTriangleTail(buffer, vertexOffset, indexOffset);
-            case EShapePointsMarkerType.RECTANGLE:
-                return new BuilderMarkerRectangleTail(buffer, vertexOffset, indexOffset);
-        }
-        return new BuilderNull(buffer, vertexOffset, indexOffset);
-    };
-    var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        // Line
-        var points = shape.points;
-        var pointCount = toLinePointCount(points);
-        var lvcount = toLineVertexCount(pointCount, true);
-        var licount = toLineIndexCount(pointCount, true);
-        // Markers
-        var mttype = EShapePointsMarkerType.NONE;
-        var mhtype = EShapePointsMarkerType.NONE;
-        if (points && points instanceof EShapeLinePoints) {
-            var marker = points.getMarker();
-            if (marker) {
-                mttype = marker.tail.type;
-                mhtype = marker.head.type;
-            }
-        }
-        var mtvcount = toMarkerVertexCount(mttype);
-        var mticount = toMarkerIndexCount(mttype);
-        var mtvoffset = voffset + lvcount;
-        var mtioffset = ioffset + licount;
-        var mhvcount = toMarkerVertexCount(mhtype);
-        var mhicount = toMarkerIndexCount(mhtype);
-        var mhvoffset = mtvoffset + mtvcount;
-        var mhioffset = mtioffset + mticount;
-        // Text
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var tvoffset = mhvoffset + mhvcount;
-        var tioffset = mhioffset + mhicount;
-        // Uploaded
-        var vcount = lvcount + mhvcount + mtvcount + tvcount;
-        var icount = licount + mhicount + mticount + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderLine(buffer, voffset, ioffset, lvcount, licount),
-                toBuilderMarkerTail(mttype, buffer, mtvoffset, mtioffset),
-                toBuilderMarkerHead(mhtype, buffer, mhvoffset, mhioffset),
-                new BuilderText(buffer, tvoffset, tioffset, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLine = /** @class */ (function (_super) {
-        __extends(EShapeLine, _super);
-        function EShapeLine(type) {
-            if (type === void 0) { type = EShapeType.LINE; }
-            var _this = _super.call(this, type) || this;
-            _this._points = new EShapeLinePoints(_this);
-            return _this;
-        }
-        Object.defineProperty(EShapeLine.prototype, "points", {
+        Object.defineProperty(EShapeLineOfTriangles.prototype, "points", {
             get: function () {
                 return this._points;
             },
             enumerable: false,
             configurable: true
         });
-        EShapeLine.prototype.clone = function () {
-            return new EShapeLine(this.type).copy(this);
+        EShapeLineOfTriangles.prototype.clone = function () {
+            return new EShapeLineOfTriangles(this.type).copy(this);
         };
-        EShapeLine.prototype.serialize = function (manager) {
-            var result = _super.prototype.serialize.call(this, manager);
-            result[15] = this._points.serialize(manager);
-            return result;
+        EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
+            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
+            }
+            return false;
         };
-        return EShapeLine;
-    }(EShapeLineBase));
+        EShapeLineOfTriangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
+        };
+        EShapeLineOfTriangles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
+            }
+            return false;
+        };
+        return EShapeLineOfTriangles;
+    }(EShapeTriangle));
 
-    var createLine = function (points, segments, strokeWidth, pointsStyle) {
-        // Calculate the boundary
-        var boundary = toPointsBoundary(points, [0, 0, 0, 0]);
-        var cx = (boundary[2] + boundary[0]) * 0.5;
-        var cy = (boundary[3] + boundary[1]) * 0.5;
-        var sx = boundary[2] - boundary[0];
-        var sy = boundary[3] - boundary[1];
-        // Calculate values
-        var values = [];
-        for (var i = 0, imax = points.length; i < imax; i += 2) {
-            values.push(points[i] - cx, points[i + 1] - cy);
-        }
-        // Create a line
-        var result = new EShapeLine();
-        result.stroke.set(true, undefined, undefined, strokeWidth);
-        result.transform.position.set(cx, cy);
-        result.size.set(sx, sy);
-        result.points.set(values, segments, pointsStyle);
-        return result;
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeLineOfTriangles = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeLineOfTriangles());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeLineOfTriangles = function () {
+        EShapeUploadeds[EShapeType.LINE_OF_TRIANGLES] = createLineOfTrianglesUploaded;
+        EShapeDeserializers[EShapeType.LINE_OF_TRIANGLES] = deserializeLineOfTriangles;
     };
 
     /*
@@ -48886,6 +53557,39 @@
         return new EShapeUploadedImpl(buffer, voffset, ioffset, 0, 0, [
             new BuilderNull(buffer, voffset, ioffset)
         ]).init(shape);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeNull = /** @class */ (function (_super) {
+        __extends(EShapeNull, _super);
+        function EShapeNull(type) {
+            if (type === void 0) { type = EShapeType.NULL; }
+            return _super.call(this, type) || this;
+        }
+        EShapeNull.prototype.clone = function () {
+            return new EShapeNull(this.type).copy(this);
+        };
+        return EShapeNull;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeNull = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeNull());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeNull = function () {
+        EShapeUploadeds[EShapeType.NULL] = createNullUploaded;
+        EShapeDeserializers[EShapeType.NULL] = deserializeNull;
     };
 
     var EShapePolygonPoints = /** @class */ (function (_super) {
@@ -50787,42 +55491,115 @@
         return EShapePolygon;
     }(EShapePrimitive));
 
-    var createPolygon = function (points, result) {
-        result !== null && result !== void 0 ? result : (result = new EShapePolygon());
-        var pointsLength = points.length;
-        if (pointsLength < 2) {
-            result.points.values = [];
-            return result;
-        }
-        var xmin = 0;
-        var xmax = 0;
-        var ymin = 0;
-        var ymax = 0;
-        xmin = xmax = points[0];
-        ymin = ymax = points[1];
-        for (var i = 2; i < pointsLength; i += 2) {
-            var x = points[i];
-            var y = points[i + 1];
-            xmin = Math.min(xmin, x);
-            xmax = Math.max(xmax, x);
-            ymin = Math.min(ymin, y);
-            ymax = Math.max(ymax, y);
-        }
-        var sx = xmax - xmin;
-        var sy = ymax - ymin;
-        var px = xmin + 0.5 * sx;
-        var py = ymin + 0.5 * sy;
-        var values = [];
-        for (var i = 0; i < pointsLength; i += 2) {
-            values.push(points[i] - px, points[i + 1] - py);
-        }
-        result.lock(EShapeLockPart.ALL);
-        result.transform.position.set(px, py);
-        result.size.set(sx, sy);
-        result.points.values = values;
-        result.unlock(EShapeLockPart.ALL, true);
-        return result;
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializePolygon = function (item, manager, shape) {
+        shape = shape || new EShapePolygon();
+        deserializeBase(item, manager, shape);
+        shape.deserialize(item[15], manager);
+        return shape;
     };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapePolygon = function () {
+        EShapeUploadeds[EShapeType.POLYGON] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.POLYGON] = deserializePolygon;
+        EShapeCapabilities.set(EShapeType.POLYGON, EShapeCapability.PRIMITIVE & ~(EShapeCapability.LINE_HEAD | EShapeCapability.LINE_TAIL));
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectangle = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectangle());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectangle = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE] = deserializeRectangle;
+        EShapeCapabilities.set(EShapeType.RECTANGLE, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderRectangleLegacy = /** @class */ (function (_super) {
+        __extends(BuilderRectangleLegacy, _super);
+        function BuilderRectangleLegacy(buffer, vertexOffset, indexOffset) {
+            return _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_LEGACY_VERTEX_COUNT, RECTANGLE_LEGACY_INDEX_COUNT) || this;
+        }
+        BuilderRectangleLegacy.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildRectangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderRectangleLegacy.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderRectangleLegacy.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                // Vertices
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildRectangleLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, RECTANGLE_LEGACY_WORLD_SIZE);
+                // Steps
+                if (isNotInited || isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleLegacyStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_LEGACY_WORLD_SIZE);
+                }
+                // UVs
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleLegacyUv(buffer.uvs, voffset, toTextureUvs(texture));
+                }
+            }
+        };
+        return BuilderRectangleLegacy;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -50847,20 +55624,381 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createRectanglePivotedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+    var deserializeRectangleLegacy = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectangleLegacy());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectangleLegacy = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_LEGACY] = createRectangleLegacyUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_LEGACY] = deserializeRectangleLegacy;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_LEGACY, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectanglePivoted = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectanglePivoted());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectanglePivoted = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_PIVOTED] = createRectanglePivotedUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_PIVOTED] = deserializeRectanglePivoted;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_PIVOTED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectangleRounded = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectangleRounded());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectangleRounded = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED] = deserializeRectangleRounded;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderRectangleRoundedLegacy = /** @class */ (function (_super) {
+        __extends(BuilderRectangleRoundedLegacy, _super);
+        function BuilderRectangleRoundedLegacy(buffer, vertexOffset, indexOffset) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT) || this;
+            _this.radius = 0;
+            _this.corner = 0;
+            return _this;
+        }
+        BuilderRectangleRoundedLegacy.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildRectangleRoundedLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderRectangleRoundedLegacy.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderRectangleRoundedLegacy.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var radius = shape.radius;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var corner = shape.corner;
+            var isCornerChanged = corner !== this.corner;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited ||
+                isVertexChanged ||
+                isTransformChanged ||
+                isCornerChanged ||
+                isTextureChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.radius = radius;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.corner = corner;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                // Vertices
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildRectangleRoundedLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                // Steps
+                if (isNotInited || isVertexChanged || isCornerChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleRoundedLegacyStep(buffer.steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                }
+                // UVs
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleRoundedLegacyUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderRectangleRoundedLegacy;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createRectangleRoundedLegacyUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
         var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = RECTANGLE_LEGACY_VERTEX_COUNT + tvcount;
-        var icount = RECTANGLE_LEGACY_INDEX_COUNT + ticount;
+        var vcount = RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT + tvcount;
+        var icount = RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
             return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderRectanglePivoted(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + RECTANGLE_LEGACY_VERTEX_COUNT, ioffset + RECTANGLE_LEGACY_INDEX_COUNT, tvcount, ticount)
+                new BuilderRectangleRoundedLegacy(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT, ioffset + RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT, tvcount, ticount)
             ]).init(shape);
         }
         return null;
     };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectangleRoundedLegacy = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectangleRoundedLegacy());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectangleRoundedLegacy = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED_LEGACY] = createRectangleRoundedLegacyUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED_LEGACY] = deserializeRectangleRoundedLegacy;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED_LEGACY, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
+
+    var SEMICIRCLE_VERTEX_COUNT = 6;
+    var SEMICIRCLE_INDEX_COUNT = 4;
+    var SEMICIRCLE_WORLD_SIZE = [0, 0];
+    var SEMICIRCLE_WORK_POINT = new pixi_js.Point();
+    var buildSemicircleIndex = function (indices, voffset, ioffset) {
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 4;
+    };
+    var buildSemicircleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
+        // Calculate the transformed positions
+        //
+        //  0       1       2
+        // |-------|-------|
+        // |3      |4      |5
+        // |-------|-------|
+        //
+        var work = SEMICIRCLE_WORK_POINT;
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        work.set(-sx + originX, -sy + originY);
+        internalTransform.apply(work, work);
+        var x0 = work.x;
+        var y0 = work.y;
+        work.set(0 + originX, -sy + originY);
+        internalTransform.apply(work, work);
+        var x1 = work.x;
+        var y1 = work.y;
+        var dx = x1 - x0;
+        var dy = y1 - y0;
+        work.set(originX, originY);
+        internalTransform.apply(work, work);
+        var x4 = work.x;
+        var y4 = work.y;
+        var x3 = x4 - dx;
+        var y3 = y4 - dy;
+        // Vertices
+        var iv = voffset * 2 - 1;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x1 + dx;
+        vertices[++iv] = y1 + dy;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x4;
+        vertices[++iv] = y4;
+        vertices[++iv] = x4 + dx;
+        vertices[++iv] = y4 + dy;
+        worldSize[0] = toLength(x0, y0, x1, y1);
+        worldSize[1] = toLength(x0, y0, x3, y3);
+    };
+    var buildSemicircleStep = function (steps, voffset, strokeWidth, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var ws0 = worldSize[0];
+        var ws1 = worldSize[1];
+        var e = toPackedI4x64(1, scaleInvariant, 1, 1);
+        var c11 = toPackedClippings(1, 1);
+        var c01 = toPackedClippings(0, 1);
+        var c10 = toPackedClippings(1, 0);
+        var c00 = toPackedClippings(0, 0);
+        var is = voffset * 6 - 1;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = ws0;
+        steps[++is] = ws1;
+        steps[++is] = c11;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = ws0;
+        steps[++is] = ws1;
+        steps[++is] = c01;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = ws0;
+        steps[++is] = ws1;
+        steps[++is] = c11;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = ws0;
+        steps[++is] = ws1;
+        steps[++is] = c10;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = ws0;
+        steps[++is] = ws1;
+        steps[++is] = c00;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = e;
+        steps[++is] = ws0;
+        steps[++is] = ws1;
+        steps[++is] = c10;
+        steps[++is] = 0;
+    };
+    var buildSemicircleUv = function (uvs, voffset, textureUvs) {
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var x2 = textureUvs.x2;
+        var x3 = textureUvs.x3;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var y2 = textureUvs.y2;
+        var y3 = textureUvs.y3;
+        // UVs
+        var iuv = voffset * 2 - 1;
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = 0.5 * (x0 + x1);
+        uvs[++iuv] = 0.5 * (y0 + y1);
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = 0.5 * (x0 + x3);
+        uvs[++iuv] = 0.5 * (y0 + y3);
+        uvs[++iuv] = 0.5 * (x0 + x2);
+        uvs[++iuv] = 0.5 * (y0 + y2);
+        uvs[++iuv] = 0.5 * (x1 + x2);
+        uvs[++iuv] = 0.5 * (y1 + y2);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderSemicircle = /** @class */ (function (_super) {
+        __extends(BuilderSemicircle, _super);
+        function BuilderSemicircle(buffer, vertexOffset, indexOffset) {
+            return _super.call(this, buffer, vertexOffset, indexOffset, SEMICIRCLE_VERTEX_COUNT, SEMICIRCLE_INDEX_COUNT) || this;
+        }
+        BuilderSemicircle.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            var voffset = this.vertexOffset;
+            buildSemicircleIndex(buffer.indices, voffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderSemicircle.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexAndStep(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateUv(buffer, shape);
+        };
+        BuilderSemicircle.prototype.updateVertexAndStep = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
+            if (isNotInited || isSizeChanged || isTransformChanged || isStrokeChanged) {
+                this.inited |= BuilderFlag.VERTEX_AND_STEP;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                // Buffer
+                buffer.updateVertices();
+                buffer.updateSteps();
+                buildSemicircleVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, SEMICIRCLE_WORLD_SIZE);
+                buildSemicircleStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, SEMICIRCLE_WORLD_SIZE);
+            }
+        };
+        BuilderSemicircle.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isNotInited = !(this.inited & BuilderFlag.UV);
+            if (isNotInited ||
+                texture !== this.texture ||
+                textureTransformId !== this.textureTransformId) {
+                this.inited |= BuilderFlag.UV;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                buffer.updateUvs();
+                var textureUvs = toTextureUvs(texture);
+                buildSemicircleUv(buffer.uvs, this.vertexOffset, textureUvs);
+            }
+        };
+        return BuilderSemicircle;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -50885,2082 +56023,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createTriangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = TRIANGLE_ROUNDED_VERTEX_COUNT + tvcount;
-        var icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderTriangleRounded(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset + TRIANGLE_ROUNDED_INDEX_COUNT, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createTriangleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
-        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = TRIANGLE_VERTEX_COUNT + tvcount;
-        var icount = TRIANGLE_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderTriangle(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + TRIANGLE_VERTEX_COUNT, ioffset + TRIANGLE_INDEX_COUNT, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeCircleLegacy = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeCircleLegacy());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeConnectorElbowPointsFiller = /** @class */ (function () {
-        function EShapeConnectorElbowPointsFiller(x, y, values) {
-            this._threshold = 0.000001;
-            this._x = x;
-            this._y = y;
-            this._z = 0;
-            this._values = values;
-            values[0] = x;
-            values[1] = y;
-            this.index = 0;
-        }
-        Object.defineProperty(EShapeConnectorElbowPointsFiller.prototype, "x", {
-            get: function () {
-                return this._x;
-            },
-            set: function (x) {
-                if (this._z === 0 || this._threshold < Math.abs(this._x - x)) {
-                    this._x = x;
-                    var index = this.index;
-                    var values = this._values;
-                    if (this._z === 1) {
-                        values[index + 0] = this._x;
-                        values[index + 1] = this._y;
-                    }
-                    else {
-                        values[index + 2] = this._x;
-                        values[index + 3] = this._y;
-                        this.index += 2;
-                        this._z = 1;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorElbowPointsFiller.prototype, "y", {
-            get: function () {
-                return this._y;
-            },
-            set: function (y) {
-                if (this._z === 0 || this._threshold < Math.abs(this._y - y)) {
-                    this._y = y;
-                    var index = this.index;
-                    var values = this._values;
-                    if (this._z === 2) {
-                        values[index + 0] = this._x;
-                        values[index + 1] = this._y;
-                    }
-                    else {
-                        values[index + 2] = this._x;
-                        values[index + 3] = this._y;
-                        this.index += 2;
-                        this._z = 2;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeConnectorElbowPointsFiller.prototype.toSide = function (x, y) {
-            // y = +x => 0 = x - y
-            // y = -x => 0 = x + y
-            if (0 <= x - y) {
-                if (0 <= x + y) {
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
-            }
-            else {
-                if (0 <= x + y) {
-                    return 2;
-                }
-                else {
-                    return 3;
-                }
-            }
-        };
-        EShapeConnectorElbowPointsFiller.prototype.toAxis = function (dx, dy, nx, ny, side) {
-            // When (nx, ny) === (0, 0), treat as if side === EShapeAcceptorEdgeSide.ALL.
-            var anx = Math.abs(nx);
-            var any = Math.abs(ny);
-            var threshold = this._threshold;
-            if (anx < threshold && any < threshold) {
-                if (Math.abs(dx) < Math.abs(dy)) {
-                    if (0 <= dy) {
-                        return 2; // Bottom
-                    }
-                    else {
-                        return 0; // Top
-                    }
-                }
-                else {
-                    if (0 <= dx) {
-                        return 1; // Right
-                    }
-                    else {
-                        return 3; // Left
-                    }
-                }
-            }
-            var d = null;
-            var result = 0;
-            var dd = dx * dx + dy * dy;
-            if (this._threshold < dd) {
-                var f = 1 / Math.sqrt(dd);
-                var fx = dx * f;
-                var fy = dy * f;
-                var d0 = +nx * fx + ny * fy;
-                var d1 = -ny * fx + nx * fy;
-                var d2 = -d0;
-                var d3 = -d1;
-                if (side & EShapeAcceptorEdgeSide.TOP) {
-                    if (d == null || d < d0) {
-                        d = d0;
-                        result = this.toSide(nx, ny);
-                    }
-                }
-                if (side & EShapeAcceptorEdgeSide.RIGHT) {
-                    if (d == null || d < d1) {
-                        d = d1;
-                        result = this.toSide(-ny, nx);
-                    }
-                }
-                if (side & EShapeAcceptorEdgeSide.BOTTOM) {
-                    if (d == null || d < d2) {
-                        d = d2;
-                        result = this.toSide(-nx, -ny);
-                    }
-                }
-                if (side & EShapeAcceptorEdgeSide.LEFT) {
-                    if (d == null || d < d3) {
-                        d = d3;
-                        result = this.toSide(ny, -nx);
-                    }
-                }
-            }
-            return result;
-        };
-        EShapeConnectorElbowPointsFiller.prototype.toTailAxis = function (x, y, nx, ny, side) {
-            return this.toAxis(x - this.x, y - this.y, nx, ny, side);
-        };
-        EShapeConnectorElbowPointsFiller.prototype.tail = function (x, y, nx, ny, sxh, syh, margin, side) {
-            switch (this.toTailAxis(x, y, nx, ny, side)) {
-                case 0:
-                    if (this.y - margin <= y) {
-                        this.y -= Math.max(margin, syh);
-                        this.x = x;
-                    }
-                    else {
-                        this.y = y;
-                    }
-                    break;
-                case 1:
-                    if (x <= this.x + margin) {
-                        this.x += Math.max(margin, sxh);
-                        this.y = y;
-                    }
-                    else {
-                        this.x = x;
-                    }
-                    break;
-                case 2:
-                    if (y <= this.y + margin) {
-                        this.y += Math.max(margin, sxh);
-                        this.x = x;
-                    }
-                    else {
-                        this.y = y;
-                    }
-                    break;
-                case 3:
-                    if (this.x - margin <= x) {
-                        this.x -= Math.max(margin, sxh);
-                        this.y = y;
-                    }
-                    else {
-                        this.x = x;
-                    }
-                    break;
-            }
-        };
-        EShapeConnectorElbowPointsFiller.prototype.middle = function (x, y) {
-            var dx = x - this._x;
-            var dy = y - this._y;
-            if (Math.abs(dx) < Math.abs(dy)) {
-                this.y = y;
-            }
-            else {
-                this.x = x;
-            }
-        };
-        EShapeConnectorElbowPointsFiller.prototype.toHeadAxis = function (x, y, nx, ny, side) {
-            return this.toAxis(this.x - x, this.y - y, nx, ny, side);
-        };
-        EShapeConnectorElbowPointsFiller.prototype.head = function (x, y, nx, ny, sxh, syh, margin, side) {
-            switch (this.toHeadAxis(x, y, nx, ny, side)) {
-                case 0:
-                    if (y - margin <= this.y) {
-                        this.y = y - Math.max(margin, syh);
-                    }
-                    this.x = x;
-                    this.y = y;
-                    break;
-                case 1:
-                    if (this.x <= x + margin) {
-                        this.x = x + Math.max(margin, sxh);
-                    }
-                    this.y = y;
-                    this.x = x;
-                    break;
-                case 2:
-                    if (this.y <= y + margin) {
-                        this.y = y + Math.max(margin, syh);
-                    }
-                    this.x = x;
-                    this.y = y;
-                    break;
-                case 3:
-                    if (x - margin <= this.x) {
-                        this.x = x - Math.max(margin, sxh);
-                    }
-                    this.y = y;
-                    this.x = x;
-                    break;
-            }
-        };
-        EShapeConnectorElbowPointsFiller.prototype.margin = function (tail, head) {
-            var values = this._values;
-            // Tail
-            var index = this.index;
-            if (tail !== 0 && 2 <= index) {
-                var x0 = values[0];
-                var y0 = values[1];
-                var dx = values[2] - x0;
-                var dy = values[3] - y0;
-                var d = dx * dx + dy * dy;
-                var threshold = this._threshold;
-                if (threshold < d) {
-                    var f = tail / Math.sqrt(dx * dx + dy * dy);
-                    if (threshold < Math.abs(f - 1)) {
-                        values[0] = x0 + dx * f;
-                        values[1] = y0 + dy * f;
-                    }
-                    else {
-                        this.index -= 2;
-                    }
-                }
-            }
-            // Head
-            index = this.index;
-            if (head !== 0 && 2 <= index) {
-                var x1 = values[index + 0];
-                var y1 = values[index + 1];
-                var dx = values[index - 2] - x1;
-                var dy = values[index - 1] - y1;
-                var d = dx * dx + dy * dy;
-                var threshold = this._threshold;
-                if (threshold < d) {
-                    var f = head / Math.sqrt(dx * dx + dy * dy);
-                    if (threshold < Math.abs(f - 1)) {
-                        values[index + 0] = x1 + dx * f;
-                        values[index + 1] = y1 + dy * f;
-                    }
-                    else {
-                        this.index -= 2;
-                    }
-                }
-            }
-            // Remote the rest
-            values.length = this.index + 2;
-        };
-        return EShapeConnectorElbowPointsFiller;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeConnectorElbow = /** @class */ (function (_super) {
-        __extends(EShapeConnectorElbow, _super);
-        function EShapeConnectorElbow(type) {
-            if (type === void 0) { type = EShapeType.CONNECTOR_ELBOW; }
-            return _super.call(this, type) || this;
-        }
-        EShapeConnectorElbow.prototype.fillPoints = function (tail, tailMargin, head, headMargin, body, px, py, values) {
-            // Tail
-            var tailLocal = tail.local;
-            var tailLocalX = tailLocal.x;
-            var tailLocalY = tailLocal.y;
-            var tailNormal = tail.normal;
-            var tailNormalX = tailNormal.x;
-            var tailNormalY = tailNormal.y;
-            var tailSide = tail.side;
-            // Head
-            var headLocal = head.local;
-            var headLocalX = headLocal.x;
-            var headLocalY = headLocal.y;
-            var headNormal = head.normal;
-            var headNormalX = headNormal.x;
-            var headNormalY = headNormal.y;
-            var headSide = head.side;
-            // Body
-            var bodyValues = body.values;
-            var bodyValuesLength = bodyValues.length;
-            // Values
-            var x0 = tailLocalX - px;
-            var y0 = tailLocalY - py;
-            var x1 = headLocalX - px;
-            var y1 = headLocalY - py;
-            var cx = (x1 + x0) * 0.5;
-            var cy = (y1 + y0) * 0.5;
-            var dx = x1 - x0;
-            var dy = y1 - y0;
-            var sxh = 0.5 * EShapeDefaults.SIZE_X;
-            var syh = 0.5 * EShapeDefaults.SIZE_Y;
-            var threshold = 0.000001;
-            if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) {
-                values[0] = x0;
-                values[1] = y0;
-                values[2] = x1;
-                values[3] = y1;
-                values.length = 4;
-            }
-            else {
-                var filler = new EShapeConnectorElbowPointsFiller(x0, y0, values);
-                if (0 < bodyValuesLength) {
-                    var a = Math.atan2(dy, dx);
-                    var l = Math.sqrt(dx * dx + dy * dy);
-                    var c = Math.cos(a) * l;
-                    var s = Math.sin(a) * l;
-                    var x3 = bodyValues[0];
-                    var y3 = bodyValues[1];
-                    var x4 = cx + c * x3 - s * y3;
-                    var y4 = cy + c * y3 + s * x3;
-                    filler.tail(x4, y4, tailNormalX, tailNormalY, sxh, syh, tailMargin, tailSide);
-                    for (var i = 2; i < bodyValuesLength; i += 2) {
-                        var x = bodyValues[i + 0];
-                        var y = bodyValues[i + 1];
-                        var x5 = cx + c * x - s * y;
-                        var y5 = cy + c * y + s * x;
-                        filler.middle(x5, y5);
-                    }
-                    filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin, headSide);
-                }
-                else {
-                    filler.tail(cx, cy, tailNormalX, tailNormalY, sxh, syh, tailMargin, tailSide);
-                    filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin, headSide);
-                }
-                filler.margin(tailMargin, headMargin);
-            }
-        };
-        return EShapeConnectorElbow;
-    }(EShapeConnectorLine));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeConnectorElbow = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeConnectorElbow());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeConnectorBodies = /** @class */ (function () {
-        function EShapeConnectorBodies() {
-        }
-        EShapeConnectorBodies.from = function (values, tailMargin, headMargin) {
-            var result = [];
-            var length = values.length;
-            if (4 < length) {
-                var threshold = 0.000001;
-                var x0 = values[0];
-                var y0 = values[1];
-                if (tailMargin !== 0) {
-                    var ex = x0 - values[2];
-                    var ey = y0 - values[3];
-                    var n = ex * ex + ey * ey;
-                    if (threshold < n) {
-                        var f = tailMargin / Math.sqrt(n);
-                        x0 += ex * f;
-                        y0 += ey * f;
-                    }
-                }
-                var x1 = values[length - 2];
-                var y1 = values[length - 1];
-                if (headMargin !== 0) {
-                    var ex = x1 - values[length - 4];
-                    var ey = y1 - values[length - 3];
-                    var n = ex * ex + ey * ey;
-                    if (threshold < n) {
-                        var f = headMargin / Math.sqrt(n);
-                        x1 += ex * f;
-                        y1 += ey * f;
-                    }
-                }
-                var cx = (x1 + x0) * 0.5;
-                var cy = (y1 + y0) * 0.5;
-                var dx = x1 - x0;
-                var dy = y1 - y0;
-                var a = Math.atan2(dy, dx);
-                var c = Math.cos(a);
-                var s = Math.sin(a);
-                var l = dx * dx + dy * dy;
-                var m = threshold < l ? 1 / Math.sqrt(l) : 1;
-                for (var i = 2, imax = length - 2; i < imax; i += 2) {
-                    var x = values[i + 0] - cx;
-                    var y = values[i + 1] - cy;
-                    result.push((c * x + s * y) * m, (c * y - s * x) * m);
-                }
-            }
-            return result;
-        };
-        return EShapeConnectorBodies;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeConnectorLine = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeConnectorLine());
-    };
-    var onDeserializedConnectorLine = function (item, shape, mapping, manager) {
-        if (shape instanceof EShapeConnectorLine) {
-            var resources = manager.resources;
-            var resourceId = item[15];
-            if (0 <= resourceId && resourceId < resources.length) {
-                var parsed = manager.getExtension(resourceId);
-                if (parsed == null) {
-                    parsed = JSON.parse(resources[resourceId]);
-                    manager.setExtension(resourceId, parsed);
-                }
-                // Lock
-                shape.lock(EShapeLockPart.CONNECTOR);
-                // Points
-                var points = shape.points;
-                points.deserialize(parsed[1], manager);
-                // Edge
-                var edge = shape.edge;
-                edge.deserialize(parsed[0], mapping, manager);
-                // Body
-                var body = shape.body;
-                var bodyId = parsed[2];
-                if (bodyId != null) {
-                    body.deserialize(bodyId, mapping, manager);
-                }
-                else {
-                    // The following is for backward compatibility.
-                    body.set(EShapeConnectorBodies.from(points.values, edge.tail.margin, edge.head.margin));
-                }
-                // Unlock
-                shape.unlock(EShapeLockPart.CONNECTOR, true);
-            }
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSubtype = function (target) {
-        var result = EShapeAcceptorEdgeType.ALL & target;
-        if (result !== 0) {
-            return result;
-        }
-        return EShapeAcceptorEdgeType.HEAD;
-    };
-    var toSide = function (target) {
-        return (EShapeAcceptorEdgeSide.ALL & (target >> 2));
-    };
-    var toVvisible = function (target) {
-        return 0 < (0x1 & (target >> 6));
-    };
-    var deserializeEmbeddedAcceptorEdge = function (item, manager, shape) {
-        shape !== null && shape !== void 0 ? shape : (shape = new EShapeEmbeddedAcceptorEdge());
-        var item15 = item[15];
-        shape.subtype = toSubtype(item15);
-        shape.side = toSide(item15);
-        shape.vvisible = toVvisible(item15);
-        var result = deserializeBase(item, manager, shape);
-        if (shape.vvisible === false) {
-            if (manager.mode === EShapeResourceManagerDeserializationMode.VIEWER) {
-                shape.visible = false;
-            }
-        }
-        return result;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var create = function (name, width, height, container, manager, item, shape) {
-        var mode = manager.mode;
-        var depth = manager.depth;
-        shape = shape || new EShapeEmbedded(name, mode, depth);
-        var result = deserializeBase(item, manager, shape);
-        var shapeSize = shape.size;
-        var sizeX = shapeSize.x;
-        var sizeY = shapeSize.y;
-        shape.size.set(width, height);
-        container.copyTo(shape);
-        shape.size.init();
-        shape.size.set(sizeX, sizeY);
-        if (mode === EShapeResourceManagerDeserializationMode.EDITOR) {
-            if (0 < depth) {
-                applyDataMappings(shape, manager);
-            }
-        }
-        else {
-            applyDataMappings(shape, manager);
-        }
-        return result;
-    };
-    var createMissing = function (name, manager, item, shape) {
-        var mode = manager.mode;
-        var depth = manager.depth;
-        shape = shape || new EShapeEmbedded(name, mode, depth);
-        var result = deserializeBase(item, manager, shape);
-        var size = shape.size;
-        var sizeX = size.x;
-        var sizeY = size.y;
-        var children = shape.children;
-        var layer = new EShapeEmbeddedLayer("missing", mode, depth);
-        var px = 0.5 * sizeX;
-        var py = 0.5 * sizeX;
-        layer.transform.position.set(-px, -py);
-        layer.size.set(sizeX, sizeY);
-        layer.size.init();
-        layer.parent = shape;
-        var rectangle = new EShapeRectangle();
-        rectangle.stroke.color = 0xff0000;
-        rectangle.transform.position.set(px, py);
-        rectangle.size.copyFrom(shape.size);
-        rectangle.attach(layer);
-        children.push(layer);
-        shape.onChildTransformChange();
-        shape.toDirty();
-        shape.onAttach();
-        shape.size.init();
-        if (mode === EShapeResourceManagerDeserializationMode.EDITOR) {
-            if (0 < depth) {
-                applyDataMappings(shape, manager);
-            }
-        }
-        else {
-            applyDataMappings(shape, manager);
-        }
-        return result;
-    };
-    var applyDataMappings = function (shape, manager) {
-        var mapping = shape.data.getMapping();
-        if (mapping != null) {
-            var values = mapping.values;
-            for (var i = 0, imax = values.length; i < imax; ++i) {
-                var value = values[i];
-                var source = value[0];
-                var mapper = manager.getDataMapper(source);
-                if (mapper != null) {
-                    var children = shape.children;
-                    var destination = manager.getDataDestination(value[1]);
-                    var initial = value[2];
-                    applyDataMapping(children, mapper, destination, initial);
-                }
-            }
-        }
-    };
-    var applyDataMapping = function (targets, mapper, destination, initial) {
-        for (var i = 0, imax = targets.length; i < imax; ++i) {
-            var target = targets[i];
-            var targetData = target.data;
-            for (var j = 0, jmax = targetData.size(); j < jmax; ++j) {
-                var targetDatum = targetData.get(j);
-                if (targetDatum && targetDatum.scope !== EShapeDataValueScope.PRIVATE) {
-                    mapper.map(targetDatum, destination, initial);
-                }
-            }
-            // Children
-            var children = target.children;
-            if (0 < children.length) {
-                applyDataMapping(children, mapper, destination, initial);
-            }
-        }
-    };
-    var deserializeEmbedded = function (item, manager, creator) {
-        var pieces = manager.pieces;
-        var pieceId = item[15];
-        if (pieces && 0 <= pieceId && pieceId < pieces.length) {
-            var pieceData = manager.pieceData;
-            if (pieceData) {
-                var piece = pieces[pieceId];
-                var pieceDatum = pieceData.get(piece);
-                var shape = creator && creator(piece, manager);
-                if (pieceDatum) {
-                    return create(piece, pieceDatum.width, pieceDatum.height, pieceDatum.layer, manager, item, shape);
-                }
-                else {
-                    return createMissing(piece, manager, item, shape);
-                }
-            }
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeGroupFillEditor = /** @class */ (function () {
-        function EShapeGroupFillEditor(parent) {
-            this._parent = parent;
-        }
-        Object.defineProperty(EShapeGroupFillEditor.prototype, "enable", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].fill.enable;
-                }
-                return true;
-            },
-            set: function (enable) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].fill.enable = enable;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupFillEditor.prototype, "color", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].fill.color;
-                }
-                return 0xffffff;
-            },
-            set: function (color) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].fill.color = color;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupFillEditor.prototype, "alpha", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].fill.alpha;
-                }
-                return 1.0;
-            },
-            set: function (alpha) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].fill.alpha = alpha;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupFillEditor.prototype, "direction", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].fill.direction;
-                }
-                return EShapeFillDirection.BOTTOM;
-            },
-            set: function (direction) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].fill.direction = direction;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupFillEditor.prototype, "percent", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].fill.percent;
-                }
-                return 1.0;
-            },
-            set: function (percent) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].fill.percent = percent;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroupFillEditor.prototype.copy = function (target) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                children[i].fill.copy(target);
-            }
-        };
-        EShapeGroupFillEditor.prototype.set = function (enable, color, alpha, direction, percent) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                children[i].fill.set(enable, color, alpha, direction, percent);
-            }
-        };
-        EShapeGroupFillEditor.prototype.clone = function () {
-            return new EShapeGroupFillEditor(this._parent);
-        };
-        EShapeGroupFillEditor.prototype.toObject = function () {
-            var children = this._parent.children;
-            if (0 < children.length) {
-                return children[children.length - 1].fill.toObject();
-            }
-            return {
-                enable: true,
-                color: 0xffffff,
-                alpha: 1.0,
-                direction: EShapeFillDirection.BOTTOM,
-                percent: 1.0
-            };
-        };
-        EShapeGroupFillEditor.prototype.serialize = function (manager) {
-            return -1;
-        };
-        EShapeGroupFillEditor.prototype.deserialize = function (target, manager) {
-            // DO NOTHING
-        };
-        return EShapeGroupFillEditor;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeGroupPoints = /** @class */ (function () {
-        function EShapeGroupPoints(parent) {
-            this._parent = parent;
-        }
-        Object.defineProperty(EShapeGroupPoints.prototype, "length", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.length;
-                    }
-                }
-                return 0;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "plength", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.plength;
-                    }
-                }
-                return 0;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "id", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.id;
-                    }
-                }
-                return 0;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "values", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.values;
-                    }
-                }
-                return [];
-            },
-            set: function (values) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var points = children[i].points;
-                    if (points != null) {
-                        points.values = values;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "segments", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.segments;
-                    }
-                }
-                return [];
-            },
-            set: function (segments) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var points = children[i].points;
-                    if (points != null) {
-                        points.segments = segments;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "style", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.style;
-                    }
-                }
-                return EShapePointsStyle.NONE;
-            },
-            set: function (style) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var points = children[i].points;
-                    if (points != null) {
-                        points.style = style;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "marker", {
-            get: function () {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var points = children[i].points;
-                    if (points != null) {
-                        return points.marker;
-                    }
-                }
-                return EShapePointsMarkerContainerImplNoop.getInstance();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroupPoints.prototype.getMarker = function () {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var points = children[i].points;
-                if (points != null) {
-                    return points.getMarker();
-                }
-            }
-            return undefined;
-        };
-        Object.defineProperty(EShapeGroupPoints.prototype, "formatter", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.formatter;
-                    }
-                }
-                return null;
-            },
-            set: function (formatter) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var points = children[i].points;
-                    if (points != null) {
-                        points.formatter = formatter;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupPoints.prototype, "formatted", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    var points = children[children.length - 1].points;
-                    if (points != null) {
-                        return points.formatted;
-                    }
-                }
-                return this;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroupPoints.prototype.onSizeChange = function () {
-            // DO NOTHING
-        };
-        EShapeGroupPoints.prototype.copy = function (source) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var points = children[i].points;
-                if (points != null) {
-                    points.copy(source);
-                }
-            }
-            return this;
-        };
-        EShapeGroupPoints.prototype.set = function (values, segments, style) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var points = children[i].points;
-                if (points != null) {
-                    points.set(values, segments, style);
-                }
-            }
-            return this;
-        };
-        EShapeGroupPoints.prototype.clone = function (parent) {
-            return new EShapeGroupPoints(parent);
-        };
-        EShapeGroupPoints.prototype.toPoints = function (transform) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var points = children[i].points;
-                if (points != null) {
-                    return points.toPoints(transform);
-                }
-            }
-            return [];
-        };
-        EShapeGroupPoints.prototype.serialize = function (manager) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var points = children[i].points;
-                if (points != null) {
-                    return points.serialize(manager);
-                }
-            }
-            return -1;
-        };
-        return EShapeGroupPoints;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeGroupStrokeEditor = /** @class */ (function () {
-        function EShapeGroupStrokeEditor(parent) {
-            this._parent = parent;
-        }
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "enable", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.enable;
-                }
-                return false;
-            },
-            set: function (enable) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.enable = enable;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "color", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.color;
-                }
-                return 0xffffff;
-            },
-            set: function (color) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.color = color;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "alpha", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.alpha;
-                }
-                return 1.0;
-            },
-            set: function (alpha) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.alpha = alpha;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "width", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.width;
-                }
-                return 1.0;
-            },
-            set: function (width) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.width = width;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "align", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.align;
-                }
-                return 1.0;
-            },
-            set: function (align) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.align = align;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "side", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.side;
-                }
-                return 1.0;
-            },
-            set: function (side) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.side = side;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "style", {
-            get: function () {
-                var children = this._parent.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].stroke.style;
-                }
-                return EShapeStrokeStyle.NONE;
-            },
-            set: function (style) {
-                var children = this._parent.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].stroke.style = style;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroupStrokeEditor.prototype.copy = function (target) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                children[i].stroke.copy(target);
-            }
-        };
-        EShapeGroupStrokeEditor.prototype.set = function (enable, color, alpha, width, side) {
-            var children = this._parent.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                children[i].stroke.set(enable, color, alpha, width, side);
-            }
-        };
-        EShapeGroupStrokeEditor.prototype.clone = function () {
-            return new EShapeGroupStrokeEditor(this._parent);
-        };
-        EShapeGroupStrokeEditor.prototype.toObject = function () {
-            var children = this._parent.children;
-            if (0 < children.length) {
-                return children[children.length - 1].stroke.toObject();
-            }
-            return {
-                enable: false,
-                color: 0xffffff,
-                alpha: 1.0,
-                width: 1.0,
-                align: 0.0,
-                side: EShapeStrokeSide.NONE,
-                style: EShapeStrokeStyle.NONE
-            };
-        };
-        EShapeGroupStrokeEditor.prototype.serialize = function (manager) {
-            return -1;
-        };
-        EShapeGroupStrokeEditor.prototype.deserialize = function (target, manager) {
-            //
-        };
-        return EShapeGroupStrokeEditor;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeGroup = /** @class */ (function (_super) {
-        __extends(EShapeGroup, _super);
-        function EShapeGroup(mode, type) {
-            if (type === void 0) { type = EShapeType.GROUP; }
-            var _this = _super.call(this, type) || this;
-            _this._mode = mode;
-            var data = new EShapeDataImpl();
-            _this.data = data;
-            _this.tag = data;
-            _this.size = _this.newGroupSize(mode);
-            _this.fill = _this.newGroupFill();
-            _this.stroke = _this.newGroupStroke();
-            _this.text = _this.newGroupText();
-            _this._points = _this.newGroupPoints();
-            return _this;
-        }
-        Object.defineProperty(EShapeGroup.prototype, "mode", {
-            get: function () {
-                return this._mode;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroup.prototype.newGroupSize = function (mode) {
-            var sizeX = EShapeDefaults.SIZE_X;
-            var sizeY = EShapeDefaults.SIZE_Y;
-            if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
-                return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
-            }
-            else {
-                return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
-            }
-        };
-        EShapeGroup.prototype.isGroupSizeFittable = function () {
-            return true;
-        };
-        EShapeGroup.prototype.newGroupFill = function () {
-            return new EShapeGroupFillEditor(this);
-        };
-        EShapeGroup.prototype.newGroupStroke = function () {
-            return new EShapeGroupStrokeEditor(this);
-        };
-        EShapeGroup.prototype.newGroupText = function () {
-            return new EShapeTextImpl(this, EShapeDefaults.TEXT_VALUE, EShapeDefaults.TEXT_COLOR, EShapeDefaults.TEXT_ALPHA, EShapeDefaults.TEXT_FAMILY, EShapeDefaults.TEXT_SIZE);
-        };
-        EShapeGroup.prototype.newGroupPoints = function () {
-            return new EShapeGroupPoints(this);
-        };
-        EShapeGroup.prototype.getBoundsSize = function () {
-            var size = this.size;
-            if (size instanceof EShapeGroupSizeViewer) {
-                return size.base;
-            }
-            else {
-                return size;
-            }
-        };
-        EShapeGroup.prototype.onChildTransformChange = function () {
-            _super.prototype.onChildTransformChange.call(this);
-            this.size.fit();
-        };
-        Object.defineProperty(EShapeGroup.prototype, "corner", {
-            get: function () {
-                var children = this.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].corner;
-                }
-                return EShapeCorner.ALL;
-            },
-            set: function (corner) {
-                var children = this.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].corner = corner;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroup.prototype, "gradient", {
-            get: function () {
-                var children = this.children;
-                for (var i = children.length - 1; 0 <= i; --i) {
-                    var gradient = children[i].gradient;
-                    if (gradient != null) {
-                        return gradient;
-                    }
-                }
-                return undefined;
-            },
-            set: function (gradient) {
-                var children = this.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].gradient = gradient;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroup.prototype.serializeGradient = function (manager) {
-            return -1;
-        };
-        Object.defineProperty(EShapeGroup.prototype, "radius", {
-            get: function () {
-                var children = this.children;
-                if (0 < children.length) {
-                    return children[children.length - 1].radius;
-                }
-                return 0.5;
-            },
-            set: function (radius) {
-                var children = this.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].radius = radius;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroup.prototype, "image", {
-            get: function () {
-                var children = this.children;
-                for (var i = children.length - 1; 0 <= i; --i) {
-                    var image = children[i].image;
-                    if (image != null) {
-                        return image;
-                    }
-                }
-                return undefined;
-            },
-            set: function (image) {
-                var children = this.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].image = image;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroup.prototype.serializeImage = function (manager) {
-            return -1;
-        };
-        Object.defineProperty(EShapeGroup.prototype, "points", {
-            get: function () {
-                var children = this.children;
-                for (var i = children.length - 1; 0 <= i; --i) {
-                    var points = children[i].points;
-                    if (points != null) {
-                        return this._points;
-                    }
-                }
-                return undefined;
-            },
-            set: function (points) {
-                // DO NOTHING
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroup.prototype.clone = function () {
-            var result = this.newClone().copy(this);
-            var children = this.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var clone = children[i].clone();
-                clone.parent = result;
-                result.children.push(clone);
-            }
-            EShapeConnectors.move(this, result);
-            result.onChildTransformChange();
-            result.toDirty();
-            return result;
-        };
-        EShapeGroup.prototype.newClone = function () {
-            var constructor = this.constructor;
-            return new constructor(this._mode, this.type);
-        };
-        EShapeGroup.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            return false;
-        };
-        return EShapeGroup;
-    }(EShapeBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeGroupSizeShadowed = /** @class */ (function () {
-        function EShapeGroupSizeShadowed(parent, x, y) {
-            this._parent = parent;
-            this._size = new pixi_js.Point(x, y);
-        }
-        EShapeGroupSizeShadowed.prototype.init = function () {
-            return this;
-        };
-        Object.defineProperty(EShapeGroupSizeShadowed.prototype, "x", {
-            get: function () {
-                return this._size.x;
-            },
-            set: function (x) {
-                var size = this._size;
-                if (size.x !== x) {
-                    var ox = size.x;
-                    size.x = x;
-                    this.onChange(ox, size.y);
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeGroupSizeShadowed.prototype, "y", {
-            get: function () {
-                return this._size.y;
-            },
-            set: function (y) {
-                var size = this._size;
-                if (size.y !== y) {
-                    var oy = size.y;
-                    size.y = y;
-                    this.onChange(size.x, oy);
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeGroupSizeShadowed.prototype.set = function (x, y) {
-            var isChanged = false;
-            var size = this._size;
-            var ox = size.x;
-            var oy = size.y;
-            if (x != null && ox !== x) {
-                isChanged = true;
-                size.x = x;
-            }
-            if (y != null && oy !== y) {
-                isChanged = true;
-                size.y = y;
-            }
-            if (isChanged) {
-                this.onChange(ox, oy);
-            }
-            return this;
-        };
-        EShapeGroupSizeShadowed.prototype.clone = function () {
-            var size = this._size;
-            return new EShapeGroupSizeShadowed(this._parent, size.x, size.y);
-        };
-        EShapeGroupSizeShadowed.prototype.copy = function () {
-            // DO NOTHING
-        };
-        EShapeGroupSizeShadowed.prototype.copyFrom = function (point) {
-            var x = point.x;
-            var y = point.y;
-            var size = this._size;
-            var ox = size.x;
-            var oy = size.y;
-            if (ox !== x || oy !== y) {
-                size.x = x;
-                size.y = y;
-                this.onChange(ox, oy);
-            }
-            return this;
-        };
-        EShapeGroupSizeShadowed.prototype.copyTo = function (point) {
-            return this._size.copyTo(point);
-        };
-        EShapeGroupSizeShadowed.prototype.equals = function (point) {
-            return this._size.equals(point);
-        };
-        EShapeGroupSizeShadowed.prototype.fit = function () {
-            return this;
-        };
-        EShapeGroupSizeShadowed.prototype.onChange = function (ox, oy) {
-            this._parent.onSizeChange();
-        };
-        return EShapeGroupSizeShadowed;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeGroupShadowed = /** @class */ (function (_super) {
-        __extends(EShapeGroupShadowed, _super);
-        function EShapeGroupShadowed(mode, type) {
-            if (type === void 0) { type = EShapeType.GROUP_SHADOWED; }
-            return _super.call(this, mode, type) || this;
-        }
-        EShapeGroupShadowed.prototype.newGroupSize = function (mode) {
-            if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
-                return new EShapeGroupSizeShadowed(this, EShapeDefaults.SIZE_X, EShapeDefaults.SIZE_Y);
-            }
-            else {
-                return _super.prototype.newGroupSize.call(this, mode);
-            }
-        };
-        return EShapeGroupShadowed;
-    }(EShapeGroup));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeGroupShadowed = function (item, manager, shape) {
-        shape = shape || new EShapeGroupShadowed(manager.mode);
-        var result = deserializeBase(item, manager, shape);
-        shape.size.init();
-        return result;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeGroup = function (item, manager, shape) {
-        shape = shape || new EShapeGroup(manager.mode);
-        var result = deserializeBase(item, manager, shape);
-        shape.size.init();
-        return result;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeImageSdf = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeImageSdf());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeImage = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeImage());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLabel = /** @class */ (function (_super) {
-        __extends(EShapeLabel, _super);
-        function EShapeLabel(type) {
-            if (type === void 0) { type = EShapeType.LABEL; }
-            return _super.call(this, type) || this;
-        }
-        EShapeLabel.prototype.clone = function () {
-            return new EShapeLabel(this.type).copy(this);
-        };
-        return EShapeLabel;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLabel = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeLabel());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLineOfCircles = /** @class */ (function (_super) {
-        __extends(EShapeLineOfCircles, _super);
-        function EShapeLineOfCircles(type) {
-            if (type === void 0) { type = EShapeType.LINE_OF_CIRCLES; }
-            var _this = _super.call(this, type) || this;
-            _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
-            };
-            return _this;
-        }
-        Object.defineProperty(EShapeLineOfCircles.prototype, "points", {
-            get: function () {
-                return this._points;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeLineOfCircles.prototype.clone = function () {
-            return new EShapeLineOfCircles(this.type).copy(this);
-        };
-        EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
-            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
-            }
-            return false;
-        };
-        EShapeLineOfCircles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-            var ex = x - px - ox;
-            var ey = y - py - oy;
-            if (this.containsAbsBBox(ex, ey, ax, ay)) {
-                return hitTestCircle(this, ex, ey, ax, ay, sw, ss);
-            }
-            return false;
-        };
-        EShapeLineOfCircles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(x, y);
-            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
-            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
-            }
-            return false;
-        };
-        return EShapeLineOfCircles;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLineOfCircles = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeLineOfCircles());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLineOfRectangleRoundeds = /** @class */ (function (_super) {
-        __extends(EShapeLineOfRectangleRoundeds, _super);
-        function EShapeLineOfRectangleRoundeds(type) {
-            if (type === void 0) { type = EShapeType.LINE_OF_RECTANGLE_ROUNDEDS; }
-            var _this = _super.call(this, type) || this;
-            _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
-            };
-            return _this;
-        }
-        Object.defineProperty(EShapeLineOfRectangleRoundeds.prototype, "points", {
-            get: function () {
-                return this._points;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeLineOfRectangleRoundeds.prototype.clone = function () {
-            return new EShapeLineOfRectangleRoundeds(this.type).copy(this);
-        };
-        EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
-            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, sw, ss, sa, null, this._tester, null);
-            }
-            return false;
-        };
-        EShapeLineOfRectangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
-        };
-        EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(x, y);
-            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
-            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
-            }
-            return false;
-        };
-        return EShapeLineOfRectangleRoundeds;
-    }(EShapeRectangleRounded));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLineOfRectangleRoundeds = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeLineOfRectangleRoundeds());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLineOfRectangles = /** @class */ (function (_super) {
-        __extends(EShapeLineOfRectangles, _super);
-        function EShapeLineOfRectangles(type) {
-            if (type === void 0) { type = EShapeType.LINE_OF_RECTANGLES; }
-            var _this = _super.call(this, type) || this;
-            _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
-            };
-            return _this;
-        }
-        Object.defineProperty(EShapeLineOfRectangles.prototype, "points", {
-            get: function () {
-                return this._points;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeLineOfRectangles.prototype.clone = function () {
-            return new EShapeLineOfRectangles(this.type).copy(this);
-        };
-        EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
-            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
-            }
-            return false;
-        };
-        EShapeLineOfRectangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
-        };
-        EShapeLineOfRectangles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(x, y);
-            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
-            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
-            }
-            return false;
-        };
-        return EShapeLineOfRectangles;
-    }(EShapeRectangleLegacy));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLineOfRectangles = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeLineOfRectangles());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var containsCorner_ = function (shape, x, y, r, aw, sw, ss) {
-        var fill = shape.fill;
-        if (fill.enable) {
-            if (x * x + y * y <= r * r) {
-                return true;
-            }
-        }
-        else {
-            if (0 < sw) {
-                var d = x * x + y * y;
-                if (d <= r * r) {
-                    var w = Math.max(0.0, r * (1 - (sw * ss) / aw));
-                    if (w * w <= d) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    };
-    var containsCorner = function (shape, x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss) {
-        var xl = x1 + r12 * (x2 - x1) - x0;
-        var yl = y1 + r12 * (y2 - y1) - y0;
-        var n = Math.sqrt(xl * xl + yl * yl);
-        var threshold = 0.00001;
-        if (threshold < n) {
-            var ni = 1 / n;
-            var nlx = xl * ni;
-            var nly = yl * ni;
-            var xr = x1 + r13 * (x3 - x1) - x0;
-            var yr = y1 + r13 * (y3 - y1) - y0;
-            var nrx = xr * ni;
-            var nry = yr * ni;
-            var det = nlx * nry - nrx * nly;
-            if (threshold < Math.abs(det)) {
-                var deti = 1 / det;
-                var xc = x - x0;
-                var yc = y - y0;
-                var dx = (+nry * xc - nrx * yc) * deti;
-                var dy = (-nly * xc + nlx * yc) * deti;
-                if (containsCorner_(shape, dx, dy, n, aw * radius, sw, ss)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    };
-    var hitTestTriangleRounded = function (shape, x, y, ax, ay, sw, ss) {
-        var a = (2 * ay) / ax;
-        if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
-            var az = Math.sqrt(ax * ax + 4 * ay * ay);
-            var aw = (2 * ax * ay) / (ax + az);
-            var radius = shape.radius;
-            var x0 = 0;
-            var y0 = ay - aw;
-            var x1 = 0;
-            var y1 = -ay;
-            var x4 = +ax;
-            var y4 = +ay;
-            var x7 = -x4;
-            var y7 = +y4;
-            var x10 = x1 + radius * (x0 - x1);
-            var y10 = y1 + radius * (y0 - y1);
-            var x11 = x4 + radius * (x0 - x4);
-            var y11 = y4 + radius * (y0 - y4);
-            var y12 = +y11;
-            var x12 = -x11;
-            var c0 = -a * x + y10 - y <= 0;
-            var c1 = +a * x + y10 - y <= 0;
-            var c2 = y <= y11;
-            var corner = shape.corner;
-            if (!c0 && !c1 && corner & EShapeCorner.TOP) {
-                // Top corner
-                var rz = (0.5 * (az - aw) * radius) / az;
-                if (containsCorner(shape, x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss)) {
-                    return true;
-                }
-            }
-            else if (!c0 && !c2 && corner & EShapeCorner.BOTTOM_LEFT) {
-                // Bottom-left corner
-                var ry = (aw * radius) / (2 * ay);
-                var rx = (ry * az) / (2 * ax);
-                if (containsCorner(shape, x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss)) {
-                    return true;
-                }
-            }
-            else if (!c1 && !c2 && corner & EShapeCorner.BOTTOM_RIGHT) {
-                // Bottom-right corner
-                var ry = (aw * radius) / (2 * ay);
-                var rx = (ry * az) / (2 * ax);
-                if (containsCorner(shape, x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss)) {
-                    return true;
-                }
-            }
-            else {
-                // Others
-                var fill = shape.fill;
-                if (fill.enable) {
-                    return true;
-                }
-                else {
-                    if (0 < sw) {
-                        var s = sw * ss;
-                        var cy = ay - aw;
-                        var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
-                        var ay2 = ay - s;
-                        if (!hitTestTriangleFilled(x, y, a, ay1, ay2)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeTriangleRounded = /** @class */ (function (_super) {
-        __extends(EShapeTriangleRounded, _super);
-        function EShapeTriangleRounded(type) {
-            if (type === void 0) { type = EShapeType.TRIANGLE_ROUNDED; }
-            return _super.call(this, type) || this;
-        }
-        EShapeTriangleRounded.prototype.clone = function () {
-            return new EShapeTriangleRounded(this.type).copy(this);
-        };
-        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestTriangleRounded(this, x, y, ax, ay, sw, ss);
-            }
-            return false;
-        };
-        return EShapeTriangleRounded;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLineOfTriangleRoundeds = /** @class */ (function (_super) {
-        __extends(EShapeLineOfTriangleRoundeds, _super);
-        function EShapeLineOfTriangleRoundeds(type) {
-            if (type === void 0) { type = EShapeType.LINE_OF_TRIANGLE_ROUNDEDS; }
-            var _this = _super.call(this, type) || this;
-            _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
-            };
-            return _this;
-        }
-        Object.defineProperty(EShapeLineOfTriangleRoundeds.prototype, "points", {
-            get: function () {
-                return this._points;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeLineOfTriangleRoundeds.prototype.clone = function () {
-            return new EShapeLineOfTriangleRoundeds(this.type).copy(this);
-        };
-        EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
-            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
-            }
-            return false;
-        };
-        EShapeLineOfTriangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
-        };
-        EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(x, y);
-            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
-            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
-            }
-            return false;
-        };
-        return EShapeLineOfTriangleRoundeds;
-    }(EShapeTriangleRounded));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLineOfTriangleRoundeds = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeLineOfTriangleRoundeds());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeTriangle = /** @class */ (function (_super) {
-        __extends(EShapeTriangle, _super);
-        function EShapeTriangle(type) {
-            if (type === void 0) { type = EShapeType.TRIANGLE; }
-            return _super.call(this, type) || this;
-        }
-        EShapeTriangle.prototype.clone = function () {
-            return new EShapeTriangle(this.type).copy(this);
-        };
-        EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestTriangle(this, x, y, ax, ay, sw, ss);
-            }
-            return false;
-        };
-        return EShapeTriangle;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLineOfTriangles = /** @class */ (function (_super) {
-        __extends(EShapeLineOfTriangles, _super);
-        function EShapeLineOfTriangles(type) {
-            if (type === void 0) { type = EShapeType.LINE_OF_TRIANGLES; }
-            var _this = _super.call(this, type) || this;
-            _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
-            };
-            return _this;
-        }
-        Object.defineProperty(EShapeLineOfTriangles.prototype, "points", {
-            get: function () {
-                return this._points;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeLineOfTriangles.prototype.clone = function () {
-            return new EShapeLineOfTriangles(this.type).copy(this);
-        };
-        EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
-            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
-            }
-            return false;
-        };
-        EShapeLineOfTriangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
-        };
-        EShapeLineOfTriangles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(x, y);
-            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
-            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
-            }
-            return false;
-        };
-        return EShapeLineOfTriangles;
-    }(EShapeTriangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLineOfTriangles = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeLineOfTriangles());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeLine = function (item, manager, shape) {
-        shape = shape || new EShapeLine();
-        var result = deserializeBase(item, manager, shape);
-        shape.points.deserialize(item[15], manager);
-        var style = shape.points.style;
-        var mask = EShapePointsStyle.NON_SCALING_MASK |
-            EShapePointsStyle.DOTTED_MASK |
-            EShapePointsStyle.DASHED_MASK;
-        var deprecated = style & mask;
-        if (deprecated) {
-            shape.points.style &= ~mask;
-            shape.stroke.style |= deprecated;
-        }
-        return result;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeNull = /** @class */ (function (_super) {
-        __extends(EShapeNull, _super);
-        function EShapeNull(type) {
-            if (type === void 0) { type = EShapeType.NULL; }
-            return _super.call(this, type) || this;
-        }
-        EShapeNull.prototype.clone = function () {
-            return new EShapeNull(this.type).copy(this);
-        };
-        return EShapeNull;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeNull = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeNull());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializePolygon = function (item, manager, shape) {
-        shape = shape || new EShapePolygon();
-        deserializeBase(item, manager, shape);
-        shape.deserialize(item[15], manager);
-        return shape;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeRectangleLegacy = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeRectangleLegacy());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeRectanglePivoted = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeRectanglePivoted());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeRectangleRounded = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeRectangleRounded());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeRectangle = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeRectangle());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var hitTestSemicircle = function (shape, x, y, ax, ay, sw, ss) {
         if (y <= 0) {
-            return hitTestCircle(shape, x, y, ax, ay, sw, ss);
+            return hitTestCircleLegacy(shape, x, y, ax, ay, sw, ss);
         }
         return false;
     };
@@ -53006,8 +56071,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var deserializeTriangleRounded = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeTriangleRounded());
+    var loadShapeSemicircle = function () {
+        EShapeUploadeds[EShapeType.SEMICIRCLE] = createSemicircleUploaded;
+        EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSemicircle;
     };
 
     /*
@@ -53022,421 +56088,237 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeEmbeddeds = /** @class */ (function () {
-        function EShapeEmbeddeds() {
-        }
-        EShapeEmbeddeds.from = function (serializedOrSimple, controller, mode) {
-            var _this = this;
-            var serialized = DDiagrams.toSerialized(serializedOrSimple);
-            var pieces = serialized.pieces;
-            return DDiagrams.toPieceData(controller, pieces, mode).then(function (pieceData) {
-                return _this.from_(serialized, mode, pieces, pieceData);
-            });
-        };
-        EShapeEmbeddeds.from_ = function (serialized, mode, pieces, pieceData) {
-            var _this = this;
-            var width = serialized.width;
-            var height = serialized.height;
-            var container = new EShapeEmbeddedLayerContainer(width, height);
-            var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, mode, 1);
-            return DDiagrams.newLayer(serialized, container, manager).then(function () {
-                return _this.create(serialized.name, width, height, container, mode, 0);
-            });
-        };
-        EShapeEmbeddeds.create = function (name, width, height, container, mode, depth) {
-            var shape = new EShapeEmbedded(name, mode, depth);
-            shape.size.set(width, height);
-            container.copyTo(shape);
-            shape.size.init();
-            return shape;
-        };
-        return EShapeEmbeddeds;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSvgUrl = function (svg) {
-        return "data:image/svg+xml;base64,".concat(btoa(svg));
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toGradientImageUrl = function (gradient) {
-        var direction = gradient.direction;
-        var points = gradient.points;
-        var stops = "";
-        for (var i = 0, imax = points.length; i < imax; ++i) {
-            var point = points[i];
-            var color = UtilRgb.toCode(point.color);
-            var alpha = point.alpha;
-            var offset = point.position * 100;
-            stops += "<stop offset=\"".concat(offset, "%\" stop-color=\"#").concat(color, "\" stop-opacity=\"").concat(alpha, "\" />");
-        }
-        var radian = (direction * Math.PI) / 180;
-        var dx = 0.5 * Math.cos(radian);
-        var dy = -0.5 * Math.sin(radian);
-        var url = toSvgUrl(
-        /* eslint-disable prettier/prettier */
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
-            "<defs>" +
-            "<linearGradient id=\"o2glkm3aeu2oio\" x1=\"".concat(0.5 - dx, "\" x2=\"").concat(0.5 + dx, "\" y1=\"").concat(0.5 - dy, "\" y2=\"").concat(0.5 + dy, "\">") +
-            stops +
-            "</linearGradient>" +
-            "</defs>" +
-            "<rect x=\"0\" y=\"0\" width=\"32\" height=\"32\" stroke=\"none\" fill=\"url(#o2glkm3aeu2oio)\" />" +
-            "</svg>"
-        /* eslint-enable prettier/prettier */
-        );
-        return url;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSizeRounded = function (value) {
-        return Math.round(value * 100) / 100;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toResized = function (shape, from, to, centerMode, isPerfect) {
-        var cposition = EShapeCapabilities.contains(shape, EShapeCapability.POSITION);
-        var cwidth = EShapeCapabilities.contains(shape, EShapeCapability.WIDTH);
-        var cheight = EShapeCapabilities.contains(shape, EShapeCapability.HEIGHT);
-        shape.lock(EShapeLockPart.UPLOADED);
-        var position = shape.transform.position;
-        if (centerMode) {
-            var dx = Math.abs(to.x - from.x);
-            var dy = Math.abs(to.y - from.y);
-            if (isPerfect) {
-                var d = Math.max(dx, dy);
-                var s = toSizeNormalized(d + d);
-                var x = toSizeRounded(from.x);
-                var y = toSizeRounded(from.y);
-                var size = shape.size;
-                if (cwidth && cheight) {
-                    size.set(s, s);
-                }
-                else if (cwidth) {
-                    size.x = s;
-                }
-                else if (cheight) {
-                    size.y = s;
-                }
-                if (cposition) {
-                    position.set(x, y);
-                }
-            }
-            else {
-                var w = toSizeNormalized(dx + dx);
-                var h = toSizeNormalized(dy + dy);
-                var x = toSizeRounded(from.x);
-                var y = toSizeRounded(from.y);
-                var size = shape.size;
-                if (cwidth && cheight) {
-                    size.set(w, h);
-                }
-                else if (cwidth) {
-                    size.x = w;
-                }
-                else if (cheight) {
-                    size.y = h;
-                }
-                if (cposition) {
-                    position.set(x, y);
-                }
-            }
-        }
-        else {
-            if (isPerfect) {
-                var dx = to.x - from.x;
-                var dy = to.y - from.y;
-                var d = Math.max(Math.abs(dx), Math.abs(dy));
-                var x2 = from.x + (dx < 0 ? -d : +d);
-                var y2 = from.y + (dy < 0 ? -d : +d);
-                var hd = d * 0.5;
-                var s = toSizeNormalized(d);
-                var x = toSizeRounded(Math.min(from.x, x2) + hd);
-                var y = toSizeRounded(Math.min(from.y, y2) + hd);
-                var size = shape.size;
-                if (cwidth && cheight) {
-                    size.set(s, s);
-                }
-                else if (cwidth) {
-                    size.x = s;
-                }
-                else if (cheight) {
-                    size.y = s;
-                }
-                if (cposition) {
-                    position.set(x, y);
-                }
-            }
-            else {
-                var x0 = Math.min(from.x, to.x);
-                var y0 = Math.min(from.y, to.y);
-                var x1 = Math.max(from.x, to.x);
-                var y1 = Math.max(from.y, to.y);
-                var dx = x1 - x0;
-                var dy = y1 - y0;
-                var px = dx * 0.5;
-                var py = dy * 0.5;
-                var w = toSizeNormalized(dx);
-                var h = toSizeNormalized(dy);
-                var x = toSizeRounded(x0 + px);
-                var y = toSizeRounded(y0 + py);
-                var size = shape.size;
-                if (cwidth && cheight) {
-                    size.set(w, h);
-                }
-                else if (cwidth) {
-                    size.x = w;
-                }
-                else if (cheight) {
-                    size.y = h;
-                }
-                if (cposition) {
-                    position.set(x, y);
-                }
-            }
-        }
-        shape.unlock(EShapeLockPart.UPLOADED, true);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeCircleLegacy = function () {
-        EShapeUploadeds[EShapeType.CIRCLE_LEGACY] = createCircleLegacyUploaded;
-        EShapeDeserializers[EShapeType.CIRCLE_LEGACY] = deserializeCircleLegacy;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeConnectorElbow = function () {
-        EShapeUploadeds[EShapeType.CONNECTOR_ELBOW] = createLineUploaded;
-        EShapeDeserializers[EShapeType.CONNECTOR_ELBOW] = deserializeConnectorElbow;
-        EShapeOnDeserializeds[EShapeType.CONNECTOR_ELBOW] = onDeserializedConnectorLine;
-        EShapeCapabilities.set(EShapeType.CONNECTOR_ELBOW, EShapeCapability.CONNECTOR);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeConnectorLine = function () {
-        EShapeUploadeds[EShapeType.CONNECTOR_LINE] = createLineUploaded;
-        EShapeDeserializers[EShapeType.CONNECTOR_LINE] = deserializeConnectorLine;
-        EShapeOnDeserializeds[EShapeType.CONNECTOR_LINE] = onDeserializedConnectorLine;
-        EShapeCapabilities.set(EShapeType.CONNECTOR_LINE, EShapeCapability.CONNECTOR);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeEmbedded = function () {
-        // Embedded
-        EShapeUploadeds[EShapeType.EMBEDDED] = createGroupUploaded;
-        EShapeDeserializers[EShapeType.EMBEDDED] = deserializeEmbedded;
-        EShapeCapabilities.set(EShapeType.EMBEDDED, EShapeCapability.EMBEDDED);
-        // Embedded layer
-        EShapeUploadeds[EShapeType.EMBEDDED_LAYER] = createRectanglePivotedUploaded;
-        // Embedded acceptor edge
-        EShapeUploadeds[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = createCircleLegacyUploaded;
-        EShapeDeserializers[EShapeType.EMBEDDED_ACCEPTOR_EDGE] = deserializeEmbeddedAcceptorEdge;
-        EShapeCapabilities.set(EShapeType.EMBEDDED_ACCEPTOR_EDGE, EShapeCapability.EMBEDDED_ACCEPTOR_EDGE);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeGroup = function () {
-        EShapeUploadeds[EShapeType.GROUP] = createGroupUploaded;
-        EShapeDeserializers[EShapeType.GROUP] = deserializeGroup;
-        EShapeCapabilities.set(EShapeType.GROUP, EShapeCapability.GROUP);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeGroupShadowed = function () {
-        EShapeUploadeds[EShapeType.GROUP_SHADOWED] = createGroupUploaded;
-        EShapeDeserializers[EShapeType.GROUP_SHADOWED] = deserializeGroupShadowed;
-        EShapeCapabilities.set(EShapeType.GROUP_SHADOWED, EShapeCapability.GROUP);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeImage = function () {
-        EShapeUploadeds[EShapeType.IMAGE] = createPolygonUploaded;
-        EShapeDeserializers[EShapeType.IMAGE] = deserializeImage;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeImageSdf = function () {
-        EShapeUploadeds[EShapeType.IMAGE_SDF] = createImageSdfUploaded;
-        EShapeDeserializers[EShapeType.IMAGE_SDF] = deserializeImageSdf;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLabel = function () {
-        EShapeUploadeds[EShapeType.LABEL] = createLabelUploaded;
-        EShapeDeserializers[EShapeType.LABEL] = deserializeLabel;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLine = function () {
-        EShapeUploadeds[EShapeType.LINE] = createLineUploaded;
-        EShapeDeserializers[EShapeType.LINE] = deserializeLine;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLineOfCircles = function () {
-        EShapeUploadeds[EShapeType.LINE_OF_CIRCLES] = createLineOfCirclesUploaded;
-        EShapeDeserializers[EShapeType.LINE_OF_CIRCLES] = deserializeLineOfCircles;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLineOfRectangleRoundeds = function () {
-        EShapeUploadeds[EShapeType.LINE_OF_RECTANGLE_ROUNDEDS] = createLineOfRectangleRoundedsUploaded;
-        EShapeDeserializers[EShapeType.LINE_OF_RECTANGLE_ROUNDEDS] = deserializeLineOfRectangleRoundeds;
-        EShapeCapabilities.set(EShapeType.LINE_OF_RECTANGLE_ROUNDEDS, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLineOfRectangles = function () {
-        EShapeUploadeds[EShapeType.LINE_OF_RECTANGLES] = createLineOfRectanglesUploaded;
-        EShapeDeserializers[EShapeType.LINE_OF_RECTANGLES] = deserializeLineOfRectangles;
-        EShapeCapabilities.set(EShapeType.LINE_OF_RECTANGLES, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLineOfTriangleRoundeds = function () {
-        EShapeUploadeds[EShapeType.LINE_OF_TRIANGLE_ROUNDEDS] = createLineOfTriangleRoundedsUploaded;
-        EShapeDeserializers[EShapeType.LINE_OF_TRIANGLE_ROUNDEDS] = deserializeLineOfTriangleRoundeds;
-        EShapeCapabilities.set(EShapeType.LINE_OF_TRIANGLE_ROUNDEDS, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeLineOfTriangles = function () {
-        EShapeUploadeds[EShapeType.LINE_OF_TRIANGLES] = createLineOfTrianglesUploaded;
-        EShapeDeserializers[EShapeType.LINE_OF_TRIANGLES] = deserializeLineOfTriangles;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeNull = function () {
-        EShapeUploadeds[EShapeType.NULL] = createNullUploaded;
-        EShapeDeserializers[EShapeType.NULL] = deserializeNull;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapePolygon = function () {
-        EShapeUploadeds[EShapeType.POLYGON] = createPolygonUploaded;
-        EShapeDeserializers[EShapeType.POLYGON] = deserializePolygon;
-        EShapeCapabilities.set(EShapeType.POLYGON, EShapeCapability.PRIMITIVE & ~(EShapeCapability.LINE_HEAD | EShapeCapability.LINE_TAIL));
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectangle = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE] = createPolygonUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE] = deserializeRectangle;
-        EShapeCapabilities.set(EShapeType.RECTANGLE, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectangleLegacy = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE_LEGACY] = createRectangleLegacyUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE_LEGACY] = deserializeRectangleLegacy;
-        EShapeCapabilities.set(EShapeType.RECTANGLE_LEGACY, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectanglePivoted = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE_PIVOTED] = createRectanglePivotedUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE_PIVOTED] = deserializeRectanglePivoted;
-        EShapeCapabilities.set(EShapeType.RECTANGLE_PIVOTED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectangleRounded = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED] = createRectangleRoundedUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED] = deserializeRectangleRounded;
-        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeSemicircle = function () {
-        EShapeUploadeds[EShapeType.SEMICIRCLE] = createSemicircleUploaded;
-        EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSemicircle;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var loadShapeTriangle = function () {
-        EShapeUploadeds[EShapeType.TRIANGLE] = createTriangleUploaded;
+        EShapeUploadeds[EShapeType.TRIANGLE] = createPolygonUploaded;
         EShapeDeserializers[EShapeType.TRIANGLE] = deserializeTriangle;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderTriangleLegacy = /** @class */ (function (_super) {
+        __extends(BuilderTriangleLegacy, _super);
+        function BuilderTriangleLegacy(buffer, vertexOffset, indexOffset) {
+            return _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_LEGACY_VERTEX_COUNT, TRIANGLE_LEGACY_INDEX_COUNT) || this;
+        }
+        BuilderTriangleLegacy.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildTriangleLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderTriangleLegacy.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderTriangleLegacy.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildTriangleLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_LEGACY_WORLD_SIZE);
+                if (isNotInited || isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildTriangleLegacyStep(buffer.steps, voffset, strokeWidth, strokeStyle, TRIANGLE_LEGACY_WORLD_SIZE);
+                }
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleLegacyUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_LEGACY_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderTriangleLegacy;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createTriangleLegacyUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = TRIANGLE_LEGACY_VERTEX_COUNT + tvcount;
+        var icount = TRIANGLE_LEGACY_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderTriangleLegacy(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + TRIANGLE_LEGACY_VERTEX_COUNT, ioffset + TRIANGLE_LEGACY_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeTriangleLegacy = /** @class */ (function (_super) {
+        __extends(EShapeTriangleLegacy, _super);
+        function EShapeTriangleLegacy(type) {
+            if (type === void 0) { type = EShapeType.TRIANGLE_LEGACY; }
+            return _super.call(this, type) || this;
+        }
+        EShapeTriangleLegacy.prototype.clone = function () {
+            return new EShapeTriangleLegacy(this.type).copy(this);
+        };
+        EShapeTriangleLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestTriangleLegacy(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeTriangleLegacy;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeTriangleLegacy = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeTriangleLegacy());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeTriangleLegacy = function () {
+        EShapeUploadeds[EShapeType.TRIANGLE_LEGACY] = createTriangleLegacyUploaded;
+        EShapeDeserializers[EShapeType.TRIANGLE_LEGACY] = deserializeTriangleLegacy;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderTriangleRounded = /** @class */ (function (_super) {
+        __extends(BuilderTriangleRounded, _super);
+        function BuilderTriangleRounded(buffer, vertexOffset, indexOffset) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_ROUNDED_VERTEX_COUNT, TRIANGLE_ROUNDED_INDEX_COUNT) || this;
+            _this.radius = 0;
+            _this.corner = 0;
+            return _this;
+        }
+        BuilderTriangleRounded.prototype.init = function () {
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            this.inited |= BuilderFlag.INDEX;
+        };
+        BuilderTriangleRounded.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+        };
+        BuilderTriangleRounded.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var radius = shape.radius;
+            var isRadiusChanged = radius !== this.radius;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var corner = shape.corner;
+            var isCornerChanged = corner !== this.corner;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
+            var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
+            if (isNotInited ||
+                isVertexChanged ||
+                isTransformChanged ||
+                isCornerChanged ||
+                isTextureChanged) {
+                this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.radius = radius;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.corner = corner;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildTriangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
+                if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
+                    buffer.updateSteps();
+                    buildTriangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                }
+                if (isNotInited || isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleRoundedUv(buffer.uvs, voffset, toTextureUvs(texture), radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderTriangleRounded;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createTriangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
+        var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
+        var vcount = TRIANGLE_ROUNDED_VERTEX_COUNT + tvcount;
+        var icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderTriangleRounded(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset + TRIANGLE_ROUNDED_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeTriangleRounded = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeTriangleRounded());
     };
 
     /*
@@ -53446,7 +56328,7 @@
     var loadShapeTriangleRounded = function () {
         EShapeUploadeds[EShapeType.TRIANGLE_ROUNDED] = createTriangleRoundedUploaded;
         EShapeDeserializers[EShapeType.TRIANGLE_ROUNDED] = deserializeTriangleRounded;
-        EShapeCapabilities.set(EShapeType.TRIANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+        EShapeCapabilities.set(EShapeType.TRIANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS);
     };
 
     /*
@@ -53471,9 +56353,11 @@
         loadShapePolygon();
         loadShapeRectangleLegacy();
         loadShapeRectanglePivoted();
+        loadShapeRectangleRoundedLegacy();
         loadShapeRectangleRounded();
         loadShapeRectangle();
         loadShapeSemicircle();
+        loadShapeTriangleLegacy();
         loadShapeTriangleRounded();
         loadShapeTriangle();
         loadShapeLineOfCircles();
@@ -55359,6 +58243,288 @@
         }
         return EShapeActionValueMiscWrite;
     }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createImageSdf = function (dataUrl, convertToSdf) {
+        if (convertToSdf) {
+            return toImageElement(dataUrl).then(function (image) {
+                var generator = DynamicSDFFontGenerator.getInstance().init();
+                generator.updateTexture(image.width, image.height, image.source);
+                generator.render();
+                var canvas = document.createElement("canvas");
+                generator.read(canvas);
+                return createImageSdf(canvas.toDataURL(), false);
+            });
+        }
+        else {
+            return toImageElement(dataUrl).then(function (image) {
+                return new EShapeImageSdf(image);
+            });
+        }
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createImage = function (dataUrl) {
+        return toImageElement(dataUrl).then(function (image) {
+            return new EShapeImage(image);
+        });
+    };
+
+    var createLine = function (points, segments, strokeWidth, pointsStyle) {
+        // Calculate the boundary
+        var boundary = toPointsBoundary(points, [0, 0, 0, 0]);
+        var cx = (boundary[2] + boundary[0]) * 0.5;
+        var cy = (boundary[3] + boundary[1]) * 0.5;
+        var sx = boundary[2] - boundary[0];
+        var sy = boundary[3] - boundary[1];
+        // Calculate values
+        var values = [];
+        for (var i = 0, imax = points.length; i < imax; i += 2) {
+            values.push(points[i] - cx, points[i + 1] - cy);
+        }
+        // Create a line
+        var result = new EShapeLine();
+        result.stroke.set(true, undefined, undefined, strokeWidth);
+        result.transform.position.set(cx, cy);
+        result.size.set(sx, sy);
+        result.points.set(values, segments, pointsStyle);
+        return result;
+    };
+
+    var createPolygon = function (points, result) {
+        result !== null && result !== void 0 ? result : (result = new EShapePolygon());
+        var pointsLength = points.length;
+        if (pointsLength < 2) {
+            result.points.values = [];
+            return result;
+        }
+        var xmin = 0;
+        var xmax = 0;
+        var ymin = 0;
+        var ymax = 0;
+        xmin = xmax = points[0];
+        ymin = ymax = points[1];
+        for (var i = 2; i < pointsLength; i += 2) {
+            var x = points[i];
+            var y = points[i + 1];
+            xmin = Math.min(xmin, x);
+            xmax = Math.max(xmax, x);
+            ymin = Math.min(ymin, y);
+            ymax = Math.max(ymax, y);
+        }
+        var sx = xmax - xmin;
+        var sy = ymax - ymin;
+        var px = xmin + 0.5 * sx;
+        var py = ymin + 0.5 * sy;
+        var values = [];
+        for (var i = 0; i < pointsLength; i += 2) {
+            values.push(points[i] - px, points[i + 1] - py);
+        }
+        result.lock(EShapeLockPart.ALL);
+        result.transform.position.set(px, py);
+        result.size.set(sx, sy);
+        result.points.values = values;
+        result.unlock(EShapeLockPart.ALL, true);
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeEmbeddeds = /** @class */ (function () {
+        function EShapeEmbeddeds() {
+        }
+        EShapeEmbeddeds.from = function (serializedOrSimple, controller, mode) {
+            var _this = this;
+            var serialized = DDiagrams.toSerialized(serializedOrSimple);
+            var pieces = serialized.pieces;
+            return DDiagrams.toPieceData(controller, pieces, mode).then(function (pieceData) {
+                return _this.from_(serialized, mode, pieces, pieceData);
+            });
+        };
+        EShapeEmbeddeds.from_ = function (serialized, mode, pieces, pieceData) {
+            var _this = this;
+            var width = serialized.width;
+            var height = serialized.height;
+            var container = new EShapeEmbeddedLayerContainer(width, height);
+            var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, mode, 1);
+            return DDiagrams.newLayer(serialized, container, manager).then(function () {
+                return _this.create(serialized.name, width, height, container, mode, 0);
+            });
+        };
+        EShapeEmbeddeds.create = function (name, width, height, container, mode, depth) {
+            var shape = new EShapeEmbedded(name, mode, depth);
+            shape.size.set(width, height);
+            container.copyTo(shape);
+            shape.size.init();
+            return shape;
+        };
+        return EShapeEmbeddeds;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSvgUrl = function (svg) {
+        return "data:image/svg+xml;base64,".concat(btoa(svg));
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toGradientImageUrl = function (gradient) {
+        var direction = gradient.direction;
+        var points = gradient.points;
+        var stops = "";
+        for (var i = 0, imax = points.length; i < imax; ++i) {
+            var point = points[i];
+            var color = UtilRgb.toCode(point.color);
+            var alpha = point.alpha;
+            var offset = point.position * 100;
+            stops += "<stop offset=\"".concat(offset, "%\" stop-color=\"#").concat(color, "\" stop-opacity=\"").concat(alpha, "\" />");
+        }
+        var radian = (direction * Math.PI) / 180;
+        var dx = 0.5 * Math.cos(radian);
+        var dy = -0.5 * Math.sin(radian);
+        var url = toSvgUrl(
+        /* eslint-disable prettier/prettier */
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
+            "<defs>" +
+            "<linearGradient id=\"o2glkm3aeu2oio\" x1=\"".concat(0.5 - dx, "\" x2=\"").concat(0.5 + dx, "\" y1=\"").concat(0.5 - dy, "\" y2=\"").concat(0.5 + dy, "\">") +
+            stops +
+            "</linearGradient>" +
+            "</defs>" +
+            "<rect x=\"0\" y=\"0\" width=\"32\" height=\"32\" stroke=\"none\" fill=\"url(#o2glkm3aeu2oio)\" />" +
+            "</svg>"
+        /* eslint-enable prettier/prettier */
+        );
+        return url;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSizeRounded = function (value) {
+        return Math.round(value * 100) / 100;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toResized = function (shape, from, to, centerMode, isPerfect) {
+        var cposition = EShapeCapabilities.contains(shape, EShapeCapability.POSITION);
+        var cwidth = EShapeCapabilities.contains(shape, EShapeCapability.WIDTH);
+        var cheight = EShapeCapabilities.contains(shape, EShapeCapability.HEIGHT);
+        shape.lock(EShapeLockPart.UPLOADED);
+        var position = shape.transform.position;
+        if (centerMode) {
+            var dx = Math.abs(to.x - from.x);
+            var dy = Math.abs(to.y - from.y);
+            if (isPerfect) {
+                var d = Math.max(dx, dy);
+                var s = toSizeNormalized(d + d);
+                var x = toSizeRounded(from.x);
+                var y = toSizeRounded(from.y);
+                var size = shape.size;
+                if (cwidth && cheight) {
+                    size.set(s, s);
+                }
+                else if (cwidth) {
+                    size.x = s;
+                }
+                else if (cheight) {
+                    size.y = s;
+                }
+                if (cposition) {
+                    position.set(x, y);
+                }
+            }
+            else {
+                var w = toSizeNormalized(dx + dx);
+                var h = toSizeNormalized(dy + dy);
+                var x = toSizeRounded(from.x);
+                var y = toSizeRounded(from.y);
+                var size = shape.size;
+                if (cwidth && cheight) {
+                    size.set(w, h);
+                }
+                else if (cwidth) {
+                    size.x = w;
+                }
+                else if (cheight) {
+                    size.y = h;
+                }
+                if (cposition) {
+                    position.set(x, y);
+                }
+            }
+        }
+        else {
+            if (isPerfect) {
+                var dx = to.x - from.x;
+                var dy = to.y - from.y;
+                var d = Math.max(Math.abs(dx), Math.abs(dy));
+                var x2 = from.x + (dx < 0 ? -d : +d);
+                var y2 = from.y + (dy < 0 ? -d : +d);
+                var hd = d * 0.5;
+                var s = toSizeNormalized(d);
+                var x = toSizeRounded(Math.min(from.x, x2) + hd);
+                var y = toSizeRounded(Math.min(from.y, y2) + hd);
+                var size = shape.size;
+                if (cwidth && cheight) {
+                    size.set(s, s);
+                }
+                else if (cwidth) {
+                    size.x = s;
+                }
+                else if (cheight) {
+                    size.y = s;
+                }
+                if (cposition) {
+                    position.set(x, y);
+                }
+            }
+            else {
+                var x0 = Math.min(from.x, to.x);
+                var y0 = Math.min(from.y, to.y);
+                var x1 = Math.max(from.x, to.x);
+                var y1 = Math.max(from.y, to.y);
+                var dx = x1 - x0;
+                var dy = y1 - y0;
+                var px = dx * 0.5;
+                var py = dy * 0.5;
+                var w = toSizeNormalized(dx);
+                var h = toSizeNormalized(dy);
+                var x = toSizeRounded(x0 + px);
+                var y = toSizeRounded(y0 + py);
+                var size = shape.size;
+                if (cwidth && cheight) {
+                    size.set(w, h);
+                }
+                else if (cwidth) {
+                    size.x = w;
+                }
+                else if (cheight) {
+                    size.y = h;
+                }
+                if (cposition) {
+                    position.set(x, y);
+                }
+            }
+        }
+        shape.unlock(EShapeLockPart.UPLOADED, true);
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -85263,9 +88429,11 @@
         loadShapePolygon: loadShapePolygon,
         loadShapeRectangleLegacy: loadShapeRectangleLegacy,
         loadShapeRectanglePivoted: loadShapeRectanglePivoted,
+        loadShapeRectangleRoundedLegacy: loadShapeRectangleRoundedLegacy,
         loadShapeRectangleRounded: loadShapeRectangleRounded,
         loadShapeRectangle: loadShapeRectangle,
         loadShapeSemicircle: loadShapeSemicircle,
+        loadShapeTriangleLegacy: loadShapeTriangleLegacy,
         loadShapeTriangleRounded: loadShapeTriangleRounded,
         loadShapeTriangle: loadShapeTriangle,
         BAR_VERTEX_COUNT: BAR_VERTEX_COUNT,
@@ -85321,13 +88489,20 @@
         buildRectangleLegacyVertex: buildRectangleLegacyVertex,
         buildRectangleLegacyStep: buildRectangleLegacyStep,
         buildRectangleLegacyUv: buildRectangleLegacyUv,
-        RECTANGLE_ROUNDED_VERTEX_COUNT: RECTANGLE_ROUNDED_VERTEX_COUNT,
-        RECTANGLE_ROUNDED_INDEX_COUNT: RECTANGLE_ROUNDED_INDEX_COUNT,
-        RECTANGLE_ROUNDED_WORLD_SIZE: RECTANGLE_ROUNDED_WORLD_SIZE,
-        buildRectangleRoundedIndex: buildRectangleRoundedIndex,
-        buildRectangleRoundedVertex: buildRectangleRoundedVertex,
-        buildRectangleRoundedStep: buildRectangleRoundedStep,
-        buildRectangleRoundedUv: buildRectangleRoundedUv,
+        RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT: RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
+        RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT: RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT,
+        RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE: RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE,
+        buildRectangleRoundedLegacyIndex: buildRectangleRoundedLegacyIndex,
+        buildRectangleRoundedLegacyVertex: buildRectangleRoundedLegacyVertex,
+        buildRectangleRoundedLegacyStep: buildRectangleRoundedLegacyStep,
+        buildRectangleRoundedLegacyUv: buildRectangleRoundedLegacyUv,
+        buildRectangleRoundedIndex: buildRectangleRoundedLegacyIndex,
+        buildRectangleRoundedStep: buildRectangleRoundedLegacyStep,
+        buildRectangleRoundedUv: buildRectangleRoundedLegacyUv,
+        buildRectangleRoundedVertex: buildRectangleRoundedLegacyVertex,
+        RECTANGLE_ROUNDED_INDEX_COUNT: RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT,
+        RECTANGLE_ROUNDED_VERTEX_COUNT: RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
+        RECTANGLE_ROUNDED_WORLD_SIZE: RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE,
         buildRectangleIndex: buildRectangleLegacyIndex,
         buildRectangleStep: buildRectangleLegacyStep,
         buildRectangleUv: buildRectangleLegacyUv,
@@ -85351,6 +88526,13 @@
         buildTextIndex: buildTextIndex,
         buildTextStep: buildTextStep,
         buildTextVertex: buildTextVertex,
+        TRIANGLE_LEGACY_VERTEX_COUNT: TRIANGLE_LEGACY_VERTEX_COUNT,
+        TRIANGLE_LEGACY_INDEX_COUNT: TRIANGLE_LEGACY_INDEX_COUNT,
+        TRIANGLE_LEGACY_WORLD_SIZE: TRIANGLE_LEGACY_WORLD_SIZE,
+        buildTriangleLegacyIndex: buildTriangleLegacyIndex,
+        buildTriangleLegacyVertex: buildTriangleLegacyVertex,
+        buildTriangleLegacyStep: buildTriangleLegacyStep,
+        buildTriangleLegacyUv: buildTriangleLegacyUv,
         TRIANGLE_ROUNDED_VERTEX_COUNT: TRIANGLE_ROUNDED_VERTEX_COUNT,
         TRIANGLE_ROUNDED_INDEX_COUNT: TRIANGLE_ROUNDED_INDEX_COUNT,
         TRIANGLE_ROUNDED_WORLD_SIZE: TRIANGLE_ROUNDED_WORLD_SIZE,
@@ -85358,13 +88540,13 @@
         buildTriangleRoundedVertex: buildTriangleRoundedVertex,
         buildTriangleRoundedStep: buildTriangleRoundedStep,
         buildTriangleRoundedUv: buildTriangleRoundedUv,
-        TRIANGLE_VERTEX_COUNT: TRIANGLE_VERTEX_COUNT,
-        TRIANGLE_INDEX_COUNT: TRIANGLE_INDEX_COUNT,
-        TRIANGLE_WORLD_SIZE: TRIANGLE_WORLD_SIZE,
-        buildTriangleIndex: buildTriangleIndex,
-        buildTriangleVertex: buildTriangleVertex,
-        buildTriangleStep: buildTriangleStep,
-        buildTriangleUv: buildTriangleUv,
+        buildTriangleIndex: buildTriangleLegacyIndex,
+        buildTriangleStep: buildTriangleLegacyStep,
+        buildTriangleUv: buildTriangleLegacyUv,
+        buildTriangleVertex: buildTriangleLegacyVertex,
+        TRIANGLE_INDEX_COUNT: TRIANGLE_LEGACY_INDEX_COUNT,
+        TRIANGLE_VERTEX_COUNT: TRIANGLE_LEGACY_VERTEX_COUNT,
+        TRIANGLE_WORLD_SIZE: TRIANGLE_LEGACY_WORLD_SIZE,
         BuilderBar: BuilderBar,
         BuilderBase: BuilderBase,
         BuilderCircleLegacy: BuilderCircleLegacy,
@@ -85391,12 +88573,14 @@
         BuilderPolygon: BuilderPolygon,
         BuilderRectangleLegacy: BuilderRectangleLegacy,
         BuilderRectanglePivoted: BuilderRectanglePivoted,
-        BuilderRectangleRounded: BuilderRectangleRounded,
+        BuilderRectangleRoundedLegacy: BuilderRectangleRoundedLegacy,
+        BuilderRectangleRounded: BuilderRectangleRoundedLegacy,
         BuilderRectangle: BuilderRectangleLegacy,
         BuilderSemicircle: BuilderSemicircle,
         BuilderText: BuilderText,
+        BuilderTriangleLegacy: BuilderTriangleLegacy,
         BuilderTriangleRounded: BuilderTriangleRounded,
-        BuilderTriangle: BuilderTriangle,
+        BuilderTriangle: BuilderTriangleLegacy,
         BuilderFlag: BuilderFlag,
         toTransformLocalId: toTransformLocalId,
         toTexture: toTexture,
@@ -85428,11 +88612,13 @@
         createPolygon: createPolygon,
         createRectangleLegacyUploaded: createRectangleLegacyUploaded,
         createRectanglePivotedUploaded: createRectanglePivotedUploaded,
-        createRectangleRoundedUploaded: createRectangleRoundedUploaded,
+        createRectangleRoundedLegacyUploaded: createRectangleRoundedLegacyUploaded,
+        createRectangleRoundedUploaded: createRectangleRoundedLegacyUploaded,
         createRectangleUploaded: createRectangleLegacyUploaded,
         createSemicircleUploaded: createSemicircleUploaded,
+        createTriangleLegacyUploaded: createTriangleLegacyUploaded,
         createTriangleRoundedUploaded: createTriangleRoundedUploaded,
-        createTriangleUploaded: createTriangleUploaded,
+        createTriangleUploaded: createTriangleLegacyUploaded,
         deserializeAll: deserializeAll,
         deserializeBar: deserializeBar,
         deserializeBase: deserializeBase,
@@ -85461,9 +88647,11 @@
         deserializePolygon: deserializePolygon,
         deserializeRectangleLegacy: deserializeRectangleLegacy,
         deserializeRectanglePivoted: deserializeRectanglePivoted,
+        deserializeRectangleRoundedLegacy: deserializeRectangleRoundedLegacy,
         deserializeRectangleRounded: deserializeRectangleRounded,
         deserializeRectangle: deserializeRectangle,
         deserializeSemicircle: deserializeSemicircle,
+        deserializeTriangleLegacy: deserializeTriangleLegacy,
         deserializeTriangleRounded: deserializeTriangleRounded,
         deserializeTriangle: deserializeTriangle,
         deserialize: deserialize,
@@ -85527,6 +88715,8 @@
         EShapePrimitive: EShapePrimitive,
         EShapeRectangleLegacy: EShapeRectangleLegacy,
         EShapeRectanglePivoted: EShapeRectanglePivoted,
+        EShapeRectangleRoundedLegacy: EShapeRectangleRoundedLegacy,
+        EShapeRectangleRoundedTriangulatedImpl: EShapeRectangleRoundedTriangulatedImpl,
         EShapeRectangleRounded: EShapeRectangleRounded,
         EShapeRectangleTriangulatedImpl: EShapeRectangleTriangulatedImpl,
         EShapeRectangle: EShapeRectangle,
@@ -85536,15 +88726,20 @@
         EShapeTextImpl: EShapeTextImpl,
         EShapeTextOffsetImpl: EShapeTextOffsetImpl,
         EShapeTextOutlineImpl: EShapeTextOutlineImpl,
+        EShapeTriangleLegacy: EShapeTriangleLegacy,
         EShapeTriangleRounded: EShapeTriangleRounded,
+        EShapeTriangleTriangulatedImpl: EShapeTriangleTriangulatedImpl,
         EShapeTriangle: EShapeTriangle,
         hitTestBBox: hitTestBBox,
+        hitTestCircleLegacy: hitTestCircleLegacy,
         hitTestCircle: hitTestCircle,
         hitTestSemicircle: hitTestSemicircle,
         hitTestRectangleRounded: hitTestRectangleRounded,
+        hitTestRectangleLegacy: hitTestRectangleLegacy,
         hitTestRectangle: hitTestRectangle,
         hitTestTriangleRounded: hitTestTriangleRounded,
         hitTestTriangleFilled: hitTestTriangleFilled,
+        hitTestTriangleLegacy: hitTestTriangleLegacy,
         hitTestTriangle: hitTestTriangle,
         isShapePolygonLike: isShapePolygonLike,
         isStatic: isStatic,
