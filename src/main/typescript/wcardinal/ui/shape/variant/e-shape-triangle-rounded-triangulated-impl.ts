@@ -161,13 +161,14 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 			return;
 		}
 
-		const scale = 1;
+		const scale = 1.1;
 
 		const az = 2 * ay;
 		const b0 = Math.sqrt(ax * ax + az * az);
 		const r0 = (ax * az) / (ax + b0);
 		const r = radius * r0;
-		const rs = r * scale;
+		const fs = (scale - 1) * r0;
+		const rs = r + fs;
 		const r0i = 1 / r0;
 		const rr0 = r * r0i;
 		const a0 = ax * rr0;
@@ -204,16 +205,14 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const nlx = dlx * r0i;
 		const nly = dly * r0i;
 
-		const s = scale - 1;
-		const tb = (1 - nly) / nlx;
-		const sy6 = y6 + (nly + nlx * tb) * s;
-		const sx1 = x1 + nlx * s;
-		const sx3 = x3 + nlx * s;
+		const sy6 = y6 + gy * fs;
+		const sx1 = x1 + nlx * fs;
+		const sx3 = x3 + nlx * fs;
 		const sx5 = -sx3;
 		const sx7 = -sx1;
 
-		const sy1 = y1 + nly * s;
-		const sy4 = y4 + nly * s;
+		const sy1 = y1 + nly * fs;
+		const sy4 = y4 + nly * fs;
 
 		const fd = r0i;
 		const fx = 1 / sx;
