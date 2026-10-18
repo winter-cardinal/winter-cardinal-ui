@@ -21,7 +21,6 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 	protected _radius: number;
 	protected _corner: EShapeCorner;
 	protected _vertices: number[];
-	protected _path: number[];
 	protected _nvertices: number;
 	protected _distances: number[];
 	protected _lengths: number[];
@@ -43,7 +42,6 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		this._radius = 0;
 		this._corner = EShapeCorner.NONE;
 		this._vertices = [];
-		this._path = [];
 		this._nvertices = 0;
 		this._distances = [];
 		this._lengths = [];
@@ -143,298 +141,378 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		this.update(sizeX, sizeY, radius, corner);
 	}
 
-	protected update(sizeX: number, sizeY: number, radius: number, corner: EShapeCorner): void {
-		const minCornerRadius = this._strokeWidth;
+	protected update(sx: number, sy: number, radius: number, corner: EShapeCorner): void {
 		const boundary = this._boundary;
-		const ax = Math.abs(sizeX);
-		const ay = Math.abs(sizeY);
+		const ax = Math.abs(sx);
+		const ay = Math.abs(sy);
 		boundary[0] = -ax;
 		boundary[1] = -ay;
 		boundary[2] = +ax;
 		boundary[3] = +ay;
 
+		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
+		const nv = 6 * n + 12;
+		const ni = 3 * n + 6;
+		this._nvertices = nv;
+		this._nindices = ni;
 		this._id += 1;
-		if (sizeX === 0 || sizeY === 0) {
-			this.pad(0, 0);
+		if (ax <= 0 || ay <= 0) {
+			this.pad(0, 0, nv, ni, 0);
 			return;
 		}
 
-		const sx = sizeX;
-		const sy = sizeY;
-		const sz = Math.sqrt(sx * sx + 4 * sy * sy);
-		const sw = (2 * sx * sy) / (sx + sz);
-		const ry = (sw * radius) / (2 * sy);
-		const rz = (0.5 * (sz - sw) * radius) / sz;
-		const rx = (ry * sz) / (2 * sx);
+		const scale = 1;
 
-		const topX = 0;
-		const topY = -sy;
-		const rightX = sx;
-		const rightY = sy;
-		const leftX = -sx;
-		const leftY = sy;
-		const centerX = 0;
-		const centerY = sy - sw;
-		const topRightX = topX + rz * (rightX - topX);
-		const topRightY = topY + rz * (rightY - topY);
-		const rightTopX = rightX + ry * (topX - rightX);
-		const rightTopY = rightY + ry * (topY - rightY);
-		const rightBottomX = rightX + rx * (leftX - rightX);
-		const rightBottomY = rightY + rx * (leftY - rightY);
-		const leftBottomX = leftX + rx * (rightX - leftX);
-		const leftBottomY = leftY + rx * (rightY - leftY);
-		const leftTopX = leftX + ry * (topX - leftX);
-		const leftTopY = leftY + ry * (topY - leftY);
-		const topLeftX = topX + rz * (leftX - topX);
-		const topLeftY = topY + rz * (leftY - topY);
+		const az = 2 * ay;
+		const b0 = Math.sqrt(ax * ax + az * az);
+		const r0 = (ax * az) / (ax + b0);
+		const r = radius * r0;
+		const rs = r * scale;
+		const r0i = 1 / r0;
+		const rr0 = r * r0i;
+		const a0 = ax * rr0;
+		const b1 = b0 - a0;
+		const b2 = b0 - ax;
+		const b3 = b2 * rr0;
 
-		const vertices = this._vertices;
-		let vertexCount = 0;
-		vertexCount = this.appendCorner(
-			vertices,
-			vertexCount,
-			corner & EShapeCorner.TOP,
-			topLeftX,
-			topLeftY,
-			topX,
-			topY,
-			topRightX,
-			topRightY,
-			radius,
-			minCornerRadius
-		);
-		vertexCount = this.appendCorner(
-			vertices,
-			vertexCount,
-			corner & EShapeCorner.BOTTOM_RIGHT,
-			rightTopX,
-			rightTopY,
-			rightX,
-			rightY,
-			rightBottomX,
-			rightBottomY,
-			radius,
-			minCornerRadius
-		);
-		vertexCount = this.appendCorner(
-			vertices,
-			vertexCount,
-			corner & EShapeCorner.BOTTOM_LEFT,
-			leftBottomX,
-			leftBottomY,
-			leftX,
-			leftY,
-			leftTopX,
-			leftTopY,
-			radius,
-			minCornerRadius
-		);
+		const b0i = 1 / b0;
+		const b1b0 = b1 * b0i;
+		const b3b0 = b3 * b0i;
+		const b2b0 = b2 * b0i;
 
-		const inradius = Math.abs(sy - centerY);
-		this._nvertices = vertexCount * 3;
-		this._nindices = vertexCount;
-		const path = this._path;
-		for (let i = 0, imax = vertexCount << 1; i < imax; ++i) {
-			path[i] = vertices[i];
+		const gx = Math.sign(sx);
+		const x1 = -sx + gx * ax * (1 - b1b0);
+		const x2 = -sx + gx * ax * rr0;
+		const x3 = -sx + gx * ax * (1 - b3b0);
+		const x4 = 0;
+		const x6 = -x2;
+
+		const xl = -sx + gx * ax * (1 - b2b0);
+
+		const gy = Math.sign(sy);
+		const y1 = -sy + gy * az * b3b0;
+		const y2 = -sy + gy * (az - r0) * rr0;
+		const y3 = -sy + gy * (az - r0);
+		const y4 = -sy + gy * az * b1b0;
+		const y5 = -sy + gy * (az - r);
+		const y6 = +sy;
+
+		const yc = -sy + gy * az * b2b0;
+
+		const dlx = xl - x4;
+		const dly = yc - y3;
+		const nlx = dlx * r0i;
+		const nly = dly * r0i;
+
+		const s = scale - 1;
+		const tb = (1 - nly) / nlx;
+		const sy6 = y6 + (nly + nlx * tb) * s;
+		const sx1 = x1 + nlx * s;
+		const sx3 = x3 + nlx * s;
+		const sx5 = -sx3;
+		const sx7 = -sx1;
+
+		const sy1 = y1 + nly * s;
+		const sy4 = y4 + nly * s;
+
+		const fd = r0i;
+		const fx = 1 / sx;
+		const fy = 1 / sy;
+
+		const ct = 0 < r && !!(corner & EShapeCorner.TOP);
+		const cr = 0 < r && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+		const cl = 0 < r && !!(corner & EShapeCorner.BOTTOM_LEFT);
+
+		// Top Fan
+		let iv = 0;
+		let ii = 0;
+		let l = 0;
+		if (ct) {
+			l = this.writeFan(x4, y2, sx3, sy1, sx5, sy1, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
 		}
-		const distances = this._distances;
-		const lengths = this._lengths;
-		const clippings = this._clippings;
-		const uvs = this._uvs;
+
+		// Right Pentagon
+		const lr = (sx5 - sx7) * nly + (sy1 - sy4) * nlx;
+		const lrc = (sx5 - x4) * nly + (sy1 - y3) * nlx;
+		const nlr = l + lr;
+		const c0 = scale;
+		const c1 = 1 - radius;
+		this.writePenta(
+			x4,
+			y2,
+			sx5,
+			sy1,
+			sx7,
+			sy4,
+			x6,
+			y5,
+			x4,
+			y3,
+
+			l,
+			l,
+			nlr,
+			nlr,
+			l + lrc,
+
+			c1,
+			c0,
+			c0,
+			c1,
+			0,
+
+			fd,
+
+			fx,
+			fy,
+
+			iv,
+			ii
+		);
+		iv += 5;
+		ii += 9;
+		l = nlr;
+
+		// Right Fan
+		if (cr) {
+			l = this.writeFan(x6, y5, sx7, sy4, x6, sy6, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+
+		// Bottom Pentagon
+		const lb = x6 - x2;
+		const lbc = x6 - x4;
+		const nlb = l + lb;
+		this.writePenta(
+			x6,
+			y5,
+			x6,
+			sy6,
+			x2,
+			sy6,
+			x2,
+			y5,
+			x4,
+			y3,
+
+			l,
+			l,
+			nlb,
+			nlb,
+			l + lbc,
+
+			c1,
+			c0,
+			c0,
+			c1,
+			0,
+
+			fd,
+
+			fx,
+			fy,
+
+			iv,
+			ii
+		);
+		iv += 5;
+		ii += 9;
+		l = nlb;
+
+		// Left Fan
+		if (cl) {
+			l = this.writeFan(x2, y5, x2, y6, x1, y4, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+			iv += 2 * n - 1;
+			ii += 3 * (n - 1);
+		}
+
+		// Left Pentagon
+		const ll = lr;
+		const llc = lr - lrc;
+		const nll = l + ll;
+		this.writePenta(
+			sx3,
+			sy1,
+			x4,
+			y2,
+			x4,
+			y3,
+			x2,
+			y5,
+			sx1,
+			sy4,
+
+			nll,
+			nll,
+			l + llc,
+			l,
+			l,
+
+			c0,
+			c1,
+			0,
+			c1,
+			c0,
+
+			fd,
+
+			fx,
+			fy,
+
+			iv,
+			ii
+		);
+		iv += 5;
+		ii += 9;
+
+		this.pad(iv, ii, nv, ni, fd);
+	}
+
+	protected writePenta(
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number,
+		x3: number,
+		y3: number,
+		x4: number,
+		y4: number,
+		length0: number,
+		length1: number,
+		length2: number,
+		length3: number,
+		length4: number,
+		clipping0: number,
+		clipping1: number,
+		clipping2: number,
+		clipping3: number,
+		clipping4: number,
+		distance: number,
+		fx: number,
+		fy: number,
+		iv: number,
+		ii: number
+	): void {
+		this.writeVertex(iv + 0, x0, y0, distance, length0, clipping0, fx, fy);
+		this.writeVertex(iv + 1, x1, y1, distance, length1, clipping1, fx, fy);
+		this.writeVertex(iv + 2, x2, y2, distance, length2, clipping2, fx, fy);
+		this.writeVertex(iv + 3, x3, y3, distance, length3, clipping3, fx, fy);
+		this.writeVertex(iv + 4, x4, y4, distance, length4, clipping4, fx, fy);
 		const indices = this._indices;
-		const scale = 1.1;
-		let length = 0;
-		for (let i = 0; i < vertexCount; ++i) {
-			const i2 = i << 1;
-			const nextI2 = (i + 1) % vertexCount << 1;
-			const rawPointX = path[i2];
-			const rawPointY = path[i2 + 1];
-			const rawNextX = path[nextI2];
-			const rawNextY = path[nextI2 + 1];
-			const dx = rawNextX - rawPointX;
-			const dy = rawNextY - rawPointY;
-			const edgeLength = Math.sqrt(dx * dx + dy * dy);
-			const edgeDistance =
-				edgeLength === 0
-					? inradius
-					: Math.abs(
-							(rawPointX - centerX) * (rawNextY - centerY) -
-								(rawPointY - centerY) * (rawNextX - centerX)
-					  ) / edgeLength;
-			const distance = edgeDistance === 0 ? 0 : 1 / edgeDistance;
-			const pointX = centerX + scale * (rawPointX - centerX);
-			const pointY = centerY + scale * (rawPointY - centerY);
-			const nextX = centerX + scale * (rawNextX - centerX);
-			const nextY = centerY + scale * (rawNextY - centerY);
-			const projectedLength =
-				edgeLength === 0
-					? edgeLength * 0.5
-					: ((centerX - rawPointX) * dx + (centerY - rawPointY) * dy) / edgeLength;
-			const pointIndex = i * 3;
-			const nextPointIndex = pointIndex + 1;
-			const centerIndex = pointIndex + 2;
-			const pointI2 = pointIndex << 1;
-			const nextPointI2 = nextPointIndex << 1;
-			const centerI2 = centerIndex << 1;
-			vertices[pointI2] = pointX;
-			vertices[pointI2 + 1] = pointY;
-			vertices[nextPointI2] = nextX;
-			vertices[nextPointI2 + 1] = nextY;
-			distances[pointIndex] = distance;
-			distances[nextPointIndex] = distance;
-			lengths[pointIndex] = length;
-			lengths[nextPointIndex] = length + edgeLength;
-			clippings[pointIndex] = 1.1;
-			clippings[nextPointIndex] = 1.1;
-			uvs[pointI2] = 0.5 * (pointX / sx + 1);
-			uvs[pointI2 + 1] = 0.5 * (pointY / sy + 1);
-			uvs[nextPointI2] = 0.5 * (vertices[nextPointI2] / sx + 1);
-			uvs[nextPointI2 + 1] = 0.5 * (vertices[nextPointI2 + 1] / sy + 1);
-			distances[centerIndex] = distance;
-			lengths[centerIndex] = length + projectedLength;
-			clippings[centerIndex] = 0;
-			vertices[centerI2] = centerX;
-			vertices[centerI2 + 1] = centerY;
-			uvs[centerI2] = 0.5 * (centerX / sx + 1);
-			uvs[centerI2 + 1] = 0.5 * (centerY / sy + 1);
-			indices[i * 3] = pointIndex;
-			indices[i * 3 + 1] = nextPointIndex;
-			indices[i * 3 + 2] = centerIndex;
-			length += edgeLength;
-		}
-		vertices.length = this._nvertices * 2;
-		distances.length = this._nvertices;
-		lengths.length = this._nvertices;
-		clippings.length = this._nvertices;
-		uvs.length = this._nvertices * 2;
-		indices.length = this._nindices * 3;
+		indices[ii + 0] = iv + 0;
+		indices[ii + 1] = iv + 1;
+		indices[ii + 2] = iv + 2;
+
+		indices[ii + 3] = iv + 0;
+		indices[ii + 4] = iv + 2;
+		indices[ii + 5] = iv + 3;
+
+		indices[ii + 6] = iv + 0;
+		indices[ii + 7] = iv + 3;
+		indices[ii + 8] = iv + 4;
 	}
 
-	protected appendCorner(
-		vertices: number[],
-		vertexOffset: number,
-		isRounded: number,
-		startX: number,
-		startY: number,
-		vertexX: number,
-		vertexY: number,
-		endX: number,
-		endY: number,
-		radius: number,
-		minCornerRadius: number
+	protected writeFan(
+		cx: number,
+		cy: number,
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		l0: number,
+		r: number,
+		rs: number,
+		fd: number,
+		scale: number,
+		fx: number,
+		fy: number,
+		n: number,
+		iv: number,
+		ii: number
 	): number {
-		if (isRounded) {
-			if (0 < radius) {
-				const startDX = startX - vertexX;
-				const startDY = startY - vertexY;
-				const endDX = endX - vertexX;
-				const endDY = endY - vertexY;
-				const startLength = Math.sqrt(startDX * startDX + startDY * startDY);
-				const endLength = Math.sqrt(endDX * endDX + endDY * endDY);
-				const startUX = startLength === 0 ? 0 : startDX / startLength;
-				const startUY = startLength === 0 ? 0 : startDY / startLength;
-				const endUX = endLength === 0 ? 0 : endDX / endLength;
-				const endUY = endLength === 0 ? 0 : endDY / endLength;
-				const bisectorX = startUX + endUX;
-				const bisectorY = startUY + endUY;
-				const bisectorLength = Math.sqrt(bisectorX * bisectorX + bisectorY * bisectorY);
-				const cosHalf = Math.sqrt(
-					Math.max(0, 0.5 * (1 + startUX * endUX + startUY * endUY))
-				);
-				const sinHalf = Math.sqrt(Math.max(0, 1 - cosHalf * cosHalf));
-				if (
-					0 < startLength &&
-					0 < endLength &&
-					0 < bisectorLength &&
-					0 < cosHalf &&
-					0 < sinHalf
-				) {
-					const tangentLength = Math.max(
-						0.5 * (startLength + endLength),
-						minCornerRadius * (cosHalf / sinHalf)
-					);
-					const arcStartX = vertexX + startUX * tangentLength;
-					const arcStartY = vertexY + startUY * tangentLength;
-					const arcEndX = vertexX + endUX * tangentLength;
-					const arcEndY = vertexY + endUY * tangentLength;
-					const centerDistance = tangentLength / cosHalf;
-					const arcCenterX = vertexX + (bisectorX / bisectorLength) * centerDistance;
-					const arcCenterY = vertexY + (bisectorY / bisectorLength) * centerDistance;
-					const startRX = arcStartX - arcCenterX;
-					const startRY = arcStartY - arcCenterY;
-					const endRX = arcEndX - arcCenterX;
-					const endRY = arcEndY - arcCenterY;
-					const startAngle = Math.atan2(startRY, startRX);
-					const angle = Math.atan2(
-						startRX * endRY - startRY * endRX,
-						startRX * endRX + startRY * endRY
-					);
-					const arcRadius = centerDistance * sinHalf;
-					const segments = EShapeDefaults.CIRCLE_SEGMENT_COUNT;
-					for (let i = 0; i <= segments; ++i) {
-						const vertex2 = (vertexOffset + i) << 1;
-						if (i === 0) {
-							vertices[vertex2] = arcStartX;
-							vertices[vertex2 + 1] = arcStartY;
-						} else if (i === segments) {
-							vertices[vertex2] = arcEndX;
-							vertices[vertex2 + 1] = arcEndY;
-						} else {
-							const currentAngle = startAngle + (angle * i) / segments;
-							vertices[vertex2] = arcCenterX + arcRadius * Math.cos(currentAngle);
-							vertices[vertex2 + 1] = arcCenterY + arcRadius * Math.sin(currentAngle);
-						}
-					}
-					return vertexOffset + segments + 1;
-				}
-
-				const segments = EShapeDefaults.CIRCLE_SEGMENT_COUNT;
-				for (let i = 0; i <= segments; ++i) {
-					const t = i / segments;
-					const oneMinusT = 1 - t;
-					const a = oneMinusT * oneMinusT;
-					const b = 2 * oneMinusT * t;
-					const c = t * t;
-					const vertex2 = (vertexOffset + i) << 1;
-					vertices[vertex2] = a * startX + b * vertexX + c * endX;
-					vertices[vertex2 + 1] = a * startY + b * vertexY + c * endY;
-				}
-				return vertexOffset + segments + 1;
-			} else {
-				vertices[vertexOffset << 1] = vertexX;
-				vertices[(vertexOffset << 1) + 1] = vertexY;
-				return vertexOffset + 1;
-			}
-		} else {
-			vertices[vertexOffset << 1] = vertexX;
-			vertices[(vertexOffset << 1) + 1] = vertexY;
-			return vertexOffset + 1;
+		const dx0 = x0 - cx;
+		const dy0 = y0 - cy;
+		const dx1 = x1 - cx;
+		const dy1 = y1 - cy;
+		const t0 = Math.atan2(dy0, dx0);
+		const t1 = Math.atan2(dy1, dx1);
+		let dt = t1 - t0;
+		if (Math.PI < dt) {
+			dt -= 2 * Math.PI;
+		} else if (dt < -Math.PI) {
+			dt += 2 * Math.PI;
 		}
+
+		const m = n - 1;
+		const da = dt / m;
+		const dl = da * r;
+		const dlh = 0.5 * dl;
+		const c0 = scale;
+		const c1 = 1 - r * fd;
+		const indices = this._indices;
+		let l = l0;
+		for (let i = 0, t = t0; i < n; i += 1, t += da, l += dl) {
+			const x = cx + rs * Math.cos(t);
+			const y = cy + rs * Math.sin(t);
+			this.writeVertex(iv, x, y, fd, l, c0, fx, fy);
+			if (i < m) {
+				this.writeVertex(iv + 1, cx, cy, fd, l + dlh, c1, fx, fy);
+				indices[ii + 0] = iv + 1;
+				indices[ii + 1] = iv + 0;
+				indices[ii + 2] = iv + 2;
+				iv += 2;
+				ii += 3;
+			} else {
+				iv += 1;
+			}
+		}
+		return l;
 	}
 
-	protected pad(iv: number, ii: number): void {
-		const vertexCount = 4;
-		const indexCount = 3;
-		this._nvertices = vertexCount;
-		this._nindices = indexCount;
-		for (let i = iv; i < vertexCount; ++i) {
-			const i2 = i << 1;
-			this._vertices[i2] = 0;
-			this._vertices[i2 + 1] = 0;
-			this._distances[i] = 0;
+	protected writeVertex(
+		vertex: number,
+		x: number,
+		y: number,
+		distance: number,
+		length: number,
+		clipping: number,
+		fx: number,
+		fy: number
+	): void {
+		const vertex2 = vertex << 1;
+		this._vertices[vertex2] = x;
+		this._vertices[vertex2 + 1] = y;
+		this._distances[vertex] = distance;
+		this._lengths[vertex] = length;
+		this._clippings[vertex] = clipping;
+		this._uvs[vertex2] = 0.5 * (x * fx + 1);
+		this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
+	}
+
+	protected pad(iv: number, ii: number, nv: number, ni: number, distance: number): void {
+		for (let i = iv; i < nv; ++i) {
+			const vertex2 = i << 1;
+			this._vertices[vertex2] = 0;
+			this._vertices[vertex2 + 1] = 0;
+			this._distances[i] = distance;
 			this._lengths[i] = 0;
 			this._clippings[i] = 0;
-			this._uvs[i2] = 0.5;
-			this._uvs[i2 + 1] = 0.5;
+			this._uvs[vertex2] = 0.5;
+			this._uvs[vertex2 + 1] = 0.5;
 		}
-		for (let i = ii; i < indexCount * 3; ++i) {
+		for (let i = ii; i < ni * 3; ++i) {
 			this._indices[i] = 0;
 		}
-		this._vertices.length = vertexCount * 2;
-		this._distances.length = vertexCount;
-		this._lengths.length = vertexCount;
-		this._clippings.length = vertexCount;
-		this._uvs.length = vertexCount * 2;
-		this._indices.length = indexCount * 3;
+		this._vertices.length = nv * 2;
+		this._distances.length = nv;
+		this._lengths.length = nv;
+		this._clippings.length = nv;
+		this._uvs.length = nv * 2;
+		this._indices.length = ni * 3;
 	}
 }
