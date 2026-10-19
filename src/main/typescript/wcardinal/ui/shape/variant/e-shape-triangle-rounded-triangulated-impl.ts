@@ -151,7 +151,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		boundary[3] = +ay;
 
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
-		const nv = 6 * n + 12;
+		const nv = 9 * n + 6;
 		const ni = 3 * n + 6;
 		this._nvertices = nv;
 		this._nindices = ni;
@@ -228,7 +228,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		let l = 0;
 		if (ct) {
 			l = this.writeFan(x4, y2, sx3, sy1, sx5, sy1, l, r, rs, fd, scale, fx, fy, n, iv, ii);
-			iv += 2 * n - 1;
+			iv += 3 * (n - 1);
 			ii += 3 * (n - 1);
 		}
 
@@ -277,7 +277,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		// Right Fan
 		if (cr) {
 			l = this.writeFan(x6, y5, sx7, sy4, x6, sy6, l, r, rs, fd, scale, fx, fy, n, iv, ii);
-			iv += 2 * n - 1;
+			iv += 3 * (n - 1);
 			ii += 3 * (n - 1);
 		}
 
@@ -324,7 +324,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		// Left Fan
 		if (cl) {
 			l = this.writeFan(x2, y5, x2, y6, x1, y4, l, r, rs, fd, scale, fx, fy, n, iv, ii);
-			iv += 2 * n - 1;
+			iv += 3 * (n - 1);
 			ii += 3 * (n - 1);
 		}
 
@@ -450,26 +450,29 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const m = n - 1;
 		const da = dt / m;
 		const dl = Math.abs(da) * r;
-		const dlh = 0.5 * dl;
+		// Rim vertices at radius rs sit dl / 2 * (rs / r) from the chord midpoint, so the length is exact at radius r.
+		const dlm = 0.5 * dl * (rs / r - 1);
 		const c0 = scale;
 		const c1 = 1 - r * fd;
 		const indices = this._indices;
 		let l = l0;
-		for (let i = 0, t = t0; i < n; i += 1, t += da) {
-			const x = cx + rs * Math.cos(t);
-			const y = cy + rs * Math.sin(t);
-			this.writeVertex(iv, x, y, fd, l, c0, fx, fy);
-			if (i < m) {
-				this.writeVertex(iv + 1, cx, cy, fd, l + dlh, c1, fx, fy);
-				indices[ii + 0] = iv + 1;
-				indices[ii + 1] = iv + 0;
-				indices[ii + 2] = iv + 2;
-				iv += 2;
-				ii += 3;
-				l += dl;
-			} else {
-				iv += 1;
-			}
+		let xa = cx + rs * Math.cos(t0);
+		let ya = cy + rs * Math.sin(t0);
+		for (let i = 0, t = t0 + da; i < m; i += 1, t += da) {
+			const xb = cx + rs * Math.cos(t);
+			const yb = cy + rs * Math.sin(t);
+			const nl = l + dl;
+			this.writeVertex(iv + 0, xa, ya, fd, l - dlm, c0, fx, fy);
+			this.writeVertex(iv + 1, xb, yb, fd, nl + dlm, c0, fx, fy);
+			this.writeVertex(iv + 2, cx, cy, fd, l + 0.5 * dl, c1, fx, fy);
+			indices[ii + 0] = iv + 2;
+			indices[ii + 1] = iv + 0;
+			indices[ii + 2] = iv + 1;
+			iv += 3;
+			ii += 3;
+			l = nl;
+			xa = xb;
+			ya = yb;
 		}
 		return l;
 	}
