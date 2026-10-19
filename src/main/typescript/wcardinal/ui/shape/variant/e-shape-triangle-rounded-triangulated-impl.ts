@@ -103,42 +103,54 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 	}
 
 	protected triangulate(): void {
+		const isNotInitialized = this._id === 0;
+
 		const parent = this._parent;
 		const size = parent.size;
 		const width = size.x;
 		const height = size.y;
+		const isRectChanged = this._width !== width || this._height !== height;
+
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
-		const radius = parent.radius;
-		const corner = parent.corner;
+		const isStrokeChanged =
+			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
 
-		const s = strokeAlign * strokeWidth;
-		const sizeX = width * 0.5 + (0 <= width ? +s : -s);
-		const sizeY = height * 0.5 + (0 <= height ? +s : -s);
-		if (
-			this._id !== 0 &&
-			this._width === width &&
-			this._height === height &&
-			this._strokeAlign === strokeAlign &&
-			this._strokeWidth === strokeWidth &&
-			this._sizeX === sizeX &&
-			this._sizeY === sizeY &&
-			this._radius === radius &&
-			this._corner === corner
-		) {
-			return;
+		const radius = parent.radius;
+		const isRadiusChanged = this._radius !== radius;
+
+		const corner = parent.corner;
+		const isCornerChanged = this._corner !== corner;
+
+		let isSizeChanged = false;
+		let sizeX = this._sizeX;
+		let sizeY = this._sizeY;
+		if (isRectChanged || isStrokeChanged) {
+			this._width = width;
+			this._height = height;
+			this._strokeAlign = strokeAlign;
+			this._strokeWidth = strokeWidth;
+
+			const s = strokeAlign * strokeWidth;
+			sizeX = width * 0.5 + (0 <= width ? +s : -s);
+			sizeY = height * 0.5 + (0 <= height ? +s : -s);
+			isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
 		}
 
-		this._width = width;
-		this._height = height;
-		this._strokeAlign = strokeAlign;
-		this._strokeWidth = strokeWidth;
-		this._sizeX = sizeX;
-		this._sizeY = sizeY;
-		this._radius = radius;
-		this._corner = corner;
-		this.update(sizeX, sizeY, radius, corner);
+		if (
+			isNotInitialized ||
+			isSizeChanged ||
+			isStrokeChanged ||
+			isRadiusChanged ||
+			isCornerChanged
+		) {
+			this._sizeX = sizeX;
+			this._sizeY = sizeY;
+			this._radius = radius;
+			this._corner = corner;
+			this.update(sizeX, sizeY, radius, corner);
+		}
 	}
 
 	protected update(sx: number, sy: number, radius: number, corner: EShapeCorner): void {
