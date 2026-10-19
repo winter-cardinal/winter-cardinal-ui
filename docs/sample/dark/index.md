@@ -348,6 +348,7 @@
         * [Spacing](./shape\text/spacing.html)
         * [Surrogate Pair](./shape\text/surrogate-pair.html)
     * [Triangle](./shape/triangle.html)
+    * [Rounded Triangle](./shape/triangle-rounded.html)
 * Slider
     * [Basics](./slider/basics.html)
 * Table

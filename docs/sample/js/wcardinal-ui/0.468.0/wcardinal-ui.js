@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.467.1
+ Winter Cardinal UI v0.468.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -58,6 +58,7 @@
         RECTANGLE_LEGACY: 28,
         TRIANGLE_LEGACY: 29,
         RECTANGLE_ROUNDED_LEGACY: 30,
+        TRIANGLE_ROUNDED_LEGACY: 31,
         EXTENSION: 1000
     };
 
@@ -40628,7 +40629,7 @@
             boundary[3] = +ay;
             // # of vertices and # of indices
             var n = this._n >> 2;
-            var nv = 8 * n + 18;
+            var nv = 12 * n + 10;
             var ni = 4 * n + 10;
             this._nvertices = nv;
             this._nindices = ni;
@@ -41258,7 +41259,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.TOP_OR_RIGHT
          * * ay <= ax
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopRight0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41269,7 +41270,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.TOP_OR_RIGHT
          * * ax < ay
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopRight1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41401,7 +41402,7 @@
             if (ctr) {
                 var lo = lot + 2 * ax - r;
                 this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -41410,7 +41411,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_LEFT
          * * ay <= ax
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomLeft0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41421,7 +41422,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_LEFT
          * * ax < ay
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomLeft1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41555,7 +41556,7 @@
             if (cbl) {
                 var lo = lob + 2 * ax - r;
                 this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -41572,7 +41573,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.TOP_OR_LEFT
          * * ay <= ax
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopLeft0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41583,7 +41584,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.TOP_OR_LEFT
          * * ax < ay
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateTopLeft1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41729,7 +41730,7 @@
             if (ctl) {
                 var lo = lol + 2 * ay - r;
                 this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -41738,7 +41739,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_RIGHT
          * * ay <= ax
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomRight0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41749,7 +41750,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.BOTTOM_OR_RIGHT
          * * ax < ay
-         * * 5 * N + 5 <= nv
+         * * 6 * N + 3 <= nv
          * * 4 * N + 1 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateBottomRight1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41892,7 +41893,7 @@
             if (cbr) {
                 var lo = lor + 2 * ay - r;
                 this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -41901,7 +41902,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_TOP
          * * ay <= ax
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotTop0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -41944,13 +41945,13 @@
             if (cbl) {
                 var lo = lob + 2 * ax - r;
                 this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (cbr) {
                 var lo = lor + 2 * ay - r;
                 this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -41959,7 +41960,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_TOP
          * * ax < ay
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotTop1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42000,13 +42001,13 @@
             if (cbl) {
                 var lo = lob + 2 * ax - r;
                 this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (cbr) {
                 var lo = lor + 2 * ay - r;
                 this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42084,7 +42085,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_BOTTOM
          * * ay <= ax
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotBottom0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42133,13 +42134,13 @@
             if (ctl) {
                 var lo = lol + 2 * ay - r;
                 this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (ctr) {
                 var lo = lot + 2 * ax - r;
                 this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42148,7 +42149,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_BOTTOM
          * * ax < ay
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotBottom1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42196,13 +42197,13 @@
             if (ctl) {
                 var lo = lol + 2 * ay - r;
                 this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (ctr) {
                 var lo = lot + 2 * ax - r;
                 this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42277,7 +42278,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_LEFT
          * * ay <= ax
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotLeft0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42324,13 +42325,13 @@
             if (ctr) {
                 var lo = lot + 2 * ax - r;
                 this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (cbr) {
                 var lo = lor + 2 * ay - r;
                 this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42339,7 +42340,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_LEFT
          * * ax < ay
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotLeft1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42387,13 +42388,13 @@
             if (ctr) {
                 var lo = lot + 2 * ax - r;
                 this.writeFan(+ax - r, -ay + r, 0, -1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (cbr) {
                 var lo = lor + 2 * ay - r;
                 this.writeFan(+ax - r, +ay - r, 1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42468,7 +42469,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_RIGHT
          * * ay <= ax
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotRight0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42509,13 +42510,13 @@
             if (ctl) {
                 var lo = lol + 2 * ay - r;
                 this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (cbl) {
                 var lo = lob + 2 * ax - r;
                 this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42524,7 +42525,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.NOT_RIGHT
          * * ax < ay
-         * * 6 * N + 12 <= nv
+         * * 8 * N + 8 <= nv
          * * 4 * N + 6 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateNotRight1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42566,13 +42567,13 @@
             if (ctl) {
                 var lo = lol + 2 * ay - r;
                 this.writeFan(-ax + r, -ay + r, -1, 0, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             if (cbl) {
                 var lo = lob + 2 * ax - r;
                 this.writeFan(-ax + r, +ay - r, 0, 1, lo, iv, ii, n, r, rs, fd, scale, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42647,7 +42648,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.ALL or NONE
          * * ay <= ax
-         * * 8 * N + 18 <= nv
+         * * 12 * N + 10 <= nv
          * * 4 * N + 10 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateAll0 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42692,10 +42693,10 @@
             iv += 5;
             ii += 9;
             var rs = r + fs;
-            var l = 2 * ax + lot;
+            var l = 2 * ax + lot - r;
             if (ctr) {
                 this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
                 l += 2 * ay + lc;
             }
@@ -42704,7 +42705,7 @@
             }
             if (cbr) {
                 this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
                 l += 2 * ax + lc;
             }
@@ -42713,7 +42714,7 @@
             }
             if (cbl) {
                 this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
                 l += 2 * ay + lc;
             }
@@ -42722,7 +42723,7 @@
             }
             if (ctl) {
                 this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 2 * n - 1;
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -42731,7 +42732,7 @@
          * Preconditions:
          * * shape.stroke.side === EShapeStrokeSide.ALL or NONE
          * * ax < ay
-         * * 8 * N + 18 <= nv
+         * * 12 * N + 10 <= nv
          * * 4 * N + 10 <= ni
          */
         EShapeRectangleRoundedTriangulatedImpl.prototype.updateAll1 = function (fx, fy, ax, ay, scale, radius, corner, nv, ni) {
@@ -42776,10 +42777,10 @@
             this.writeHexaLeft(iv, ii, lol, cbl ? x1 : ol, cbl ? y4 : y5, ol, y4, ol, y1, ctl ? x1 : ol, ctl ? y1 : y0, 0, y2, 0, y3, fd, s, fx, fy, ax, ay);
             iv += 6;
             ii += 12;
-            var l = 2 * ax + lot;
+            var l = 2 * ax + lot - r;
             if (ctr) {
                 this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 1 + 2 * (n - 1);
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
                 l += 2 * ay + lc;
             }
@@ -42788,7 +42789,7 @@
             }
             if (cbr) {
                 this.writeFan(x4, y4, 1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 1 + 2 * (n - 1);
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
                 l += 2 * ax + lc;
             }
@@ -42797,7 +42798,7 @@
             }
             if (cbl) {
                 this.writeFan(x1, y4, 0, 1, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 1 + 2 * (n - 1);
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
                 l += 2 * ay + lc;
             }
@@ -42806,7 +42807,7 @@
             }
             if (ctl) {
                 this.writeFan(x1, y1, -1, 0, l, iv, ii, n, r, rs, fd, s, fx, fy);
-                iv += 1 + 2 * (n - 1);
+                iv += 3 * (n - 1);
                 ii += 3 * (n - 1);
             }
             this.pad(iv, ii, nv, ni, fd);
@@ -43079,29 +43080,27 @@
             var dangle = (Math.PI * 0.5) / (n - 1);
             var c = Math.cos(dangle);
             var s = Math.sin(dangle);
-            var dl = 0.5 * r * dangle;
+            var dl = r * dangle;
+            // Rim vertices at radius rs sit dl / 2 * (rs / r) from the chord midpoint, so the length is exact at radius r.
+            var dlm = 0.5 * dl * (rs / r - 1);
+            var cc = 1 - r * fd;
+            var indices = this._indices;
             var dx = rs * cos0;
             var dy = rs * sin0;
-            var iv0 = iv++;
             var l = lo;
-            this.writeVertex(iv0, cx + dx, cy + dy, fd, lo, scale, fx, fy);
-            var indices = this._indices;
-            var cc = 1 - r * fd;
             for (var i = 0; i < n - 1; ++i) {
-                var iv1 = iv++;
-                l += dl;
-                this.writeVertex(iv1, cx, cy, fd, l, cc, fx, fy);
-                var iv2 = iv++;
-                l += dl;
                 var ndx = c * dx - s * dy;
                 var ndy = s * dx + c * dy;
-                this.writeVertex(iv2, cx + ndx, cy + ndy, fd, l, scale, fx, fy);
+                this.writeVertex(iv + 0, cx + dx, cy + dy, fd, l - dlm, scale, fx, fy);
+                this.writeVertex(iv + 1, cx + ndx, cy + ndy, fd, l + dl + dlm, scale, fx, fy);
+                this.writeVertex(iv + 2, cx, cy, fd, l + 0.5 * dl, cc, fx, fy);
+                indices[ii++] = iv + 2;
+                indices[ii++] = iv + 0;
+                indices[ii++] = iv + 1;
+                iv += 3;
+                l += dl;
                 dx = ndx;
                 dy = ndy;
-                indices[ii++] = iv1;
-                indices[ii++] = iv0;
-                indices[ii++] = iv2;
-                iv0 = iv2;
             }
         };
         EShapeRectangleRoundedTriangulatedImpl.prototype.writeVertexTop = function (vertex, x, y, lengthOffset, fdistance, scale, fx, fy, ax, ay) {
@@ -43873,6 +43872,7 @@
             this._nvertices = 0;
             this._distances = [];
             this._lengths = [];
+            this._lengthShifts = [];
             this._clippings = [];
             this._uvs = [];
             this._indices = [];
@@ -43999,7 +43999,7 @@
             boundary[2] = +ax;
             boundary[3] = +ay;
             // # of vertices and # of indices
-            var nv = 3 * n - 3;
+            var nv = 4 * n - 4;
             var ni = 2 * n - 4;
             this._nvertices = nv;
             this._nindices = ni;
@@ -44064,83 +44064,56 @@
             var dangle = (2 * Math.PI) / n;
             var c = Math.cos(dangle);
             var s = Math.sin(dangle);
-            // First Edge
-            var x0 = 0;
-            var y0 = sizeY;
-            var u = -s;
-            var v = c;
-            var su = scale * u;
-            var sv = scale * v;
-            var x1 = u * sizeX;
-            var y1 = v * sizeY;
-            var dx = 0.5 * (x1 + x0) - 0;
-            var dy = 0.5 * (y1 + y0) - 0;
-            var fdistance = 1 / Math.sqrt(dx * dx + dy * dy);
-            var lx = x1 - x0;
-            var ly = y1 - y0;
-            var dl = Math.sqrt(lx * lx + ly * ly);
-            var l1 = dl;
-            var l2 = 0.5 * dl;
-            vertices[0] = 0;
-            vertices[1] = scale * sizeY;
-            vertices[2] = su * sizeX;
-            vertices[3] = sv * sizeY;
-            vertices[4] = 0;
-            vertices[5] = 0;
-            distances[0] = fdistance;
-            distances[1] = fdistance;
-            distances[2] = fdistance;
-            clippings[0] = scale;
-            clippings[1] = scale;
-            clippings[2] = 0;
-            lengths[0] = 0;
-            lengths[1] = l1;
-            lengths[2] = l2;
-            uvs[0] = 0.5;
-            uvs[1] = 0.5 * (scale + 1);
-            uvs[2] = 0.5 * (su + 1);
-            uvs[3] = 0.5 * (sv + 1);
-            uvs[4] = 0.5;
-            uvs[5] = 0.5;
-            indices[0] = 0;
-            indices[1] = 1;
-            indices[2] = 2;
-            // The Other Edges
-            var iv1 = 3;
-            var iv2 = 6;
-            var ii = 3;
-            for (var i = 2; i <= n; ++i) {
-                var un = c * u - s * v;
-                var vn = s * u + c * v;
-                u = un;
-                v = vn;
-                su = scale * u;
-                sv = scale * v;
-                l1 += dl;
-                l2 += dl;
-                vertices[iv2 + 0] = su * sizeX;
-                vertices[iv2 + 1] = sv * sizeY;
-                vertices[iv2 + 2] = 0;
-                vertices[iv2 + 3] = 0;
-                distances[iv1 + 0] = fdistance;
-                distances[iv1 + 1] = fdistance;
-                clippings[iv1 + 0] = scale;
-                clippings[iv1 + 1] = 0;
-                lengths[iv1 + 0] = l1;
-                lengths[iv1 + 1] = l2;
-                uvs[iv2 + 0] = 0.5 * (su + 1);
-                uvs[iv2 + 1] = 0.5 * (sv + 1);
-                uvs[iv2 + 2] = 0.5;
-                uvs[iv2 + 3] = 0.5;
-                indices[ii + 0] = iv1 - 2;
-                indices[ii + 1] = iv1;
-                indices[ii + 2] = iv1 + 1;
-                iv1 += 2;
-                iv2 += 4;
+            // Edge length and apothem of the unscaled polygon
+            var ex = -s * sizeX;
+            var ey = (c - 1) * sizeY;
+            var dl = Math.sqrt(ex * ex + ey * ey);
+            var mx = 0.5 * ex;
+            var my = 0.5 * (c + 1) * sizeY;
+            var fdistance = 1 / Math.sqrt(mx * mx + my * my);
+            // Half edge length at clipping = scale
+            var hl = 0.5 * scale * dl;
+            // Each triangle owns its vertices so that the lengths are exact at clipping = 1 on both sides.
+            var u0 = 0;
+            var v0 = scale;
+            var iv = 0;
+            var ii = 0;
+            for (var i = 0; i < n; ++i) {
+                var u1 = c * u0 - s * v0;
+                var v1 = s * u0 + c * v0;
+                var lm = (i + 0.5) * dl;
+                var iv2 = iv << 1;
+                vertices[iv2 + 0] = u0 * sizeX;
+                vertices[iv2 + 1] = v0 * sizeY;
+                vertices[iv2 + 2] = u1 * sizeX;
+                vertices[iv2 + 3] = v1 * sizeY;
+                vertices[iv2 + 4] = 0;
+                vertices[iv2 + 5] = 0;
+                distances[iv + 0] = fdistance;
+                distances[iv + 1] = fdistance;
+                distances[iv + 2] = fdistance;
+                clippings[iv + 0] = scale;
+                clippings[iv + 1] = scale;
+                clippings[iv + 2] = 0;
+                lengths[iv + 0] = lm - hl;
+                lengths[iv + 1] = lm + hl;
+                lengths[iv + 2] = lm;
+                uvs[iv2 + 0] = 0.5 * (u0 + 1);
+                uvs[iv2 + 1] = 0.5 * (v0 + 1);
+                uvs[iv2 + 2] = 0.5 * (u1 + 1);
+                uvs[iv2 + 3] = 0.5 * (v1 + 1);
+                uvs[iv2 + 4] = 0.5;
+                uvs[iv2 + 5] = 0.5;
+                indices[ii + 0] = iv + 0;
+                indices[ii + 1] = iv + 1;
+                indices[ii + 2] = iv + 2;
+                u0 = u1;
+                v0 = v1;
+                iv += 3;
                 ii += 3;
             }
             // Degenerate triangles keep the buffer sizes consistent with elongated circles.
-            this.pad(iv1, ii, nv, ni, fdistance);
+            this.pad(iv, ii, nv, ni, fdistance);
         };
         /**
          * Precondition: sizeX !== 0 && sizeY !== 0 && abs(sizeY) < abs(sizeX)
@@ -44155,8 +44128,10 @@
             var dangle = (2 * Math.PI) / n;
             var c = Math.cos(dangle);
             var s = Math.sin(dangle);
-            var fx = sizeX / sizeY;
-            var fy = sizeY / sizeX;
+            var fx = 1 / sizeX;
+            var fy = 1 / sizeY;
+            var fxy = sizeX * fy;
+            var fyx = sizeY * fx;
             var ileft = n >> 2;
             var iright = ileft * 3;
             var ppx = sizeX * s;
@@ -44165,20 +44140,12 @@
             var py = sizeY;
             var nx = -sizeX * s;
             var ny = sizeY * c;
-            var nnx = nx * c - ny * fx * s;
-            var nny = nx * fy * s + ny * c;
+            var nnx = nx * c - ny * fxy * s;
+            var nny = nx * fyx * s + ny * c;
             var sx = this.toSkeletonX(ppx, ppy, px, py, nx, ny);
-            vertices[0] = 0;
-            vertices[1] = sizeY;
-            clippings[0] = -1;
-            distances[0] = sx;
-            lengths[0] = 0;
-            uvs[0] = 0.5;
-            uvs[1] = 1;
-            var iv = 1;
+            var iv = 0;
             var ii = 0;
-            var length = 0;
-            var current = 0;
+            var l = 0;
             var maxDistance = 0;
             for (var i = 0; i < n; ++i) {
                 var inext = (i + 1) % n;
@@ -44194,59 +44161,38 @@
                 var dy = ny - py;
                 var dl = Math.sqrt(dx * dx + dy * dy);
                 var fl = 1 / dl;
-                var nlength = length + dl;
-                var iv1 = iv++;
-                var iv2 = iv1 << 1;
-                var niv1 = iv++;
-                var niv2 = niv1 << 1;
-                var ndistance = Math.abs(-dx * py - dy * (nsx - px)) * fl;
-                maxDistance = Math.max(maxDistance, ndistance);
-                vertices[iv2 + 0] = nx;
-                vertices[iv2 + 1] = ny;
-                clippings[iv1] = -1 - ndistance;
-                distances[iv1] = nsx;
-                lengths[iv1] = nlength;
-                uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-                uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
-                vertices[niv2 + 0] = nsx;
-                vertices[niv2 + 1] = 0;
-                clippings[niv1] = ndistance;
-                distances[niv1] = 0;
-                lengths[niv1] = length + ((nsx - px) * dx - py * dy) * fl;
-                uvs[niv2] = 0.5 * (nsx / sizeX + 1);
-                uvs[niv2 + 1] = 0.5;
-                indices[ii++] = current;
-                indices[ii++] = iv1;
-                indices[ii++] = niv1;
-                distances[current] = sx;
-                if (sx === nsx) {
-                    clippings[current] = -1 - ndistance;
+                var nl = l + dl;
+                var nd = Math.abs(-dx * py - dy * (nsx - px)) * fl;
+                var md = sx === nsx ? nd : Math.abs(-dx * py - dy * (sx - px)) * fl;
+                maxDistance = Math.max(maxDistance, nd, md);
+                // Each edge owns its vertices so that the lengths are exact at clipping = 1 on both sides.
+                var iva = iv++;
+                var ivb = iv++;
+                var ivn = iv++;
+                var ls0 = ((px - sx) * dx + py * dy) * fl;
+                var ls1 = ((nx - nsx) * dx + ny * dy) * fl;
+                var ls2 = ((nsx - px) * dx - py * dy) * fl;
+                this.writeVertex(iva, px, py, fx, fy, sx, l, -1 - md, ls0);
+                this.writeVertex(ivb, nx, ny, fx, fy, nsx, nl, -1 - nd, ls1);
+                this.writeVertex(ivn, nsx, 0, fx, fy, 0, l + ls2, nd, 0);
+                indices[ii++] = iva;
+                indices[ii++] = ivb;
+                indices[ii++] = ivn;
+                if (sx !== nsx) {
+                    var ivm = iv++;
+                    var ls3 = ((sx - px) * dx - py * dy) * fl;
+                    this.writeVertex(ivm, sx, 0, fx, fy, 0, l + ls3, md, 0);
+                    indices[ii++] = iva;
+                    indices[ii++] = ivn;
+                    indices[ii++] = ivm;
                 }
-                else {
-                    var mdistance = Math.abs(-dx * py - dy * (sx - px)) * fl;
-                    maxDistance = Math.max(maxDistance, mdistance);
-                    clippings[current] = -1 - mdistance;
-                    var miv1 = iv++;
-                    var miv2 = miv1 << 1;
-                    vertices[miv2] = sx;
-                    vertices[miv2 + 1] = 0;
-                    clippings[miv1] = mdistance;
-                    distances[miv1] = 0;
-                    lengths[miv1] = length + ((sx - px) * dx - py * dy) * fl;
-                    uvs[miv2] = 0.5 * (sx / sizeX + 1);
-                    uvs[miv2 + 1] = 0.5;
-                    indices[ii++] = current;
-                    indices[ii++] = niv1;
-                    indices[ii++] = miv1;
-                }
-                current = iv1;
-                length = nlength;
+                l = nl;
                 px = nx;
                 py = ny;
                 nx = nnx;
                 ny = nny;
-                nnx = c * nx - s * ny * fx;
-                nny = s * nx * fy + c * ny;
+                nnx = c * nx - s * ny * fxy;
+                nny = s * nx * fyx + c * ny;
                 sx = nsx;
             }
             var fdistance = 0;
@@ -44254,6 +44200,7 @@
                 fdistance = 1 / maxDistance;
             }
             var shift = (scale - 1) * maxDistance;
+            var lengthShifts = this._lengthShifts;
             for (var i = 0; i < iv; ++i) {
                 var clipping = clippings[i];
                 if (0 <= clipping) {
@@ -44266,6 +44213,7 @@
                         var factor = shift / distance;
                         var x = vertices[i2] + (vertices[i2] - distances[i]) * factor;
                         var y = vertices[i2 + 1] * (1 + factor);
+                        lengths[i] += factor * lengthShifts[i];
                         vertices[i2] = x;
                         vertices[i2 + 1] = y;
                         uvs[i2] = 0.5 * (x / sizeX + 1);
@@ -44302,8 +44250,10 @@
             var dangle = (2 * Math.PI) / n;
             var c = Math.cos(dangle);
             var s = Math.sin(dangle);
-            var fx = sizeX / sizeY;
-            var fy = sizeY / sizeX;
+            var fx = 1 / sizeX;
+            var fy = 1 / sizeY;
+            var fxy = sizeX * fy;
+            var fyx = sizeY * fx;
             var itop = 0;
             var ibottom = n >> 1;
             var ppx = sizeX * s;
@@ -44314,20 +44264,12 @@
             var py = sizeY;
             var nx = -sizeX * s;
             var ny = sizeY * c;
-            var nnx = c * nx - s * ny * fx;
-            var nny = s * nx * fy + c * ny;
+            var nnx = c * nx - s * ny * fxy;
+            var nny = s * nx * fyx + c * ny;
             var sy = this.toSkeletonY(pppx, pppy, ppx, ppy, px, py);
-            vertices[0] = 0;
-            vertices[1] = sizeY;
-            clippings[0] = -1;
-            distances[0] = sy;
-            lengths[0] = 0;
-            uvs[0] = 0.5;
-            uvs[1] = 1;
-            var iv = 1;
+            var iv = 0;
             var ii = 0;
-            var length = 0;
-            var current = 0;
+            var l = 0;
             var maxDistance = 0;
             for (var i = 0; i < n; ++i) {
                 var inext = (i + 1) % n;
@@ -44343,59 +44285,38 @@
                 var dy = ny - py;
                 var dl = Math.sqrt(dx * dx + dy * dy);
                 var fl = 1 / dl;
-                var nlength = length + dl;
-                var iv1 = iv++;
-                var iv2 = iv1 << 1;
-                var niv1 = iv++;
-                var niv2 = niv1 << 1;
-                var ndistance = Math.abs(dx * (nsy - py) + dy * px) * fl;
-                maxDistance = Math.max(maxDistance, ndistance);
-                vertices[iv2 + 0] = nx;
-                vertices[iv2 + 1] = ny;
-                clippings[iv1] = -1 - ndistance;
-                distances[iv1] = nsy;
-                lengths[iv1] = nlength;
-                uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-                uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
-                vertices[niv2] = 0;
-                vertices[niv2 + 1] = nsy;
-                clippings[niv1] = ndistance;
-                distances[niv1] = 0;
-                lengths[niv1] = length + (-px * dx + (nsy - py) * dy) * fl;
-                uvs[niv2] = 0.5;
-                uvs[niv2 + 1] = 0.5 * (nsy / sizeY + 1);
-                indices[ii++] = current;
-                indices[ii++] = iv1;
-                indices[ii++] = niv1;
-                distances[current] = sy;
-                if (sy === nsy) {
-                    clippings[current] = -1 - ndistance;
+                var nl = l + dl;
+                var nd = Math.abs(dx * (nsy - py) + dy * px) * fl;
+                var md = sy === nsy ? nd : Math.abs(dx * (sy - py) + dy * px) * fl;
+                maxDistance = Math.max(maxDistance, nd, md);
+                // Each edge owns its vertices so that the lengths are exact at clipping = 1 on both sides.
+                var iva = iv++;
+                var ivb = iv++;
+                var ivn = iv++;
+                var ls0 = (px * dx + (py - sy) * dy) * fl;
+                var ls1 = (nx * dx + (ny - nsy) * dy) * fl;
+                var ls2 = (-px * dx + (nsy - py) * dy) * fl;
+                this.writeVertex(iva, px, py, fx, fy, sy, l, -1 - md, ls0);
+                this.writeVertex(ivb, nx, ny, fx, fy, nsy, nl, -1 - nd, ls1);
+                this.writeVertex(ivn, 0, nsy, fx, fy, 0, l + ls2, nd, 0);
+                indices[ii++] = iva;
+                indices[ii++] = ivb;
+                indices[ii++] = ivn;
+                if (sy !== nsy) {
+                    var ivm = iv++;
+                    var ls3 = (-px * dx + (sy - py) * dy) * fl;
+                    this.writeVertex(ivm, 0, sy, fx, fy, 0, l + ls3, md, 0);
+                    indices[ii++] = iva;
+                    indices[ii++] = ivn;
+                    indices[ii++] = ivm;
                 }
-                else {
-                    var mdistance = Math.abs(dx * (sy - py) + dy * px) * fl;
-                    maxDistance = Math.max(maxDistance, mdistance);
-                    clippings[current] = -1 - mdistance;
-                    var miv1 = iv++;
-                    var miv2 = miv1 << 1;
-                    vertices[miv2] = 0;
-                    vertices[miv2 + 1] = sy;
-                    clippings[miv1] = mdistance;
-                    distances[miv1] = 0;
-                    lengths[miv1] = length + (-px * dx + (sy - py) * dy) * fl;
-                    uvs[miv2] = 0.5;
-                    uvs[miv2 + 1] = 0.5 * (sy / sizeY + 1);
-                    indices[ii++] = current;
-                    indices[ii++] = niv1;
-                    indices[ii++] = miv1;
-                }
-                current = iv1;
-                length = nlength;
+                l = nl;
                 px = nx;
                 py = ny;
                 nx = nnx;
                 ny = nny;
-                nnx = c * nx - s * ny * fx;
-                nny = s * nx * fy + c * ny;
+                nnx = c * nx - s * ny * fxy;
+                nny = s * nx * fyx + c * ny;
                 sy = nsy;
             }
             var fdistance = 0;
@@ -44403,6 +44324,7 @@
                 fdistance = 1 / maxDistance;
             }
             var shift = (scale - 1) * maxDistance;
+            var lengthShifts = this._lengthShifts;
             for (var i = 0; i < iv; ++i) {
                 var clipping = clippings[i];
                 if (0 <= clipping) {
@@ -44415,6 +44337,7 @@
                         var factor = shift / distance;
                         var x = vertices[i2] * (1 + factor);
                         var y = vertices[i2 + 1] + (vertices[i2 + 1] - distances[i]) * factor;
+                        lengths[i] += factor * lengthShifts[i];
                         vertices[i2] = x;
                         vertices[i2 + 1] = y;
                         uvs[i2] = 0.5 * (x / sizeX + 1);
@@ -44437,6 +44360,17 @@
             var bx = pdx * fp + ndx * fn;
             var by = pdy * fp + ndy * fn;
             return py - (px * by) / bx;
+        };
+        EShapeCircleTriangulatedImpl.prototype.writeVertex = function (iv, x, y, fx, fy, distance, length, clipping, lengthShift) {
+            var iv2 = iv << 1;
+            this._vertices[iv2] = x;
+            this._vertices[iv2 + 1] = y;
+            this._distances[iv] = distance;
+            this._lengths[iv] = length;
+            this._clippings[iv] = clipping;
+            this._lengthShifts[iv] = lengthShift;
+            this._uvs[iv2] = 0.5 * (x * fx + 1);
+            this._uvs[iv2 + 1] = 0.5 * (y * fy + 1);
         };
         return EShapeCircleTriangulatedImpl;
     }());
@@ -45368,6 +45302,10 @@
         return BuilderLine;
     }(BuilderBase));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var TRIANGLE_LEGACY_VERTEX_COUNT = 7;
     var TRIANGLE_LEGACY_INDEX_COUNT = 3;
     var TRIANGLE_LEGACY_WORLD_SIZE = [0, 0, 0];
@@ -45845,6 +45783,10 @@
         return BuilderNull;
     }());
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var RECTANGLE_LEGACY_VERTEX_COUNT = 16;
     var RECTANGLE_LEGACY_INDEX_COUNT = 8;
     var RECTANGLE_LEGACY_WORLD_SIZE = [0, 0];
@@ -50641,12 +50583,15 @@
         EShapeDeserializers[EShapeType.LINE_OF_CIRCLES] = deserializeLineOfCircles;
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var RECTANGLE_ROUNDED_LEGACY_VERTEX_COUNT = 44;
     var RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT = 24;
     var RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE = [
         0, 0, 0, 0, 0
     ];
-    var RECTANGLE_ROUNDED_LEGACY_WORK_POINT = new pixi_js.Point();
     var buildRectangleRoundedLegacyIndex = function (indices, voffset, ioffset) {
         // c0   c1        c4   c5
         //  |---|          |---|
@@ -50760,22 +50705,21 @@
         var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
         var ax = Math.abs(sx);
         var ay = Math.abs(sy);
-        var a = radius * Math.min(ax, ay);
-        var rx = a / ax;
-        var ry = a / ay;
-        var work = RECTANGLE_ROUNDED_LEGACY_WORK_POINT;
-        work.set(originX - sx, originY - sy);
-        internalTransform.apply(work, work);
-        var b0x = work.x;
-        var b0y = work.y;
-        work.set(originX, originY - sy);
-        internalTransform.apply(work, work);
-        var b1x = work.x;
-        var b1y = work.y;
-        work.set(originX - sx, originY);
-        internalTransform.apply(work, work);
-        var b3x = work.x;
-        var b3y = work.y;
+        var az = radius * Math.min(ax, ay);
+        var rx = az / ax;
+        var ry = az / ay;
+        var a = internalTransform.a;
+        var b = internalTransform.b;
+        var c = internalTransform.c;
+        var d = internalTransform.d;
+        var tx = internalTransform.tx;
+        var ty = internalTransform.ty;
+        var b0x = a * (originX - sx) + c * (originY - sy) + tx;
+        var b0y = b * (originX - sx) + d * (originY - sy) + ty;
+        var b1x = a * originX + c * (originY - sy) + tx;
+        var b1y = b * originX + d * (originY - sy) + ty;
+        var b3x = a * (originX - sx) + c * originY + tx;
+        var b3y = b * (originX - sx) + d * originY + ty;
         var d01x = b1x - b0x;
         var d01y = b1y - b0y;
         var d03x = b3x - b0x;
@@ -51001,7 +50945,7 @@
         // World size
         worldSize[0] = ax;
         worldSize[1] = ay;
-        worldSize[2] = a;
+        worldSize[2] = az;
         worldSize[3] = rx;
         worldSize[4] = ry;
     };
@@ -52129,13 +52073,16 @@
         EShapeCapabilities.set(EShapeType.LINE_OF_RECTANGLES, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
     };
 
-    var TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
-    var TRIANGLE_ROUNDED_INDEX_COUNT = 15;
-    var TRIANGLE_ROUNDED_WORLD_SIZE = [
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT = 22;
+    var TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT = 15;
+    var TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE = [
         0, 0, 0, 0, 0
     ];
-    var TRIANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
-    var buildTriangleRoundedIndex = function (indices, voffset, ioffset) {
+    var buildTriangleRoundedLegacyIndex = function (indices, voffset, ioffset) {
         // Top corner
         var ii = ioffset * 3 - 1;
         indices[++ii] = voffset + 0;
@@ -52189,7 +52136,7 @@
         indices[++ii] = voffset + 21;
         indices[++ii] = voffset + 13;
     };
-    var buildTriangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
+    var buildTriangleRoundedLegacyVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
         // Calculate the transformed positions
         var s = strokeAlign * strokeWidth;
         var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
@@ -52199,23 +52146,24 @@
         var ry = (sw * radius) / (2 * sy);
         var rz = (0.5 * (sz - sw) * radius) / sz;
         var rx = (ry * sz) / (2 * sx);
-        var work = TRIANGLE_ROUNDED_WORK_POINT;
-        work.set(originX, originY - sy);
-        internalTransform.apply(work, work);
-        var x1 = work.x;
-        var y1 = work.y;
-        work.set(originX, originY);
-        internalTransform.apply(work, work);
-        var tx = work.x;
-        var ty = work.y;
-        work.set(originX + sx, originY);
-        internalTransform.apply(work, work);
-        var dx = tx - x1;
-        var dy = ty - y1;
-        var x4 = work.x + dx;
-        var y4 = work.y + dy;
-        var x7 = tx + (tx - work.x) + dx;
-        var y7 = ty + (ty - work.y) + dy;
+        var a = internalTransform.a;
+        var b = internalTransform.b;
+        var c = internalTransform.c;
+        var d = internalTransform.d;
+        var tx = internalTransform.tx;
+        var ty = internalTransform.ty;
+        var x1 = a * originX + c * (originY - sy) + tx;
+        var y1 = b * originX + d * (originY - sy) + ty;
+        var ox = a * originX + c * originY + tx;
+        var oy = b * originX + d * originY + ty;
+        var dx = ox - x1;
+        var dy = oy - y1;
+        var wx = a * (originX + sx) + c * originY + tx;
+        var wy = b * (originX + sx) + d * originY + ty;
+        var x4 = wx + dx;
+        var y4 = wy + dy;
+        var x7 = ox + (ox - wx) + dx;
+        var y7 = oy + (oy - wy) + dy;
         var dx14 = x4 - x1;
         var dy14 = y4 - y1;
         var x2 = x1 + rz * dx14;
@@ -52234,10 +52182,8 @@
         var y8 = y7 + ry * dy71;
         var x9 = x1 - rz * dx71;
         var y9 = y1 - rz * dy71;
-        work.set(originX, originY + sy - sw); // Incenter of a triangle
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
+        var x0 = a * originX + c * (originY + sy - sw) + tx;
+        var y0 = b * originX + d * (originY + sy - sw) + ty;
         var x10 = x1 + radius * (x0 - x1);
         var y10 = y1 + radius * (y0 - y1);
         var x11 = x4 + radius * (x0 - x4);
@@ -52245,8 +52191,8 @@
         var x12 = x7 + radius * (x0 - x7);
         var y12 = y7 + radius * (y0 - y7);
         // World size
-        var xb = tx + dx;
-        var yb = ty + dy;
+        var xb = ox + dx;
+        var yb = oy + dy;
         worldSize[0] = toLength(xb, yb, x0, y0);
         worldSize[1] = rx;
         worldSize[2] = ry;
@@ -52303,7 +52249,7 @@
         vertices[++iv] = x9;
         vertices[++iv] = y9;
     };
-    var buildTriangleRoundedStep = function (steps, voffset, strokeWidth, strokeStyle, corner, radius, worldSize) {
+    var buildTriangleRoundedLegacyStep = function (steps, voffset, strokeWidth, strokeStyle, corner, radius, worldSize) {
         var scaleInvariant = toScaleInvariant(strokeStyle);
         var s = worldSize[0];
         var sr = radius * s;
@@ -52574,7 +52520,7 @@
         steps[++is] = c10;
         steps[++is] = 0;
     };
-    var buildTriangleRoundedUv = function (uvs, voffset, textureUvs, radius, worldSize) {
+    var buildTriangleRoundedLegacyUv = function (uvs, voffset, textureUvs, radius, worldSize) {
         var x0 = textureUvs.x0;
         var x1 = textureUvs.x1;
         var x2 = textureUvs.x2;
@@ -52680,8 +52626,8 @@
             var ioffset = this.indexOffset;
             var pointCountReserved = this.pointCountReserved;
             if (0 < pointCountReserved) {
-                buildTriangleRoundedIndex(buffer.indices, voffset, ioffset);
-                copyIndex(buffer.indices, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, pointCountReserved);
+                buildTriangleRoundedLegacyIndex(buffer.indices, voffset, ioffset);
+                copyIndex(buffer.indices, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT, pointCountReserved);
             }
             this.inited |= BuilderFlag.INDEX;
         };
@@ -52690,7 +52636,7 @@
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 var buffer = this.buffer;
                 this.updateVertexStepAndUv(buffer, shape, points);
-                this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT);
+                this.updateLineOfAnyColor(buffer, shape, points, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT);
             }
         };
         BuilderLineOfTriangleRoundeds.prototype.updateVertexStepAndUv = function (buffer, shape, points) {
@@ -52768,17 +52714,17 @@
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
                     // Vertices
-                    buildTriangleRoundedVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
-                    copyVertex(vertices, internalTransform, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
+                    buildTriangleRoundedLegacyVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                    copyVertex(vertices, internalTransform, voffset, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
                     // Steps
                     if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-                        buildTriangleRoundedStep(steps, voffset, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
-                        copyStep(steps, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+                        buildTriangleRoundedLegacyStep(steps, voffset, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                        copyStep(steps, voffset, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount);
                     }
                     // UVs
                     if (isNotInited || isVertexChanged || isTextureChanged) {
-                        buildTriangleRoundedUv(uvs, voffset, textureUvs, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
-                        copyUvs(uvs, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+                        buildTriangleRoundedLegacyUv(uvs, voffset, textureUvs, radius, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
+                        copyUvs(uvs, voffset, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, pointCount);
                     }
                 }
                 else {
@@ -52788,23 +52734,23 @@
                         var py = pointsValues[ip + 1] + pointOffset.getY(i);
                         var pointSizeX = pointSize.getX(i);
                         var pointSizeY = pointSize.getY(i);
-                        var iv = voffset + i * TRIANGLE_ROUNDED_VERTEX_COUNT;
+                        var iv = voffset + i * TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT;
                         // Vertices
-                        buildTriangleRoundedVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
+                        buildTriangleRoundedLegacyVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                         // Steps
                         if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
-                            buildTriangleRoundedStep(steps, iv, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                            buildTriangleRoundedLegacyStep(steps, iv, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                         }
                         // UVs
                         if (isNotInited || isVertexChanged || isTextureChanged) {
-                            buildTriangleRoundedUv(uvs, iv, textureUvs, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                            buildTriangleRoundedLegacyUv(uvs, iv, textureUvs, radius, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                         }
                     }
                 }
                 // Fill the rest
                 var pointCountReserved = this.pointCountReserved;
-                var voffsetReserved = voffset + pointCount * TRIANGLE_ROUNDED_VERTEX_COUNT;
-                var vcountReserved = TRIANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
+                var voffsetReserved = voffset + pointCount * TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT;
+                var vcountReserved = TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT * (pointCountReserved - pointCount);
                 buildNullVertex(vertices, voffsetReserved, vcountReserved);
                 buildNullStep(steps, voffsetReserved, vcountReserved);
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
@@ -52818,16 +52764,15 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var createLineOfTriangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangleRoundeds);
+        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangleRoundeds);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var containsCorner_ = function (shape, x, y, r, aw, sw, ss) {
-        var fill = shape.fill;
-        if (fill.enable) {
+    var containsCorner_ = function (x, y, r, aw, sw, ss, filled) {
+        if (filled) {
             if (x * x + y * y <= r * r) {
                 return true;
             }
@@ -52845,7 +52790,7 @@
         }
         return false;
     };
-    var containsCorner = function (shape, x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss) {
+    var containsCorner = function (x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss, filled) {
         var xl = x1 + r12 * (x2 - x1) - x0;
         var yl = y1 + r12 * (y2 - y1) - y0;
         var n = Math.sqrt(xl * xl + yl * yl);
@@ -52865,14 +52810,14 @@
                 var yc = y - y0;
                 var dx = (+nry * xc - nrx * yc) * deti;
                 var dy = (-nly * xc + nlx * yc) * deti;
-                if (containsCorner_(shape, dx, dy, n, aw * radius, sw, ss)) {
+                if (containsCorner_(dx, dy, n, aw * radius, sw, ss, filled)) {
                     return true;
                 }
             }
         }
         return false;
     };
-    var hitTestTriangleRounded = function (shape, x, y, ax, ay, sw, ss) {
+    var hitTestTriangleRoundedImpl = function (shape, x, y, ax, ay, sw, ss, filled) {
         var a = (2 * ay) / ax;
         if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
             var az = Math.sqrt(ax * ax + 4 * ay * ay);
@@ -52899,7 +52844,7 @@
             if (!c0 && !c1 && corner & EShapeCorner.TOP) {
                 // Top corner
                 var rz = (0.5 * (az - aw) * radius) / az;
-                if (containsCorner(shape, x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss)) {
+                if (containsCorner(x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss, filled)) {
                     return true;
                 }
             }
@@ -52907,7 +52852,7 @@
                 // Bottom-left corner
                 var ry = (aw * radius) / (2 * ay);
                 var rx = (ry * az) / (2 * ax);
-                if (containsCorner(shape, x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss)) {
+                if (containsCorner(x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss, filled)) {
                     return true;
                 }
             }
@@ -52915,14 +52860,13 @@
                 // Bottom-right corner
                 var ry = (aw * radius) / (2 * ay);
                 var rx = (ry * az) / (2 * ax);
-                if (containsCorner(shape, x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss)) {
+                if (containsCorner(x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss, filled)) {
                     return true;
                 }
             }
             else {
                 // Others
-                var fill = shape.fill;
-                if (fill.enable) {
+                if (filled) {
                     return true;
                 }
                 else {
@@ -52940,27 +52884,88 @@
         }
         return false;
     };
+    var hitTestTriangleRoundedLegacy = function (shape, x, y, ax, ay, sw, ss) {
+        return hitTestTriangleRoundedImpl(shape, x, y, ax, ay, sw, ss, shape.fill.enable);
+    };
+    /**
+     * Returns true if the point is in the cone with the apex (cx, cy) spanned by the unit normals n1 and n2
+     * but outside the circle of radius `rho`, that is, in the part cut off by a rounded corner.
+     */
+    var isCutByCorner = function (x, y, cx, cy, n1x, n1y, n2x, n2y, rho) {
+        var dx = x - cx;
+        var dy = y - cy;
+        var det = n1x * n2y - n1y * n2x;
+        var a = (dx * n2y - dy * n2x) / det;
+        var b = (n1x * dy - n1y * dx) / det;
+        return 0 <= a && 0 <= b && rho * rho < dx * dx + dy * dy;
+    };
+    /**
+     * Tests whether the point is in the rounded triangle shrunk by `s`.
+     * Sharp corners and corners whose radius is not larger than `s` stay sharp.
+     */
+    var hitTestTriangleRoundedInset = function (shape, x, y, ax, ay, s) {
+        var az = Math.sqrt(ax * ax + 4 * ay * ay);
+        // The outward unit normals of the left side (nlx, nly) and the right side (-nlx, nly)
+        var nlx = (-2 * ay) / az;
+        var nly = -ax / az;
+        var yt = y + ay;
+        if (-s < nlx * x + nly * yt || -s < -nlx * x + nly * yt || ay - s < y) {
+            return false;
+        }
+        var radius = shape.radius;
+        var aw = (2 * ax * ay) / (ax + az);
+        var rho = radius * aw - s;
+        if (0 < rho) {
+            var corner = shape.corner;
+            var cby = ay - radius * aw;
+            if (corner & EShapeCorner.TOP &&
+                isCutByCorner(x, y, 0, -ay + radius * (2 * ay - aw), nlx, nly, -nlx, nly, rho)) {
+                return false;
+            }
+            if (corner & EShapeCorner.BOTTOM_RIGHT &&
+                isCutByCorner(x, y, ax * (1 - radius), cby, -nlx, nly, 0, 1, rho)) {
+                return false;
+            }
+            if (corner & EShapeCorner.BOTTOM_LEFT &&
+                isCutByCorner(x, y, -ax * (1 - radius), cby, nlx, nly, 0, 1, rho)) {
+                return false;
+            }
+        }
+        return true;
+    };
+    var hitTestTriangleRounded = function (shape, x, y, ax, ay, sw, ss) {
+        var fill = shape.fill;
+        if ((fill.enable || 0 < sw) && hitTestTriangleRoundedInset(shape, x, y, ax, ay, 0)) {
+            if (fill.enable && hitTestFill(x, y, ax, ay, fill)) {
+                return true;
+            }
+            if (0 < sw && !hitTestTriangleRoundedInset(shape, x, y, ax, ay, sw * ss)) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTriangleRounded = /** @class */ (function (_super) {
-        __extends(EShapeTriangleRounded, _super);
-        function EShapeTriangleRounded(type) {
-            if (type === void 0) { type = EShapeType.TRIANGLE_ROUNDED; }
+    var EShapeTriangleRoundedLegacy = /** @class */ (function (_super) {
+        __extends(EShapeTriangleRoundedLegacy, _super);
+        function EShapeTriangleRoundedLegacy(type) {
+            if (type === void 0) { type = EShapeType.TRIANGLE_ROUNDED_LEGACY; }
             return _super.call(this, type) || this;
         }
-        EShapeTriangleRounded.prototype.clone = function () {
-            return new EShapeTriangleRounded(this.type).copy(this);
+        EShapeTriangleRoundedLegacy.prototype.clone = function () {
+            return new EShapeTriangleRoundedLegacy(this.type).copy(this);
         };
-        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+        EShapeTriangleRoundedLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestTriangleRounded(this, x, y, ax, ay, sw, ss);
+                return hitTestTriangleRoundedLegacy(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
-        return EShapeTriangleRounded;
+        return EShapeTriangleRoundedLegacy;
     }(EShapePrimitive));
 
     /*
@@ -53007,7 +53012,7 @@
             return false;
         };
         return EShapeLineOfTriangleRoundeds;
-    }(EShapeTriangleRounded));
+    }(EShapeTriangleRoundedLegacy));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -56193,29 +56198,515 @@
     };
 
     /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeTriangleRoundedTriangulatedImpl = /** @class */ (function () {
+        function EShapeTriangleRoundedTriangulatedImpl(parent) {
+            this._id = 0;
+            this._parent = parent;
+            this._width = 0;
+            this._height = 0;
+            this._strokeAlign = 0;
+            this._strokeWidth = 0;
+            this._sizeX = 0;
+            this._sizeY = 0;
+            this._radius = 0;
+            this._corner = EShapeCorner.NONE;
+            this._vertices = [];
+            this._nvertices = 0;
+            this._distances = [];
+            this._lengths = [];
+            this._clippings = [];
+            this._uvs = [];
+            this._indices = [];
+            this._nindices = 0;
+            this._boundary = [0, 0, 0, 0];
+        }
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "id", {
+            get: function () {
+                this.triangulate();
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "vertices", {
+            get: function () {
+                this.triangulate();
+                return this._vertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "nvertices", {
+            get: function () {
+                this.triangulate();
+                return this._nvertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "distances", {
+            get: function () {
+                this.triangulate();
+                return this._distances;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "lengths", {
+            get: function () {
+                this.triangulate();
+                return this._lengths;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "clippings", {
+            get: function () {
+                this.triangulate();
+                return this._clippings;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "uvs", {
+            get: function () {
+                this.triangulate();
+                return this._uvs;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "indices", {
+            get: function () {
+                this.triangulate();
+                return this._indices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "nindices", {
+            get: function () {
+                this.triangulate();
+                return this._nindices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "boundary", {
+            get: function () {
+                this.triangulate();
+                return this._boundary;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeTriangleRoundedTriangulatedImpl.prototype.triangulate = function () {
+            var isNotInitialized = this._id === 0;
+            var parent = this._parent;
+            var size = parent.size;
+            var width = size.x;
+            var height = size.y;
+            var isRectChanged = this._width !== width || this._height !== height;
+            var stroke = parent.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var isStrokeChanged = this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
+            var radius = parent.radius;
+            var isRadiusChanged = this._radius !== radius;
+            var corner = parent.corner;
+            var isCornerChanged = this._corner !== corner;
+            var isSizeChanged = false;
+            var sizeX = this._sizeX;
+            var sizeY = this._sizeY;
+            if (isRectChanged || isStrokeChanged) {
+                this._width = width;
+                this._height = height;
+                this._strokeAlign = strokeAlign;
+                this._strokeWidth = strokeWidth;
+                var s = strokeAlign * strokeWidth;
+                sizeX = width * 0.5 + (0 <= width ? +s : -s);
+                sizeY = height * 0.5 + (0 <= height ? +s : -s);
+                isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
+            }
+            if (isNotInitialized ||
+                isSizeChanged ||
+                isStrokeChanged ||
+                isRadiusChanged ||
+                isCornerChanged) {
+                this._sizeX = sizeX;
+                this._sizeY = sizeY;
+                this._radius = radius;
+                this._corner = corner;
+                this.update(sizeX, sizeY, radius, corner);
+            }
+        };
+        EShapeTriangleRoundedTriangulatedImpl.prototype.update = function (sx, sy, radius, corner) {
+            var boundary = this._boundary;
+            var ax = Math.abs(sx);
+            var ay = Math.abs(sy);
+            boundary[0] = -ax;
+            boundary[1] = -ay;
+            boundary[2] = +ax;
+            boundary[3] = +ay;
+            var n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
+            var nv = 9 * n + 6;
+            var ni = 3 * n + 6;
+            this._nvertices = nv;
+            this._nindices = ni;
+            this._id += 1;
+            if (ax <= 0 || ay <= 0) {
+                this.pad(0, 0, nv, ni, 0);
+                return;
+            }
+            var scale = 1.1;
+            var az = 2 * ay;
+            var b0 = Math.sqrt(ax * ax + az * az);
+            var r0 = (ax * az) / (ax + b0);
+            var r = radius * r0;
+            var fs = (scale - 1) * r0;
+            var rs = r + fs;
+            var r0i = 1 / r0;
+            var rr0 = r * r0i;
+            var a0 = ax * rr0;
+            var b1 = b0 - a0;
+            var b2 = b0 - ax;
+            var b3 = b2 * rr0;
+            var b0i = 1 / b0;
+            var b1b0 = b1 * b0i;
+            var b3b0 = b3 * b0i;
+            var b2b0 = b2 * b0i;
+            var gx = Math.sign(sx);
+            var x0 = -sx;
+            var x1 = -sx + gx * ax * (1 - b1b0);
+            var x2 = -sx + gx * ax * rr0;
+            var x3 = -sx + gx * ax * (1 - b3b0);
+            var x4 = 0;
+            var x6 = -x2;
+            var xl = -sx + gx * ax * (1 - b2b0);
+            var gy = Math.sign(sy);
+            var y0 = -sy;
+            var y1 = -sy + gy * az * b3b0;
+            var y2 = -sy + gy * (az - r0) * rr0;
+            var y3 = -sy + gy * (az - r0);
+            var y4 = -sy + gy * az * b1b0;
+            var y5 = -sy + gy * (az - r);
+            var y6 = +sy;
+            var yc = -sy + gy * az * b2b0;
+            var dlx = xl - x4;
+            var dly = yc - y3;
+            var nlx = dlx * r0i;
+            var nly = dly * r0i;
+            var nrx = -nlx;
+            var nry = nly;
+            var nbx = 0;
+            var nby = gy;
+            var tt = (nrx * (nrx - nlx) + nry * (nry - nly)) / (nry * nlx - nrx * nly);
+            var tl = (nbx * (nbx - nlx) + nby * (nby - nly)) / (nby * nlx - nbx * nly);
+            var sx0 = x0 + (nlx - nly * tl) * fs;
+            var sx1 = x1 + nlx * fs;
+            var sx3 = x3 + nlx * fs;
+            var sx5 = -sx3;
+            var sx7 = -sx1;
+            var sx8 = -sx0;
+            var sy0 = y0 + (nly + nlx * tt) * fs;
+            var sy1 = y1 + nly * fs;
+            var sy4 = y4 + nly * fs;
+            var sy6 = y6 + gy * fs;
+            var fd = r0i;
+            var fx = 1 / sx;
+            var fy = 1 / sy;
+            var ct = 0 < r && !!(corner & EShapeCorner.TOP);
+            var cr = 0 < r && !!(corner & EShapeCorner.BOTTOM_RIGHT);
+            var cl = 0 < r && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            var aapex = ct || cr || cl ? Math.atan2(ax, az) : 0;
+            var gz = gx * gy;
+            var atop = gz * (Math.PI - 2 * aapex);
+            var abottom = gz * (Math.PI * 0.5 + aapex);
+            // Top Fan
+            var iv = 0;
+            var ii = 0;
+            var l = 0;
+            if (ct) {
+                l = this.writeFan(x4, y2, sx3, sy1, atop, nlx, nly, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+                iv += 3 * (n - 1);
+                ii += 3 * (n - 1);
+            }
+            // Right Pentagon
+            var p1x = sx5;
+            var p1y = sy1;
+            var ttx = x3;
+            var tty = y1;
+            if (!ct) {
+                p1x = x4;
+                p1y = sy0;
+                ttx = x4;
+                tty = y0;
+            }
+            var p2x = sx7;
+            var p2y = sy4;
+            var trbx = -x1;
+            var trby = y4;
+            if (!cr) {
+                p2x = sx8;
+                p2y = sy6;
+                trbx = -x0;
+                trby = y6;
+            }
+            var lr = Math.sqrt((trbx + ttx) * (trbx + ttx) + (trby - tty) * (trby - tty));
+            var lrc = Math.sqrt((ttx - xl) * (ttx - xl) + (yc - tty) * (yc - tty));
+            var nlr = l + lr;
+            var tdx = sx * b0i;
+            var tdy = 2 * sy * b0i;
+            var lr1 = l + (p1x + ttx) * tdx + (p1y - tty) * tdy;
+            var lr2 = nlr + (p2x - trbx) * tdx + (p2y - trby) * tdy;
+            var c0 = scale;
+            var c1 = 1 - radius;
+            this.writePenta(ct ? x4 : p1x, ct ? y2 : p1y, p1x, p1y, p2x, p2y, cr ? x6 : p2x, cr ? y5 : p2y, x4, y3, ct ? l : lr1, lr1, lr2, cr ? nlr : lr2, l + lrc, ct ? c1 : c0, c0, c0, cr ? c1 : c0, 0, fd, fx, fy, iv, ii);
+            iv += 5;
+            ii += 9;
+            l = nlr;
+            // Right Fan
+            if (cr) {
+                l = this.writeFan(x6, y5, sx7, sy4, abottom, nrx, nry, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+                iv += 3 * (n - 1);
+                ii += 3 * (n - 1);
+            }
+            // Bottom Pentagon
+            var p3x = x6;
+            var p3y = sy6;
+            var q3x = x6;
+            var q3y = y5;
+            var tbrx = x6;
+            if (!cr) {
+                p3x = sx8;
+                q3x = p3x;
+                q3y = p3y;
+                tbrx = -x0;
+            }
+            var p4x = x2;
+            var p4y = sy6;
+            var q4x = x2;
+            var q4y = y5;
+            var tblx = x2;
+            if (!cl) {
+                p4x = sx0;
+                q4x = p4x;
+                q4y = p4y;
+                tblx = x0;
+            }
+            var lb = Math.abs(tbrx - tblx);
+            var lbc = Math.abs(tbrx - x4);
+            var nlb = l + lb;
+            var lb1 = l - gx * (p3x - tbrx);
+            var lb2 = nlb - gx * (p4x - tblx);
+            this.writePenta(q3x, q3y, p3x, p3y, p4x, p4y, q4x, q4y, x4, y3, cr ? l : lb1, lb1, lb2, cl ? nlb : lb2, l + lbc, cr ? c1 : c0, c0, c0, cl ? c1 : c0, 0, fd, fx, fy, iv, ii);
+            iv += 5;
+            ii += 9;
+            l = nlb;
+            // Left Fan
+            if (cl) {
+                l = this.writeFan(x2, y5, x2, sy6, abottom, nbx, nby, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+                iv += 3 * (n - 1);
+                ii += 3 * (n - 1);
+            }
+            // Left Pentagon
+            var p5x = sx1;
+            var p5y = sy4;
+            var q5x = x2;
+            var q5y = y5;
+            var tlbx = x1;
+            var tlby = y4;
+            if (!cl) {
+                p5x = sx0;
+                p5y = sy6;
+                q5x = p5x;
+                q5y = p5y;
+                tlbx = x0;
+                tlby = y6;
+            }
+            var p6x = sx3;
+            var p6y = sy1;
+            var q6x = x4;
+            var q6y = y2;
+            if (!ct) {
+                p6x = x4;
+                p6y = sy0;
+                q6x = p6x;
+                q6y = p6y;
+            }
+            var ll = Math.sqrt((tlbx - ttx) * (tlbx - ttx) + (tlby - tty) * (tlby - tty));
+            var llc = Math.sqrt((xl - tlbx) * (xl - tlbx) + (yc - tlby) * (yc - tlby));
+            var nll = l + ll;
+            var ll0 = nll + (p6x - ttx) * tdx - (p6y - tty) * tdy;
+            var ll4 = l + (p5x - tlbx) * tdx - (p5y - tlby) * tdy;
+            this.writePenta(p6x, p6y, q6x, q6y, x4, y3, q5x, q5y, p5x, p5y, ll0, ct ? nll : ll0, l + llc, cl ? l : ll4, ll4, c0, ct ? c1 : c0, 0, cl ? c1 : c0, c0, fd, fx, fy, iv, ii);
+            iv += 5;
+            ii += 9;
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        EShapeTriangleRoundedTriangulatedImpl.prototype.writePenta = function (x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, length0, length1, length2, length3, length4, clipping0, clipping1, clipping2, clipping3, clipping4, distance, fx, fy, iv, ii) {
+            this.writeVertex(iv + 0, x0, y0, distance, length0, clipping0, fx, fy);
+            this.writeVertex(iv + 1, x1, y1, distance, length1, clipping1, fx, fy);
+            this.writeVertex(iv + 2, x2, y2, distance, length2, clipping2, fx, fy);
+            this.writeVertex(iv + 3, x3, y3, distance, length3, clipping3, fx, fy);
+            this.writeVertex(iv + 4, x4, y4, distance, length4, clipping4, fx, fy);
+            var indices = this._indices;
+            indices[ii + 0] = iv + 0;
+            indices[ii + 1] = iv + 1;
+            indices[ii + 2] = iv + 2;
+            indices[ii + 3] = iv + 0;
+            indices[ii + 4] = iv + 2;
+            indices[ii + 5] = iv + 3;
+            indices[ii + 6] = iv + 0;
+            indices[ii + 7] = iv + 3;
+            indices[ii + 8] = iv + 4;
+        };
+        EShapeTriangleRoundedTriangulatedImpl.prototype.writeFan = function (cx, cy, x0, y0, dt, nx, ny, l0, r, rs, fd, scale, fx, fy, n, iv, ii) {
+            var m = n - 1;
+            var da = dt / m;
+            var dl = Math.abs(da) * r;
+            // Rim vertices at radius rs sit dl / 2 * (rs / r) from the chord midpoint, so the length is exact at radius r.
+            var dlm = 0.5 * dl * (rs / r - 1);
+            var c0 = scale;
+            var c1 = 1 - r * fd;
+            var indices = this._indices;
+            var l = l0;
+            var xa = x0;
+            var ya = y0;
+            for (var i = 0; i < m; i += 1) {
+                var angle = (i + 1) * da;
+                var ca = Math.cos(angle);
+                var sa = Math.sin(angle);
+                var xb = cx + rs * (nx * ca - ny * sa);
+                var yb = cy + rs * (nx * sa + ny * ca);
+                var nl = l + dl;
+                this.writeVertex(iv + 0, xa, ya, fd, l - dlm, c0, fx, fy);
+                this.writeVertex(iv + 1, xb, yb, fd, nl + dlm, c0, fx, fy);
+                this.writeVertex(iv + 2, cx, cy, fd, l + 0.5 * dl, c1, fx, fy);
+                indices[ii + 0] = iv + 2;
+                indices[ii + 1] = iv + 0;
+                indices[ii + 2] = iv + 1;
+                iv += 3;
+                ii += 3;
+                l = nl;
+                xa = xb;
+                ya = yb;
+            }
+            return l;
+        };
+        EShapeTriangleRoundedTriangulatedImpl.prototype.writeVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
+            var vertex2 = vertex << 1;
+            this._vertices[vertex2] = x;
+            this._vertices[vertex2 + 1] = y;
+            this._distances[vertex] = distance;
+            this._lengths[vertex] = length;
+            this._clippings[vertex] = clipping;
+            this._uvs[vertex2] = 0.5 * (x * fx + 1);
+            this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
+        };
+        EShapeTriangleRoundedTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, distance) {
+            for (var i = iv; i < nv; ++i) {
+                var vertex2 = i << 1;
+                this._vertices[vertex2] = 0;
+                this._vertices[vertex2 + 1] = 0;
+                this._distances[i] = distance;
+                this._lengths[i] = 0;
+                this._clippings[i] = 0;
+                this._uvs[vertex2] = 0.5;
+                this._uvs[vertex2 + 1] = 0.5;
+            }
+            for (var i = ii; i < ni * 3; ++i) {
+                this._indices[i] = 0;
+            }
+            this._vertices.length = nv * 2;
+            this._distances.length = nv;
+            this._lengths.length = nv;
+            this._clippings.length = nv;
+            this._uvs.length = nv * 2;
+            this._indices.length = ni * 3;
+        };
+        return EShapeTriangleRoundedTriangulatedImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeTriangleRounded = /** @class */ (function (_super) {
+        __extends(EShapeTriangleRounded, _super);
+        function EShapeTriangleRounded(type) {
+            if (type === void 0) { type = EShapeType.TRIANGLE_ROUNDED; }
+            var _this = _super.call(this, type) || this;
+            _this._triangulated = _this.newTriangulated();
+            return _this;
+        }
+        EShapeTriangleRounded.prototype.newTriangulated = function () {
+            return new EShapeTriangleRoundedTriangulatedImpl(this);
+        };
+        Object.defineProperty(EShapeTriangleRounded.prototype, "triangulated", {
+            get: function () {
+                return this._triangulated;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeTriangleRounded.prototype.clone = function () {
+            return new EShapeTriangleRounded(this.type).copy(this);
+        };
+        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestTriangleRounded(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeTriangleRounded;
+    }(EShapePrimitive));
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var BuilderTriangleRounded = /** @class */ (function (_super) {
-        __extends(BuilderTriangleRounded, _super);
-        function BuilderTriangleRounded(buffer, vertexOffset, indexOffset) {
-            var _this = _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_ROUNDED_VERTEX_COUNT, TRIANGLE_ROUNDED_INDEX_COUNT) || this;
+    var deserializeTriangleRounded = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeTriangleRounded());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeTriangleRounded = function () {
+        EShapeUploadeds[EShapeType.TRIANGLE_ROUNDED] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.TRIANGLE_ROUNDED] = deserializeTriangleRounded;
+        EShapeCapabilities.set(EShapeType.TRIANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderTriangleRoundedLegacy = /** @class */ (function (_super) {
+        __extends(BuilderTriangleRoundedLegacy, _super);
+        function BuilderTriangleRoundedLegacy(buffer, vertexOffset, indexOffset) {
+            var _this = _super.call(this, buffer, vertexOffset, indexOffset, TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT) || this;
             _this.radius = 0;
             _this.corner = 0;
             return _this;
         }
-        BuilderTriangleRounded.prototype.init = function () {
+        BuilderTriangleRoundedLegacy.prototype.init = function () {
             var buffer = this.buffer;
             buffer.updateIndices();
-            buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            buildTriangleRoundedLegacyIndex(buffer.indices, this.vertexOffset, this.indexOffset);
             this.inited |= BuilderFlag.INDEX;
         };
-        BuilderTriangleRounded.prototype.update = function (shape) {
+        BuilderTriangleRoundedLegacy.prototype.update = function (shape) {
             var buffer = this.buffer;
             this.updateVertexStepAndUv(buffer, shape);
             this.updateColor(buffer, shape);
         };
-        BuilderTriangleRounded.prototype.updateVertexStepAndUv = function (buffer, shape) {
+        BuilderTriangleRoundedLegacy.prototype.updateVertexStepAndUv = function (buffer, shape) {
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
@@ -56256,55 +56747,55 @@
                 this.textureTransformId = textureTransformId;
                 var voffset = this.vertexOffset;
                 buffer.updateVertices();
-                buildTriangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
+                buildTriangleRoundedLegacyVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                 if (isNotInited || isVertexChanged || isTransformChanged || isCornerChanged) {
                     buffer.updateSteps();
-                    buildTriangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                    buildTriangleRoundedLegacyStep(buffer.steps, voffset, strokeWidth, strokeStyle, corner, radius, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                 }
                 if (isNotInited || isVertexChanged || isTextureChanged) {
                     buffer.updateUvs();
-                    buildTriangleRoundedUv(buffer.uvs, voffset, toTextureUvs(texture), radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                    buildTriangleRoundedLegacyUv(buffer.uvs, voffset, toTextureUvs(texture), radius, TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE);
                 }
             }
         };
-        return BuilderTriangleRounded;
+        return BuilderTriangleRoundedLegacy;
     }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createTriangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+    var createTriangleRoundedLegacyUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
         var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = TRIANGLE_ROUNDED_VERTEX_COUNT + tvcount;
-        var icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
+        var vcount = TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT + tvcount;
+        var icount = TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
             return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderTriangleRounded(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset + TRIANGLE_ROUNDED_INDEX_COUNT, tvcount, ticount)
+                new BuilderTriangleRoundedLegacy(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT, ioffset + TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT, tvcount, ticount)
             ]).init(shape);
         }
         return null;
     };
 
     /*
-     * Copyright (C) 2019 Toshiba Corporation
+     * Copyright (C) 2019-2026 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var deserializeTriangleRounded = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeTriangleRounded());
+    var deserializeTriangleRoundedLegacy = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeTriangleRoundedLegacy());
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadShapeTriangleRounded = function () {
-        EShapeUploadeds[EShapeType.TRIANGLE_ROUNDED] = createTriangleRoundedUploaded;
-        EShapeDeserializers[EShapeType.TRIANGLE_ROUNDED] = deserializeTriangleRounded;
-        EShapeCapabilities.set(EShapeType.TRIANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS);
+    var loadShapeTriangleRoundedLegacy = function () {
+        EShapeUploadeds[EShapeType.TRIANGLE_ROUNDED_LEGACY] = createTriangleRoundedLegacyUploaded;
+        EShapeDeserializers[EShapeType.TRIANGLE_ROUNDED_LEGACY] = deserializeTriangleRoundedLegacy;
+        EShapeCapabilities.set(EShapeType.TRIANGLE_ROUNDED_LEGACY, EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS);
     };
 
     /*
@@ -56334,6 +56825,7 @@
         loadShapeRectangle();
         loadShapeSemicircle();
         loadShapeTriangleLegacy();
+        loadShapeTriangleRoundedLegacy();
         loadShapeTriangleRounded();
         loadShapeTriangle();
         loadShapeLineOfCircles();
@@ -88410,6 +88902,7 @@
         loadShapeRectangle: loadShapeRectangle,
         loadShapeSemicircle: loadShapeSemicircle,
         loadShapeTriangleLegacy: loadShapeTriangleLegacy,
+        loadShapeTriangleRoundedLegacy: loadShapeTriangleRoundedLegacy,
         loadShapeTriangleRounded: loadShapeTriangleRounded,
         loadShapeTriangle: loadShapeTriangle,
         BAR_VERTEX_COUNT: BAR_VERTEX_COUNT,
@@ -88509,13 +89002,20 @@
         buildTriangleLegacyVertex: buildTriangleLegacyVertex,
         buildTriangleLegacyStep: buildTriangleLegacyStep,
         buildTriangleLegacyUv: buildTriangleLegacyUv,
-        TRIANGLE_ROUNDED_VERTEX_COUNT: TRIANGLE_ROUNDED_VERTEX_COUNT,
-        TRIANGLE_ROUNDED_INDEX_COUNT: TRIANGLE_ROUNDED_INDEX_COUNT,
-        TRIANGLE_ROUNDED_WORLD_SIZE: TRIANGLE_ROUNDED_WORLD_SIZE,
-        buildTriangleRoundedIndex: buildTriangleRoundedIndex,
-        buildTriangleRoundedVertex: buildTriangleRoundedVertex,
-        buildTriangleRoundedStep: buildTriangleRoundedStep,
-        buildTriangleRoundedUv: buildTriangleRoundedUv,
+        buildTriangleRoundedIndex: buildTriangleRoundedLegacyIndex,
+        buildTriangleRoundedStep: buildTriangleRoundedLegacyStep,
+        buildTriangleRoundedUv: buildTriangleRoundedLegacyUv,
+        buildTriangleRoundedVertex: buildTriangleRoundedLegacyVertex,
+        TRIANGLE_ROUNDED_INDEX_COUNT: TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT,
+        TRIANGLE_ROUNDED_VERTEX_COUNT: TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
+        TRIANGLE_ROUNDED_WORLD_SIZE: TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE,
+        TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT: TRIANGLE_ROUNDED_LEGACY_VERTEX_COUNT,
+        TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT: TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT,
+        TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE: TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE,
+        buildTriangleRoundedLegacyIndex: buildTriangleRoundedLegacyIndex,
+        buildTriangleRoundedLegacyVertex: buildTriangleRoundedLegacyVertex,
+        buildTriangleRoundedLegacyStep: buildTriangleRoundedLegacyStep,
+        buildTriangleRoundedLegacyUv: buildTriangleRoundedLegacyUv,
         buildTriangleIndex: buildTriangleLegacyIndex,
         buildTriangleStep: buildTriangleLegacyStep,
         buildTriangleUv: buildTriangleLegacyUv,
@@ -88555,7 +89055,8 @@
         BuilderSemicircle: BuilderSemicircle,
         BuilderText: BuilderText,
         BuilderTriangleLegacy: BuilderTriangleLegacy,
-        BuilderTriangleRounded: BuilderTriangleRounded,
+        BuilderTriangleRounded: BuilderTriangleRoundedLegacy,
+        BuilderTriangleRoundedLegacy: BuilderTriangleRoundedLegacy,
         BuilderTriangle: BuilderTriangleLegacy,
         BuilderFlag: BuilderFlag,
         toTransformLocalId: toTransformLocalId,
@@ -88593,7 +89094,8 @@
         createRectangleUploaded: createRectangleLegacyUploaded,
         createSemicircleUploaded: createSemicircleUploaded,
         createTriangleLegacyUploaded: createTriangleLegacyUploaded,
-        createTriangleRoundedUploaded: createTriangleRoundedUploaded,
+        createTriangleRoundedUploaded: createTriangleRoundedLegacyUploaded,
+        createTriangleRoundedLegacyUploaded: createTriangleRoundedLegacyUploaded,
         createTriangleUploaded: createTriangleLegacyUploaded,
         deserializeAll: deserializeAll,
         deserializeBar: deserializeBar,
@@ -88629,6 +89131,7 @@
         deserializeSemicircle: deserializeSemicircle,
         deserializeTriangleLegacy: deserializeTriangleLegacy,
         deserializeTriangleRounded: deserializeTriangleRounded,
+        deserializeTriangleRoundedLegacy: deserializeTriangleRoundedLegacy,
         deserializeTriangle: deserializeTriangle,
         deserialize: deserialize,
         EShapeBarPoints: EShapeBarPoints,
@@ -88704,6 +89207,8 @@
         EShapeTextOutlineImpl: EShapeTextOutlineImpl,
         EShapeTriangleLegacy: EShapeTriangleLegacy,
         EShapeTriangleRounded: EShapeTriangleRounded,
+        EShapeTriangleRoundedLegacy: EShapeTriangleRoundedLegacy,
+        EShapeTriangleRoundedTriangulatedImpl: EShapeTriangleRoundedTriangulatedImpl,
         EShapeTriangleTriangulatedImpl: EShapeTriangleTriangulatedImpl,
         EShapeTriangle: EShapeTriangle,
         hitTestBBox: hitTestBBox,
@@ -88714,6 +89219,7 @@
         hitTestRectangleRounded: hitTestRectangleRounded,
         hitTestRectangleLegacy: hitTestRectangleLegacy,
         hitTestRectangle: hitTestRectangle,
+        hitTestTriangleRoundedLegacy: hitTestTriangleRoundedLegacy,
         hitTestTriangleRounded: hitTestTriangleRounded,
         hitTestTriangleFilled: hitTestTriangleFilled,
         hitTestTriangleLegacy: hitTestTriangleLegacy,
