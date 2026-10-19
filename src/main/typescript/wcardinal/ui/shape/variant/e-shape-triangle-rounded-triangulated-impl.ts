@@ -182,6 +182,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const b2b0 = b2 * b0i;
 
 		const gx = Math.sign(sx);
+		const x0 = -sx;
 		const x1 = -sx + gx * ax * (1 - b1b0);
 		const x2 = -sx + gx * ax * rr0;
 		const x3 = -sx + gx * ax * (1 - b3b0);
@@ -191,6 +192,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const xl = -sx + gx * ax * (1 - b2b0);
 
 		const gy = Math.sign(sy);
+		const y0 = -sy;
 		const y1 = -sy + gy * az * b3b0;
 		const y2 = -sy + gy * (az - r0) * rr0;
 		const y3 = -sy + gy * (az - r0);
@@ -204,15 +206,25 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const dly = yc - y3;
 		const nlx = dlx * r0i;
 		const nly = dly * r0i;
+		const nrx = -nlx;
+		const nry = nly;
+		const nbx = 0;
+		const nby = gy;
 
-		const sy6 = y6 + gy * fs;
+		const tt = (nrx * (nrx - nlx) + nry * (nry - nly)) / (nry * nlx - nrx * nly);
+		const tl = (nbx * (nbx - nlx) + nby * (nby - nly)) / (nby * nlx - nbx * nly);
+
+		const sx0 = x0 + (nlx - nly * tl) * fs;
 		const sx1 = x1 + nlx * fs;
 		const sx3 = x3 + nlx * fs;
 		const sx5 = -sx3;
 		const sx7 = -sx1;
+		const sx8 = -sx0;
 
+		const sy0 = y0 + (nly + nlx * tt) * fs;
 		const sy1 = y1 + nly * fs;
 		const sy4 = y4 + nly * fs;
+		const sy6 = y6 + gy * fs;
 
 		const fd = r0i;
 		const fx = 1 / sx;
@@ -233,33 +245,57 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		}
 
 		// Right Pentagon
-		const lr = Math.abs((sx5 - sx7) * nly + (sy1 - sy4) * nlx);
-		const lrc = Math.abs((sx5 - x4) * nly + (sy1 - y3) * nlx);
+		let p1x = sx5;
+		let p1y = sy1;
+		let ttx = x3;
+		let tty = y1;
+		if (!ct) {
+			p1x = x4;
+			p1y = sy0;
+			ttx = x4;
+			tty = y0;
+		}
+		let p2x = sx7;
+		let p2y = sy4;
+		let trbx = -x1;
+		let trby = y4;
+		if (!cr) {
+			p2x = sx8;
+			p2y = sy6;
+			trbx = -x0;
+			trby = y6;
+		}
+		const lr = Math.sqrt((trbx + ttx) * (trbx + ttx) + (trby - tty) * (trby - tty));
+		const lrc = Math.sqrt((ttx - xl) * (ttx - xl) + (yc - tty) * (yc - tty));
 		const nlr = l + lr;
+		const tdx = sx * b0i;
+		const tdy = 2 * sy * b0i;
+		const lr1 = l + (p1x + ttx) * tdx + (p1y - tty) * tdy;
+		const lr2 = nlr + (p2x - trbx) * tdx + (p2y - trby) * tdy;
 		const c0 = scale;
 		const c1 = 1 - radius;
 		this.writePenta(
-			x4,
-			y2,
-			sx5,
-			sy1,
-			sx7,
-			sy4,
-			x6,
-			y5,
+			ct ? x4 : p1x,
+			ct ? y2 : p1y,
+			p1x,
+			p1y,
+			p2x,
+			p2y,
+			cr ? x6 : p2x,
+			cr ? y5 : p2y,
 			x4,
 			y3,
 
-			l,
-			l,
-			nlr,
-			nlr,
+			ct ? l : lr1,
+			lr1,
+			lr2,
+			cr ? nlr : lr2,
 			l + lrc,
 
-			c1,
+			ct ? c1 : c0,
 			c0,
 			c0,
-			c1,
+			cr ? c1 : c0,
 			0,
 
 			fd,
@@ -282,31 +318,55 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		}
 
 		// Bottom Pentagon
-		const lb = Math.abs(x6 - x2);
-		const lbc = Math.abs(x6 - x4);
+		let p3x = x6;
+		const p3y = sy6;
+		let q3x = x6;
+		let q3y = y5;
+		let tbrx = x6;
+		if (!cr) {
+			p3x = sx8;
+			q3x = p3x;
+			q3y = p3y;
+			tbrx = -x0;
+		}
+		let p4x = x2;
+		const p4y = sy6;
+		let q4x = x2;
+		let q4y = y5;
+		let tblx = x2;
+		if (!cl) {
+			p4x = sx0;
+			q4x = p4x;
+			q4y = p4y;
+			tblx = x0;
+		}
+		const lb = Math.abs(tbrx - tblx);
+		const lbc = Math.abs(tbrx - x4);
 		const nlb = l + lb;
+		const lb1 = l - gx * (p3x - tbrx);
+		const lb2 = nlb - gx * (p4x - tblx);
 		this.writePenta(
-			x6,
-			y5,
-			x6,
-			sy6,
-			x2,
-			sy6,
-			x2,
-			y5,
+			q3x,
+			q3y,
+			p3x,
+			p3y,
+			p4x,
+			p4y,
+			q4x,
+			q4y,
 			x4,
 			y3,
 
-			l,
-			l,
-			nlb,
-			nlb,
+			cr ? l : lb1,
+			lb1,
+			lb2,
+			cl ? nlb : lb2,
 			l + lbc,
 
-			c1,
+			cr ? c1 : c0,
 			c0,
 			c0,
-			c1,
+			cl ? c1 : c0,
 			0,
 
 			fd,
@@ -329,31 +389,57 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		}
 
 		// Left Pentagon
-		const ll = lr;
-		const llc = lr - lrc;
+		let p5x = sx1;
+		let p5y = sy4;
+		let q5x = x2;
+		let q5y = y5;
+		let tlbx = x1;
+		let tlby = y4;
+		if (!cl) {
+			p5x = sx0;
+			p5y = sy6;
+			q5x = p5x;
+			q5y = p5y;
+			tlbx = x0;
+			tlby = y6;
+		}
+		let p6x = sx3;
+		let p6y = sy1;
+		let q6x = x4;
+		let q6y = y2;
+		if (!ct) {
+			p6x = x4;
+			p6y = sy0;
+			q6x = p6x;
+			q6y = p6y;
+		}
+		const ll = Math.sqrt((tlbx - ttx) * (tlbx - ttx) + (tlby - tty) * (tlby - tty));
+		const llc = Math.sqrt((xl - tlbx) * (xl - tlbx) + (yc - tlby) * (yc - tlby));
 		const nll = l + ll;
+		const ll0 = nll + (p6x - ttx) * tdx - (p6y - tty) * tdy;
+		const ll4 = l + (p5x - tlbx) * tdx - (p5y - tlby) * tdy;
 		this.writePenta(
-			sx3,
-			sy1,
-			x4,
-			y2,
+			p6x,
+			p6y,
+			q6x,
+			q6y,
 			x4,
 			y3,
-			x2,
-			y5,
-			sx1,
-			sy4,
+			q5x,
+			q5y,
+			p5x,
+			p5y,
 
-			nll,
-			nll,
+			ll0,
+			ct ? nll : ll0,
 			l + llc,
-			l,
-			l,
+			cl ? l : ll4,
+			ll4,
 
 			c0,
-			c1,
+			ct ? c1 : c0,
 			0,
-			c1,
+			cl ? c1 : c0,
 			c0,
 
 			fd,
