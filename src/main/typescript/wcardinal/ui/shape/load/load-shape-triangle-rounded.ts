@@ -8,11 +8,11 @@ import { EShapeCapability } from "../e-shape-capability";
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createTriangleRoundedUploaded } from "../variant/create-triangle-rounded-uploaded";
+import { createPolygonUploaded } from "../variant/create-polygon-uploaded";
 import { deserializeTriangleRounded } from "../variant/deserialize-triangle-rounded";
 
 export const loadShapeTriangleRounded = (): void => {
-	EShapeUploadeds[EShapeType.TRIANGLE_ROUNDED] = createTriangleRoundedUploaded;
+	EShapeUploadeds[EShapeType.TRIANGLE_ROUNDED] = createPolygonUploaded;
 	EShapeDeserializers[EShapeType.TRIANGLE_ROUNDED] = deserializeTriangleRounded;
 	EShapeCapabilities.set(
 		EShapeType.TRIANGLE_ROUNDED,

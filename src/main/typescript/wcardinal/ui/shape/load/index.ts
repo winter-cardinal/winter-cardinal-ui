@@ -31,5 +31,6 @@ export * from "./load-shape-rectangle-rounded";
 export * from "./load-shape-rectangle";
 export * from "./load-shape-semicircle";
 export * from "./load-shape-triangle-legacy";
+export * from "./load-shape-triangle-rounded-legacy";
 export * from "./load-shape-triangle-rounded";
 export * from "./load-shape-triangle";

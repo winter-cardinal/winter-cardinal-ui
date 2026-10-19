@@ -1,0 +1,17 @@
+/*
+ * Copyright (C) 2019-2026 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { deserializeBase } from "./deserialize-base";
+import { EShapeTriangleRoundedLegacy } from "./e-shape-triangle-rounded-legacy";
+
+export const deserializeTriangleRoundedLegacy = (
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization,
+	shape?: EShapeTriangleRoundedLegacy
+): Promise<EShapeTriangleRoundedLegacy> | EShapeTriangleRoundedLegacy => {
+	return deserializeBase(item, manager, shape || new EShapeTriangleRoundedLegacy());
+};
