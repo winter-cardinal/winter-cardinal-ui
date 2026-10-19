@@ -36,7 +36,6 @@
 		// New
 		const new1 = new wcardinal.ui.EShapeTriangleRounded();
 		new1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
-		new1.stroke.width = 6;
 		new1.fill.direction = wcardinal.ui.EShapeFillDirection.LEFT;
 		new1.fill.percent = 0.75;
 		new1.fill.color = 0x3388ff;
@@ -48,7 +47,6 @@
 		new1.attach(container);
 
 		const new2 = new wcardinal.ui.EShapeTriangleRounded();
-		new2.stroke.width = 6;
 		new2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
 		new2.fill.percent = 0.75;
 		new2.fill.color = 0x3388ff;
@@ -57,7 +55,6 @@
 		new2.attach(container);
 
 		const new3 = new wcardinal.ui.EShapeTriangleRounded();
-		new3.stroke.width = 6;
 		new3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
 		new3.fill.percent = 0.75;
 		new3.fill.color = 0x3388ff;
@@ -110,31 +107,28 @@
 			const children = container.children;
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
-				// child.transform.rotation += 0.01;
-				// child.fill.percent += 0.002;
-			// 	if (1 <= child.fill.percent) {
-			// 		child.fill.percent = 0;
-			// 	}
-			// 	if (child.stroke.width < 20) {
-			// 		child.stroke.width += 0.05;
-			// 	} else {
-			// 		child.stroke.width = 10;
-			// 	}
+				child.transform.rotation += 0.01;
+				child.fill.percent += 0.002;
+				if (1 <= child.fill.percent) {
+					child.fill.percent = 0;
+				}
+				if (child.stroke.width < 20) {
+					child.stroke.width += 0.05;
+				} else {
+					child.stroke.width = 10;
+				}
 			}
 			application.render();
 		}, 32);
 
 		let icorner = -1;
 		const corners = [
-			// wcardinal.ui.EShapeCorner.NONE,
-			// wcardinal.ui.EShapeCorner.TOP_LEFT,
-			// wcardinal.ui.EShapeCorner.TOP_RIGHT,
-			// wcardinal.ui.EShapeCorner.BOTTOM_LEFT,
-			// wcardinal.ui.EShapeCorner.BOTTOM_RIGHT,
-			// wcardinal.ui.EShapeCorner.TOP,
-			// wcardinal.ui.EShapeCorner.BOTTOM,
-			// wcardinal.ui.EShapeCorner.LEFT,
-			// wcardinal.ui.EShapeCorner.RIGHT,
+			wcardinal.ui.EShapeCorner.NONE,
+			wcardinal.ui.EShapeCorner.TOP,
+			wcardinal.ui.EShapeCorner.BOTTOM_LEFT,
+			wcardinal.ui.EShapeCorner.BOTTOM_RIGHT,
+			wcardinal.ui.EShapeCorner.TOP,
+			wcardinal.ui.EShapeCorner.BOTTOM,
 			wcardinal.ui.EShapeCorner.ALL
 		];
 		setInterval(() => {
