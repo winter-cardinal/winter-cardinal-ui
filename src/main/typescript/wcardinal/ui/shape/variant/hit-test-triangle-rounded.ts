@@ -230,6 +230,78 @@ export const hitTestTriangleRoundedLegacy = (
 	return hitTestTriangleRoundedImpl(shape, x, y, ax, ay, sw, ss, shape.fill.enable);
 };
 
+/**
+ * Returns true if the point is in the cone with the apex (cx, cy) spanned by the unit normals n1 and n2
+ * but outside the circle of radius `rho`, that is, in the part cut off by a rounded corner.
+ */
+const isCutByCorner = (
+	x: number,
+	y: number,
+	cx: number,
+	cy: number,
+	n1x: number,
+	n1y: number,
+	n2x: number,
+	n2y: number,
+	rho: number
+): boolean => {
+	const dx = x - cx;
+	const dy = y - cy;
+	const det = n1x * n2y - n1y * n2x;
+	const a = (dx * n2y - dy * n2x) / det;
+	const b = (n1x * dy - n1y * dx) / det;
+	return 0 <= a && 0 <= b && rho * rho < dx * dx + dy * dy;
+};
+
+/**
+ * Tests whether the point is in the rounded triangle shrunk by `s`.
+ * Sharp corners and corners whose radius is not larger than `s` stay sharp.
+ */
+const hitTestTriangleRoundedInset = (
+	shape: EShape,
+	x: number,
+	y: number,
+	ax: number,
+	ay: number,
+	s: number
+): boolean => {
+	const az = Math.sqrt(ax * ax + 4 * ay * ay);
+	// The outward unit normals of the left side (nlx, nly) and the right side (-nlx, nly)
+	const nlx = (-2 * ay) / az;
+	const nly = -ax / az;
+	const yt = y + ay;
+	if (-s < nlx * x + nly * yt || -s < -nlx * x + nly * yt || ay - s < y) {
+		return false;
+	}
+
+	const radius = shape.radius;
+	const aw = (2 * ax * ay) / (ax + az);
+	const rho = radius * aw - s;
+	if (0 < rho) {
+		const corner = shape.corner;
+		const cby = ay - radius * aw;
+		if (
+			corner & EShapeCorner.TOP &&
+			isCutByCorner(x, y, 0, -ay + radius * (2 * ay - aw), nlx, nly, -nlx, nly, rho)
+		) {
+			return false;
+		}
+		if (
+			corner & EShapeCorner.BOTTOM_RIGHT &&
+			isCutByCorner(x, y, ax * (1 - radius), cby, -nlx, nly, 0, 1, rho)
+		) {
+			return false;
+		}
+		if (
+			corner & EShapeCorner.BOTTOM_LEFT &&
+			isCutByCorner(x, y, -ax * (1 - radius), cby, nlx, nly, 0, 1, rho)
+		) {
+			return false;
+		}
+	}
+	return true;
+};
+
 export const hitTestTriangleRounded = (
 	shape: EShape,
 	x: number,
@@ -240,12 +312,13 @@ export const hitTestTriangleRounded = (
 	ss: number
 ): boolean => {
 	const fill = shape.fill;
-	if (
-		fill.enable &&
-		hitTestTriangleRoundedImpl(shape, x, y, ax, ay, sw, ss, true) &&
-		hitTestFill(x, y, ax, ay, fill)
-	) {
-		return true;
+	if ((fill.enable || 0 < sw) && hitTestTriangleRoundedInset(shape, x, y, ax, ay, 0)) {
+		if (fill.enable && hitTestFill(x, y, ax, ay, fill)) {
+			return true;
+		}
+		if (0 < sw && !hitTestTriangleRoundedInset(shape, x, y, ax, ay, sw * ss)) {
+			return true;
+		}
 	}
-	return hitTestTriangleRoundedImpl(shape, x, y, ax, ay, sw, ss, false);
+	return false;
 };
