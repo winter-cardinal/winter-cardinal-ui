@@ -233,8 +233,8 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		}
 
 		// Right Pentagon
-		const lr = (sx5 - sx7) * nly + (sy1 - sy4) * nlx;
-		const lrc = (sx5 - x4) * nly + (sy1 - y3) * nlx;
+		const lr = Math.abs((sx5 - sx7) * nly + (sy1 - sy4) * nlx);
+		const lrc = Math.abs((sx5 - x4) * nly + (sy1 - y3) * nlx);
 		const nlr = l + lr;
 		const c0 = scale;
 		const c1 = 1 - radius;
@@ -282,8 +282,8 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		}
 
 		// Bottom Pentagon
-		const lb = x6 - x2;
-		const lbc = x6 - x4;
+		const lb = Math.abs(x6 - x2);
+		const lbc = Math.abs(x6 - x4);
 		const nlb = l + lb;
 		this.writePenta(
 			x6,
@@ -449,13 +449,13 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 
 		const m = n - 1;
 		const da = dt / m;
-		const dl = da * r;
+		const dl = Math.abs(da) * r;
 		const dlh = 0.5 * dl;
 		const c0 = scale;
 		const c1 = 1 - r * fd;
 		const indices = this._indices;
 		let l = l0;
-		for (let i = 0, t = t0; i < n; i += 1, t += da, l += dl) {
+		for (let i = 0, t = t0; i < n; i += 1, t += da) {
 			const x = cx + rs * Math.cos(t);
 			const y = cy + rs * Math.sin(t);
 			this.writeVertex(iv, x, y, fd, l, c0, fx, fy);
@@ -466,6 +466,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 				indices[ii + 2] = iv + 2;
 				iv += 2;
 				ii += 3;
+				l += dl;
 			} else {
 				iv += 1;
 			}
