@@ -22,6 +22,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 	protected _nvertices: number;
 	protected _distances: number[];
 	protected _lengths: number[];
+	protected _lengthShifts: number[];
 	protected _clippings: number[];
 	protected _uvs: number[];
 	protected _indices: number[];
@@ -42,6 +43,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		this._nvertices = 0;
 		this._distances = [];
 		this._lengths = [];
+		this._lengthShifts = [];
 		this._clippings = [];
 		this._uvs = [];
 		this._indices = [];
@@ -147,7 +149,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		boundary[3] = +ay;
 
 		// # of vertices and # of indices
-		const nv = 3 * n - 3;
+		const nv = 4 * n - 4;
 		const ni = 2 * n - 4;
 		this._nvertices = nv;
 		this._nindices = ni;
@@ -224,85 +226,60 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const c = Math.cos(dangle);
 		const s = Math.sin(dangle);
 
-		// First Edge
-		const x0 = 0;
-		const y0 = sizeY;
-		let u = -s;
-		let v = c;
-		let su = scale * u;
-		let sv = scale * v;
-		const x1 = u * sizeX;
-		const y1 = v * sizeY;
-		const dx = 0.5 * (x1 + x0) - 0;
-		const dy = 0.5 * (y1 + y0) - 0;
-		const fdistance = 1 / Math.sqrt(dx * dx + dy * dy);
-		const lx = x1 - x0;
-		const ly = y1 - y0;
-		const dl = Math.sqrt(lx * lx + ly * ly);
-		let l1 = dl;
-		let l2 = 0.5 * dl;
-		vertices[0] = 0;
-		vertices[1] = scale * sizeY;
-		vertices[2] = su * sizeX;
-		vertices[3] = sv * sizeY;
-		vertices[4] = 0;
-		vertices[5] = 0;
-		distances[0] = fdistance;
-		distances[1] = fdistance;
-		distances[2] = fdistance;
-		clippings[0] = scale;
-		clippings[1] = scale;
-		clippings[2] = 0;
-		lengths[0] = 0;
-		lengths[1] = l1;
-		lengths[2] = l2;
-		uvs[0] = 0.5;
-		uvs[1] = 0.5 * (scale + 1);
-		uvs[2] = 0.5 * (su + 1);
-		uvs[3] = 0.5 * (sv + 1);
-		uvs[4] = 0.5;
-		uvs[5] = 0.5;
-		indices[0] = 0;
-		indices[1] = 1;
-		indices[2] = 2;
+		// Edge length and apothem of the unscaled polygon
+		const ex = -s * sizeX;
+		const ey = (c - 1) * sizeY;
+		const dl = Math.sqrt(ex * ex + ey * ey);
+		const mx = 0.5 * ex;
+		const my = 0.5 * (c + 1) * sizeY;
+		const fdistance = 1 / Math.sqrt(mx * mx + my * my);
+		// Half edge length at clipping = scale
+		const hl = 0.5 * scale * dl;
 
-		// The Other Edges
-		let iv1 = 3;
-		let iv2 = 6;
-		let ii = 3;
-		for (let i = 2; i <= n; ++i) {
-			const un = c * u - s * v;
-			const vn = s * u + c * v;
-			u = un;
-			v = vn;
-			su = scale * u;
-			sv = scale * v;
-			l1 += dl;
-			l2 += dl;
-			vertices[iv2 + 0] = su * sizeX;
-			vertices[iv2 + 1] = sv * sizeY;
-			vertices[iv2 + 2] = 0;
-			vertices[iv2 + 3] = 0;
-			distances[iv1 + 0] = fdistance;
-			distances[iv1 + 1] = fdistance;
-			clippings[iv1 + 0] = scale;
-			clippings[iv1 + 1] = 0;
-			lengths[iv1 + 0] = l1;
-			lengths[iv1 + 1] = l2;
-			uvs[iv2 + 0] = 0.5 * (su + 1);
-			uvs[iv2 + 1] = 0.5 * (sv + 1);
-			uvs[iv2 + 2] = 0.5;
-			uvs[iv2 + 3] = 0.5;
-			indices[ii + 0] = iv1 - 2;
-			indices[ii + 1] = iv1;
-			indices[ii + 2] = iv1 + 1;
-			iv1 += 2;
-			iv2 += 4;
+		// Each triangle owns its vertices so that the lengths are exact at clipping = 1 on both sides.
+		let u0 = 0;
+		let v0 = scale;
+		let iv = 0;
+		let ii = 0;
+		for (let i = 0; i < n; ++i) {
+			const u1 = c * u0 - s * v0;
+			const v1 = s * u0 + c * v0;
+			const lm = (i + 0.5) * dl;
+			const iv2 = iv << 1;
+
+			vertices[iv2 + 0] = u0 * sizeX;
+			vertices[iv2 + 1] = v0 * sizeY;
+			vertices[iv2 + 2] = u1 * sizeX;
+			vertices[iv2 + 3] = v1 * sizeY;
+			vertices[iv2 + 4] = 0;
+			vertices[iv2 + 5] = 0;
+			distances[iv + 0] = fdistance;
+			distances[iv + 1] = fdistance;
+			distances[iv + 2] = fdistance;
+			clippings[iv + 0] = scale;
+			clippings[iv + 1] = scale;
+			clippings[iv + 2] = 0;
+			lengths[iv + 0] = lm - hl;
+			lengths[iv + 1] = lm + hl;
+			lengths[iv + 2] = lm;
+			uvs[iv2 + 0] = 0.5 * (u0 + 1);
+			uvs[iv2 + 1] = 0.5 * (v0 + 1);
+			uvs[iv2 + 2] = 0.5 * (u1 + 1);
+			uvs[iv2 + 3] = 0.5 * (v1 + 1);
+			uvs[iv2 + 4] = 0.5;
+			uvs[iv2 + 5] = 0.5;
+			indices[ii + 0] = iv + 0;
+			indices[ii + 1] = iv + 1;
+			indices[ii + 2] = iv + 2;
+
+			u0 = u1;
+			v0 = v1;
+			iv += 3;
 			ii += 3;
 		}
 
 		// Degenerate triangles keep the buffer sizes consistent with elongated circles.
-		this.pad(iv1, ii, nv, ni, fdistance);
+		this.pad(iv, ii, nv, ni, fdistance);
 	}
 
 	/**
@@ -326,8 +303,10 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const dangle = (2 * Math.PI) / n;
 		const c = Math.cos(dangle);
 		const s = Math.sin(dangle);
-		const fx = sizeX / sizeY;
-		const fy = sizeY / sizeX;
+		const fx = 1 / sizeX;
+		const fy = 1 / sizeY;
+		const fxy = sizeX * fy;
+		const fyx = sizeY * fx;
 
 		const ileft = n >> 2;
 		const iright = ileft * 3;
@@ -337,22 +316,13 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		let py = sizeY;
 		let nx = -sizeX * s;
 		let ny = sizeY * c;
-		let nnx = nx * c - ny * fx * s;
-		let nny = nx * fy * s + ny * c;
+		let nnx = nx * c - ny * fxy * s;
+		let nny = nx * fyx * s + ny * c;
 		let sx = this.toSkeletonX(ppx, ppy, px, py, nx, ny);
 
-		vertices[0] = 0;
-		vertices[1] = sizeY;
-		clippings[0] = -1;
-		distances[0] = sx;
-		lengths[0] = 0;
-		uvs[0] = 0.5;
-		uvs[1] = 1;
-
-		let iv = 1;
+		let iv = 0;
 		let ii = 0;
-		let length = 0;
-		let current = 0;
+		let l = 0;
 		let maxDistance = 0;
 		for (let i = 0; i < n; ++i) {
 			const inext = (i + 1) % n;
@@ -367,65 +337,42 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			const dy = ny - py;
 			const dl = Math.sqrt(dx * dx + dy * dy);
 			const fl = 1 / dl;
-			const nlength = length + dl;
+			const nl = l + dl;
 
-			const iv1 = iv++;
-			const iv2 = iv1 << 1;
-			const niv1 = iv++;
-			const niv2 = niv1 << 1;
-			const ndistance = Math.abs(-dx * py - dy * (nsx - px)) * fl;
-			maxDistance = Math.max(maxDistance, ndistance);
-			vertices[iv2 + 0] = nx;
-			vertices[iv2 + 1] = ny;
-			clippings[iv1] = -1 - ndistance;
-			distances[iv1] = nsx;
-			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+			const nd = Math.abs(-dx * py - dy * (nsx - px)) * fl;
+			const md = sx === nsx ? nd : Math.abs(-dx * py - dy * (sx - px)) * fl;
+			maxDistance = Math.max(maxDistance, nd, md);
 
-			vertices[niv2 + 0] = nsx;
-			vertices[niv2 + 1] = 0;
-			clippings[niv1] = ndistance;
-			distances[niv1] = 0;
-			lengths[niv1] = length + ((nsx - px) * dx - py * dy) * fl;
-			uvs[niv2] = 0.5 * (nsx / sizeX + 1);
-			uvs[niv2 + 1] = 0.5;
+			// Each edge owns its vertices so that the lengths are exact at clipping = 1 on both sides.
+			const iva = iv++;
+			const ivb = iv++;
+			const ivn = iv++;
+			const ls0 = ((px - sx) * dx + py * dy) * fl;
+			const ls1 = ((nx - nsx) * dx + ny * dy) * fl;
+			const ls2 = ((nsx - px) * dx - py * dy) * fl;
+			this.writeVertex(iva, px, py, fx, fy, sx, l, -1 - md, ls0);
+			this.writeVertex(ivb, nx, ny, fx, fy, nsx, nl, -1 - nd, ls1);
+			this.writeVertex(ivn, nsx, 0, fx, fy, 0, l + ls2, nd, 0);
+			indices[ii++] = iva;
+			indices[ii++] = ivb;
+			indices[ii++] = ivn;
 
-			indices[ii++] = current;
-			indices[ii++] = iv1;
-			indices[ii++] = niv1;
-
-			distances[current] = sx;
-			if (sx === nsx) {
-				clippings[current] = -1 - ndistance;
-			} else {
-				const mdistance = Math.abs(-dx * py - dy * (sx - px)) * fl;
-				maxDistance = Math.max(maxDistance, mdistance);
-				clippings[current] = -1 - mdistance;
-
-				const miv1 = iv++;
-				const miv2 = miv1 << 1;
-				vertices[miv2] = sx;
-				vertices[miv2 + 1] = 0;
-				clippings[miv1] = mdistance;
-				distances[miv1] = 0;
-				lengths[miv1] = length + ((sx - px) * dx - py * dy) * fl;
-				uvs[miv2] = 0.5 * (sx / sizeX + 1);
-				uvs[miv2 + 1] = 0.5;
-
-				indices[ii++] = current;
-				indices[ii++] = niv1;
-				indices[ii++] = miv1;
+			if (sx !== nsx) {
+				const ivm = iv++;
+				const ls3 = ((sx - px) * dx - py * dy) * fl;
+				this.writeVertex(ivm, sx, 0, fx, fy, 0, l + ls3, md, 0);
+				indices[ii++] = iva;
+				indices[ii++] = ivn;
+				indices[ii++] = ivm;
 			}
 
-			current = iv1;
-			length = nlength;
+			l = nl;
 			px = nx;
 			py = ny;
 			nx = nnx;
 			ny = nny;
-			nnx = c * nx - s * ny * fx;
-			nny = s * nx * fy + c * ny;
+			nnx = c * nx - s * ny * fxy;
+			nny = s * nx * fyx + c * ny;
 			sx = nsx;
 		}
 
@@ -434,6 +381,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			fdistance = 1 / maxDistance;
 		}
 		const shift = (scale - 1) * maxDistance;
+		const lengthShifts = this._lengthShifts;
 		for (let i = 0; i < iv; ++i) {
 			const clipping = clippings[i];
 			if (0 <= clipping) {
@@ -445,6 +393,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 					const factor = shift / distance;
 					const x = vertices[i2] + (vertices[i2] - distances[i]) * factor;
 					const y = vertices[i2 + 1] * (1 + factor);
+					lengths[i] += factor * lengthShifts[i];
 					vertices[i2] = x;
 					vertices[i2 + 1] = y;
 					uvs[i2] = 0.5 * (x / sizeX + 1);
@@ -499,8 +448,10 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const dangle = (2 * Math.PI) / n;
 		const c = Math.cos(dangle);
 		const s = Math.sin(dangle);
-		const fx = sizeX / sizeY;
-		const fy = sizeY / sizeX;
+		const fx = 1 / sizeX;
+		const fy = 1 / sizeY;
+		const fxy = sizeX * fy;
+		const fyx = sizeY * fx;
 
 		const itop = 0;
 		const ibottom = n >> 1;
@@ -512,22 +463,13 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		let py = sizeY;
 		let nx = -sizeX * s;
 		let ny = sizeY * c;
-		let nnx = c * nx - s * ny * fx;
-		let nny = s * nx * fy + c * ny;
+		let nnx = c * nx - s * ny * fxy;
+		let nny = s * nx * fyx + c * ny;
 		let sy = this.toSkeletonY(pppx, pppy, ppx, ppy, px, py);
 
-		vertices[0] = 0;
-		vertices[1] = sizeY;
-		clippings[0] = -1;
-		distances[0] = sy;
-		lengths[0] = 0;
-		uvs[0] = 0.5;
-		uvs[1] = 1;
-
-		let iv = 1;
+		let iv = 0;
 		let ii = 0;
-		let length = 0;
-		let current = 0;
+		let l = 0;
 		let maxDistance = 0;
 		for (let i = 0; i < n; ++i) {
 			const inext = (i + 1) % n;
@@ -542,65 +484,43 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			const dy = ny - py;
 			const dl = Math.sqrt(dx * dx + dy * dy);
 			const fl = 1 / dl;
-			const nlength = length + dl;
+			const nl = l + dl;
 
-			const iv1 = iv++;
-			const iv2 = iv1 << 1;
-			const niv1 = iv++;
-			const niv2 = niv1 << 1;
-			const ndistance = Math.abs(dx * (nsy - py) + dy * px) * fl;
-			maxDistance = Math.max(maxDistance, ndistance);
-			vertices[iv2 + 0] = nx;
-			vertices[iv2 + 1] = ny;
-			clippings[iv1] = -1 - ndistance;
-			distances[iv1] = nsy;
-			lengths[iv1] = nlength;
-			uvs[iv2 + 0] = 0.5 * (nx / sizeX + 1);
-			uvs[iv2 + 1] = 0.5 * (ny / sizeY + 1);
+			const nd = Math.abs(dx * (nsy - py) + dy * px) * fl;
+			const md = sy === nsy ? nd : Math.abs(dx * (sy - py) + dy * px) * fl;
+			maxDistance = Math.max(maxDistance, nd, md);
 
-			vertices[niv2] = 0;
-			vertices[niv2 + 1] = nsy;
-			clippings[niv1] = ndistance;
-			distances[niv1] = 0;
-			lengths[niv1] = length + (-px * dx + (nsy - py) * dy) * fl;
-			uvs[niv2] = 0.5;
-			uvs[niv2 + 1] = 0.5 * (nsy / sizeY + 1);
+			// Each edge owns its vertices so that the lengths are exact at clipping = 1 on both sides.
+			const iva = iv++;
+			const ivb = iv++;
+			const ivn = iv++;
 
-			indices[ii++] = current;
-			indices[ii++] = iv1;
-			indices[ii++] = niv1;
+			const ls0 = (px * dx + (py - sy) * dy) * fl;
+			const ls1 = (nx * dx + (ny - nsy) * dy) * fl;
+			const ls2 = (-px * dx + (nsy - py) * dy) * fl;
+			this.writeVertex(iva, px, py, fx, fy, sy, l, -1 - md, ls0);
+			this.writeVertex(ivb, nx, ny, fx, fy, nsy, nl, -1 - nd, ls1);
+			this.writeVertex(ivn, 0, nsy, fx, fy, 0, l + ls2, nd, 0);
+			indices[ii++] = iva;
+			indices[ii++] = ivb;
+			indices[ii++] = ivn;
 
-			distances[current] = sy;
-			if (sy === nsy) {
-				clippings[current] = -1 - ndistance;
-			} else {
-				const mdistance = Math.abs(dx * (sy - py) + dy * px) * fl;
-				maxDistance = Math.max(maxDistance, mdistance);
-				clippings[current] = -1 - mdistance;
-
-				const miv1 = iv++;
-				const miv2 = miv1 << 1;
-				vertices[miv2] = 0;
-				vertices[miv2 + 1] = sy;
-				clippings[miv1] = mdistance;
-				distances[miv1] = 0;
-				lengths[miv1] = length + (-px * dx + (sy - py) * dy) * fl;
-				uvs[miv2] = 0.5;
-				uvs[miv2 + 1] = 0.5 * (sy / sizeY + 1);
-
-				indices[ii++] = current;
-				indices[ii++] = niv1;
-				indices[ii++] = miv1;
+			if (sy !== nsy) {
+				const ivm = iv++;
+				const ls3 = (-px * dx + (sy - py) * dy) * fl;
+				this.writeVertex(ivm, 0, sy, fx, fy, 0, l + ls3, md, 0);
+				indices[ii++] = iva;
+				indices[ii++] = ivn;
+				indices[ii++] = ivm;
 			}
 
-			current = iv1;
-			length = nlength;
+			l = nl;
 			px = nx;
 			py = ny;
 			nx = nnx;
 			ny = nny;
-			nnx = c * nx - s * ny * fx;
-			nny = s * nx * fy + c * ny;
+			nnx = c * nx - s * ny * fxy;
+			nny = s * nx * fyx + c * ny;
 			sy = nsy;
 		}
 
@@ -609,6 +529,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 			fdistance = 1 / maxDistance;
 		}
 		const shift = (scale - 1) * maxDistance;
+		const lengthShifts = this._lengthShifts;
 		for (let i = 0; i < iv; ++i) {
 			const clipping = clippings[i];
 			if (0 <= clipping) {
@@ -620,6 +541,7 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 					const factor = shift / distance;
 					const x = vertices[i2] * (1 + factor);
 					const y = vertices[i2 + 1] + (vertices[i2 + 1] - distances[i]) * factor;
+					lengths[i] += factor * lengthShifts[i];
 					vertices[i2] = x;
 					vertices[i2 + 1] = y;
 					uvs[i2] = 0.5 * (x / sizeX + 1);
@@ -651,5 +573,27 @@ export class EShapeCircleTriangulatedImpl implements EShapeCircleTriangulated {
 		const bx = pdx * fp + ndx * fn;
 		const by = pdy * fp + ndy * fn;
 		return py - (px * by) / bx;
+	}
+
+	protected writeVertex(
+		iv: number,
+		x: number,
+		y: number,
+		fx: number,
+		fy: number,
+		distance: number,
+		length: number,
+		clipping: number,
+		lengthShift: number
+	): void {
+		const iv2 = iv << 1;
+		this._vertices[iv2] = x;
+		this._vertices[iv2 + 1] = y;
+		this._distances[iv] = distance;
+		this._lengths[iv] = length;
+		this._clippings[iv] = clipping;
+		this._lengthShifts[iv] = lengthShift;
+		this._uvs[iv2] = 0.5 * (x * fx + 1);
+		this._uvs[iv2 + 1] = 0.5 * (y * fy + 1);
 	}
 }
