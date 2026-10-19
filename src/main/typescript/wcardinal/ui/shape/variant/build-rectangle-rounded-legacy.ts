@@ -1,4 +1,9 @@
-import { Matrix, Point, TextureUvs } from "pixi.js";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
@@ -10,7 +15,6 @@ export const RECTANGLE_ROUNDED_LEGACY_INDEX_COUNT = 24;
 export const RECTANGLE_ROUNDED_LEGACY_WORLD_SIZE: [number, number, number, number, number] = [
 	0, 0, 0, 0, 0
 ];
-const RECTANGLE_ROUNDED_LEGACY_WORK_POINT: Point = new Point();
 
 export const buildRectangleRoundedLegacyIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -153,22 +157,21 @@ export const buildRectangleRoundedLegacyVertex = (
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
 	const ax = Math.abs(sx);
 	const ay = Math.abs(sy);
-	const a = radius * Math.min(ax, ay);
-	const rx = a / ax;
-	const ry = a / ay;
-	const work = RECTANGLE_ROUNDED_LEGACY_WORK_POINT;
-	work.set(originX - sx, originY - sy);
-	internalTransform.apply(work, work);
-	const b0x = work.x;
-	const b0y = work.y;
-	work.set(originX, originY - sy);
-	internalTransform.apply(work, work);
-	const b1x = work.x;
-	const b1y = work.y;
-	work.set(originX - sx, originY);
-	internalTransform.apply(work, work);
-	const b3x = work.x;
-	const b3y = work.y;
+	const az = radius * Math.min(ax, ay);
+	const rx = az / ax;
+	const ry = az / ay;
+	const a = internalTransform.a;
+	const b = internalTransform.b;
+	const c = internalTransform.c;
+	const d = internalTransform.d;
+	const tx = internalTransform.tx;
+	const ty = internalTransform.ty;
+	const b0x = a * (originX - sx) + c * (originY - sy) + tx;
+	const b0y = b * (originX - sx) + d * (originY - sy) + ty;
+	const b1x = a * originX + c * (originY - sy) + tx;
+	const b1y = b * originX + d * (originY - sy) + ty;
+	const b3x = a * (originX - sx) + c * originY + tx;
+	const b3y = b * (originX - sx) + d * originY + ty;
 
 	const d01x = b1x - b0x;
 	const d01y = b1y - b0y;
@@ -406,7 +409,7 @@ export const buildRectangleRoundedLegacyVertex = (
 	// World size
 	worldSize[0] = ax;
 	worldSize[1] = ay;
-	worldSize[2] = a;
+	worldSize[2] = az;
 	worldSize[3] = rx;
 	worldSize[4] = ry;
 };

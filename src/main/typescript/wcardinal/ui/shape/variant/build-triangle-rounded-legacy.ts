@@ -1,4 +1,9 @@
-import { Matrix, Point, TextureUvs } from "pixi.js";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Matrix, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
@@ -10,7 +15,6 @@ export const TRIANGLE_ROUNDED_LEGACY_INDEX_COUNT = 15;
 export const TRIANGLE_ROUNDED_LEGACY_WORLD_SIZE: [number, number, number, number, number] = [
 	0, 0, 0, 0, 0
 ];
-const TRIANGLE_ROUNDED_LEGACY_WORK_POINT: Point = new Point();
 
 export const buildTriangleRoundedLegacyIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -108,23 +112,24 @@ export const buildTriangleRoundedLegacyVertex = (
 	const rz = (0.5 * (sz - sw) * radius) / sz;
 	const rx = (ry * sz) / (2 * sx);
 
-	const work = TRIANGLE_ROUNDED_LEGACY_WORK_POINT;
-	work.set(originX, originY - sy);
-	internalTransform.apply(work, work);
-	const x1 = work.x;
-	const y1 = work.y;
-	work.set(originX, originY);
-	internalTransform.apply(work, work);
-	const tx = work.x;
-	const ty = work.y;
-	work.set(originX + sx, originY);
-	internalTransform.apply(work, work);
-	const dx = tx - x1;
-	const dy = ty - y1;
-	const x4 = work.x + dx;
-	const y4 = work.y + dy;
-	const x7 = tx + (tx - work.x) + dx;
-	const y7 = ty + (ty - work.y) + dy;
+	const a = internalTransform.a;
+	const b = internalTransform.b;
+	const c = internalTransform.c;
+	const d = internalTransform.d;
+	const tx = internalTransform.tx;
+	const ty = internalTransform.ty;
+	const x1 = a * originX + c * (originY - sy) + tx;
+	const y1 = b * originX + d * (originY - sy) + ty;
+	const ox = a * originX + c * originY + tx;
+	const oy = b * originX + d * originY + ty;
+	const dx = ox - x1;
+	const dy = oy - y1;
+	const wx = a * (originX + sx) + c * originY + tx;
+	const wy = b * (originX + sx) + d * originY + ty;
+	const x4 = wx + dx;
+	const y4 = wy + dy;
+	const x7 = ox + (ox - wx) + dx;
+	const y7 = oy + (oy - wy) + dy;
 	const dx14 = x4 - x1;
 	const dy14 = y4 - y1;
 	const x2 = x1 + rz * dx14;
@@ -143,10 +148,8 @@ export const buildTriangleRoundedLegacyVertex = (
 	const y8 = y7 + ry * dy71;
 	const x9 = x1 - rz * dx71;
 	const y9 = y1 - rz * dy71;
-	work.set(originX, originY + sy - sw); // Incenter of a triangle
-	internalTransform.apply(work, work);
-	const x0 = work.x;
-	const y0 = work.y;
+	const x0 = a * originX + c * (originY + sy - sw) + tx;
+	const y0 = b * originX + d * (originY + sy - sw) + ty;
 
 	const x10 = x1 + radius * (x0 - x1);
 	const y10 = y1 + radius * (y0 - y1);
@@ -156,8 +159,8 @@ export const buildTriangleRoundedLegacyVertex = (
 	const y12 = y7 + radius * (y0 - y7);
 
 	// World size
-	const xb = tx + dx;
-	const yb = ty + dy;
+	const xb = ox + dx;
+	const yb = oy + dy;
 	worldSize[0] = toLength(xb, yb, x0, y0);
 	worldSize[1] = rx;
 	worldSize[2] = ry;
