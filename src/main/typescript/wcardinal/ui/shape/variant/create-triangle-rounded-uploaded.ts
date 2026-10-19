@@ -3,17 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShape } from "../e-shape";
-import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapeUploaded } from "../e-shape-uploaded";
-import { createPolygonUploaded } from "./create-polygon-uploaded";
-
-export const createTriangleRoundedUploaded = (
-	buffer: EShapeBuffer,
-	shape: EShape,
-	voffset: number,
-	ioffset: number,
-	antialiasWeight: number
-): EShapeUploaded | null => {
-	return createPolygonUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
-};
+export { createTriangleRoundedLegacyUploaded as createTriangleRoundedUploaded } from "./create-triangle-rounded-legacy-uploaded";
