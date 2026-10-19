@@ -246,12 +246,35 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const cr = 0 < r && !!(corner & EShapeCorner.BOTTOM_RIGHT);
 		const cl = 0 < r && !!(corner & EShapeCorner.BOTTOM_LEFT);
 
+		const aapex = ct || cr || cl ? Math.atan2(ax, az) : 0;
+		const gz = gx * gy;
+		const atop = gz * (Math.PI - 2 * aapex);
+		const abottom = gz * (Math.PI * 0.5 + aapex);
+
 		// Top Fan
 		let iv = 0;
 		let ii = 0;
 		let l = 0;
 		if (ct) {
-			l = this.writeFan(x4, y2, sx3, sy1, sx5, sy1, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+			l = this.writeFan(
+				x4,
+				y2,
+				sx3,
+				sy1,
+				atop,
+				nlx,
+				nly,
+				l,
+				r,
+				rs,
+				fd,
+				scale,
+				fx,
+				fy,
+				n,
+				iv,
+				ii
+			);
 			iv += 3 * (n - 1);
 			ii += 3 * (n - 1);
 		}
@@ -324,7 +347,25 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 
 		// Right Fan
 		if (cr) {
-			l = this.writeFan(x6, y5, sx7, sy4, x6, sy6, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+			l = this.writeFan(
+				x6,
+				y5,
+				sx7,
+				sy4,
+				abottom,
+				nrx,
+				nry,
+				l,
+				r,
+				rs,
+				fd,
+				scale,
+				fx,
+				fy,
+				n,
+				iv,
+				ii
+			);
 			iv += 3 * (n - 1);
 			ii += 3 * (n - 1);
 		}
@@ -395,7 +436,25 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 
 		// Left Fan
 		if (cl) {
-			l = this.writeFan(x2, y5, x2, y6, x1, y4, l, r, rs, fd, scale, fx, fy, n, iv, ii);
+			l = this.writeFan(
+				x2,
+				y5,
+				x2,
+				sy6,
+				abottom,
+				nbx,
+				nby,
+				l,
+				r,
+				rs,
+				fd,
+				scale,
+				fx,
+				fy,
+				n,
+				iv,
+				ii
+			);
 			iv += 3 * (n - 1);
 			ii += 3 * (n - 1);
 		}
@@ -519,8 +578,9 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		cy: number,
 		x0: number,
 		y0: number,
-		x1: number,
-		y1: number,
+		dt: number,
+		nx: number,
+		ny: number,
 		l0: number,
 		r: number,
 		rs: number,
@@ -532,19 +592,6 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		iv: number,
 		ii: number
 	): number {
-		const dx0 = x0 - cx;
-		const dy0 = y0 - cy;
-		const dx1 = x1 - cx;
-		const dy1 = y1 - cy;
-		const t0 = Math.atan2(dy0, dx0);
-		const t1 = Math.atan2(dy1, dx1);
-		let dt = t1 - t0;
-		if (Math.PI < dt) {
-			dt -= 2 * Math.PI;
-		} else if (dt < -Math.PI) {
-			dt += 2 * Math.PI;
-		}
-
 		const m = n - 1;
 		const da = dt / m;
 		const dl = Math.abs(da) * r;
@@ -554,11 +601,14 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const c1 = 1 - r * fd;
 		const indices = this._indices;
 		let l = l0;
-		let xa = cx + rs * Math.cos(t0);
-		let ya = cy + rs * Math.sin(t0);
-		for (let i = 0, t = t0 + da; i < m; i += 1, t += da) {
-			const xb = cx + rs * Math.cos(t);
-			const yb = cy + rs * Math.sin(t);
+		let xa = x0;
+		let ya = y0;
+		for (let i = 0; i < m; i += 1) {
+			const angle = (i + 1) * da;
+			const ca = Math.cos(angle);
+			const sa = Math.sin(angle);
+			const xb = cx + rs * (nx * ca - ny * sa);
+			const yb = cy + rs * (nx * sa + ny * ca);
 			const nl = l + dl;
 			this.writeVertex(iv + 0, xa, ya, fd, l - dlm, c0, fx, fy);
 			this.writeVertex(iv + 1, xb, yb, fd, nl + dlm, c0, fx, fy);
