@@ -3260,7 +3260,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		ii += 9;
 
 		const rs = r + fs;
-		let l = 2 * ax + lot;
+		let l = 2 * ax + lot - r;
 		if (ctr) {
 			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
 			iv += 3 * (n - 1);
@@ -3442,7 +3442,7 @@ export class EShapeRectangleRoundedTriangulatedImpl implements EShapeRectangleRo
 		iv += 6;
 		ii += 12;
 
-		let l = 2 * ax + lot;
+		let l = 2 * ax + lot - r;
 		if (ctr) {
 			this.writeFan(x4, y1, 0, -1, l, iv, ii, n, r, rs, fd, s, fx, fy);
 			iv += 3 * (n - 1);
