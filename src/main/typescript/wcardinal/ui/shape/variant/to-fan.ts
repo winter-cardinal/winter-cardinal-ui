@@ -9,26 +9,35 @@ import { EShapeStrokeSide } from "../e-shape-stroke-side";
  * How the stroke of a fan is drawn.
  * `NOT_TOP` draws the stroke only at the straight sides.
  */
-export const EShapeFanStrokeMode = {
+export const EShapeFanStrokeSide = {
 	NONE: 0,
 	ALL: 1,
-	NOT_BOTTOM: 2,
-	NOT_TOP: 3
+	TOP: 2,
+	BOTTOM: 3
 } as const;
 
-export type EShapeFanStrokeMode = (typeof EShapeFanStrokeMode)[keyof typeof EShapeFanStrokeMode];
+export type EShapeFanStrokeSide = (typeof EShapeFanStrokeSide)[keyof typeof EShapeFanStrokeSide];
 
 /**
  * Converts a stroke side to a fan stroke mode.
  * The top bit stands for the arc and the bottom bit stands for the two straight sides.
  */
-export const toFanStrokeMode = (side: EShapeStrokeSide): EShapeFanStrokeMode => {
+export const toFanStrokeSide = (side: EShapeStrokeSide): EShapeFanStrokeSide => {
 	const top = (side & EShapeStrokeSide.TOP) !== 0;
 	const bottom = (side & EShapeStrokeSide.BOTTOM) !== 0;
 	if (top) {
-		return bottom ? EShapeFanStrokeMode.ALL : EShapeFanStrokeMode.NOT_BOTTOM;
+		if (bottom) {
+			return EShapeFanStrokeSide.ALL;
+		} else {
+			return EShapeFanStrokeSide.TOP;
+		}
+	} else {
+		if (bottom) {
+			return EShapeFanStrokeSide.BOTTOM;
+		} else {
+			return EShapeFanStrokeSide.NONE;
+		}
 	}
-	return bottom ? EShapeFanStrokeMode.NOT_TOP : EShapeFanStrokeMode.NONE;
 };
 
 /**

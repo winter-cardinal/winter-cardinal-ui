@@ -5,7 +5,7 @@
 
 import { EShapeFillDirection } from "../e-shape-fill-direction";
 import type { EShapeFan } from "./e-shape-fan";
-import { EShapeFanStrokeMode, toFanChi, toFanStrokeMode, toFanTheta } from "./to-fan";
+import { EShapeFanStrokeSide, toFanChi, toFanStrokeSide, toFanTheta } from "./to-fan";
 
 /**
  * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.
@@ -85,16 +85,16 @@ export const hitTestFan = (
 	const st = Math.sin(theta);
 	const ct = Math.cos(theta);
 	const fill = shape.fill;
-	const mode = toFanStrokeMode(shape.stroke.side);
-	const strokeWidth = mode !== EShapeFanStrokeMode.NONE ? sw : 0;
+	const mode = toFanStrokeSide(shape.stroke.side);
+	const strokeWidth = mode !== EShapeFanStrokeSide.NONE ? sw : 0;
 	if ((fill.enable || 0 < strokeWidth) && isInFan(x, y, ax, ay, st, ct, 0, 0)) {
 		if (fill.enable && hitTestFanFill(shape, x, y, bx, ay)) {
 			return true;
 		}
 		if (0 < strokeWidth) {
 			const s = strokeWidth * ss;
-			const arc = mode !== EShapeFanStrokeMode.NOT_TOP ? s : 0;
-			const sides = mode !== EShapeFanStrokeMode.NOT_BOTTOM ? s : 0;
+			const arc = mode !== EShapeFanStrokeSide.BOTTOM ? s : 0;
+			const sides = mode !== EShapeFanStrokeSide.TOP ? s : 0;
 			if (!isInFan(x, y, ax, ay, st, ct, arc, sides)) {
 				return true;
 			}

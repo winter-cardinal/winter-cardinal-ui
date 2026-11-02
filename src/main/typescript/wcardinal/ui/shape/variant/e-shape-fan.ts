@@ -8,7 +8,7 @@ import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { EShapeFanTriangulatedImpl } from "./e-shape-fan-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestFan } from "./hit-test-fan";
-import { EShapeFanStrokeMode, toFanStrokeMode } from "./to-fan";
+import { EShapeFanStrokeSide, toFanStrokeSide } from "./to-fan";
 
 /**
  * A fan shape.
@@ -53,7 +53,7 @@ export class EShapeFan extends EShapePrimitive {
 		strokeScale: number,
 		strokeAlign: number
 	): number {
-		if (toFanStrokeMode(this.stroke.side) === EShapeFanStrokeMode.NONE) {
+		if (toFanStrokeSide(this.stroke.side) === EShapeFanStrokeSide.NONE) {
 			return 0;
 		}
 		return super.toHitTestStrokeShift(strokeWidth, strokeScale, strokeAlign);

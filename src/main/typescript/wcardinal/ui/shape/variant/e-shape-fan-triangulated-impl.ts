@@ -7,7 +7,7 @@ import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeDefaults } from "../e-shape-defaults";
 import type { EShapeFan } from "./e-shape-fan";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
-import { EShapeFanStrokeMode, toFanChi, toFanStrokeMode, toFanTheta } from "./to-fan";
+import { EShapeFanStrokeSide, toFanChi, toFanStrokeSide, toFanTheta } from "./to-fan";
 
 /**
  * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
@@ -49,7 +49,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected _height: number;
 	protected _strokeAlign: number;
 	protected _strokeWidth: number;
-	protected _strokeMode: EShapeFanStrokeMode;
+	protected _strokeSide: EShapeFanStrokeSide;
 	protected _angle: number;
 	protected _sizeX: number;
 	protected _sizeY: number;
@@ -70,7 +70,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		this._height = 0;
 		this._strokeAlign = 0;
 		this._strokeWidth = 0;
-		this._strokeMode = EShapeFanStrokeMode.ALL;
+		this._strokeSide = EShapeFanStrokeSide.ALL;
 		this._angle = 0;
 		this._sizeX = 0;
 		this._sizeY = 0;
@@ -146,12 +146,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
-		const strokeMode = toFanStrokeMode(stroke.side);
+		const strokeSide = toFanStrokeSide(stroke.side);
 		const strokeWidth =
-			stroke.enable && strokeMode !== EShapeFanStrokeMode.NONE ? stroke.width : 0;
+			stroke.enable && strokeSide !== EShapeFanStrokeSide.NONE ? stroke.width : 0;
 		const isStrokeChanged =
 			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
-		const isStrokeModeChanged = this._strokeMode !== strokeMode;
+		const isStrokeModeChanged = this._strokeSide !== strokeSide;
 
 		const angle = parent.angle;
 		const isAngleChanged = this._angle !== angle;
@@ -174,13 +174,13 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		if (isNotInitialized || isSizeChanged || isStrokeModeChanged || isAngleChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this._strokeMode = strokeMode;
+			this._strokeSide = strokeSide;
 			this._angle = angle;
-			this.update(sizeX, sizeY, angle, strokeMode);
+			this.update(sizeX, sizeY, angle, strokeSide);
 		}
 	}
 
-	protected update(sx: number, sy: number, angle: number, strokeMode: EShapeFanStrokeMode): void {
+	protected update(sx: number, sy: number, angle: number, strokeMode: EShapeFanStrokeSide): void {
 		const w = Math.abs(sx);
 		const h = Math.abs(sy);
 
@@ -218,8 +218,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const gx = Math.sign(sx);
 		const gy = Math.sign(sy);
 
-		if (strokeMode === EShapeFanStrokeMode.NOT_TOP) {
-			this.updateNotTop(w, h, n, chi, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
+		if (strokeMode === EShapeFanStrokeSide.BOTTOM) {
+			this.updateBottom(w, h, n, chi, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
 		} else {
 			this.updateOthers(w, h, n, chi, bx, oa, st, ct, fx, fy, gx, gy, strokeMode, nv, ni);
 		}
@@ -238,13 +238,13 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		fy: number,
 		gx: number,
 		gy: number,
-		strokeMode: EShapeFanStrokeMode,
+		strokeSide: EShapeFanStrokeSide,
 		nv: number,
 		ni: number
 	): void {
 		const boundary = this._boundary;
 		const scale = 1.1;
-		const hasBottom = strokeMode !== EShapeFanStrokeMode.NOT_BOTTOM;
+		const hasBottom = strokeSide !== EShapeFanStrokeSide.TOP;
 		const m = 2 * n + 1;
 
 		// Points on the arc, their unit inward normals, and points Q on the normals
@@ -252,8 +252,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const phi = chi / n;
 		const cphi = Math.cos(phi);
 		const sphi = Math.sin(phi);
-		const sinChi = bx / w;
-		const cosChi = Math.cos(chi);
+		const schi = bx / w;
+		const cchi = Math.cos(chi);
 		const px = EShapeFanTriangulatedImpl.WORK_PX;
 		const py = EShapeFanTriangulatedImpl.WORK_PY;
 		const nx = EShapeFanTriangulatedImpl.WORK_NX;
@@ -264,16 +264,16 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const ls = EShapeFanTriangulatedImpl.WORK_LS;
 		let dmax = 0;
 		let l = 0;
-		let s = -sinChi;
-		let c = cosChi;
+		let s = -schi;
+		let c = cchi;
 		for (let k = 0; k < m; ++k) {
 			// Use the exact values at the center and the ends to prevent the accumulation of the errors.
 			if (k === n) {
 				s = 0;
 				c = 1;
 			} else if (k === m - 1) {
-				s = sinChi;
-				c = cosChi;
+				s = schi;
+				c = cchi;
 			}
 			const x = w * s;
 			const y = -h * c;
@@ -369,8 +369,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				const miter = fs / Math.max(1 + n1x * n2x + n1y * n2y, 0.05);
 				x = px[k] + miter * (n1x + n2x);
 				y = py[k] + miter * (n1y + n2y);
-				const tx = w * cosChi;
-				const ty = side * h * sinChi;
+				const tx = w * cchi;
+				const ty = side * h * schi;
 				const tn = Math.sqrt(tx * tx + ty * ty);
 				lr += ((x - px[k]) * tx + (y - py[k]) * ty) / tn;
 			}
@@ -538,7 +538,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	 * and triangle fans from C cover the area between the arc and the segments CA and CB.
 	 * The clipping is 1 - (the distance from the straight side) / d where d is the distance from C to OA (or OB).
 	 */
-	protected updateNotTop(
+	protected updateBottom(
 		w: number,
 		h: number,
 		n: number,
@@ -573,16 +573,16 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const phi = chi / n;
 		const cphi = Math.cos(phi);
 		const sphi = Math.sin(phi);
-		const sinChi = bx / w;
-		const cosChi = by / h;
+		const schi = bx / w;
+		const cchi = by / h;
 		let iv = 0;
 		let ii = 0;
 
 		// Left: C, P[0], ..., P[n]
 		let count = 0;
 		this.writeSideVertex(iv + count++, 0, -yc, 0, -ct, st, 0, -st, -ct, fd, fx, fy, gx, gy);
-		let s = -sinChi;
-		let c = cosChi;
+		let s = -schi;
+		let c = cchi;
 		for (let k = 0; k <= n; ++k) {
 			if (k === n) {
 				s = 0;
@@ -605,8 +605,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		c = 1;
 		for (let k = n; k < m; ++k) {
 			if (k === m - 1) {
-				s = sinChi;
-				c = cosChi;
+				s = schi;
+				c = cchi;
 			}
 			const x = w * s;
 			const y = -h * c;
