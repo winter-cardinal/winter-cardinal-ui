@@ -248,7 +248,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const m = 2 * n + 1;
 
 		// Points on the arc, their unit inward normals, and points Q on the normals
+		// The sine and cosine of the angle are updated by the rotation to avoid calling Math.sin and Math.cos in the loop.
 		const phi = chi / n;
+		const cphi = Math.cos(phi);
+		const sphi = Math.sin(phi);
+		const sinChi = bx / w;
+		const cosChi = Math.cos(chi);
 		const px = EShapeFanTriangulatedImpl.WORK_PX;
 		const py = EShapeFanTriangulatedImpl.WORK_PY;
 		const nx = EShapeFanTriangulatedImpl.WORK_NX;
@@ -259,10 +264,17 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const ls = EShapeFanTriangulatedImpl.WORK_LS;
 		let dmax = 0;
 		let l = 0;
+		let s = -sinChi;
+		let c = cosChi;
 		for (let k = 0; k < m; ++k) {
-			const a = k === 0 ? -chi : k === m - 1 ? chi : (k - n) * phi;
-			const s = Math.sin(a);
-			const c = Math.cos(a);
+			// Use the exact values at the center and the ends to prevent the accumulation of the errors.
+			if (k === n) {
+				s = 0;
+				c = 1;
+			} else if (k === m - 1) {
+				s = sinChi;
+				c = cosChi;
+			}
 			const x = w * s;
 			const y = -h * c;
 			const dx = -h * s;
@@ -316,6 +328,11 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				l += Math.sqrt(lx * lx + ly * ly);
 			}
 			ls[k] = l;
+
+			// Rotate by phi
+			const ns = s * cphi + c * sphi;
+			c = c * cphi - s * sphi;
+			s = ns;
 		}
 		if (!(0 < dmax)) {
 			boundary[0] = -w;
@@ -352,8 +369,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				const miter = fs / Math.max(1 + n1x * n2x + n1y * n2y, 0.05);
 				x = px[k] + miter * (n1x + n2x);
 				y = py[k] + miter * (n1y + n2y);
-				const tx = w * Math.cos(chi);
-				const ty = side * h * Math.sin(chi);
+				const tx = w * cosChi;
+				const ty = side * h * sinChi;
 				const tn = Math.sqrt(tx * tx + ty * ty);
 				lr += ((x - px[k]) * tx + (y - py[k]) * ty) / tn;
 			}
@@ -552,18 +569,31 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// and the length is the distance along the straight side measured from O.
 		// The left side is OA: n = (-ct, st), l = (-st, -ct)
 		// The right side is OB: n = (ct, st), l = (st, -ct)
+		// The sine and cosine of the angle are updated by the rotation to avoid calling Math.sin and Math.cos in the loops.
 		const phi = chi / n;
+		const cphi = Math.cos(phi);
+		const sphi = Math.sin(phi);
+		const sinChi = bx / w;
+		const cosChi = by / h;
 		let iv = 0;
 		let ii = 0;
 
 		// Left: C, P[0], ..., P[n]
 		let count = 0;
 		this.writeSideVertex(iv + count++, 0, -yc, 0, -ct, st, 0, -st, -ct, fd, fx, fy, gx, gy);
+		let s = -sinChi;
+		let c = cosChi;
 		for (let k = 0; k <= n; ++k) {
-			const a = k === 0 ? -chi : (k - n) * phi;
-			const x = w * Math.sin(a);
-			const y = -h * Math.cos(a);
+			if (k === n) {
+				s = 0;
+				c = 1;
+			}
+			const x = w * s;
+			const y = -h * c;
 			this.writeSideVertex(iv + count++, x, y, 0, -ct, st, 0, -st, -ct, fd, fx, fy, gx, gy);
+			const ns = s * cphi + c * sphi;
+			c = c * cphi - s * sphi;
+			s = ns;
 		}
 		ii = this.writeFan(ii, iv, count);
 		iv += count;
@@ -571,11 +601,19 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// Right: C, P[n], ..., P[2n]
 		count = 0;
 		this.writeSideVertex(iv + count++, 0, -yc, 0, ct, st, 0, st, -ct, fd, fx, fy, gx, gy);
+		s = 0;
+		c = 1;
 		for (let k = n; k < m; ++k) {
-			const a = k === m - 1 ? chi : (k - n) * phi;
-			const x = w * Math.sin(a);
-			const y = -h * Math.cos(a);
+			if (k === m - 1) {
+				s = sinChi;
+				c = cosChi;
+			}
+			const x = w * s;
+			const y = -h * c;
 			this.writeSideVertex(iv + count++, x, y, 0, ct, st, 0, st, -ct, fd, fx, fy, gx, gy);
+			const ns = s * cphi + c * sphi;
+			c = c * cphi - s * sphi;
+			s = ns;
 		}
 		ii = this.writeFan(ii, iv, count);
 		iv += count;
