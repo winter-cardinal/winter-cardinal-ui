@@ -262,18 +262,20 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const qy = EShapeFanTriangulatedImpl.WORK_QY;
 		const qd = EShapeFanTriangulatedImpl.WORK_QD;
 		const ls = EShapeFanTriangulatedImpl.WORK_LS;
+		// The points are symmetric with respect to the axis x = 0, so only the left half is computed
+		// and the right half is mirrored from it.
+		// |Np| is also the speed of the arc, which is used to approximate the arc length without extra square roots.
 		let dmax = 0;
 		let l = 0;
+		let dn0 = 0;
+		let dnp = 0;
 		let s = -schi;
 		let c = cchi;
-		for (let k = 0; k < m; ++k) {
-			// Use the exact values at the center and the ends to prevent the accumulation of the errors.
+		for (let k = 0; k <= n; ++k) {
+			// Use the exact values at the center to prevent the accumulation of the errors.
 			if (k === n) {
 				s = 0;
 				c = 1;
-			} else if (k === m - 1) {
-				s = schi;
-				c = cchi;
 			}
 			const x = w * s;
 			const y = -h * c;
@@ -307,32 +309,46 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				}
 				delta = Math.max(0, Math.min(delta, (dn * dn * dn) / (w * h)));
 			}
+
+			// The distance between P and Q
+			let d: number;
 			if (Number.isFinite(delta)) {
 				qx[k] = x + delta * nnx;
 				qy[k] = y + delta * nny;
+				d = delta;
 			} else {
 				// The normal is extended until it reaches x = 0 if w <= h, otherwise y = 0.
 				const u = w <= h ? w / h : h / w;
 				qx[k] = x + u * dx;
 				qy[k] = y + u * dy;
+				d = u * dn;
 			}
-			const ddx = qx[k] - x;
-			const ddy = qy[k] - y;
-			const d = Math.sqrt(ddx * ddx + ddy * ddy);
 			qd[k] = d;
 			dmax = Math.max(dmax, d);
 
-			if (0 < k) {
-				const lx = x - px[k - 1];
-				const ly = y - py[k - 1];
-				l += Math.sqrt(lx * lx + ly * ly);
+			if (k === 0) {
+				dn0 = dn;
+			} else {
+				l += 0.5 * phi * (dnp + dn);
 			}
+			dnp = dn;
 			ls[k] = l;
 
 			// Rotate by phi
 			const ns = s * cphi + c * sphi;
 			c = c * cphi - s * sphi;
 			s = ns;
+		}
+		for (let k = 0; k < n; ++k) {
+			const j = m - 1 - k;
+			px[j] = -px[k];
+			py[j] = py[k];
+			nx[j] = -nx[k];
+			ny[j] = ny[k];
+			qx[j] = -qx[k];
+			qy[j] = qy[k];
+			qd[j] = qd[k];
+			ls[j] = 2 * ls[n] - ls[k];
 		}
 		if (!(0 < dmax)) {
 			boundary[0] = -w;
@@ -371,7 +387,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				y = py[k] + miter * (n1y + n2y);
 				const tx = w * cchi;
 				const ty = side * h * schi;
-				const tn = Math.sqrt(tx * tx + ty * ty);
+				const tn = dn0;
 				lr += ((x - px[k]) * tx + (y - py[k]) * ty) / tn;
 			}
 			rx[k] = x;
