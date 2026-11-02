@@ -21,8 +21,9 @@ import { EShapeFanStrokeSide, toFanChi, toFanStrokeSide, toFanTheta } from "./to
  *
  * The fan is triangulated into 2N quads P[i], P[i + 1], Q[i + 1], Q[i] and
  * two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom where the stroke at the sides is drawn.
- * If the bottom stroke is not necessary, the bottom quads are removed and
- * Q[i] are the points on the axis, which gives the same result as an ellipse.
+ * If the stroke is only at the arc, Q[i] are the points on the axis, which gives the exact fan for a circle and a semi-ellipse.
+ * For the other ellipses, Q[i] are on the medial axis as above, and two polygons O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N]
+ * are added at the bottom to cover the sector without the stroke at the straight sides.
  * If only the bottom stroke is necessary, the fan is triangulated in the same way as a polygon,
  * that is, two triangle fans from C and the two bottom quads.
  *
@@ -245,6 +246,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const boundary = this._boundary;
 		const scale = 1.1;
 		const hasBottom = strokeSide !== EShapeFanStrokeSide.TOP;
+
+		// If the stroke is only at the arc, Q can be on the axis for a circle or a semi-ellipse, which give the exact fan.
+		// Otherwise, Q must be on the medial axis, and the polygons are added at the bottom to cover the sector.
+		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= chi;
+		const hasCap = !hasBottom && !isExact;
+		const hasChain = hasBottom || hasCap;
 		const m = 2 * n + 1;
 
 		// Points on the arc, their unit inward normals, and points Q on the normals
@@ -295,7 +302,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			// The clamps keep Q on the same side of the axis x = 0 as P and before the center of curvature,
 			// otherwise adjacent normals cross each other, which happens for tall ellipses.
 			let delta = Infinity;
-			if (hasBottom) {
+			if (hasChain) {
 				const da = 1 + -ct * nnx + st * nny;
 				if (1e-9 < da) {
 					delta = Math.min(delta, (ct * x - st * y) / da);
@@ -349,6 +356,11 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			qy[j] = qy[k];
 			qd[j] = qd[k];
 			ls[j] = 2 * ls[n] - ls[k];
+		}
+		if (hasCap) {
+			// The distance field of the arc must cover O, which is the farthest point from the arc,
+			// because the clipping in the polygons at the bottom is interpolated from the arc to O.
+			dmax = Math.max(dmax, w >= h ? h : oa);
 		}
 		if (!(0 < dmax)) {
 			boundary[0] = -w;
@@ -531,6 +543,55 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 					rl0,
 					-st,
 					ct,
+					fd,
+					fx,
+					fy,
+					gx,
+					gy
+				);
+				if (Math.abs(qx[k]) <= eps) {
+					break;
+				}
+			}
+			ii = this.writeFan(ii, iv, count);
+			iv += count;
+		} else if (hasCap) {
+			// The sides are hard edges without the stroke. The polygons are O, Q[0] (= A), ..., Q[n] (= C) and O, Q[2n] (= B), ..., Q[n].
+			// The clipping of O is the one of the distance to the arc, and the lengths are the same as those of the nearest Q.
+			const eps = 1e-9 * w;
+			const co = Math.max(0, 1 - (w >= h ? h : oa) * fd);
+
+			this.writeVertex(iv, 0, 0, ls[0], co, fd, fx, fy, gx, gy);
+			let count = 1;
+			for (let k = 0; k <= n; ++k) {
+				this.writeVertex(
+					iv + count++,
+					qx[k],
+					qy[k],
+					ls[k],
+					1 - qd[k] * fd,
+					fd,
+					fx,
+					fy,
+					gx,
+					gy
+				);
+				if (Math.abs(qx[k]) <= eps) {
+					break;
+				}
+			}
+			ii = this.writeFan(ii, iv, count);
+			iv += count;
+
+			this.writeVertex(iv, 0, 0, ls[m - 1], co, fd, fx, fy, gx, gy);
+			count = 1;
+			for (let k = m - 1; n <= k; --k) {
+				this.writeVertex(
+					iv + count++,
+					qx[k],
+					qy[k],
+					ls[k],
+					1 - qd[k] * fd,
 					fd,
 					fx,
 					fy,
