@@ -33,34 +33,100 @@
 		const container = new wcardinal.ui.EShapeContainer();
 		container.position.set(300, 300);
 
-		// New
-		const new1 = new wcardinal.ui.EShapeFan();
-		new1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
-		new1.fill.direction = wcardinal.ui.EShapeFillDirection.LEFT;
-		new1.fill.percent = 0.75;
-		new1.fill.color = 0x3388ff;
-		new1.text.value = "New";
-		new1.text.size = 24;
-		new1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
-		new1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
-		new1.text.offset.horizontal = -24;
-		new1.attach(container);
+		// ALL
+		const all1 = new wcardinal.ui.EShapeFan();
+		all1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
+		all1.fill.direction = wcardinal.ui.EShapeFillDirection.LEFT;
+		all1.fill.percent = 0.75;
+		all1.fill.color = 0x3388ff;
+		all1.text.value = "ALL";
+		all1.text.size = 24;
+		all1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
+		all1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+		all1.text.offset.horizontal = -24;
+		all1.attach(container);
 
-		const new2 = new wcardinal.ui.EShapeFan();
-		new2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
-		new2.fill.percent = 0.75;
-		new2.fill.color = 0x3388ff;
-		new2.size.x = 200;
-		new2.transform.position.x = 200;
-		new2.attach(container);
+		const all2 = new wcardinal.ui.EShapeFan();
+		all2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		all2.fill.percent = 0.75;
+		all2.fill.color = 0x3388ff;
+		all2.size.x = 200;
+		all2.transform.position.x = 200;
+		all2.attach(container);
 
-		const new3 = new wcardinal.ui.EShapeFan();
-		new3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
-		new3.fill.percent = 0.75;
-		new3.fill.color = 0x3388ff;
-		new3.size.y = 200;
-		new3.transform.position.x = 400;
-		new3.attach(container);
+		const all3 = new wcardinal.ui.EShapeFan();
+		all3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		all3.fill.percent = 0.75;
+		all3.fill.color = 0x3388ff;
+		all3.size.y = 200;
+		all3.transform.position.x = 400;
+		all3.attach(container);
+
+		// TOP
+		const top1 = new wcardinal.ui.EShapeFan();
+		top1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
+		top1.stroke.side = wcardinal.ui.EShapeStrokeSide.TOP;
+		top1.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		top1.fill.percent = 0.75;
+		top1.fill.color = 0x3388ff;
+		top1.text.value = "TOP";
+		top1.text.size = 24;
+		top1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
+		top1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+		top1.text.offset.horizontal = -24;
+		top1.transform.position.y = 200;
+		top1.attach(container);
+
+		const top2 = new wcardinal.ui.EShapeFan();
+		top2.stroke.side = wcardinal.ui.EShapeStrokeSide.TOP;
+		top2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		top2.fill.percent = 0.75;
+		top2.fill.color = 0x3388ff;
+		top2.size.x = 200;
+		top2.transform.position.set(200, 200);
+		top2.attach(container);
+
+		const top3 = new wcardinal.ui.EShapeFan();
+		top3.stroke.side = wcardinal.ui.EShapeStrokeSide.TOP;
+		top3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		top3.fill.percent = 0.75;
+		top3.fill.color = 0x3388ff;
+		top3.size.y = 200;
+		top3.transform.position.set(400, 200);
+		top3.attach(container);
+
+		// BOTTOM
+		const bottom1 = new wcardinal.ui.EShapeFan();
+		bottom1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
+		bottom1.stroke.side = wcardinal.ui.EShapeStrokeSide.BOTTOM;
+		bottom1.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		bottom1.fill.percent = 0.75;
+		bottom1.fill.color = 0x3388ff;
+		bottom1.text.value = "BOTTOM";
+		bottom1.text.size = 24;
+		bottom1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
+		bottom1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+		bottom1.text.offset.horizontal = -24;
+		bottom1.transform.position.y = 400;
+		bottom1.attach(container);
+
+		const bottom2 = new wcardinal.ui.EShapeFan();
+		bottom2.stroke.side = wcardinal.ui.EShapeStrokeSide.BOTTOM;
+		bottom2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		bottom2.fill.percent = 0.75;
+		bottom2.fill.color = 0x3388ff;
+		bottom2.size.x = 200;
+		bottom2.transform.position.set(200, 400);
+		bottom2.attach(container);
+
+		const bottom3 = new wcardinal.ui.EShapeFan();
+		bottom3.stroke.side = wcardinal.ui.EShapeStrokeSide.BOTTOM;
+		bottom3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
+		bottom3.fill.percent = 0.75;
+		bottom3.fill.color = 0x3388ff;
+		bottom3.size.y = 200;
+		bottom3.transform.position.set(400, 400);
+		bottom3.attach(container);
 
 		application.stage.on("pointermove", (e) => {
 			container.hitTest(e.data.global, (shape) => {
