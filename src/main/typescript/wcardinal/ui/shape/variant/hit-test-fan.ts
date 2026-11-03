@@ -5,7 +5,10 @@
 
 import { EShapeFillDirection } from "../e-shape-fill-direction";
 import type { EShapeFan } from "./e-shape-fan";
-import { EShapeFanStrokeSide, toFanChi, toFanStrokeSide, toFanTheta } from "./to-fan";
+import { EShapeFanStrokeSide } from "./e-shape-fan-stroke-side";
+import { toFanAngleCentric } from "./to-fan-angle-centric";
+import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
+import { toFanStrokeSide } from "./to-fan-stroke-side";
 
 /**
  * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.
@@ -75,15 +78,15 @@ export const hitTestFan = (
 	sw: number,
 	ss: number
 ): boolean => {
-	const theta = toFanTheta(shape.angle);
-	if (theta <= 0 || ax <= 0 || ay <= 0) {
+	const ca = toFanAngleCentric(shape.angle);
+	if (ca <= 0 || ax <= 0 || ay <= 0) {
 		return false;
 	}
 
-	const chi = toFanChi(ax, ay, theta);
-	const bx = ax * Math.sin(chi);
-	const st = Math.sin(theta);
-	const ct = Math.cos(theta);
+	const ea = toFanAngleEccentric(ax, ay, ca);
+	const bx = ax * Math.sin(ea);
+	const st = Math.sin(ca);
+	const ct = Math.cos(ca);
 	const fill = shape.fill;
 	const mode = toFanStrokeSide(shape.stroke.side);
 	const strokeWidth = mode !== EShapeFanStrokeSide.NONE ? sw : 0;

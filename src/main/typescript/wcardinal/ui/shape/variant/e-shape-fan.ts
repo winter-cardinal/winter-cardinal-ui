@@ -4,26 +4,19 @@
  */
 
 import { EShapeType } from "../e-shape-type";
+import { EShapeFanStrokeSide } from "./e-shape-fan-stroke-side";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { EShapeFanTriangulatedImpl } from "./e-shape-fan-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestFan } from "./hit-test-fan";
-import { EShapeFanStrokeSide, toFanStrokeSide } from "./to-fan";
+import { toFanStrokeSide } from "./to-fan-stroke-side";
 
-/**
- * A fan shape.
- * The arc of the fan is on the ellipse inscribed in the shape size, and the apex of the fan is the center of the ellipse.
- *
- * @beta
- */
 export class EShapeFan extends EShapePrimitive {
-	static readonly DEFAULT_ANGLE = 0.333;
-
 	protected readonly _triangulated: EShapeFanTriangulated;
 
 	constructor(type: EShapeType = EShapeType.FAN) {
 		super(type);
-		this._radius = EShapeFan.DEFAULT_ANGLE;
+		this._radius = 0.333;
 		this._triangulated = this.newTriangulated();
 	}
 

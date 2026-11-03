@@ -6,8 +6,11 @@
 import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeDefaults } from "../e-shape-defaults";
 import type { EShapeFan } from "./e-shape-fan";
+import { EShapeFanStrokeSide } from "./e-shape-fan-stroke-side";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
-import { EShapeFanStrokeSide, toFanChi, toFanStrokeSide, toFanTheta } from "./to-fan";
+import { toFanAngleCentric } from "./to-fan-angle-centric";
+import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
+import { toFanStrokeSide } from "./to-fan-stroke-side";
 
 /**
  * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
@@ -16,8 +19,8 @@ import { EShapeFanStrokeSide, toFanChi, toFanStrokeSide, toFanTheta } from "./to
  * ## Points
  *
  * - O: the apex of the fan, the origin
- * - A, B: the end points of the arc, (-w sin(chi), -h cos(chi)) and (+w sin(chi), -h cos(chi))
- * - C: the point where the area of the fan becomes zero when the fan shrinks, (0, -h / (1 + sin(theta)))
+ * - A, B: the end points of the arc, (-w sin(ea), -h cos(ea)) and (+w sin(ea), -h cos(ea))
+ * - C: the point where the area of the fan becomes zero when the fan shrinks, (0, -h / (1 + sin(ca)))
  * - P[k]: the points on the arc, k in [0, 2N] (P[0] = A, P[N] is the top, P[2N] = B)
  * - Q[k]: the points on the medial axis of the fan, which are on the normal of the arc at P[k]
  *   and equidistant from the arc and the straight sides (Q[0] = A, Q[N] = C, Q[2N] = B)
@@ -209,9 +212,6 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	}
 
 	protected update(sx: number, sy: number, angle: number, strokeSide: EShapeFanStrokeSide): void {
-		const w = Math.abs(sx);
-		const h = Math.abs(sy);
-
 		// The number of the arc segments is 2n and the number of the points on the arc is m.
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
 		const m = 2 * n + 1;
@@ -221,39 +221,46 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		this._nindices = ni;
 		this._id += 1;
 
-		// The eccentric angle chi of A and B, and the sine and cosine of it
-		const theta = toFanTheta(angle);
-		const chi = 0 < w && 0 < h && 0 < theta ? toFanChi(w, h, theta) : 0;
-		const schi = Math.sin(chi);
-		const cchi = Math.cos(chi);
-		const bx = w * schi;
-		const by = h * cchi;
-		const oa = Math.sqrt(bx * bx + by * by);
-		if (!(0 < bx) || !(0 < oa)) {
-			this.padEmpty(w, h, nv, ni);
+		// The eccentric angle ea of A and B, and the sine and cosine of it
+		const ax = Math.abs(sx);
+		const ay = Math.abs(sy);
+		if (ax <= 0 || ay <= 0) {
+			this.updateEmpty(ax, ay, nv, ni);
+			return;
+		}
+		const ca = toFanAngleCentric(angle);
+		const ea = toFanAngleEccentric(ax, ay, ca);
+		const sea = Math.sin(ea);
+		const cea = Math.cos(ea);
+		const bx = ax * sea;
+		const by = ay * cea;
+		const bz = bx * bx + by * by;
+		if (bx <= 0 || bz <= 0) {
+			this.updateEmpty(ax, ay, nv, ni);
 			return;
 		}
 
 		// The sine and cosine of the geometric half central angle
+		const oa = Math.sqrt(bz);
 		const st = bx / oa;
 		const ct = by / oa;
 
 		// The factors of the UVs and the signs of the flipping
 		const fx = 1 / bx;
-		const fy = 1 / h;
+		const fy = 1 / ay;
 		const gx = Math.sign(sx);
 		const gy = Math.sign(sy);
 
 		if (strokeSide === EShapeFanStrokeSide.BOTTOM) {
-			this.updateBottom(w, h, n, chi, schi, cchi, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
+			this.updateBottom(ax, ay, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
 		} else {
 			this.updateArc(
-				w,
-				h,
+				ax,
+				ay,
 				n,
-				chi,
-				schi,
-				cchi,
+				ea,
+				sea,
+				cea,
 				bx,
 				oa,
 				st,
@@ -269,17 +276,25 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		}
 	}
 
-	// ----------------------------------------------------------------------------------------
-	// ALL, NONE and TOP: the stroke is at the arc
-	// ----------------------------------------------------------------------------------------
+	/**
+	 * Fills the empty fan, which has no vertices to draw.
+	 */
+	protected updateEmpty(w: number, h: number, nv: number, ni: number): void {
+		const boundary = this._boundary;
+		boundary[0] = -w;
+		boundary[1] = -h;
+		boundary[2] = +w;
+		boundary[3] = +h;
+		this.pad(0, 0, nv, ni, 0);
+	}
 
 	protected updateArc(
 		w: number,
 		h: number,
 		n: number,
-		chi: number,
-		schi: number,
-		cchi: number,
+		ea: number,
+		sea: number,
+		cea: number,
 		bx: number,
 		oa: number,
 		st: number,
@@ -294,25 +309,25 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	): void {
 		const m = 2 * n + 1;
 
-		// hasSides: the straight sides are the outline, which has the stroke and the anti-aliasing
-		// hasCap: the polygons are added at the bottom to cover the sector with the hard straight sides
-		// hasChain: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
+		// sided: the straight sides are the outline, which has the stroke and the anti-aliasing
+		// capped: the polygons are added at the bottom to cover the sector with the hard straight sides
+		// chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
 		// For a circle and a semi-ellipse, Q on the axis gives the exact fan.
-		const hasSides = strokeSide !== EShapeFanStrokeSide.TOP;
-		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= chi;
-		const hasCap = !hasSides && !isExact;
-		const hasChain = hasSides || hasCap;
+		const sided = strokeSide !== EShapeFanStrokeSide.TOP;
+		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
+		const capped = !sided && !isExact;
+		const chained = sided || capped;
 
-		this.computeArcPoints(w, h, n, chi, schi, cchi);
-		this.computeArcNormals(w, h, n, chi);
-		let dmax = this.computeMedialPoints(w, h, n, st, ct, hasChain);
-		if (hasCap) {
+		this.computeArcPoints(w, h, n, ea, sea, cea);
+		this.computeArcNormals(w, h, n, ea);
+		let dmax = this.computeMedialPoints(w, h, n, st, ct, chained);
+		if (capped) {
 			// The distance field of the arc must cover O, which is the farthest point from the arc,
 			// because the clipping in the polygons at the bottom is interpolated from the arc to O.
-			dmax = Math.max(dmax, w >= h ? h : oa);
+			dmax = Math.max(dmax, h <= w ? h : oa);
 		}
-		if (!(0 < dmax)) {
-			this.padEmpty(w, h, nv, ni);
+		if (dmax <= 0) {
+			this.updateEmpty(w, h, nv, ni);
 			return;
 		}
 
@@ -324,7 +339,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const fd = 1 / dmax;
 		const fs = (EShapeFanTriangulatedImpl.SCALE - 1) * dmax;
-		this.computeRimPoints(w, h, n, fs, st, ct, schi, cchi, hasSides);
+		this.computeRimPoints(w, h, n, fs, st, ct, sea, cea, sided);
 
 		// Strip: 2m vertices and 2 * 3 * (m - 1) indices
 		this.writeStrip(m, fd, fx, fy, gx, gy);
@@ -332,7 +347,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		let ii = 6 * (m - 1);
 
 		// Polygons at the bottom: left (sign = -1) and right (sign = +1)
-		if (hasSides) {
+		if (sided) {
 			for (let sign = -1; sign <= 1; sign += 2) {
 				const count = this.writeSidePolygon(
 					iv,
@@ -353,7 +368,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				iv += count;
 				ii += 3 * (count - 2);
 			}
-		} else if (hasCap) {
+		} else if (capped) {
 			const co = Math.max(0, 1 - (w >= h ? h : oa) * fd);
 			for (let sign = -1; sign <= 1; sign += 2) {
 				const count = this.writeCapPolygon(iv, ii, sign, n, w, co, fd, fx, fy, gx, gy);
@@ -376,18 +391,18 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		w: number,
 		h: number,
 		n: number,
-		chi: number,
-		schi: number,
-		cchi: number
+		ea: number,
+		sea: number,
+		cea: number
 	): void {
 		const m = 2 * n + 1;
 		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
 		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-		const phi = chi / n;
-		const cphi = Math.cos(phi);
-		const sphi = Math.sin(phi);
-		let s = -schi;
-		let c = cchi;
+		const da = ea / n;
+		const cda = Math.cos(da);
+		const sda = Math.sin(da);
+		let s = -sea;
+		let c = cea;
 		for (let k = 0; k <= n; ++k) {
 			// Use the exact values at the center to prevent the accumulation of the errors.
 			if (k === n) {
@@ -397,9 +412,9 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			px[k] = w * s;
 			py[k] = -h * c;
 
-			// Rotate by phi
-			const ns = s * cphi + c * sphi;
-			c = c * cphi - s * sphi;
+			// Rotate by da
+			const ns = s * cda + c * sda;
+			c = c * cda - s * sda;
 			s = ns;
 		}
 		for (let k = 0; k < n; ++k) {
@@ -414,7 +429,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	 * The normal at P is Np = (-h x / w, -w y / h), whose magnitude is the speed of the arc.
 	 * The speed is used to approximate the arc length without extra square roots.
 	 */
-	protected computeArcNormals(w: number, h: number, n: number, chi: number): void {
+	protected computeArcNormals(w: number, h: number, n: number, ea: number): void {
 		const m = 2 * n + 1;
 		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
 		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
@@ -422,7 +437,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
 		const speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
 		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
-		const phi = chi / n;
+		const da = ea / n;
 		const hw = h / w;
 		const wh = w / h;
 		let l = 0;
@@ -435,7 +450,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			ny[k] = dy / speed;
 			speeds[k] = speed;
 			if (0 < k) {
-				l += 0.5 * phi * (previous + speed);
+				l += 0.5 * da * (previous + speed);
 			}
 			previous = speed;
 			ls[k] = l;
@@ -452,7 +467,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	/**
 	 * Computes Q[k], the points on the normals, and their distances from P[k], and returns the maximum distance.
 	 *
-	 * If hasChain is true, Q is the point on the medial axis, that is, the point on the normal
+	 * If chained is true, Q is the point on the medial axis, that is, the point on the normal
 	 * whose distance to the arc is equal to the distance to the straight sides.
 	 * The distance delta is obtained from delta = -(n . P) - delta (n . normal) for the outward unit normals n of the sides.
 	 * The clamps keep Q on the same side of the axis x = 0 as P and before the center of curvature,
@@ -466,7 +481,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		n: number,
 		st: number,
 		ct: number,
-		hasChain: boolean
+		chained: boolean
 	): number {
 		const m = 2 * n + 1;
 		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
@@ -487,7 +502,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			const speed = speeds[k];
 
 			let delta = Infinity;
-			if (hasChain) {
+			if (chained) {
 				const da = 1 + -ct * nnx + st * nny;
 				if (1e-9 < da) {
 					delta = Math.min(delta, (ct * x - st * y) / da);
@@ -535,9 +550,9 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		fs: number,
 		st: number,
 		ct: number,
-		schi: number,
-		cchi: number,
-		hasSides: boolean
+		sea: number,
+		cea: number,
+		sided: boolean
 	): void {
 		const m = 2 * n + 1;
 		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
@@ -552,7 +567,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			let x = px[k] - fs * nx[k];
 			let y = py[k] - fs * ny[k];
 			let l = ls[k];
-			if (hasSides && (k === 0 || k === m - 1)) {
+			if (sided && (k === 0 || k === m - 1)) {
 				const sign = k === 0 ? -1 : +1;
 
 				// The miter of the outward normal of the arc (n1) and that of the straight side (n2)
@@ -565,8 +580,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				y = py[k] + miter * (n1y + n2y);
 
 				// The length is shifted along the tangent (tx, ty) / speed
-				const tx = w * cchi;
-				const ty = sign * h * schi;
+				const tx = w * cea;
+				const ty = sign * h * sea;
 				l +=
 					((x - px[k]) * tx + (y - py[k]) * ty) / EShapeFanTriangulatedImpl.WORK_SPEED[0];
 			}
@@ -755,10 +770,6 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		return count;
 	}
 
-	// ----------------------------------------------------------------------------------------
-	// BOTTOM: the stroke is only at the straight sides
-	// ----------------------------------------------------------------------------------------
-
 	/**
 	 * The clipping is 1 - (the distance from the straight side) / d where d is the distance from C to OA (or OB).
 	 */
@@ -766,9 +777,9 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		w: number,
 		h: number,
 		n: number,
-		chi: number,
-		schi: number,
-		cchi: number,
+		ea: number,
+		sea: number,
+		cea: number,
 		bx: number,
 		by: number,
 		st: number,
@@ -790,7 +801,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const fd = (1 + st) / (h * st);
 		const fs = (EShapeFanTriangulatedImpl.SCALE - 1) / fd;
 
-		this.computeArcPoints(w, h, n, chi, schi, cchi);
+		this.computeArcPoints(w, h, n, ea, sea, cea);
 
 		// Triangle fans from C to the arc: left (sign = -1) and right (sign = +1)
 		let iv = 0;
@@ -998,18 +1009,6 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		this._clippings[vertex] = clipping;
 		this._uvs[vertex2] = 0.5 * (x * fx + 1);
 		this._uvs[vertex2 + 1] = 1 + y * fy;
-	}
-
-	/**
-	 * Fills the empty fan, which has no vertices to draw.
-	 */
-	protected padEmpty(w: number, h: number, nv: number, ni: number): void {
-		const boundary = this._boundary;
-		boundary[0] = -w;
-		boundary[1] = -h;
-		boundary[2] = +w;
-		boundary[3] = +h;
-		this.pad(0, 0, nv, ni, 0);
 	}
 
 	/**
