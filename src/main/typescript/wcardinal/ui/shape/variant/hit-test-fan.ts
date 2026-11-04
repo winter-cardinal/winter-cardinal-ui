@@ -82,16 +82,16 @@ export const hitTestFan = (
 	const ct = Math.cos(ca);
 	const fill = shape.fill;
 	const strokeSide = shape.stroke.side;
-	const strokeSideTop = (strokeSide & EShapeStrokeSide.NOT_BOTTOM) !== 0;
+	const strokeSideArc = (strokeSide & EShapeStrokeSide.NOT_BOTTOM) !== 0;
 	const strokeSideBottom = (strokeSide & EShapeStrokeSide.BOTTOM) !== 0;
-	const strokeWidth = strokeSideTop || strokeSideBottom ? sw : 0;
+	const strokeWidth = strokeSideArc || strokeSideBottom ? sw : 0;
 	if ((fill.enable || 0 < strokeWidth) && isInFan(x, y, ax, ay, st, ct, 0, 0)) {
 		if (fill.enable && hitTestFanFill(shape, x, y, bx, ay)) {
 			return true;
 		}
 		if (0 < strokeWidth) {
 			const s = strokeWidth * ss;
-			const arc = strokeSideTop ? s : 0;
+			const arc = strokeSideArc ? s : 0;
 			const sides = strokeSideBottom ? s : 0;
 			if (!isInFan(x, y, ax, ay, st, ct, arc, sides)) {
 				return true;
