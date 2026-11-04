@@ -41,11 +41,6 @@ import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
  * - BOTTOM: the stroke is only at the straight sides.
  *   It is the same as a polygon. Two triangle fans from C cover the area between the arc and the segments CA and CB,
  *   and two quads O', A', A, C and O', B', B, C cover the rest.
- *
- * ## Garbage collection
- *
- * To reduce the load of the garbage collection, no temporary objects and arrays are created in the triangulation.
- * The work arrays are shared by all the instances, and the parameters are passed as arguments.
  */
 export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	/** The ratio of the outer edge, where the clipping is 1, to the edge of the anti-aliasing */
