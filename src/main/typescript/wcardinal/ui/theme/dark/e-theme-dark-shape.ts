@@ -73,6 +73,10 @@ export class EThemeDarkShape implements EThemeShape {
 		return 0.25;
 	}
 
+	getAngle(): number {
+		return 0.333;
+	}
+
 	getSizeX(): number {
 		return 100;
 	}

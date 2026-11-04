@@ -41,6 +41,8 @@ const LINE			= 0x800000;
 const LINE_TAIL		= 0x1000000;
 const LINE_HEAD		= 0x2000000;
 
+const ANGLE			= 0x4000000;
+
 const COORDINATE	= POSITION | WIDTH | HEIGHT | ROTATION | SKEW;
 const SHAPE			= REPLACING | GROUPING | FILL | STROKE | STROKE_STYLE | LINE | LINE_TAIL | LINE_HEAD;
 const LAYER			= ORDER_IN_LAYER;
@@ -49,7 +51,7 @@ const GROUP			= PRIMITIVE | UNGROUPING;
 const EMBEDDED		= ID | COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER | DATA_MAPPING;
 const EMBEDDED_ACCEPTOR_EDGE = ID | COORDINATE | REPLACING | FILL | STROKE | STROKE_STYLE_SCALING | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER;
 const CONNECTOR		= ID | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
-const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING | UNGROUPING;
+const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | ANGLE | DATA_MAPPING | UNGROUPING;
 
 export const EShapeCapability = {
 	NONE,
@@ -136,6 +138,11 @@ export const EShapeCapability = {
 	 * Allows shape border radiuses to be modified.
 	 */
 	BORDER_RADIUS,
+
+	/**
+	 * Allows shape angles to be modified.
+	 */
+	ANGLE,
 
 	/**
 	 * Allows shape texts to be modified.

@@ -350,7 +350,7 @@ export interface DDiagramSerializedItem {
 	/** A corner. */
 	[14]: EShapeCorner;
 
-	/** A resource index number of a shape-specific resource. */
+	/** A shape-specific parameter or a resource index number of a shape-specific resource. */
 	[15]: number;
 
 	/** A layer index number. */

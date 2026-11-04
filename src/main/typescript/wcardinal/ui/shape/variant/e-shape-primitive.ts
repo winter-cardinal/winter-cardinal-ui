@@ -118,6 +118,14 @@ export abstract class EShapePrimitive extends EShapeBase {
 		}
 	}
 
+	get angle(): number {
+		return 0;
+	}
+
+	set angle(angle: number) {
+		// DO NOTHING
+	}
+
 	override get image(): EShapeImageLike | undefined {
 		return this._image;
 	}

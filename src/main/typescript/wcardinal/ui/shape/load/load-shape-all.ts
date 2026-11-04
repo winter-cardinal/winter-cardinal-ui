@@ -10,6 +10,7 @@ import { loadShapeCircleLegacy } from "./load-shape-circle-legacy";
 import { loadShapeConnectorElbow } from "./load-shape-connector-elbow";
 import { loadShapeConnectorLine } from "./load-shape-connector-line";
 import { loadShapeEmbedded } from "./load-shape-embedded";
+import { loadShapeFan } from "./load-shape-fan";
 import { loadShapeGroup } from "./load-shape-group";
 import { loadShapeGroupShadowed } from "./load-shape-group-shadowed";
 import { loadShapeImage } from "./load-shape-image";
@@ -42,6 +43,7 @@ export const loadShapeAll = (): void => {
 	loadShapeConnectorElbow();
 	loadShapeConnectorLine();
 	loadShapeEmbedded();
+	loadShapeFan();
 	loadShapeGroupShadowed();
 	loadShapeGroup();
 	loadShapeImage();

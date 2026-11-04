@@ -12,6 +12,7 @@ export * from "./load-shape-clipper-ex";
 export * from "./load-shape-connector-elbow";
 export * from "./load-shape-connector-line";
 export * from "./load-shape-embedded";
+export * from "./load-shape-fan";
 export * from "./load-shape-group-shadowed";
 export * from "./load-shape-group";
 export * from "./load-shape-image";

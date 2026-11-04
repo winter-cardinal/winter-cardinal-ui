@@ -144,7 +144,7 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		boundary[3] = +ay;
 
 		// # of vertices and # of indices
-		const nv = 7;
+		const nv = 9;
 		const ni = 3;
 		this._nvertices = nv;
 		this._nindices = ni;
@@ -204,11 +204,7 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		// vertices (-sx, sy) and (sx, sy). The signs of sx and
 		// sy intentionally preserve horizontal and vertical reflections.
 		// The sloped edge spans ax horizontally and 2 * ay vertically.
-		const side = Math.sqrt(ax * ax + 4 * ay * ay);
-		// The base is horizontal, so its length is twice the half-width.
-		const base = 2 * ax;
-		// Length values are measured along the triangle perimeter.
-		const perimeter = 2 * side + base;
+		const b = Math.sqrt(ax * ax + 4 * ay * ay);
 		// The incenter lies on the vertical center line. This is its y-coordinate.
 		// Along the median, the distances from the top vertex to the incenter and
 		// from the incenter to the base are in the ratio 2 * side : base.
@@ -220,14 +216,13 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		// cy = ay (2 side - 2 ax) / (2 side + 2 ax)
 		// cy = ay (side - ax) / (side + ax)
 		const cx = 0;
-		const cy = (sy * (side - ax)) / (side + ax);
+		const cy = (sy * (b - ax)) / (b + ax);
 		// The distance from the incenter to every edge is the inradius.
 		// Since 0 <= (side - ax) / (side + ax) <= 1, the incenter remains
 		// between the apex and the base even when sy is negative.
-		const distance = Math.abs(sy - cy);
-		const fdistance = 1 / distance;
+		const d = Math.abs(sy - cy);
+		const fd = 1 / d;
 		// Expand the triangle around its incenter for anti-aliasing and strokes.
-		// The outer vertices are shared where their interpolated attributes match.
 		const x0 = 0;
 		const y0 = cy + scale * (-sy - cy);
 		const x1 = scale * sx;
@@ -235,31 +230,39 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		const x2 = -x1;
 		const y2 = y1;
 
-		// Top-to-right edge cell. The inner vertex carries the fill attributes.
-		this.updateVertex(0, x0, y0, fdistance, 0, scale, fx, fy);
-		this.updateVertex(1, x1, y1, fdistance, side, scale, fx, fy);
-		this.updateVertex(2, cx, cy, fdistance, side - ax, 0, fx, fy);
+		// Each cell has its own vertices because `length` is the arc length projected onto
+		// the cell's edge. It is `lc` at the incenter (the tangent point) and
+		// `lc + scale * (l - lc)` at the outer vertices so that it equals `l` at clipping = 1.
 		const indices = this._indices;
-		indices[0] = 0;
-		indices[1] = 1;
-		indices[2] = 2;
 
-		// Right-to-left base edge cell. The right and left outer vertices are reused.
-		this.updateVertex(3, x2, y2, fdistance, side + base, scale, fx, fy);
-		this.updateVertex(4, cx, cy, fdistance, side + ax, 0, fx, fy);
-		indices[3] = 1;
-		indices[4] = 3;
-		indices[5] = 4;
+		// Top-to-right edge cell
+		const l0 = 0;
+		const l1 = l0 + b;
+		const lc0 = b - ax;
+		this.writeVertex(0, x0, y0, fd, lc0 + scale * (l0 - lc0), scale, fx, fy);
+		this.writeVertex(1, x1, y1, fd, lc0 + scale * (l1 - lc0), scale, fx, fy);
+		this.writeVertex(2, cx, cy, fd, lc0, 0, fx, fy);
 
-		// Left-to-top edge cell. The top vertex is duplicated for the perimeter seam.
-		this.updateVertex(5, x0, y0, fdistance, perimeter, scale, fx, fy);
-		this.updateVertex(6, cx, cy, fdistance, perimeter - (side - ax), 0, fx, fy);
-		indices[6] = 3;
-		indices[7] = 5;
-		indices[8] = 6;
+		// Right-to-left base edge cell
+		const l2 = l1 + 2 * ax;
+		const lc1 = b + ax;
+		this.writeVertex(3, x1, y1, fd, lc1 + scale * (l1 - lc1), scale, fx, fy);
+		this.writeVertex(4, x2, y2, fd, lc1 + scale * (l2 - lc1), scale, fx, fy);
+		this.writeVertex(5, cx, cy, fd, lc1, 0, fx, fy);
+
+		// Left-to-top edge cell
+		const l3 = l2 + b;
+		const lc2 = b + 3 * ax;
+		this.writeVertex(6, x2, y2, fd, lc2 + scale * (l2 - lc2), scale, fx, fy);
+		this.writeVertex(7, x0, y0, fd, lc2 + scale * (l3 - lc2), scale, fx, fy);
+		this.writeVertex(8, cx, cy, fd, lc2, 0, fx, fy);
+
+		for (let i = 0; i < 9; ++i) {
+			indices[i] = i;
+		}
 	}
 
-	protected updateVertex(
+	protected writeVertex(
 		vertex: number,
 		x: number,
 		y: number,

@@ -60,17 +60,17 @@ export class EShapePolygon extends EShapePrimitive {
 		return new EShapePolygon(this.type).copy(this);
 	}
 
-	override copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
+	override copy(source: EShape, part?: EShapeCopyPart): this {
 		this.lock(EShapeLockPart.ALL);
-		const result = super.copy(source, part);
-		if (part & EShapeCopyPart.POINTS && source instanceof EShapePolygon) {
+		super.copy(source, part);
+		if ((part == null || part & EShapeCopyPart.POINTS) && source instanceof EShapePolygon) {
 			this._triangulated.copy(source._triangulated);
 		}
 		this.unlock(EShapeLockPart.ALL, true);
-		return result;
+		return this;
 	}
 
-	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+	override serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
 		const pointsId = this._points.serialize(manager);
 		const triangulatedId = this._triangulated.serialize(manager);

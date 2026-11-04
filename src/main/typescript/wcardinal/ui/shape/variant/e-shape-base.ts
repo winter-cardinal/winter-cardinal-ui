@@ -60,6 +60,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	abstract readonly stroke: EShapeStroke;
 	readonly transform: EShapeTransform;
 	abstract radius: number;
+	abstract angle: number;
 	abstract corner: EShapeCorner;
 	protected _points?: EShapePoints;
 	abstract image?: EShapeImageLike;

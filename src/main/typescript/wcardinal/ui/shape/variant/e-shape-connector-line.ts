@@ -252,7 +252,7 @@ export class EShapeConnectorLine
 		values.length = bodyValuesLength + 4;
 	}
 
-	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
+	override copy(source: EShape, part?: EShapeCopyPart): this {
 		this.lock(EShapeLockPart.ALL);
 		super.copy(source, part);
 		if (source instanceof EShapeConnectorLine) {
@@ -263,12 +263,12 @@ export class EShapeConnectorLine
 		return this;
 	}
 
-	clone(): EShapeConnectorLine {
+	override clone(): EShapeConnectorLine {
 		const constructor = this.constructor as typeof EShapeConnectorLine;
 		return new constructor(this.type).copy(this);
 	}
 
-	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+	override serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
 		const edgeId = this._edge.serialize(manager);
 		const bodyId = this._body.serialize(manager);
