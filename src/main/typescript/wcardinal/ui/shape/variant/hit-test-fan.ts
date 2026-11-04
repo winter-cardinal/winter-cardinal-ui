@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { EShape } from "../e-shape";
 import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
-import type { EShapeFan } from "./e-shape-fan";
 import { toFanAngleCentric } from "./to-fan-angle-centric";
 import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
 
@@ -39,13 +39,7 @@ const isInFan = (
 	return -ct * x + ay1 <= -ss && ct * x + ay1 <= -ss;
 };
 
-const hitTestFanFill = (
-	shape: EShapeFan,
-	x: number,
-	y: number,
-	bx: number,
-	by: number
-): boolean => {
+const hitTestFanFill = (shape: EShape, x: number, y: number, bx: number, by: number): boolean => {
 	const fill = shape.fill;
 	if (fill.enable) {
 		const percent = Math.max(0, Math.min(1, fill.percent));
@@ -69,7 +63,7 @@ const hitTestFanFill = (
 };
 
 export const hitTestFan = (
-	shape: EShapeFan,
+	shape: EShape,
 	x: number,
 	y: number,
 	ax: number,

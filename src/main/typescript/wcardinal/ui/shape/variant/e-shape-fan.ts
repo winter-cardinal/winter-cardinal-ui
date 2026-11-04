@@ -22,8 +22,12 @@ export class EShapeFan extends EShapePrimitive {
 
 	constructor(type: EShapeType = EShapeType.FAN) {
 		super(type);
-		this._angle = EShapeDefaults.ANGLE;
+		this._angle = this.newAngle();
 		this._triangulated = this.newTriangulated();
+	}
+
+	protected newAngle(): number {
+		return EShapeDefaults.ANGLE;
 	}
 
 	protected newTriangulated(): EShapeFanTriangulated {
