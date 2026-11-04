@@ -16,6 +16,6 @@ export const loadShapeSemicircle = (): void => {
 	EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSemicircle;
 	EShapeCapabilities.set(
 		EShapeType.SEMICIRCLE,
-		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.ANGLE
+		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE
 	);
 };

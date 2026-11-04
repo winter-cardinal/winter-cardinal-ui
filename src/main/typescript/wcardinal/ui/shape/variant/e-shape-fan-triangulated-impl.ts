@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { EShape } from "../e-shape";
 import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
-import type { EShapeFan } from "./e-shape-fan";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { toFanAngleCentric } from "./to-fan-angle-centric";
 import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
@@ -69,7 +69,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected static readonly WORK_RIM_L: number[] = [];
 
 	protected _id: number;
-	protected _parent: EShapeFan;
+	protected _parent: EShape;
 	protected _width: number;
 	protected _height: number;
 	protected _strokeAlign: number;
@@ -89,7 +89,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected _nindices: number;
 	protected _boundary: EShapeBoundary;
 
-	constructor(parent: EShapeFan) {
+	constructor(parent: EShape) {
 		this._id = 0;
 		this._parent = parent;
 		this._width = 0;
