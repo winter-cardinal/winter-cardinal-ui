@@ -317,7 +317,7 @@ vec4 toColor7(in vec4 texture) {
 	float s3 = smoothstep(-awd, 0.0, vStepB.z);
 	return texture * (
 		vColorStroke * (s1 - s0) +
-		vColorFill * (1.0 - s1) * s2 * s3
+		vColorFill * (1.0 - s1) * (1.0 - s0) * s2 * s3
 	);
 }
 
