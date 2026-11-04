@@ -5,9 +5,9 @@
 
 import type { EShape } from "../e-shape";
 import { EShapeFillDirection } from "../e-shape-fill-direction";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { toFanAngleCentric } from "./to-fan-angle-centric";
 import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
-import { EShapeStrokeSide } from "../e-shape-stroke-side";
 
 /**
  * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.

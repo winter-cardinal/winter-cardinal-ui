@@ -75,7 +75,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected _height: number;
 	protected _strokeAlign: number;
 	protected _strokeWidth: number;
-	protected _strokeSideTop: boolean;
+	protected _strokeSideArc: boolean;
 	protected _strokeSideBottom: boolean;
 	protected _angle: number;
 	protected _sizeX: number;
@@ -97,7 +97,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		this._height = 0;
 		this._strokeAlign = 0;
 		this._strokeWidth = 0;
-		this._strokeSideTop = true;
+		this._strokeSideArc = true;
 		this._strokeSideBottom = true;
 		this._angle = 0;
 		this._sizeX = 0;
@@ -174,13 +174,13 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
-		const strokeSideTop = (stroke.side & EShapeStrokeSide.NOT_BOTTOM) !== 0;
+		const strokeSideArc = (stroke.side & EShapeStrokeSide.NOT_BOTTOM) !== 0;
 		const strokeSideBottom = (stroke.side & EShapeStrokeSide.BOTTOM) !== 0;
-		const strokeWidth = stroke.enable && (strokeSideTop || strokeSideBottom) ? stroke.width : 0;
+		const strokeWidth = stroke.enable && (strokeSideArc || strokeSideBottom) ? stroke.width : 0;
 		const isStrokeChanged =
 			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
 		const isStrokeSideChanged =
-			this._strokeSideTop !== strokeSideTop || this._strokeSideBottom !== strokeSideBottom;
+			this._strokeSideArc !== strokeSideArc || this._strokeSideBottom !== strokeSideBottom;
 
 		const angle = parent.angle;
 		const isAngleChanged = this._angle !== angle;
@@ -203,14 +203,14 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		if (isNotInitialized || isSizeChanged || isStrokeSideChanged || isAngleChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this._strokeSideTop = strokeSideTop;
+			this._strokeSideArc = strokeSideArc;
 			this._strokeSideBottom = strokeSideBottom;
 			this._angle = angle;
-			this.update(sizeX, sizeY, angle, strokeSideTop, strokeSideBottom);
+			this.update(sizeX, sizeY, angle, strokeSideArc, strokeSideBottom);
 		}
 	}
 
-	protected update(sx: number, sy: number, angle: number, sst: boolean, ssb: boolean): void {
+	protected update(sx: number, sy: number, angle: number, ssa: boolean, ssb: boolean): void {
 		// The number of the arc segments is 2n and the number of the points on the arc is m.
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
 		const m = 2 * n + 1;
@@ -250,7 +250,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const gx = Math.sign(sx);
 		const gy = Math.sign(sy);
 
-		if (!sst && ssb) {
+		if (!ssa && ssb) {
 			this.updateBottom(ax, ay, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
 		} else {
 			this.updateArc(
@@ -268,7 +268,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				fy,
 				gx,
 				gy,
-				sst,
+				ssa,
 				ssb,
 				nv,
 				ni
@@ -303,7 +303,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		fy: number,
 		gx: number,
 		gy: number,
-		sst: boolean,
+		ssa: boolean,
 		ssb: boolean,
 		nv: number,
 		ni: number
@@ -314,7 +314,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// capped: the polygons are added at the bottom to cover the sector with the hard straight sides
 		// chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
 		// For a circle and a semi-ellipse, Q on the axis gives the exact fan.
-		const sided = !sst || ssb;
+		const sided = !ssa || ssb;
 		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
 		const capped = !sided && !isExact;
 		const chained = sided || capped;
