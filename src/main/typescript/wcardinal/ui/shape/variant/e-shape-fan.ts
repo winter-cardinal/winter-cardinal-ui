@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
-import { EShapeFanStrokeSide } from "./e-shape-fan-stroke-side";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { EShapeFanTriangulatedImpl } from "./e-shape-fan-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestFan } from "./hit-test-fan";
-import { toFanStrokeSide } from "./to-fan-stroke-side";
 
 export class EShapeFan extends EShapePrimitive {
 	protected readonly _triangulated: EShapeFanTriangulated;
@@ -46,10 +45,10 @@ export class EShapeFan extends EShapePrimitive {
 		strokeScale: number,
 		strokeAlign: number
 	): number {
-		if (toFanStrokeSide(this.stroke.side) === EShapeFanStrokeSide.NONE) {
-			return 0;
+		if ((this.stroke.side & EShapeStrokeSide.TOP_OR_BOTTOM) !== 0) {
+			return super.toHitTestStrokeShift(strokeWidth, strokeScale, strokeAlign);
 		}
-		return super.toHitTestStrokeShift(strokeWidth, strokeScale, strokeAlign);
+		return 0;
 	}
 
 	clone(): EShapeFan {

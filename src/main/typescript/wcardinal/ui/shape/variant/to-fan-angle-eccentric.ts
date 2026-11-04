@@ -4,7 +4,7 @@
  */
 
 /**
- * Converts the half central angle (theta) to the eccentric angle (chi) of the arc end points
+ * Converts the half central angle of fans to the eccentric angle of the arc end points
  * of the fan whose arc is on the ellipse with the semi-axes (w, h).
  */
 export const toFanAngleEccentric = (w: number, h: number, theta: number): number => {

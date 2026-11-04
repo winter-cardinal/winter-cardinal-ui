@@ -5,12 +5,11 @@
 
 import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import type { EShapeFan } from "./e-shape-fan";
-import { EShapeFanStrokeSide } from "./e-shape-fan-stroke-side";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { toFanAngleCentric } from "./to-fan-angle-centric";
 import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
-import { toFanStrokeSide } from "./to-fan-stroke-side";
 
 /**
  * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
@@ -80,7 +79,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected _height: number;
 	protected _strokeAlign: number;
 	protected _strokeWidth: number;
-	protected _strokeSide: EShapeFanStrokeSide;
+	protected _strokeSideTop: boolean;
+	protected _strokeSideBottom: boolean;
 	protected _angle: number;
 	protected _sizeX: number;
 	protected _sizeY: number;
@@ -101,7 +101,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		this._height = 0;
 		this._strokeAlign = 0;
 		this._strokeWidth = 0;
-		this._strokeSide = EShapeFanStrokeSide.ALL;
+		this._strokeSideTop = true;
+		this._strokeSideBottom = true;
 		this._angle = 0;
 		this._sizeX = 0;
 		this._sizeY = 0;
@@ -177,12 +178,13 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
-		const strokeSide = toFanStrokeSide(stroke.side);
-		const strokeWidth =
-			stroke.enable && strokeSide !== EShapeFanStrokeSide.NONE ? stroke.width : 0;
+		const strokeSideTop = (stroke.side & EShapeStrokeSide.TOP) !== 0;
+		const strokeSideBottom = (stroke.side & EShapeStrokeSide.BOTTOM) !== 0;
+		const strokeWidth = stroke.enable && (strokeSideTop || strokeSideBottom) ? stroke.width : 0;
 		const isStrokeChanged =
 			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
-		const isStrokeSideChanged = this._strokeSide !== strokeSide;
+		const isStrokeSideChanged =
+			this._strokeSideTop !== strokeSideTop || this._strokeSideBottom !== strokeSideBottom;
 
 		const angle = parent.angle;
 		const isAngleChanged = this._angle !== angle;
@@ -205,13 +207,14 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		if (isNotInitialized || isSizeChanged || isStrokeSideChanged || isAngleChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this._strokeSide = strokeSide;
+			this._strokeSideTop = strokeSideTop;
+			this._strokeSideBottom = strokeSideBottom;
 			this._angle = angle;
-			this.update(sizeX, sizeY, angle, strokeSide);
+			this.update(sizeX, sizeY, angle, strokeSideTop, strokeSideBottom);
 		}
 	}
 
-	protected update(sx: number, sy: number, angle: number, strokeSide: EShapeFanStrokeSide): void {
+	protected update(sx: number, sy: number, angle: number, sst: boolean, ssb: boolean): void {
 		// The number of the arc segments is 2n and the number of the points on the arc is m.
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
 		const m = 2 * n + 1;
@@ -251,7 +254,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const gx = Math.sign(sx);
 		const gy = Math.sign(sy);
 
-		if (strokeSide === EShapeFanStrokeSide.BOTTOM) {
+		if (!sst && ssb) {
 			this.updateBottom(ax, ay, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
 		} else {
 			this.updateArc(
@@ -269,7 +272,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				fy,
 				gx,
 				gy,
-				strokeSide,
+				sst,
+				ssb,
 				nv,
 				ni
 			);
@@ -303,7 +307,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		fy: number,
 		gx: number,
 		gy: number,
-		strokeSide: EShapeFanStrokeSide,
+		sst: boolean,
+		ssb: boolean,
 		nv: number,
 		ni: number
 	): void {
@@ -313,7 +318,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// capped: the polygons are added at the bottom to cover the sector with the hard straight sides
 		// chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
 		// For a circle and a semi-ellipse, Q on the axis gives the exact fan.
-		const sided = strokeSide !== EShapeFanStrokeSide.TOP;
+		const sided = !sst || ssb;
 		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
 		const capped = !sided && !isExact;
 		const chained = sided || capped;
