@@ -5,6 +5,7 @@
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
+import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeRectangleRounded } from "./e-shape-rectangle-rounded";
@@ -38,7 +39,7 @@ export class EShapeButton extends EShapeRectangleRounded {
 		this._isGrouped = isGrouped;
 	}
 
-	override copy(source: EShape, part?: number): this {
+	override copy(source: EShape, part?: EShapeCopyPart): this {
 		super.copy(source, part);
 		if (source instanceof EShapeButton) {
 			this._isToggle = source.isToggle;
@@ -47,11 +48,11 @@ export class EShapeButton extends EShapeRectangleRounded {
 		return this;
 	}
 
-	clone(): EShapeRectangleRounded {
+	override clone(): EShapeRectangleRounded {
 		return new EShapeButton(this.type).copy(this);
 	}
 
-	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+	override serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
 		const isToggle = this._isToggle ? 1 : 0;
 		const isGrouped = this._isGrouped ? 2 : 0;

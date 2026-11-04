@@ -166,15 +166,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	get angle(): number {
 		const children = this.children;
 		if (0 < children.length) {
-			for (let i = children.length - 1; 0 <= i; --i) {
-				const child = children[i];
-				if ("angle" in child) {
-					const angle = child.angle;
-					if (angle != null) {
-						return angle;
-					}
-				}
-			}
+			return children[children.length - 1].angle;
 		}
 		return EShapeDefaults.ANGLE;
 	}
@@ -182,10 +174,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	set angle(angle: number) {
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
-			const child = children[i];
-			if ("angle" in child) {
-				child.angle = angle;
-			}
+			children[i].angle = angle;
 		}
 	}
 

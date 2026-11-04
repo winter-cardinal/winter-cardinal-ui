@@ -4,12 +4,15 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShape } from "../e-shape";
+import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { EShapeFanTriangulatedImpl } from "./e-shape-fan-triangulated-impl";
+import { EShapeLockPart } from "./e-shape-lock-part";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestFan } from "./hit-test-fan";
 
@@ -57,11 +60,21 @@ export class EShapeFan extends EShapePrimitive {
 		return 0;
 	}
 
-	clone(): EShapeFan {
+	override copy(source: EShape, part?: EShapeCopyPart): this {
+		this.lock(EShapeLockPart.ALL);
+		super.copy(source, part);
+		if ((part == null || part & EShapeCopyPart.STYLE) && source instanceof EShapeFan) {
+			this._angle = source._angle;
+		}
+		this.unlock(EShapeLockPart.ALL, true);
+		return this;
+	}
+
+	override clone(): EShapeFan {
 		return new EShapeFan(this.type).copy(this);
 	}
 
-	containsAbs(
+	override containsAbs(
 		x: number,
 		y: number,
 		ax: number,
@@ -76,7 +89,7 @@ export class EShapeFan extends EShapePrimitive {
 		return false;
 	}
 
-	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+	override serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
 		result[15] = this._angle;
 		return result;

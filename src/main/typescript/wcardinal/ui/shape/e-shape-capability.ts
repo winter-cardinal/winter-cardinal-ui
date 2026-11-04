@@ -135,7 +135,7 @@ export const EShapeCapability = {
 	STROKE_STYLE,
 
 	/**
-	 * Allows shape border radiuses or angle to be modified.
+	 * Allows shape border radiuses to be modified.
 	 */
 	BORDER_RADIUS,
 

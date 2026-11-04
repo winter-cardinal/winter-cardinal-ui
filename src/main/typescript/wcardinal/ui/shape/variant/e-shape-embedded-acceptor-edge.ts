@@ -54,7 +54,7 @@ export class EShapeEmbeddedAcceptorEdge extends EShapeCircleLegacy {
 		return new EShapeEmbeddedAcceptorEdge(this.type).copy(this);
 	}
 
-	override copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
+	override copy(source: EShape, part?: EShapeCopyPart): this {
 		super.copy(source, part);
 		if (source instanceof EShapeEmbeddedAcceptorEdge) {
 			this._subtype = source.subtype;

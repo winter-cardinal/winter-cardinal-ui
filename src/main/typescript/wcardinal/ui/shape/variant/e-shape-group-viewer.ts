@@ -140,6 +140,14 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		// DO NOTHING
 	}
 
+	get angle(): number {
+		return 0;
+	}
+
+	set angle(radius: number) {
+		// DO NOTHING
+	}
+
 	get image(): EShapeImageLike | undefined {
 		return undefined;
 	}
