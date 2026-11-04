@@ -37,6 +37,7 @@ export interface EShape extends utils.EventEmitter {
 	readonly stroke: EShapeStroke;
 	readonly transform: EShapeTransform;
 	radius: number;
+	angle?: number;
 	corner: EShapeCorner;
 	readonly points?: EShapePoints;
 	image?: EShapeImageLike;

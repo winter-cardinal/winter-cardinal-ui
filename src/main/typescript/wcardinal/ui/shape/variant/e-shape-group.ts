@@ -153,13 +153,39 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		if (0 < children.length) {
 			return children[children.length - 1].radius;
 		}
-		return 0.5;
+		return EShapeDefaults.RADIUS;
 	}
 
 	set radius(radius: number) {
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
 			children[i].radius = radius;
+		}
+	}
+
+	get angle(): number {
+		const children = this.children;
+		if (0 < children.length) {
+			for (let i = children.length - 1; 0 <= i; --i) {
+				const child = children[i];
+				if ("angle" in child) {
+					const angle = child.angle;
+					if (angle != null) {
+						return angle;
+					}
+				}
+			}
+		}
+		return EShapeDefaults.ANGLE;
+	}
+
+	set angle(angle: number) {
+		const children = this.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if ("angle" in child) {
+				child.angle = angle;
+			}
 		}
 	}
 

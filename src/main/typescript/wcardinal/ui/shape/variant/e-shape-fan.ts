@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
@@ -11,11 +14,12 @@ import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestFan } from "./hit-test-fan";
 
 export class EShapeFan extends EShapePrimitive {
+	protected _angle: number;
 	protected readonly _triangulated: EShapeFanTriangulated;
 
 	constructor(type: EShapeType = EShapeType.FAN) {
 		super(type);
-		this._radius = 0.333;
+		this._angle = EShapeDefaults.ANGLE;
 		this._triangulated = this.newTriangulated();
 	}
 
@@ -30,14 +34,16 @@ export class EShapeFan extends EShapePrimitive {
 	/**
 	 * The ratio of the half central angle of the fan to PI. Must be in [0, 0.5].
 	 * 0.5 results in a semicircle.
-	 * This is stored in the radius so that it is serialized in the same slot as the radius.
 	 */
 	get angle(): number {
-		return this._radius;
+		return this._angle;
 	}
 
 	set angle(angle: number) {
-		this.radius = angle;
+		if (this._angle !== angle) {
+			this._angle = angle;
+			this.updateUploaded();
+		}
 	}
 
 	protected override toHitTestStrokeShift(
@@ -68,5 +74,11 @@ export class EShapeFan extends EShapePrimitive {
 			return hitTestFan(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
+	}
+
+	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+		const result = super.serialize(manager);
+		result[15] = this._angle;
+		return result;
 	}
 }

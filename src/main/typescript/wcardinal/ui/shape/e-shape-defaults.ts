@@ -25,6 +25,7 @@ export interface EThemeShape {
 	getTextFamily(): string;
 	getTextSize(): number;
 	getRadius(): number;
+	getAngle(): number;
 	getSizeX(): number;
 	getSizeY(): number;
 	getHighlightColor(): number;
@@ -110,6 +111,10 @@ export class EShapeDefaults {
 
 	static get RADIUS(): number {
 		return this.THEME.getRadius();
+	}
+
+	static get ANGLE(): number {
+		return this.THEME.getAngle();
 	}
 
 	static get SIZE_X(): number {

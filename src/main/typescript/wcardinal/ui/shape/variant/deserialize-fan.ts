@@ -13,5 +13,7 @@ export const deserializeFan = (
 	manager: EShapeResourceManagerDeserialization,
 	shape?: EShapeFan
 ): Promise<EShapeFan> | EShapeFan => {
-	return deserializeBase(item, manager, shape || new EShapeFan());
+	shape = shape || new EShapeFan();
+	shape.angle = item[15];
+	return deserializeBase(item, manager, shape);
 };

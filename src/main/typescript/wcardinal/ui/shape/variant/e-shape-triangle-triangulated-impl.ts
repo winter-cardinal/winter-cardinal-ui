@@ -223,7 +223,6 @@ export class EShapeTriangleTriangulatedImpl implements EShapeTriangleTriangulate
 		const d = Math.abs(sy - cy);
 		const fd = 1 / d;
 		// Expand the triangle around its incenter for anti-aliasing and strokes.
-		// The outer vertices are shared where their interpolated attributes match.
 		const x0 = 0;
 		const y0 = cy + scale * (-sy - cy);
 		const x1 = scale * sx;
