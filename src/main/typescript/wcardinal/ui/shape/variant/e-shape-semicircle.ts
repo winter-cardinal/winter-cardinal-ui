@@ -58,7 +58,7 @@ export class EShapeSemicircle extends EShapePrimitive {
 		strokeScale: number,
 		strokeAlign: number
 	): number {
-		if ((this.stroke.side & EShapeStrokeSide.TOP_OR_BOTTOM) !== 0) {
+		if (this.stroke.side !== EShapeStrokeSide.NONE) {
 			return super.toHitTestStrokeShift(strokeWidth, strokeScale, strokeAlign);
 		}
 		return 0;

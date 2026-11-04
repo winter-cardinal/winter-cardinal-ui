@@ -28,15 +28,17 @@ import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
  *
  * ## Stroke sides
  *
+ * The arc is stroked if any of the LEFT, TOP and RIGHT bits of the stroke side is set (ARC below),
+ * and the straight sides are stroked if the BOTTOM bit is set.
  * The clipping of a vertex is 1 on the outline and decreases toward the inside by (the distance from the outline) * fd,
  * where the outline is the arc and/or the straight sides depending on the stroke side.
  *
- * - ALL (and NONE): the stroke is at the arc and the straight sides.
+ * - ARC and BOTTOM (and NONE): the stroke is at the arc and the straight sides.
  *   The fan is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
  *   the two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom.
- * - TOP: the stroke is only at the arc.
+ * - ARC: the stroke is only at the arc.
  *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact fan with the strip only.
- *   For the other ellipses, Q[k] are on the medial axis as ALL, and the two polygons
+ *   For the other ellipses, Q[k] are on the medial axis as ARC and BOTTOM, and the two polygons
  *   O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N] are added at the bottom without the stroke and the anti-aliasing.
  * - BOTTOM: the stroke is only at the straight sides.
  *   It is the same as a polygon. Two triangle fans from C cover the area between the arc and the segments CA and CB,
@@ -73,7 +75,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected _height: number;
 	protected _strokeAlign: number;
 	protected _strokeWidth: number;
-	protected _strokeSideTop: boolean;
+	protected _strokeSideArc: boolean;
 	protected _strokeSideBottom: boolean;
 	protected _angle: number;
 	protected _sizeX: number;
@@ -95,7 +97,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		this._height = 0;
 		this._strokeAlign = 0;
 		this._strokeWidth = 0;
-		this._strokeSideTop = true;
+		this._strokeSideArc = true;
 		this._strokeSideBottom = true;
 		this._angle = 0;
 		this._sizeX = 0;
@@ -172,13 +174,13 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const stroke = parent.stroke;
 		const strokeAlign = stroke.align;
-		const strokeSideTop = (stroke.side & EShapeStrokeSide.TOP) !== 0;
+		const strokeSideArc = (stroke.side & EShapeStrokeSide.NOT_BOTTOM) !== 0;
 		const strokeSideBottom = (stroke.side & EShapeStrokeSide.BOTTOM) !== 0;
-		const strokeWidth = stroke.enable && (strokeSideTop || strokeSideBottom) ? stroke.width : 0;
+		const strokeWidth = stroke.enable && (strokeSideArc || strokeSideBottom) ? stroke.width : 0;
 		const isStrokeChanged =
 			this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
 		const isStrokeSideChanged =
-			this._strokeSideTop !== strokeSideTop || this._strokeSideBottom !== strokeSideBottom;
+			this._strokeSideArc !== strokeSideArc || this._strokeSideBottom !== strokeSideBottom;
 
 		const angle = parent.angle;
 		const isAngleChanged = this._angle !== angle;
@@ -201,14 +203,14 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		if (isNotInitialized || isSizeChanged || isStrokeSideChanged || isAngleChanged) {
 			this._sizeX = sizeX;
 			this._sizeY = sizeY;
-			this._strokeSideTop = strokeSideTop;
+			this._strokeSideArc = strokeSideArc;
 			this._strokeSideBottom = strokeSideBottom;
 			this._angle = angle;
-			this.update(sizeX, sizeY, angle, strokeSideTop, strokeSideBottom);
+			this.update(sizeX, sizeY, angle, strokeSideArc, strokeSideBottom);
 		}
 	}
 
-	protected update(sx: number, sy: number, angle: number, sst: boolean, ssb: boolean): void {
+	protected update(sx: number, sy: number, angle: number, ssa: boolean, ssb: boolean): void {
 		// The number of the arc segments is 2n and the number of the points on the arc is m.
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
 		const m = 2 * n + 1;
@@ -248,7 +250,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const gx = Math.sign(sx);
 		const gy = Math.sign(sy);
 
-		if (!sst && ssb) {
+		if (!ssa && ssb) {
 			this.updateBottom(ax, ay, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
 		} else {
 			this.updateArc(
@@ -266,7 +268,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				fy,
 				gx,
 				gy,
-				sst,
+				ssa,
 				ssb,
 				nv,
 				ni
@@ -301,7 +303,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		fy: number,
 		gx: number,
 		gy: number,
-		sst: boolean,
+		ssa: boolean,
 		ssb: boolean,
 		nv: number,
 		ni: number
@@ -312,7 +314,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// capped: the polygons are added at the bottom to cover the sector with the hard straight sides
 		// chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
 		// For a circle and a semi-ellipse, Q on the axis gives the exact fan.
-		const sided = !sst || ssb;
+		const sided = !ssa || ssb;
 		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
 		const capped = !sided && !isExact;
 		const chained = sided || capped;
@@ -859,12 +861,16 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const fs = (EShapeFanTriangulatedImpl.SCALE - 1) / fd;
 
 		this.computeArcPoints(w, h, n, ea, sea, cea);
+		this.computeArcNormals(w, h, n);
+
+		// The length of O, which is the same as the one of writeSidePolygon: |OA| + the length of the arc
+		const l0 = Math.sqrt(bx * bx + by * by) + EShapeFanTriangulatedImpl.WORK_ARC_L[2 * n];
 
 		// Triangle fans from C to the arc: left (sign = -1) and right (sign = +1)
 		let iv = 0;
 		let ii = 0;
 		for (let sign = -1; sign <= 1; sign += 2) {
-			const count = this.writeBottomFan(iv, ii, sign, n, yc, st, ct, fd, fx, fy, gx, gy);
+			const count = this.writeBottomFan(iv, ii, sign, n, yc, l0, st, ct, fd, fx, fy, gx, gy);
 			iv += count;
 			ii += 3 * (count - 2);
 		}
@@ -878,6 +884,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				bx,
 				by,
 				yc,
+				l0,
 				fs,
 				st,
 				ct,
@@ -899,8 +906,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	 * Returns the number of the written vertices.
 	 *
 	 * The clipping is 1 + fd * (n . p) where n is the outward unit normal of the straight side,
-	 * and the length is the distance along the straight side measured from O.
-	 * The side OA has n = (-ct, st) and l = (-st, -ct), and the side OB has n = (ct, st) and l = (st, -ct).
+	 * and the length is l0 + (-st, sign * ct) . p, which is the same as the one of writeSidePolygon
+	 * so that the dashes of the straight sides do not depend on the stroke side.
 	 */
 	protected writeBottomFan(
 		iv: number,
@@ -908,6 +915,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		sign: number,
 		n: number,
 		yc: number,
+		l0: number,
 		st: number,
 		ct: number,
 		fd: number,
@@ -919,10 +927,10 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
 		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
 		const nx = sign * ct;
-		const lx = sign * st;
+		const ly = sign * ct;
 
 		let count = 0;
-		this.writeSideVertex(iv + count++, 0, -yc, 0, nx, st, 0, lx, -ct, fd, fx, fy, gx, gy);
+		this.writeSideVertex(iv + count++, 0, -yc, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
 		for (let j = 0; j <= n; ++j) {
 			const k = sign < 0 ? j : n + j;
 			this.writeSideVertex(
@@ -932,9 +940,9 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				0,
 				nx,
 				st,
-				0,
-				lx,
-				-ct,
+				l0,
+				-st,
+				ly,
 				fd,
 				fx,
 				fy,
@@ -958,6 +966,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		bx: number,
 		by: number,
 		yc: number,
+		l0: number,
 		fs: number,
 		st: number,
 		ct: number,
@@ -968,8 +977,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		gy: number
 	): number {
 		const nx = sign * ct;
-		const lx = sign * st;
-		this.writeSideVertex(iv, 0, fs / st, 0, nx, st, 0, lx, -ct, fd, fx, fy, gx, gy);
+		const ly = sign * ct;
+		this.writeSideVertex(iv, 0, fs / st, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
 		this.writeSideVertex(
 			iv + 1,
 			sign * (bx + fs * ct),
@@ -977,17 +986,17 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			0,
 			nx,
 			st,
-			0,
-			lx,
-			-ct,
+			l0,
+			-st,
+			ly,
 			fd,
 			fx,
 			fy,
 			gx,
 			gy
 		);
-		this.writeSideVertex(iv + 2, sign * bx, -by, 0, nx, st, 0, lx, -ct, fd, fx, fy, gx, gy);
-		this.writeSideVertex(iv + 3, 0, -yc, 0, nx, st, 0, lx, -ct, fd, fx, fy, gx, gy);
+		this.writeSideVertex(iv + 2, sign * bx, -by, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+		this.writeSideVertex(iv + 3, 0, -yc, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
 		this.writeFan(ii, iv, 4);
 		return 4;
 	}
