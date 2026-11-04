@@ -144,7 +144,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return 0;
 	}
 
-	set angle(radius: number) {
+	set angle(angle: number) {
 		// DO NOTHING
 	}
 
