@@ -13,6 +13,9 @@ import { EShapePrimitive } from "./e-shape-primitive";
 import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
 import { hitTestFan } from "./hit-test-fan";
 
+/**
+ * A semicircle shape.
+ */
 export class EShapeSemicircle extends EShapePrimitive {
 	protected readonly _triangulated: EShapeFanTriangulated;
 
@@ -21,7 +24,7 @@ export class EShapeSemicircle extends EShapePrimitive {
 		this._triangulated = this.newTriangulated();
 	}
 
-	protected newStroke(): EShapeStroke {
+	protected override newStroke(): EShapeStroke {
 		return new EShapeStrokeImpl(
 			this,
 			true,
