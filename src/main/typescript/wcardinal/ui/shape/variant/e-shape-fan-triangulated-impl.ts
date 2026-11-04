@@ -38,7 +38,7 @@ import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
  *   the two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom.
  * - ARC: the stroke is only at the arc.
  *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact fan with the strip only.
- *   For the other ellipses, Q[k] are on the medial axis as ALL, and the two polygons
+ *   For the other ellipses, Q[k] are on the medial axis as ARC and BOTTOM, and the two polygons
  *   O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N] are added at the bottom without the stroke and the anti-aliasing.
  * - BOTTOM: the stroke is only at the straight sides.
  *   It is the same as a polygon. Two triangle fans from C cover the area between the arc and the segments CA and CB,
