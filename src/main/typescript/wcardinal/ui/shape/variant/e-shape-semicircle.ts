@@ -3,19 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
 import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
 import { EShapeFanTriangulatedImpl } from "./e-shape-fan-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
 import { hitTestFan } from "./hit-test-fan";
 
 export class EShapeSemicircle extends EShapePrimitive {
 	protected readonly _triangulated: EShapeFanTriangulated;
 
-	constructor(type: EShapeType = EShapeType.FAN) {
+	constructor(type: EShapeType = EShapeType.SEMICIRCLE) {
 		super(type);
 		this._triangulated = this.newTriangulated();
+	}
+
+	protected newStroke(): EShapeStroke {
+		return new EShapeStrokeImpl(
+			this,
+			true,
+			EShapeDefaults.STROKE_COLOR,
+			EShapeDefaults.STROKE_ALPHA,
+			EShapeDefaults.STROKE_WIDTH,
+			EShapeDefaults.STROKE_ALIGN,
+			EShapeDefaults.STROKE_SIDE & ~EShapeStrokeSide.BOTTOM,
+			EShapeDefaults.STROKE_STYLE
+		);
 	}
 
 	protected newTriangulated(): EShapeFanTriangulated {
