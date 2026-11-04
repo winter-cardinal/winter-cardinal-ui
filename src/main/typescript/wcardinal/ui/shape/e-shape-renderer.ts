@@ -68,8 +68,7 @@ vec2 toUnpackedClippings(in float v) {
 	vec2 c = vec2(1.0, 1.0/1024.0) * v;
 	c -= fract(c);
 	c -= c.yx * vec2(1024.0, 0.0);
-	c /= vec2(852.5, 852.5);
-	c -= vec2(0.1, 0.1);
+	c /= vec2(930.0, 930.0);
 	return c;
 }
 
