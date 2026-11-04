@@ -51,7 +51,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	/** P: the points on the arc */
 	protected static readonly WORK_ARC_X: number[] = [];
 	protected static readonly WORK_ARC_Y: number[] = [];
-	/** The arc lengths measured from P[0] */
+	/** The lengths of the polyline P[0], ..., P[k] */
 	protected static readonly WORK_ARC_L: number[] = [];
 	/** The unit inward normals of the arc */
 	protected static readonly WORK_NORMAL_X: number[] = [];
@@ -63,10 +63,9 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	protected static readonly WORK_MEDIAL_Y: number[] = [];
 	/** The distances from P to Q */
 	protected static readonly WORK_MEDIAL_D: number[] = [];
-	/** R: the points on the arc shifted outward, and their lengths */
+	/** R: the points on the arc shifted outward */
 	protected static readonly WORK_RIM_X: number[] = [];
 	protected static readonly WORK_RIM_Y: number[] = [];
-	protected static readonly WORK_RIM_L: number[] = [];
 
 	protected _id: number;
 	protected _parent: EShape;
@@ -213,8 +212,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// The number of the arc segments is 2n and the number of the points on the arc is m.
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
 		const m = 2 * n + 1;
-		const nv = 2 * m + 2 * (n + 3);
-		const ni = 4 * n + 2 * (n + 1);
+		const nv = 4 * (m - 1) + 2 * (n + 4);
+		const ni = 4 * n + 2 * (n + 2);
 		this._nvertices = nv;
 		this._nindices = ni;
 		this._id += 1;
@@ -319,7 +318,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const chained = sided || capped;
 
 		this.computeArcPoints(w, h, n, ea, sea, cea);
-		this.computeArcNormals(w, h, n, ea);
+		this.computeArcNormals(w, h, n);
 		let dmax = this.computeMedialPoints(w, h, n, st, ct, chained);
 		if (capped) {
 			// The distance field of the arc must cover O, which is the farthest point from the arc,
@@ -339,11 +338,11 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const fd = 1 / dmax;
 		const fs = (EShapeFanTriangulatedImpl.SCALE - 1) * dmax;
-		this.computeRimPoints(w, h, n, fs, st, ct, sea, cea, sided);
+		this.computeRimPoints(n, fs, st, ct, sided);
 
-		// Strip: 2m vertices and 2 * 3 * (m - 1) indices
+		// Strip: 4 * (m - 1) vertices and 2 * 3 * (m - 1) indices
 		this.writeStrip(m, fd, fx, fy, gx, gy);
-		let iv = 2 * m;
+		let iv = 4 * (m - 1);
 		let ii = 6 * (m - 1);
 
 		// Polygons at the bottom: left (sign = -1) and right (sign = +1)
@@ -424,12 +423,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	}
 
 	/**
-	 * Computes the unit inward normals of the arc, the speeds of the arc, and the arc lengths at P[k].
+	 * Computes the unit inward normals of the arc, the speeds of the arc, and the lengths of the polyline at P[k].
 	 *
 	 * The normal at P is Np = (-h x / w, -w y / h), whose magnitude is the speed of the arc.
-	 * The speed is used to approximate the arc length without extra square roots.
+	 * The lengths are the ones of the polyline, which is the actual outline, so that they are exact at clipping = 1.
 	 */
-	protected computeArcNormals(w: number, h: number, n: number, ea: number): void {
+	protected computeArcNormals(w: number, h: number, n: number): void {
 		const m = 2 * n + 1;
 		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
 		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
@@ -437,11 +436,9 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
 		const speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
 		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
-		const da = ea / n;
 		const hw = h / w;
 		const wh = w / h;
 		let l = 0;
-		let previous = 0;
 		for (let k = 0; k <= n; ++k) {
 			const dx = -hw * px[k];
 			const dy = -wh * py[k];
@@ -450,9 +447,10 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			ny[k] = dy / speed;
 			speeds[k] = speed;
 			if (0 < k) {
-				l += 0.5 * da * (previous + speed);
+				const ex = px[k] - px[k - 1];
+				const ey = py[k] - py[k - 1];
+				l += Math.sqrt(ex * ex + ey * ey);
 			}
-			previous = speed;
 			ls[k] = l;
 		}
 		for (let k = 0; k < n; ++k) {
@@ -539,19 +537,15 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	}
 
 	/**
-	 * Computes R[k], the points on the arc shifted outward by fs, and their lengths.
+	 * Computes R[k], the points on the arc shifted outward by fs.
 	 * If the straight sides are the outline, the end points are shifted
 	 * to the intersections of the shifted arc and the shifted straight sides.
 	 */
 	protected computeRimPoints(
-		w: number,
-		h: number,
 		n: number,
 		fs: number,
 		st: number,
 		ct: number,
-		sea: number,
-		cea: number,
 		sided: boolean
 	): void {
 		const m = 2 * n + 1;
@@ -559,14 +553,11 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
 		const nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
 		const ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
 		const rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
 		const ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
-		const rl = EShapeFanTriangulatedImpl.WORK_RIM_L;
 		for (let k = 0; k < m; ++k) {
 			let x = px[k] - fs * nx[k];
 			let y = py[k] - fs * ny[k];
-			let l = ls[k];
 			if (sided && (k === 0 || k === m - 1)) {
 				const sign = k === 0 ? -1 : +1;
 
@@ -578,21 +569,17 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				const miter = fs / Math.max(1 + n1x * n2x + n1y * n2y, 0.05);
 				x = px[k] + miter * (n1x + n2x);
 				y = py[k] + miter * (n1y + n2y);
-
-				// The length is shifted along the tangent (tx, ty) / speed
-				const tx = w * cea;
-				const ty = sign * h * sea;
-				l +=
-					((x - px[k]) * tx + (y - py[k]) * ty) / EShapeFanTriangulatedImpl.WORK_SPEED[0];
 			}
 			rx[k] = x;
 			ry[k] = y;
-			rl[k] = l;
 		}
 	}
 
 	/**
-	 * Writes the strip P[k], P[k + 1], Q[k + 1], Q[k] with the vertices R[k] and Q[k].
+	 * Writes the strip P[k], P[k + 1], Q[k + 1], Q[k] with the vertices R[k], Q[k], R[k + 1] and Q[k + 1].
+	 *
+	 * Each quad owns its vertices. The length in a quad is the length at P[k] plus the projection
+	 * to the chord P[k]P[k + 1], which is exact at clipping = 1 where the chord is the outline.
 	 */
 	protected writeStrip(
 		m: number,
@@ -602,29 +589,52 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		gx: number,
 		gy: number
 	): void {
+		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
 		const qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
 		const qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
 		const qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
 		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
 		const rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
 		const ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
-		const rl = EShapeFanTriangulatedImpl.WORK_RIM_L;
 		const scale = EShapeFanTriangulatedImpl.SCALE;
 		const indices = this._indices;
 		let iv = 0;
 		let ii = 0;
-		for (let k = 0; k < m; ++k) {
-			this.writeVertex(iv++, rx[k], ry[k], rl[k], scale, fd, fx, fy, gx, gy);
-			this.writeVertex(iv++, qx[k], qy[k], ls[k], 1 - qd[k] * fd, fd, fx, fy, gx, gy);
-			if (k < m - 1) {
-				const a = 2 * k;
-				indices[ii++] = a;
-				indices[ii++] = a + 2;
-				indices[ii++] = a + 3;
-				indices[ii++] = a;
-				indices[ii++] = a + 3;
-				indices[ii++] = a + 1;
-			}
+		for (let k = 0; k < m - 1; ++k) {
+			const x0 = px[k];
+			const y0 = py[k];
+			const l0 = ls[k];
+			const dl = ls[k + 1] - l0;
+			const fl = 0 < dl ? 1 / dl : 0;
+			const ex = (px[k + 1] - x0) * fl;
+			const ey = (py[k + 1] - y0) * fl;
+
+			const r0x = rx[k];
+			const r0y = ry[k];
+			const q0x = qx[k];
+			const q0y = qy[k];
+			const r1x = rx[k + 1];
+			const r1y = ry[k + 1];
+			const q1x = qx[k + 1];
+			const q1y = qy[k + 1];
+			const lr0 = l0 + (r0x - x0) * ex + (r0y - y0) * ey;
+			const lq0 = l0 + (q0x - x0) * ex + (q0y - y0) * ey;
+			const lr1 = l0 + (r1x - x0) * ex + (r1y - y0) * ey;
+			const lq1 = l0 + (q1x - x0) * ex + (q1y - y0) * ey;
+			const cq0 = 1 - qd[k] * fd;
+			const cq1 = 1 - qd[k + 1] * fd;
+			this.writeVertex(iv, r0x, r0y, lr0, scale, fd, fx, fy, gx, gy);
+			this.writeVertex(iv + 1, q0x, q0y, lq0, cq0, fd, fx, fy, gx, gy);
+			this.writeVertex(iv + 2, r1x, r1y, lr1, scale, fd, fx, fy, gx, gy);
+			this.writeVertex(iv + 3, q1x, q1y, lq1, cq1, fd, fx, fy, gx, gy);
+			indices[ii++] = iv;
+			indices[ii++] = iv + 2;
+			indices[ii++] = iv + 3;
+			indices[ii++] = iv;
+			indices[ii++] = iv + 3;
+			indices[ii++] = iv + 1;
+			iv += 4;
 		}
 	}
 
@@ -704,6 +714,53 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		for (let j = 0; j <= n; ++j) {
 			const k = sign < 0 ? j : m - 1 - j;
 			const floor = 1 - qd[k] * fd;
+			const isOnAxis = Math.abs(qx[k]) <= eps;
+
+			// Where Q is clamped, the clipping of the side reaches the floor at T on the axis before Q.
+			// Without T, the clipping on the axis is not linear and a dent appears at O.
+			const ty = -qd[k] / st;
+			if (isOnAxis && qy[k] < ty - eps) {
+				this.writeSideVertex(
+					iv + count++,
+					0,
+					ty,
+					floor,
+					nx,
+					st,
+					l0,
+					-st,
+					ly,
+					fd,
+					fx,
+					fy,
+					gx,
+					gy
+				);
+				this.writeFan(ii, iv, count);
+				this.writeSideVertex(
+					iv + count,
+					qx[k],
+					qy[k],
+					floor,
+					nx,
+					st,
+					l0,
+					-st,
+					ly,
+					fd,
+					fx,
+					fy,
+					gx,
+					gy
+				);
+				const indices = this._indices;
+				const i = ii + 3 * (count - 2);
+				indices[i] = iv + count - 2;
+				indices[i + 1] = iv + count;
+				indices[i + 2] = iv + count - 1;
+				return count + 1;
+			}
+
 			this.writeSideVertex(
 				iv + count++,
 				qx[k],
@@ -720,7 +777,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				gx,
 				gy
 			);
-			if (Math.abs(qx[k]) <= eps) {
+			if (isOnAxis) {
 				break;
 			}
 		}
