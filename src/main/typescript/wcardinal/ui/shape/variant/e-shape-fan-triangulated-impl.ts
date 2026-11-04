@@ -213,8 +213,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// The number of the arc segments is 2n and the number of the points on the arc is m.
 		const n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
 		const m = 2 * n + 1;
-		const nv = 2 * m + 2 * (n + 3);
-		const ni = 4 * n + 2 * (n + 1);
+		const nv = 2 * m + 2 * (n + 4);
+		const ni = 4 * n + 2 * (n + 2);
 		this._nvertices = nv;
 		this._nindices = ni;
 		this._id += 1;
@@ -704,6 +704,53 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		for (let j = 0; j <= n; ++j) {
 			const k = sign < 0 ? j : m - 1 - j;
 			const floor = 1 - qd[k] * fd;
+			const isOnAxis = Math.abs(qx[k]) <= eps;
+
+			// Where Q is clamped, the clipping of the side reaches the floor at T on the axis before Q.
+			// Without T, the clipping on the axis is not linear and a dent appears at O.
+			const ty = -qd[k] / st;
+			if (isOnAxis && qy[k] < ty - eps) {
+				this.writeSideVertex(
+					iv + count++,
+					0,
+					ty,
+					floor,
+					nx,
+					st,
+					l0,
+					-st,
+					ly,
+					fd,
+					fx,
+					fy,
+					gx,
+					gy
+				);
+				this.writeFan(ii, iv, count);
+				this.writeSideVertex(
+					iv + count,
+					qx[k],
+					qy[k],
+					floor,
+					nx,
+					st,
+					l0,
+					-st,
+					ly,
+					fd,
+					fx,
+					fy,
+					gx,
+					gy
+				);
+				const indices = this._indices;
+				const i = ii + 3 * (count - 2);
+				indices[i] = iv + count - 2;
+				indices[i + 1] = iv + count;
+				indices[i + 2] = iv + count - 1;
+				return count + 1;
+			}
+
 			this.writeSideVertex(
 				iv + count++,
 				qx[k],
@@ -720,7 +767,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 				gx,
 				gy
 			);
-			if (Math.abs(qx[k]) <= eps) {
+			if (isOnAxis) {
 				break;
 			}
 		}
