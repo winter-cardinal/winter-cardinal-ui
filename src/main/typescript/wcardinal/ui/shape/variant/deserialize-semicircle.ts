@@ -13,5 +13,7 @@ export const deserializeSemicircle = (
 	manager: EShapeResourceManagerDeserialization,
 	shape?: EShapeSemicircle
 ): Promise<EShapeSemicircle> | EShapeSemicircle => {
-	return deserializeBase(item, manager, shape || new EShapeSemicircle());
+	shape = shape || new EShapeSemicircle();
+	shape.angle = item[15];
+	return deserializeBase(item, manager, shape);
 };
