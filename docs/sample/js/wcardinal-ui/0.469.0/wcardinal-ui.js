@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.468.0
+ Winter Cardinal UI v0.469.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -59,6 +59,8 @@
         TRIANGLE_LEGACY: 29,
         RECTANGLE_ROUNDED_LEGACY: 30,
         TRIANGLE_ROUNDED_LEGACY: 31,
+        FAN: 32,
+        SEMICIRCLE_LEGACY: 33,
         EXTENSION: 1000
     };
 
@@ -258,9 +260,11 @@
         return Math.round(1023 * a0) + (Math.round(1023 * a1) << 10);
     };
     var toPackedClippings = function (x, y) {
-        // Encode the range [-0.1, 1.1] into the 10-bit range [0, 1023]
-        // Since 1023 / 1.2 = 852.5,
-        return Math.round(852.5 * (x + 0.1)) + (Math.round(852.5 * (y + 0.1)) << 10);
+        // Encode the range [0, 1.1] into the 10-bit range [0, 1023]
+        // Since 1023 / 1.1 = 930, 0, 1 and 1.1 are exactly representable.
+        // The values out of the range are clamped.
+        return (Math.round(930 * Math.max(0, Math.min(1.1, x))) +
+            (Math.round(930 * Math.max(0, Math.min(1.1, y))) << 10));
     };
 
     var BAR_VERTEX_COUNT = 4;
@@ -1782,6 +1786,13 @@
         Object.defineProperty(EShapeDefaults, "RADIUS", {
             get: function () {
                 return this.THEME.getRadius();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "ANGLE", {
+            get: function () {
+                return this.THEME.getAngle();
             },
             enumerable: false,
             configurable: true
@@ -4703,6 +4714,7 @@
     var LINE = 0x800000;
     var LINE_TAIL = 0x1000000;
     var LINE_HEAD = 0x2000000;
+    var ANGLE = 0x4000000;
     var COORDINATE = POSITION | WIDTH$1 | HEIGHT$1 | ROTATION$1 | SKEW;
     var SHAPE = REPLACING | GROUPING | FILL$1 | STROKE$1 | STROKE_STYLE | LINE | LINE_TAIL | LINE_HEAD;
     var LAYER = ORDER_IN_LAYER;
@@ -4711,7 +4723,7 @@
     var EMBEDDED = ID | COORDINATE | REPLACING | GROUPING | TEXT$2 | DATA | ACTION | LAYER | DATA_MAPPING;
     var EMBEDDED_ACCEPTOR_EDGE = ID | COORDINATE | REPLACING | FILL$1 | STROKE$1 | STROKE_STYLE_SCALING | TEXT$2 | TEXTURE | DATA | ACTION | CURSOR$1 | LAYER;
     var CONNECTOR = ID | SHAPE | TEXT$2 | TEXTURE | DATA | ACTION | CURSOR$1 | LAYER | CHILDREN$1;
-    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING | UNGROUPING;
+    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | ANGLE | DATA_MAPPING | UNGROUPING;
     var EShapeCapability = {
         NONE: NONE,
         /**
@@ -4780,6 +4792,10 @@
          * Allows shape border radiuses to be modified.
          */
         BORDER_RADIUS: BORDER_RADIUS,
+        /**
+         * Allows shape angles to be modified.
+         */
+        ANGLE: ANGLE,
         /**
          * Allows shape texts to be modified.
          */
@@ -8433,6 +8449,16 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapePrimitive.prototype, "angle", {
+            get: function () {
+                return 0;
+            },
+            set: function (angle) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(EShapePrimitive.prototype, "image", {
             get: function () {
                 return this._image;
@@ -11678,7 +11704,6 @@
             return new EShapeEmbeddedAcceptorEdge(this.type).copy(this);
         };
         EShapeEmbeddedAcceptorEdge.prototype.copy = function (source, part) {
-            if (part === void 0) { part = EShapeCopyPart.ALL; }
             _super.prototype.copy.call(this, source, part);
             if (source instanceof EShapeEmbeddedAcceptorEdge) {
                 this._subtype = source.subtype;
@@ -12476,6 +12501,16 @@
                 return 0;
             },
             set: function (radius) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupViewer.prototype, "angle", {
+            get: function () {
+                return 0;
+            },
+            set: function (angle) {
                 // DO NOTHING
             },
             enumerable: false,
@@ -15308,7 +15343,6 @@
             values.length = bodyValuesLength + 4;
         };
         EShapeConnectorLine.prototype.copy = function (source, part) {
-            if (part === void 0) { part = EShapeCopyPart.ALL; }
             this.lock(EShapeLockPart.ALL);
             _super.prototype.copy.call(this, source, part);
             if (source instanceof EShapeConnectorLine) {
@@ -16806,8 +16840,8 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER$1 = "\nattribute highp vec2 aPosition;\nattribute highp vec2 aStepA;\nattribute highp vec4 aStepB;\nattribute highp vec3 aColor;\nattribute highp vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse(in vec2 v) {\n\treturn vec2(-v.y, v.x);\n}\n\nvec4 toGeneral(in float v) {\n\tvec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;\n\tc -= fract(c);\n\tc -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);\n\treturn c;\n}\n\nfloat toStrokeWidthScale(in float scale) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin(1.0, shapeScale) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax(1.0, shapeScale) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toUnpackedClippings(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(852.5, 852.5);\n\tc -= vec2(0.1, 0.1);\n\treturn c;\n}\n\nvec2 toUnpackedAlphas(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(1023.0, 1023.0);\n\treturn c;\n}\n\nvec3 toUnpackedF3x256(in float v) {\n\tvec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;\n\tc -= fract(c);\n\tc -= c.yzx * vec3(256.0, 256.0, 0.0);\n\tc /= 255.0;\n\treturn c;\n}\n\nvec2 toPosition012(in vec2 v) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toStepB01(in vec4 sb) {\n\treturn vec4(sb.xy, toUnpackedClippings(sb.z));\n}\n\nvec4 toStepB2(in vec4 sb, in float strokeWidth) {\n\tfloat x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);\n\tfloat w = clamp(strokeWidth, 0.0, 1.0) * 0.4;\n\tfloat p = w * sb.y + sb.z;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));\n}\n\nvec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {\n\tvec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;\n\tt -= fract(t);\n\tt -= t.yzx * vec3(1024.0, 1024.0, 0.0);\n\tt *= vec3(1.0/511.5, 1.0/511.5, 1.0);\n\tt -= vec3(1.0, 1.0, 0.0);\n\tvec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));\n\tvec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));\n\n\tvec2 n0i = toInverse(n0);\n\tvec2 n1i = toInverse(n1);\n\tfloat direction = sign(4.5 - type);\n\n\t// Offset\n\tfloat cross = dot(n0i, n1);\n\tbool bcross = 0.00001 < abs(cross);\n\tfloat crossi = (bcross ? 1.0 / cross : 0.0);\n\tfloat b = dot(n1 - n0, n0) * crossi;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );\n\tfloat miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :\n\t\t(miterLength < 6.0 && bcross ? pmiter : pbevel)\n\t);\n\tvec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);\n\tshift = dot(ni, p - presult);\n\treturn toPosition012(presult);\n}\n\nvec2 toStepA3(in float type, in float strokeWidth) {\n\treturn vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);\n}\n\nfloat toDotWidth(in float strokeScaling, in float strokeWidthScale) {\n\treturn aStepA.x * (\n\t\tstrokeScaling == 4.0 || strokeScaling == 5.0 ||\n\t\tstrokeScaling == 6.0 || strokeScaling == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec2 toDotPattern(in float dash) {\n\treturn (dash < 0.5 ?\n\t\tvec2(1.0, 0.0) :\n\t\t(dash < 3.5 ?\n\t\t\t(dash < 1.5 ?\n\t\t\t\tvec2(1.0, 1.0) :\n\t\t\t\t(2.5 < dash ?\n\t\t\t\t\tvec2(1.0, 2.0) :\n\t\t\t\t\tvec2(1.0, 0.5)\n\t\t\t\t)\n\t\t\t) :\n\t\t\t(dash < 4.5 ?\n\t\t\t\tvec2(2.0, 1.0) :\n\t\t\t\t(5.5 < dash ?\n\t\t\t\t\tvec2(2.0, 2.0) :\n\t\t\t\t\tvec2(2.0, 0.5)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(dash);\n\treturn vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);\n}\n\nvec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(type - 7.0);\n\treturn vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);\n}\n\nvoid toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {\n\tvec2 a = toUnpackedAlphas(source.z);\n\tfillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;\n\tfillColor.w = a.x;\n\tstrokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;\n\tstrokeColor.w = a.y;\n}\n\nvoid main(void) {\n\tvec4 general = toGeneral(aStepA.y);\n\tfloat type = general.x;\n\tfloat strokeScaling = general.y;\n\tfloat strokeWidthScale = toStrokeWidthScale(strokeScaling);\n\tfloat strokeWidth = strokeWidthScale * aStepA.x;\n\n\tvType = type;\n\tif (type < 2.5 || 6.5 < type) {\n\t\tgl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);\n\t\tvStepA = strokeWidth * general.zw;\n\t\tif (type < 1.5) {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else if (type < 2.5) {\n\t\t\tvStepB = toStepB2(aStepB, strokeWidth);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = toLength7(type, strokeScaling, strokeWidthScale);\n\t\t}\n\t} else {\n\t\tfloat shift3 = 0.0;\n\t\tgl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);\n\t\tvStepA = toStepA3(type, strokeWidth);\n\t\tvStepB = vec4(0.0);\n\t\tvLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);\n\t}\n\ttoColors(aColor, vColorFill, vColorStroke);\n\tvUv = aUv;\n}";
-    var FRAGMENT_SHADER$1 = "\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float antialiasWeight;\n\nvec4 toColor0(in vec4 texture) {\n\tvec2 f = vec2(1.0) / vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight * f;\n\tvec2 swd = vStepA * f;\n\tvec2 one = vec2(1.0);\n\tvec2 s0 = smoothstep(one - awd, one + awd, c);\n\tvec2 s1 = smoothstep(one - swd - awd, one - swd + awd, c);\n\tfloat s2 = max(s0.x, s0.y);\n\tfloat s3 = max(s1.x, s1.y);\n\n\treturn texture * (\n\t\tvColorStroke * (s3 - s2) +\n\t\tvColorFill * (1.0 - s3)\n\t);\n}\n\nvec4 toColor1(in vec4 texture) {\n\tvec2 d = vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight / d;\n\tvec2 swd = vStepA / d;\n\tvec2 one = vec2(1.0);\n\tvec2 zero = vec2(0.0);\n\tfloat s0 = smoothstep(length(c/clamp(one + awd, zero, one)), length(c/clamp(one - awd, zero, one)), 1.0);\n\tfloat s1 = smoothstep(length(c/clamp(one - swd + awd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);\n\treturn texture * (\n\t\tvColorStroke * (s0 - s1) +\n\t\tvColorFill * s1\n\t);\n}\n\nvec4 toColor2(in vec4 texture) {\n\tvec2 p0 = vStepB.xy;\n\tvec2 p1 = vStepB.zw;\n\tvec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));\n\tvec2 s = smoothstep(p0 - p1, p0 + p1, d);\n\treturn vColorStroke * (s.y - s.x) + vColorFill * s.x;\n}\n\nfloat toLineStep(in vec4 parameters) {\n\tfloat l = parameters.x;\n\tfloat lp0 = parameters.y;\n\tfloat lp1 = parameters.z;\n\tfloat lt = parameters.w;\n\tfloat ld = 0.5 * antialiasWeight;\n\tfloat lm = mod(l, lp0 + lp1);\n\tfloat s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);\n\tfloat s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);\n\treturn s0 * s1;\n}\n\nvec4 toColor3(in vec4 texture) {\n\tfloat c = vStepA.x;\n\tfloat awd = 0.5 * antialiasWeight / vStepA.y;\n\tfloat s0 = smoothstep(-awd, awd, c);\n\tfloat s1 = smoothstep(1.0 - awd, 1.0 + awd, c);\n\treturn texture * vColorStroke * (s0 - s1) * toLineStep(vLength);\n}\n\nvec4 toColor7(in vec4 texture) {\n\tfloat aw = 0.5 * antialiasWeight;\n\tfloat awd = aw * vStepB.x;\n\tfloat swd = vStepA.x * vStepB.x;\n\tfloat s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);\n\tfloat s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);\n\tfloat s2 = smoothstep(-aw, +aw, vStepB.y);\n\tfloat s3 = smoothstep(-awd, 0.0, vStepB.z);\n\treturn texture * (\n\t\tvColorStroke * (s1 - s0) +\n\t\tvColorFill * (1.0 - s1) * s2 * s3\n\t);\n}\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tif (vType < 0.5) {\n\t\tgl_FragColor = toColor0(texture);\n\t} else if (vType < 1.5) {\n\t\tgl_FragColor = toColor1(texture);\n\t} else if (vType < 2.5) {\n\t\tgl_FragColor = toColor2(texture);\n\t} else if (vType < 6.5) {\n\t\tgl_FragColor = toColor3(texture);\n\t} else {\n\t\tgl_FragColor = toColor7(texture);\n\t}\n}";
+    var VERTEX_SHADER$1 = "\nattribute highp vec2 aPosition;\nattribute highp vec2 aStepA;\nattribute highp vec4 aStepB;\nattribute highp vec3 aColor;\nattribute highp vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse(in vec2 v) {\n\treturn vec2(-v.y, v.x);\n}\n\nvec4 toGeneral(in float v) {\n\tvec4 c = vec4(1.0, 1.0/64.0, 1.0/64.0/64.0, 1.0/64.0/64.0/64.0) * v;\n\tc -= fract(c);\n\tc -= c.yzwx * vec4(64.0, 64.0, 64.0, 0.0);\n\treturn c;\n}\n\nfloat toStrokeWidthScale(in float scale) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin(1.0, shapeScale) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax(1.0, shapeScale) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toUnpackedClippings(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(930.0, 930.0);\n\treturn c;\n}\n\nvec2 toUnpackedAlphas(in float v) {\n\tvec2 c = vec2(1.0, 1.0/1024.0) * v;\n\tc -= fract(c);\n\tc -= c.yx * vec2(1024.0, 0.0);\n\tc /= vec2(1023.0, 1023.0);\n\treturn c;\n}\n\nvec3 toUnpackedF3x256(in float v) {\n\tvec3 c = vec3(1.0, 1.0/256.0, 1.0/256.0/256.0) * v;\n\tc -= fract(c);\n\tc -= c.yzx * vec3(256.0, 256.0, 0.0);\n\tc /= 255.0;\n\treturn c;\n}\n\nvec2 toPosition012(in vec2 v) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toStepB01(in vec4 sb) {\n\treturn vec4(sb.xy, toUnpackedClippings(sb.z));\n}\n\nvec4 toStepB2(in vec4 sb, in float strokeWidth) {\n\tfloat x = min(0.4, 0.4 / 12.0 * sb.x * antialiasWeight);\n\tfloat w = clamp(strokeWidth, 0.0, 1.0) * 0.4;\n\tfloat p = w * sb.y + sb.z;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4(y, z, y - max(0.01, y - x), z - max(0.01, z - x));\n}\n\nvec2 toPosition3(in float type, in vec2 p, in float npacked, in float length, in float strokeWidth, out float shift) {\n\tvec3 t = vec3(1.0, 1.0/1024.0, 1.0/1024.0/1024.0) * npacked;\n\tt -= fract(t);\n\tt -= t.yzx * vec3(1024.0, 1024.0, 0.0);\n\tt *= vec3(1.0/511.5, 1.0/511.5, 1.0);\n\tt -= vec3(1.0, 1.0, 0.0);\n\tvec2 n0 = vec2(t.x, ((0.5 < t.z && t.z < 1.5) || 2.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.x * t.x)));\n\tvec2 n1 = vec2(t.y, (1.5 < t.z ? +1.0 : -1.0) * sqrt(max(0.0, 1.0 - t.y * t.y)));\n\n\tvec2 n0i = toInverse(n0);\n\tvec2 n1i = toInverse(n1);\n\tfloat direction = sign(4.5 - type);\n\n\t// Offset\n\tfloat cross = dot(n0i, n1);\n\tbool bcross = 0.00001 < abs(cross);\n\tfloat crossi = (bcross ? 1.0 / cross : 0.0);\n\tfloat b = dot(n1 - n0, n0) * crossi;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, offsetSize * offset - length * n0i );\n\tfloat miterAngle1 = dot( n1i, offsetSize * offset + length * n1i );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = (type == 4.0 || type == 6.0 ? n1 : n0);\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t(miterAngle0 < 0.0 && 0.0 <= miterAngle1 && bcross ? pmiter : pbevel) :\n\t\t(miterLength < 6.0 && bcross ? pmiter : pbevel)\n\t);\n\tvec2 ni = (type == 4.0 || type == 6.0 ? n1i : n0i);\n\tshift = dot(ni, p - presult);\n\treturn toPosition012(presult);\n}\n\nvec2 toStepA3(in float type, in float strokeWidth) {\n\treturn vec2(type < 4.5 ? 1.0 : 0.0, strokeWidth);\n}\n\nfloat toDotWidth(in float strokeScaling, in float strokeWidthScale) {\n\treturn aStepA.x * (\n\t\tstrokeScaling == 4.0 || strokeScaling == 5.0 ||\n\t\tstrokeScaling == 6.0 || strokeScaling == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec2 toDotPattern(in float dash) {\n\treturn (dash < 0.5 ?\n\t\tvec2(1.0, 0.0) :\n\t\t(dash < 3.5 ?\n\t\t\t(dash < 1.5 ?\n\t\t\t\tvec2(1.0, 1.0) :\n\t\t\t\t(2.5 < dash ?\n\t\t\t\t\tvec2(1.0, 2.0) :\n\t\t\t\t\tvec2(1.0, 0.5)\n\t\t\t\t)\n\t\t\t) :\n\t\t\t(dash < 4.5 ?\n\t\t\t\tvec2(2.0, 1.0) :\n\t\t\t\t(5.5 < dash ?\n\t\t\t\t\tvec2(2.0, 2.0) :\n\t\t\t\t\tvec2(2.0, 0.5)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec4 toLength3(in float shift, in float dash, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(dash);\n\treturn vec4(aStepB.y + shift, pattern.x * width, pattern.y * width, aStepB.z);\n}\n\nvec4 toLength7(in float type, in float strokeScaling, in float strokeWidthScale) {\n\tfloat width = toDotWidth(strokeScaling, strokeWidthScale);\n\tvec2 pattern = toDotPattern(type - 7.0);\n\treturn vec4(aStepB.w, pattern.x * width, pattern.y * width, -1.0);\n}\n\nvoid toColors(in vec3 source, out vec4 fillColor, out vec4 strokeColor) {\n\tvec2 a = toUnpackedAlphas(source.z);\n\tfillColor.xyz = toUnpackedF3x256(source.x).zyx * a.x;\n\tfillColor.w = a.x;\n\tstrokeColor.xyz = toUnpackedF3x256(source.y).zyx * a.y;\n\tstrokeColor.w = a.y;\n}\n\nvoid main(void) {\n\tvec4 general = toGeneral(aStepA.y);\n\tfloat type = general.x;\n\tfloat strokeScaling = general.y;\n\tfloat strokeWidthScale = toStrokeWidthScale(strokeScaling);\n\tfloat strokeWidth = strokeWidthScale * aStepA.x;\n\n\tvType = type;\n\tif (type < 2.5 || 6.5 < type) {\n\t\tgl_Position = vec4(toPosition012(aPosition), 0.0, 1.0);\n\t\tvStepA = strokeWidth * general.zw;\n\t\tif (type < 1.5) {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else if (type < 2.5) {\n\t\t\tvStepB = toStepB2(aStepB, strokeWidth);\n\t\t\tvLength = vec4(-1.0, 0.0, 0.0, -1.0);\n\t\t} else {\n\t\t\tvStepB = toStepB01(aStepB);\n\t\t\tvLength = toLength7(type, strokeScaling, strokeWidthScale);\n\t\t}\n\t} else {\n\t\tfloat shift3 = 0.0;\n\t\tgl_Position = vec4(toPosition3(type, aPosition, aStepB.x, aStepB.w, strokeWidth, shift3), 0.0, 1.0);\n\t\tvStepA = toStepA3(type, strokeWidth);\n\t\tvStepB = vec4(0.0);\n\t\tvLength = toLength3(shift3, general.z, strokeScaling, strokeWidthScale);\n\t}\n\ttoColors(aColor, vColorFill, vColorStroke);\n\tvUv = aUv;\n}";
+    var FRAGMENT_SHADER$1 = "\nvarying mediump float vType;\nvarying mediump vec2 vStepA;\nvarying mediump vec4 vStepB;\nvarying mediump vec4 vLength;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float antialiasWeight;\n\nvec4 toColor0(in vec4 texture) {\n\tvec2 f = vec2(1.0) / vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight * f;\n\tvec2 swd = vStepA * f;\n\tvec2 one = vec2(1.0);\n\tvec2 s0 = smoothstep(one - awd, one + awd, c);\n\tvec2 s1 = smoothstep(one - swd - awd, one - swd + awd, c);\n\tfloat s2 = max(s0.x, s0.y);\n\tfloat s3 = max(s1.x, s1.y);\n\n\treturn texture * (\n\t\tvColorStroke * (s3 - s2) +\n\t\tvColorFill * (1.0 - s3)\n\t);\n}\n\nvec4 toColor1(in vec4 texture) {\n\tvec2 d = vStepB.xy;\n\tvec2 c = vStepB.zw;\n\tvec2 awd = 0.5 * antialiasWeight / d;\n\tvec2 swd = vStepA / d;\n\tvec2 one = vec2(1.0);\n\tvec2 zero = vec2(0.0);\n\tfloat s0 = smoothstep(length(c/clamp(one + awd, zero, one)), length(c/clamp(one - awd, zero, one)), 1.0);\n\tfloat s1 = smoothstep(length(c/clamp(one - swd + awd, zero, one)), length(c/clamp(one - swd - awd, zero, one)), 1.0);\n\treturn texture * (\n\t\tvColorStroke * (s0 - s1) +\n\t\tvColorFill * s1\n\t);\n}\n\nvec4 toColor2(in vec4 texture) {\n\tvec2 p0 = vStepB.xy;\n\tvec2 p1 = vStepB.zw;\n\tvec2 d = vec2(dot(texture, vec4(1.0, 1.0/255.0, 1.0/255.0/255.0, 0.0)));\n\tvec2 s = smoothstep(p0 - p1, p0 + p1, d);\n\treturn vColorStroke * (s.y - s.x) + vColorFill * s.x;\n}\n\nfloat toLineStep(in vec4 parameters) {\n\tfloat l = parameters.x;\n\tfloat lp0 = parameters.y;\n\tfloat lp1 = parameters.z;\n\tfloat lt = parameters.w;\n\tfloat ld = 0.5 * antialiasWeight;\n\tfloat lm = mod(l, lp0 + lp1);\n\tfloat s0 = (0.0 < lp1 ? smoothstep(-ld, ld, lm) - smoothstep(lp0 - ld, lp0 + ld, lm) : 1.0);\n\tfloat s1 = (0.0 <= lt ? smoothstep(-ld, ld, l) - smoothstep(lt - ld, lt + ld, l) : 1.0);\n\treturn s0 * s1;\n}\n\nvec4 toColor3(in vec4 texture) {\n\tfloat c = vStepA.x;\n\tfloat awd = 0.5 * antialiasWeight / vStepA.y;\n\tfloat s0 = smoothstep(-awd, awd, c);\n\tfloat s1 = smoothstep(1.0 - awd, 1.0 + awd, c);\n\treturn texture * vColorStroke * (s0 - s1) * toLineStep(vLength);\n}\n\nvec4 toColor7(in vec4 texture) {\n\tfloat aw = 0.5 * antialiasWeight;\n\tfloat awd = aw * vStepB.x;\n\tfloat swd = vStepA.x * vStepB.x;\n\tfloat s0 = smoothstep(1.0 - awd, 1.0 + awd, vStepB.z);\n\tfloat s1 = smoothstep(1.0 - swd - awd, 1.0 - swd + awd, vStepB.z) * toLineStep(vLength);\n\tfloat s2 = smoothstep(-aw, +aw, vStepB.y);\n\treturn texture * (\n\t\tvColorStroke * (s1 - s0) +\n\t\tvColorFill * (1.0 - max(s1, s0)) * s2\n\t);\n}\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tif (vType < 0.5) {\n\t\tgl_FragColor = toColor0(texture);\n\t} else if (vType < 1.5) {\n\t\tgl_FragColor = toColor1(texture);\n\t} else if (vType < 2.5) {\n\t\tgl_FragColor = toColor2(texture);\n\t} else if (vType < 6.5) {\n\t\tgl_FragColor = toColor3(texture);\n\t} else {\n\t\tgl_FragColor = toColor7(texture);\n\t}\n}";
     var EShapeRenderer = /** @class */ (function (_super) {
         __extends(EShapeRenderer, _super);
         function EShapeRenderer(renderer) {
@@ -47931,6 +47965,952 @@
     };
 
     /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Converts an angle ratio to the half central angle of a fan in [0, PI / 2].
+     */
+    var toFanAngleCentric = function (angle) {
+        return Math.PI * Math.max(0, Math.min(0.5, angle));
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Converts the half central angle of fans to the eccentric angle of the arc end points
+     * of the fan whose arc is on the ellipse with the semi-axes (w, h).
+     */
+    var toFanAngleEccentric = function (w, h, theta) {
+        return Math.atan((h / w) * Math.tan(theta));
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
+     * The vertices are computed in the frame where w and h are positive and flipped at the end.
+     *
+     * ## Points
+     *
+     * - O: the apex of the fan, the origin
+     * - A, B: the end points of the arc, (-w sin(ea), -h cos(ea)) and (+w sin(ea), -h cos(ea))
+     * - C: the point where the area of the fan becomes zero when the fan shrinks, (0, -h / (1 + sin(ca)))
+     * - P[k]: the points on the arc, k in [0, 2N] (P[0] = A, P[N] is the top, P[2N] = B)
+     * - Q[k]: the points on the medial axis of the fan, which are on the normal of the arc at P[k]
+     *   and equidistant from the arc and the straight sides (Q[0] = A, Q[N] = C, Q[2N] = B)
+     * - R[k]: the points P[k] shifted outward for the anti-aliasing
+     * - O': the point O shifted outward for the anti-aliasing
+     *
+     * ## Stroke sides
+     *
+     * The arc is stroked if any of the LEFT, TOP and RIGHT bits of the stroke side is set (ARC below),
+     * and the straight sides are stroked if the BOTTOM bit is set.
+     * The clipping of a vertex is 1 on the outline and decreases toward the inside by (the distance from the outline) * fd,
+     * where the outline is the arc and/or the straight sides depending on the stroke side.
+     *
+     * - ARC and BOTTOM (and NONE): the stroke is at the arc and the straight sides.
+     *   The fan is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
+     *   the two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom.
+     * - ARC: the stroke is only at the arc.
+     *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact fan with the strip only.
+     *   For the other ellipses, Q[k] are on the medial axis as ARC and BOTTOM, and the two polygons
+     *   O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N] are added at the bottom without the stroke and the anti-aliasing.
+     * - BOTTOM: the stroke is only at the straight sides.
+     *   It is the same as a polygon. Two triangle fans from C cover the area between the arc and the segments CA and CB,
+     *   and two quads O', A', A, C and O', B', B, C cover the rest.
+     */
+    var EShapeFanTriangulatedImpl = /** @class */ (function () {
+        function EShapeFanTriangulatedImpl(parent) {
+            this._id = 0;
+            this._parent = parent;
+            this._width = 0;
+            this._height = 0;
+            this._strokeAlign = 0;
+            this._strokeWidth = 0;
+            this._strokeSideArc = true;
+            this._strokeSideBottom = true;
+            this._angle = 0;
+            this._sizeX = 0;
+            this._sizeY = 0;
+            this._vertices = [];
+            this._nvertices = 0;
+            this._distances = [];
+            this._lengths = [];
+            this._clippings = [];
+            this._uvs = [];
+            this._indices = [];
+            this._nindices = 0;
+            this._boundary = [0, 0, 0, 0];
+        }
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "id", {
+            get: function () {
+                this.triangulate();
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "vertices", {
+            get: function () {
+                this.triangulate();
+                return this._vertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "nvertices", {
+            get: function () {
+                this.triangulate();
+                return this._nvertices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "distances", {
+            get: function () {
+                this.triangulate();
+                return this._distances;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "lengths", {
+            get: function () {
+                this.triangulate();
+                return this._lengths;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "clippings", {
+            get: function () {
+                this.triangulate();
+                return this._clippings;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "uvs", {
+            get: function () {
+                this.triangulate();
+                return this._uvs;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "indices", {
+            get: function () {
+                this.triangulate();
+                return this._indices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "nindices", {
+            get: function () {
+                this.triangulate();
+                return this._nindices;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "boundary", {
+            get: function () {
+                this.triangulate();
+                return this._boundary;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeFanTriangulatedImpl.prototype.triangulate = function () {
+            var isNotInitialized = this._id === 0;
+            var parent = this._parent;
+            var size = parent.size;
+            var width = size.x;
+            var height = size.y;
+            var isRectChanged = this._width !== width || this._height !== height;
+            var stroke = parent.stroke;
+            var strokeAlign = stroke.align;
+            var strokeSideArc = (stroke.side & EShapeStrokeSide.NOT_BOTTOM) !== 0;
+            var strokeSideBottom = (stroke.side & EShapeStrokeSide.BOTTOM) !== 0;
+            var strokeWidth = stroke.enable && (strokeSideArc || strokeSideBottom) ? stroke.width : 0;
+            var isStrokeChanged = this._strokeAlign !== strokeAlign || this._strokeWidth !== strokeWidth;
+            var isStrokeSideChanged = this._strokeSideArc !== strokeSideArc || this._strokeSideBottom !== strokeSideBottom;
+            var angle = parent.angle;
+            var isAngleChanged = this._angle !== angle;
+            var isSizeChanged = false;
+            var sizeX = this._sizeX;
+            var sizeY = this._sizeY;
+            if (isRectChanged || isStrokeChanged) {
+                this._width = width;
+                this._height = height;
+                this._strokeAlign = strokeAlign;
+                this._strokeWidth = strokeWidth;
+                var s = strokeAlign * strokeWidth;
+                sizeX = width * 0.5 + (0 <= width ? +s : -s);
+                sizeY = height * 0.5 + (0 <= height ? +s : -s);
+                isSizeChanged = this._sizeX !== sizeX || this._sizeY !== sizeY;
+            }
+            if (isNotInitialized || isSizeChanged || isStrokeSideChanged || isAngleChanged) {
+                this._sizeX = sizeX;
+                this._sizeY = sizeY;
+                this._strokeSideArc = strokeSideArc;
+                this._strokeSideBottom = strokeSideBottom;
+                this._angle = angle;
+                this.update(sizeX, sizeY, angle, strokeSideArc, strokeSideBottom);
+            }
+        };
+        EShapeFanTriangulatedImpl.prototype.update = function (sx, sy, angle, ssa, ssb) {
+            // The number of the arc segments is 2n and the number of the points on the arc is m.
+            var n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
+            var m = 2 * n + 1;
+            var nv = 4 * (m - 1) + 2 * (n + 4);
+            var ni = 4 * n + 2 * (n + 2);
+            this._nvertices = nv;
+            this._nindices = ni;
+            this._id += 1;
+            // The eccentric angle ea of A and B, and the sine and cosine of it
+            var ax = Math.abs(sx);
+            var ay = Math.abs(sy);
+            if (ax <= 0 || ay <= 0) {
+                this.updateEmpty(ax, ay, nv, ni);
+                return;
+            }
+            var ca = toFanAngleCentric(angle);
+            var ea = toFanAngleEccentric(ax, ay, ca);
+            var sea = Math.sin(ea);
+            var cea = Math.cos(ea);
+            var bx = ax * sea;
+            var by = ay * cea;
+            var bz = bx * bx + by * by;
+            if (bx <= 0 || bz <= 0) {
+                this.updateEmpty(ax, ay, nv, ni);
+                return;
+            }
+            // The sine and cosine of the geometric half central angle
+            var oa = Math.sqrt(bz);
+            var st = bx / oa;
+            var ct = by / oa;
+            // The factors of the UVs and the signs of the flipping
+            var fx = 1 / bx;
+            var fy = 1 / ay;
+            var gx = Math.sign(sx);
+            var gy = Math.sign(sy);
+            if (!ssa && ssb) {
+                this.updateBottom(ax, ay, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni);
+            }
+            else {
+                this.updateArc(ax, ay, n, ea, sea, cea, bx, oa, st, ct, fx, fy, gx, gy, ssa, ssb, nv, ni);
+            }
+        };
+        /**
+         * Fills the empty fan, which has no vertices to draw.
+         */
+        EShapeFanTriangulatedImpl.prototype.updateEmpty = function (w, h, nv, ni) {
+            var boundary = this._boundary;
+            boundary[0] = -w;
+            boundary[1] = -h;
+            boundary[2] = +w;
+            boundary[3] = +h;
+            this.pad(0, 0, nv, ni, 0);
+        };
+        EShapeFanTriangulatedImpl.prototype.updateArc = function (w, h, n, ea, sea, cea, bx, oa, st, ct, fx, fy, gx, gy, ssa, ssb, nv, ni) {
+            var m = 2 * n + 1;
+            // sided: the straight sides are the outline, which has the stroke and the anti-aliasing
+            // capped: the polygons are added at the bottom to cover the sector with the hard straight sides
+            // chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
+            // For a circle and a semi-ellipse, Q on the axis gives the exact fan.
+            var sided = !ssa || ssb;
+            var isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
+            var capped = !sided && !isExact;
+            var chained = sided || capped;
+            this.computeArcPoints(w, h, n, ea, sea, cea);
+            this.computeArcNormals(w, h, n);
+            var dmax = this.computeMedialPoints(w, h, n, st, ct, chained);
+            if (capped) {
+                // The distance field of the arc must cover O, which is the farthest point from the arc,
+                // because the clipping in the polygons at the bottom is interpolated from the arc to O.
+                dmax = Math.max(dmax, h <= w ? h : oa);
+            }
+            if (dmax <= 0) {
+                this.updateEmpty(w, h, nv, ni);
+                return;
+            }
+            var boundary = this._boundary;
+            boundary[0] = -bx;
+            boundary[1] = -h;
+            boundary[2] = +bx;
+            boundary[3] = 0;
+            var fd = 1 / dmax;
+            var fs = (EShapeFanTriangulatedImpl.SCALE - 1) * dmax;
+            this.computeRimPoints(n, fs, st, ct, sided);
+            // Strip: 4 * (m - 1) vertices and 2 * 3 * (m - 1) indices
+            this.writeStrip(m, fd, fx, fy, gx, gy);
+            var iv = 4 * (m - 1);
+            var ii = 6 * (m - 1);
+            // Polygons at the bottom: left (sign = -1) and right (sign = +1)
+            if (sided) {
+                for (var sign = -1; sign <= 1; sign += 2) {
+                    var count = this.writeSidePolygon(iv, ii, sign, n, w, oa, st, ct, fs, fd, fx, fy, gx, gy);
+                    iv += count;
+                    ii += 3 * (count - 2);
+                }
+            }
+            else if (capped) {
+                var co = Math.max(0, 1 - (w >= h ? h : oa) * fd);
+                for (var sign = -1; sign <= 1; sign += 2) {
+                    var count = this.writeCapPolygon(iv, ii, sign, n, w, co, fd, fx, fy, gx, gy);
+                    iv += count;
+                    ii += 3 * (count - 2);
+                }
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Computes P[k], the points on the arc, in the work arrays.
+         *
+         * The sine and cosine of the angle are updated by the rotation to avoid calling Math.sin and Math.cos in the loop.
+         * The points are symmetric with respect to the axis x = 0, so only the left half is computed
+         * and the right half is mirrored from it.
+         */
+        EShapeFanTriangulatedImpl.prototype.computeArcPoints = function (w, h, n, ea, sea, cea) {
+            var m = 2 * n + 1;
+            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var da = ea / n;
+            var cda = Math.cos(da);
+            var sda = Math.sin(da);
+            var s = -sea;
+            var c = cea;
+            for (var k = 0; k <= n; ++k) {
+                // Use the exact values at the center to prevent the accumulation of the errors.
+                if (k === n) {
+                    s = 0;
+                    c = 1;
+                }
+                px[k] = w * s;
+                py[k] = -h * c;
+                // Rotate by da
+                var ns = s * cda + c * sda;
+                c = c * cda - s * sda;
+                s = ns;
+            }
+            for (var k = 0; k < n; ++k) {
+                px[m - 1 - k] = -px[k];
+                py[m - 1 - k] = py[k];
+            }
+        };
+        /**
+         * Computes the unit inward normals of the arc, the speeds of the arc, and the lengths of the polyline at P[k].
+         *
+         * The normal at P is Np = (-h x / w, -w y / h), whose magnitude is the speed of the arc.
+         * The lengths are the ones of the polyline, which is the actual outline, so that they are exact at clipping = 1.
+         */
+        EShapeFanTriangulatedImpl.prototype.computeArcNormals = function (w, h, n) {
+            var m = 2 * n + 1;
+            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
+            var ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
+            var speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
+            var ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+            var hw = h / w;
+            var wh = w / h;
+            var l = 0;
+            for (var k = 0; k <= n; ++k) {
+                var dx = -hw * px[k];
+                var dy = -wh * py[k];
+                var speed = Math.sqrt(dx * dx + dy * dy);
+                nx[k] = dx / speed;
+                ny[k] = dy / speed;
+                speeds[k] = speed;
+                if (0 < k) {
+                    var ex = px[k] - px[k - 1];
+                    var ey = py[k] - py[k - 1];
+                    l += Math.sqrt(ex * ex + ey * ey);
+                }
+                ls[k] = l;
+            }
+            for (var k = 0; k < n; ++k) {
+                var j = m - 1 - k;
+                nx[j] = -nx[k];
+                ny[j] = ny[k];
+                speeds[j] = speeds[k];
+                ls[j] = 2 * ls[n] - ls[k];
+            }
+        };
+        /**
+         * Computes Q[k], the points on the normals, and their distances from P[k], and returns the maximum distance.
+         *
+         * If chained is true, Q is the point on the medial axis, that is, the point on the normal
+         * whose distance to the arc is equal to the distance to the straight sides.
+         * The distance delta is obtained from delta = -(n . P) - delta (n . normal) for the outward unit normals n of the sides.
+         * The clamps keep Q on the same side of the axis x = 0 as P and before the center of curvature,
+         * otherwise adjacent normals cross each other, which happens for tall ellipses.
+         *
+         * Otherwise, the normal is extended until it reaches x = 0 if w <= h, otherwise y = 0.
+         */
+        EShapeFanTriangulatedImpl.prototype.computeMedialPoints = function (w, h, n, st, ct, chained) {
+            var m = 2 * n + 1;
+            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
+            var ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
+            var speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
+            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
+            var u = w <= h ? w / h : h / w;
+            var dmax = 0;
+            for (var k = 0; k <= n; ++k) {
+                var x = px[k];
+                var y = py[k];
+                var nnx = nx[k];
+                var nny = ny[k];
+                var speed = speeds[k];
+                var delta = Infinity;
+                if (chained) {
+                    var da = 1 + -ct * nnx + st * nny;
+                    if (1e-9 < da) {
+                        delta = Math.min(delta, (ct * x - st * y) / da);
+                    }
+                    var db = 1 + ct * nnx + st * nny;
+                    if (1e-9 < db) {
+                        delta = Math.min(delta, (-ct * x - st * y) / db);
+                    }
+                    if (k !== n && 1e-12 < Math.abs(nnx)) {
+                        delta = Math.min(delta, -x / nnx);
+                    }
+                    delta = Math.max(0, Math.min(delta, (speed * speed * speed) / (w * h)));
+                }
+                // The distance between P and Q
+                var d = void 0;
+                if (Number.isFinite(delta)) {
+                    d = delta;
+                }
+                else {
+                    d = u * speed;
+                }
+                qx[k] = x + d * nnx;
+                qy[k] = y + d * nny;
+                qd[k] = d;
+                dmax = Math.max(dmax, d);
+            }
+            for (var k = 0; k < n; ++k) {
+                var j = m - 1 - k;
+                qx[j] = -qx[k];
+                qy[j] = qy[k];
+                qd[j] = qd[k];
+            }
+            return dmax;
+        };
+        /**
+         * Computes R[k], the points on the arc shifted outward by fs.
+         * If the straight sides are the outline, the end points are shifted
+         * to the intersections of the shifted arc and the shifted straight sides.
+         */
+        EShapeFanTriangulatedImpl.prototype.computeRimPoints = function (n, fs, st, ct, sided) {
+            var m = 2 * n + 1;
+            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
+            var ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
+            var rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
+            var ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
+            for (var k = 0; k < m; ++k) {
+                var x = px[k] - fs * nx[k];
+                var y = py[k] - fs * ny[k];
+                if (sided && (k === 0 || k === m - 1)) {
+                    var sign = k === 0 ? -1 : +1;
+                    // The miter of the outward normal of the arc (n1) and that of the straight side (n2)
+                    var n1x = -nx[k];
+                    var n1y = -ny[k];
+                    var n2x = sign * ct;
+                    var n2y = st;
+                    var miter = fs / Math.max(1 + n1x * n2x + n1y * n2y, 0.05);
+                    x = px[k] + miter * (n1x + n2x);
+                    y = py[k] + miter * (n1y + n2y);
+                }
+                rx[k] = x;
+                ry[k] = y;
+            }
+        };
+        /**
+         * Writes the strip P[k], P[k + 1], Q[k + 1], Q[k] with the vertices R[k], Q[k], R[k + 1] and Q[k + 1].
+         *
+         * Each quad owns its vertices. The length in a quad is the length at P[k] plus the projection
+         * to the chord P[k]P[k + 1], which is exact at clipping = 1 where the chord is the outline.
+         */
+        EShapeFanTriangulatedImpl.prototype.writeStrip = function (m, fd, fx, fy, gx, gy) {
+            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
+            var ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+            var rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
+            var ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
+            var scale = EShapeFanTriangulatedImpl.SCALE;
+            var indices = this._indices;
+            var iv = 0;
+            var ii = 0;
+            for (var k = 0; k < m - 1; ++k) {
+                var x0 = px[k];
+                var y0 = py[k];
+                var l0 = ls[k];
+                var dl = ls[k + 1] - l0;
+                var fl = 0 < dl ? 1 / dl : 0;
+                var ex = (px[k + 1] - x0) * fl;
+                var ey = (py[k + 1] - y0) * fl;
+                var r0x = rx[k];
+                var r0y = ry[k];
+                var q0x = qx[k];
+                var q0y = qy[k];
+                var r1x = rx[k + 1];
+                var r1y = ry[k + 1];
+                var q1x = qx[k + 1];
+                var q1y = qy[k + 1];
+                var lr0 = l0 + (r0x - x0) * ex + (r0y - y0) * ey;
+                var lq0 = l0 + (q0x - x0) * ex + (q0y - y0) * ey;
+                var lr1 = l0 + (r1x - x0) * ex + (r1y - y0) * ey;
+                var lq1 = l0 + (q1x - x0) * ex + (q1y - y0) * ey;
+                var cq0 = 1 - qd[k] * fd;
+                var cq1 = 1 - qd[k + 1] * fd;
+                this.writeVertex(iv, r0x, r0y, lr0, scale, fd, fx, fy, gx, gy);
+                this.writeVertex(iv + 1, q0x, q0y, lq0, cq0, fd, fx, fy, gx, gy);
+                this.writeVertex(iv + 2, r1x, r1y, lr1, scale, fd, fx, fy, gx, gy);
+                this.writeVertex(iv + 3, q1x, q1y, lq1, cq1, fd, fx, fy, gx, gy);
+                indices[ii++] = iv;
+                indices[ii++] = iv + 2;
+                indices[ii++] = iv + 3;
+                indices[ii++] = iv;
+                indices[ii++] = iv + 3;
+                indices[ii++] = iv + 1;
+                iv += 4;
+            }
+        };
+        /**
+         * Writes the polygon O', R[end], Q[end], ..., Q[N] where the end is 0 for the left (sign = -1)
+         * and 2N for the right (sign = +1). The straight side OA (or OB) is the outline of the polygon.
+         * Returns the number of the written vertices.
+         *
+         * The chain of Q ends at the first point on the axis because the following points go back along the axis.
+         * Q is not always on the medial axis where it is clamped,
+         * so the clipping must not be less than the one of the arc.
+         *
+         * The clipping and the length are computed from the straight side:
+         * the outward unit normal is (sign * ct, st) and the length is oa + arc + (-st, sign * ct) . p.
+         */
+        EShapeFanTriangulatedImpl.prototype.writeSidePolygon = function (iv, ii, sign, n, w, oa, st, ct, fs, fd, fx, fy, gx, gy) {
+            var m = 2 * n + 1;
+            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
+            var rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
+            var ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
+            var l0 = oa + EShapeFanTriangulatedImpl.WORK_ARC_L[m - 1];
+            var nx = sign * ct;
+            var ly = sign * ct;
+            var eps = 1e-9 * w;
+            var end = sign < 0 ? 0 : m - 1;
+            var count = 0;
+            this.writeSideVertex(iv + count++, 0, fs / st, -Infinity, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            this.writeSideVertex(iv + count++, rx[end], ry[end], -Infinity, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            for (var j = 0; j <= n; ++j) {
+                var k = sign < 0 ? j : m - 1 - j;
+                var floor = 1 - qd[k] * fd;
+                var isOnAxis = Math.abs(qx[k]) <= eps;
+                // Where Q is clamped, the clipping of the side reaches the floor at T on the axis before Q.
+                // Without T, the clipping on the axis is not linear and a dent appears at O.
+                var ty = -qd[k] / st;
+                if (isOnAxis && qy[k] < ty - eps) {
+                    this.writeSideVertex(iv + count++, 0, ty, floor, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+                    this.writeFan(ii, iv, count);
+                    this.writeSideVertex(iv + count, qx[k], qy[k], floor, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+                    var indices = this._indices;
+                    var i = ii + 3 * (count - 2);
+                    indices[i] = iv + count - 2;
+                    indices[i + 1] = iv + count;
+                    indices[i + 2] = iv + count - 1;
+                    return count + 1;
+                }
+                this.writeSideVertex(iv + count++, qx[k], qy[k], floor, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+                if (isOnAxis) {
+                    break;
+                }
+            }
+            this.writeFan(ii, iv, count);
+            return count;
+        };
+        /**
+         * Writes the polygon O, Q[end], ..., Q[N] where the end is 0 for the left (sign = -1)
+         * and 2N for the right (sign = +1). The straight sides are hard edges without the stroke.
+         * Returns the number of the written vertices.
+         *
+         * The clipping of O is given by co, and the length of O is the one of the end point.
+         */
+        EShapeFanTriangulatedImpl.prototype.writeCapPolygon = function (iv, ii, sign, n, w, co, fd, fx, fy, gx, gy) {
+            var m = 2 * n + 1;
+            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
+            var ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+            var eps = 1e-9 * w;
+            var end = sign < 0 ? 0 : m - 1;
+            this.writeVertex(iv, 0, 0, ls[end], co, fd, fx, fy, gx, gy);
+            var count = 1;
+            for (var j = 0; j <= n; ++j) {
+                var k = sign < 0 ? j : m - 1 - j;
+                var clipping = 1 - qd[k] * fd;
+                this.writeVertex(iv + count++, qx[k], qy[k], ls[k], clipping, fd, fx, fy, gx, gy);
+                if (Math.abs(qx[k]) <= eps) {
+                    break;
+                }
+            }
+            this.writeFan(ii, iv, count);
+            return count;
+        };
+        /**
+         * The clipping is 1 - (the distance from the straight side) / d where d is the distance from C to OA (or OB).
+         */
+        EShapeFanTriangulatedImpl.prototype.updateBottom = function (w, h, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni) {
+            var boundary = this._boundary;
+            boundary[0] = -bx;
+            boundary[1] = -h;
+            boundary[2] = +bx;
+            boundary[3] = 0;
+            var yc = h / (1 + st);
+            var fd = (1 + st) / (h * st);
+            var fs = (EShapeFanTriangulatedImpl.SCALE - 1) / fd;
+            this.computeArcPoints(w, h, n, ea, sea, cea);
+            this.computeArcNormals(w, h, n);
+            // The length of O, which is the same as the one of writeSidePolygon: |OA| + the length of the arc
+            var l0 = Math.sqrt(bx * bx + by * by) + EShapeFanTriangulatedImpl.WORK_ARC_L[2 * n];
+            // Triangle fans from C to the arc: left (sign = -1) and right (sign = +1)
+            var iv = 0;
+            var ii = 0;
+            for (var sign = -1; sign <= 1; sign += 2) {
+                var count = this.writeBottomFan(iv, ii, sign, n, yc, l0, st, ct, fd, fx, fy, gx, gy);
+                iv += count;
+                ii += 3 * (count - 2);
+            }
+            // Quads at the bottom: O', A', A, C and O', B', B, C
+            for (var sign = -1; sign <= 1; sign += 2) {
+                var count = this.writeBottomQuad(iv, ii, sign, bx, by, yc, l0, fs, st, ct, fd, fx, fy, gx, gy);
+                iv += count;
+                ii += 3 * (count - 2);
+            }
+            this.pad(iv, ii, nv, ni, fd);
+        };
+        /**
+         * Writes the triangle fan from C to the arc of the left half (sign = -1) or the right half (sign = +1).
+         * Returns the number of the written vertices.
+         *
+         * The clipping is 1 + fd * (n . p) where n is the outward unit normal of the straight side,
+         * and the length is l0 + (-st, sign * ct) . p, which is the same as the one of writeSidePolygon
+         * so that the dashes of the straight sides do not depend on the stroke side.
+         */
+        EShapeFanTriangulatedImpl.prototype.writeBottomFan = function (iv, ii, sign, n, yc, l0, st, ct, fd, fx, fy, gx, gy) {
+            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var nx = sign * ct;
+            var ly = sign * ct;
+            var count = 0;
+            this.writeSideVertex(iv + count++, 0, -yc, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            for (var j = 0; j <= n; ++j) {
+                var k = sign < 0 ? j : n + j;
+                this.writeSideVertex(iv + count++, px[k], py[k], 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            }
+            this.writeFan(ii, iv, count);
+            return count;
+        };
+        /**
+         * Writes the quad O', A', A, C (sign = -1) or O', B', B, C (sign = +1) at the bottom.
+         * O' is shifted outward by fs / st, and A' (B') is shifted outward by fs perpendicular to the straight side.
+         * Returns the number of the written vertices.
+         */
+        EShapeFanTriangulatedImpl.prototype.writeBottomQuad = function (iv, ii, sign, bx, by, yc, l0, fs, st, ct, fd, fx, fy, gx, gy) {
+            var nx = sign * ct;
+            var ly = sign * ct;
+            this.writeSideVertex(iv, 0, fs / st, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            this.writeSideVertex(iv + 1, sign * (bx + fs * ct), -by + fs * st, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            this.writeSideVertex(iv + 2, sign * bx, -by, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            this.writeSideVertex(iv + 3, 0, -yc, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
+            this.writeFan(ii, iv, 4);
+            return 4;
+        };
+        // ----------------------------------------------------------------------------------------
+        // Writers
+        // ----------------------------------------------------------------------------------------
+        /**
+         * Writes a vertex whose clipping and length are computed from the parameters of a straight side.
+         * The clipping is 1 + fd * (nx * x + ny * y), which is not less than the given floor,
+         * and the length is l0 + lx * x + ly * y.
+         */
+        EShapeFanTriangulatedImpl.prototype.writeSideVertex = function (vertex, x, y, floor, nx, ny, l0, lx, ly, fd, fx, fy, gx, gy) {
+            var clipping = Math.max(floor, 1 + fd * (nx * x + ny * y));
+            var length = l0 + lx * x + ly * y;
+            this.writeVertex(vertex, x, y, length, clipping, fd, fx, fy, gx, gy);
+        };
+        /**
+         * Writes the indices of a triangle fan from the first vertex.
+         * The number of the written indices is 3 * (count - 2).
+         */
+        EShapeFanTriangulatedImpl.prototype.writeFan = function (ii, iv, count) {
+            var indices = this._indices;
+            for (var i = 1; i < count - 1; ++i) {
+                indices[ii++] = iv;
+                indices[ii++] = iv + i;
+                indices[ii++] = iv + i + 1;
+            }
+        };
+        /**
+         * Writes a vertex.
+         *
+         * @param x - The X coordinate in the frame where the sizes are positive
+         * @param y - The Y coordinate in the frame where the sizes are positive
+         * @param fd - The inverse of the distance where the clipping decreases from 1 to 0
+         * @param fx - The factor to convert x to the UV
+         * @param fy - The factor to convert y to the UV
+         * @param gx - The sign of the X size, which flips the vertex
+         * @param gy - The sign of the Y size, which flips the vertex
+         */
+        EShapeFanTriangulatedImpl.prototype.writeVertex = function (vertex, x, y, length, clipping, fd, fx, fy, gx, gy) {
+            var vertex2 = vertex << 1;
+            this._vertices[vertex2] = gx * x;
+            this._vertices[vertex2 + 1] = gy * y;
+            this._distances[vertex] = fd;
+            this._lengths[vertex] = length;
+            this._clippings[vertex] = clipping;
+            this._uvs[vertex2] = 0.5 * (x * fx + 1);
+            this._uvs[vertex2 + 1] = 1 + y * fy;
+        };
+        /**
+         * Fills the unused tail with degenerated triangles and trims the arrays
+         * so that the buffers always hold exactly `nv` vertices and `ni` triangles.
+         */
+        EShapeFanTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, distance) {
+            for (var i = iv; i < nv; ++i) {
+                var vertex2 = i << 1;
+                this._vertices[vertex2] = 0;
+                this._vertices[vertex2 + 1] = 0;
+                this._distances[i] = distance;
+                this._lengths[i] = 0;
+                this._clippings[i] = 0;
+                this._uvs[vertex2] = 0.5;
+                this._uvs[vertex2 + 1] = 0.5;
+            }
+            for (var i = ii; i < ni * 3; ++i) {
+                this._indices[i] = 0;
+            }
+            this._vertices.length = nv * 2;
+            this._distances.length = nv;
+            this._lengths.length = nv;
+            this._clippings.length = nv;
+            this._uvs.length = nv * 2;
+            this._indices.length = ni * 3;
+        };
+        /** The ratio of the outer edge, where the clipping is 1, to the edge of the anti-aliasing */
+        EShapeFanTriangulatedImpl.SCALE = 1.1;
+        // Work arrays shared by all the instances because they are used only in a single synchronous triangulation.
+        // All of them are indexed by k, which is in [0, 2N].
+        /** P: the points on the arc */
+        EShapeFanTriangulatedImpl.WORK_ARC_X = [];
+        EShapeFanTriangulatedImpl.WORK_ARC_Y = [];
+        /** The lengths of the polyline P[0], ..., P[k] */
+        EShapeFanTriangulatedImpl.WORK_ARC_L = [];
+        /** The unit inward normals of the arc */
+        EShapeFanTriangulatedImpl.WORK_NORMAL_X = [];
+        EShapeFanTriangulatedImpl.WORK_NORMAL_Y = [];
+        /** The magnitudes of the tangents, that is, the speeds of the arc */
+        EShapeFanTriangulatedImpl.WORK_SPEED = [];
+        /** Q: the points on the normals */
+        EShapeFanTriangulatedImpl.WORK_MEDIAL_X = [];
+        EShapeFanTriangulatedImpl.WORK_MEDIAL_Y = [];
+        /** The distances from P to Q */
+        EShapeFanTriangulatedImpl.WORK_MEDIAL_D = [];
+        /** R: the points on the arc shifted outward */
+        EShapeFanTriangulatedImpl.WORK_RIM_X = [];
+        EShapeFanTriangulatedImpl.WORK_RIM_Y = [];
+        return EShapeFanTriangulatedImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.
+     *
+     * @param st - The sine of the half central angle
+     * @param ct - The cosine of the half central angle
+     */
+    var isInFan = function (x, y, ax, ay, st, ct, sa, ss) {
+        var wx = ax - sa;
+        var wy = ay - sa;
+        if (wx <= 0 || wy <= 0) {
+            return false;
+        }
+        var ex = x * wy;
+        var ey = y * wx;
+        if (wx * wy * wx * wy < ex * ex + ey * ey) {
+            return false;
+        }
+        var ay1 = st * y;
+        return -ct * x + ay1 <= -ss && ct * x + ay1 <= -ss;
+    };
+    var hitTestFanFill = function (shape, x, y, bx, by) {
+        var fill = shape.fill;
+        if (fill.enable) {
+            var percent = Math.max(0, Math.min(1, fill.percent));
+            if (1 <= percent) {
+                return true;
+            }
+            // The fill is relative to the bounding box [-bx, +bx] x [-by, 0] of the fan.
+            switch (fill.direction) {
+                case EShapeFillDirection.TOP:
+                    return y + by <= percent * by;
+                case EShapeFillDirection.RIGHT:
+                    return (1 - percent) * (2 * bx) <= x + bx;
+                case EShapeFillDirection.BOTTOM:
+                    return (1 - percent) * by <= y + by;
+                case EShapeFillDirection.LEFT:
+                    return x + bx <= percent * (2 * bx);
+            }
+        }
+        return false;
+    };
+    var hitTestFan = function (shape, x, y, ax, ay, sw, ss) {
+        var ca = toFanAngleCentric(shape.angle);
+        if (ca <= 0 || ax <= 0 || ay <= 0) {
+            return false;
+        }
+        var ea = toFanAngleEccentric(ax, ay, ca);
+        var bx = ax * Math.sin(ea);
+        var st = Math.sin(ca);
+        var ct = Math.cos(ca);
+        var fill = shape.fill;
+        var strokeSide = shape.stroke.side;
+        var strokeSideArc = (strokeSide & EShapeStrokeSide.NOT_BOTTOM) !== 0;
+        var strokeSideBottom = (strokeSide & EShapeStrokeSide.BOTTOM) !== 0;
+        var strokeWidth = strokeSideArc || strokeSideBottom ? sw : 0;
+        if ((fill.enable || 0 < strokeWidth) && isInFan(x, y, ax, ay, st, ct, 0, 0)) {
+            if (fill.enable && hitTestFanFill(shape, x, y, bx, ay)) {
+                return true;
+            }
+            if (0 < strokeWidth) {
+                var s = strokeWidth * ss;
+                var arc = strokeSideArc ? s : 0;
+                var sides = strokeSideBottom ? s : 0;
+                if (!isInFan(x, y, ax, ay, st, ct, arc, sides)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeFan = /** @class */ (function (_super) {
+        __extends(EShapeFan, _super);
+        function EShapeFan(type) {
+            if (type === void 0) { type = EShapeType.FAN; }
+            var _this = _super.call(this, type) || this;
+            _this._angle = _this.newAngle();
+            _this._triangulated = _this.newTriangulated();
+            return _this;
+        }
+        EShapeFan.prototype.newAngle = function () {
+            return EShapeDefaults.ANGLE;
+        };
+        EShapeFan.prototype.newTriangulated = function () {
+            return new EShapeFanTriangulatedImpl(this);
+        };
+        Object.defineProperty(EShapeFan.prototype, "triangulated", {
+            get: function () {
+                return this._triangulated;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFan.prototype, "angle", {
+            /**
+             * The ratio of the half central angle of the fan to PI. Must be in [0, 0.5].
+             * 0.5 results in a semicircle.
+             */
+            get: function () {
+                return this._angle;
+            },
+            set: function (angle) {
+                if (this._angle !== angle) {
+                    this._angle = angle;
+                    this.updateUploaded();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeFan.prototype.toHitTestStrokeShift = function (strokeWidth, strokeScale, strokeAlign) {
+            if (this.stroke.side !== EShapeStrokeSide.NONE) {
+                return _super.prototype.toHitTestStrokeShift.call(this, strokeWidth, strokeScale, strokeAlign);
+            }
+            return 0;
+        };
+        EShapeFan.prototype.copy = function (source, part) {
+            this.lock(EShapeLockPart.ALL);
+            _super.prototype.copy.call(this, source, part);
+            if ((part == null || part & EShapeCopyPart.STYLE) && source instanceof EShapeFan) {
+                this._angle = source._angle;
+            }
+            this.unlock(EShapeLockPart.ALL, true);
+            return this;
+        };
+        EShapeFan.prototype.clone = function () {
+            return new EShapeFan(this.type).copy(this);
+        };
+        EShapeFan.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestFan(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        EShapeFan.prototype.serialize = function (manager) {
+            var result = _super.prototype.serialize.call(this, manager);
+            result[15] = this._angle;
+            return result;
+        };
+        return EShapeFan;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeFan = function (item, manager, shape) {
+        shape = shape || new EShapeFan();
+        shape.angle = item[15];
+        return deserializeBase(item, manager, shape);
+    };
+
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeFan = function () {
+        EShapeUploadeds[EShapeType.FAN] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.FAN] = deserializeFan;
+        EShapeCapabilities.set(EShapeType.FAN, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.ANGLE);
+    };
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -48566,12 +49546,29 @@
                 if (0 < children.length) {
                     return children[children.length - 1].radius;
                 }
-                return 0.5;
+                return EShapeDefaults.RADIUS;
             },
             set: function (radius) {
                 var children = this.children;
                 for (var i = 0, imax = children.length; i < imax; ++i) {
                     children[i].radius = radius;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroup.prototype, "angle", {
+            get: function () {
+                var children = this.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].angle;
+                }
+                return EShapeDefaults.ANGLE;
+            },
+            set: function (angle) {
+                var children = this.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].angle = angle;
                 }
             },
             enumerable: false,
@@ -53314,7 +54311,7 @@
             boundary[2] = +ax;
             boundary[3] = +ay;
             // # of vertices and # of indices
-            var nv = 7;
+            var nv = 9;
             var ni = 3;
             this._nvertices = nv;
             this._nindices = ni;
@@ -53369,11 +54366,7 @@
             // vertices (-sx, sy) and (sx, sy). The signs of sx and
             // sy intentionally preserve horizontal and vertical reflections.
             // The sloped edge spans ax horizontally and 2 * ay vertically.
-            var side = Math.sqrt(ax * ax + 4 * ay * ay);
-            // The base is horizontal, so its length is twice the half-width.
-            var base = 2 * ax;
-            // Length values are measured along the triangle perimeter.
-            var perimeter = 2 * side + base;
+            var b = Math.sqrt(ax * ax + 4 * ay * ay);
             // The incenter lies on the vertical center line. This is its y-coordinate.
             // Along the median, the distances from the top vertex to the incenter and
             // from the incenter to the base are in the ratio 2 * side : base.
@@ -53385,42 +54378,47 @@
             // cy = ay (2 side - 2 ax) / (2 side + 2 ax)
             // cy = ay (side - ax) / (side + ax)
             var cx = 0;
-            var cy = (sy * (side - ax)) / (side + ax);
+            var cy = (sy * (b - ax)) / (b + ax);
             // The distance from the incenter to every edge is the inradius.
             // Since 0 <= (side - ax) / (side + ax) <= 1, the incenter remains
             // between the apex and the base even when sy is negative.
-            var distance = Math.abs(sy - cy);
-            var fdistance = 1 / distance;
+            var d = Math.abs(sy - cy);
+            var fd = 1 / d;
             // Expand the triangle around its incenter for anti-aliasing and strokes.
-            // The outer vertices are shared where their interpolated attributes match.
             var x0 = 0;
             var y0 = cy + scale * (-sy - cy);
             var x1 = scale * sx;
             var y1 = cy + scale * (sy - cy);
             var x2 = -x1;
             var y2 = y1;
-            // Top-to-right edge cell. The inner vertex carries the fill attributes.
-            this.updateVertex(0, x0, y0, fdistance, 0, scale, fx, fy);
-            this.updateVertex(1, x1, y1, fdistance, side, scale, fx, fy);
-            this.updateVertex(2, cx, cy, fdistance, side - ax, 0, fx, fy);
+            // Each cell has its own vertices because `length` is the arc length projected onto
+            // the cell's edge. It is `lc` at the incenter (the tangent point) and
+            // `lc + scale * (l - lc)` at the outer vertices so that it equals `l` at clipping = 1.
             var indices = this._indices;
-            indices[0] = 0;
-            indices[1] = 1;
-            indices[2] = 2;
-            // Right-to-left base edge cell. The right and left outer vertices are reused.
-            this.updateVertex(3, x2, y2, fdistance, side + base, scale, fx, fy);
-            this.updateVertex(4, cx, cy, fdistance, side + ax, 0, fx, fy);
-            indices[3] = 1;
-            indices[4] = 3;
-            indices[5] = 4;
-            // Left-to-top edge cell. The top vertex is duplicated for the perimeter seam.
-            this.updateVertex(5, x0, y0, fdistance, perimeter, scale, fx, fy);
-            this.updateVertex(6, cx, cy, fdistance, perimeter - (side - ax), 0, fx, fy);
-            indices[6] = 3;
-            indices[7] = 5;
-            indices[8] = 6;
+            // Top-to-right edge cell
+            var l0 = 0;
+            var l1 = l0 + b;
+            var lc0 = b - ax;
+            this.writeVertex(0, x0, y0, fd, lc0 + scale * (l0 - lc0), scale, fx, fy);
+            this.writeVertex(1, x1, y1, fd, lc0 + scale * (l1 - lc0), scale, fx, fy);
+            this.writeVertex(2, cx, cy, fd, lc0, 0, fx, fy);
+            // Right-to-left base edge cell
+            var l2 = l1 + 2 * ax;
+            var lc1 = b + ax;
+            this.writeVertex(3, x1, y1, fd, lc1 + scale * (l1 - lc1), scale, fx, fy);
+            this.writeVertex(4, x2, y2, fd, lc1 + scale * (l2 - lc1), scale, fx, fy);
+            this.writeVertex(5, cx, cy, fd, lc1, 0, fx, fy);
+            // Left-to-top edge cell
+            var l3 = l2 + b;
+            var lc2 = b + 3 * ax;
+            this.writeVertex(6, x2, y2, fd, lc2 + scale * (l2 - lc2), scale, fx, fy);
+            this.writeVertex(7, x0, y0, fd, lc2 + scale * (l3 - lc2), scale, fx, fy);
+            this.writeVertex(8, cx, cy, fd, lc2, 0, fx, fy);
+            for (var i = 0; i < 9; ++i) {
+                indices[i] = i;
+            }
         };
-        EShapeTriangleTriangulatedImpl.prototype.updateVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
+        EShapeTriangleTriangulatedImpl.prototype.writeVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
             var vertex2 = vertex << 1;
             this._vertices[vertex2] = x;
             this._vertices[vertex2 + 1] = y;
@@ -55431,14 +56429,13 @@
             return new EShapePolygon(this.type).copy(this);
         };
         EShapePolygon.prototype.copy = function (source, part) {
-            if (part === void 0) { part = EShapeCopyPart.ALL; }
             this.lock(EShapeLockPart.ALL);
-            var result = _super.prototype.copy.call(this, source, part);
-            if (part & EShapeCopyPart.POINTS && source instanceof EShapePolygon) {
+            _super.prototype.copy.call(this, source, part);
+            if ((part == null || part & EShapeCopyPart.POINTS) && source instanceof EShapePolygon) {
                 this._triangulated.copy(source._triangulated);
             }
             this.unlock(EShapeLockPart.ALL, true);
-            return result;
+            return this;
         };
         EShapePolygon.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
@@ -55775,11 +56772,84 @@
         EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED_LEGACY, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
     };
 
-    var SEMICIRCLE_VERTEX_COUNT = 6;
-    var SEMICIRCLE_INDEX_COUNT = 4;
-    var SEMICIRCLE_WORLD_SIZE = [0, 0];
-    var SEMICIRCLE_WORK_POINT = new pixi_js.Point();
-    var buildSemicircleIndex = function (indices, voffset, ioffset) {
+    /*
+     * Copyright (C) 2019-2026 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * A semicircle shape.
+     */
+    var EShapeSemicircle = /** @class */ (function (_super) {
+        __extends(EShapeSemicircle, _super);
+        function EShapeSemicircle(type) {
+            if (type === void 0) { type = EShapeType.SEMICIRCLE; }
+            var _this = _super.call(this, type) || this;
+            _this._triangulated = _this.newTriangulated();
+            return _this;
+        }
+        EShapeSemicircle.prototype.newStroke = function () {
+            return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE & ~EShapeStrokeSide.BOTTOM, EShapeDefaults.STROKE_STYLE);
+        };
+        EShapeSemicircle.prototype.newTriangulated = function () {
+            return new EShapeFanTriangulatedImpl(this);
+        };
+        Object.defineProperty(EShapeSemicircle.prototype, "triangulated", {
+            get: function () {
+                return this._triangulated;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeSemicircle.prototype, "angle", {
+            get: function () {
+                return 0.5;
+            },
+            set: function (angle) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeSemicircle.prototype.toHitTestStrokeShift = function (strokeWidth, strokeScale, strokeAlign) {
+            if (this.stroke.side !== EShapeStrokeSide.NONE) {
+                return _super.prototype.toHitTestStrokeShift.call(this, strokeWidth, strokeScale, strokeAlign);
+            }
+            return 0;
+        };
+        EShapeSemicircle.prototype.clone = function () {
+            return new EShapeSemicircle(this.type).copy(this);
+        };
+        EShapeSemicircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestFan(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeSemicircle;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeSemicircle = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeSemicircle());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeSemicircle = function () {
+        EShapeUploadeds[EShapeType.SEMICIRCLE] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSemicircle;
+        EShapeCapabilities.set(EShapeType.SEMICIRCLE, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    var SEMICIRCLE_LEGACY_VERTEX_COUNT = 6;
+    var SEMICIRCLE_LEGACY_INDEX_COUNT = 4;
+    var SEMICIRCLE_LEGACY_WORLD_SIZE = [0, 0];
+    var buildSemicircleLegacyIndex = function (indices, voffset, ioffset) {
         var ii = ioffset * 3 - 1;
         indices[++ii] = voffset;
         indices[++ii] = voffset + 1;
@@ -55794,7 +56864,7 @@
         indices[++ii] = voffset + 5;
         indices[++ii] = voffset + 4;
     };
-    var buildSemicircleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
+    var buildSemicircleLegacyVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
         // Calculate the transformed positions
         //
         //  0       1       2
@@ -55802,24 +56872,23 @@
         // |3      |4      |5
         // |-------|-------|
         //
-        var work = SEMICIRCLE_WORK_POINT;
         var s = strokeAlign * strokeWidth;
         var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
         var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        work.set(-sx + originX, -sy + originY);
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
-        work.set(0 + originX, -sy + originY);
-        internalTransform.apply(work, work);
-        var x1 = work.x;
-        var y1 = work.y;
+        var a = internalTransform.a;
+        var b = internalTransform.b;
+        var c = internalTransform.c;
+        var d = internalTransform.d;
+        var tx = internalTransform.tx;
+        var ty = internalTransform.ty;
+        var x0 = a * (-sx + originX) + c * (-sy + originY) + tx;
+        var y0 = b * (-sx + originX) + d * (-sy + originY) + ty;
+        var x1 = a * originX + c * (-sy + originY) + tx;
+        var y1 = b * originX + d * (-sy + originY) + ty;
         var dx = x1 - x0;
         var dy = y1 - y0;
-        work.set(originX, originY);
-        internalTransform.apply(work, work);
-        var x4 = work.x;
-        var y4 = work.y;
+        var x4 = a * originX + c * originY + tx;
+        var y4 = b * originX + d * originY + ty;
         var x3 = x4 - dx;
         var y3 = y4 - dy;
         // Vertices
@@ -55839,7 +56908,7 @@
         worldSize[0] = toLength(x0, y0, x1, y1);
         worldSize[1] = toLength(x0, y0, x3, y3);
     };
-    var buildSemicircleStep = function (steps, voffset, strokeWidth, strokeStyle, worldSize) {
+    var buildSemicircleLegacyStep = function (steps, voffset, strokeWidth, strokeStyle, worldSize) {
         var scaleInvariant = toScaleInvariant(strokeStyle);
         var ws0 = worldSize[0];
         var ws1 = worldSize[1];
@@ -55886,7 +56955,7 @@
         steps[++is] = c10;
         steps[++is] = 0;
     };
-    var buildSemicircleUv = function (uvs, voffset, textureUvs) {
+    var buildSemicircleLegacyUv = function (uvs, voffset, textureUvs) {
         var x0 = textureUvs.x0;
         var x1 = textureUvs.x1;
         var x2 = textureUvs.x2;
@@ -55915,25 +56984,25 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var BuilderSemicircle = /** @class */ (function (_super) {
-        __extends(BuilderSemicircle, _super);
-        function BuilderSemicircle(buffer, vertexOffset, indexOffset) {
-            return _super.call(this, buffer, vertexOffset, indexOffset, SEMICIRCLE_VERTEX_COUNT, SEMICIRCLE_INDEX_COUNT) || this;
+    var BuilderSemicircleLegacy = /** @class */ (function (_super) {
+        __extends(BuilderSemicircleLegacy, _super);
+        function BuilderSemicircleLegacy(buffer, vertexOffset, indexOffset) {
+            return _super.call(this, buffer, vertexOffset, indexOffset, SEMICIRCLE_LEGACY_VERTEX_COUNT, SEMICIRCLE_LEGACY_INDEX_COUNT) || this;
         }
-        BuilderSemicircle.prototype.init = function () {
+        BuilderSemicircleLegacy.prototype.init = function () {
             var buffer = this.buffer;
             buffer.updateIndices();
             var voffset = this.vertexOffset;
-            buildSemicircleIndex(buffer.indices, voffset, this.indexOffset);
+            buildSemicircleLegacyIndex(buffer.indices, voffset, this.indexOffset);
             this.inited |= BuilderFlag.INDEX;
         };
-        BuilderSemicircle.prototype.update = function (shape) {
+        BuilderSemicircleLegacy.prototype.update = function (shape) {
             var buffer = this.buffer;
             this.updateVertexAndStep(buffer, shape);
             this.updateColor(buffer, shape);
             this.updateUv(buffer, shape);
         };
-        BuilderSemicircle.prototype.updateVertexAndStep = function (buffer, shape) {
+        BuilderSemicircleLegacy.prototype.updateVertexAndStep = function (buffer, shape) {
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
@@ -55959,11 +57028,11 @@
                 // Buffer
                 buffer.updateVertices();
                 buffer.updateSteps();
-                buildSemicircleVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, SEMICIRCLE_WORLD_SIZE);
-                buildSemicircleStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, SEMICIRCLE_WORLD_SIZE);
+                buildSemicircleLegacyVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, SEMICIRCLE_LEGACY_WORLD_SIZE);
+                buildSemicircleLegacyStep(buffer.steps, this.vertexOffset, strokeWidth, strokeStyle, SEMICIRCLE_LEGACY_WORLD_SIZE);
             }
         };
-        BuilderSemicircle.prototype.updateUv = function (buffer, shape) {
+        BuilderSemicircleLegacy.prototype.updateUv = function (buffer, shape) {
             var texture = toTexture(shape);
             var textureTransformId = toTextureTransformId(texture);
             var isNotInited = !(this.inited & BuilderFlag.UV);
@@ -55975,26 +57044,26 @@
                 this.textureTransformId = textureTransformId;
                 buffer.updateUvs();
                 var textureUvs = toTextureUvs(texture);
-                buildSemicircleUv(buffer.uvs, this.vertexOffset, textureUvs);
+                buildSemicircleLegacyUv(buffer.uvs, this.vertexOffset, textureUvs);
             }
         };
-        return BuilderSemicircle;
+        return BuilderSemicircleLegacy;
     }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createSemicircleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+    var createSemicircleLegacyUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount << TEXT_VERTEX_COUNT_SHIFT;
         var ticount = tcount << TEXT_INDEX_COUNT_SHIFT;
-        var vcount = SEMICIRCLE_VERTEX_COUNT + tvcount;
-        var icount = SEMICIRCLE_INDEX_COUNT + ticount;
+        var vcount = SEMICIRCLE_LEGACY_VERTEX_COUNT + tvcount;
+        var icount = SEMICIRCLE_LEGACY_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
             return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderSemicircle(buffer, voffset, ioffset),
-                new BuilderText(buffer, voffset + SEMICIRCLE_VERTEX_COUNT, ioffset + SEMICIRCLE_INDEX_COUNT, tvcount, ticount)
+                new BuilderSemicircleLegacy(buffer, voffset, ioffset),
+                new BuilderText(buffer, voffset + SEMICIRCLE_LEGACY_VERTEX_COUNT, ioffset + SEMICIRCLE_LEGACY_INDEX_COUNT, tvcount, ticount)
             ]).init(shape);
         }
         return null;
@@ -56017,44 +57086,42 @@
      */
     /**
      * A semicircle shape.
-     *
-     * @beta
      */
-    var EShapeSemicircle = /** @class */ (function (_super) {
-        __extends(EShapeSemicircle, _super);
-        function EShapeSemicircle(type) {
-            if (type === void 0) { type = EShapeType.SEMICIRCLE; }
+    var EShapeSemicircleLegacy = /** @class */ (function (_super) {
+        __extends(EShapeSemicircleLegacy, _super);
+        function EShapeSemicircleLegacy(type) {
+            if (type === void 0) { type = EShapeType.SEMICIRCLE_LEGACY; }
             var _this = _super.call(this, type) || this;
             _this.stroke.side = EShapeStrokeSide.ALL & ~EShapeStrokeSide.BOTTOM;
             return _this;
         }
-        EShapeSemicircle.prototype.clone = function () {
-            return new EShapeSemicircle(this.type).copy(this);
+        EShapeSemicircleLegacy.prototype.clone = function () {
+            return new EShapeSemicircleLegacy(this.type).copy(this);
         };
-        EShapeSemicircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+        EShapeSemicircleLegacy.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 return hitTestSemicircle(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
-        return EShapeSemicircle;
+        return EShapeSemicircleLegacy;
     }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var deserializeSemicircle = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeSemicircle());
+    var deserializeSemicircleLegacy = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeSemicircleLegacy());
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadShapeSemicircle = function () {
-        EShapeUploadeds[EShapeType.SEMICIRCLE] = createSemicircleUploaded;
-        EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSemicircle;
+    var loadShapeSemicircleLegacy = function () {
+        EShapeUploadeds[EShapeType.SEMICIRCLE_LEGACY] = createSemicircleLegacyUploaded;
+        EShapeDeserializers[EShapeType.SEMICIRCLE_LEGACY] = deserializeSemicircleLegacy;
     };
 
     /*
@@ -56810,6 +57877,7 @@
         loadShapeConnectorElbow();
         loadShapeConnectorLine();
         loadShapeEmbedded();
+        loadShapeFan();
         loadShapeGroupShadowed();
         loadShapeGroup();
         loadShapeImage();
@@ -56823,6 +57891,7 @@
         loadShapeRectangleRoundedLegacy();
         loadShapeRectangleRounded();
         loadShapeRectangle();
+        loadShapeSemicircleLegacy();
         loadShapeSemicircle();
         loadShapeTriangleLegacy();
         loadShapeTriangleRoundedLegacy();
@@ -88883,6 +89952,7 @@
         loadShapeConnectorElbow: loadShapeConnectorElbow,
         loadShapeConnectorLine: loadShapeConnectorLine,
         loadShapeEmbedded: loadShapeEmbedded,
+        loadShapeFan: loadShapeFan,
         loadShapeGroupShadowed: loadShapeGroupShadowed,
         loadShapeGroup: loadShapeGroup,
         loadShapeImage: loadShapeImage,
@@ -88900,6 +89970,7 @@
         loadShapeRectangleRoundedLegacy: loadShapeRectangleRoundedLegacy,
         loadShapeRectangleRounded: loadShapeRectangleRounded,
         loadShapeRectangle: loadShapeRectangle,
+        loadShapeSemicircleLegacy: loadShapeSemicircleLegacy,
         loadShapeSemicircle: loadShapeSemicircle,
         loadShapeTriangleLegacy: loadShapeTriangleLegacy,
         loadShapeTriangleRoundedLegacy: loadShapeTriangleRoundedLegacy,
@@ -88979,13 +90050,20 @@
         RECTANGLE_INDEX_COUNT: RECTANGLE_LEGACY_INDEX_COUNT,
         RECTANGLE_VERTEX_COUNT: RECTANGLE_LEGACY_VERTEX_COUNT,
         RECTANGLE_WORLD_SIZE: RECTANGLE_LEGACY_WORLD_SIZE,
-        SEMICIRCLE_VERTEX_COUNT: SEMICIRCLE_VERTEX_COUNT,
-        SEMICIRCLE_INDEX_COUNT: SEMICIRCLE_INDEX_COUNT,
-        SEMICIRCLE_WORLD_SIZE: SEMICIRCLE_WORLD_SIZE,
-        buildSemicircleIndex: buildSemicircleIndex,
-        buildSemicircleVertex: buildSemicircleVertex,
-        buildSemicircleStep: buildSemicircleStep,
-        buildSemicircleUv: buildSemicircleUv,
+        SEMICIRCLE_LEGACY_VERTEX_COUNT: SEMICIRCLE_LEGACY_VERTEX_COUNT,
+        SEMICIRCLE_LEGACY_INDEX_COUNT: SEMICIRCLE_LEGACY_INDEX_COUNT,
+        SEMICIRCLE_LEGACY_WORLD_SIZE: SEMICIRCLE_LEGACY_WORLD_SIZE,
+        buildSemicircleLegacyIndex: buildSemicircleLegacyIndex,
+        buildSemicircleLegacyVertex: buildSemicircleLegacyVertex,
+        buildSemicircleLegacyStep: buildSemicircleLegacyStep,
+        buildSemicircleLegacyUv: buildSemicircleLegacyUv,
+        SEMICIRCLE_VERTEX_COUNT: SEMICIRCLE_LEGACY_VERTEX_COUNT,
+        SEMICIRCLE_INDEX_COUNT: SEMICIRCLE_LEGACY_INDEX_COUNT,
+        SEMICIRCLE_WORLD_SIZE: SEMICIRCLE_LEGACY_WORLD_SIZE,
+        buildSemicircleIndex: buildSemicircleLegacyIndex,
+        buildSemicircleVertex: buildSemicircleLegacyVertex,
+        buildSemicircleStep: buildSemicircleLegacyStep,
+        buildSemicircleUv: buildSemicircleLegacyUv,
         TEXT_VERTEX_COUNT: TEXT_VERTEX_COUNT,
         TEXT_VERTEX_COUNT_SHIFT: TEXT_VERTEX_COUNT_SHIFT,
         TEXT_INDEX_COUNT: TEXT_INDEX_COUNT,
@@ -89052,7 +90130,7 @@
         BuilderRectangleRoundedLegacy: BuilderRectangleRoundedLegacy,
         BuilderRectangleRounded: BuilderRectangleRoundedLegacy,
         BuilderRectangle: BuilderRectangleLegacy,
-        BuilderSemicircle: BuilderSemicircle,
+        BuilderSemicircle: BuilderSemicircleLegacy,
         BuilderText: BuilderText,
         BuilderTriangleLegacy: BuilderTriangleLegacy,
         BuilderTriangleRounded: BuilderTriangleRoundedLegacy,
@@ -89092,7 +90170,8 @@
         createRectangleRoundedLegacyUploaded: createRectangleRoundedLegacyUploaded,
         createRectangleRoundedUploaded: createRectangleRoundedLegacyUploaded,
         createRectangleUploaded: createRectangleLegacyUploaded,
-        createSemicircleUploaded: createSemicircleUploaded,
+        createSemicircleLegacyUploaded: createSemicircleLegacyUploaded,
+        createSemicircleUploaded: createSemicircleLegacyUploaded,
         createTriangleLegacyUploaded: createTriangleLegacyUploaded,
         createTriangleRoundedUploaded: createTriangleRoundedLegacyUploaded,
         createTriangleRoundedLegacyUploaded: createTriangleRoundedLegacyUploaded,
@@ -89109,6 +90188,7 @@
         deserializeEmbeddedAcceptorEdge: deserializeEmbeddedAcceptorEdge,
         deserializeEmbeddedLayer: deserializeEmbeddedLayer,
         deserializeEmbedded: deserializeEmbedded,
+        deserializeFan: deserializeFan,
         deserializeGradient: deserializeGradient,
         deserializeGroupShadowed: deserializeGroupShadowed,
         deserializeGroup: deserializeGroup,
@@ -89128,6 +90208,7 @@
         deserializeRectangleRoundedLegacy: deserializeRectangleRoundedLegacy,
         deserializeRectangleRounded: deserializeRectangleRounded,
         deserializeRectangle: deserializeRectangle,
+        deserializeSemicircleLegacy: deserializeSemicircleLegacy,
         deserializeSemicircle: deserializeSemicircle,
         deserializeTriangleLegacy: deserializeTriangleLegacy,
         deserializeTriangleRounded: deserializeTriangleRounded,
@@ -89156,6 +90237,8 @@
         EShapeEmbeddedLayer: EShapeEmbeddedLayer,
         EShapeEmbedded: EShapeEmbedded,
         EShapeEmbeddeds: EShapeEmbeddeds,
+        EShapeFanTriangulatedImpl: EShapeFanTriangulatedImpl,
+        EShapeFan: EShapeFan,
         EShapeFillImpl: EShapeFillImpl,
         EShapeGroupFillEditor: EShapeGroupFillEditor,
         EShapeGroupFillViewer: EShapeGroupFillViewer,
@@ -89199,6 +90282,7 @@
         EShapeRectangleRounded: EShapeRectangleRounded,
         EShapeRectangleTriangulatedImpl: EShapeRectangleTriangulatedImpl,
         EShapeRectangle: EShapeRectangle,
+        EShapeSemicircleLegacy: EShapeSemicircleLegacy,
         EShapeSemicircle: EShapeSemicircle,
         EShapeStrokeImpl: EShapeStrokeImpl,
         EShapeTextAlignImpl: EShapeTextAlignImpl,
@@ -89214,6 +90298,7 @@
         hitTestBBox: hitTestBBox,
         hitTestCircleLegacy: hitTestCircleLegacy,
         hitTestCircle: hitTestCircle,
+        hitTestFan: hitTestFan,
         hitTestSemicircle: hitTestSemicircle,
         hitTestRectangleRoundedLegacy: hitTestRectangleRoundedLegacy,
         hitTestRectangleRounded: hitTestRectangleRounded,
@@ -89228,6 +90313,8 @@
         isStatic: isStatic,
         toComputed: toComputed,
         toDash: toDash,
+        toFanAngleCentric: toFanAngleCentric,
+        toFanAngleEccentric: toFanAngleEccentric,
         toGradientImageUrl: toGradientImageUrl,
         toGradientSerialized: toGradientSerialized,
         toImageElement: toImageElement,

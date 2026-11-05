@@ -321,6 +321,7 @@
     * [Data Mapper](./shape/data-mapper.html)
     * [Embedded Shape](./shape/embedded.html)
     * [Embedded Shapes from Files](./shape/embedded-from.html)
+    * [Fan](./shape/fan.html)
     * [Hit Test](./shape/hit-test.html)
     * [SDF Image](./shape/image-sdf.html)
     * [Line](./shape/line.html)
@@ -332,6 +333,7 @@
     * [Polygon](./shape/polygon.html)
     * [Rectangle](./shape/rectangle.html)
     * [Rounded Rectangle](./shape/rectangle-rounded.html)
+    * [Semicircle](./shape/semicircle.html)
     * [Straight Skeleton](./shape/straight-skeleton.html)
     * [Straight Skeleton Buffer](./shape/straight-skeleton-buffer.html)
     * Text
