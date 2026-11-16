@@ -6,14 +6,14 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { deserializeBase } from "./deserialize-base";
-import { EShapeFan } from "./e-shape-fan";
+import { EShapeSector } from "./e-shape-sector";
 
-export const deserializeFan = (
+export const deserializeSector = (
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization,
-	shape?: EShapeFan
-): Promise<EShapeFan> | EShapeFan => {
-	shape = shape || new EShapeFan();
+	shape?: EShapeSector
+): Promise<EShapeSector> | EShapeSector => {
+	shape = shape || new EShapeSector();
 	shape.angle = item[15];
 	return deserializeBase(item, manager, shape);
 };

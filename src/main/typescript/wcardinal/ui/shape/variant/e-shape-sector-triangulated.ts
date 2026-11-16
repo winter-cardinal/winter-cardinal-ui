@@ -5,4 +5,4 @@
 
 import { EShapePolygonTriangulatedLike } from "./e-shape-polygon-triangulated-like";
 
-export interface EShapeFanTriangulated extends EShapePolygonTriangulatedLike {}
+export interface EShapeSectorTriangulated extends EShapePolygonTriangulatedLike {}

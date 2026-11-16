@@ -7,21 +7,21 @@ import type { EShape } from "../e-shape";
 import { EShapeBoundary } from "../e-shape-boundary";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
-import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
-import { toFanAngleCentric } from "./to-fan-angle-centric";
-import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
+import { EShapeSectorTriangulated } from "./e-shape-sector-triangulated";
+import { toSectorAngleCentric } from "./to-sector-angle-centric";
+import { toSectorAngleEccentric } from "./to-sector-angle-eccentric";
 
 /**
- * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
+ * Triangulates a sector whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
  * The vertices are computed in the frame where w and h are positive and flipped at the end.
  *
  * ## Points
  *
- * - O: the apex of the fan, the origin
+ * - O: the apex of the sector, the origin
  * - A, B: the end points of the arc, (-w sin(ea), -h cos(ea)) and (+w sin(ea), -h cos(ea))
- * - C: the point where the area of the fan becomes zero when the fan shrinks, (0, -h / (1 + sin(ca)))
+ * - C: the point where the area of the sector becomes zero when the sector shrinks, (0, -h / (1 + sin(ca)))
  * - P[k]: the points on the arc, k in [0, 2N] (P[0] = A, P[N] is the top, P[2N] = B)
- * - Q[k]: the points on the medial axis of the fan, which are on the normal of the arc at P[k]
+ * - Q[k]: the points on the medial axis of the sector, which are on the normal of the arc at P[k]
  *   and equidistant from the arc and the straight sides (Q[0] = A, Q[N] = C, Q[2N] = B)
  * - R[k]: the points P[k] shifted outward for the anti-aliasing
  * - O': the point O shifted outward for the anti-aliasing
@@ -34,17 +34,17 @@ import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
  * where the outline is the arc and/or the straight sides depending on the stroke side.
  *
  * - ARC and BOTTOM (and NONE): the stroke is at the arc and the straight sides.
- *   The fan is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
+ *   The sector is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
  *   the two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom.
  * - ARC: the stroke is only at the arc.
- *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact fan with the strip only.
+ *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact sector with the strip only.
  *   For the other ellipses, Q[k] are on the medial axis as ARC and BOTTOM, and the two polygons
  *   O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N] are added at the bottom without the stroke and the anti-aliasing.
  * - BOTTOM: the stroke is only at the straight sides.
  *   It is the same as a polygon. Two triangle fans from C cover the area between the arc and the segments CA and CB,
  *   and two quads O', A', A, C and O', B', B, C cover the rest.
  */
-export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
+export class EShapeSectorTriangulatedImpl implements EShapeSectorTriangulated {
 	/** The ratio of the outer edge, where the clipping is 1, to the edge of the anti-aliasing */
 	protected static readonly SCALE = 1.1;
 
@@ -227,8 +227,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 			this.updateEmpty(ax, ay, nv, ni);
 			return;
 		}
-		const ca = toFanAngleCentric(angle);
-		const ea = toFanAngleEccentric(ax, ay, ca);
+		const ca = toSectorAngleCentric(angle);
+		const ea = toSectorAngleEccentric(ax, ay, ca);
 		const sea = Math.sin(ea);
 		const cea = Math.cos(ea);
 		const bx = ax * sea;
@@ -277,7 +277,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	}
 
 	/**
-	 * Fills the empty fan, which has no vertices to draw.
+	 * Fills the empty sector, which has no vertices to draw.
 	 */
 	protected updateEmpty(w: number, h: number, nv: number, ni: number): void {
 		const boundary = this._boundary;
@@ -313,7 +313,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		// sided: the straight sides are the outline, which has the stroke and the anti-aliasing
 		// capped: the polygons are added at the bottom to cover the sector with the hard straight sides
 		// chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
-		// For a circle and a semi-ellipse, Q on the axis gives the exact fan.
+		// For a circle and a semi-ellipse, Q on the axis gives the exact sector.
 		const sided = !ssa || ssb;
 		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
 		const capped = !sided && !isExact;
@@ -339,7 +339,7 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		boundary[3] = 0;
 
 		const fd = 1 / dmax;
-		const fs = (EShapeFanTriangulatedImpl.SCALE - 1) * dmax;
+		const fs = (EShapeSectorTriangulatedImpl.SCALE - 1) * dmax;
 		this.computeRimPoints(n, fs, st, ct, sided);
 
 		// Strip: 4 * (m - 1) vertices and 2 * 3 * (m - 1) indices
@@ -397,8 +397,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		cea: number
 	): void {
 		const m = 2 * n + 1;
-		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+		const px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
 		const da = ea / n;
 		const cda = Math.cos(da);
 		const sda = Math.sin(da);
@@ -432,12 +432,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 	 */
 	protected computeArcNormals(w: number, h: number, n: number): void {
 		const m = 2 * n + 1;
-		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-		const nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
-		const ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-		const speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
-		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+		const px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+		const nx = EShapeSectorTriangulatedImpl.WORK_NORMAL_X;
+		const ny = EShapeSectorTriangulatedImpl.WORK_NORMAL_Y;
+		const speeds = EShapeSectorTriangulatedImpl.WORK_SPEED;
+		const ls = EShapeSectorTriangulatedImpl.WORK_ARC_L;
 		const hw = h / w;
 		const wh = w / h;
 		let l = 0;
@@ -484,14 +484,14 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		chained: boolean
 	): number {
 		const m = 2 * n + 1;
-		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-		const nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
-		const ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-		const speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
-		const qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-		const qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-		const qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
+		const px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+		const nx = EShapeSectorTriangulatedImpl.WORK_NORMAL_X;
+		const ny = EShapeSectorTriangulatedImpl.WORK_NORMAL_Y;
+		const speeds = EShapeSectorTriangulatedImpl.WORK_SPEED;
+		const qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+		const qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+		const qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
 		const u = w <= h ? w / h : h / w;
 		let dmax = 0;
 		for (let k = 0; k <= n; ++k) {
@@ -551,12 +551,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		sided: boolean
 	): void {
 		const m = 2 * n + 1;
-		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-		const nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
-		const ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-		const rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
-		const ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
+		const px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+		const nx = EShapeSectorTriangulatedImpl.WORK_NORMAL_X;
+		const ny = EShapeSectorTriangulatedImpl.WORK_NORMAL_Y;
+		const rx = EShapeSectorTriangulatedImpl.WORK_RIM_X;
+		const ry = EShapeSectorTriangulatedImpl.WORK_RIM_Y;
 		for (let k = 0; k < m; ++k) {
 			let x = px[k] - fs * nx[k];
 			let y = py[k] - fs * ny[k];
@@ -591,15 +591,15 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		gx: number,
 		gy: number
 	): void {
-		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-		const qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-		const qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-		const qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
-		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
-		const rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
-		const ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
-		const scale = EShapeFanTriangulatedImpl.SCALE;
+		const px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+		const qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+		const qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+		const qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
+		const ls = EShapeSectorTriangulatedImpl.WORK_ARC_L;
+		const rx = EShapeSectorTriangulatedImpl.WORK_RIM_X;
+		const ry = EShapeSectorTriangulatedImpl.WORK_RIM_Y;
+		const scale = EShapeSectorTriangulatedImpl.SCALE;
 		const indices = this._indices;
 		let iv = 0;
 		let ii = 0;
@@ -669,12 +669,12 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		gy: number
 	): number {
 		const m = 2 * n + 1;
-		const qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-		const qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-		const qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
-		const rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
-		const ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
-		const l0 = oa + EShapeFanTriangulatedImpl.WORK_ARC_L[m - 1];
+		const qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+		const qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+		const qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
+		const rx = EShapeSectorTriangulatedImpl.WORK_RIM_X;
+		const ry = EShapeSectorTriangulatedImpl.WORK_RIM_Y;
+		const l0 = oa + EShapeSectorTriangulatedImpl.WORK_ARC_L[m - 1];
 		const nx = sign * ct;
 		const ly = sign * ct;
 		const eps = 1e-9 * w;
@@ -808,10 +808,10 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		gy: number
 	): number {
 		const m = 2 * n + 1;
-		const qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-		const qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-		const qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
-		const ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+		const qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+		const qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+		const qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
+		const ls = EShapeSectorTriangulatedImpl.WORK_ARC_L;
 		const eps = 1e-9 * w;
 		const end = sign < 0 ? 0 : m - 1;
 
@@ -858,13 +858,13 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 
 		const yc = h / (1 + st);
 		const fd = (1 + st) / (h * st);
-		const fs = (EShapeFanTriangulatedImpl.SCALE - 1) / fd;
+		const fs = (EShapeSectorTriangulatedImpl.SCALE - 1) / fd;
 
 		this.computeArcPoints(w, h, n, ea, sea, cea);
 		this.computeArcNormals(w, h, n);
 
 		// The length of O, which is the same as the one of writeSidePolygon: |OA| + the length of the arc
-		const l0 = Math.sqrt(bx * bx + by * by) + EShapeFanTriangulatedImpl.WORK_ARC_L[2 * n];
+		const l0 = Math.sqrt(bx * bx + by * by) + EShapeSectorTriangulatedImpl.WORK_ARC_L[2 * n];
 
 		// Triangle fans from C to the arc: left (sign = -1) and right (sign = +1)
 		let iv = 0;
@@ -924,8 +924,8 @@ export class EShapeFanTriangulatedImpl implements EShapeFanTriangulated {
 		gx: number,
 		gy: number
 	): number {
-		const px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-		const py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+		const px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+		const py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
 		const nx = sign * ct;
 		const ly = sign * ct;
 
