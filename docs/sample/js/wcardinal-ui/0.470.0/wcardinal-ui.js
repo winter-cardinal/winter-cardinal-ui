@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.469.0
+ Winter Cardinal UI v0.470.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -59,7 +59,7 @@
         TRIANGLE_LEGACY: 29,
         RECTANGLE_ROUNDED_LEGACY: 30,
         TRIANGLE_ROUNDED_LEGACY: 31,
-        FAN: 32,
+        SECTOR: 32,
         SEMICIRCLE_LEGACY: 33,
         EXTENSION: 1000
     };
@@ -47969,9 +47969,9 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * Converts an angle ratio to the half central angle of a fan in [0, PI / 2].
+     * Converts an angle ratio to the half central angle of a sector in [0, PI / 2].
      */
-    var toFanAngleCentric = function (angle) {
+    var toSectorAngleCentric = function (angle) {
         return Math.PI * Math.max(0, Math.min(0.5, angle));
     };
 
@@ -47980,10 +47980,10 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * Converts the half central angle of fans to the eccentric angle of the arc end points
-     * of the fan whose arc is on the ellipse with the semi-axes (w, h).
+     * Converts the half central angle of sectors to the eccentric angle of the arc end points
+     * of the sector whose arc is on the ellipse with the semi-axes (w, h).
      */
-    var toFanAngleEccentric = function (w, h, theta) {
+    var toSectorAngleEccentric = function (w, h, theta) {
         return Math.atan((h / w) * Math.tan(theta));
     };
 
@@ -47992,16 +47992,16 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
+     * Triangulates a sector whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
      * The vertices are computed in the frame where w and h are positive and flipped at the end.
      *
      * ## Points
      *
-     * - O: the apex of the fan, the origin
+     * - O: the apex of the sector, the origin
      * - A, B: the end points of the arc, (-w sin(ea), -h cos(ea)) and (+w sin(ea), -h cos(ea))
-     * - C: the point where the area of the fan becomes zero when the fan shrinks, (0, -h / (1 + sin(ca)))
+     * - C: the point where the area of the sector becomes zero when the sector shrinks, (0, -h / (1 + sin(ca)))
      * - P[k]: the points on the arc, k in [0, 2N] (P[0] = A, P[N] is the top, P[2N] = B)
-     * - Q[k]: the points on the medial axis of the fan, which are on the normal of the arc at P[k]
+     * - Q[k]: the points on the medial axis of the sector, which are on the normal of the arc at P[k]
      *   and equidistant from the arc and the straight sides (Q[0] = A, Q[N] = C, Q[2N] = B)
      * - R[k]: the points P[k] shifted outward for the anti-aliasing
      * - O': the point O shifted outward for the anti-aliasing
@@ -48014,18 +48014,18 @@
      * where the outline is the arc and/or the straight sides depending on the stroke side.
      *
      * - ARC and BOTTOM (and NONE): the stroke is at the arc and the straight sides.
-     *   The fan is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
+     *   The sector is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
      *   the two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom.
      * - ARC: the stroke is only at the arc.
-     *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact fan with the strip only.
+     *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact sector with the strip only.
      *   For the other ellipses, Q[k] are on the medial axis as ARC and BOTTOM, and the two polygons
      *   O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N] are added at the bottom without the stroke and the anti-aliasing.
      * - BOTTOM: the stroke is only at the straight sides.
      *   It is the same as a polygon. Two triangle fans from C cover the area between the arc and the segments CA and CB,
      *   and two quads O', A', A, C and O', B', B, C cover the rest.
      */
-    var EShapeFanTriangulatedImpl = /** @class */ (function () {
-        function EShapeFanTriangulatedImpl(parent) {
+    var EShapeSectorTriangulatedImpl = /** @class */ (function () {
+        function EShapeSectorTriangulatedImpl(parent) {
             this._id = 0;
             this._parent = parent;
             this._width = 0;
@@ -48047,7 +48047,7 @@
             this._nindices = 0;
             this._boundary = [0, 0, 0, 0];
         }
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "id", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "id", {
             get: function () {
                 this.triangulate();
                 return this._id;
@@ -48055,7 +48055,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "vertices", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "vertices", {
             get: function () {
                 this.triangulate();
                 return this._vertices;
@@ -48063,7 +48063,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "nvertices", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "nvertices", {
             get: function () {
                 this.triangulate();
                 return this._nvertices;
@@ -48071,7 +48071,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "distances", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "distances", {
             get: function () {
                 this.triangulate();
                 return this._distances;
@@ -48079,7 +48079,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "lengths", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "lengths", {
             get: function () {
                 this.triangulate();
                 return this._lengths;
@@ -48087,7 +48087,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "clippings", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "clippings", {
             get: function () {
                 this.triangulate();
                 return this._clippings;
@@ -48095,7 +48095,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "uvs", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "uvs", {
             get: function () {
                 this.triangulate();
                 return this._uvs;
@@ -48103,7 +48103,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "indices", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "indices", {
             get: function () {
                 this.triangulate();
                 return this._indices;
@@ -48111,7 +48111,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "nindices", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "nindices", {
             get: function () {
                 this.triangulate();
                 return this._nindices;
@@ -48119,7 +48119,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFanTriangulatedImpl.prototype, "boundary", {
+        Object.defineProperty(EShapeSectorTriangulatedImpl.prototype, "boundary", {
             get: function () {
                 this.triangulate();
                 return this._boundary;
@@ -48127,7 +48127,7 @@
             enumerable: false,
             configurable: true
         });
-        EShapeFanTriangulatedImpl.prototype.triangulate = function () {
+        EShapeSectorTriangulatedImpl.prototype.triangulate = function () {
             var isNotInitialized = this._id === 0;
             var parent = this._parent;
             var size = parent.size;
@@ -48165,7 +48165,7 @@
                 this.update(sizeX, sizeY, angle, strokeSideArc, strokeSideBottom);
             }
         };
-        EShapeFanTriangulatedImpl.prototype.update = function (sx, sy, angle, ssa, ssb) {
+        EShapeSectorTriangulatedImpl.prototype.update = function (sx, sy, angle, ssa, ssb) {
             // The number of the arc segments is 2n and the number of the points on the arc is m.
             var n = EShapeDefaults.CIRCLE_SEGMENT_COUNT >> 2;
             var m = 2 * n + 1;
@@ -48181,8 +48181,8 @@
                 this.updateEmpty(ax, ay, nv, ni);
                 return;
             }
-            var ca = toFanAngleCentric(angle);
-            var ea = toFanAngleEccentric(ax, ay, ca);
+            var ca = toSectorAngleCentric(angle);
+            var ea = toSectorAngleEccentric(ax, ay, ca);
             var sea = Math.sin(ea);
             var cea = Math.cos(ea);
             var bx = ax * sea;
@@ -48209,9 +48209,9 @@
             }
         };
         /**
-         * Fills the empty fan, which has no vertices to draw.
+         * Fills the empty sector, which has no vertices to draw.
          */
-        EShapeFanTriangulatedImpl.prototype.updateEmpty = function (w, h, nv, ni) {
+        EShapeSectorTriangulatedImpl.prototype.updateEmpty = function (w, h, nv, ni) {
             var boundary = this._boundary;
             boundary[0] = -w;
             boundary[1] = -h;
@@ -48219,12 +48219,12 @@
             boundary[3] = +h;
             this.pad(0, 0, nv, ni, 0);
         };
-        EShapeFanTriangulatedImpl.prototype.updateArc = function (w, h, n, ea, sea, cea, bx, oa, st, ct, fx, fy, gx, gy, ssa, ssb, nv, ni) {
+        EShapeSectorTriangulatedImpl.prototype.updateArc = function (w, h, n, ea, sea, cea, bx, oa, st, ct, fx, fy, gx, gy, ssa, ssb, nv, ni) {
             var m = 2 * n + 1;
             // sided: the straight sides are the outline, which has the stroke and the anti-aliasing
             // capped: the polygons are added at the bottom to cover the sector with the hard straight sides
             // chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
-            // For a circle and a semi-ellipse, Q on the axis gives the exact fan.
+            // For a circle and a semi-ellipse, Q on the axis gives the exact sector.
             var sided = !ssa || ssb;
             var isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
             var capped = !sided && !isExact;
@@ -48247,7 +48247,7 @@
             boundary[2] = +bx;
             boundary[3] = 0;
             var fd = 1 / dmax;
-            var fs = (EShapeFanTriangulatedImpl.SCALE - 1) * dmax;
+            var fs = (EShapeSectorTriangulatedImpl.SCALE - 1) * dmax;
             this.computeRimPoints(n, fs, st, ct, sided);
             // Strip: 4 * (m - 1) vertices and 2 * 3 * (m - 1) indices
             this.writeStrip(m, fd, fx, fy, gx, gy);
@@ -48278,10 +48278,10 @@
          * The points are symmetric with respect to the axis x = 0, so only the left half is computed
          * and the right half is mirrored from it.
          */
-        EShapeFanTriangulatedImpl.prototype.computeArcPoints = function (w, h, n, ea, sea, cea) {
+        EShapeSectorTriangulatedImpl.prototype.computeArcPoints = function (w, h, n, ea, sea, cea) {
             var m = 2 * n + 1;
-            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+            var px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
             var da = ea / n;
             var cda = Math.cos(da);
             var sda = Math.sin(da);
@@ -48311,14 +48311,14 @@
          * The normal at P is Np = (-h x / w, -w y / h), whose magnitude is the speed of the arc.
          * The lengths are the ones of the polyline, which is the actual outline, so that they are exact at clipping = 1.
          */
-        EShapeFanTriangulatedImpl.prototype.computeArcNormals = function (w, h, n) {
+        EShapeSectorTriangulatedImpl.prototype.computeArcNormals = function (w, h, n) {
             var m = 2 * n + 1;
-            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-            var nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
-            var ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-            var speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
-            var ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+            var px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+            var nx = EShapeSectorTriangulatedImpl.WORK_NORMAL_X;
+            var ny = EShapeSectorTriangulatedImpl.WORK_NORMAL_Y;
+            var speeds = EShapeSectorTriangulatedImpl.WORK_SPEED;
+            var ls = EShapeSectorTriangulatedImpl.WORK_ARC_L;
             var hw = h / w;
             var wh = w / h;
             var l = 0;
@@ -48355,16 +48355,16 @@
          *
          * Otherwise, the normal is extended until it reaches x = 0 if w <= h, otherwise y = 0.
          */
-        EShapeFanTriangulatedImpl.prototype.computeMedialPoints = function (w, h, n, st, ct, chained) {
+        EShapeSectorTriangulatedImpl.prototype.computeMedialPoints = function (w, h, n, st, ct, chained) {
             var m = 2 * n + 1;
-            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-            var nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
-            var ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-            var speeds = EShapeFanTriangulatedImpl.WORK_SPEED;
-            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
+            var px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+            var nx = EShapeSectorTriangulatedImpl.WORK_NORMAL_X;
+            var ny = EShapeSectorTriangulatedImpl.WORK_NORMAL_Y;
+            var speeds = EShapeSectorTriangulatedImpl.WORK_SPEED;
+            var qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
             var u = w <= h ? w / h : h / w;
             var dmax = 0;
             for (var k = 0; k <= n; ++k) {
@@ -48414,14 +48414,14 @@
          * If the straight sides are the outline, the end points are shifted
          * to the intersections of the shifted arc and the shifted straight sides.
          */
-        EShapeFanTriangulatedImpl.prototype.computeRimPoints = function (n, fs, st, ct, sided) {
+        EShapeSectorTriangulatedImpl.prototype.computeRimPoints = function (n, fs, st, ct, sided) {
             var m = 2 * n + 1;
-            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-            var nx = EShapeFanTriangulatedImpl.WORK_NORMAL_X;
-            var ny = EShapeFanTriangulatedImpl.WORK_NORMAL_Y;
-            var rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
-            var ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
+            var px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+            var nx = EShapeSectorTriangulatedImpl.WORK_NORMAL_X;
+            var ny = EShapeSectorTriangulatedImpl.WORK_NORMAL_Y;
+            var rx = EShapeSectorTriangulatedImpl.WORK_RIM_X;
+            var ry = EShapeSectorTriangulatedImpl.WORK_RIM_Y;
             for (var k = 0; k < m; ++k) {
                 var x = px[k] - fs * nx[k];
                 var y = py[k] - fs * ny[k];
@@ -48446,16 +48446,16 @@
          * Each quad owns its vertices. The length in a quad is the length at P[k] plus the projection
          * to the chord P[k]P[k + 1], which is exact at clipping = 1 where the chord is the outline.
          */
-        EShapeFanTriangulatedImpl.prototype.writeStrip = function (m, fd, fx, fy, gx, gy) {
-            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
-            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
-            var ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
-            var rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
-            var ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
-            var scale = EShapeFanTriangulatedImpl.SCALE;
+        EShapeSectorTriangulatedImpl.prototype.writeStrip = function (m, fd, fx, fy, gx, gy) {
+            var px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
+            var qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
+            var ls = EShapeSectorTriangulatedImpl.WORK_ARC_L;
+            var rx = EShapeSectorTriangulatedImpl.WORK_RIM_X;
+            var ry = EShapeSectorTriangulatedImpl.WORK_RIM_Y;
+            var scale = EShapeSectorTriangulatedImpl.SCALE;
             var indices = this._indices;
             var iv = 0;
             var ii = 0;
@@ -48506,14 +48506,14 @@
          * The clipping and the length are computed from the straight side:
          * the outward unit normal is (sign * ct, st) and the length is oa + arc + (-st, sign * ct) . p.
          */
-        EShapeFanTriangulatedImpl.prototype.writeSidePolygon = function (iv, ii, sign, n, w, oa, st, ct, fs, fd, fx, fy, gx, gy) {
+        EShapeSectorTriangulatedImpl.prototype.writeSidePolygon = function (iv, ii, sign, n, w, oa, st, ct, fs, fd, fx, fy, gx, gy) {
             var m = 2 * n + 1;
-            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
-            var rx = EShapeFanTriangulatedImpl.WORK_RIM_X;
-            var ry = EShapeFanTriangulatedImpl.WORK_RIM_Y;
-            var l0 = oa + EShapeFanTriangulatedImpl.WORK_ARC_L[m - 1];
+            var qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
+            var rx = EShapeSectorTriangulatedImpl.WORK_RIM_X;
+            var ry = EShapeSectorTriangulatedImpl.WORK_RIM_Y;
+            var l0 = oa + EShapeSectorTriangulatedImpl.WORK_ARC_L[m - 1];
             var nx = sign * ct;
             var ly = sign * ct;
             var eps = 1e-9 * w;
@@ -48554,12 +48554,12 @@
          *
          * The clipping of O is given by co, and the length of O is the one of the end point.
          */
-        EShapeFanTriangulatedImpl.prototype.writeCapPolygon = function (iv, ii, sign, n, w, co, fd, fx, fy, gx, gy) {
+        EShapeSectorTriangulatedImpl.prototype.writeCapPolygon = function (iv, ii, sign, n, w, co, fd, fx, fy, gx, gy) {
             var m = 2 * n + 1;
-            var qx = EShapeFanTriangulatedImpl.WORK_MEDIAL_X;
-            var qy = EShapeFanTriangulatedImpl.WORK_MEDIAL_Y;
-            var qd = EShapeFanTriangulatedImpl.WORK_MEDIAL_D;
-            var ls = EShapeFanTriangulatedImpl.WORK_ARC_L;
+            var qx = EShapeSectorTriangulatedImpl.WORK_MEDIAL_X;
+            var qy = EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y;
+            var qd = EShapeSectorTriangulatedImpl.WORK_MEDIAL_D;
+            var ls = EShapeSectorTriangulatedImpl.WORK_ARC_L;
             var eps = 1e-9 * w;
             var end = sign < 0 ? 0 : m - 1;
             this.writeVertex(iv, 0, 0, ls[end], co, fd, fx, fy, gx, gy);
@@ -48578,7 +48578,7 @@
         /**
          * The clipping is 1 - (the distance from the straight side) / d where d is the distance from C to OA (or OB).
          */
-        EShapeFanTriangulatedImpl.prototype.updateBottom = function (w, h, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni) {
+        EShapeSectorTriangulatedImpl.prototype.updateBottom = function (w, h, n, ea, sea, cea, bx, by, st, ct, fx, fy, gx, gy, nv, ni) {
             var boundary = this._boundary;
             boundary[0] = -bx;
             boundary[1] = -h;
@@ -48586,11 +48586,11 @@
             boundary[3] = 0;
             var yc = h / (1 + st);
             var fd = (1 + st) / (h * st);
-            var fs = (EShapeFanTriangulatedImpl.SCALE - 1) / fd;
+            var fs = (EShapeSectorTriangulatedImpl.SCALE - 1) / fd;
             this.computeArcPoints(w, h, n, ea, sea, cea);
             this.computeArcNormals(w, h, n);
             // The length of O, which is the same as the one of writeSidePolygon: |OA| + the length of the arc
-            var l0 = Math.sqrt(bx * bx + by * by) + EShapeFanTriangulatedImpl.WORK_ARC_L[2 * n];
+            var l0 = Math.sqrt(bx * bx + by * by) + EShapeSectorTriangulatedImpl.WORK_ARC_L[2 * n];
             // Triangle fans from C to the arc: left (sign = -1) and right (sign = +1)
             var iv = 0;
             var ii = 0;
@@ -48615,9 +48615,9 @@
          * and the length is l0 + (-st, sign * ct) . p, which is the same as the one of writeSidePolygon
          * so that the dashes of the straight sides do not depend on the stroke side.
          */
-        EShapeFanTriangulatedImpl.prototype.writeBottomFan = function (iv, ii, sign, n, yc, l0, st, ct, fd, fx, fy, gx, gy) {
-            var px = EShapeFanTriangulatedImpl.WORK_ARC_X;
-            var py = EShapeFanTriangulatedImpl.WORK_ARC_Y;
+        EShapeSectorTriangulatedImpl.prototype.writeBottomFan = function (iv, ii, sign, n, yc, l0, st, ct, fd, fx, fy, gx, gy) {
+            var px = EShapeSectorTriangulatedImpl.WORK_ARC_X;
+            var py = EShapeSectorTriangulatedImpl.WORK_ARC_Y;
             var nx = sign * ct;
             var ly = sign * ct;
             var count = 0;
@@ -48634,7 +48634,7 @@
          * O' is shifted outward by fs / st, and A' (B') is shifted outward by fs perpendicular to the straight side.
          * Returns the number of the written vertices.
          */
-        EShapeFanTriangulatedImpl.prototype.writeBottomQuad = function (iv, ii, sign, bx, by, yc, l0, fs, st, ct, fd, fx, fy, gx, gy) {
+        EShapeSectorTriangulatedImpl.prototype.writeBottomQuad = function (iv, ii, sign, bx, by, yc, l0, fs, st, ct, fd, fx, fy, gx, gy) {
             var nx = sign * ct;
             var ly = sign * ct;
             this.writeSideVertex(iv, 0, fs / st, 0, nx, st, l0, -st, ly, fd, fx, fy, gx, gy);
@@ -48652,7 +48652,7 @@
          * The clipping is 1 + fd * (nx * x + ny * y), which is not less than the given floor,
          * and the length is l0 + lx * x + ly * y.
          */
-        EShapeFanTriangulatedImpl.prototype.writeSideVertex = function (vertex, x, y, floor, nx, ny, l0, lx, ly, fd, fx, fy, gx, gy) {
+        EShapeSectorTriangulatedImpl.prototype.writeSideVertex = function (vertex, x, y, floor, nx, ny, l0, lx, ly, fd, fx, fy, gx, gy) {
             var clipping = Math.max(floor, 1 + fd * (nx * x + ny * y));
             var length = l0 + lx * x + ly * y;
             this.writeVertex(vertex, x, y, length, clipping, fd, fx, fy, gx, gy);
@@ -48661,7 +48661,7 @@
          * Writes the indices of a triangle fan from the first vertex.
          * The number of the written indices is 3 * (count - 2).
          */
-        EShapeFanTriangulatedImpl.prototype.writeFan = function (ii, iv, count) {
+        EShapeSectorTriangulatedImpl.prototype.writeFan = function (ii, iv, count) {
             var indices = this._indices;
             for (var i = 1; i < count - 1; ++i) {
                 indices[ii++] = iv;
@@ -48680,7 +48680,7 @@
          * @param gx - The sign of the X size, which flips the vertex
          * @param gy - The sign of the Y size, which flips the vertex
          */
-        EShapeFanTriangulatedImpl.prototype.writeVertex = function (vertex, x, y, length, clipping, fd, fx, fy, gx, gy) {
+        EShapeSectorTriangulatedImpl.prototype.writeVertex = function (vertex, x, y, length, clipping, fd, fx, fy, gx, gy) {
             var vertex2 = vertex << 1;
             this._vertices[vertex2] = gx * x;
             this._vertices[vertex2 + 1] = gy * y;
@@ -48694,7 +48694,7 @@
          * Fills the unused tail with degenerated triangles and trims the arrays
          * so that the buffers always hold exactly `nv` vertices and `ni` triangles.
          */
-        EShapeFanTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, distance) {
+        EShapeSectorTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, distance) {
             for (var i = iv; i < nv; ++i) {
                 var vertex2 = i << 1;
                 this._vertices[vertex2] = 0;
@@ -48716,28 +48716,28 @@
             this._indices.length = ni * 3;
         };
         /** The ratio of the outer edge, where the clipping is 1, to the edge of the anti-aliasing */
-        EShapeFanTriangulatedImpl.SCALE = 1.1;
+        EShapeSectorTriangulatedImpl.SCALE = 1.1;
         // Work arrays shared by all the instances because they are used only in a single synchronous triangulation.
         // All of them are indexed by k, which is in [0, 2N].
         /** P: the points on the arc */
-        EShapeFanTriangulatedImpl.WORK_ARC_X = [];
-        EShapeFanTriangulatedImpl.WORK_ARC_Y = [];
+        EShapeSectorTriangulatedImpl.WORK_ARC_X = [];
+        EShapeSectorTriangulatedImpl.WORK_ARC_Y = [];
         /** The lengths of the polyline P[0], ..., P[k] */
-        EShapeFanTriangulatedImpl.WORK_ARC_L = [];
+        EShapeSectorTriangulatedImpl.WORK_ARC_L = [];
         /** The unit inward normals of the arc */
-        EShapeFanTriangulatedImpl.WORK_NORMAL_X = [];
-        EShapeFanTriangulatedImpl.WORK_NORMAL_Y = [];
+        EShapeSectorTriangulatedImpl.WORK_NORMAL_X = [];
+        EShapeSectorTriangulatedImpl.WORK_NORMAL_Y = [];
         /** The magnitudes of the tangents, that is, the speeds of the arc */
-        EShapeFanTriangulatedImpl.WORK_SPEED = [];
+        EShapeSectorTriangulatedImpl.WORK_SPEED = [];
         /** Q: the points on the normals */
-        EShapeFanTriangulatedImpl.WORK_MEDIAL_X = [];
-        EShapeFanTriangulatedImpl.WORK_MEDIAL_Y = [];
+        EShapeSectorTriangulatedImpl.WORK_MEDIAL_X = [];
+        EShapeSectorTriangulatedImpl.WORK_MEDIAL_Y = [];
         /** The distances from P to Q */
-        EShapeFanTriangulatedImpl.WORK_MEDIAL_D = [];
+        EShapeSectorTriangulatedImpl.WORK_MEDIAL_D = [];
         /** R: the points on the arc shifted outward */
-        EShapeFanTriangulatedImpl.WORK_RIM_X = [];
-        EShapeFanTriangulatedImpl.WORK_RIM_Y = [];
-        return EShapeFanTriangulatedImpl;
+        EShapeSectorTriangulatedImpl.WORK_RIM_X = [];
+        EShapeSectorTriangulatedImpl.WORK_RIM_Y = [];
+        return EShapeSectorTriangulatedImpl;
     }());
 
     /*
@@ -48745,12 +48745,12 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.
+     * Tests whether the point is in the sector shrunk by `sa` at the arc and by `ss` at the straight sides.
      *
      * @param st - The sine of the half central angle
      * @param ct - The cosine of the half central angle
      */
-    var isInFan = function (x, y, ax, ay, st, ct, sa, ss) {
+    var isInSector = function (x, y, ax, ay, st, ct, sa, ss) {
         var wx = ax - sa;
         var wy = ay - sa;
         if (wx <= 0 || wy <= 0) {
@@ -48764,14 +48764,14 @@
         var ay1 = st * y;
         return -ct * x + ay1 <= -ss && ct * x + ay1 <= -ss;
     };
-    var hitTestFanFill = function (shape, x, y, bx, by) {
+    var hitTestSectorFill = function (shape, x, y, bx, by) {
         var fill = shape.fill;
         if (fill.enable) {
             var percent = Math.max(0, Math.min(1, fill.percent));
             if (1 <= percent) {
                 return true;
             }
-            // The fill is relative to the bounding box [-bx, +bx] x [-by, 0] of the fan.
+            // The fill is relative to the bounding box [-bx, +bx] x [-by, 0] of the sector.
             switch (fill.direction) {
                 case EShapeFillDirection.TOP:
                     return y + by <= percent * by;
@@ -48785,12 +48785,12 @@
         }
         return false;
     };
-    var hitTestFan = function (shape, x, y, ax, ay, sw, ss) {
-        var ca = toFanAngleCentric(shape.angle);
+    var hitTestSector = function (shape, x, y, ax, ay, sw, ss) {
+        var ca = toSectorAngleCentric(shape.angle);
         if (ca <= 0 || ax <= 0 || ay <= 0) {
             return false;
         }
-        var ea = toFanAngleEccentric(ax, ay, ca);
+        var ea = toSectorAngleEccentric(ax, ay, ca);
         var bx = ax * Math.sin(ea);
         var st = Math.sin(ca);
         var ct = Math.cos(ca);
@@ -48799,15 +48799,15 @@
         var strokeSideArc = (strokeSide & EShapeStrokeSide.NOT_BOTTOM) !== 0;
         var strokeSideBottom = (strokeSide & EShapeStrokeSide.BOTTOM) !== 0;
         var strokeWidth = strokeSideArc || strokeSideBottom ? sw : 0;
-        if ((fill.enable || 0 < strokeWidth) && isInFan(x, y, ax, ay, st, ct, 0, 0)) {
-            if (fill.enable && hitTestFanFill(shape, x, y, bx, ay)) {
+        if ((fill.enable || 0 < strokeWidth) && isInSector(x, y, ax, ay, st, ct, 0, 0)) {
+            if (fill.enable && hitTestSectorFill(shape, x, y, bx, ay)) {
                 return true;
             }
             if (0 < strokeWidth) {
                 var s = strokeWidth * ss;
                 var arc = strokeSideArc ? s : 0;
                 var sides = strokeSideBottom ? s : 0;
-                if (!isInFan(x, y, ax, ay, st, ct, arc, sides)) {
+                if (!isInSector(x, y, ax, ay, st, ct, arc, sides)) {
                     return true;
                 }
             }
@@ -48819,31 +48819,31 @@
      * Copyright (C) 2019-2026 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeFan = /** @class */ (function (_super) {
-        __extends(EShapeFan, _super);
-        function EShapeFan(type) {
-            if (type === void 0) { type = EShapeType.FAN; }
+    var EShapeSector = /** @class */ (function (_super) {
+        __extends(EShapeSector, _super);
+        function EShapeSector(type) {
+            if (type === void 0) { type = EShapeType.SECTOR; }
             var _this = _super.call(this, type) || this;
             _this._angle = _this.newAngle();
             _this._triangulated = _this.newTriangulated();
             return _this;
         }
-        EShapeFan.prototype.newAngle = function () {
+        EShapeSector.prototype.newAngle = function () {
             return EShapeDefaults.ANGLE;
         };
-        EShapeFan.prototype.newTriangulated = function () {
-            return new EShapeFanTriangulatedImpl(this);
+        EShapeSector.prototype.newTriangulated = function () {
+            return new EShapeSectorTriangulatedImpl(this);
         };
-        Object.defineProperty(EShapeFan.prototype, "triangulated", {
+        Object.defineProperty(EShapeSector.prototype, "triangulated", {
             get: function () {
                 return this._triangulated;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeFan.prototype, "angle", {
+        Object.defineProperty(EShapeSector.prototype, "angle", {
             /**
-             * The ratio of the half central angle of the fan to PI. Must be in [0, 0.5].
+             * The ratio of the half central angle of the sector to PI. Must be in [0, 0.5].
              * 0.5 results in a semicircle.
              */
             get: function () {
@@ -48858,44 +48858,44 @@
             enumerable: false,
             configurable: true
         });
-        EShapeFan.prototype.toHitTestStrokeShift = function (strokeWidth, strokeScale, strokeAlign) {
+        EShapeSector.prototype.toHitTestStrokeShift = function (strokeWidth, strokeScale, strokeAlign) {
             if (this.stroke.side !== EShapeStrokeSide.NONE) {
                 return _super.prototype.toHitTestStrokeShift.call(this, strokeWidth, strokeScale, strokeAlign);
             }
             return 0;
         };
-        EShapeFan.prototype.copy = function (source, part) {
+        EShapeSector.prototype.copy = function (source, part) {
             this.lock(EShapeLockPart.ALL);
             _super.prototype.copy.call(this, source, part);
-            if ((part == null || part & EShapeCopyPart.STYLE) && source instanceof EShapeFan) {
+            if ((part == null || part & EShapeCopyPart.STYLE) && source instanceof EShapeSector) {
                 this._angle = source._angle;
             }
             this.unlock(EShapeLockPart.ALL, true);
             return this;
         };
-        EShapeFan.prototype.clone = function () {
-            return new EShapeFan(this.type).copy(this);
+        EShapeSector.prototype.clone = function () {
+            return new EShapeSector(this.type).copy(this);
         };
-        EShapeFan.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+        EShapeSector.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestFan(this, x, y, ax, ay, sw, ss);
+                return hitTestSector(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
-        EShapeFan.prototype.serialize = function (manager) {
+        EShapeSector.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
             result[15] = this._angle;
             return result;
         };
-        return EShapeFan;
+        return EShapeSector;
     }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019-2026 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var deserializeFan = function (item, manager, shape) {
-        shape = shape || new EShapeFan();
+    var deserializeSector = function (item, manager, shape) {
+        shape = shape || new EShapeSector();
         shape.angle = item[15];
         return deserializeBase(item, manager, shape);
     };
@@ -48904,10 +48904,10 @@
      * Copyright (C) 2019-2026 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadShapeFan = function () {
-        EShapeUploadeds[EShapeType.FAN] = createPolygonUploaded;
-        EShapeDeserializers[EShapeType.FAN] = deserializeFan;
-        EShapeCapabilities.set(EShapeType.FAN, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.ANGLE);
+    var loadShapeSector = function () {
+        EShapeUploadeds[EShapeType.SECTOR] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.SECTOR] = deserializeSector;
+        EShapeCapabilities.set(EShapeType.SECTOR, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.ANGLE);
     };
 
     /*
@@ -56791,7 +56791,7 @@
             return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE & ~EShapeStrokeSide.BOTTOM, EShapeDefaults.STROKE_STYLE);
         };
         EShapeSemicircle.prototype.newTriangulated = function () {
-            return new EShapeFanTriangulatedImpl(this);
+            return new EShapeSectorTriangulatedImpl(this);
         };
         Object.defineProperty(EShapeSemicircle.prototype, "triangulated", {
             get: function () {
@@ -56821,7 +56821,7 @@
         };
         EShapeSemicircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestFan(this, x, y, ax, ay, sw, ss);
+                return hitTestSector(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -57877,7 +57877,7 @@
         loadShapeConnectorElbow();
         loadShapeConnectorLine();
         loadShapeEmbedded();
-        loadShapeFan();
+        loadShapeSector();
         loadShapeGroupShadowed();
         loadShapeGroup();
         loadShapeImage();
@@ -89952,7 +89952,7 @@
         loadShapeConnectorElbow: loadShapeConnectorElbow,
         loadShapeConnectorLine: loadShapeConnectorLine,
         loadShapeEmbedded: loadShapeEmbedded,
-        loadShapeFan: loadShapeFan,
+        loadShapeSector: loadShapeSector,
         loadShapeGroupShadowed: loadShapeGroupShadowed,
         loadShapeGroup: loadShapeGroup,
         loadShapeImage: loadShapeImage,
@@ -90188,7 +90188,6 @@
         deserializeEmbeddedAcceptorEdge: deserializeEmbeddedAcceptorEdge,
         deserializeEmbeddedLayer: deserializeEmbeddedLayer,
         deserializeEmbedded: deserializeEmbedded,
-        deserializeFan: deserializeFan,
         deserializeGradient: deserializeGradient,
         deserializeGroupShadowed: deserializeGroupShadowed,
         deserializeGroup: deserializeGroup,
@@ -90208,6 +90207,7 @@
         deserializeRectangleRoundedLegacy: deserializeRectangleRoundedLegacy,
         deserializeRectangleRounded: deserializeRectangleRounded,
         deserializeRectangle: deserializeRectangle,
+        deserializeSector: deserializeSector,
         deserializeSemicircleLegacy: deserializeSemicircleLegacy,
         deserializeSemicircle: deserializeSemicircle,
         deserializeTriangleLegacy: deserializeTriangleLegacy,
@@ -90237,8 +90237,6 @@
         EShapeEmbeddedLayer: EShapeEmbeddedLayer,
         EShapeEmbedded: EShapeEmbedded,
         EShapeEmbeddeds: EShapeEmbeddeds,
-        EShapeFanTriangulatedImpl: EShapeFanTriangulatedImpl,
-        EShapeFan: EShapeFan,
         EShapeFillImpl: EShapeFillImpl,
         EShapeGroupFillEditor: EShapeGroupFillEditor,
         EShapeGroupFillViewer: EShapeGroupFillViewer,
@@ -90282,6 +90280,8 @@
         EShapeRectangleRounded: EShapeRectangleRounded,
         EShapeRectangleTriangulatedImpl: EShapeRectangleTriangulatedImpl,
         EShapeRectangle: EShapeRectangle,
+        EShapeSectorTriangulatedImpl: EShapeSectorTriangulatedImpl,
+        EShapeSector: EShapeSector,
         EShapeSemicircleLegacy: EShapeSemicircleLegacy,
         EShapeSemicircle: EShapeSemicircle,
         EShapeStrokeImpl: EShapeStrokeImpl,
@@ -90298,7 +90298,6 @@
         hitTestBBox: hitTestBBox,
         hitTestCircleLegacy: hitTestCircleLegacy,
         hitTestCircle: hitTestCircle,
-        hitTestFan: hitTestFan,
         hitTestSemicircle: hitTestSemicircle,
         hitTestRectangleRoundedLegacy: hitTestRectangleRoundedLegacy,
         hitTestRectangleRounded: hitTestRectangleRounded,
@@ -90309,18 +90308,19 @@
         hitTestTriangleFilled: hitTestTriangleFilled,
         hitTestTriangleLegacy: hitTestTriangleLegacy,
         hitTestTriangle: hitTestTriangle,
+        hitTestSector: hitTestSector,
         isShapePolygonLike: isShapePolygonLike,
         isStatic: isStatic,
         toComputed: toComputed,
         toDash: toDash,
-        toFanAngleCentric: toFanAngleCentric,
-        toFanAngleEccentric: toFanAngleEccentric,
         toGradientImageUrl: toGradientImageUrl,
         toGradientSerialized: toGradientSerialized,
         toImageElement: toImageElement,
         toLength: toLength,
         toResized: toResized,
         toScaleInvariant: toScaleInvariant,
+        toSectorAngleCentric: toSectorAngleCentric,
+        toSectorAngleEccentric: toSectorAngleEccentric,
         toSizeNormalized: toSizeNormalized,
         toSizeRounded: toSizeRounded,
         toThresholdDefault: toThresholdDefault,
