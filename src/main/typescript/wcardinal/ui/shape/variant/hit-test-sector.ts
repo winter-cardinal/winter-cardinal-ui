@@ -6,8 +6,8 @@
 import type { EShape } from "../e-shape";
 import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
-import { toFanAngleCentric } from "./to-fan-angle-centric";
-import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
+import { toSectorAngleCentric } from "./to-sector-angle-centric";
+import { toSectorAngleEccentric } from "./to-sector-angle-eccentric";
 
 /**
  * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.
@@ -15,7 +15,7 @@ import { toFanAngleEccentric } from "./to-fan-angle-eccentric";
  * @param st - The sine of the half central angle
  * @param ct - The cosine of the half central angle
  */
-const isInFan = (
+const isInSector = (
 	x: number,
 	y: number,
 	ax: number,
@@ -39,7 +39,13 @@ const isInFan = (
 	return -ct * x + ay1 <= -ss && ct * x + ay1 <= -ss;
 };
 
-const hitTestFanFill = (shape: EShape, x: number, y: number, bx: number, by: number): boolean => {
+const hitTestSectorFill = (
+	shape: EShape,
+	x: number,
+	y: number,
+	bx: number,
+	by: number
+): boolean => {
 	const fill = shape.fill;
 	if (fill.enable) {
 		const percent = Math.max(0, Math.min(1, fill.percent));
@@ -62,7 +68,7 @@ const hitTestFanFill = (shape: EShape, x: number, y: number, bx: number, by: num
 	return false;
 };
 
-export const hitTestFan = (
+export const hitTestSector = (
 	shape: EShape,
 	x: number,
 	y: number,
@@ -71,12 +77,12 @@ export const hitTestFan = (
 	sw: number,
 	ss: number
 ): boolean => {
-	const ca = toFanAngleCentric(shape.angle);
+	const ca = toSectorAngleCentric(shape.angle);
 	if (ca <= 0 || ax <= 0 || ay <= 0) {
 		return false;
 	}
 
-	const ea = toFanAngleEccentric(ax, ay, ca);
+	const ea = toSectorAngleEccentric(ax, ay, ca);
 	const bx = ax * Math.sin(ea);
 	const st = Math.sin(ca);
 	const ct = Math.cos(ca);
@@ -85,15 +91,15 @@ export const hitTestFan = (
 	const strokeSideArc = (strokeSide & EShapeStrokeSide.NOT_BOTTOM) !== 0;
 	const strokeSideBottom = (strokeSide & EShapeStrokeSide.BOTTOM) !== 0;
 	const strokeWidth = strokeSideArc || strokeSideBottom ? sw : 0;
-	if ((fill.enable || 0 < strokeWidth) && isInFan(x, y, ax, ay, st, ct, 0, 0)) {
-		if (fill.enable && hitTestFanFill(shape, x, y, bx, ay)) {
+	if ((fill.enable || 0 < strokeWidth) && isInSector(x, y, ax, ay, st, ct, 0, 0)) {
+		if (fill.enable && hitTestSectorFill(shape, x, y, bx, ay)) {
 			return true;
 		}
 		if (0 < strokeWidth) {
 			const s = strokeWidth * ss;
 			const arc = strokeSideArc ? s : 0;
 			const sides = strokeSideBottom ? s : 0;
-			if (!isInFan(x, y, ax, ay, st, ct, arc, sides)) {
+			if (!isInSector(x, y, ax, ay, st, ct, arc, sides)) {
 				return true;
 			}
 		}

@@ -7,17 +7,17 @@ import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
-import { EShapeFanTriangulated } from "./e-shape-fan-triangulated";
-import { EShapeFanTriangulatedImpl } from "./e-shape-fan-triangulated-impl";
+import { EShapeSectorTriangulated } from "./e-shape-sector-triangulated";
+import { EShapeSectorTriangulatedImpl } from "./e-shape-sector-triangulated-impl";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
-import { hitTestFan } from "./hit-test-fan";
+import { hitTestSector } from "./hit-test-sector";
 
 /**
  * A semicircle shape.
  */
 export class EShapeSemicircle extends EShapePrimitive {
-	protected readonly _triangulated: EShapeFanTriangulated;
+	protected readonly _triangulated: EShapeSectorTriangulated;
 
 	constructor(type: EShapeType = EShapeType.SEMICIRCLE) {
 		super(type);
@@ -37,11 +37,11 @@ export class EShapeSemicircle extends EShapePrimitive {
 		);
 	}
 
-	protected newTriangulated(): EShapeFanTriangulated {
-		return new EShapeFanTriangulatedImpl(this);
+	protected newTriangulated(): EShapeSectorTriangulated {
+		return new EShapeSectorTriangulatedImpl(this);
 	}
 
-	get triangulated(): EShapeFanTriangulated {
+	get triangulated(): EShapeSectorTriangulated {
 		return this._triangulated;
 	}
 
@@ -78,7 +78,7 @@ export class EShapeSemicircle extends EShapePrimitive {
 		sa: number
 	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			return hitTestFan(this, x, y, ax, ay, sw, ss);
+			return hitTestSector(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
 	}

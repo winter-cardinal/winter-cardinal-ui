@@ -6,6 +6,6 @@
 /**
  * Converts an angle ratio to the half central angle of a fan in [0, PI / 2].
  */
-export const toFanAngleCentric = (angle: number): number => {
+export const toSectorAngleCentric = (angle: number): number => {
 	return Math.PI * Math.max(0, Math.min(0.5, angle));
 };
