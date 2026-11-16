@@ -4,8 +4,8 @@
  */
 
 /**
- * Converts the half central angle of fans to the eccentric angle of the arc end points
- * of the fan whose arc is on the ellipse with the semi-axes (w, h).
+ * Converts the half central angle of sectors to the eccentric angle of the arc end points
+ * of the sector whose arc is on the ellipse with the semi-axes (w, h).
  */
 export const toSectorAngleEccentric = (w: number, h: number, theta: number): number => {
 	return Math.atan((h / w) * Math.tan(theta));

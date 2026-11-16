@@ -12,16 +12,16 @@ import { toSectorAngleCentric } from "./to-sector-angle-centric";
 import { toSectorAngleEccentric } from "./to-sector-angle-eccentric";
 
 /**
- * Triangulates a fan whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
+ * Triangulates a sector whose arc is on the ellipse with the semi-axes (w, h) centered at the origin O.
  * The vertices are computed in the frame where w and h are positive and flipped at the end.
  *
  * ## Points
  *
- * - O: the apex of the fan, the origin
+ * - O: the apex of the sector, the origin
  * - A, B: the end points of the arc, (-w sin(ea), -h cos(ea)) and (+w sin(ea), -h cos(ea))
- * - C: the point where the area of the fan becomes zero when the fan shrinks, (0, -h / (1 + sin(ca)))
+ * - C: the point where the area of the sector becomes zero when the sector shrinks, (0, -h / (1 + sin(ca)))
  * - P[k]: the points on the arc, k in [0, 2N] (P[0] = A, P[N] is the top, P[2N] = B)
- * - Q[k]: the points on the medial axis of the fan, which are on the normal of the arc at P[k]
+ * - Q[k]: the points on the medial axis of the sector, which are on the normal of the arc at P[k]
  *   and equidistant from the arc and the straight sides (Q[0] = A, Q[N] = C, Q[2N] = B)
  * - R[k]: the points P[k] shifted outward for the anti-aliasing
  * - O': the point O shifted outward for the anti-aliasing
@@ -34,10 +34,10 @@ import { toSectorAngleEccentric } from "./to-sector-angle-eccentric";
  * where the outline is the arc and/or the straight sides depending on the stroke side.
  *
  * - ARC and BOTTOM (and NONE): the stroke is at the arc and the straight sides.
- *   The fan is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
+ *   The sector is triangulated into the strip P[k], P[k + 1], Q[k + 1], Q[k] and
  *   the two polygons O', A', Q[0], ..., Q[N] and O', B', Q[2N], ..., Q[N] at the bottom.
  * - ARC: the stroke is only at the arc.
- *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact fan with the strip only.
+ *   For a circle and a semi-ellipse, Q[k] are the points on the axis, which gives the exact sector with the strip only.
  *   For the other ellipses, Q[k] are on the medial axis as ARC and BOTTOM, and the two polygons
  *   O, Q[0], ..., Q[N] and O, Q[2N], ..., Q[N] are added at the bottom without the stroke and the anti-aliasing.
  * - BOTTOM: the stroke is only at the straight sides.
@@ -277,7 +277,7 @@ export class EShapeSectorTriangulatedImpl implements EShapeSectorTriangulated {
 	}
 
 	/**
-	 * Fills the empty fan, which has no vertices to draw.
+	 * Fills the empty sector, which has no vertices to draw.
 	 */
 	protected updateEmpty(w: number, h: number, nv: number, ni: number): void {
 		const boundary = this._boundary;
@@ -313,7 +313,7 @@ export class EShapeSectorTriangulatedImpl implements EShapeSectorTriangulated {
 		// sided: the straight sides are the outline, which has the stroke and the anti-aliasing
 		// capped: the polygons are added at the bottom to cover the sector with the hard straight sides
 		// chained: Q is on the medial axis. Otherwise, Q is on the axis x = 0 (w <= h) or y = 0 (h < w)
-		// For a circle and a semi-ellipse, Q on the axis gives the exact fan.
+		// For a circle and a semi-ellipse, Q on the axis gives the exact sector.
 		const sided = !ssa || ssb;
 		const isExact = Math.abs(w - h) <= 1e-9 * w || Math.PI * 0.5 <= ea;
 		const capped = !sided && !isExact;

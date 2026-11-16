@@ -10,7 +10,7 @@ import { toSectorAngleCentric } from "./to-sector-angle-centric";
 import { toSectorAngleEccentric } from "./to-sector-angle-eccentric";
 
 /**
- * Tests whether the point is in the fan shrunk by `sa` at the arc and by `ss` at the straight sides.
+ * Tests whether the point is in the sector shrunk by `sa` at the arc and by `ss` at the straight sides.
  *
  * @param st - The sine of the half central angle
  * @param ct - The cosine of the half central angle
@@ -53,7 +53,7 @@ const hitTestSectorFill = (
 			return true;
 		}
 
-		// The fill is relative to the bounding box [-bx, +bx] x [-by, 0] of the fan.
+		// The fill is relative to the bounding box [-bx, +bx] x [-by, 0] of the sector.
 		switch (fill.direction) {
 			case EShapeFillDirection.TOP:
 				return y + by <= percent * by;

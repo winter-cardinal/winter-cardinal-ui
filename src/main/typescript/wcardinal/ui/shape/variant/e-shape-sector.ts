@@ -39,7 +39,7 @@ export class EShapeSector extends EShapePrimitive {
 	}
 
 	/**
-	 * The ratio of the half central angle of the fan to PI. Must be in [0, 0.5].
+	 * The ratio of the half central angle of the sector to PI. Must be in [0, 0.5].
 	 * 0.5 results in a semicircle.
 	 */
 	get angle(): number {
