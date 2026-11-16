@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.470.0
+ Winter Cardinal UI v0.470.1
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -53930,10 +53930,41 @@
         }
         return true;
     };
+    /**
+     * Tests whether the point is in the filled part. The fill percent is measured
+     * against the bounding box of the rounded triangle, which is shrunk by rounded corners.
+     */
+    var hitTestTriangleRoundedFill = function (shape, x, y, ax, ay) {
+        var fill = shape.fill;
+        var percent = Math.max(0, Math.min(1, fill.percent));
+        if (1 <= percent) {
+            return true;
+        }
+        var radius = shape.radius;
+        var corner = shape.corner;
+        var aw = (2 * ax * ay) / (ax + Math.sqrt(ax * ax + 4 * ay * ay));
+        var r = radius * aw;
+        var rounded = 0 < r;
+        var x0 = rounded && corner & EShapeCorner.BOTTOM_LEFT ? -ax * (1 - radius) - r : -ax;
+        var x1 = rounded && corner & EShapeCorner.BOTTOM_RIGHT ? +ax * (1 - radius) + r : +ax;
+        var y0 = rounded && corner & EShapeCorner.TOP ? -ay + radius * (2 * ay - aw) - r : -ay;
+        var y1 = +ay;
+        switch (fill.direction) {
+            case EShapeFillDirection.TOP:
+                return y - y0 <= percent * (y1 - y0);
+            case EShapeFillDirection.RIGHT:
+                return (1 - percent) * (x1 - x0) <= x - x0;
+            case EShapeFillDirection.BOTTOM:
+                return (1 - percent) * (y1 - y0) <= y - y0;
+            case EShapeFillDirection.LEFT:
+                return x - x0 <= percent * (x1 - x0);
+        }
+        return false;
+    };
     var hitTestTriangleRounded = function (shape, x, y, ax, ay, sw, ss) {
         var fill = shape.fill;
         if ((fill.enable || 0 < sw) && hitTestTriangleRoundedInset(shape, x, y, ax, ay, 0)) {
-            if (fill.enable && hitTestFill(x, y, ax, ay, fill)) {
+            if (fill.enable && hitTestTriangleRoundedFill(shape, x, y, ax, ay)) {
                 return true;
             }
             if (0 < sw && !hitTestTriangleRoundedInset(shape, x, y, ax, ay, sw * ss)) {
@@ -57289,6 +57320,7 @@
             this._indices = [];
             this._nindices = 0;
             this._boundary = [0, 0, 0, 0];
+            this._uvo = [0, 0];
         }
         Object.defineProperty(EShapeTriangleRoundedTriangulatedImpl.prototype, "id", {
             get: function () {
@@ -57483,11 +57515,43 @@
             var sy4 = y4 + nly * fs;
             var sy6 = y6 + gy * fs;
             var fd = r0i;
-            var fx = 1 / sx;
-            var fy = 1 / sy;
             var ct = 0 < r && !!(corner & EShapeCorner.TOP);
             var cr = 0 < r && !!(corner & EShapeCorner.BOTTOM_RIGHT);
             var cl = 0 < r && !!(corner & EShapeCorner.BOTTOM_LEFT);
+            // Shrinks the boundary to the outermost points of the rounded corners.
+            // When the shape is flipped, the extremes are swapped accordingly.
+            if (0 < gy) {
+                if (ct) {
+                    boundary[1] = y2 - r;
+                }
+            }
+            else {
+                if (ct) {
+                    boundary[3] = y2 + r;
+                }
+            }
+            if (0 < gx) {
+                if (cl) {
+                    boundary[0] = x2 - r;
+                }
+                if (cr) {
+                    boundary[2] = x6 + r;
+                }
+            }
+            else {
+                if (cl) {
+                    boundary[2] = x2 + r;
+                }
+                if (cr) {
+                    boundary[0] = x6 - r;
+                }
+            }
+            // UVs are normalized by the boundary so that fills fit the rounded shape.
+            // When the shape is flipped, the UV axes are flipped as well.
+            var fx = gx / (boundary[2] - boundary[0]);
+            var fy = gy / (boundary[3] - boundary[1]);
+            this._uvo[0] = boundary[0 < gx ? 0 : 2];
+            this._uvo[1] = boundary[0 < gy ? 1 : 3];
             var aapex = ct || cr || cl ? Math.atan2(ax, az) : 0;
             var gz = gx * gy;
             var atop = gz * (Math.PI - 2 * aapex);
@@ -57664,15 +57728,15 @@
             }
             return l;
         };
-        EShapeTriangleRoundedTriangulatedImpl.prototype.writeVertex = function (vertex, x, y, distance, length, clipping, fx, fy) {
-            var vertex2 = vertex << 1;
-            this._vertices[vertex2] = x;
-            this._vertices[vertex2 + 1] = y;
-            this._distances[vertex] = distance;
-            this._lengths[vertex] = length;
-            this._clippings[vertex] = clipping;
-            this._uvs[vertex2] = 0.5 * (x * fx + 1);
-            this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
+        EShapeTriangleRoundedTriangulatedImpl.prototype.writeVertex = function (iv, x, y, distance, length, clipping, fx, fy) {
+            var iv2 = iv << 1;
+            this._vertices[iv2 + 0] = x;
+            this._vertices[iv2 + 1] = y;
+            this._distances[iv] = distance;
+            this._lengths[iv] = length;
+            this._clippings[iv] = clipping;
+            this._uvs[iv2 + 0] = (x - this._uvo[0]) * fx;
+            this._uvs[iv2 + 1] = (y - this._uvo[1]) * fy;
         };
         EShapeTriangleRoundedTriangulatedImpl.prototype.pad = function (iv, ii, nv, ni, distance) {
             for (var i = iv; i < nv; ++i) {
