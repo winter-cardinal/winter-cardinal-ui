@@ -29,6 +29,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 	protected _indices: number[];
 	protected _nindices: number;
 	protected _boundary: EShapeBoundary;
+	protected _uvo: [number, number];
 
 	constructor(parent: EShapeTriangleRounded) {
 		this._id = 0;
@@ -50,6 +51,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		this._indices = [];
 		this._nindices = 0;
 		this._boundary = [0, 0, 0, 0];
+		this._uvo = [0, 0];
 	}
 
 	get id(): number {
@@ -239,12 +241,44 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		const sy6 = y6 + gy * fs;
 
 		const fd = r0i;
-		const fx = 1 / sx;
-		const fy = 1 / sy;
 
 		const ct = 0 < r && !!(corner & EShapeCorner.TOP);
 		const cr = 0 < r && !!(corner & EShapeCorner.BOTTOM_RIGHT);
 		const cl = 0 < r && !!(corner & EShapeCorner.BOTTOM_LEFT);
+
+		// Shrinks the boundary to the outermost points of the rounded corners.
+		// When the shape is flipped, the extremes are swapped accordingly.
+		if (0 < gy) {
+			if (ct) {
+				boundary[1] = y2 - r;
+			}
+		} else {
+			if (ct) {
+				boundary[3] = y2 + r;
+			}
+		}
+		if (0 < gx) {
+			if (cl) {
+				boundary[0] = x2 - r;
+			}
+			if (cr) {
+				boundary[2] = x6 + r;
+			}
+		} else {
+			if (cl) {
+				boundary[2] = x2 + r;
+			}
+			if (cr) {
+				boundary[0] = x6 - r;
+			}
+		}
+
+		// UVs are normalized by the boundary so that fills fit the rounded shape.
+		// When the shape is flipped, the UV axes are flipped as well.
+		const fx = gx / (boundary[2] - boundary[0]);
+		const fy = gy / (boundary[3] - boundary[1]);
+		this._uvo[0] = boundary[0 < gx ? 0 : 2];
+		this._uvo[1] = boundary[0 < gy ? 1 : 3];
 
 		const aapex = ct || cr || cl ? Math.atan2(ax, az) : 0;
 		const gz = gx * gy;
@@ -626,7 +660,7 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 	}
 
 	protected writeVertex(
-		vertex: number,
+		iv: number,
 		x: number,
 		y: number,
 		distance: number,
@@ -635,14 +669,14 @@ export class EShapeTriangleRoundedTriangulatedImpl implements EShapeTriangleRoun
 		fx: number,
 		fy: number
 	): void {
-		const vertex2 = vertex << 1;
-		this._vertices[vertex2] = x;
-		this._vertices[vertex2 + 1] = y;
-		this._distances[vertex] = distance;
-		this._lengths[vertex] = length;
-		this._clippings[vertex] = clipping;
-		this._uvs[vertex2] = 0.5 * (x * fx + 1);
-		this._uvs[vertex2 + 1] = 0.5 * (y * fy + 1);
+		const iv2 = iv << 1;
+		this._vertices[iv2 + 0] = x;
+		this._vertices[iv2 + 1] = y;
+		this._distances[iv] = distance;
+		this._lengths[iv] = length;
+		this._clippings[iv] = clipping;
+		this._uvs[iv2 + 0] = (x - this._uvo[0]) * fx;
+		this._uvs[iv2 + 1] = (y - this._uvo[1]) * fy;
 	}
 
 	protected pad(iv: number, ii: number, nv: number, ni: number, distance: number): void {
