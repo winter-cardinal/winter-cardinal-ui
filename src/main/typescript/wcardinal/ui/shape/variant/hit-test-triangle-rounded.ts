@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeCorner } from "../e-shape-corner";
+import { EShapeFillDirection } from "../e-shape-fill-direction";
 import { hitTestTriangleFilled } from "./hit-test-triangle";
-import { hitTestFill } from "./hit-test-fill";
 
 const containsCorner_ = (
 	x: number,
@@ -302,6 +302,45 @@ const hitTestTriangleRoundedInset = (
 	return true;
 };
 
+/**
+ * Tests whether the point is in the filled part. The fill percent is measured
+ * against the bounding box of the rounded triangle, which is shrunk by rounded corners.
+ */
+const hitTestTriangleRoundedFill = (
+	shape: EShape,
+	x: number,
+	y: number,
+	ax: number,
+	ay: number
+): boolean => {
+	const fill = shape.fill;
+	const percent = Math.max(0, Math.min(1, fill.percent));
+	if (1 <= percent) {
+		return true;
+	}
+
+	const radius = shape.radius;
+	const corner = shape.corner;
+	const aw = (2 * ax * ay) / (ax + Math.sqrt(ax * ax + 4 * ay * ay));
+	const r = radius * aw;
+	const rounded = 0 < r;
+	const x0 = rounded && corner & EShapeCorner.BOTTOM_LEFT ? -ax * (1 - radius) - r : -ax;
+	const x1 = rounded && corner & EShapeCorner.BOTTOM_RIGHT ? +ax * (1 - radius) + r : +ax;
+	const y0 = rounded && corner & EShapeCorner.TOP ? -ay + radius * (2 * ay - aw) - r : -ay;
+	const y1 = +ay;
+	switch (fill.direction) {
+		case EShapeFillDirection.TOP:
+			return y - y0 <= percent * (y1 - y0);
+		case EShapeFillDirection.RIGHT:
+			return (1 - percent) * (x1 - x0) <= x - x0;
+		case EShapeFillDirection.BOTTOM:
+			return (1 - percent) * (y1 - y0) <= y - y0;
+		case EShapeFillDirection.LEFT:
+			return x - x0 <= percent * (x1 - x0);
+	}
+	return false;
+};
+
 export const hitTestTriangleRounded = (
 	shape: EShape,
 	x: number,
@@ -313,7 +352,7 @@ export const hitTestTriangleRounded = (
 ): boolean => {
 	const fill = shape.fill;
 	if ((fill.enable || 0 < sw) && hitTestTriangleRoundedInset(shape, x, y, ax, ay, 0)) {
-		if (fill.enable && hitTestFill(x, y, ax, ay, fill)) {
+		if (fill.enable && hitTestTriangleRoundedFill(shape, x, y, ax, ay)) {
 			return true;
 		}
 		if (0 < sw && !hitTestTriangleRoundedInset(shape, x, y, ax, ay, sw * ss)) {
