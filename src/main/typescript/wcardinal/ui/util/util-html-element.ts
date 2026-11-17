@@ -42,6 +42,9 @@ export type UtilHtmlElementPadding = UtilHtmlElementPaddingVH | UtilHtmlElementP
  *
  * Setting margins allows the child elements of the returned element to overflow it.
  * Without margins, any part overflowing the returned element is clipped.
+ *
+ * The margins are read only once, right after the element is created.
+ * Changing the `data-margin*` attributes afterward has no effect.
  */
 export type UtilHtmlElementCreator<T extends HTMLElement> = (container: HTMLElement) => T | null;
 export type UtilHtmlElementStyler<T extends HTMLElement> = (
