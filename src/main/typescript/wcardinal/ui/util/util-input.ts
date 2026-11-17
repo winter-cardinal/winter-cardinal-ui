@@ -134,13 +134,17 @@ export abstract class UtilInput<
 			const element = this.element;
 			if (element != null) {
 				const operation = this._operation;
-				const newValue = this.toValue(element.value);
+				const newValue = this.toValue(this.toElementValue(element));
 				const oldValue = operation.getValue()!;
 				if (oldValue !== newValue) {
 					operation.onValueChange(newValue, oldValue);
 				}
 			}
 		}
+	}
+
+	protected toElementValue(element: ELEMENT): string {
+		return element.value;
 	}
 
 	toValue(valueAsString: string): VALUE {

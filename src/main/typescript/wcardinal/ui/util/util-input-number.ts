@@ -78,31 +78,20 @@ export class UtilInputNumber<
 		}
 	}
 
-	protected toValueAsString(valueAsString: string): string {
+	protected override toElementValue(element: HTMLInputElement): string {
 		const min = this._min;
+		if (min != null && element.validity.rangeUnderflow) {
+			return String(min);
+		}
 		const max = this._max;
-		if (min == null && max == null) {
-			return valueAsString;
+		if (max != null && element.validity.rangeOverflow) {
+			return String(max);
 		}
-		try {
-			const parsed = parseFloat(valueAsString);
-			if (parsed === parsed /* NaN Check */) {
-				if (min != null && parsed < min) {
-					return String(min);
-				}
-				if (max != null && max < parsed) {
-					return String(max);
-				}
-				return valueAsString;
-			}
-		} catch (e) {
-			// DO NOTHING
-		}
-		return valueAsString;
+		return element.value;
 	}
 
 	toValue(valueAsString: string): number {
-		const result = super.toValue(this.toValueAsString(valueAsString));
+		const result = super.toValue(valueAsString);
 		if (result === result /* NaN Check */) {
 			return result;
 		}
