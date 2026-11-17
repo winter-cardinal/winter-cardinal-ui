@@ -6,6 +6,7 @@
 import { Matrix, Rectangle } from "pixi.js";
 import { UtilHtmlElementClipperEx } from "./util-html-element-clipper-ex";
 import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
+import { UtilHtmlElementClipperExMargin } from "./util-html-element-clipper-ex-margin";
 
 export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 	private static WORK_MATRIX?: Matrix;
@@ -45,9 +46,10 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 	update(
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
+		clipperExMargin: UtilHtmlElementClipperExMargin,
 		clipperExRects: UtilHtmlElementClipperExRects
 	): void {
-		const d = this.toD(elementRect, elementMatrix, clipperExRects);
+		const d = this.toD(elementRect, elementMatrix, clipperExMargin, clipperExRects);
 		if (this._pathD != d) {
 			this._path.setAttribute("d", d);
 			this._pathD = d;
@@ -57,6 +59,7 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 	protected toD(
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
+		clipperExMargin: UtilHtmlElementClipperExMargin,
 		clipperExRects: UtilHtmlElementClipperExRects
 	): string {
 		if (elementRect == null) {
@@ -83,12 +86,14 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 			matrix.identity();
 		}
 		matrix.translate(-elementRect.x, -elementRect.y);
-		matrix.scale(1 / w, 1 / h);
+		const fw = 1 / w;
+		const fh = 1 / h;
+		matrix.scale(fw, fh);
 
-		let xmin = -1;
-		let xmax = +2;
-		let ymin = -1;
-		let ymax = +2;
+		const xmin = -clipperExMargin.left * fw;
+		const xmax = 1 + clipperExMargin.right * fw;
+		const ymin = -clipperExMargin.top * fh;
+		const ymax = 1 + clipperExMargin.bottom * fh;
 		let result = "";
 		const a = matrix.a;
 		const b = matrix.b;
@@ -105,19 +110,14 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 			const x1 = rects[i + 2];
 			const y1 = rects[i + 3];
 
-			const x2 = a * x0 + c * y0 + tx;
-			const y2 = b * x0 + d * y0 + ty;
-			const x3 = a * x1 + c * y0 + tx;
-			const y3 = b * x1 + d * y0 + ty;
-			const x4 = a * x1 + c * y1 + tx;
-			const y4 = b * x1 + d * y1 + ty;
-			const x5 = a * x0 + c * y1 + tx;
-			const y5 = b * x0 + d * y1 + ty;
-
-			xmin = Math.min(xmin, x2, x3, x4, x5);
-			xmax = Math.max(xmax, x2, x3, x4, x5);
-			ymin = Math.min(ymin, y2, y3, y4, y5);
-			ymax = Math.max(ymax, y2, y3, y4, y5);
+			const x2 = Math.max(xmin, Math.min(xmax, a * x0 + c * y0 + tx));
+			const y2 = Math.max(ymin, Math.min(ymax, b * x0 + d * y0 + ty));
+			const x3 = Math.max(xmin, Math.min(xmax, a * x1 + c * y0 + tx));
+			const y3 = Math.max(ymin, Math.min(ymax, b * x1 + d * y0 + ty));
+			const x4 = Math.max(xmin, Math.min(xmax, a * x1 + c * y1 + tx));
+			const y4 = Math.max(ymin, Math.min(ymax, b * x1 + d * y1 + ty));
+			const x5 = Math.max(xmin, Math.min(xmax, a * x0 + c * y1 + tx));
+			const y5 = Math.max(ymin, Math.min(ymax, b * x0 + d * y1 + ty));
 
 			const x2s = x2.toFixed(precision);
 			const y2s = y2.toFixed(precision);
