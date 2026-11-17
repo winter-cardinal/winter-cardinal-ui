@@ -195,6 +195,8 @@ export class UtilHtmlElement<
 	protected _clipperEx?: UtilHtmlElementClipperEx | null;
 	protected _clipperExRects?: UtilHtmlElementClipperExRects | null;
 	protected _clipperExMargin?: UtilHtmlElementClipperExMargin;
+	protected _clipperExElementWidth?: number | null;
+	protected _clipperExElementHeight?: number | null;
 
 	protected _element?: ELEMENT | null;
 	protected _elementRectResult?: Rectangle;
@@ -486,6 +488,24 @@ export class UtilHtmlElement<
 		return result.isDirty();
 	}
 
+	protected checkIfResized(elementRect: Rectangle | null): boolean {
+		if (elementRect != null) {
+			const width = elementRect.width;
+			const height = elementRect.height;
+			const result =
+				this._clipperExElementWidth !== width || this._clipperExElementHeight !== height;
+			this._clipperExElementWidth = width;
+			this._clipperExElementHeight = height;
+			return result;
+		} else {
+			const result =
+				this._clipperExElementWidth != null || this._clipperExElementHeight != null;
+			this._clipperExElementWidth = null;
+			this._clipperExElementHeight = null;
+			return result;
+		}
+	}
+
 	protected toClipperExMargin(element: HTMLElement): UtilHtmlElementClipperExMargin {
 		let result = this._clipperExMargin;
 		if (result == null) {
@@ -583,7 +603,9 @@ export class UtilHtmlElement<
 					if (clipperEx) {
 						const clipperExRects = this.getClipperExRects();
 						if (clipperExRects) {
-							if (this.fillClipperExRects(resolution, clipperExRects)) {
+							const isResized = this.checkIfResized(elementRect);
+							const isFilled = this.fillClipperExRects(resolution, clipperExRects);
+							if (isFilled || isResized) {
 								clipperEx.update(
 									elementRect,
 									elementMatrix,
@@ -895,7 +917,9 @@ export class UtilHtmlElement<
 					if (clipperEx) {
 						const clipperExRects = this.getClipperExRects();
 						if (clipperExRects) {
-							if (this.fillClipperExRects(resolution, clipperExRects)) {
+							const isResized = this.checkIfResized(elementRect);
+							const isFilled = this.fillClipperExRects(resolution, clipperExRects);
+							if (isFilled || isResized) {
 								clipperEx.update(
 									elementRect,
 									elementMatrix,

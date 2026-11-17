@@ -73,9 +73,15 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 			return "";
 		}
 
-		const clipperExRectsSize = clipperExRects.size;
-		if (clipperExRectsSize <= 0) {
-			return "M0,0 h1 v1 h-1z";
+		const fw = 1 / w;
+		const fh = 1 / h;
+		const xmin = -clipperExMargin.left * fw;
+		const xmax = 1 + clipperExMargin.right * fw;
+		const ymin = -clipperExMargin.top * fh;
+		const ymax = 1 + clipperExMargin.bottom * fh;
+		let result = `M${xmin},${ymin} L${xmax},${ymin} L${xmax},${ymax} L${xmin},${ymax}Z`;
+		if (clipperExRects.size <= 0) {
+			return result;
 		}
 
 		const matrix = (UtilHtmlElementClipperExImpl.WORK_MATRIX ??= new Matrix());
@@ -86,15 +92,8 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 			matrix.identity();
 		}
 		matrix.translate(-elementRect.x, -elementRect.y);
-		const fw = 1 / w;
-		const fh = 1 / h;
 		matrix.scale(fw, fh);
 
-		const xmin = -clipperExMargin.left * fw;
-		const xmax = 1 + clipperExMargin.right * fw;
-		const ymin = -clipperExMargin.top * fh;
-		const ymax = 1 + clipperExMargin.bottom * fh;
-		let result = "";
 		const a = matrix.a;
 		const b = matrix.b;
 		const c = matrix.c;
@@ -130,7 +129,7 @@ export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 
 			result += ` M${x2s},${y2s} L${x3s},${y3s} L${x4s},${y4s} L${x5s},${y5s}Z`;
 		}
-		return `M${xmin},${ymin} L${xmax},${ymin} L${xmax},${ymax} L${xmin},${ymax}Z` + result;
+		return result;
 	}
 
 	protected toRects(clipperExRects: UtilHtmlElementClipperExRects, result: number[]): number {
