@@ -74,7 +74,7 @@ export class EThemeWhiteShape implements EThemeShape {
 	}
 
 	getAngle(): number {
-		return 0.333;
+		return 0.3333333333333333;
 	}
 
 	getSizeX(): number {
