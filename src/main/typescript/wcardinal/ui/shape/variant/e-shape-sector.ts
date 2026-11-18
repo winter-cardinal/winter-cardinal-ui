@@ -39,8 +39,7 @@ export class EShapeSector extends EShapePrimitive {
 	}
 
 	/**
-	 * The ratio of the half central angle of the sector to PI. Must be in [0, 0.5].
-	 * 0.5 results in a semicircle.
+	 * The central angle of the sector. Must be in [0, PI].
 	 */
 	get angle(): number {
 		return this._angle;

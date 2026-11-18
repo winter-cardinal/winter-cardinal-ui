@@ -22,10 +22,8 @@ export class EShapeActionRuntimeChangeAngle extends EShapeActionRuntimeCondition
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
 		if (this.condition(shape, time, EShapeActionEnvironment)) {
-			// this.value(...) is expected to represent the central angle in degrees.
-			// Therefore, shape.angle should be set to this.value(...) / 360.
-			const value = this.value(shape, time, EShapeActionEnvironment);
-			shape.angle = Math.max(0, Math.min(1, value * 0.002777777777777778));
+			// this.value(...) is expected to represent the central angle in radians.
+			shape.angle = this.value(shape, time, EShapeActionEnvironment);
 			runtime.written |= this.reset;
 		}
 	}

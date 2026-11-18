@@ -16,7 +16,7 @@ export const deserializeSectorFromSemicircle = (
 ): Promise<EShapeSector> | EShapeSector => {
 	if (shape == null) {
 		shape = new EShapeSector();
-		shape.angle = 0.5;
+		shape.angle = Math.PI;
 		shape.stroke.side &= ~EShapeStrokeSide.BOTTOM;
 	}
 	return deserializeBase(item, manager, shape);

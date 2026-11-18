@@ -74,7 +74,7 @@ export class EThemeDarkShape implements EThemeShape {
 	}
 
 	getAngle(): number {
-		return 0.3333333333333333;
+		return Math.PI * (2 / 3);
 	}
 
 	getSizeX(): number {
