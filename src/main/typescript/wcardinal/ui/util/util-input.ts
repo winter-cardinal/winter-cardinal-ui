@@ -133,14 +133,21 @@ export abstract class UtilInput<
 		if (this.isShown()) {
 			const element = this.element;
 			if (element != null) {
-				const operation = this._operation;
-				const newValue = this.toValue(element.value);
-				const oldValue = operation.getValue()!;
-				if (oldValue !== newValue) {
-					operation.onValueChange(newValue, oldValue);
+				const elementValue = this.toElementValue(element);
+				if (elementValue != null) {
+					const newValue = this.toValue(elementValue);
+					const operation = this._operation;
+					const oldValue = operation.getValue()!;
+					if (oldValue !== newValue) {
+						operation.onValueChange(newValue, oldValue);
+					}
 				}
 			}
 		}
+	}
+
+	protected toElementValue(element: HTMLInputElement | HTMLTextAreaElement): string | null {
+		return element.value;
 	}
 
 	toValue(valueAsString: string): VALUE {
@@ -157,7 +164,10 @@ export abstract class UtilInput<
 	protected onInputInput(e: Event): void {
 		const target = e.target;
 		if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
-			this._operation.onValueInput(this.toValue(target.value));
+			const elementValue = this.toElementValue(target);
+			if (elementValue != null) {
+				this._operation.onValueInput(this.toValue(elementValue));
+			}
 		}
 	}
 

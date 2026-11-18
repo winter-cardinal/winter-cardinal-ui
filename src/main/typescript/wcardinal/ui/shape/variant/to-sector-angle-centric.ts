@@ -4,8 +4,8 @@
  */
 
 /**
- * Converts an angle ratio to the half central angle of a sector in [0, PI / 2].
+ * Converts the central angle of a sector to the half central angle in [0, PI / 2].
  */
 export const toSectorAngleCentric = (angle: number): number => {
-	return Math.PI * Math.max(0, Math.min(0.5, angle));
+	return 0.5 * Math.max(0, Math.min(Math.PI, angle));
 };

@@ -14,6 +14,7 @@ import { UtilHtmlElementClipperExImpl } from "./util-html-element-clipper-ex-imp
 import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
 import { UtilHtmlElementClipperExRectsImpl } from "./util-html-element-clipper-ex-rects-impl";
 import { UtilHtmlElementWhen } from "./util-html-element-when";
+import { UtilHtmlElementClipperExMargin } from "./util-html-element-clipper-ex-margin";
 
 export interface UtilHtmlElementPaddingLTRB {
 	getLeft(): number;
@@ -29,6 +30,22 @@ export interface UtilHtmlElementPaddingVH {
 
 export type UtilHtmlElementPadding = UtilHtmlElementPaddingVH | UtilHtmlElementPaddingLTRB;
 
+/**
+ * A function that creates an HTMLElement to be placed on top of an HTMLCanvasElement.
+ * The returned element must be appended to the given `container` element.
+ *
+ * If the returned element has a `data-margin` attribute, its value is used as the margin for all sides.
+ * The value must be in pixels.
+ *
+ * If the returned element has `data-margin-top`, `data-margin-right`, `data-margin-bottom`, or `data-margin-left` attributes,
+ * they override the margin of the corresponding sides.
+ *
+ * Setting margins allows the child elements of the returned element to overflow it.
+ * Without margins, any part overflowing the returned element is clipped.
+ *
+ * The margins are read only once, right after the element is created.
+ * Changing the `data-margin*` attributes afterward has no effect.
+ */
 export type UtilHtmlElementCreator<T extends HTMLElement> = (container: HTMLElement) => T | null;
 export type UtilHtmlElementStyler<T extends HTMLElement> = (
 	target: T,
@@ -177,6 +194,9 @@ export class UtilHtmlElement<
 
 	protected _clipperEx?: UtilHtmlElementClipperEx | null;
 	protected _clipperExRects?: UtilHtmlElementClipperExRects | null;
+	protected _clipperExMargin?: UtilHtmlElementClipperExMargin;
+	protected _clipperExElementWidth?: number | null;
+	protected _clipperExElementHeight?: number | null;
 
 	protected _element?: ELEMENT | null;
 	protected _elementRectResult?: Rectangle;
@@ -468,6 +488,54 @@ export class UtilHtmlElement<
 		return result.isDirty();
 	}
 
+	protected checkIfResized(elementRect: Rectangle | null): boolean {
+		if (elementRect != null) {
+			const width = elementRect.width;
+			const height = elementRect.height;
+			const result =
+				this._clipperExElementWidth !== width || this._clipperExElementHeight !== height;
+			this._clipperExElementWidth = width;
+			this._clipperExElementHeight = height;
+			return result;
+		} else {
+			const result =
+				this._clipperExElementWidth != null || this._clipperExElementHeight != null;
+			this._clipperExElementWidth = null;
+			this._clipperExElementHeight = null;
+			return result;
+		}
+	}
+
+	protected toClipperExMargin(element: HTMLElement): UtilHtmlElementClipperExMargin {
+		let result = this._clipperExMargin;
+		if (result == null) {
+			result = this.newClipperExMargin(element);
+			this._clipperExMargin = result;
+		}
+		return result;
+	}
+
+	protected newClipperExMargin(element: HTMLElement): UtilHtmlElementClipperExMargin {
+		const dataset = element.dataset;
+		const margin = this.toClipperExMarginValue(dataset.margin, 0);
+		return {
+			top: this.toClipperExMarginValue(dataset.marginTop, margin),
+			right: this.toClipperExMarginValue(dataset.marginRight, margin),
+			bottom: this.toClipperExMarginValue(dataset.marginBottom, margin),
+			left: this.toClipperExMarginValue(dataset.marginLeft, margin)
+		};
+	}
+
+	protected toClipperExMarginValue(value: string | undefined, def: number): number {
+		if (value != null) {
+			const parsed = parseFloat(value);
+			if (parsed === parsed) {
+				return parsed;
+			}
+		}
+		return def;
+	}
+
 	protected doStart(renderer?: Renderer): void {
 		if (!this._isElementShown) {
 			this._isElementShown = true;
@@ -535,8 +603,15 @@ export class UtilHtmlElement<
 					if (clipperEx) {
 						const clipperExRects = this.getClipperExRects();
 						if (clipperExRects) {
-							if (this.fillClipperExRects(resolution, clipperExRects)) {
-								clipperEx.update(elementRect, elementMatrix, clipperExRects);
+							const isResized = this.checkIfResized(elementRect);
+							const isFilled = this.fillClipperExRects(resolution, clipperExRects);
+							if (isFilled || isResized) {
+								clipperEx.update(
+									elementRect,
+									elementMatrix,
+									this.toClipperExMargin(element),
+									clipperExRects
+								);
 								clipperExRects.toClean();
 							}
 						}
@@ -842,8 +917,15 @@ export class UtilHtmlElement<
 					if (clipperEx) {
 						const clipperExRects = this.getClipperExRects();
 						if (clipperExRects) {
-							if (this.fillClipperExRects(resolution, clipperExRects)) {
-								clipperEx.update(elementRect, elementMatrix, clipperExRects);
+							const isResized = this.checkIfResized(elementRect);
+							const isFilled = this.fillClipperExRects(resolution, clipperExRects);
+							if (isFilled || isResized) {
+								clipperEx.update(
+									elementRect,
+									elementMatrix,
+									this.toClipperExMargin(element),
+									clipperExRects
+								);
 								clipperExRects.toClean();
 							}
 						}

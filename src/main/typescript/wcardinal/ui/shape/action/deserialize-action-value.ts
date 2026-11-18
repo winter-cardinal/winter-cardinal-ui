@@ -6,6 +6,7 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueBlink } from "./e-shape-action-value-blink";
+import { EShapeActionValueChangeAngle } from "./e-shape-action-value-change-angle";
 import { EShapeActionValueChangeColor } from "./e-shape-action-value-change-color";
 import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-change-color-brightness";
 import { EShapeActionValueChangeColorCode } from "./e-shape-action-value-change-color-code";
@@ -53,6 +54,8 @@ export const deserializeActionValue = (
 			break;
 		case EShapeActionValueType.BLINK:
 			return EShapeActionValueBlink.deserialize(serialized as any, manager);
+		case EShapeActionValueType.CHANGE_ANGLE:
+			return EShapeActionValueChangeAngle.deserialize(serialized as any, manager);
 		case EShapeActionValueType.CHANGE_COLOR:
 		case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 			switch (serialized[3]) {
