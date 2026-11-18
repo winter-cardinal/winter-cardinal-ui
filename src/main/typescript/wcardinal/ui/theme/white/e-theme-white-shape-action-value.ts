@@ -108,6 +108,8 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				return "Transform";
 			case EShapeActionValueType.OPEN:
 				return "Open";
+			case EShapeActionValueType.CHANGE_ANGLE:
+				return "Change angle";
 			case EShapeActionValueType.CHANGE_COLOR:
 			case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 				return "Change color";

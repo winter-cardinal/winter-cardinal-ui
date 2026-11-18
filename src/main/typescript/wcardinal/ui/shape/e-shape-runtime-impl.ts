@@ -41,6 +41,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 	readonly sizeX: number;
 	readonly sizeY: number;
 	readonly rotation: number;
+	readonly angle: number;
 	readonly actions: EShapeActionRuntime[];
 	readonly fill: EShapeFillLike;
 	readonly stroke: EShapeStrokeLike;
@@ -62,6 +63,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 		this.sizeX = size.x;
 		this.sizeY = size.y;
 		this.rotation = transform.rotation;
+		this.angle = shape.angle;
 		this.actions = [];
 		this.fill = shape.fill.toObject();
 		this.stroke = shape.stroke.toObject();
@@ -558,6 +560,9 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 			}
 			if (target & EShapeRuntimeReset.ROTATION) {
 				shape.transform.rotation = this.rotation;
+			}
+			if (target & EShapeRuntimeReset.ANGLE) {
+				shape.angle = this.angle;
 			}
 			if (target & EShapeRuntimeReset.TEXT) {
 				shape.text.value = this.text.value;
