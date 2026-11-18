@@ -78,7 +78,9 @@ export class UtilInputNumber<
 		}
 	}
 
-	protected override toElementValue(element: HTMLInputElement): string {
+	protected override toElementValue(
+		element: HTMLInputElement | HTMLTextAreaElement
+	): string | null {
 		const min = this._min;
 		if (min != null && element.validity.rangeUnderflow) {
 			return String(min);
@@ -87,7 +89,14 @@ export class UtilInputNumber<
 		if (max != null && element.validity.rangeOverflow) {
 			return String(max);
 		}
-		return element.value;
+		if (element.validity.badInput || element.validity.typeMismatch) {
+			return null;
+		}
+		const result = element.value.trim();
+		if (result.length <= 0) {
+			return null;
+		}
+		return result;
 	}
 
 	toValue(valueAsString: string): number {

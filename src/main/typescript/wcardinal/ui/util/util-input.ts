@@ -133,17 +133,20 @@ export abstract class UtilInput<
 		if (this.isShown()) {
 			const element = this.element;
 			if (element != null) {
-				const operation = this._operation;
-				const newValue = this.toValue(this.toElementValue(element));
-				const oldValue = operation.getValue()!;
-				if (oldValue !== newValue) {
-					operation.onValueChange(newValue, oldValue);
+				const elementValue = this.toElementValue(element);
+				if (elementValue != null) {
+					const newValue = this.toValue(elementValue);
+					const operation = this._operation;
+					const oldValue = operation.getValue()!;
+					if (oldValue !== newValue) {
+						operation.onValueChange(newValue, oldValue);
+					}
 				}
 			}
 		}
 	}
 
-	protected toElementValue(element: ELEMENT): string {
+	protected toElementValue(element: HTMLInputElement | HTMLTextAreaElement): string | null {
 		return element.value;
 	}
 
