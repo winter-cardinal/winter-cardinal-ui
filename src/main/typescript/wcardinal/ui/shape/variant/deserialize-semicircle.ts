@@ -5,13 +5,19 @@
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { deserializeBase } from "./deserialize-base";
-import { EShapeSemicircle } from "./e-shape-semicircle";
+import { EShapeSector } from "./e-shape-sector";
 
 export const deserializeSemicircle = (
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization,
-	shape?: EShapeSemicircle
-): Promise<EShapeSemicircle> | EShapeSemicircle => {
-	return deserializeBase(item, manager, shape || new EShapeSemicircle());
+	shape?: EShapeSector
+): Promise<EShapeSector> | EShapeSector => {
+	if (shape == null) {
+		shape = new EShapeSector();
+		shape.angle = 0.5;
+		shape.stroke.side &= ~EShapeStrokeSide.BOTTOM;
+	}
+	return deserializeBase(item, manager, shape);
 };

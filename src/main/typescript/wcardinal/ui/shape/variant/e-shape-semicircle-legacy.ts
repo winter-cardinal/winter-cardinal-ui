@@ -3,18 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
 import { hitTestSemicircle } from "./hit-test-semicircle";
 
 /**
- * A semicircle shape.
+ * A legacy semicircle shape.
  */
 export class EShapeSemicircleLegacy extends EShapePrimitive {
 	constructor(type: EShapeType = EShapeType.SEMICIRCLE_LEGACY) {
 		super(type);
-		this.stroke.side = EShapeStrokeSide.ALL & ~EShapeStrokeSide.BOTTOM;
+	}
+
+	protected override newStroke(): EShapeStroke {
+		return new EShapeStrokeImpl(
+			this,
+			true,
+			EShapeDefaults.STROKE_COLOR,
+			EShapeDefaults.STROKE_ALPHA,
+			EShapeDefaults.STROKE_WIDTH,
+			EShapeDefaults.STROKE_ALIGN,
+			EShapeDefaults.STROKE_SIDE & ~EShapeStrokeSide.BOTTOM,
+			EShapeDefaults.STROKE_STYLE
+		);
 	}
 
 	clone(): EShapeSemicircleLegacy {
