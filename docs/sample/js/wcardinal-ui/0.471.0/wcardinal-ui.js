@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.470.1
+ Winter Cardinal UI v0.471.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4714,7 +4714,7 @@
     var LINE = 0x800000;
     var LINE_TAIL = 0x1000000;
     var LINE_HEAD = 0x2000000;
-    var ANGLE = 0x4000000;
+    var ANGLE$1 = 0x4000000;
     var COORDINATE = POSITION | WIDTH$1 | HEIGHT$1 | ROTATION$1 | SKEW;
     var SHAPE = REPLACING | GROUPING | FILL$1 | STROKE$1 | STROKE_STYLE | LINE | LINE_TAIL | LINE_HEAD;
     var LAYER = ORDER_IN_LAYER;
@@ -4723,7 +4723,7 @@
     var EMBEDDED = ID | COORDINATE | REPLACING | GROUPING | TEXT$2 | DATA | ACTION | LAYER | DATA_MAPPING;
     var EMBEDDED_ACCEPTOR_EDGE = ID | COORDINATE | REPLACING | FILL$1 | STROKE$1 | STROKE_STYLE_SCALING | TEXT$2 | TEXTURE | DATA | ACTION | CURSOR$1 | LAYER;
     var CONNECTOR = ID | SHAPE | TEXT$2 | TEXTURE | DATA | ACTION | CURSOR$1 | LAYER | CHILDREN$1;
-    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | ANGLE | DATA_MAPPING | UNGROUPING;
+    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | ANGLE$1 | DATA_MAPPING | UNGROUPING;
     var EShapeCapability = {
         NONE: NONE,
         /**
@@ -4795,7 +4795,7 @@
         /**
          * Allows shape angles to be modified.
          */
-        ANGLE: ANGLE,
+        ANGLE: ANGLE$1,
         /**
          * Allows shape texts to be modified.
          */
@@ -9369,6 +9369,7 @@
     var TEXT$1 = 1024;
     var CURSOR = 2048;
     var FILL_PERCENT = 4096;
+    var ANGLE = 8192;
     var EShapeRuntimeReset = {
         NONE: 0,
         POSITION_X: POSITION_X,
@@ -9387,7 +9388,8 @@
         SIZE: HEIGHT | WIDTH,
         TEXT: TEXT$1,
         CURSOR: CURSOR,
-        FILL_PERCENT: FILL_PERCENT
+        FILL_PERCENT: FILL_PERCENT,
+        ANGLE: ANGLE
     };
 
     /*
@@ -9852,6 +9854,7 @@
         CHANGE_COLOR: 9,
         GESTURE: 10,
         CHANGE_FILL_PERCENT: 11,
+        CHANGE_ANGLE: 12,
         EXTENSION: 1000
     };
 
@@ -9920,6 +9923,59 @@
         };
         return EShapeActionValueBlink;
     }(EShapeActionValueSubtyped));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionRuntimeChangeAngle = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeChangeAngle, _super);
+        function EShapeActionRuntimeChangeAngle(value) {
+            var _this = _super.call(this, value, EShapeRuntimeReset.ANGLE) || this;
+            _this.value = EShapeActionExpressions.ofNumber(value.value);
+            return _this;
+        }
+        EShapeActionRuntimeChangeAngle.prototype.execute = function (shape, runtime, time) {
+            if (this.condition(shape, time, EShapeActionEnvironment)) {
+                // this.value(...) is expected to represent the central angle in radians.
+                shape.angle = this.value(shape, time, EShapeActionEnvironment);
+                runtime.written |= this.reset;
+            }
+        };
+        return EShapeActionRuntimeChangeAngle;
+    }(EShapeActionRuntimeConditional));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueChangeAngle = /** @class */ (function (_super) {
+        __extends(EShapeActionValueChangeAngle, _super);
+        function EShapeActionValueChangeAngle(condition, value) {
+            var _this = _super.call(this, EShapeActionValueType.CHANGE_ANGLE, condition) || this;
+            _this.value = value;
+            return _this;
+        }
+        EShapeActionValueChangeAngle.prototype.isEquals = function (value) {
+            return (_super.prototype.isEquals.call(this, value) &&
+                value instanceof EShapeActionValueChangeAngle &&
+                this.value === value.value);
+        };
+        EShapeActionValueChangeAngle.prototype.toRuntime = function () {
+            return new EShapeActionRuntimeChangeAngle(this);
+        };
+        EShapeActionValueChangeAngle.prototype.serialize = function (manager) {
+            var conditionId = manager.addResource(this.condition);
+            var valueId = manager.addResource(this.value);
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(valueId, "]"));
+        };
+        EShapeActionValueChangeAngle.deserialize = function (serialized, manager) {
+            var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+            var value = EShapeActionValues.toResource(2, serialized, manager.resources);
+            return new EShapeActionValueChangeAngle(condition, value);
+        };
+        return EShapeActionValueChangeAngle;
+    }(EShapeActionValueBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -25133,6 +25189,7 @@
             this.sizeX = size.x;
             this.sizeY = size.y;
             this.rotation = transform.rotation;
+            this.angle = shape.angle;
             this.actions = [];
             this.fill = shape.fill.toObject();
             this.stroke = shape.stroke.toObject();
@@ -25576,6 +25633,9 @@
                 }
                 if (target & EShapeRuntimeReset.ROTATION) {
                     shape.transform.rotation = this.rotation;
+                }
+                if (target & EShapeRuntimeReset.ANGLE) {
+                    shape.angle = this.angle;
                 }
                 if (target & EShapeRuntimeReset.TEXT) {
                     shape.text.value = this.text.value;
@@ -28469,14 +28529,14 @@
             enumerable: false,
             configurable: true
         });
-        UtilHtmlElementClipperExImpl.prototype.update = function (elementRect, elementMatrix, clipperExRects) {
-            var d = this.toD(elementRect, elementMatrix, clipperExRects);
+        UtilHtmlElementClipperExImpl.prototype.update = function (elementRect, elementMatrix, clipperExMargin, clipperExRects) {
+            var d = this.toD(elementRect, elementMatrix, clipperExMargin, clipperExRects);
             if (this._pathD != d) {
                 this._path.setAttribute("d", d);
                 this._pathD = d;
             }
         };
-        UtilHtmlElementClipperExImpl.prototype.toD = function (elementRect, elementMatrix, clipperExRects) {
+        UtilHtmlElementClipperExImpl.prototype.toD = function (elementRect, elementMatrix, clipperExMargin, clipperExRects) {
             var _a, _b;
             if (elementRect == null) {
                 return "";
@@ -28487,9 +28547,15 @@
             if (w < threshold || h < threshold) {
                 return "";
             }
-            var clipperExRectsSize = clipperExRects.size;
-            if (clipperExRectsSize <= 0) {
-                return "M0,0 h1 v1 h-1z";
+            var fw = 1 / w;
+            var fh = 1 / h;
+            var xmin = -clipperExMargin.left * fw;
+            var xmax = 1 + clipperExMargin.right * fw;
+            var ymin = -clipperExMargin.top * fh;
+            var ymax = 1 + clipperExMargin.bottom * fh;
+            var result = "M".concat(xmin, ",").concat(ymin, " L").concat(xmax, ",").concat(ymin, " L").concat(xmax, ",").concat(ymax, " L").concat(xmin, ",").concat(ymax, "Z");
+            if (clipperExRects.size <= 0) {
+                return result;
             }
             var matrix = ((_a = UtilHtmlElementClipperExImpl.WORK_MATRIX) !== null && _a !== void 0 ? _a : (UtilHtmlElementClipperExImpl.WORK_MATRIX = new pixi_js.Matrix()));
             if (elementMatrix != null) {
@@ -28500,12 +28566,7 @@
                 matrix.identity();
             }
             matrix.translate(-elementRect.x, -elementRect.y);
-            matrix.scale(1 / w, 1 / h);
-            var xmin = -1;
-            var xmax = +2;
-            var ymin = -1;
-            var ymax = +2;
-            var result = "";
+            matrix.scale(fw, fh);
             var a = matrix.a;
             var b = matrix.b;
             var c = matrix.c;
@@ -28520,18 +28581,14 @@
                 var y0 = rects[i + 1];
                 var x1 = rects[i + 2];
                 var y1 = rects[i + 3];
-                var x2 = a * x0 + c * y0 + tx;
-                var y2 = b * x0 + d * y0 + ty;
-                var x3 = a * x1 + c * y0 + tx;
-                var y3 = b * x1 + d * y0 + ty;
-                var x4 = a * x1 + c * y1 + tx;
-                var y4 = b * x1 + d * y1 + ty;
-                var x5 = a * x0 + c * y1 + tx;
-                var y5 = b * x0 + d * y1 + ty;
-                xmin = Math.min(xmin, x2, x3, x4, x5);
-                xmax = Math.max(xmax, x2, x3, x4, x5);
-                ymin = Math.min(ymin, y2, y3, y4, y5);
-                ymax = Math.max(ymax, y2, y3, y4, y5);
+                var x2 = Math.max(xmin, Math.min(xmax, a * x0 + c * y0 + tx));
+                var y2 = Math.max(ymin, Math.min(ymax, b * x0 + d * y0 + ty));
+                var x3 = Math.max(xmin, Math.min(xmax, a * x1 + c * y0 + tx));
+                var y3 = Math.max(ymin, Math.min(ymax, b * x1 + d * y0 + ty));
+                var x4 = Math.max(xmin, Math.min(xmax, a * x1 + c * y1 + tx));
+                var y4 = Math.max(ymin, Math.min(ymax, b * x1 + d * y1 + ty));
+                var x5 = Math.max(xmin, Math.min(xmax, a * x0 + c * y1 + tx));
+                var y5 = Math.max(ymin, Math.min(ymax, b * x0 + d * y1 + ty));
                 var x2s = x2.toFixed(precision);
                 var y2s = y2.toFixed(precision);
                 var x3s = x3.toFixed(precision);
@@ -28542,7 +28599,7 @@
                 var y5s = y5.toFixed(precision);
                 result += " M".concat(x2s, ",").concat(y2s, " L").concat(x3s, ",").concat(y3s, " L").concat(x4s, ",").concat(y4s, " L").concat(x5s, ",").concat(y5s, "Z");
             }
-            return "M".concat(xmin, ",").concat(ymin, " L").concat(xmax, ",").concat(ymin, " L").concat(xmax, ",").concat(ymax, " L").concat(xmin, ",").concat(ymax, "Z") + result;
+            return result;
         };
         UtilHtmlElementClipperExImpl.prototype.toRects = function (clipperExRects, result) {
             var data = clipperExRects.data;
@@ -29272,6 +29329,49 @@
             }
             return result.isDirty();
         };
+        UtilHtmlElement.prototype.checkIfResized = function (elementRect) {
+            if (elementRect != null) {
+                var width = elementRect.width;
+                var height = elementRect.height;
+                var result = this._clipperExElementWidth !== width || this._clipperExElementHeight !== height;
+                this._clipperExElementWidth = width;
+                this._clipperExElementHeight = height;
+                return result;
+            }
+            else {
+                var result = this._clipperExElementWidth != null || this._clipperExElementHeight != null;
+                this._clipperExElementWidth = null;
+                this._clipperExElementHeight = null;
+                return result;
+            }
+        };
+        UtilHtmlElement.prototype.toClipperExMargin = function (element) {
+            var result = this._clipperExMargin;
+            if (result == null) {
+                result = this.newClipperExMargin(element);
+                this._clipperExMargin = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.newClipperExMargin = function (element) {
+            var dataset = element.dataset;
+            var margin = this.toClipperExMarginValue(dataset.margin, 0);
+            return {
+                top: this.toClipperExMarginValue(dataset.marginTop, margin),
+                right: this.toClipperExMarginValue(dataset.marginRight, margin),
+                bottom: this.toClipperExMarginValue(dataset.marginBottom, margin),
+                left: this.toClipperExMarginValue(dataset.marginLeft, margin)
+            };
+        };
+        UtilHtmlElement.prototype.toClipperExMarginValue = function (value, def) {
+            if (value != null) {
+                var parsed = parseFloat(value);
+                if (parsed === parsed) {
+                    return parsed;
+                }
+            }
+            return def;
+        };
         UtilHtmlElement.prototype.doStart = function (renderer) {
             var _a, _b;
             if (!this._isElementShown) {
@@ -29316,8 +29416,10 @@
                         if (clipperEx) {
                             var clipperExRects = this.getClipperExRects();
                             if (clipperExRects) {
-                                if (this.fillClipperExRects(resolution, clipperExRects)) {
-                                    clipperEx.update(elementRect, elementMatrix, clipperExRects);
+                                var isResized = this.checkIfResized(elementRect);
+                                var isFilled = this.fillClipperExRects(resolution, clipperExRects);
+                                if (isFilled || isResized) {
+                                    clipperEx.update(elementRect, elementMatrix, this.toClipperExMargin(element), clipperExRects);
                                     clipperExRects.toClean();
                                 }
                             }
@@ -29561,8 +29663,10 @@
                         if (clipperEx) {
                             var clipperExRects = this.getClipperExRects();
                             if (clipperExRects) {
-                                if (this.fillClipperExRects(resolution, clipperExRects)) {
-                                    clipperEx.update(elementRect, elementMatrix, clipperExRects);
+                                var isResized = this.checkIfResized(elementRect);
+                                var isFilled = this.fillClipperExRects(resolution, clipperExRects);
+                                if (isFilled || isResized) {
+                                    clipperEx.update(elementRect, elementMatrix, this.toClipperExMargin(element), clipperExRects);
                                     clipperExRects.toClean();
                                 }
                             }
@@ -29890,14 +29994,20 @@
             if (this.isShown()) {
                 var element = this.element;
                 if (element != null) {
-                    var operation = this._operation;
-                    var newValue = this.toValue(element.value);
-                    var oldValue = operation.getValue();
-                    if (oldValue !== newValue) {
-                        operation.onValueChange(newValue, oldValue);
+                    var elementValue = this.toElementValue(element);
+                    if (elementValue != null) {
+                        var newValue = this.toValue(elementValue);
+                        var operation = this._operation;
+                        var oldValue = operation.getValue();
+                        if (oldValue !== newValue) {
+                            operation.onValueChange(newValue, oldValue);
+                        }
                     }
                 }
             }
+        };
+        UtilInput.prototype.toElementValue = function (element) {
+            return element.value;
         };
         UtilInput.prototype.toValue = function (valueAsString) {
             return this._editingUnformatter(valueAsString, this);
@@ -29911,7 +30021,10 @@
         UtilInput.prototype.onInputInput = function (e) {
             var target = e.target;
             if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
-                this._operation.onValueInput(this.toValue(target.value));
+                var elementValue = this.toElementValue(target);
+                if (elementValue != null) {
+                    this._operation.onValueInput(this.toValue(elementValue));
+                }
             }
         };
         UtilInput.prototype.validate = function () {
@@ -30017,17 +30130,27 @@
             enumerable: false,
             configurable: true
         });
+        UtilInputNumber.prototype.toElementValue = function (element) {
+            var min = this._min;
+            if (min != null && element.validity.rangeUnderflow) {
+                return String(min);
+            }
+            var max = this._max;
+            if (max != null && element.validity.rangeOverflow) {
+                return String(max);
+            }
+            if (element.validity.badInput || element.validity.typeMismatch) {
+                return null;
+            }
+            var result = element.value.trim();
+            if (result.length <= 0) {
+                return null;
+            }
+            return result;
+        };
         UtilInputNumber.prototype.toValue = function (valueAsString) {
             var result = _super.prototype.toValue.call(this, valueAsString);
             if (result === result /* NaN Check */) {
-                var min = this._min;
-                if (min != null && result < min) {
-                    return min;
-                }
-                var max = this._max;
-                if (max != null && max < result) {
-                    return max;
-                }
                 return result;
             }
             return 0;
@@ -39902,6 +40025,8 @@
                 break;
             case EShapeActionValueType.BLINK:
                 return EShapeActionValueBlink.deserialize(serialized, manager);
+            case EShapeActionValueType.CHANGE_ANGLE:
+                return EShapeActionValueChangeAngle.deserialize(serialized, manager);
             case EShapeActionValueType.CHANGE_COLOR:
             case EShapeActionValueType.CHANGE_COLOR_LEGACY:
                 switch (serialized[3]) {
@@ -47969,10 +48094,10 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * Converts an angle ratio to the half central angle of a sector in [0, PI / 2].
+     * Converts the central angle of a sector to the half central angle in [0, PI / 2].
      */
     var toSectorAngleCentric = function (angle) {
-        return Math.PI * Math.max(0, Math.min(0.5, angle));
+        return 0.5 * Math.max(0, Math.min(Math.PI, angle));
     };
 
     /*
@@ -48843,8 +48968,7 @@
         });
         Object.defineProperty(EShapeSector.prototype, "angle", {
             /**
-             * The ratio of the half central angle of the sector to PI. Must be in [0, 0.5].
-             * 0.5 results in a semicircle.
+             * The central angle of the sector. Must be in [0, PI].
              */
             get: function () {
                 return this._angle;
@@ -48901,11 +49025,25 @@
     };
 
     /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeSectorFromSemicircle = function (item, manager, shape) {
+        if (shape == null) {
+            shape = new EShapeSector();
+            shape.angle = Math.PI;
+            shape.stroke.side &= ~EShapeStrokeSide.BOTTOM;
+        }
+        return deserializeBase(item, manager, shape);
+    };
+
+    /*
      * Copyright (C) 2019-2026 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var loadShapeSector = function () {
         EShapeUploadeds[EShapeType.SECTOR] = createPolygonUploaded;
+        EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSectorFromSemicircle;
         EShapeDeserializers[EShapeType.SECTOR] = deserializeSector;
         EShapeCapabilities.set(EShapeType.SECTOR, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.ANGLE);
     };
@@ -56803,80 +56941,6 @@
         EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED_LEGACY, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
     };
 
-    /*
-     * Copyright (C) 2019-2026 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * A semicircle shape.
-     */
-    var EShapeSemicircle = /** @class */ (function (_super) {
-        __extends(EShapeSemicircle, _super);
-        function EShapeSemicircle(type) {
-            if (type === void 0) { type = EShapeType.SEMICIRCLE; }
-            var _this = _super.call(this, type) || this;
-            _this._triangulated = _this.newTriangulated();
-            return _this;
-        }
-        EShapeSemicircle.prototype.newStroke = function () {
-            return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE & ~EShapeStrokeSide.BOTTOM, EShapeDefaults.STROKE_STYLE);
-        };
-        EShapeSemicircle.prototype.newTriangulated = function () {
-            return new EShapeSectorTriangulatedImpl(this);
-        };
-        Object.defineProperty(EShapeSemicircle.prototype, "triangulated", {
-            get: function () {
-                return this._triangulated;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeSemicircle.prototype, "angle", {
-            get: function () {
-                return 0.5;
-            },
-            set: function (angle) {
-                // DO NOTHING
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeSemicircle.prototype.toHitTestStrokeShift = function (strokeWidth, strokeScale, strokeAlign) {
-            if (this.stroke.side !== EShapeStrokeSide.NONE) {
-                return _super.prototype.toHitTestStrokeShift.call(this, strokeWidth, strokeScale, strokeAlign);
-            }
-            return 0;
-        };
-        EShapeSemicircle.prototype.clone = function () {
-            return new EShapeSemicircle(this.type).copy(this);
-        };
-        EShapeSemicircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestSector(this, x, y, ax, ay, sw, ss);
-            }
-            return false;
-        };
-        return EShapeSemicircle;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeSemicircle = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeSemicircle());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeSemicircle = function () {
-        EShapeUploadeds[EShapeType.SEMICIRCLE] = createPolygonUploaded;
-        EShapeDeserializers[EShapeType.SEMICIRCLE] = deserializeSemicircle;
-        EShapeCapabilities.set(EShapeType.SEMICIRCLE, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
-    };
-
     var SEMICIRCLE_LEGACY_VERTEX_COUNT = 6;
     var SEMICIRCLE_LEGACY_INDEX_COUNT = 4;
     var SEMICIRCLE_LEGACY_WORLD_SIZE = [0, 0];
@@ -57116,16 +57180,17 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * A semicircle shape.
+     * A legacy semicircle shape.
      */
     var EShapeSemicircleLegacy = /** @class */ (function (_super) {
         __extends(EShapeSemicircleLegacy, _super);
         function EShapeSemicircleLegacy(type) {
             if (type === void 0) { type = EShapeType.SEMICIRCLE_LEGACY; }
-            var _this = _super.call(this, type) || this;
-            _this.stroke.side = EShapeStrokeSide.ALL & ~EShapeStrokeSide.BOTTOM;
-            return _this;
+            return _super.call(this, type) || this;
         }
+        EShapeSemicircleLegacy.prototype.newStroke = function () {
+            return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE & ~EShapeStrokeSide.BOTTOM, EShapeDefaults.STROKE_STYLE);
+        };
         EShapeSemicircleLegacy.prototype.clone = function () {
             return new EShapeSemicircleLegacy(this.type).copy(this);
         };
@@ -57956,7 +58021,6 @@
         loadShapeRectangleRounded();
         loadShapeRectangle();
         loadShapeSemicircleLegacy();
-        loadShapeSemicircle();
         loadShapeTriangleLegacy();
         loadShapeTriangleRoundedLegacy();
         loadShapeTriangleRounded();
@@ -89897,6 +89961,7 @@
         EShapeActionRuntimeBlinkOpacity: EShapeActionRuntimeBlinkOpacity,
         EShapeActionRuntimeBlinkVisibility: EShapeActionRuntimeBlinkVisibility,
         EShapeActionRuntimeBlink: EShapeActionRuntimeBlink,
+        EShapeActionRuntimeChangeAngle: EShapeActionRuntimeChangeAngle,
         EShapeActionRuntimeChangeColorBrightness: EShapeActionRuntimeChangeColorBrightness,
         EShapeActionRuntimeChangeColorCode: EShapeActionRuntimeChangeColorCode,
         EShapeActionRuntimeChangeColor: EShapeActionRuntimeChangeColor,
@@ -89957,6 +90022,7 @@
         EShapeActionValueBase: EShapeActionValueBase,
         EShapeActionValueBlinkType: EShapeActionValueBlinkType,
         EShapeActionValueBlink: EShapeActionValueBlink,
+        EShapeActionValueChangeAngle: EShapeActionValueChangeAngle,
         EShapeActionValueChangeColorBrightness: EShapeActionValueChangeColorBrightness,
         EShapeActionValueChangeColorCode: EShapeActionValueChangeColorCode,
         EShapeActionValueChangeColorTarget: EShapeActionValueChangeColorTarget,
@@ -90035,7 +90101,6 @@
         loadShapeRectangleRounded: loadShapeRectangleRounded,
         loadShapeRectangle: loadShapeRectangle,
         loadShapeSemicircleLegacy: loadShapeSemicircleLegacy,
-        loadShapeSemicircle: loadShapeSemicircle,
         loadShapeTriangleLegacy: loadShapeTriangleLegacy,
         loadShapeTriangleRoundedLegacy: loadShapeTriangleRoundedLegacy,
         loadShapeTriangleRounded: loadShapeTriangleRounded,
@@ -90121,13 +90186,6 @@
         buildSemicircleLegacyVertex: buildSemicircleLegacyVertex,
         buildSemicircleLegacyStep: buildSemicircleLegacyStep,
         buildSemicircleLegacyUv: buildSemicircleLegacyUv,
-        SEMICIRCLE_VERTEX_COUNT: SEMICIRCLE_LEGACY_VERTEX_COUNT,
-        SEMICIRCLE_INDEX_COUNT: SEMICIRCLE_LEGACY_INDEX_COUNT,
-        SEMICIRCLE_WORLD_SIZE: SEMICIRCLE_LEGACY_WORLD_SIZE,
-        buildSemicircleIndex: buildSemicircleLegacyIndex,
-        buildSemicircleVertex: buildSemicircleLegacyVertex,
-        buildSemicircleStep: buildSemicircleLegacyStep,
-        buildSemicircleUv: buildSemicircleLegacyUv,
         TEXT_VERTEX_COUNT: TEXT_VERTEX_COUNT,
         TEXT_VERTEX_COUNT_SHIFT: TEXT_VERTEX_COUNT_SHIFT,
         TEXT_INDEX_COUNT: TEXT_INDEX_COUNT,
@@ -90194,7 +90252,6 @@
         BuilderRectangleRoundedLegacy: BuilderRectangleRoundedLegacy,
         BuilderRectangleRounded: BuilderRectangleRoundedLegacy,
         BuilderRectangle: BuilderRectangleLegacy,
-        BuilderSemicircle: BuilderSemicircleLegacy,
         BuilderText: BuilderText,
         BuilderTriangleLegacy: BuilderTriangleLegacy,
         BuilderTriangleRounded: BuilderTriangleRoundedLegacy,
@@ -90235,7 +90292,6 @@
         createRectangleRoundedUploaded: createRectangleRoundedLegacyUploaded,
         createRectangleUploaded: createRectangleLegacyUploaded,
         createSemicircleLegacyUploaded: createSemicircleLegacyUploaded,
-        createSemicircleUploaded: createSemicircleLegacyUploaded,
         createTriangleLegacyUploaded: createTriangleLegacyUploaded,
         createTriangleRoundedUploaded: createTriangleRoundedLegacyUploaded,
         createTriangleRoundedLegacyUploaded: createTriangleRoundedLegacyUploaded,
@@ -90271,9 +90327,9 @@
         deserializeRectangleRoundedLegacy: deserializeRectangleRoundedLegacy,
         deserializeRectangleRounded: deserializeRectangleRounded,
         deserializeRectangle: deserializeRectangle,
+        deserializeSectorFromSemicircle: deserializeSectorFromSemicircle,
         deserializeSector: deserializeSector,
         deserializeSemicircleLegacy: deserializeSemicircleLegacy,
-        deserializeSemicircle: deserializeSemicircle,
         deserializeTriangleLegacy: deserializeTriangleLegacy,
         deserializeTriangleRounded: deserializeTriangleRounded,
         deserializeTriangleRoundedLegacy: deserializeTriangleRoundedLegacy,
@@ -90347,7 +90403,6 @@
         EShapeSectorTriangulatedImpl: EShapeSectorTriangulatedImpl,
         EShapeSector: EShapeSector,
         EShapeSemicircleLegacy: EShapeSemicircleLegacy,
-        EShapeSemicircle: EShapeSemicircle,
         EShapeStrokeImpl: EShapeStrokeImpl,
         EShapeTextAlignImpl: EShapeTextAlignImpl,
         EShapeTextImpl: EShapeTextImpl,

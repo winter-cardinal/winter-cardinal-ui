@@ -142,6 +142,7 @@
     * [Life-Cicle Events](./diagram/event.html)
     * [HTML Element](./diagram/html-element.html)
     * [HTML Element (Extended Clipping)](./diagram/html-element-extended-clipping.html)
+    * [HTML Element (Extended Clipping and Custom Margins)](./diagram/html-element-extended-clipping-and-margin.html)
     * [HTML Element (No Extended Clipping)](./diagram/html-element-no-extended-clipping.html)
     * [HTML Element (Suppressing Pointer Events)](./diagram/html-element-without-pointer-events.html)
     * [Inputs and Buttons](./diagram/input-and-button.html)

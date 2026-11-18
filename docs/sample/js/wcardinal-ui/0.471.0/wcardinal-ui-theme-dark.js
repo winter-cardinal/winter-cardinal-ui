@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.470.1
+ Winter Cardinal UI v0.471.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -5023,6 +5023,8 @@
                     return "Transform";
                 case EShapeActionValueType.OPEN:
                     return "Open";
+                case EShapeActionValueType.CHANGE_ANGLE:
+                    return "Change angle";
                 case EShapeActionValueType.CHANGE_COLOR:
                 case EShapeActionValueType.CHANGE_COLOR_LEGACY:
                     return "Change color";
@@ -5459,7 +5461,7 @@
             return 0.25;
         };
         EThemeDarkShape.prototype.getAngle = function () {
-            return 0.333;
+            return Math.PI * (2 / 3);
         };
         EThemeDarkShape.prototype.getSizeX = function () {
             return 100;
