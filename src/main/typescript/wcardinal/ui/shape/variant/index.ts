@@ -125,6 +125,7 @@ export * from "./deserialize-rectangle-pivoted";
 export * from "./deserialize-rectangle-rounded-legacy";
 export * from "./deserialize-rectangle-rounded";
 export * from "./deserialize-rectangle";
+export * from "./deserialize-sector-from-semicircle";
 export * from "./deserialize-sector";
 export * from "./deserialize-semicircle-legacy";
 export * from "./deserialize-semicircle";
