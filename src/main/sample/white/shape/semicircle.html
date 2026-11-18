@@ -34,8 +34,9 @@
 		container.position.set(300, 300);
 
 		// New
-		const new1 = new wcardinal.ui.EShapeSemicircle();
+		const new1 = new wcardinal.ui.EShapeSector();
 		new1.stroke.style = wcardinal.ui.EShapePointsStyle.DOTTED;
+		new1.stroke.side = wcardinal.ui.EShapeStrokeSide.NOT_BOTTOM;
 		new1.fill.direction = wcardinal.ui.EShapeFillDirection.LEFT;
 		new1.fill.percent = 0.75;
 		new1.fill.color = 0x3388ff;
@@ -44,22 +45,27 @@
 		new1.text.weight = wcardinal.ui.EShapeTextWeight.BOLD;
 		new1.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
 		new1.text.offset.horizontal = -24;
+		new1.angle = 0.5;
 		new1.attach(container);
 
-		const new2 = new wcardinal.ui.EShapeSemicircle();
+		const new2 = new wcardinal.ui.EShapeSector();
+		new2.stroke.side = wcardinal.ui.EShapeStrokeSide.NOT_BOTTOM;
 		new2.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
 		new2.fill.percent = 0.75;
 		new2.fill.color = 0x3388ff;
 		new2.size.x = 200;
 		new2.transform.position.x = 200;
+		new2.angle = 0.5;
 		new2.attach(container);
 
-		const new3 = new wcardinal.ui.EShapeSemicircle();
+		const new3 = new wcardinal.ui.EShapeSector();
+		new3.stroke.side = wcardinal.ui.EShapeStrokeSide.NOT_BOTTOM;
 		new3.fill.direction = wcardinal.ui.EShapeFillDirection.BOTTOM;
 		new3.fill.percent = 0.75;
 		new3.fill.color = 0x3388ff;
 		new3.size.y = 200;
 		new3.transform.position.x = 400;
+		new3.angle = 0.5;
 		new3.attach(container);
 
 		// Legacy
