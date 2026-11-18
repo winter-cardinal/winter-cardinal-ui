@@ -88,7 +88,6 @@ export * from "./create-rectangle-rounded-legacy-uploaded";
 export * from "./create-rectangle-rounded-uploaded";
 export * from "./create-rectangle-uploaded";
 export * from "./create-semicircle-legacy-uploaded";
-export * from "./create-semicircle-uploaded";
 export * from "./create-triangle-legacy-uploaded";
 export * from "./create-triangle-rounded-uploaded";
 export * from "./create-triangle-rounded-legacy-uploaded";
