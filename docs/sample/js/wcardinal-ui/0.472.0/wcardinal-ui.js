@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.471.0
+ Winter Cardinal UI v0.472.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -9932,7 +9932,7 @@
         __extends(EShapeActionRuntimeChangeAngle, _super);
         function EShapeActionRuntimeChangeAngle(value) {
             var _this = _super.call(this, value, EShapeRuntimeReset.ANGLE) || this;
-            _this.value = EShapeActionExpressions.ofNumber(value.value);
+            _this.value = EShapeActionExpressions.ofNumber("(".concat(value.value, ") * (Math.PI / 180)"));
             return _this;
         }
         EShapeActionRuntimeChangeAngle.prototype.execute = function (shape, runtime, time) {

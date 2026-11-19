@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.471.0
+ Winter Cardinal UI v0.472.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
