@@ -17,7 +17,7 @@ export class EShapeActionRuntimeChangeAngle extends EShapeActionRuntimeCondition
 
 	constructor(value: EShapeActionValueChangeAngle) {
 		super(value, EShapeRuntimeReset.ANGLE);
-		this.value = EShapeActionExpressions.ofNumber(value.value);
+		this.value = EShapeActionExpressions.ofNumber(`(${value.value}) * (Math.PI / 180)`);
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
