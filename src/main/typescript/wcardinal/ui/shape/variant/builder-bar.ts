@@ -64,11 +64,6 @@ export class BuilderBar extends BuilderBase {
 				this.transformLocalId = transformLocalId;
 				this.pointsId = pointsId;
 
-				if (isPointsIdChanged) {
-					// Invalidate the UV buffer
-					this.inited &= ~BuilderFlag.UV;
-				}
-
 				buffer.updateVertices();
 				buffer.updateSteps();
 				buildBarVertexStep(
