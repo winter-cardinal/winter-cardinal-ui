@@ -40,6 +40,7 @@ export class BuilderText implements Builder {
 	protected value: string;
 	protected family: string;
 	protected size: number;
+	protected sizeFitted: number;
 	protected color: number;
 	protected alpha: number;
 	protected weight: number;
@@ -83,6 +84,7 @@ export class BuilderText implements Builder {
 		this.scaleY = 1;
 
 		this.size = 0;
+		this.sizeFitted = 0;
 		this.family = "auto";
 		this.value = "";
 		this.texture = null;
@@ -237,6 +239,9 @@ export class BuilderText implements Builder {
 			isTextureChanged
 		) {
 			this.inited |= BuilderFlag.VERTEX;
+			this.sizeX = sizeX;
+			this.sizeY = sizeY;
+			this.transformLocalId = transformLocalId;
 			this.size = textSize;
 			this.family = textFamily;
 			this.value = textValue;
@@ -255,29 +260,23 @@ export class BuilderText implements Builder {
 			this.texture = textTexture;
 			this.textureTransformId = textTextureTransformId;
 
-			if (isCharSizeChanged || isFittingChanged || (textFitting && isSizeChanged)) {
-				// Invalidate the step buffer.
-				this.inited &= ~BuilderFlag.STEP;
-			}
-
 			// Vertices & UVs
 			buffer.updateVertices();
 			buffer.updateUvs();
-			const shapeSize = shape.size;
 			let textWorld = text.world;
 			if (textWorld == null) {
 				textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 				text.world = textWorld;
 			}
-			buildTextVertex(
+			const sizeFitted = buildTextVertex(
 				buffer.vertices,
 				buffer.uvs,
 				this.vertexOffset,
 				this.vertexCount,
 				0,
 				0,
-				shapeSize.x,
-				shapeSize.y,
+				sizeX,
+				sizeY,
 				textAtlas,
 				textSize,
 				text.characters,
@@ -297,26 +296,29 @@ export class BuilderText implements Builder {
 				toTextureUvs(textTexture),
 				shape.transform.internalTransform
 			);
+			if (this.sizeFitted !== sizeFitted) {
+				this.sizeFitted = sizeFitted;
+				this.inited &= ~BuilderFlag.STEP;
+			}
 		}
 	}
 
 	protected updateColor(buffer: BuilderBuffer, shape: EShape): void {
 		const text = shape.text;
+		const enabled = shape.visible && text.enable;
 		const color = text.color;
-		const alpha = shape.visible && text.enable ? text.alpha : 0;
+		const alpha = enabled ? text.alpha : 0;
+		const isColorChanged = this.color !== color || this.alpha !== alpha;
 
 		const outline = text.outline;
 		const outlineColor = outline.color;
-		const outlineAlpha = shape.visible && text.enable ? outline.alpha : 0;
+		const outlineAlpha = enabled ? outline.alpha : 0;
+		const isOutlineColorChanged =
+			this.outlineColor !== outlineColor || this.outlineAlpha !== outlineAlpha;
+
 		const isNotInited = !(this.inited & BuilderFlag.COLOR);
 
-		if (
-			isNotInited ||
-			color !== this.color ||
-			alpha !== this.alpha ||
-			color !== this.outlineColor ||
-			alpha !== this.outlineAlpha
-		) {
+		if (isNotInited || isColorChanged || isOutlineColorChanged) {
 			this.inited |= BuilderFlag.COLOR;
 			this.color = color;
 			this.alpha = alpha;
@@ -372,7 +374,7 @@ export class BuilderText implements Builder {
 				this.vertexOffset,
 				this.vertexCount,
 				text.atlas,
-				text.size,
+				this.sizeFitted,
 				textOutlineWidth,
 				textWeight,
 				this.scaleX,

@@ -115,8 +115,8 @@ export class BuilderLine extends BuilderBase {
 				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
 
-				if (isPointChanged) {
-					// Invalidate the UV buffer
+				if (isPointChanged || isTransformChanged) {
+					// UVs depend on the transformed segment lengths.
 					this.inited &= ~BuilderFlag.UV;
 				}
 

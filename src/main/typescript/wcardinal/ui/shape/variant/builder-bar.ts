@@ -4,7 +4,6 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapePointsStyle } from "../e-shape-points-style";
 import {
 	BAR_INDEX_COUNT,
 	BAR_VERTEX_COUNT,
@@ -19,12 +18,10 @@ import { EShapeBar } from "./e-shape-bar";
 
 export class BuilderBar extends BuilderBase {
 	protected pointsId: number;
-	protected pointsStyle: EShapePointsStyle;
 
 	constructor(buffer: BuilderBuffer, vertexOffset: number, indexOffset: number) {
 		super(buffer, vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT);
 		this.pointsId = -1;
-		this.pointsStyle = EShapePointsStyle.NONE;
 	}
 
 	override init(): void {
@@ -45,11 +42,6 @@ export class BuilderBar extends BuilderBase {
 
 	protected updateVertexStep(buffer: BuilderBuffer, shape: EShape): void {
 		if (shape instanceof EShapeBar) {
-			const size = shape.size;
-			const sizeX = size.x;
-			const sizeY = size.y;
-			const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-
 			const stroke = shape.stroke;
 			const strokeWidth = stroke.enable ? stroke.width : 0;
 			const strokeStyle = stroke.style;
@@ -63,32 +55,14 @@ export class BuilderBar extends BuilderBase {
 			const pointsId = points.id;
 			const isPointsIdChanged = pointsId !== this.pointsId;
 
-			const pointsStyle = points.style;
-			const isPointsStyleChanged = pointsStyle !== this.pointsStyle;
-
 			const isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
 
-			if (
-				isNotInited ||
-				isSizeChanged ||
-				isTransformChanged ||
-				isStrokeWidthChanged ||
-				isPointsIdChanged ||
-				isPointsStyleChanged
-			) {
+			if (isNotInited || isTransformChanged || isStrokeWidthChanged || isPointsIdChanged) {
 				this.inited |= BuilderFlag.VERTEX_AND_STEP;
-				this.sizeX = sizeX;
-				this.sizeY = sizeY;
 				this.strokeWidth = strokeWidth;
 				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
 				this.pointsId = pointsId;
-				this.pointsStyle = pointsStyle;
-
-				if (isPointsIdChanged) {
-					// Invalidate the UV buffer
-					this.inited &= ~BuilderFlag.UV;
-				}
 
 				buffer.updateVertices();
 				buffer.updateSteps();

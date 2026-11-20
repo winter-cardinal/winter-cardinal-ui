@@ -96,12 +96,8 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 		const pointSizeId = pointSize.id;
 		const isPointSizeChanged = pointSizeId !== this.pointSizeId;
 
-		const size = shape.size;
-		const sizeX = size.x;
-		const sizeY = size.y;
 		const radius = shape.radius;
-		const isSizeChanged =
-			sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
+		const isRadiusChanged = radius !== this.radius;
 
 		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
@@ -126,7 +122,7 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
 		const isVertexChanged =
-			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+			isPointChanged || isPointSizeChanged || isRadiusChanged || isStrokeChanged;
 
 		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 
@@ -143,8 +139,6 @@ export class BuilderLineOfRectangleRoundeds extends BuilderLineOfAny {
 			this.pointCount = formatted.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
-			this.sizeX = sizeX;
-			this.sizeY = sizeY;
 			this.radius = radius;
 			this.transformLocalId = transformLocalId;
 			this.strokeAlign = strokeAlign;
