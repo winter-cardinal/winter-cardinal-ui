@@ -18,8 +18,8 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 	protected pointOffsetId: number;
 	protected pointFillId: number;
 	protected pointStrokeId: number;
-	protected fillEnabled: boolean;
-	protected strokeEnabled: boolean;
+	protected isFillEnabled: boolean;
+	protected isStrokeEnabled: boolean;
 	protected vcountPerPoint: number;
 	protected icountPerPoint: number;
 
@@ -41,8 +41,8 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		this.pointOffsetId = -1;
 		this.pointFillId = -1;
 		this.pointStrokeId = -1;
-		this.fillEnabled = false;
-		this.strokeEnabled = false;
+		this.isFillEnabled = false;
+		this.isStrokeEnabled = false;
 		this.vcountPerPoint = vcountPerPoint;
 		this.icountPerPoint = icountPerPoint;
 	}
@@ -100,7 +100,7 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		const colorFill = fill.color;
 		const alphaFill = isFillEnabled ? fill.alpha : 0;
 		const isFillChanged =
-			isFillEnabled !== this.fillEnabled ||
+			isFillEnabled !== this.isFillEnabled ||
 			colorFill !== this.colorFill ||
 			alphaFill !== this.alphaFill;
 
@@ -113,7 +113,7 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 		const colorStroke = stroke.color;
 		const alphaStroke = isStrokeEnabled ? stroke.alpha : 0;
 		const isStrokeChanged =
-			isStrokeEnabled !== this.strokeEnabled ||
+			isStrokeEnabled !== this.isStrokeEnabled ||
 			colorStroke !== this.colorStroke ||
 			alphaStroke !== this.alphaStroke;
 
@@ -127,11 +127,11 @@ export abstract class BuilderLineOfAny extends BuilderBase {
 			isStrokeChanged
 		) {
 			this.inited |= BuilderFlag.COLOR;
-			this.fillEnabled = isFillEnabled;
+			this.isFillEnabled = isFillEnabled;
 			this.colorFill = colorFill;
 			this.alphaFill = alphaFill;
 			this.pointFillId = pointFillId;
-			this.strokeEnabled = isStrokeEnabled;
+			this.isStrokeEnabled = isStrokeEnabled;
 			this.colorStroke = colorStroke;
 			this.alphaStroke = alphaStroke;
 			this.pointStrokeId = pointStrokeId;
