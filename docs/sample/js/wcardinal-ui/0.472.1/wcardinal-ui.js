@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.472.0
+ Winter Cardinal UI v0.472.1
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -217,7 +217,7 @@
         var nonExpandingWidth = style & EShapeStrokeStyle.NON_EXPANDING_WIDTH ? 1 : 0;
         var nonShrinkingWidth = style & EShapeStrokeStyle.NON_SHRINKING_WIDTH ? 2 : 0;
         var nonScalingDotAndDash = style & EShapeStrokeStyle.NON_SCALING_DOT_AND_DASH ? 4 : 0;
-        if (style & (EShapeStrokeStyle.DOTTED_MASK || EShapeStrokeStyle.DASHED_MASK)) {
+        if (style & (EShapeStrokeStyle.DOTTED_MASK | EShapeStrokeStyle.DASHED_MASK)) {
             return nonExpandingWidth | nonShrinkingWidth | nonScalingDotAndDash;
         }
         else {
@@ -504,7 +504,7 @@
         var ismax = (voffset + vcount) * 6 - 1;
         var scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
         var e = toPackedI4x64(2, scaleInvariant, 1, 1);
-        if (textAtlas != null) {
+        if (textAtlas != null && 0 < textSize) {
             var scale = textAtlas.font.size / (textSize * (scaleX + scaleY) * 0.5);
             var position = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
             for (; is < ismax;) {
@@ -821,6 +821,7 @@
                 return EShapeTextAlignVertical.OUTSIDE_TOP;
         }
     };
+    /** Builds glyph vertices and UVs, returning the font size after fitting. */
     var buildTextVertex = function (vertices, uvs, voffset, vcount, originX, originY, sizeX, sizeY, textAtlas, textSize, textCharacters, textStyle, textAlignHorizontal, textAlignVertical, textOffsetHorizontal, textOffsetVertical, textSpacingHorizontal, textSpacingVertical, textDirection, textPaddingHorizontal, textPaddingVertical, textClipping, textFitting, textWorld, textureUvs, internalTransform) {
         // Calculate the transformed positions
         //
@@ -1152,6 +1153,7 @@
             uvs[iv + 0] = uvx0;
             uvs[iv + 1] = uvy0;
         }
+        return textSize;
     };
     var isIn = function (textAlignHorizontal, textAlignVertical) {
         switch (textAlignHorizontal) {
@@ -1345,77 +1347,6 @@
     typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
         var e = new Error(message);
         return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var CLOSED = 1;
-    var NON_EXPANDING_WIDTH = 2;
-    var NON_SHRINKING_WIDTH = 4;
-    var NON_SCALING_DOT_AND_DASH = 8;
-    var DOTTED = 16;
-    var DOTTED_DENSELY = 32;
-    var DOTTED_LOOSELY = 64;
-    var DASHED = 128;
-    var DASHED_DENSELY = 256;
-    var DASHED_LOOSELY = 512;
-    var FORMATTER_SHIFT = 10;
-    var FORMATTER_MASK = 0xffc00;
-    var FORMATTER_EXTENSION_LOWEST = 512;
-    var FORMATTER_EXTENSION_HIGHEST = 1023;
-    var FORMATTER_CURVE_SPLINE = 1;
-    var FORMATTER_CURVE_BEZIER_QUADRATIC = 2;
-    var CURVE_SPLINE = FORMATTER_CURVE_SPLINE << FORMATTER_SHIFT;
-    var CURVE_BEZIER_QUADRATIC = FORMATTER_CURVE_BEZIER_QUADRATIC << FORMATTER_SHIFT;
-    /**
-     * EShape point style.
-     *
-     * * Bits 0 to 9: Bit field of styles.
-     * * Bits 10 to 19: Formatter ID.
-     */
-    var EShapePointsStyle = {
-        NONE: 0,
-        CLOSED: CLOSED,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        NON_EXPANDING_WIDTH: NON_EXPANDING_WIDTH,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        NON_SHRINKING_WIDTH: NON_SHRINKING_WIDTH,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        NON_SCALING_DOT_AND_DASH: NON_SCALING_DOT_AND_DASH,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        NON_SCALING_MASK: NON_EXPANDING_WIDTH | NON_SHRINKING_WIDTH | NON_SCALING_DOT_AND_DASH,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DOTTED: DOTTED,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DOTTED_DENSELY: DOTTED_DENSELY,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DOTTED_LOOSELY: DOTTED_LOOSELY,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DOTTED_MASK: DOTTED | DOTTED_DENSELY | DOTTED_LOOSELY,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DASHED: DASHED,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DASHED_DENSELY: DASHED_DENSELY,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DASHED_LOOSELY: DASHED_LOOSELY,
-        /** @deprecated in favor of EShapeStrokeStyle. */
-        DASHED_MASK: DASHED | DASHED_DENSELY | DASHED_LOOSELY,
-        /** @deprecated in favor of {@link CURVE_BEZIER_QUADRATIC}. */
-        CURVE: CURVE_SPLINE,
-        /** @deprecated in favor of {@link CURVE_BEZIER_QUADRATIC}. */
-        CURVE_SPLINE: CURVE_SPLINE,
-        CURVE_BEZIER_QUADRATIC: CURVE_BEZIER_QUADRATIC,
-        FORMATTER_SHIFT: FORMATTER_SHIFT,
-        FORMATTER_MASK: FORMATTER_MASK,
-        FORMATTER_EXTENSION_LOWEST: FORMATTER_EXTENSION_LOWEST,
-        FORMATTER_EXTENSION_HIGHEST: FORMATTER_EXTENSION_HIGHEST,
-        /** @deprecated in favor of {@link FORMATTER_CURVE_BEZIER_QUADRATIC}. */
-        FORMATTER_CURVE: FORMATTER_CURVE_SPLINE,
-        /** @deprecated in favor of {@link FORMATTER_CURVE_BEZIER_QUADRATIC}. */
-        FORMATTER_CURVE_SPLINE: FORMATTER_CURVE_SPLINE,
-        FORMATTER_CURVE_BEZIER_QUADRATIC: FORMATTER_CURVE_BEZIER_QUADRATIC
     };
 
     /*
@@ -2101,6 +2032,77 @@
         };
         return EShapePointsMarkerContainerImplNoop;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var CLOSED = 1;
+    var NON_EXPANDING_WIDTH = 2;
+    var NON_SHRINKING_WIDTH = 4;
+    var NON_SCALING_DOT_AND_DASH = 8;
+    var DOTTED = 16;
+    var DOTTED_DENSELY = 32;
+    var DOTTED_LOOSELY = 64;
+    var DASHED = 128;
+    var DASHED_DENSELY = 256;
+    var DASHED_LOOSELY = 512;
+    var FORMATTER_SHIFT = 10;
+    var FORMATTER_MASK = 0xffc00;
+    var FORMATTER_EXTENSION_LOWEST = 512;
+    var FORMATTER_EXTENSION_HIGHEST = 1023;
+    var FORMATTER_CURVE_SPLINE = 1;
+    var FORMATTER_CURVE_BEZIER_QUADRATIC = 2;
+    var CURVE_SPLINE = FORMATTER_CURVE_SPLINE << FORMATTER_SHIFT;
+    var CURVE_BEZIER_QUADRATIC = FORMATTER_CURVE_BEZIER_QUADRATIC << FORMATTER_SHIFT;
+    /**
+     * EShape point style.
+     *
+     * * Bits 0 to 9: Bit field of styles.
+     * * Bits 10 to 19: Formatter ID.
+     */
+    var EShapePointsStyle = {
+        NONE: 0,
+        CLOSED: CLOSED,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        NON_EXPANDING_WIDTH: NON_EXPANDING_WIDTH,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        NON_SHRINKING_WIDTH: NON_SHRINKING_WIDTH,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        NON_SCALING_DOT_AND_DASH: NON_SCALING_DOT_AND_DASH,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        NON_SCALING_MASK: NON_EXPANDING_WIDTH | NON_SHRINKING_WIDTH | NON_SCALING_DOT_AND_DASH,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DOTTED: DOTTED,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DOTTED_DENSELY: DOTTED_DENSELY,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DOTTED_LOOSELY: DOTTED_LOOSELY,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DOTTED_MASK: DOTTED | DOTTED_DENSELY | DOTTED_LOOSELY,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DASHED: DASHED,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DASHED_DENSELY: DASHED_DENSELY,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DASHED_LOOSELY: DASHED_LOOSELY,
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        DASHED_MASK: DASHED | DASHED_DENSELY | DASHED_LOOSELY,
+        /** @deprecated in favor of {@link CURVE_BEZIER_QUADRATIC}. */
+        CURVE: CURVE_SPLINE,
+        /** @deprecated in favor of {@link CURVE_BEZIER_QUADRATIC}. */
+        CURVE_SPLINE: CURVE_SPLINE,
+        CURVE_BEZIER_QUADRATIC: CURVE_BEZIER_QUADRATIC,
+        FORMATTER_SHIFT: FORMATTER_SHIFT,
+        FORMATTER_MASK: FORMATTER_MASK,
+        FORMATTER_EXTENSION_LOWEST: FORMATTER_EXTENSION_LOWEST,
+        FORMATTER_EXTENSION_HIGHEST: FORMATTER_EXTENSION_HIGHEST,
+        /** @deprecated in favor of {@link FORMATTER_CURVE_BEZIER_QUADRATIC}. */
+        FORMATTER_CURVE: FORMATTER_CURVE_SPLINE,
+        /** @deprecated in favor of {@link FORMATTER_CURVE_BEZIER_QUADRATIC}. */
+        FORMATTER_CURVE_SPLINE: FORMATTER_CURVE_SPLINE,
+        FORMATTER_CURVE_BEZIER_QUADRATIC: FORMATTER_CURVE_BEZIER_QUADRATIC
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8919,7 +8921,6 @@
         function BuilderBar(buffer, vertexOffset, indexOffset) {
             var _this = _super.call(this, buffer, vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT) || this;
             _this.pointsId = -1;
-            _this.pointsStyle = EShapePointsStyle.NONE;
             return _this;
         }
         BuilderBar.prototype.init = function () {
@@ -8938,10 +8939,6 @@
         };
         BuilderBar.prototype.updateVertexStep = function (buffer, shape) {
             if (shape instanceof EShapeBar) {
-                var size = shape.size;
-                var sizeX = size.x;
-                var sizeY = size.y;
-                var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
                 var stroke = shape.stroke;
                 var strokeWidth = stroke.enable ? stroke.width : 0;
                 var strokeStyle = stroke.style;
@@ -8951,27 +8948,13 @@
                 var points = shape.points;
                 var pointsId = points.id;
                 var isPointsIdChanged = pointsId !== this.pointsId;
-                var pointsStyle = points.style;
-                var isPointsStyleChanged = pointsStyle !== this.pointsStyle;
                 var isNotInited = !(this.inited & BuilderFlag.VERTEX_AND_STEP);
-                if (isNotInited ||
-                    isSizeChanged ||
-                    isTransformChanged ||
-                    isStrokeWidthChanged ||
-                    isPointsIdChanged ||
-                    isPointsStyleChanged) {
+                if (isNotInited || isTransformChanged || isStrokeWidthChanged || isPointsIdChanged) {
                     this.inited |= BuilderFlag.VERTEX_AND_STEP;
-                    this.sizeX = sizeX;
-                    this.sizeY = sizeY;
                     this.strokeWidth = strokeWidth;
                     this.strokeStyle = strokeStyle;
                     this.transformLocalId = transformLocalId;
                     this.pointsId = pointsId;
-                    this.pointsStyle = pointsStyle;
-                    if (isPointsIdChanged) {
-                        // Invalidate the UV buffer
-                        this.inited &= ~BuilderFlag.UV;
-                    }
                     buffer.updateVertices();
                     buffer.updateSteps();
                     buildBarVertexStep(buffer.vertices, buffer.steps, this.vertexOffset, points.values, points.size, strokeWidth, strokeStyle, shape.transform.internalTransform);
@@ -9013,6 +8996,7 @@
             this.scaleX = 1;
             this.scaleY = 1;
             this.size = 0;
+            this.sizeFitted = 0;
             this.family = "auto";
             this.value = "";
             this.texture = null;
@@ -9146,6 +9130,9 @@
                 isFittingChanged ||
                 isTextureChanged) {
                 this.inited |= BuilderFlag.VERTEX;
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
                 this.size = textSize;
                 this.family = textFamily;
                 this.value = textValue;
@@ -9163,35 +9150,33 @@
                 this.fitting = textFitting;
                 this.texture = textTexture;
                 this.textureTransformId = textTextureTransformId;
-                if (isCharSizeChanged || isFittingChanged || (textFitting && isSizeChanged)) {
-                    // Invalidate the step buffer.
-                    this.inited &= ~BuilderFlag.STEP;
-                }
                 // Vertices & UVs
                 buffer.updateVertices();
                 buffer.updateUvs();
-                var shapeSize = shape.size;
                 var textWorld = text.world;
                 if (textWorld == null) {
                     textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
                     text.world = textWorld;
                 }
-                buildTextVertex(buffer.vertices, buffer.uvs, this.vertexOffset, this.vertexCount, 0, 0, shapeSize.x, shapeSize.y, textAtlas, textSize, text.characters, textStyle, textAlignHorizontal, textAlignVertical, textOffsetHorizontal, textOffsetVertical, textSpacingHorizontal, textSpacingVertical, textDirection, textPaddingHorizontal, textPaddingVertical, textClipping, textFitting, textWorld, toTextureUvs(textTexture), shape.transform.internalTransform);
+                var sizeFitted = buildTextVertex(buffer.vertices, buffer.uvs, this.vertexOffset, this.vertexCount, 0, 0, sizeX, sizeY, textAtlas, textSize, text.characters, textStyle, textAlignHorizontal, textAlignVertical, textOffsetHorizontal, textOffsetVertical, textSpacingHorizontal, textSpacingVertical, textDirection, textPaddingHorizontal, textPaddingVertical, textClipping, textFitting, textWorld, toTextureUvs(textTexture), shape.transform.internalTransform);
+                if (this.sizeFitted !== sizeFitted) {
+                    this.sizeFitted = sizeFitted;
+                    this.inited &= ~BuilderFlag.STEP;
+                }
             }
         };
         BuilderText.prototype.updateColor = function (buffer, shape) {
             var text = shape.text;
+            var enabled = shape.visible && text.enable;
             var color = text.color;
-            var alpha = shape.visible && text.enable ? text.alpha : 0;
+            var alpha = enabled ? text.alpha : 0;
+            var isColorChanged = this.color !== color || this.alpha !== alpha;
             var outline = text.outline;
             var outlineColor = outline.color;
-            var outlineAlpha = shape.visible && text.enable ? outline.alpha : 0;
+            var outlineAlpha = enabled ? outline.alpha : 0;
+            var isOutlineColorChanged = this.outlineColor !== outlineColor || this.outlineAlpha !== outlineAlpha;
             var isNotInited = !(this.inited & BuilderFlag.COLOR);
-            if (isNotInited ||
-                color !== this.color ||
-                alpha !== this.alpha ||
-                color !== this.outlineColor ||
-                alpha !== this.outlineAlpha) {
+            if (isNotInited || isColorChanged || isOutlineColorChanged) {
                 this.inited |= BuilderFlag.COLOR;
                 this.color = color;
                 this.alpha = alpha;
@@ -9225,7 +9210,7 @@
                 this.scaleX = scaleX;
                 this.scaleY = scaleY;
                 buffer.updateSteps();
-                buildTextStep(buffer.steps, this.vertexOffset, this.vertexCount, text.atlas, text.size, textOutlineWidth, textWeight, this.scaleX, this.scaleY);
+                buildTextStep(buffer.steps, this.vertexOffset, this.vertexCount, text.atlas, this.sizeFitted, textOutlineWidth, textWeight, this.scaleX, this.scaleY);
             }
         };
         BuilderText.prototype.buildUnit = function (builder) {
@@ -45433,8 +45418,8 @@
                     this.strokeWidth = strokeWidth;
                     this.strokeStyle = strokeStyle;
                     this.transformLocalId = transformLocalId;
-                    if (isPointChanged) {
-                        // Invalidate the UV buffer
+                    if (isPointChanged || isTransformChanged) {
+                        // UVs depend on the transformed segment lengths.
                         this.inited &= ~BuilderFlag.UV;
                     }
                     buffer.updateVertices();
@@ -46348,6 +46333,7 @@
                 this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
+                this.pointId = pointId;
                 // Vertices
                 var voffset = this.vertexOffset;
                 var internalTransform = ((_a = BuilderMarkerRectangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerRectangle.WORK = new pixi_js.Matrix()));
@@ -50747,6 +50733,8 @@
             _this.pointOffsetId = -1;
             _this.pointFillId = -1;
             _this.pointStrokeId = -1;
+            _this.isFillEnabled = false;
+            _this.isStrokeEnabled = false;
             _this.vcountPerPoint = vcountPerPoint;
             _this.icountPerPoint = icountPerPoint;
             return _this;
@@ -50790,7 +50778,9 @@
             var isFillEnabled = shape.visible && fill.enable;
             var colorFill = fill.color;
             var alphaFill = isFillEnabled ? fill.alpha : 0;
-            var isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
+            var isFillChanged = isFillEnabled !== this.isFillEnabled ||
+                colorFill !== this.colorFill ||
+                alphaFill !== this.alphaFill;
             var pointStroke = points.stroke;
             var pointStrokeId = pointStroke.id;
             var isPointStrokeChanged = pointStrokeId !== this.pointStrokeId;
@@ -50798,7 +50788,9 @@
             var isStrokeEnabled = shape.visible && stroke.enable;
             var colorStroke = stroke.color;
             var alphaStroke = isStrokeEnabled ? stroke.alpha : 0;
-            var isStrokeChanged = colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
+            var isStrokeChanged = isStrokeEnabled !== this.isStrokeEnabled ||
+                colorStroke !== this.colorStroke ||
+                alphaStroke !== this.alphaStroke;
             var isNotInited = !(this.inited & BuilderFlag.COLOR);
             if (isNotInited ||
                 isPointFillChanged ||
@@ -50806,9 +50798,11 @@
                 isPointStrokeChanged ||
                 isStrokeChanged) {
                 this.inited |= BuilderFlag.COLOR;
+                this.isFillEnabled = isFillEnabled;
                 this.colorFill = colorFill;
                 this.alphaFill = alphaFill;
                 this.pointFillId = pointFillId;
+                this.isStrokeEnabled = isStrokeEnabled;
                 this.colorStroke = colorStroke;
                 this.alphaStroke = alphaStroke;
                 this.pointStrokeId = pointStrokeId;
@@ -51526,10 +51520,6 @@
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
             var isPointSizeChanged = pointSizeId !== this.pointSizeId;
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
@@ -51543,7 +51533,6 @@
             if (isNotInited ||
                 isPointChanged ||
                 isPointSizeChanged ||
-                isSizeChanged ||
                 isTransformChanged ||
                 isStrokeChanged) {
                 this.inited |= BuilderFlag.VERTEX_AND_STEP;
@@ -51552,8 +51541,6 @@
                 this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
                 this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
@@ -52795,11 +52782,8 @@
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
             var isPointSizeChanged = pointSizeId !== this.pointSizeId;
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
             var radius = shape.radius;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
+            var isRadiusChanged = radius !== this.radius;
             var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
@@ -52816,7 +52800,7 @@
             var texture = toTexture(shape);
             var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+            var isVertexChanged = isPointChanged || isPointSizeChanged || isRadiusChanged || isStrokeChanged;
             var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
             if (isNotInited ||
                 isVertexChanged ||
@@ -52829,8 +52813,6 @@
                 this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
                 this.radius = radius;
                 this.transformLocalId = transformLocalId;
                 this.strokeAlign = strokeAlign;
@@ -53037,10 +53019,6 @@
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
             var isPointSizeChanged = pointSizeId !== this.pointSizeId;
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
@@ -53055,7 +53033,7 @@
             var texture = toTexture(shape);
             var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+            var isVertexChanged = isPointChanged || isPointSizeChanged || isStrokeChanged;
             var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
             if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
@@ -53782,10 +53760,6 @@
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
             var isPointSizeChanged = pointSizeId !== this.pointSizeId;
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var radius = shape.radius;
             var isRadiusChanged = radius !== this.radius;
             var transformLocalId = toTransformLocalId(shape);
@@ -53802,11 +53776,7 @@
             var texture = toTexture(shape);
             var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isPointChanged ||
-                isPointSizeChanged ||
-                isSizeChanged ||
-                isRadiusChanged ||
-                isStrokeChanged;
+            var isVertexChanged = isPointChanged || isPointSizeChanged || isRadiusChanged || isStrokeChanged;
             var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
             if (isNotInited ||
                 isVertexChanged ||
@@ -53819,8 +53789,6 @@
                 this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
                 this.radius = radius;
                 this.transformLocalId = transformLocalId;
                 this.strokeAlign = strokeAlign;
@@ -54236,10 +54204,6 @@
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
             var isPointSizeChanged = pointSizeId !== this.pointSizeId;
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
@@ -54252,7 +54216,7 @@
             var texture = toTexture(shape);
             var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+            var isVertexChanged = isPointChanged || isPointSizeChanged || isStrokeChanged;
             var isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
             if (isNotInited || isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.inited |= BuilderFlag.VERTEX_STEP_AND_UV;
@@ -54261,8 +54225,6 @@
                 this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
                 this.strokeAlign = strokeAlign;
                 this.strokeWidth = strokeWidth;
