@@ -302,21 +302,20 @@ export class BuilderText implements Builder {
 
 	protected updateColor(buffer: BuilderBuffer, shape: EShape): void {
 		const text = shape.text;
+		const enabled = shape.visible && text.enable;
 		const color = text.color;
-		const alpha = shape.visible && text.enable ? text.alpha : 0;
+		const alpha = enabled ? text.alpha : 0;
+		const isColorChanged = this.color !== color || this.alpha !== alpha;
 
 		const outline = text.outline;
 		const outlineColor = outline.color;
-		const outlineAlpha = shape.visible && text.enable ? outline.alpha : 0;
+		const outlineAlpha = enabled ? outline.alpha : 0;
+		const isOutlineColorChanged =
+			this.outlineColor !== outlineColor || this.outlineAlpha !== outlineAlpha;
+
 		const isNotInited = !(this.inited & BuilderFlag.COLOR);
 
-		if (
-			isNotInited ||
-			color !== this.color ||
-			alpha !== this.alpha ||
-			color !== this.outlineColor ||
-			alpha !== this.outlineAlpha
-		) {
+		if (isNotInited || isColorChanged || isOutlineColorChanged) {
 			this.inited |= BuilderFlag.COLOR;
 			this.color = color;
 			this.alpha = alpha;
