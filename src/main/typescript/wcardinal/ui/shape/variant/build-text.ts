@@ -63,7 +63,7 @@ export const buildTextStep = (
 	const ismax = (voffset + vcount) * 6 - 1;
 	const scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
 	const e = toPackedI4x64(2, scaleInvariant, 1, 1);
-	if (textAtlas != null) {
+	if (textAtlas != null && 0 < textSize) {
 		const scale = textAtlas.font.size / (textSize * (scaleX + scaleY) * 0.5);
 		const position = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
 		for (; is < ismax; ) {
@@ -409,6 +409,7 @@ const invertAlignVertical = (align: EShapeTextAlignVertical): EShapeTextAlignVer
 	}
 };
 
+/** Builds glyph vertices and UVs, returning the font size after fitting. */
 export const buildTextVertex = (
 	vertices: Float32Array,
 	uvs: Float32Array,
@@ -436,7 +437,7 @@ export const buildTextVertex = (
 	textWorld: number[],
 	textureUvs: TextureUvs,
 	internalTransform: Matrix
-): void => {
+): number => {
 	// Calculate the transformed positions
 	//
 	//  0               1
@@ -961,6 +962,7 @@ export const buildTextVertex = (
 		uvs[iv + 0] = uvx0;
 		uvs[iv + 1] = uvy0;
 	}
+	return textSize;
 };
 
 const isIn = (

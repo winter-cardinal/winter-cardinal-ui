@@ -40,6 +40,7 @@ export class BuilderText implements Builder {
 	protected value: string;
 	protected family: string;
 	protected size: number;
+	protected sizeFitted: number;
 	protected color: number;
 	protected alpha: number;
 	protected weight: number;
@@ -83,6 +84,7 @@ export class BuilderText implements Builder {
 		this.scaleY = 1;
 
 		this.size = 0;
+		this.sizeFitted = 0;
 		this.family = "auto";
 		this.value = "";
 		this.texture = null;
@@ -258,11 +260,6 @@ export class BuilderText implements Builder {
 			this.texture = textTexture;
 			this.textureTransformId = textTextureTransformId;
 
-			if (isCharSizeChanged || isFittingChanged || (textFitting && isSizeChanged)) {
-				// Invalidate the step buffer.
-				this.inited &= ~BuilderFlag.STEP;
-			}
-
 			// Vertices & UVs
 			buffer.updateVertices();
 			buffer.updateUvs();
@@ -271,7 +268,7 @@ export class BuilderText implements Builder {
 				textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 				text.world = textWorld;
 			}
-			buildTextVertex(
+			const sizeFitted = buildTextVertex(
 				buffer.vertices,
 				buffer.uvs,
 				this.vertexOffset,
@@ -299,6 +296,10 @@ export class BuilderText implements Builder {
 				toTextureUvs(textTexture),
 				shape.transform.internalTransform
 			);
+			if (this.sizeFitted !== sizeFitted) {
+				this.sizeFitted = sizeFitted;
+				this.inited &= ~BuilderFlag.STEP;
+			}
 		}
 	}
 
@@ -373,7 +374,7 @@ export class BuilderText implements Builder {
 				this.vertexOffset,
 				this.vertexCount,
 				text.atlas,
-				text.size,
+				this.sizeFitted,
 				textOutlineWidth,
 				textWeight,
 				this.scaleX,
