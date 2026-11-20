@@ -68,11 +68,6 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		const pointSizeId = pointSize.id;
 		const isPointSizeChanged = pointSizeId !== this.pointSizeId;
 
-		const size = shape.size;
-		const sizeX = size.x;
-		const sizeY = size.y;
-		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-
 		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
@@ -92,8 +87,7 @@ export class BuilderLineOfRectangles extends BuilderLineOfAny {
 		const isTextureChanged =
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
-		const isVertexChanged =
-			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+		const isVertexChanged = isPointChanged || isPointSizeChanged || isStrokeChanged;
 
 		const isNotInited = !(this.inited & BuilderFlag.VERTEX_STEP_AND_UV);
 

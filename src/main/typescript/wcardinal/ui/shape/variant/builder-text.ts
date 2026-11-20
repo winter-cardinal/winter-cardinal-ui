@@ -237,6 +237,9 @@ export class BuilderText implements Builder {
 			isTextureChanged
 		) {
 			this.inited |= BuilderFlag.VERTEX;
+			this.sizeX = sizeX;
+			this.sizeY = sizeY;
+			this.transformLocalId = transformLocalId;
 			this.size = textSize;
 			this.family = textFamily;
 			this.value = textValue;
@@ -263,7 +266,6 @@ export class BuilderText implements Builder {
 			// Vertices & UVs
 			buffer.updateVertices();
 			buffer.updateUvs();
-			const shapeSize = shape.size;
 			let textWorld = text.world;
 			if (textWorld == null) {
 				textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
@@ -276,8 +278,8 @@ export class BuilderText implements Builder {
 				this.vertexCount,
 				0,
 				0,
-				shapeSize.x,
-				shapeSize.y,
+				sizeX,
+				sizeY,
 				textAtlas,
 				textSize,
 				text.characters,

@@ -69,11 +69,6 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 		const pointSizeId = pointSize.id;
 		const isPointSizeChanged = pointSizeId !== this.pointSizeId;
 
-		const size = shape.size;
-		const sizeX = size.x;
-		const sizeY = size.y;
-		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-
 		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
@@ -92,7 +87,6 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			isNotInited ||
 			isPointChanged ||
 			isPointSizeChanged ||
-			isSizeChanged ||
 			isTransformChanged ||
 			isStrokeChanged
 		) {
@@ -102,8 +96,6 @@ export class BuilderLineOfCircles extends BuilderLineOfAny {
 			this.pointCount = formatted.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
-			this.sizeX = sizeX;
-			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;

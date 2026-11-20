@@ -104,6 +104,7 @@ export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
+			this.pointId = pointId;
 
 			// Vertices
 			const voffset = this.vertexOffset;
