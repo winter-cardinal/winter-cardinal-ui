@@ -23,8 +23,31 @@ import { DPaginationPage, DPaginationPageOptions } from "./d-pagination-page";
 import { DLayoutSpace, DLayoutSpaceOptions } from "./d-layout-space";
 import { DImageBase } from "./d-image-base";
 import { DApplications } from "./d-applications";
+import { toEnum } from "./util/to-enum";
+
+export const DPaginationButtonLayout = {
+	DEFAULT: 0,
+	LEFT: 1,
+	RIGHT: 2,
+	CENTER: 3
+} as const;
+
+export type DPaginationButtonLayout =
+	(typeof DPaginationButtonLayout)[keyof typeof DPaginationButtonLayout];
 
 export interface DPaginationButtonOptions {
+	/**
+	 * {@link DPagination} button layout option.
+	 */
+	layout?: DPaginationButtonLayout | keyof typeof DPaginationButtonLayout;
+
+	/**
+	 * {@link DPagination} button board options.
+	 * Note that the board will not be created when the layout is set to {@link DPaginationButtonLayout.DEFAULT}.
+	 * And the board width is overriden by "auto".
+	 */
+	board?: DLayoutHorizontalOptions | boolean | null;
+
 	/**
 	 * {@link DPagination} top button options.
 	 */
@@ -51,7 +74,8 @@ export interface DPaginationButtonOptions {
 	last?: DPaginationButtonLastOptions | boolean | null;
 
 	/**
-	 * A space between page buttons and next / previous buttons.
+	 * In the default layout, a space between the page buttons and the navigation buttons.
+	 * In other layouts, a space outside the buttons for alignment.
 	 */
 	space?: DLayoutSpaceOptions | boolean | number | null;
 }
@@ -104,6 +128,8 @@ export class DPagination<
 	protected _size: number;
 	protected _value: number;
 
+	protected _buttonLayout?: DPaginationButtonLayout;
+	protected _buttonBoard?: DLayoutHorizontal | null;
 	protected _buttonTop?: DButton<string> | null;
 	protected _buttonPrevious?: DButton<string> | null;
 	protected _spaceLeft?: DLayoutSpace | null;
@@ -127,44 +153,75 @@ export class DPagination<
 			this._value = 0;
 		}
 
+		const layout = this.buttonLayout;
+		const spaceLeft = this.spaceLeft;
+		if (spaceLeft != null) {
+			switch (layout) {
+				case DPaginationButtonLayout.CENTER:
+				case DPaginationButtonLayout.RIGHT:
+					this.addChild(spaceLeft);
+					break;
+			}
+		}
+		let buttonBoard = this.buttonBoard;
+		if (buttonBoard != null) {
+			this.addChild(buttonBoard);
+		} else {
+			buttonBoard = this;
+		}
 		const buttonTop = this.buttonTop;
 		if (buttonTop != null) {
-			this.addChild(buttonTop);
+			buttonBoard.addChild(buttonTop);
 		}
 		const buttonPrevious = this.buttonPrevious;
 		if (buttonPrevious != null) {
-			this.addChild(buttonPrevious);
+			buttonBoard.addChild(buttonPrevious);
 		}
-		const spaceLeft = this.spaceLeft;
 		if (spaceLeft != null) {
-			this.addChild(spaceLeft);
+			switch (layout) {
+				case DPaginationButtonLayout.DEFAULT:
+					buttonBoard.addChild(spaceLeft);
+					break;
+			}
 		}
 		const buttonPages0 = this.buttonPages0;
 		const buttonPages0Length = buttonPages0.length;
-		this.addChild(buttonPages0[0]);
-		this.addChild(this.dots0);
+		buttonBoard.addChild(buttonPages0[0]);
+		buttonBoard.addChild(this.dots0);
 		for (let i = 1; i < buttonPages0Length; ++i) {
-			this.addChild(buttonPages0[i]);
+			buttonBoard.addChild(buttonPages0[i]);
 		}
-		this.addChild(this.page);
+		buttonBoard.addChild(this.page);
 		const buttonPages1 = this.buttonPages1;
 		const buttonPages1Length = buttonPages1.length;
 		for (let i = 0, imax = buttonPages1Length - 1; i < imax; ++i) {
-			this.addChild(buttonPages1[i]);
+			buttonBoard.addChild(buttonPages1[i]);
 		}
-		this.addChild(this.dots1);
-		this.addChild(buttonPages1[buttonPages1Length - 1]);
+		buttonBoard.addChild(this.dots1);
+		buttonBoard.addChild(buttonPages1[buttonPages1Length - 1]);
 		const spaceRight = this.spaceRight;
 		if (spaceRight != null) {
-			this.addChild(spaceRight);
+			switch (layout) {
+				case DPaginationButtonLayout.DEFAULT:
+					buttonBoard.addChild(spaceRight);
+					break;
+			}
 		}
 		const buttonNext = this.buttonNext;
 		if (buttonNext != null) {
-			this.addChild(buttonNext);
+			buttonBoard.addChild(buttonNext);
 		}
 		const buttonLast = this.buttonLast;
 		if (buttonLast != null) {
-			this.addChild(buttonLast);
+			buttonBoard.addChild(buttonLast);
+		}
+		if (spaceRight != null) {
+			switch (layout) {
+				case DPaginationButtonLayout.CENTER:
+				case DPaginationButtonLayout.LEFT:
+					this.addChild(spaceRight);
+					break;
+			}
 		}
 	}
 
@@ -409,6 +466,58 @@ export class DPagination<
 		return this.goTo(this._value - 1, silently);
 	}
 
+	protected get buttonLayout(): DPaginationButtonLayout {
+		return (this._buttonLayout ??= this.newButtonLayout());
+	}
+
+	protected newButtonLayout(): DPaginationButtonLayout {
+		return toEnum(
+			this._options?.button?.layout ?? DPaginationButtonLayout.DEFAULT,
+			DPaginationButtonLayout
+		);
+	}
+
+	protected get buttonBoard(): DLayoutHorizontal | null {
+		let result = this._buttonBoard;
+		if (result === undefined) {
+			result = this.newButtonBoard();
+			this._buttonBoard = result;
+		}
+		return result;
+	}
+
+	protected newButtonBoard(): DLayoutHorizontal | null {
+		if (this.buttonLayout === DPaginationButtonLayout.DEFAULT) {
+			return null;
+		}
+		const options = this._options;
+		if (options == null) {
+			return null;
+		}
+		const button = options.button;
+		if (button == null) {
+			return null;
+		}
+		const board = button.board;
+		if (board == null || board === false) {
+			return null;
+		}
+		return new DLayoutHorizontal(
+			this.newButtonBoardOptions(board === true ? undefined : board)
+		);
+	}
+
+	protected newButtonBoardOptions(options?: DLayoutHorizontalOptions): DLayoutHorizontalOptions {
+		options ??= {};
+		if (options.width !== "auto") {
+			options.width = "auto";
+		}
+		if (options.weight != null) {
+			options.weight = undefined;
+		}
+		return options;
+	}
+
 	protected get buttonTop(): DButton<string> | null {
 		let result = this._buttonTop;
 		if (result === undefined) {
@@ -474,10 +583,11 @@ export class DPagination<
 	protected allocButtonPages0(size: number): void {
 		const buttonPages0 = this.buttonPages0;
 		const buttonPages0Length = buttonPages0.length;
-		const index = this.getChildIndex(buttonPages0[buttonPages0Length - 1]) + 1;
+		const buttonBoard = this.buttonBoard ?? this;
+		const index = buttonBoard.getChildIndex(buttonPages0[buttonPages0Length - 1]) + 1;
 		for (let i = 0, imax = size - buttonPages0Length; i < imax; ++i) {
 			const buttonPage = this.newButtonPage();
-			this.addChildAt(buttonPage, index + i);
+			buttonBoard.addChildAt(buttonPage, index + i);
 			buttonPages0.push(buttonPage);
 		}
 	}
@@ -503,10 +613,11 @@ export class DPagination<
 	protected allocButtonPages1(size: number): void {
 		const buttonPages1 = this.buttonPages1;
 		const buttonPages1Length = buttonPages1.length;
-		const index = this.getChildIndex(buttonPages1[0]);
+		const buttonBoard = this.buttonBoard ?? this;
+		const index = buttonBoard.getChildIndex(buttonPages1[0]);
 		for (let i = 0, imax = size - buttonPages1Length; i < imax; ++i) {
 			const buttonPage = this.newButtonPage();
-			this.addChildAt(buttonPage, index);
+			buttonBoard.addChildAt(buttonPage, index);
 			buttonPages1.unshift(buttonPage);
 		}
 	}
@@ -545,8 +656,15 @@ export class DPagination<
 	}
 
 	protected newSpaceLeft(): DLayoutSpace | null {
-		if (this.buttonTop != null || this.buttonPrevious != null) {
-			return this.newSpace();
+		switch (this.buttonLayout) {
+			case DPaginationButtonLayout.CENTER:
+			case DPaginationButtonLayout.RIGHT:
+				return this.newSpace();
+			case DPaginationButtonLayout.DEFAULT:
+				if (this.buttonTop != null || this.buttonPrevious != null) {
+					return this.newSpace();
+				}
+				break;
 		}
 		return null;
 	}
@@ -561,8 +679,15 @@ export class DPagination<
 	}
 
 	protected newSpaceRight(): DLayoutSpace | null {
-		if (this.buttonLast != null || this.buttonNext != null) {
-			return this.newSpace();
+		switch (this.buttonLayout) {
+			case DPaginationButtonLayout.CENTER:
+			case DPaginationButtonLayout.LEFT:
+				return this.newSpace();
+			case DPaginationButtonLayout.DEFAULT:
+				if (this.buttonLast != null || this.buttonNext != null) {
+					return this.newSpace();
+				}
+				break;
 		}
 		return null;
 	}
@@ -641,6 +766,17 @@ export class DPagination<
 	}
 
 	protected doUpdate1(value: number, size: number): void {
+		// Spaces are placed either inside the button board (or this if there is no board)
+		// or outside of the board, depending on the button layout.
+		const layout = this.buttonLayout;
+		const buttonBoard = this.buttonBoard;
+		const isDefault = layout === DPaginationButtonLayout.DEFAULT;
+		const isOuterLeft =
+			layout === DPaginationButtonLayout.CENTER || layout === DPaginationButtonLayout.RIGHT;
+		const isOuterRight =
+			layout === DPaginationButtonLayout.CENTER || layout === DPaginationButtonLayout.LEFT;
+		const hasBoard = buttonBoard != null;
+
 		let required = 0;
 		let nrequired = 0;
 
@@ -655,12 +791,23 @@ export class DPagination<
 			nrequired += 1;
 		}
 
+		let outerRequired = 0;
+		let nouter = 0;
+
 		const spaceLeft = this.spaceLeft;
 		if (spaceLeft != null) {
-			if (spaceLeft.weight < 0) {
-				required += spaceLeft.width;
+			const isInner = isDefault || (!hasBoard && isOuterLeft);
+			if (isInner) {
+				if (spaceLeft.weight < 0) {
+					required += spaceLeft.width;
+				}
+				nrequired += 1;
+			} else if (isOuterLeft) {
+				if (spaceLeft.weight < 0) {
+					outerRequired += spaceLeft.width;
+				}
+				nouter += 1;
 			}
-			nrequired += 1;
 		}
 
 		const page = this.page;
@@ -669,10 +816,18 @@ export class DPagination<
 
 		const spaceRight = this.spaceRight;
 		if (spaceRight != null) {
-			if (spaceRight.weight < 0) {
-				required += spaceRight.width;
+			const isInner = isDefault || (!hasBoard && isOuterRight);
+			if (isInner) {
+				if (spaceRight.weight < 0) {
+					required += spaceRight.width;
+				}
+				nrequired += 1;
+			} else if (isOuterRight) {
+				if (spaceRight.weight < 0) {
+					outerRequired += spaceRight.width;
+				}
+				nouter += 1;
 			}
-			nrequired += 1;
 		}
 
 		const buttonNext = this.buttonNext;
@@ -686,13 +841,22 @@ export class DPagination<
 			nrequired += 1;
 		}
 
-		const marginHorizontal = this._margin.horizontal;
+		const marginHorizontal = (buttonBoard ?? this).margin.horizontal;
 		if (2 <= nrequired) {
 			required += (nrequired - 1) * marginHorizontal;
 		}
 
 		const padding = this.padding;
-		const space = this.width - (padding.getLeft() + padding.getRight());
+		let space = this.width - (padding.getLeft() + padding.getRight());
+		if (buttonBoard != null) {
+			// The board is laid out together with the outer spaces.
+			space -= outerRequired;
+			if (0 < nouter) {
+				space -= nouter * this._margin.horizontal;
+			}
+			const boardPadding = buttonBoard.padding;
+			space -= boardPadding.getLeft() + boardPadding.getRight();
+		}
 		if (space <= required) {
 			this.doUpdate2(value, size, 4, 4, 0, 0);
 		} else {
