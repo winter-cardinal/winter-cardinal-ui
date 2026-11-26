@@ -1,5 +1,5 @@
 /*!
- Winter Cardinal UI v0.472.1
+ Winter Cardinal UI v0.473.0
  Copyright (C) 2019-2026 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -79905,6 +79905,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DPaginationButtonLayout = {
+        DEFAULT: 0,
+        LEFT: 1,
+        RIGHT: 2,
+        CENTER: 3
+    };
     var DPagination = /** @class */ (function (_super) {
         __extends(DPagination, _super);
         function DPagination(options) {
@@ -79918,44 +79924,76 @@
                 _this._size = 10;
                 _this._value = 0;
             }
+            var layout = _this.buttonLayout;
+            var spaceLeft = _this.spaceLeft;
+            if (spaceLeft != null) {
+                switch (layout) {
+                    case DPaginationButtonLayout.CENTER:
+                    case DPaginationButtonLayout.RIGHT:
+                        _this.addChild(spaceLeft);
+                        break;
+                }
+            }
+            var buttonBoard = _this.buttonBoard;
+            if (buttonBoard != null) {
+                _this.addChild(buttonBoard);
+            }
+            else {
+                buttonBoard = _this;
+            }
             var buttonTop = _this.buttonTop;
             if (buttonTop != null) {
-                _this.addChild(buttonTop);
+                buttonBoard.addChild(buttonTop);
             }
             var buttonPrevious = _this.buttonPrevious;
             if (buttonPrevious != null) {
-                _this.addChild(buttonPrevious);
+                buttonBoard.addChild(buttonPrevious);
             }
-            var spaceLeft = _this.spaceLeft;
             if (spaceLeft != null) {
-                _this.addChild(spaceLeft);
+                switch (layout) {
+                    case DPaginationButtonLayout.DEFAULT:
+                        buttonBoard.addChild(spaceLeft);
+                        break;
+                }
             }
             var buttonPages0 = _this.buttonPages0;
             var buttonPages0Length = buttonPages0.length;
-            _this.addChild(buttonPages0[0]);
-            _this.addChild(_this.dots0);
+            buttonBoard.addChild(buttonPages0[0]);
+            buttonBoard.addChild(_this.dots0);
             for (var i = 1; i < buttonPages0Length; ++i) {
-                _this.addChild(buttonPages0[i]);
+                buttonBoard.addChild(buttonPages0[i]);
             }
-            _this.addChild(_this.page);
+            buttonBoard.addChild(_this.page);
             var buttonPages1 = _this.buttonPages1;
             var buttonPages1Length = buttonPages1.length;
             for (var i = 0, imax = buttonPages1Length - 1; i < imax; ++i) {
-                _this.addChild(buttonPages1[i]);
+                buttonBoard.addChild(buttonPages1[i]);
             }
-            _this.addChild(_this.dots1);
-            _this.addChild(buttonPages1[buttonPages1Length - 1]);
+            buttonBoard.addChild(_this.dots1);
+            buttonBoard.addChild(buttonPages1[buttonPages1Length - 1]);
             var spaceRight = _this.spaceRight;
             if (spaceRight != null) {
-                _this.addChild(spaceRight);
+                switch (layout) {
+                    case DPaginationButtonLayout.DEFAULT:
+                        buttonBoard.addChild(spaceRight);
+                        break;
+                }
             }
             var buttonNext = _this.buttonNext;
             if (buttonNext != null) {
-                _this.addChild(buttonNext);
+                buttonBoard.addChild(buttonNext);
             }
             var buttonLast = _this.buttonLast;
             if (buttonLast != null) {
-                _this.addChild(buttonLast);
+                buttonBoard.addChild(buttonLast);
+            }
+            if (spaceRight != null) {
+                switch (layout) {
+                    case DPaginationButtonLayout.CENTER:
+                    case DPaginationButtonLayout.LEFT:
+                        _this.addChild(spaceRight);
+                        break;
+                }
             }
             return _this;
         }
@@ -80219,6 +80257,58 @@
         DPagination.prototype.goToPrevious = function (silently) {
             return this.goTo(this._value - 1, silently);
         };
+        Object.defineProperty(DPagination.prototype, "buttonLayout", {
+            get: function () {
+                var _a;
+                return ((_a = this._buttonLayout) !== null && _a !== void 0 ? _a : (this._buttonLayout = this.newButtonLayout()));
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonLayout = function () {
+            var _a, _b, _c;
+            return toEnum((_c = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.layout) !== null && _c !== void 0 ? _c : DPaginationButtonLayout.DEFAULT, DPaginationButtonLayout);
+        };
+        Object.defineProperty(DPagination.prototype, "buttonBoard", {
+            get: function () {
+                var result = this._buttonBoard;
+                if (result === undefined) {
+                    result = this.newButtonBoard();
+                    this._buttonBoard = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonBoard = function () {
+            if (this.buttonLayout === DPaginationButtonLayout.DEFAULT) {
+                return null;
+            }
+            var options = this._options;
+            if (options == null) {
+                return null;
+            }
+            var button = options.button;
+            if (button == null) {
+                return null;
+            }
+            var board = button.board;
+            if (board == null || board === false) {
+                return null;
+            }
+            return new DLayoutHorizontal(this.newButtonBoardOptions(board === true ? undefined : board));
+        };
+        DPagination.prototype.newButtonBoardOptions = function (options) {
+            options !== null && options !== void 0 ? options : (options = {});
+            if (options.width !== "auto") {
+                options.width = "auto";
+            }
+            if (options.weight != null) {
+                options.weight = undefined;
+            }
+            return options;
+        };
         Object.defineProperty(DPagination.prototype, "buttonTop", {
             get: function () {
                 var result = this._buttonTop;
@@ -80287,12 +80377,14 @@
             ];
         };
         DPagination.prototype.allocButtonPages0 = function (size) {
+            var _a;
             var buttonPages0 = this.buttonPages0;
             var buttonPages0Length = buttonPages0.length;
-            var index = this.getChildIndex(buttonPages0[buttonPages0Length - 1]) + 1;
+            var buttonBoard = (_a = this.buttonBoard) !== null && _a !== void 0 ? _a : this;
+            var index = buttonBoard.getChildIndex(buttonPages0[buttonPages0Length - 1]) + 1;
             for (var i = 0, imax = size - buttonPages0Length; i < imax; ++i) {
                 var buttonPage = this.newButtonPage();
-                this.addChildAt(buttonPage, index + i);
+                buttonBoard.addChildAt(buttonPage, index + i);
                 buttonPages0.push(buttonPage);
             }
         };
@@ -80317,12 +80409,14 @@
             ];
         };
         DPagination.prototype.allocButtonPages1 = function (size) {
+            var _a;
             var buttonPages1 = this.buttonPages1;
             var buttonPages1Length = buttonPages1.length;
-            var index = this.getChildIndex(buttonPages1[0]);
+            var buttonBoard = (_a = this.buttonBoard) !== null && _a !== void 0 ? _a : this;
+            var index = buttonBoard.getChildIndex(buttonPages1[0]);
             for (var i = 0, imax = size - buttonPages1Length; i < imax; ++i) {
                 var buttonPage = this.newButtonPage();
-                this.addChildAt(buttonPage, index);
+                buttonBoard.addChildAt(buttonPage, index);
                 buttonPages1.unshift(buttonPage);
             }
         };
@@ -80365,8 +80459,15 @@
             configurable: true
         });
         DPagination.prototype.newSpaceLeft = function () {
-            if (this.buttonTop != null || this.buttonPrevious != null) {
-                return this.newSpace();
+            switch (this.buttonLayout) {
+                case DPaginationButtonLayout.CENTER:
+                case DPaginationButtonLayout.RIGHT:
+                    return this.newSpace();
+                case DPaginationButtonLayout.DEFAULT:
+                    if (this.buttonTop != null || this.buttonPrevious != null) {
+                        return this.newSpace();
+                    }
+                    break;
             }
             return null;
         };
@@ -80383,8 +80484,15 @@
             configurable: true
         });
         DPagination.prototype.newSpaceRight = function () {
-            if (this.buttonLast != null || this.buttonNext != null) {
-                return this.newSpace();
+            switch (this.buttonLayout) {
+                case DPaginationButtonLayout.CENTER:
+                case DPaginationButtonLayout.LEFT:
+                    return this.newSpace();
+                case DPaginationButtonLayout.DEFAULT:
+                    if (this.buttonLast != null || this.buttonNext != null) {
+                        return this.newSpace();
+                    }
+                    break;
             }
             return null;
         };
@@ -80457,6 +80565,14 @@
             }
         };
         DPagination.prototype.doUpdate1 = function (value, size) {
+            // Spaces are placed either inside the button board (or this if there is no board)
+            // or outside of the board, depending on the button layout.
+            var layout = this.buttonLayout;
+            var buttonBoard = this.buttonBoard;
+            var isDefault = layout === DPaginationButtonLayout.DEFAULT;
+            var isOuterLeft = layout === DPaginationButtonLayout.CENTER || layout === DPaginationButtonLayout.RIGHT;
+            var isOuterRight = layout === DPaginationButtonLayout.CENTER || layout === DPaginationButtonLayout.LEFT;
+            var hasBoard = buttonBoard != null;
             var required = 0;
             var nrequired = 0;
             var buttonTop = this.buttonTop;
@@ -80469,22 +80585,42 @@
                 required += buttonPrevious.width;
                 nrequired += 1;
             }
+            var outerRequired = 0;
+            var nouter = 0;
             var spaceLeft = this.spaceLeft;
             if (spaceLeft != null) {
-                if (spaceLeft.weight < 0) {
-                    required += spaceLeft.width;
+                var isInner = isDefault || (!hasBoard && isOuterLeft);
+                if (isInner) {
+                    if (spaceLeft.weight < 0) {
+                        required += spaceLeft.width;
+                    }
+                    nrequired += 1;
                 }
-                nrequired += 1;
+                else if (isOuterLeft) {
+                    if (spaceLeft.weight < 0) {
+                        outerRequired += spaceLeft.width;
+                    }
+                    nouter += 1;
+                }
             }
             var page = this.page;
             required += page.width;
             nrequired += 1;
             var spaceRight = this.spaceRight;
             if (spaceRight != null) {
-                if (spaceRight.weight < 0) {
-                    required += spaceRight.width;
+                var isInner = isDefault || (!hasBoard && isOuterRight);
+                if (isInner) {
+                    if (spaceRight.weight < 0) {
+                        required += spaceRight.width;
+                    }
+                    nrequired += 1;
                 }
-                nrequired += 1;
+                else if (isOuterRight) {
+                    if (spaceRight.weight < 0) {
+                        outerRequired += spaceRight.width;
+                    }
+                    nouter += 1;
+                }
             }
             var buttonNext = this.buttonNext;
             if (buttonNext != null) {
@@ -80496,12 +80632,21 @@
                 required += buttonLast.width;
                 nrequired += 1;
             }
-            var marginHorizontal = this._margin.horizontal;
+            var marginHorizontal = (buttonBoard !== null && buttonBoard !== void 0 ? buttonBoard : this).margin.horizontal;
             if (2 <= nrequired) {
                 required += (nrequired - 1) * marginHorizontal;
             }
             var padding = this.padding;
             var space = this.width - (padding.getLeft() + padding.getRight());
+            if (buttonBoard != null) {
+                // The board is laid out together with the outer spaces.
+                space -= outerRequired;
+                if (0 < nouter) {
+                    space -= nouter * this._margin.horizontal;
+                }
+                var boardPadding = buttonBoard.padding;
+                space -= boardPadding.getLeft() + boardPadding.getRight();
+            }
             if (space <= required) {
                 this.doUpdate2(value, size, 4, 4, 0, 0);
             }
@@ -90993,6 +91138,7 @@
         DPaginationButtonTop: DPaginationButtonTop,
         DPaginationDots: DPaginationDots,
         DPaginationPage: DPaginationPage,
+        DPaginationButtonLayout: DPaginationButtonLayout,
         DPagination: DPagination,
         DPaneScrollBar: DPaneScrollBar,
         DPane: DPane,

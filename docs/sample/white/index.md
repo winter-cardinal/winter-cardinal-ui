@@ -301,6 +301,10 @@
 * Pagination
     * [Basics](./pagination/basics.html)
     * [Last Button](./pagination/last.html)
+    * [Button Layout (Center)](./pagination/layout-center.html)
+    * [Button Layout (Default)](./pagination/layout-default.html)
+    * [Button Layout (Left)](./pagination/layout-left.html)
+    * [Button Layout (Right)](./pagination/layout-right.html)
     * [No Next Button](./pagination/no-next.html)
     * [No Previous Button](./pagination/no-previous.html)
     * [Size](./pagination/size.html)
